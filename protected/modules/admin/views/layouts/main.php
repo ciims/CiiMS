@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title><? echo CHtml::encode($this->pageTitle); ?></title>
-    <? Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl .'/css/admin/main.css'); 
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl .'/css/admin/main.css'); 
     ?>
   </head>
-  <? $this->widget('bootstrap.widgets.BootNavbar', array(
+  <?php $this->widget('bootstrap.widgets.BootNavbar', array(
 	    'fixed'=>false,
 	    'brand'=>CHtml::encode(Yii::app()->name) . ' | Admin',
 		'items'=>array(
@@ -33,7 +33,7 @@
 		    	</div>
 		    	<div class="span10">
 		    		<?php $this->widget('bootstrap.widgets.BootAlert'); ?>
-		      		<? echo $content; ?>
+		      		<?php echo $content; ?>
 		    	</div>
 		  </div>
 	</div>

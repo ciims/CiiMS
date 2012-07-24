@@ -6,9 +6,9 @@
 						'errorMessageCssClass'=>'red-box',
 				)); ?>
 
-	<? if ($error != ''): ?>
-		<div><? echo $error; ?></div>
-	<? endif; ?>
+	<?php if ($error != ''): ?>
+		<div><?php echo $error; ?></div>
+	<?php endif; ?>
         	
     <?php echo $form->errorSummary($model,'','',array('class'=>'red-box')); ?>
     <br />
@@ -19,11 +19,11 @@
 	<?php echo $form->textField($model,'firstName', array('id'=>'firstName', 'placeholder'=>'Your First Name', 'style'=>'width: 438px;')); ?><br /><br />
 	<?php echo $form->textField($model,'lastName', array('id'=>'lastName', 'placeholder'=>'Your Last Name', 'style'=>'width: 438px;')); ?><br /><br />
 	<?php echo $form->textField($model,'displayName', array('id'=>'displayName', 'placeholder'=>'Display Name', 'style'=>'width: 438px;')); ?><br /><br />
-    <? echo $captcha->recaptcha_get_html(Yii::app()->params['reCaptchaPublicKey'], array()); ?>
+    <?php echo $captcha->recaptcha_get_html(Yii::app()->params['reCaptchaPublicKey'], array()); ?>
     <br />
     <br />
     <br />
-	<? echo CHtml::submitButton('Signup', array('class'=>'btn btn-primary', 'style'=>'float:right;')); ?>
+	<?php echo CHtml::submitButton('Signup', array('class'=>'btn btn-primary', 'style'=>'float:right;')); ?>
 
 	<?php $this->endWidget(); ?>
 	
@@ -39,10 +39,10 @@
     </ul>
     <p>Your information will be:</p>
     <hr />
-    <p>Already have an account? <strong><? echo CHtml::link('Login', Yii::app()->createUrl('/login')); ?></strong> instead!</p>
+    <p>Already have an account? <strong><?php echo CHtml::link('Login', Yii::app()->createUrl('/login')); ?></strong> instead!</p>
 		   
 	
 </div>
 
-<? Yii::app()->clientScript->registerScript('captchaOptions', "var RecaptchaOptions = { theme : 'clean' };", CClientScript::POS_HEAD); ?>
+<?php Yii::app()->clientScript->registerScript('captchaOptions', "var RecaptchaOptions = { theme : 'clean' };", CClientScript::POS_HEAD); ?>
 

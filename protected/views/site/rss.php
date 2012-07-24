@@ -14,7 +14,7 @@
 	</channel>
 	
 	<?php foreach ($data as $k=>$v): ?>
-	<? if ($v->password != '') { continue; } ?>
+	<?php if ($v->password != '') { continue; } ?>
 	<item>
 		<title><?php echo htmlspecialchars(str_replace('/', '', $v['title']), ENT_QUOTES, "utf-8"); ?></title>
 		<link><?php echo $url.'/'.htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></link>
@@ -30,7 +30,7 @@
 		<guid><?php echo $url.'/'.htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></guid>
 		<?php if ($v['commentable']): ?>
 			<comments><?php echo $url.'/'.htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8");; ?>#comments</comments>
-		<? endif; ?>
+		<?php endif; ?>
 	</item>
 	<?php endforeach; ?>	
 </rss>

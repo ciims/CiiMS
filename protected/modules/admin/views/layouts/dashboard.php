@@ -1,3 +1,3 @@
 <?php $this->beginContent('main'); ?>
-	<? echo $content; ?>
+	<?php echo $content; ?>
 <?php $this->endContent(); ?>

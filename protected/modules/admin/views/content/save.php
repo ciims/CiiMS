@@ -12,12 +12,12 @@
 		<h2 class="top">Main Content</h2>
 		<?php echo $this->renderPartial('_form',array('model'=>$model, 'form'=>$form)); ?>
 	</div>
-	<? if (!$model->isNewRecord): ?>
+	<?php if (!$model->isNewRecord): ?>
 		<div class="well span4 right">
 			<h2 class="top">Associated Data</h2>
 			<?php echo $this->renderPartial('_files', array('model'=>$model)); ?>
 		</div>
-	<? endif; ?>
+	<?php endif; ?>
 	<div class="well span4 right">
 		<h2 class="top">Additional Details</h2>
 		<?php echo $this->renderPartial('_details',array('model'=>$model, 'form'=>$form)); ?>
@@ -54,7 +54,7 @@
 </div>
 
 <div id="previewPost"></div>
-<? Yii::app()->clientScript->registerScript('extract', '
+<?php Yii::app()->clientScript->registerScript('extract', '
 	$("#extractButton").click(function() {
 		$("#extractForm").slideToggle();
 	});

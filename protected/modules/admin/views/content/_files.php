@@ -1,12 +1,12 @@
-<? $meta = Content::model()->parseMeta($model->metadata); ?>
+<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 <ul>
-	<? foreach ($meta as $k=>$v): ?>
-		<li><strong><? echo $k; ?></strong>: <? echo $v['value']; ?></li>
-	<? endforeach; ?>
+	<?php foreach ($meta as $k=>$v): ?>
+		<li><strong><?php echo $k; ?></strong>: <?php echo $v['value']; ?></li>
+	<?php endforeach; ?>
 </ul>
 
 <?php echo CHtml::textField('titlehdr', 'blog-image', array('placeholder'=>'Title', 'style'=>'float:left;', 'rel'=>'tooltip', 'class'=>'left span4', 'title'=>'How you want Cii to reference this file as')); ?>
-<? $this->widget('ext.EAjaxUpload.EAjaxUpload',
+<?php $this->widget('ext.EAjaxUpload.EAjaxUpload',
 	array(
 	        'id'=>'uploadFile',
 	        'config'=>array(

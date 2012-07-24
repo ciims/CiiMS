@@ -1,9 +1,9 @@
 <div class="well span6">
 	<h4>Login to Your Account</h4>
 	<div class="horizontal-rule"></div>
-	<? if(Yii::app()->user->hasFlash('reset')):?>
-		    <br /><div><? echo Yii::app()->user->getFlash('reset'); ?></div>
-	<? endif; ?>
+	<?php if(Yii::app()->user->hasFlash('reset')):?>
+		    <br /><div><?php echo Yii::app()->user->getFlash('reset'); ?></div>
+	<?php endif; ?>
 	<br />
 	<?
 		$form=$this->beginWidget('CActiveForm', array(
@@ -19,7 +19,7 @@
 			echo CHtml::submitButton('Login', array('class'=>'btn btn-primary', 'style'=>'margin-top: -9px; margin-left: 10px;'));
 		$this->endWidget(); 
 	?>
-	<? echo CHtml::link('Forgot your password?', Yii::app()->createUrl('/forgot'), array('style'=>'float:right;')); ?>
+	<?php echo CHtml::link('Forgot your password?', Yii::app()->createUrl('/forgot'), array('style'=>'float:right;')); ?>
 </div>
 
 <div class="well span5">
@@ -33,8 +33,8 @@
 	    	<li>And much more!</li>
 	    </ul>
     <hr />
-    <p>What are you waiting for? <strong><? echo CHtml::link('Sign up', Yii::app()->createUrl('/register')); ?></strong> for an account today!</p>
+    <p>What are you waiting for? <strong><?php echo CHtml::link('Sign up', Yii::app()->createUrl('/register')); ?></strong> for an account today!</p>
 
 </div>
 
-<? Yii::app()->clientScript->registerCss('one-half', '.one-half{margin-top: 0px;}'); ?>
+<?php Yii::app()->clientScript->registerCss('one-half', '.one-half{margin-top: 0px;}'); ?>

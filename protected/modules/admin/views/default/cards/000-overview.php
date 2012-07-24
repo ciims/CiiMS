@@ -27,18 +27,18 @@
 	<div class="left span5 border-right">
 		<ul class="nav nav-list">
 			<li class="nav-header">Content</li>
-			<li><span class="bold red"><? echo Content::model()->count($postsCriteria); ?></span> Posts</li>
-			<li><span class="bold yellow"><? echo Content::model()->count($pagesCriteria); ?></span> Pages</li>
-			<li><span class="bold green"><? echo Categories::model()->count($categoriesCriteria); ?></span> Categories</li>
-			<li><span class="bold blue"><? echo Users::model()->count(); ?></span> Users</li>
+			<li><span class="bold red"><?php echo Content::model()->count($postsCriteria); ?></span> Posts</li>
+			<li><span class="bold yellow"><?php echo Content::model()->count($pagesCriteria); ?></span> Pages</li>
+			<li><span class="bold green"><?php echo Categories::model()->count($categoriesCriteria); ?></span> Categories</li>
+			<li><span class="bold blue"><?php echo Users::model()->count(); ?></span> Users</li>
 		</ul>
 	</div>
 	<div class="right span5">
 		<ul class="nav nav-list">
 			<li class="nav-header">Comments</li>
-			<li><span class="bold purple"><? echo Comments::model()->count(); ?></span> Comments</li>
-			<li><span class="bold blue"><? echo Comments::model()->count($approval); ?></span> Needing Approval</li>
-			<li><span class="bold orange"><? echo Comments::model()->count($flagged); ?></span> Flagged</li>
+			<li><span class="bold purple"><?php echo Comments::model()->count(); ?></span> Comments</li>
+			<li><span class="bold blue"><?php echo Comments::model()->count($approval); ?></span> Needing Approval</li>
+			<li><span class="bold orange"><?php echo Comments::model()->count($flagged); ?></span> Flagged</li>
 		</ul>
 	</div>
 </div>

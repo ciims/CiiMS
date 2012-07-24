@@ -4,8 +4,8 @@
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="keywords" content="<? echo isset($this->params['meta']['keywords']) && !is_array(isset($this->params['meta']['keywords'])) ? $this->params['meta']['keywords'] : ''; ?>" />
-		<meta name="description" content="<? echo strip_tags($this->params['data']['extract']); ?>" />
+		<meta name="keywords" content="<?php echo isset($this->params['meta']['keywords']) && !is_array(isset($this->params['meta']['keywords'])) ? $this->params['meta']['keywords'] : ''; ?>" />
+		<meta name="description" content="<?php echo strip_tags($this->params['data']['extract']); ?>" />
 		<?php Yii::app()->clientScript->registerCoreScript('jquery')
 								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js')
 									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css'); ?>
@@ -42,7 +42,7 @@
 				<?php echo $content; ?>
   			</div>
 		</div>
-		<? if (!YII_DEBUG):
+		<?php if (!YII_DEBUG):
 			if (Configuration::model()->findByAttributes(array('key'=>'piwikExtension'))->value == 1):
 				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 
 					array(

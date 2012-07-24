@@ -19,13 +19,13 @@
 					}
 				?>
 			
-			<? if (Configuration::model()->findByAttributes(array('key'=>'addThisExtension'))->value == 1): ?>
+			<?php if (Configuration::model()->findByAttributes(array('key'=>'addThisExtension'))->value == 1): ?>
 				<li class="nav-header">Share This</li>
-				<? $this->widget('ext.analytics.EAddThisWidget', 
+				<?php $this->widget('ext.analytics.EAddThisWidget', 
 					array(
 						'account'=>Configuration::model()->findByAttributes(array('key'=>'addThisAccount'))->value,
 					)); ?>
-			<? endif; ?>
+			<?php endif; ?>
 		</ul>
 	 </div>
 	  <div class="span8 well">

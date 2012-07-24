@@ -8,11 +8,11 @@
 <div class="well span6 card">
 	<h4 class="nav-header top">Drafts</h4>
 	<br />
-	<? foreach(Content::model()->findAll($postsCriteria) as $draft): ?>
+	<?php foreach(Content::model()->findAll($postsCriteria) as $draft): ?>
 		<div class="span10">
-			<h5><? echo CHtml::link($draft->title, Yii::app()->createUrl('/admin/content/save/'. $draft->id)); ?> by <? echo $draft->author->displayName; ?> on <? echo CTimestamp::formatDate("M d, y @ H:i", strtotime($draft->updated)); ?></h5>
-			<? echo $draft->content; ?>
+			<h5><?php echo CHtml::link($draft->title, Yii::app()->createUrl('/admin/content/save/'. $draft->id)); ?> by <?php echo $draft->author->displayName; ?> on <?php echo CTimestamp::formatDate("M d, y @ H:i", strtotime($draft->updated)); ?></h5>
+			<?php echo $draft->content; ?>
 		</div>
 		<br />
-	<? endforeach; ?>
+	<?php endforeach; ?>
 </div>

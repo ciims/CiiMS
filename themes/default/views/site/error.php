@@ -1,4 +1,4 @@
 <div class="well">
-	<h1>Error <? echo $error['code']; ?></h1>
-	<p><? echo $error['message']; ?></p>
+	<h1>Error <?php echo $error['code']; ?></h1>
+	<p><?php echo $error['message']; ?></p>
 </div>

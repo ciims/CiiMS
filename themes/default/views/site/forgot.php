@@ -1,32 +1,32 @@
 <div class="well span6">
 		<h4>Forgot Your Password?</h4>
 		<br />	
-		<? if(Yii::app()->user->hasFlash('reset-sent')):?>
-		    <div><? echo Yii::app()->user->getFlash('reset-sent'); ?></div>
-		<? endif; ?>
-		<? if(Yii::app()->user->hasFlash('reset-error')):?>
-		    <div><? echo Yii::app()->user->getFlash('reset-error'); ?></div>
-		<? endif; ?>
+		<?php if(Yii::app()->user->hasFlash('reset-sent')):?>
+		    <div><?php echo Yii::app()->user->getFlash('reset-sent'); ?></div>
+		<?php endif; ?>
+		<?php if(Yii::app()->user->hasFlash('reset-error')):?>
+		    <div><?php echo Yii::app()->user->getFlash('reset-error'); ?></div>
+		<?php endif; ?>
 		<br />
-	<? if ($id == NULL): ?>		
-		<? echo CHtml::beginForm('/forgot'); ?>
-		<? echo CHtml::textField('email', $this->displayVar($_POST['email']), array('style'=>'width: 70%', 'placeholder'=>'Your email address (you@example.com)')); ?>
-		<? echo CHtml::submitButton('Reset My Password', array('class'=>'btn btn-primary', 'style'=>'margin-top: -9px')); ?>
-		<? echo CHtml::endForm(); ?>
-	<? else: ?>
-		<? if ($badHash): ?>
+	<?php if ($id == NULL): ?>		
+		<?php echo CHtml::beginForm('/forgot'); ?>
+		<?php echo CHtml::textField('email', $this->displayVar($_POST['email']), array('style'=>'width: 70%', 'placeholder'=>'Your email address (you@example.com)')); ?>
+		<?php echo CHtml::submitButton('Reset My Password', array('class'=>'btn btn-primary', 'style'=>'margin-top: -9px')); ?>
+		<?php echo CHtml::endForm(); ?>
+	<?php else: ?>
+		<?php if ($badHash): ?>
 			<br />
 		    <div class="red-box">The password reset key you provided is either invalid or has expired.</div>
-		<? else: ?>
-			<? echo CHtml::beginForm('/forgot/'.$id, 'POST', array('name'=>'reset', 'id'=>'reset')) ?>
-			<? echo CHtml::passwordField('password', $this->displayVar($_POST['password']), array('placeholder'=>'Your new password', 'style'=>'width: 70%')); ?>
+		<?php else: ?>
+			<?php echo CHtml::beginForm('/forgot/'.$id, 'POST', array('name'=>'reset', 'id'=>'reset')) ?>
+			<?php echo CHtml::passwordField('password', $this->displayVar($_POST['password']), array('placeholder'=>'Your new password', 'style'=>'width: 70%')); ?>
 			<br />
 			<br />
-			<? echo CHtml::passwordField('password2', $this->displayVar($_POST['password2']), array('placeholder'=>'Once more with feeling!', 'style'=>'width: 70%')); ?>
-			<? echo CHtml::submitButton('Reset My Password', array('class'=>'search-button')); ?>
-			<? echo CHtml::endForm(); ?>
-		<? endif; ?>
-	<? endif; ?>
+			<?php echo CHtml::passwordField('password2', $this->displayVar($_POST['password2']), array('placeholder'=>'Once more with feeling!', 'style'=>'width: 70%')); ?>
+			<?php echo CHtml::submitButton('Reset My Password', array('class'=>'search-button')); ?>
+			<?php echo CHtml::endForm(); ?>
+		<?php endif; ?>
+	<?php endif; ?>
 </div>
 <div class="well span5">
 	<h4>Help! I Forgot My Password!</h4>
@@ -40,4 +40,4 @@
 	    	<li>After resetting your password you'll be redirected to the login screen</li>
 	    </ul>
 </div>
-<? Yii::app()->clientScript->registerCss('one-half', '.one-half{margin-top: 0px;}'); ?>
+<?php Yii::app()->clientScript->registerCss('one-half', '.one-half{margin-top: 0px;}'); ?>
