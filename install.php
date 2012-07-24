@@ -398,8 +398,8 @@
 							'rules'=>array(
 								'sitemap.xml'=>'/site/sitemap',
 								'search/<page:\d+>'=>'/site/search',
-								'search/<id:\d+>'=>'/site/search',
-								'search'=>'/site/search',
+								'search/<id:\d+>'=>'/site/mysqlsearch',
+								'search'=>'/site/mysqlsearch',
 								'contact'=>'/site/contact',
 								'blog.rss'=>'/content/rss',
 								'blog/<page:\d+>'=>'/content/list',
