@@ -1,0 +1,85 @@
+.left {
+	float:left;
+}
+
+.right {
+	float:left;
+}
+
+.card .clear {
+	clear:both;
+}
+
+.card .clear-right {
+	clear:right;
+}
+
+.card .clear-left {
+	clear:left;
+}
+
+.card .border-right {
+	border-right: 2px solid #EEE;
+}
+
+.card .bold {
+	font-weight:bold; 
+	font-size: 18px;
+	font-family:Arial,"Bitstream Vera Sans",Helvetica,Verdana,sans-serif; 
+	padding-right: 5px;
+}
+
+.card .black {
+	color:#777;
+}
+
+.card .green {
+	color:#A7CE44;
+}
+
+.card .blue {
+	color:#59A0DC;
+}
+
+.card .red {
+	color:#CE4444;
+}
+
+.card .yellow {
+	color:#CABF42;
+}
+
+.card .purple {
+	color:#A9014B;
+}
+
+.card .orange {
+	color:#FF5C00;
+}
+
+.card .nav-header.top, .well .top {
+	padding-bottom: 5px;
+	border-bottom: 1px solid #EEE;
+}
+
+.card ul li:first-child {
+	margin-left: -30px;
+}
+
+.card ul .nav-list {
+	padding-left: 0px;
+}
+
+.pagination {
+	text-align:center;
+}
+
+.hidden {
+	display:none;
+}
+.qq-upload-list {
+	margin-top: 10px;
+}
+.qq-upload-failed-text {display:none;}
+.qq-upload-fail .qq-upload-failed-text {display:inline;}
+.qq-upload-size { margin-left: 10px;}

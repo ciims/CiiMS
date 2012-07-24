@@ -1,0 +1,4 @@
+*.swp
+jquery.wysiwyg.full.js
+jquery.wysiwyg.full.min.js
+help/bin/*.jar

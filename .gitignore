@@ -1,0 +1,9 @@
+assets/*
+protected/runtime/*
+.settings
+.project
+protected/config/*
+.htaccess
+uploads
+rsvp
+index.php
