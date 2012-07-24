@@ -4,6 +4,6 @@ protected/runtime/*
 .project
 protected/config/*
 .htaccess
-uploads
-rsvp
+uploads/*
 index.php
+*.*~

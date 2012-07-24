@@ -97,10 +97,9 @@
 		    $r = substr($path, -1);
 		    if ($r != '/' || $r != '\\')
 		        $path .= DIRECTORY_SEPARATOR;
-			$path = file_exists($path.'yiilite.php');
-			if ($path) 
+			if file_exists($path.'yiilite.php')) 
 			{
-				$_SESSION['CiiInstaller']['yiiPath'] = $path;
+				$_SESSION['CiiInstaller']['yiiPath'] = $path.'yiilite.php';
 			}
 			else
 				header('ERROR', false, 406);
