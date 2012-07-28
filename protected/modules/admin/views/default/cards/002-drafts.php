@@ -1,4 +1,4 @@
-<?
+<?php
 	// Posts Criteria
 	$postsCriteria = new CDbCriteria;
 	$postsCriteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");

@@ -1,4 +1,4 @@
-<?
+<?php
 class CommentController extends CiiController
 {
 	/**

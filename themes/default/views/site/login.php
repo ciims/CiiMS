@@ -5,7 +5,7 @@
 		    <br /><div><?php echo Yii::app()->user->getFlash('reset'); ?></div>
 	<?php endif; ?>
 	<br />
-	<?
+	<?php
 		$form=$this->beginWidget('CActiveForm', array(
 					'id'=>'contact',
 					'focus'=>array($model,'username'),
@@ -14,7 +14,7 @@
 				));
 			echo $form->errorSummary($model, '', '', array('class'=>'red-box')); ?>
 		<br />		
-	<?		echo $form->TextField($model, 'username', array('id'=>'email', 'placeholder'=>'Email', 'style'=>'margin-right: 15px;'));
+	<?php		echo $form->TextField($model, 'username', array('id'=>'email', 'placeholder'=>'Email', 'style'=>'margin-right: 15px;'));
 			echo $form->PasswordField($model, 'password', array('id'=>'password', 'placeholder'=>'Password'));
 			echo CHtml::submitButton('Login', array('class'=>'btn btn-primary', 'style'=>'margin-top: -9px; margin-left: 10px;'));
 		$this->endWidget(); 
