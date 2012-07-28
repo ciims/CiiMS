@@ -1,4 +1,4 @@
-<?
+<?php
 class CiiModel extends CActiveRecord
 {
 			
