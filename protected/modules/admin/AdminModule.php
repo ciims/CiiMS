@@ -12,7 +12,6 @@ class AdminModule extends CWebModule
 			'admin.models.*',
 			'admin.components.*',
 		));
-		
 	}
 
 	public function beforeControllerAction($controller, $action)
