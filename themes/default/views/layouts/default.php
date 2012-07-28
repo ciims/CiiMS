@@ -5,7 +5,7 @@
 			<li><?php echo Yii::app()->user->isGuest ? CHtml::link('Login', Yii::app()->createUrl('/login')) : Yii::app()->user->displayName . ' ' . CHtml::link('Logout', Yii::app()->createUrl('/logout')); ?></li>
 			
 			<li class="nav-header">Related Content</li>
-				<?
+				<?php
 					$categories = Yii::app()->cache->get('categories-listing');
 					if ($categories == false)
 					{

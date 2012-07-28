@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * SlugURLManager
  * Extends CUrlManager, allowing database slugs to be provided in liue of boring urls
