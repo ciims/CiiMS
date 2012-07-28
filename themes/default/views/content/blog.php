@@ -1,11 +1,11 @@
-<h2><?php echo $data->title; ?></h2>
+<h2><?php echo CHtml::link($data->title, Yii::app()->createUrl($data->slug)); ?></h2>
 <div class="blog-data">
 	<?php echo $data->created == $data->updated ? 'Posted' : 'Updated'; ?>
 	<strong><?php echo date('F jS, Y @ H:i', strtotime($data->created)); ?></strong>
 	by <strong><?php echo $data->author->displayName; ?></strong>
-	in <?php echo CHtml::link($data->category->name, Yii::app()->createUrl($data->category->slug)); ?> - 
+	in <?php echo CHtml::link($data->category->name, Yii::app()->createUrl($data->category->slug)); ?>
 	<?php if ($data->commentable): ?>
-		<?php echo CHtml::link("<span class=\"label label-info\">{$data->comment_count} Comments</span>", '#comments', array('escape'=>true)); ?>
+		 - <?php echo CHtml::link("<span class=\"label label-info\">{$data->comment_count} Comments</span>", '#comments', array('escape'=>true)); ?>
 	<?php endif; ?>
 	<br /><br />
 </div>
