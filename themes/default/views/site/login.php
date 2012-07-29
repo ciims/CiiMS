@@ -25,7 +25,7 @@
 <div class="well span5">
 	<h4>Why do I need an account?</h4>
 	<div class="horizontal-rule"></div>
-	 <p>Registering on Erianna.com gives you access to many features not available to unregistered users. Registered users can:</p>
+	 <p>Registering on <?php echo Yii::app()->name; ?> gives you access to many features not available to unregistered users. Registered users can:</p>
 	 <br />
     	<ul class="green-tick">
 	    	<li>Participate on community discussions.</li>
