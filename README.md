@@ -6,6 +6,20 @@ CiiMS is a high performance CMS designed for both end users and developers. CiiM
 
 CiiMS is designed to be fast, easy to deploy, and easy to modify.
 
+#### Seeing is Believing
+    Forget the details, just let me see it already...
+
+Sure thing boss: A demo of CiiMS can be found at:
+
+    http://ciims.erianna.com
+
+You may use the following credentials to login and manage the site.
+
+    Email: admin
+    Pasword: admin
+
+Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice.
+
 #### Features
 * Full Admin Panel
 * Self Installer
