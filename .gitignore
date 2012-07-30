@@ -5,5 +5,4 @@ protected/runtime/*
 protected/config/*
 .htaccess
 uploads/*
-index.php
 *.*~
