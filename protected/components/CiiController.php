@@ -8,7 +8,8 @@ class CiiController extends CController
 	
 	public function beforeAction($action)
 	{
-		Yii::app()->setTheme($this->displayVar(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default'));
+		$theme = $this->displayVar(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
+		Yii::app()->setTheme(file_exists($theme) ? $theme : 'default');
 		return true;
 	}
 	
