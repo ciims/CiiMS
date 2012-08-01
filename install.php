@@ -157,7 +157,7 @@
 					  `updated` datetime NOT NULL,
 					  PRIMARY KEY (`id`),
 					  KEY `parent_id` (`parent_id`)
-					) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+					) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			
 			mysql_query("CREATE TABLE IF NOT EXISTS `categories_metadata` (
 					  `category_id` int(11) NOT NULL,
@@ -167,7 +167,7 @@
 					  `updated` datetime NOT NULL,
 					  UNIQUE KEY `category_id_2` (`category_id`,`key`),
 					  KEY `category_id` (`category_id`)
-					) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+					) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `comments` (
 					  `id` int(15) NOT NULL AUTO_INCREMENT,
 					  `content_id` int(15) NOT NULL,
@@ -181,7 +181,7 @@
 					  KEY `content_id` (`content_id`),
 					  KEY `user_id` (`user_id`),
 					  KEY `parent_id` (`parent_id`)
-					) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+					) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `comment_metadata` (
 					  `comment_id` int(15) NOT NULL,
 					  `key` varchar(50) NOT NULL,
@@ -190,14 +190,14 @@
 					  `updated` datetime NOT NULL,
 					  UNIQUE KEY `comment_id_2` (`comment_id`,`key`),
 					  KEY `comment_id` (`comment_id`)
-					) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+					) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `configuration` (
 					  `key` varchar(64) NOT NULL,
 					  `value` varchar(255) NOT NULL,
 					  `created` datetime NOT NULL,
 					  `updated` datetime NOT NULL,
 					  PRIMARY KEY (`key`)
-					) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+					) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			mysql_query("CREATE TABLE IF NOT EXISTS `content` (
 					  `id` int(15) NOT NULL AUTO_INCREMENT,
 					  `vid` int(15) NOT NULL,
@@ -220,7 +220,7 @@
 					  KEY `parent_id` (`parent_id`),
 					  KEY `category_id` (`category_id`),
 					  KEY `slug` (`slug`)
-					) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+					) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `content_metadata` (
 				  `content_id` int(15) NOT NULL,
 				  `key` varchar(50) NOT NULL,
@@ -229,7 +229,7 @@
 				  `updated` datetime NOT NULL,
 				  UNIQUE KEY `content_id_2` (`content_id`,`key`),
 				  KEY `content_id` (`content_id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+				) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;");
 			
 			mysql_query("CREATE TABLE IF NOT EXISTS `groups` (
 				  `id` int(15) NOT NULL AUTO_INCREMENT,
@@ -247,7 +247,7 @@
 				  `updated` datetime NOT NULL,
 				  PRIMARY KEY (`id`),
 				  KEY `user_id` (`user_id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+				) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `users` (
 				  `id` int(15) NOT NULL AUTO_INCREMENT,
 				  `email` varchar(255) NOT NULL,
@@ -263,7 +263,7 @@
 				  PRIMARY KEY (`id`),
 				  UNIQUE KEY `email` (`email`),
 				  KEY `user_role` (`user_role`)
-				) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+				) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `user_groups` (
 				  `id` int(15) NOT NULL AUTO_INCREMENT,
 				  `group_id` int(15) NOT NULL,
@@ -271,7 +271,7 @@
 				  `created` datetime NOT NULL,
 				  `updated` datetime NOT NULL,
 				  PRIMARY KEY (`id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+				) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `user_metadata` (
 				  `user_id` int(15) NOT NULL,
 				  `key` varchar(50) NOT NULL,
@@ -280,14 +280,14 @@
 				  `updated` datetime NOT NULL,
 				  UNIQUE KEY `user_id_2` (`user_id`,`key`),
 				  KEY `user_id` (`user_id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+				) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
 			mysql_query("CREATE TABLE IF NOT EXISTS `user_roles` (
 				  `id` int(15) NOT NULL AUTO_INCREMENT,
 				  `name` varchar(100) NOT NULL,
 				  `created` datetime NOT NULL,
 				  `updated` datetime NOT NULL,
 				  PRIMARY KEY (`id`)
-				) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+				) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 			// Inserts
 			mysql_query("INSERT INTO `user_roles` (`id`, `name`, `created`, `updated`) VALUES
 				(1, 'User', NOW(),NOW()),
