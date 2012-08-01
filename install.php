@@ -237,7 +237,7 @@
 				  `created` datetime NOT NULL,
 				  `updated` datetime NOT NULL,
 				  PRIMARY KEY (`id`)
-				) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;");
+				) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci; AUTO_INCREMENT=1 ;");
 			mysql_query("CREATE TABLE IF NOT EXISTS `tags` (
 				  `id` int(15) NOT NULL AUTO_INCREMENT,
 				  `user_id` int(15) NOT NULL,
@@ -342,7 +342,6 @@
 				// Create the admin user in the DB
 				$password = encryptHash($_POST['userCheck']['email'], $_POST['userCheck']['password'], $_SESSION['CiiInstall']['key']);
 				
-				print_r($_SESSION);
 				$conn = mysql_connect($_SESSION['CiiInstaller']['host'], $_SESSION['CiiInstaller']['db_user'], $_SESSION['CiiInstaller']['db_pass']) or die(header('ERROR', false, 406));
 			
 				$db = mysql_select_db($_SESSION['CiiInstaller']['db']) or die(header('ERROR', false, 406));
