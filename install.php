@@ -332,7 +332,7 @@
 				$_POST['userCheck']['siteName'] == ''
 			   ) 
 			{
-				header('ERROR', false, 40);
+				header('ERROR', false, 406);
 			}
 			else
 			{
@@ -342,6 +342,7 @@
 				// Create the admin user in the DB
 				$password = encryptHash($_POST['userCheck']['email'], $_POST['userCheck']['password'], $_SESSION['CiiInstall']['key']);
 				
+				print_r($_SESSION);
 				$conn = mysql_connect($_SESSION['CiiInstaller']['host'], $_SESSION['CiiInstaller']['db_user'], $_SESSION['CiiInstaller']['db_pass']) or die(header('ERROR', false, 406));
 			
 				$db = mysql_select_db($_SESSION['CiiInstaller']['db']) or die(header('ERROR', false, 406));
