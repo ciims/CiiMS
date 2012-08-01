@@ -19,7 +19,9 @@
 					}
 				?>
 			
-			<?php if (Configuration::model()->findByAttributes(array('key'=>'addThisExtension'))->value == 1): ?>
+			<?php 
+			$addThisExtension = Configuration::model()->findByAttributes(array('key'=>'addThisExtension'));
+			if (isset($addThisExtension->value) && $addThisExtension->value == 1): ?>
 				<li class="nav-header">Share This</li>
 				<?php $this->widget('ext.analytics.EAddThisWidget', 
 					array(

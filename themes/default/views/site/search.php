@@ -1,14 +1,14 @@
 <form id="contact" method="GET" action="<?php echo Yii::app()->createUrl('/search'); ?>">
 	<center>
 		<?php 
-			echo CHtml::textField('q', $this->displayVar($_GET['q']), array('style'=>'width: 400px; float:none;', 'placeholder'=>'What are you looking for?', ));
+			echo CHtml::textField('q', isset($_GET['q']) ? $_GET['q'] : '', array('style'=>'width: 400px; float:none;', 'placeholder'=>'What are you looking for?', ));
 			echo CHtml::submitButton('Search', array('class'=>'btn btn-primary', 'style'=>'float:none; margin-top: -9px; margin-left: 15px;')); 
 		?>
 	</center>
 </form>
 
 <div class="three-fourth">		
-	<?php if ($this->displayVar($_GET['q'])): ?>
+	<?php if (isset($_GET['q'])): ?>
 		<?php if ($itemCount == 0): ?>
 			<h2>No Results Found</h2>
 			<p>Sorry, we tried looking but we didn't find a match for the specified criteria. Try refining your search.</p>

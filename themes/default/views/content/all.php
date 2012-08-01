@@ -8,7 +8,7 @@
 			by <strong><?php echo $content->author->displayName; ?></strong>
 			in <?php echo CHtml::link($content->category->name, Yii::app()->createUrl($content->category->slug)); ?>
 			<span class="label label-info"><?php echo $content->comment_count; ?> Comments</span> </div>
-		<?php if ($this->displayVar($meta['blog-image']['value'])): ?>
+		<?php if (isset($meta['blog-image']['value'])): ?>
 			<br />
 			<p style="text-align:center;"><?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'image')); ?></p>
 		<?php endif; ?>

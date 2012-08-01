@@ -10,7 +10,7 @@
 		<br />
 	<?php if ($id == NULL): ?>		
 		<?php echo CHtml::beginForm('/forgot'); ?>
-		<?php echo CHtml::textField('email', $this->displayVar($_POST['email']), array('style'=>'width: 70%', 'placeholder'=>'Your email address (you@example.com)')); ?>
+		<?php echo CHtml::textField('email', isset($_POST['email']) ? $_POST['email'] : '', array('style'=>'width: 70%', 'placeholder'=>'Your email address (you@example.com)')); ?>
 		<?php echo CHtml::submitButton('Reset My Password', array('class'=>'btn btn-primary', 'style'=>'margin-top: -9px')); ?>
 		<?php echo CHtml::endForm(); ?>
 	<?php else: ?>
@@ -19,10 +19,10 @@
 		    <div class="red-box">The password reset key you provided is either invalid or has expired.</div>
 		<?php else: ?>
 			<?php echo CHtml::beginForm('/forgot/'.$id, 'POST', array('name'=>'reset', 'id'=>'reset')) ?>
-			<?php echo CHtml::passwordField('password', $this->displayVar($_POST['password']), array('placeholder'=>'Your new password', 'style'=>'width: 70%')); ?>
+			<?php echo CHtml::passwordField('password',  isset($_POST['password']) ? $_POST['password'] : '', array('placeholder'=>'Your new password', 'style'=>'width: 70%')); ?>
 			<br />
 			<br />
-			<?php echo CHtml::passwordField('password2', $this->displayVar($_POST['password2']), array('placeholder'=>'Once more with feeling!', 'style'=>'width: 70%')); ?>
+			<?php echo CHtml::passwordField('password2',  isset($_POST['password2']) ? $_POST['password2'] : '', array('placeholder'=>'Once more with feeling!', 'style'=>'width: 70%')); ?>
 			<?php echo CHtml::submitButton('Reset My Password', array('class'=>'search-button')); ?>
 			<?php echo CHtml::endForm(); ?>
 		<?php endif; ?>

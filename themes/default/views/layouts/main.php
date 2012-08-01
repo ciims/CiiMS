@@ -31,7 +31,7 @@
 				                array('label'=>'Blog', 'url'=>Yii::app()->createUrl('/blog'), 'active'=>($this->id === 'content') ? true : false),
 				            ),
 				        ),
-				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', $this->displayVar($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
+				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', isset($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
 				    ),
 				)); ?>
 		<div class="container">
