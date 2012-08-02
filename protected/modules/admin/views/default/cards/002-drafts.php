@@ -10,7 +10,7 @@
 	<br />
 	<?php foreach(Content::model()->findAll($postsCriteria) as $draft): ?>
 		<div class="span10">
-			<h5><?php echo CHtml::link($draft->title, Yii::app()->createUrl('/admin/content/save/'. $draft->id)); ?> by <?php echo $draft->author->displayName; ?> on <?php echo CTimestamp::formatDate("M d, y @ H:i", strtotime($draft->updated)); ?></h5>
+			<h5><?php echo CHtml::link($draft->title, Yii::app()->createUrl('/admin/content/save/id/'. $draft->id)); ?> by <?php echo $draft->author->displayName; ?> on <?php echo CTimestamp::formatDate("M d, y @ H:i", strtotime($draft->updated)); ?></h5>
 			<?php echo $draft->content; ?>
 		</div>
 		<br />
