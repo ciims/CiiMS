@@ -70,7 +70,7 @@ class SiteController extends CiiController
 			$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
-			
+			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);
@@ -102,7 +102,7 @@ class SiteController extends CiiController
 			$criteria->addSearchCondition('title', $_GET['q'], true, 'OR');
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
-			
+			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);
