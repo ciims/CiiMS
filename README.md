@@ -11,8 +11,9 @@ CiiMS is designed to be fast, easy to deploy, and easy to modify.
 
 Sure thing boss: A demo of CiiMS can be found at:
 
-    http://ciims.erianna.com
-
+    Site: http://ciims.erianna.com
+    Admin Panel: http://ciims.erianna.com/admin
+    
 You may use the following credentials to login and manage the site.
 
     Email: admin
