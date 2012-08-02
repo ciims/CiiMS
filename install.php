@@ -410,7 +410,7 @@
 								'forgot/<id:\w+>'=>'/site/forgot',
 								'forgot'=>'/site/forgot',
 								'register'=>'/site/register',
-								'login'=>'/site/login',
+								'/login'=>'/site/login',
 								'logout'=>'/site/logout'
 							),
 						),
