@@ -68,6 +68,7 @@ class CategoriesController extends CiiController
 		$criteria->addCondition('type_id >= 2');
 		$criteria->addCondition("category_id = " . $id);
 		$criteria->addCondition('password = ""');
+		$criteria->addCondition('status = 1');
 		$criteria->limit = $pageSize;			
 		$criteria->order = 'created DESC';
 		
