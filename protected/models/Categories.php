@@ -53,7 +53,7 @@ class Categories extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parent_id, name, slug', 'required'),
+			array('parent_id, name', 'required'),
 			array('parent_id', 'numerical', 'integerOnly'=>true),
 			array('name, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
@@ -115,7 +115,15 @@ class Categories extends CiiModel
 		));
 	}
 	
-	public function beforeSave() {
+	public function beforeValidate()
+	{
+		$this->slug = $this->verifySlug($this->slug, $this->name);
+			
+		return parent::beforeValidate();
+	}
+	
+	public function beforeSave()
+	{
     	if ($this->isNewRecord)
     	{
     		Yii::app()->cache->delete('categories');
@@ -126,7 +134,7 @@ class Categories extends CiiModel
 		}
 	   	else
 			$this->updated = new CDbExpression('NOW()');
-	 
+		
 	    return parent::beforeSave();
 	}
 	

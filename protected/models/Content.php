@@ -66,7 +66,7 @@ class Content extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('vid, author_id, title, content, status, commentable, parent_id, category_id, slug', 'required'),
+			array('vid, author_id, title, content, status, commentable, parent_id, category_id', 'required'),
 			array('vid, author_id, status, commentable, parent_id, category_id, type_id, comment_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
@@ -179,9 +179,6 @@ class Content extends CiiModel
 		
 		if (strlen($this->extract) == 0)
     		$this->extract = $this->myTruncate($this->content, 250, '.', '');
-		
-		if ($this->slug == '')
-			$this->slug = $this->checkSlug(str_replace(' ', '-', strtolower($this->title)));
 	 	
 	    return parent::beforeValidate();
 	}
@@ -194,6 +191,8 @@ class Content extends CiiModel
     		Yii::app()->cache->delete('content-listing');
 			Yii::app()->cache->delete('WFF-content-url-rules');
 		}
+		
+		$this->slug = $this->verifySlug($this->slug, $this->title);
 		
 		return parent::beforeSave();
 	}
@@ -236,20 +235,6 @@ class Content extends CiiModel
 		return parent::beforeDelete();
 	}
 	
-	public function checkSlug($slug, $id=NULL)
-	{
-		if ($this->countByAttributes(array('slug'=>$slug . $id)) == 0)
-			return $slug . $id;
-		else
-		{
-			if ($id == NULL)
-				$id = 1;
-			else 
-				$id++;
-			return $this->checkSlug($slug, $id);
-		}
-	}
-	
 	private function myTruncate($string, $limit, $break=".", $pad="...")
 	{
 		// return with no change if string is shorter than $limit
@@ -264,5 +249,43 @@ class Content extends CiiModel
 		}
 
 		return $string;
+	}
+	
+	/**
+	 * checkSlug - Recursive method to verify that the slug can be used
+	 * This method is purposfuly declared here to so that Content::findByPk is used instead of CiiModel::findByPk
+	 * @param string $slug - the slug to be checked
+	 * @param int $id - the numeric id to be appended to the slug if a conflict exists
+	 * @return string $slug - the final slug to be used
+	 */
+	public function checkSlug($slug, $id=NULL)
+	{
+		// Find the number of items that have the same slug as this one
+		$count = $this->countByAttributes(array('slug'=>$slug . $id));
+		
+		// If we found an item that matched, it's possible that it is the current item, in which case we don't need to alter the slug
+		if ($count >= 1)
+		{
+			if (!$this->isNewRecord)
+			{
+				// Pull the data that matches
+				$data = $this->findByPk($this->id);
+				
+				// Check the pulled data id to the current item
+				if ($data->id == $this->id)
+					$count = 0;	
+			}
+		}
+		
+		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
+			return $slug . $id;
+		else
+		{
+			if ($id == NULL)
+				$id = 1;
+			else 
+				$id++;
+			return $this->checkSlug($slug, $id);
+		}
 	}
 }

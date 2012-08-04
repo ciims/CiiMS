@@ -29,6 +29,7 @@
 				            'items'=>array(
 				                 '---',
 				                array('label'=>'Blog', 'url'=>Yii::app()->createUrl('/blog'), 'active'=>($this->id === 'content') ? true : false),
+				                array('label'=>'Admin', 'url'=>Yii::app()->createUrl('/admin')),
 				            ),
 				        ),
 				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', isset($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
