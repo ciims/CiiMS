@@ -56,9 +56,9 @@ class CiiModel extends CActiveRecord
 	 */
 	public function verifySlug($slug = '', $title = '')
 	{
-		$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '', $slug)));
+		$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '-', $slug)));
 		if ($slug == '')
-			$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '', $title)));
+			$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '-', $title)));
 		
 		return strToLower($this->checkSlug($slug));
 	}
@@ -71,33 +71,26 @@ class CiiModel extends CActiveRecord
 	 */
 	public function checkSlug($slug, $id=NULL)
 	{
+	    
 		// Find the number of items that have the same slug as this one
 		$count = $this->countByAttributes(array('slug'=>$slug . $id));
 		
-		// If we found an item that matched, it's possible that it is the current item, in which case we don't need to alter the slug
-		if ($count >= 1)
+		// If we found an item that matched, it's possible that it is the current item (or a previous version of it)
+		// in which case we don't need to alter the slug
+		if ($count)
 		{
-			if (!$this->isNewRecord)
-			{
-				// Pull the data that matches
-				$data = $this->findByPk($this->id);
-				
-				// Check the pulled data id to the current item
-				if ($data->id == $this->id)
-					$count = 0;	
-			}
+		    // Pull the data that matches
+		    $data = $this->findByPk($this->id == NULL ? -1 : $this->id);
+		
+		    // Check the pulled data id to the current item
+		    if ($data !== NULL && $data->id == $this->id)
+			    return $slug;
 		}
 		
 		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
 			return $slug . $id;
 		else
-		{
-			if ($id == NULL)
-				$id = 1;
-			else 
-				$id++;
-			return $this->checkSlug($slug, $id);
-		}
+			return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
 	}
 }
 ?>
