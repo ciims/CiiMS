@@ -6,6 +6,11 @@ CiiMS is a high performance CMS designed for both end users and developers. CiiM
 
 CiiMS is designed to be fast, easy to deploy, and easy to modify.
 
+#### The One Rule
+Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) because I think it is awesome. If you use and love CiiMS create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site. If you want to a border color that's fine too.
+
+[![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](http://www.erianna.com)
+
 #### Seeing is Believing
     Forget the details, just let me see it already...
 
@@ -19,7 +24,7 @@ You may use the following credentials to login and manage the site.
     Email: admin
     Pasword: admin
 
-Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice.
+Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
 
 #### Features
 * Full Admin Panel
@@ -165,9 +170,9 @@ By default CiiMS will run with CFileCache enabled. Performance can be improved b
          	'class'=>'application.components.CiiMemCache',
                    'servers'=>array(
                             array(
-                                    	'host'=>'127.0.0.1',
-                                     'port'=>11211,
-                                     'weight'=>60
+                                    'host'=>'127.0.0.1',
+                                    'port'=>11211,
+                                    'weight'=>60
                             ),
                    ),
          ),
@@ -184,8 +189,8 @@ First, add the following to your params array
 
 ```php
 	'sphinxHost'=>'localhost',
-         'sphinxPort'=>'9312',
-         'sphinxSource'=>'SOURCE_NAME',
+        'sphinxPort'=>'9312',
+        'sphinxSource'=>'SOURCE_NAME',
 ```
 
 Second, replace the URLManager->rules->search array with the following
@@ -212,10 +217,10 @@ source src
                 SELECT id, title, content, extract FROM content AS t WHERE vid = (SELECT MAX(vid) FROM content WHERE id = t.id) AND status = 1;
 }
 
-index erianna
+index index_name
 {
         source = src
-        path   = /var/lib/sphinx/data/erianna
+        path   = /var/lib/sphinx/data/index_name
 }
 ~~~~
 
