@@ -18,7 +18,7 @@
 			<?php echo $this->renderPartial('_files', array('model'=>$model)); ?>
 		</div>
 	<?php endif; ?>
-	<div class="well span4 right">
+	<div class="well span4 right" style="float:right;">
 		<h2 class="top">Additional Details</h2>
 		<?php echo $this->renderPartial('_details',array('model'=>$model, 'form'=>$form)); ?>
 	</div>

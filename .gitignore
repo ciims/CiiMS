@@ -8,3 +8,4 @@ uploads/*
 *.*~
 /index.php
 /install.php
+*.swp
