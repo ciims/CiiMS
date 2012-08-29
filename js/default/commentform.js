@@ -18,6 +18,7 @@ $(document).ready(function(){
 				success: function (data, textStatus, jqXHR)
 				{
 					$("#new-comment").replaceWith(data).slideDown(500);
+					$("#comment").val("");
 				}
 			});
 		}
