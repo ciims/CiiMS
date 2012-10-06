@@ -93,46 +93,51 @@
 		// Yii Path Checking
 		if (isset($_POST['yiiCheck']))
 		{
-		    $path = $_POST['yiiCheck']['path'];
+		    $path = trim($_POST['yiiCheck']['path']);
 		    $r = substr($path, -1);
-		    if ($r != '/' || $r != '\\')
+		    if ($r != '/' && $r != '\\')
 		        $path .= DIRECTORY_SEPARATOR;
+
 			if (file_exists($path.'yiilite.php')) 
 			{
 				$_SESSION['CiiInstaller']['yiiPath'] = $path;
+				sendOk("Found!!");
 			}
 			else
-				header('ERROR', false, 406);
+				sendError($path.'yiilite.php',"Not found! Change and check again");
 		}
 		else if (isset($_POST['systemCheck']))
 		{
 			$errors = false;
+			$message = "";
 			foreach ($requirements as $k=>$v)
 			{
-				echo '<li>' . $v[0];
-				echo '<span class="label label-' . ($v[1] ? 'info' : ($v[2] ? $v[2] : 'important')) .'" ' . (!$v[1] ? 'rel="tooltip" title="' . $v[4]. '"' : ''). '>' . ($v[1] ? 'OK' : (isset($v[2]) ? $v[2] : 'Error')) .'</span>';
-				echo '</li>';
+				$message .=  '<li>' . $v[0];
+				$message .= ' <span class="label label-' . ($v[1] ? 'info' : ($v[2] ? $v[2] : 'important')) .'" ' . (!$v[1] ? 'rel="tooltip" title="' . $v[3]. '"' : ''). '>' . ($v[1] ? 'OK' : (isset($v[2]) ? $v[2] : 'Error')) .'</span> ';
+				if (!$v[1]) $message .= '<span style="font-size: 0.8em">'.$v[3].'</span>';
+				$message .= '</li>';
 				
 				if (!$v[1] && !$errors)
 				{
 					if ($v[2] == 'warning')
-						$errors = false;
+						$errors = $errors || false;
 					else
 						$errors = true;
 				}
-				
-				if ($errors)
-					header('ERROR', false, 406);
-				else
-				{
-				    
-				    $d = file_get_contents('index.php');
-				    $d = str_replace('YII_PATH',  $_SESSION['CiiInstaller']['yiiPath']. 'yiilite.php', $d);
-				    $fh = fopen('index.php', 'w') or die(header('ERROR', false, 406));
-			        fwrite($fh, $d) or die(header('ERROR', false, 406));
-			        fclose($fh);
-					header('OK', false, 200);
-				}
+			}
+			if (! $errors)
+			{
+				$mascara = (isset($_SESSION['CiiInstaller']['yii']))?$_SESSION['CiiInstaller']['yii']:'YII_PATH';
+				$frameworkYii = $_SESSION['CiiInstaller']['yiiPath']. 'yiilite.php';
+			    $d = file_get_contents('index.php');
+			    $d = str_replace($mascara,$frameworkYii, $d);
+			    $fh = fopen('index.php', 'w') or (sendError("index.php","Error not open index file") || exit() );
+		        fwrite($fh, $d) or (sendError("index.php","Error not write index file") || exit() );
+		        fclose($fh);
+		        $_SESSION['CiiInstaller']['yii'] = $frameworkYii;
+       			sendOk($message);
+			} else {
+				sendError("redlabel",$message);
 			}
 		}
 		else if (isset($_POST['mysqlCheck']))
@@ -458,6 +463,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.min.js"></script>
@@ -496,7 +502,7 @@
 					<h2>Where is Yii?</h2>
 					<p>Please provide the system path where Yii Framework is located at. The path should point to Yii's "framework" folder with a trailing slash.</p>
 					<center>
-						<input id="yiiPath" type="text" placeholder="/path/to/yii/framework/" />
+						<input id="yiiPath" type="text" placeholder="/path/to/yii/framework" <?php if (@$_SESSION['CiiInstaller']['yiiPath']) : ?>value="<?php echo $_SESSION['CiiInstaller']['yiiPath']; ?>"<?endif;?>/>
 						<a id="yiiCheckButton" class="btn btn-inverse btn-form">Check</a>
 					</center>
 					<br /><br />
@@ -509,25 +515,9 @@
 					<h2>Requirements Check</h2>
 					<p>Below are the minimum requirements for CiiMS. Anything highlighted in <span class="label label-important">red label</span> need you attention.</p>
 					<div id="systems-info" style="margin-left: 20px;">
-						<?php
-						$errors = false;
-						foreach ($requirements as $k=>$v):
-							echo '<li>' . $v[0];
-							echo '<span class="label label-' . ($v[1] ? 'info' : ($v[2] ? $v[2] : 'important')) .'" ' . (!$v[1] ? 'rel="tooltip" title="' . $v[4]. '"' : ''). '>' . ($v[1] ? 'OK' : (isset($v[2]) ? $v[2] : 'Error')) .'</span>';
-							echo '</li>';
-							
-							if (!$v[1] && !$errors)
-							{
-								if ($v[2] == 'warning')
-									$errors = false;
-								else
-									$errors = true;
-							}
-						endforeach;						
-						?>
 					</div>
 					<br /><br />
-					<a id="checkSystemButton" class="nav btn btn-primary">Check Again</a>
+					<a id="systemButton" class="nav btn btn-primary" style="display:none; margin-left:1em;">Next</a> <a id="checkSystemButton" class="nav btn btn-primary">Check Again</a>
 					<div style="clear:both;"></div>
 				</div>
 				
@@ -605,7 +595,7 @@
 			
 			//$("#backButton").click(function() { $(".alert").slideUp(); $(this).parent().slideUp();  $("#"+previous).slideDown(); });
 			
-			$("#yiiButton").click(function() { $(".alert").slideUp(); $(this).parent().slideUp(); $("#systemCheck").slideDown(); previous='yii'; });
+			$("#yiiButton").click(function() { $(".alert").hide(); $(this).parent().hide(); $("#systemCheck").show(); previous='yii'; });
 			
 			$("#systemButton").click(function() { $(".alert").slideUp(); $(this).parent().slideUp(); $("#mysql").slideDown(); previous='system'; });
 			
@@ -619,36 +609,61 @@
 					'beforeSend' : function() {
 						$("#yiiCheckButton").removeClass('btn-danger').removeClass('btn-inverse').addClass('btn-warning btn-form').html('Checking...');
 					},
-					'success' : function() {
-						$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-success').html('OK!');
-						$("#yiiButton").slideDown();
-						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-success').html('<strong>Got It!</strong> OK, now that I know where Yii is we can proceed. Click the "Next" button to proceed.').slideDown();
+					'success' : function(data,textStatus,jqXHR) {
+						try {
+							var jsonres =  jQuery.parseJSON( data );
+							if (jsonres.status == "ok") {
+								$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-success').html(jsonres.message);
+								$("#yiiButton").slideDown();
+								$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-success').html('<strong>Got It!</strong> OK, now that I know where Yii is we can proceed. Click the "Next" button to proceed.').slideDown();
+							} else {  /* ERROR */
+								$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-danger').html(jsonres.message);
+								$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<strong>Oops!</strong> Sorry, I wasn\'t able to find Yii framework in the path you specified. Please try again.').slideDown();
+							}
+						} catch (e) {
+								$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-danger').html("Error");
+								$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<div>'+data+'</div>').slideDown();
+						}
 					},
-					'error' : function() {
-						$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-danger').html('Not Found!');
-						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<strong>Oops!</strong> Sorry, I wasn\'t able to find Yii framework in the path you specified. Please try again.').slideDown();
+					'error' : function(jqXHR,textStatus,errotThrown) {
+						$("#yiiCheckButton").removeClass('btn-warning').addClass('btn-danger').html("Error");
+						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<div>'+textStatus+'</div>').slideDown();
+
 					}
 				}); 
 			});
-			
-			$("#checkSystemButton").click(function() { 
+
+			$("#checkSystemButton, #yiiButton").click(function() { 
 				$.ajax({ 
 					'type' : 'POST', 
 					'data' : { 'systemCheck' : ''},
 					'beforeSend' : function() {
-						$("#systems-info").slideUp().html('');
+						$("#systems-info").hide().html('');
 					},
-					'success' : function(data) {
-						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-success').html('<strong>OK!</strong> Everything is configured properly.').slideDown();
-						$("#checkSystemButton").parent().slideUp();
-						$("#mysql").slideDown();
+					'success' : function(data,textStatus,jqXHR) {
+						try {
+							var jsonres =  jQuery.parseJSON( data );
+							if (jsonres.status == "ok") {
+								$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-success').html('<strong>OK!</strong> Everything is configured properly.').slideDown();
+								$("#systems-info").html(jsonres.message).slideDown();
+								$("#systemButton").show();
+						
+							} else {  /* ERROR */
+								if (jsonres.debuger=="redlabel")  {
+									$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<strong>ERROR!</strong> look at <span class="label label-important">red label</span>').slideDown();
+									$("#systems-info").html(jsonres.message).slideDown();
+								} else {
+									$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<div>'+jsonres.message+'</div>').slideDown();
+								}
+							}
+						} catch (e) {
+							$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<div>'+data+'</div>').slideDown();
+						}
+
 					},
-					'error' : function() {
-						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('Please correct the following issues before proceeding').slideDown();
+					'error' : function(xhr,ajaxOptions,throwError) {
+						$(".alert").removeClass('alert-success').removeClass('alert-warning').removeClass('alert-error').addClass('alert-error').html('<div>'+textStatus+'</div>').slideDown();
 					},
-					'completed' : function(data) {
-						$("#systems-info").html(data).slideDown();
-					}
 				}); 
 			});
 			
@@ -721,5 +736,14 @@
             $d.= ';';
         else
             $d.= ",\n";
+    }
+    function sendOk($message) {
+    	echoSend('ok',$message);
+    }
+    function sendError($error,$message) {
+    	echoSend('error',$message,$error);
+    }
+    function echoSend($status,$message,$debuger="") {
+    	echo json_encode(array("status"=>$status,"message"=>$message,"debuger"=>$debuger));
     }
 ?>
