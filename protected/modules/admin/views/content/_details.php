@@ -4,7 +4,7 @@
 
 <?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span5')); ?>
 
-<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page;'),array('class'=>'span5')); ?>
+<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'),array('class'=>'span5')); ?>
 
 <?php echo $form->textFieldRow($model,'password',array('class'=>'span5','maxlength'=>150)); ?>
 
