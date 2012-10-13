@@ -459,6 +459,56 @@
 		exit();
 	}
 
+	function encryptHash($email, $password, $_dbsalt)
+	{
+		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 120);	
+	}
+	
+	function generateKey()
+	{
+		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5(time() . md5(time())))) . hash("sha512", time()) . time()), 0, 120);
+	}
+	
+	function buildArray($array, $level = 0, &$d)
+	{
+        $d.= "array(\n";
+        foreach ($array as $k=>$v)
+        {
+            if (is_array($k))
+                buildArray($k, $level+1, $d);
+            else if (is_array($v))
+            {
+                $d.= "'" . $k ."' => ";
+                buildArray($v, $level+1, $d);
+            }
+			else if (is_int($k))
+				$d.="'" . $v . "',\n";
+			else if (is_bool($v))
+				$d.= "'" . $k . "' => " . ($v ? 'true' : 'false') .",\n";
+            else
+                $d.= "'" . $k . "' => '" . $v ."',\n";
+        }
+        $d.= ")";
+        if ($level == 0)
+            $d.= ';';
+        else
+            $d.= ",\n";
+    }
+	
+    function sendOk($message)
+    {
+    	echoSend('ok',$message);
+    }
+	
+    function sendError($error,$message)
+    {
+    	echoSend('error',$message,$error);
+    }
+	
+    function echoSend($status,$message,$debuger="")
+    {
+    	echo json_encode(array("status"=>$status,"message"=>$message,"debuger"=>$debuger));
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -703,47 +753,3 @@
 		</script>
 	</body>
 </html>
-<?php
-	function encryptHash($email, $password, $_dbsalt) {
-		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 120);	
-	}
-	
-	function generateKey() {
-		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5(time() . md5(time())))) . hash("sha512", time()) . time()), 0, 120);
-	}
-	
-	function buildArray($array, $level = 0, &$d)
-    {
-        $d.= "array(\n";
-        foreach ($array as $k=>$v)
-        {
-            if (is_array($k))
-                buildArray($k, $level+1, $d);
-            else if (is_array($v))
-            {
-                $d.= "'" . $k ."' => ";
-                buildArray($v, $level+1, $d);
-            }
-			else if (is_int($k))
-				$d.="'" . $v . "',\n";
-			else if (is_bool($v))
-				$d.= "'" . $k . "' => " . ($v ? 'true' : 'false') .",\n";
-            else
-                $d.= "'" . $k . "' => '" . $v ."',\n";
-        }
-        $d.= ")";
-        if ($level == 0)
-            $d.= ';';
-        else
-            $d.= ",\n";
-    }
-    function sendOk($message) {
-    	echoSend('ok',$message);
-    }
-    function sendError($error,$message) {
-    	echoSend('error',$message,$error);
-    }
-    function echoSend($status,$message,$debuger="") {
-    	echo json_encode(array("status"=>$status,"message"=>$message,"debuger"=>$debuger));
-    }
-?>
