@@ -19,7 +19,7 @@
 </div>
 <hr />
 <div class="span3"></div>
-<div class="span8 well">
+<div class="span8 well" style="float:right; margin-right: 6%;">
 <?php if ($data->commentable): ?>
 <h4><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', count($comments)); ?>: </h4>
 <?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
