@@ -46,6 +46,22 @@ class CommentController extends CiiController
 				$content = Content::model()->findByPk($_POST['Comments']['content_id']);
 				$content->comment_count++;
 				$content->save();
+				
+				// Send an email to the author if someone makes a comment on their blog
+				if ($content->author->id != Yii::app()->user->id && Configuration::model()->findByAttributes(array('key'=>'notifyAuthorOnComment'))->value == 1) 
+				{
+					Yii::trace('comment trace');
+					Yii::import('application.extensions.phpmailer.JPhpMailer');
+					$mail = new JPhpMailer;
+					$mail->IsSMTP();
+					$mail->SetFrom('noreply@'. Cii::get($_SERVER, 'HTTP_HOST', Cii::get($_SERVER, 'SERVER_NAME', 'localhost')), 'No Reply');
+					$mail->Subject = 'New Comment Notification From CiiMS Blog';
+					$mail->AltBody = 'New Comment on: ' . $content->title;
+					$mail->MsgHTML($this->renderPartial('/email/comments', array('content'=>$content, 'comment'=>$comment), true, true));
+					$mail->AddAddress($content->author->email, $content->author->displayName);
+					$mail->Send();
+				}
+				
 				$this->renderPartial('comment', array('count'=>$_POST['count'], 'comment'=>$comment));
 			}
 		}
