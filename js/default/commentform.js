@@ -46,7 +46,7 @@ $(document).ready(function(){
 			url: 'admin/comments/delete/id/' + $(this).attr('value')
 		});
 		
-		$(this).parent().parent().slideUp();
+		$(this).parent().parent().parent().slideUp();
 		return false;
 	});
 	
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			type: 'POST',
 			url: 'comment/flag/id/' + $(this).attr('value')
 		});
-
+		$(this).parent().parent().parent().slideUp();
 		return false;
 	});	
 });

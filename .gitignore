@@ -1,10 +1,10 @@
-assets/*
-protected/runtime/*
+/assets/*
+/protected/runtime/*
 .settings
 .project
-protected/config/*
+/protected/config/*
 .htaccess
-uploads/*
+/uploads/*
 *.*~
 /index.php
 /install.php

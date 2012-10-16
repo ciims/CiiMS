@@ -25,7 +25,7 @@
 <?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
 	<?php $count = 0; ?>
 	<?php foreach ($comments as $comment): ?>	
-		<?php if (!$comment->approved): ?>
+		<?php if ($comment->approved <= 0): ?>
 			<?php continue; ?>
 		<?php endif; ?>
 		<?php $count++; ?>
