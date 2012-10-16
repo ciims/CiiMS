@@ -290,6 +290,9 @@ At the present you can submit a Github issue. If the need arises I'll create a s
 The current roadmap will be added to this soon. For now:
 
 * Unit Tests
+* i18n Language Support (PHP Support. [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
+* Dashboard Widgets (new and pretty ones!)
+* Menu Management [see #4](https://github.com/charlesportwoodii/CiiMS/issues/4)
 
 #### License
 
