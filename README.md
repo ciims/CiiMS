@@ -139,7 +139,7 @@ PROVIDER_NAME, and keys will need to be changed for each provider. Make sure you
 	)
 ```
 
-The callback URL is http://<your-site-domain.tld>/hybridauth/<provider>. Assuming you have configured CiiMS with the appropriate config, and setup the provider everything should fire right up. If you run into issues make sure your provider config is setup properly and that the provider config on the providers site is setup properly.
+The callback URL is http://your-site-domain.tld/hybridauth/provider. Assuming you have configured CiiMS with the appropriate config, and setup the provider everything should fire right up. If you run into issues make sure your provider config is setup properly and that the provider config on the providers site is setup properly.
 
 Additional HybridAuth providers can be installed by copying the provider file to protected/modules/hybridauth/hybrid/providers/
 
