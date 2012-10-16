@@ -378,6 +378,7 @@ class SiteController extends CiiController
 						$mail->Send();
 					
 						$this->render('register-success');
+						return;
 					}
 				}
 				catch(CDbException $e) 
