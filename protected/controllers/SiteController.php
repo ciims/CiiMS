@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(-1);
 class SiteController extends CiiController
 {
 	/**
@@ -378,6 +378,7 @@ class SiteController extends CiiController
 						$mail->Send();
 					
 						$this->render('register-success');
+						return;
 					}
 				}
 				catch(CDbException $e) 
