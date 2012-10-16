@@ -4,7 +4,6 @@
 		'dataProvider'=>$model->search(),
 		'filter'=>$model,
 		'columns'=>array(
-			'id',
 			'updated',
 			'author'=>array(
 				'name'=>'author',
