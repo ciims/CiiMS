@@ -271,6 +271,14 @@ key: addThisAccount
 value: AddThisAccountID [ra-xxxxxxxxxxxxxxxxxxx]
 ~~~~
 
+#### Comment Notifications
+
+CiiMS supports email notifications when a new comment is created on a post you created. To enable this, add the following to your config. By default it is disabled.
+~~~~
+key: notifyAuthorOnComment
+value: 1
+~~~~
+
 ------------------
 
 #### What If I Need Additional Help?
