@@ -1,5 +1,4 @@
 <?php
-error_reporting(-1);
 class SiteController extends CiiController
 {
 	/**
