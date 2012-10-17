@@ -2,19 +2,6 @@
 
 class CommentsController extends ACiiController
 {
-	public function beforeAction($action)
-	{
-		$this->menu = array(
-			array('label'=>'Content', 'url'=>Yii::app()->createUrl('admin/content')),
-			array('label'=>'Categories', 'url'=>Yii::app()->createUrl('admin/categories')),
-			array('label'=>'Comments', 'url'=>Yii::app()->createUrl('admin/comments')),
-			array('label'=>'Tags', 'url'=>Yii::app()->createUrl('admin/tags')),
-			array('label'=>'', 'url'=>array('#'))
-		);
-		return parent::beforeAction($action);
-		
-	}
-
 
 	/**
 	 * Deletes a particular model.
@@ -45,8 +32,8 @@ class CommentsController extends ACiiController
 		$model->save();
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 	
 	/**
@@ -54,13 +41,11 @@ class CommentsController extends ACiiController
 	 */
 	public function actionIndex()
 	{
-		$model=new Comments('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Comments']))
-			$model->attributes=$_GET['Comments'];
-
+		$flagged = Comments::model()->findAllByAttributes(array('approved'=>-1));
+		$notapproved = Comments::model()->findAllByAttributes(array('approved'=>0));
 		$this->render('index',array(
-			'model'=>$model,
+			'flagged'=>$flagged,
+			'notapproved'=>$notapproved
 		));
 	}
 
