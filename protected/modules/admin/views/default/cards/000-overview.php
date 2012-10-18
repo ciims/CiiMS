@@ -19,7 +19,7 @@
 	
 	// Needing Approval Comments
 	$flagged = new CDbCriteria;
-	$flagged->addCondition('approved=2');
+	$flagged->addCondition('approved=-1');
 ?>
 <div class="well span6 card">
 	<h4 class="nav-header top">Blog Status and Overview</h4>

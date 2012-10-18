@@ -45,7 +45,7 @@ class UsersController extends ACiiController
 		// we only allow deletion via POST request
 		$m = $this->loadModel($id);
 		$m->status = 0;
-		$m->save();
+		$m->delete();
 
 		Yii::app()->user->setFlash('success', 'User has been deleted');
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

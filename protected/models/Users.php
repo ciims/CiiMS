@@ -131,7 +131,8 @@ class Users extends CiiModel
 		));
 	}
 	
-	public function beforeSave() {
+	public function beforeSave()
+	{
 	    	if ($this->isNewRecord)
 	    	{
 			$this->created = new CDbExpression('NOW()');
@@ -143,7 +144,28 @@ class Users extends CiiModel
 	    	return parent::beforeSave();
 	}
 	
-	public function encryptHash($email, $password, $_dbsalt) {
+	/**
+	 * Creates an encrypted hash to be used as a password
+	 * @param string $email 	The user email
+	 * @param string $password	The password to be encrypted
+	 * @param string $_dbsalt	The salt value to be used (Yii::app()->params['encryptionKey'])
+	 * @return 64 character encrypted string
+	 */
+	public function encryptHash($email, $password, $_dbsalt)
+	{
 		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 64);	
+	}
+
+	/**
+	 * Returns the gravatar image url for a particular user
+	 * The beauty of this is that you can call User::model()->findByPk()->gravatarImage() and not have to do anything else
+	 * Implemention details borrowed from Hypatia Cii User Extensions with permission
+	 * @param  string $size		The size of the image we want to display
+	 * @param  string $default	The default image to be displayed if none is found
+	 * @return string gravatar api image
+	 */
+	public function gravatarImage($size=20, $default=NULL)
+	{
+		return "http://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))).'?s='.$size;
 	}
 }

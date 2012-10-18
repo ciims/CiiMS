@@ -2,26 +2,13 @@
 
 class CommentsController extends ACiiController
 {
-	public function beforeAction($action)
-	{
-		$this->menu = array(
-			array('label'=>'Content', 'url'=>Yii::app()->createUrl('admin/content')),
-			array('label'=>'Categories', 'url'=>Yii::app()->createUrl('admin/categories')),
-			array('label'=>'Comments', 'url'=>Yii::app()->createUrl('admin/comments')),
-			array('label'=>'Tags', 'url'=>Yii::app()->createUrl('admin/tags')),
-			array('label'=>'', 'url'=>array('#'))
-		);
-		return parent::beforeAction($action);
-		
-	}
-
 
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id=NULL)
 	{
 		// we only allow deletion via POST request
 		$comment = $this->loadModel($id);
@@ -31,22 +18,17 @@ class CommentsController extends ACiiController
 		$c->save();
 		
 		Yii::app()->user->setFlash('success', 'Comment has been deleted.');
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
-	public function actionApprove($id)
+	public function actionApprove($id=NULL)
 	{
 		$model=$this->loadModel($id);
 		
-		// XOR
-		$model->approved ^= 1;
+		if ($model->approved == -1)
+			$model->approved = 1;
+		else
+			$model->approved ^= 1;
 		$model->save();
-		
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 	
 	/**
@@ -54,13 +36,21 @@ class CommentsController extends ACiiController
 	 */
 	public function actionIndex()
 	{
-		$model=new Comments('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Comments']))
-			$model->attributes=$_GET['Comments'];
-
+		$active=new CActiveDataProvider('Comments', array(
+		    'criteria'=>array(
+		        'condition'=>'approved=1',
+		        'order'=>'created DESC',
+		    ),
+		    'pagination'=>array(
+		        'pageSize'=>30,
+		    ),
+		));
+		$flagged = Comments::model()->findAllByAttributes(array('approved'=>-1));
+		$notapproved = Comments::model()->findAllByAttributes(array('approved'=>0));
 		$this->render('index',array(
-			'model'=>$model,
+			'flagged'=>$flagged,
+			'notapproved'=>$notapproved,
+			'active'=>$active
 		));
 	}
 
