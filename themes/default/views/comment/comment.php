@@ -1,4 +1,4 @@
-<?php $color = Yii::app()->user->id == $comment->author->id ? 'green' : $comment->author->role_id == 5 ? 'red' : 'blue'; ?>
+<?php $color = Yii::app()->user->id == $comment->author->id ? 'green' : $comment->author->role->id == 5 ? 'red' : 'blue'; ?>
 <div id="comment-<?php echo $comment->id; ?>">
 	<?php echo CHtml::image('https://gravatar.com/avatar/' . md5(Users::model()->findByPk($comment->user_id)->email), NULL, array('class'=>'avatar')); ?>
 	<div class="comment-block">

@@ -1,5 +1,34 @@
 ## CiiMS
 
+#### GENERAL UPGRADE
+You can update CiiMS now by running the following commands from your command line.
+
+cd _repo dir_
+git pull origin master
+php protected/yiic.php migrate --interactive=0
+
+This will update the repository with the latest code and perform any database migrations. You can automate migrations by adding the following to your *.git/hooks/post-receive* file
+
+~~~~
+#!/bin/bash
+cd ../../protected/
+PHP=$(which php)
+
+$PHP yiic.php migrate --interactive=0
+~~~~
+
+#### UPGRADING FROM VERSIONS OLDER THAN 1.1.2
+I have restructed the way that CiiMS derives certain paths in order to make future development easier, and to support many new features. After upgrading you _*MUST*_ add the following to your config file:
+
+~~~~
+    'params' => array(
+	'yiiPath'=>'/opt/frameworks/php/yii/framework/',
+     )
+~~~~
+
+Failure to do so will result in your blog being unavailable until it is corrected. The installer supports adding this if it does not already exist.
+------------------------------------------------
+
 #### What is CiiMS?
 
 CiiMS is a high performance CMS designed for both end users and developers. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, APC, and Sphinx, but can run in other configurations.
