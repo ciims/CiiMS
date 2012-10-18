@@ -1,7 +1,8 @@
 <?php
 
 // change the following paths if necessary
-$yiic=dirname(__FILE__).'/../../../frameworks/php/yii/framework/yiic.php';
-$config=dirname(__FILE__).'/config/console.php';
+$config=dirname(__FILE__).'/config/main.php';
 
-require_once($yiic);
+// Pull yiic path from
+$ciimsConfig = require_once($config);
+require_once((string)$ciimsConfig['params']['yiiPath'].'yiic.php');

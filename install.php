@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	$VERSION = '1.1.2';
 	$requirements = array(
 		array(
 			'PHP 5.1.0+',
@@ -124,15 +125,7 @@
 				if ($errors)
 					header('ERROR', false, 406);
 				else
-				{
-				    
-				    $d = file_get_contents('index.php');
-				    $d = str_replace('YII_PATH',  $_SESSION['CiiInstaller']['yiiPath']. 'yiilite.php', $d);
-				    $fh = fopen('index.php', 'w') or die(header('ERROR', false, 406));
-			        fwrite($fh, $d) or die(header('ERROR', false, 406));
-			        fclose($fh);
 					header('OK', false, 200);
-				}
 			}
 		}
 		else if (isset($_POST['mysqlCheck']))
@@ -434,8 +427,9 @@
 					// using Yii::app()->params['paramName']
 					'params'=>array(
 						'cii'=>array(
-							'version'=>'1.0.0'
+							'version'=>$VERSION
 						),
+						'yiiPath'=>$_SESSION['CiiInstaller']['yiiPath'],
 						'webmasterEmail'=>$_POST['userCheck']['email'],
 						'editorEmail'=>$_POST['userCheck']['email'],
 						'encryptionKey'=>$_SESSION['CiiInstall']['key'],

@@ -34,7 +34,7 @@ class SlugURLManager extends CUrlManager
 		$this->cacheRules('categories', $this->categoriesUrlRulesId);
 		
 		// Append our cache rules BEFORE we run the defaults
-		$this->rules['<controller:\w+>/<action:\w+>/<id:\d+>'] = '<controller>/<action>';
+		$this->rules['<controller:\w+>/<action:\w+>/<id:\w+>'] = '<controller>/<action>';
 		$this->rules['<controller:\w+>/<action:\w+>'] = '<controller>/<action>';
 		
 		parent::processRules();

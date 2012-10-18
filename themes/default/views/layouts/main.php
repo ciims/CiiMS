@@ -7,8 +7,10 @@
 		<meta name="keywords" content="<?php echo isset($this->params['meta']['keywords']) && !is_array(isset($this->params['meta']['keywords'])) ? $this->params['meta']['keywords'] : ''; ?>" />
 		<meta name="description" content="<?php echo strip_tags($this->params['data']['extract']); ?>" />
 		<?php Yii::app()->clientScript->registerCoreScript('jquery')
+									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.js')
 								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js')
-									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css'); ?>
+									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
+									  ->registerCssFile(Yii::app()->baseUrl.'/css/jquery.gritter.css'); ?>
 
 
 		<!--[if lt IE 9]>

@@ -13,7 +13,7 @@
 		<ul class="nav nav-list">
 			<li class="nav-header">App Settings</li>
 				<li><strong>Yii Version:</strong> <?php echo Yii::getVersion(); ?></li>
-				<li><strong>Cii Version:</strong> <?php echo Yii::app()->params['cii']['version']; ?></li>
+				<li><strong>Cii Version:</strong> <?php echo substr_replace(include(dirname(__FILE__).'/../../../../../../VERSION'), '', -1); ?></li>
 				<li><strong>Caching:</strong> <?php echo get_class(Yii::app()->cache); ?></li>
 		</ul>
 	</div>

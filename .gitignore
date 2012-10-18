@@ -5,7 +5,6 @@
 /protected/config/*
 .htaccess
 /uploads/*
-*.*~
-/index.php
 /install.php
+*.*~
 *.swp
