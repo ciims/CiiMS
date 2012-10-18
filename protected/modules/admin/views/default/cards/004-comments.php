@@ -8,10 +8,7 @@ $comments = Comments::model()->findAll($criteria);
 	<br />
 	<div class="left span11">
 		<?php foreach($comments as $comment): ?>
-			<h5>By: <?php echo $comment->author->displayName; ?> on <?php echo date('F jS, Y @ H:i', strtotime($comment->created)); ?></h5>
-			<em>Commented on on <?php echo CHtml::link($comment->content->title, Yii::app()->createUrl($comment->content->slug)); ?></em>
-			<p style="margin-left: 20px;"><?php echo $comment->comment; ?></p>
-			<hr style="margin: 5px;"/>
+			<?php $this->renderPartial('/comments/comment', array('comment'=>$comment)); ?>
 		<?php endforeach; ?>
 		<div class="right">
 			<?php echo CHtml::link('More...', Yii::app()->createUrl('/admin/comments')); ?>
