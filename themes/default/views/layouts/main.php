@@ -46,7 +46,7 @@
   			</div>
 		</div>
 		<?php if (!YII_DEBUG):
-			if (Configuration::model()->findByAttributes(array('key'=>'piwikExtension'))->value == 1):
+			if (Configuration::model()->findByAttributes(array('key'=>'piwikExtension','value'=>1))):
 				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 
 					array(
 						'id'=>Configuration::model()->findByAttributes(array('key'=>'piwikId'))->value, 
@@ -55,7 +55,7 @@
 				); 
 			endif;
 			
-			if (Configuration::model()->findByAttributes(array('key'=>'gaExtension'))->value == 1):
+			if (Configuration::model()->findByAttributes(array('key'=>'gaExtension','value'=>1))):
 				$this->widget('ext.analytics.EGoogleAnalyticsWidget', 
 					array(
 						'account'=>Configuration::model()->findByAttributes(array('key'=>'gaAccount'))->value, 
