@@ -37,6 +37,7 @@ class YiinfiniteScroller extends CBasePager {
     public function init()
     {
         $this->getPages()->validateCurrentPage = false;
+        $this->_options['loadingImg'] = Yii::app()->baseUrl.'/images/infinite-loading.gif';
         parent::init();
     }
 
