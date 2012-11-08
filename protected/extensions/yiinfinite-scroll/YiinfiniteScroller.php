@@ -17,6 +17,10 @@ class YiinfiniteScroller extends CBasePager {
 
     private $_options = array(
         'url'           => null,
+        'param'         => array(
+            'getParam' => null,
+            'param' => null
+        ),
         'loadingImg'    => null,
         'loadingText'   => null,
         'donetext'      => null,
@@ -95,6 +99,9 @@ class YiinfiniteScroller extends CBasePager {
     
     public function createPageUrl($id=1)
     {
-        return '/'.$this->_options['url'] .'/' . ($id+1);
+        $queryParam = NULL;
+        if (Cii::get($this->_options['param'], 'getParam', NULL) != NULL)
+            $queryParam = '?' . Cii::get($this->_options['param'], 'getParam', NULL) . '=' . Cii::get($this->_options['param'], 'param', NULL);
+        return '/'.$this->_options['url'] .'/' . ($id+1) . $queryParam;
     }
 }
