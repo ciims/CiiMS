@@ -1,4 +1,4 @@
-<?php header ("content-type: text/xml"); ?>
+<?php header('Content-type: text/xml; charset=utf-8'); ?>
 <?php $url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl; ?>
 <rss version="2.0">
 	<channel>

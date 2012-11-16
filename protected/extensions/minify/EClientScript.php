@@ -116,6 +116,10 @@ class EClientScript extends CClientScript
 	 */
 	public $optimizeScriptFiles = false;
 
+    /**
+     * @var booolean if you want to optimize HTML data
+     */
+    public $compressHTML        = false;
 	/**
 	 * Combine css files and script files before renderHead.
 	 * @param string the output to be inserted with scripts.
@@ -227,16 +231,16 @@ class EClientScript extends CClientScript
 								$contents = preg_replace($urlRegex, 'url(${1}' . $reurl . '/${2}', $contents);
 							}
 							// Append the contents to the fileBuffer
-							$fileBuffer .= "/*** CSS File: {$url}";
+							//$fileBuffer .= "/*** CSS File: {$url}";
 							if ($this->optimizeCssFiles 
 								&& strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
 							{
-								$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
+								//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 								$contents = $this->optimizeCssCode($contents);
-								$fileBuffer .= number_format(strlen($contents));
+								//$fileBuffer .= number_format(strlen($contents));
 							}
-							$fileBuffer .= " ***/\n";
-							$fileBuffer .= $contents . "\n\n";
+							//$fileBuffer .= " ***/\n";
+							$fileBuffer .= (($this->optimizeCssFiles == true) ? preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $contents) : $contents);
 						}
 					}
 					file_put_contents($fpath, $fileBuffer);
@@ -305,16 +309,16 @@ class EClientScript extends CClientScript
 					if ($contents)
 					{
 						// Append the contents to the fileBuffer
-						$fileBuffer .= "/*** Script File: {$url}";
+						//$fileBuffer .= "/*** Script File: {$url}";
 						if ($this->optimizeScriptFiles
 							&& strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
 						{
-							$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
+							//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 							$contents = $this->optimizeScriptCode($contents);
-							$fileBuffer .= number_format(strlen($contents));
+							//$fileBuffer .= number_format(strlen($contents));
 						}
-						$fileBuffer .= " ***/\n";
-						$fileBuffer .= $contents . "\n\n";
+						//$fileBuffer .= " ***/\n";
+						$fileBuffer .= (($this->optimizeScriptFiles == true) ? preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $contents) : $contents);
 					}
 				}
 				file_put_contents($fpath, $fileBuffer);
@@ -396,7 +400,7 @@ class EClientScript extends CClientScript
 	private function optimizeCssCode($code)
 	{
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'CssMin.php';
-		return CssMin::minify($code, array('compress-unit-values' => true));
+		return CssMin::minify($code, array('compress-unit-values' => true, 'compress-color-values' => true));
 	}
 
 	/**

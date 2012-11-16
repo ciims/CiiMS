@@ -8,6 +8,7 @@ class CiiController extends CController
 	
 	public function beforeAction($action)
 	{
+	    header('Content-type: text/html; charset=utf-8');
 		$theme = $this->displayVar(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
 		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../themes/'.$theme) ? $theme : 'default');
 		return true;
@@ -75,13 +76,24 @@ class CiiController extends CController
 	    	}
 	    	
 		$output=$this->renderPartial($view,$data,true);
+        
 		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
 		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>isset($data['meta']) ? $this->params['meta'] : ''),true);
 
 		$this->afterRender($view,$output);
-
+        
 		$output=$this->processOutput($output);
-
+        $config = Yii::app()->getComponents(false);
+        if (isset($config['clientScript']->compressHTML) && $config['clientScript']->compressHTML == true)
+        {
+            Yii::import('ext.contentCompactor.*');
+            $compactor = new ContentCompactor();
+            
+            if($compactor == null)
+                throw new CHttpException(500, Yii::t('messages', 'Missing component ContentCompactor in configuration.'));
+         
+            $output = $compactor->compact($output, array());
+        }
 		if($return)
 		    return $output;
 		else
