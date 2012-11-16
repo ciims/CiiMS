@@ -36,13 +36,7 @@ class EPiwikAnalyticsWidget extends CWidget
 		
 		Yii::app()->clientScript->registerScriptFile($this->baseUrl.'/piwik.js')
 								->registerScript('PiwikAnalytics',
-			"
-			try {
-			var piwikTracker = Piwik.getTracker(\"{$this->baseUrl}\" + \"/piwik.php\", {$this->id});
-			piwikTracker.trackPageView();
-			piwikTracker.enableLinkTracking();
-			} catch( err ) {}
-			"			
+			"try {var piwikTracker = Piwik.getTracker(\"{$this->baseUrl}\" + \"/piwik.php\", {$this->id});piwikTracker.trackPageView();piwikTracker.enableLinkTracking();} catch( err ) {}"			
 		);
 		echo "<noscript><img src='{$this->baseUrl}/piwik.php?idsite=2' style='border:0'  /></noscript>";
 	}
