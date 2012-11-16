@@ -76,7 +76,7 @@
 			// and horizontal and vertical whitespace. Note as only a simple algorythm is used there are limitations to the script 
 			// and you may want to use a more complex script like 'minify' http://code.google.com/p/minify/ or 'jsmin'
 			// http://code.google.com/p/jsmin-php/ See test3.php for an example.
-			'compress_scripts'					=> true,
+			'compress_scripts'					=> false,
 			// script_compression_callback; boolean; The name of a callback for custom js compression. See test3.php for an example.	
 			'script_compression_callback' 		=> false,
 			// script_compression_callback_args; array; Any additional args for the callback. The javascript will be put to the
