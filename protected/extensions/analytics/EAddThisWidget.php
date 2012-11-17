@@ -42,7 +42,7 @@ class EAddThisWidget extends CWidget
 		
 		// Add the tracking url
 		if ($this->trackAddress = true)
-			Yii::app()->clientScript->registerScript('addThisTrackURL', 'var addthis_config = {"data_track_addressbar":true};');
+			Yii::app()->clientScript->registerScript('addThisTrackURL', 'var addthis_config={"data_track_addressbar":true};');
 		
 		// Register the AddThis script
 		Yii::app()->clientScript->registerScriptFile('http://s7.addthis.com/js/250/addthis_widget.js#pubid='.$this->account);

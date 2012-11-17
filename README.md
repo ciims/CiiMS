@@ -3,9 +3,11 @@
 #### GENERAL UPGRADE
 You can update CiiMS now by running the following commands from your command line.
 
+~~~~
 cd _repo dir_
 git pull origin master
 php protected/yiic.php migrate --interactive=0
+~~~~
 
 This will update the repository with the latest code and perform any database migrations. You can automate migrations by adding the following to your *.git/hooks/post-receive* file
 
@@ -27,6 +29,7 @@ I have restructed the way that CiiMS derives certain paths in order to make futu
 ~~~~
 
 Failure to do so will result in your blog being unavailable until it is corrected. The installer supports adding this if it does not already exist.
+
 ------------------------------------------------
 
 #### What is CiiMS?

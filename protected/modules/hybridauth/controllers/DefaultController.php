@@ -14,7 +14,6 @@ class DefaultController extends CiiController
 		}
 		catch (Exception $e)
 		{
-			//$this->debug($e);
 			throw new CHttpException('400', 'Oh Snap! Something went wrong. Please try again later.');
 		}
 		return;

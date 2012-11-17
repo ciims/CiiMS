@@ -123,7 +123,6 @@ class ContentController extends CiiController
 		if (isset($_POST['password']))
 		{
 			$content = Content::model()->findByPk($id);
-			$this->debug($_POST); $this->debug($content->attributes);
 			if ($_POST['password'] == $content->attributes['password'])
 			{
 				$_SESSION['password'][$_POST['id']] = $_POST['password'];

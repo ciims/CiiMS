@@ -1,7 +1,7 @@
 <?php
 
 class CategoriesController extends CiiController
-{
+
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
@@ -21,6 +21,7 @@ class CategoriesController extends CiiController
 		}
 		return parent::filters();
     }
+
 	/**
 	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
 	 * protecting it from possible attacks.
