@@ -1,7 +1,7 @@
 <?php
 
 class CategoriesController extends CiiController
-
+{
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
