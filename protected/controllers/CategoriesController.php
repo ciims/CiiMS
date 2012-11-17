@@ -2,6 +2,25 @@
 
 class CategoriesController extends CiiController
 {
+	public function filters()
+    {
+        $id = Yii::app()->getRequest()->getQuery('id');
+        if ($id != NULL)
+		{
+			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST( (SELECT IFNULL(MAX(updated), 0) FROM categories WHERE categories.id = {$id}),(SELECT IFNULL(MAX(content.updated), 0) FROM categories LEFT JOIN content ON categories.id = content.category_id WHERE categories.id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)),(SELECT IFNULL(MAX(comments.updated), 0) FROM categories LEFT JOIN content ON categories.id = content.category_id LEFT JOIN comments ON content.id = comments.content_id WHERE categories.id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) )))")->queryScalar();
+			$eTag = $this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0);
+			
+            return array(
+                array(
+                    'CHttpCacheFilter + index',
+                    'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
+                    'lastModified'=>$lastModified,
+                    'etagSeed'=>$eTag
+                ),
+            );
+		}
+		return parent::filters();
+    }
 	/**
 	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
 	 * protecting it from possible attacks.

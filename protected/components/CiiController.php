@@ -5,7 +5,19 @@
  */
 class CiiController extends CController
 {
-	
+	public function filters()
+    {
+    	$id = Cii::get(Yii::app()->getRequest()->getQuery('id'));
+        return array(
+            array(
+                'CHttpCacheFilter',
+                'cacheControl'=>'public, no-cache, must-revalidate',
+                //'lastModified'=>time(),
+                'etagSeed'=>$this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0)
+            ),
+        );
+    }
+    
 	public function beforeAction($action)
 	{
 		$theme = $this->displayVar(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
