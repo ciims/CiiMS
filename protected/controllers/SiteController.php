@@ -92,7 +92,7 @@ class SiteController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = $this->displayVar((Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize'))->value), 10);
+		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize'))->value), 10);
 		
 		if (isset($_GET['q']) && $_GET['q'] != '')
 		{	
