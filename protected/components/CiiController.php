@@ -5,15 +5,15 @@
  */
 class CiiController extends CController
 {
+	/**
+	 * Default filter prevents dynamic pages (pagination, etc...) from being cached
+	 */
 	public function filters()
     {
-    	$id = Cii::get(Yii::app()->getRequest()->getQuery('id'));
         return array(
             array(
                 'CHttpCacheFilter',
-                'cacheControl'=>'public, no-cache, must-revalidate',
-                //'lastModified'=>time(),
-                'etagSeed'=>$this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0)
+                'cacheControl'=>'public, no-store, no-cache, must-revalidate',
             ),
         );
     }
@@ -21,7 +21,7 @@ class CiiController extends CController
 	public function beforeAction($action)
 	{
 	    header('Content-type: text/html; charset=utf-8');
-		$theme = $this->displayVar(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
+		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
 		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../themes/'.$theme) ? $theme : 'default');
 		return true;
 	}
@@ -78,14 +78,10 @@ class CiiController extends CController
 	    if($this->beforeRender($view))
 	    {
 	    	if (isset($data['meta']))
-	    	{
 	    		$this->params['meta'] = $data['meta'];
-	    	}
 	    	
 	    	if (isset($data['data']) && is_object($data['data']))
-	    	{
 	    		$this->params['data'] = $data['data']->attributes;
-	    	}
 	    	
 		$output=$this->renderPartial($view,$data,true);
         
@@ -106,28 +102,12 @@ class CiiController extends CController
          
             $output = $compactor->compact($output, array());
         }
+		
 		if($return)
 		    return $output;
 		else
 		    echo $output;
 	    }
-	}
-
-	/**
-	 * Performs default isset()/empty() type checking on an object, as well as
-	 * addition methods if requested
-	 * @param	mixed	$var	The variable we want to do data checking on
-	 * @param 	string	$default	The default value we want to return if false
-	 * @param  	$mode 	array 	The method(s) we would like to apply to the variable
-	 * @return 	$var	mixed	The variable depending upon the mode setting
-	 */
-	public function displayVar($var, $default = NULL)
-	{
-		if (is_array($var))
-			return is_array($var) && !empty($var) ? $var : $default;
-		else
-			return isset($var) ? $var : $default;
-		
 	}
 	
 	/**

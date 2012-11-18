@@ -2,7 +2,14 @@
 
 class DefaultController extends CiiController
 {
-
+	/**
+	 * Disable filters. This should always return a valid non 304 response
+	 */
+	public function filters()
+	{
+		return array();
+	}
+	
 	public function actionIndex($provider=NULL)
 	{
 		if ($provider == 'callback')
@@ -71,8 +78,8 @@ class DefaultController extends CiiController
 			$user->attributes = array(
 					'email'=>$identity->userData['email'],
 					'password'=>md5('PUBUSER'),
-					'firstName'=>$this->displayVar($identity->userData['firstName'], 'UNKNOWN'),
-					'lastName'=>$this->displayVar($identity->userData['lastName'], 'UNKNOWN'),
+					'firstName'=>Cii::get($identity->userData, 'firstName', 'UNKNOWN'),
+					'lastName'=>Cii::get($identity->userData, 'lastName', 'UNKNOWN'),
 					'displayName'=>($provider == 'twitter' ? $identity->userData['firstName'] : $identity->userData['displayName']),
 					'user_role'=>1,
 					'status'=>1

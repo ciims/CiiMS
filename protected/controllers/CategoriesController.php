@@ -1,7 +1,10 @@
 <?php
 
 class CategoriesController extends CiiController
-
+{
+	/**
+	 * Base filter, allows logged in and non-logged in users to cache the page
+	 */
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
@@ -81,7 +84,7 @@ class CategoriesController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = $this->displayVar((Configuration::model()->findByAttributes(array('key'=>'categoryPaginationSize'))->value), 10);
+		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'categoryPaginationSize'))->value), 10);
 		
 		$criteria=new CDbCriteria;
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");

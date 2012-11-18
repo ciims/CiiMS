@@ -52,7 +52,7 @@ class SiteController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = $this->displayVar((Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize'))->value), 10);
+		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize'))->value), 10);
 		
 		if (isset($_GET['q']) && $_GET['q'] != '')
 		{
@@ -230,7 +230,7 @@ class SiteController extends CiiController
 			
 			if (isset($_POST['password']))
 			{
-				if ($this->displayVar($_POST['password']) != NULL && $this->displayVar($_POST['password2']) != NULL)
+				if (Cii::get($_POST, 'password') != NULL && $Cii::get($_POST,'password2') != NULL)
 				{
 					if ($_POST['password'] === $_POST['password2'])
 					{

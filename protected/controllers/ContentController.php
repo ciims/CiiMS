@@ -3,19 +3,21 @@
 class ContentController extends CiiController
 {
 	
+	/**
+	 * Base filter, allows logged in and non-logged in users to cache the page
+	 */
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
         if ($id != NULL)
 		{
 			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
-			$eTag = $this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0);
+			$eTag = $this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
 			
             return array(
                 array(
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-                    'lastModified'=>$lastModified,
                     'etagSeed'=>$eTag
                 ),
             );
@@ -156,7 +158,7 @@ class ContentController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = $this->displayVar((Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize'))->value), 10);		
+		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize'))->value), 10);		
 		
 		$criteria=new CDbCriteria;
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
