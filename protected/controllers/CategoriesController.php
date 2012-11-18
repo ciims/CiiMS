@@ -2,6 +2,7 @@
 
 class CategoriesController extends CiiController
 {
+<<<<<<< HEAD
 	/**
 	 * Base filter, allows logged in and non-logged in users to cache the page
 	 */
