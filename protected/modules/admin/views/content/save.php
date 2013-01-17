@@ -8,12 +8,12 @@
             'validateOnSubmit'=>true,
             ),
 	)); ?>
-	<div class="well span8 left">
+	<div class="well span8 left" style="margin-left: 0px">
 		<h2 class="top">Main Content</h2>
 		<?php echo $this->renderPartial('_form',array('model'=>$model, 'form'=>$form)); ?>
 	</div>
 	<?php if (!$model->isNewRecord): ?>
-		<div class="well span4 right">
+		<div class="well span4 left" style="width: 28%;">
 			<h2 class="top">Associated Data</h2>
 			<?php echo $this->renderPartial('_files', array('model'=>$model)); ?>
 		</div>
