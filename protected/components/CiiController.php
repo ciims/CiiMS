@@ -3,7 +3,6 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
- error_reporting(-1);
 class CiiController extends CController
 {
 	/**
