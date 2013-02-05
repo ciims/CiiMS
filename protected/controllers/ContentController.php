@@ -9,16 +9,19 @@ class ContentController extends CiiController
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
+        $key = false;
+        
         if ($id != NULL)
 		{
 			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
 			$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
-			$key = dirname(__FILE__) . '/../../themes/' . $theme . '/views/content/' .ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'))->value . '.php';
+			
+			$key = dirname(__FILE__) . '/../../themes/' . $theme . '/views/content/' . Cii::get(ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view')), 'value', '!') . '.php';
 			
 			if ($key && file_exists($key))
 				$lastModified = filemtime($key) >= $lastModified ? filemtime($key) : $lastModified;
 			
-			$eTag = $this->id . $this->action->id . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
+			$eTag = $this->id . Cii::get($this->action, 'id', NULL) . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
 			
             return array(
                 array(
@@ -69,9 +72,6 @@ class ContentController extends CiiController
 	 **/
 	public function actionIndex($id=NULL)
 	{
-		// Session is not automatically starting. VM issue?
-		session_start();
-		
 		// Run a pre check of our data
 		$this->beforeCiiAction($id);
 		
