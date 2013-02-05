@@ -18,7 +18,7 @@ class ContentController extends CiiController
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
 			
-			if ($keyFile != NULL
+			if ($keyFile != NULL)
 			    $key = dirname(__FILE__) . '/../../themes/' . $theme . '/views/content/' . $keyFile->value . '.php';
 			
 			if ($key && file_exists($key))
