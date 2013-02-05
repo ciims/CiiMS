@@ -79,7 +79,6 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 
 #### Requirements
 
-* PHP 5.3.1+
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements)
 * MySQL 5.5+ (Should be compatible with MySQL 5.0, Postgres, and SQLite manual installations)
 
