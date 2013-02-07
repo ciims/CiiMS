@@ -48,6 +48,25 @@ class CiiModel extends CActiveRecord
 		return $items;
 	}
 	
+    private function formatDate($date)
+    {
+        return date('F jS, Y @ H:i', strtotime($date));
+    }
+    
+    public function getCreatedFormatted()
+    {
+        if ($this->hasAttribute('created'))
+            return $this->formatDate($this->created);
+        return false;
+    }
+    
+    public function getUpdatedFormatted()
+    {
+        if ($this->hasAttribute('updated'))
+            return $this->formatDate($this->updated);
+        return false;        
+    }
+    
 	/**
 	 * verifySlug - Verifies that the provided slug is able to be used and does not conflict with an existing route
 	 * @param string $slug - the slug to be used

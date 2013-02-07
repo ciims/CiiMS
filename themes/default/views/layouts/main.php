@@ -20,14 +20,14 @@
 
 	</head>
 	<body>
-		<?php $this->widget('bootstrap.widgets.BootNavbar', array(
+		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 				    'fixed'=>false,
 				    'brand'=>Yii::app()->name,
 				    'brandUrl'=>Yii::app()->getBaseUrl(true),
 				    'collapse'=>true, // requires bootstrap-responsive.css
 				    'items'=>array(
 				        array(
-				            'class'=>'bootstrap.widgets.BootMenu',
+				            'class'=>'bootstrap.widgets.TbMenu',
 				            'items'=>array(
 				                 '---',
 				                array('label'=>'Blog', 'url'=>Yii::app()->createUrl('/blog'), 'active'=>($this->id === 'content') ? true : false),
@@ -39,7 +39,7 @@
 				)); ?>
 		<div class="container">
   			<div class="row-fluid">
-				<?php $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
+				<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
 				    'links'=>$this->breadcrumbs
 				)); ?>
 				<?php echo $content; ?>

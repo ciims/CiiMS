@@ -134,10 +134,15 @@ class Content extends CiiModel
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-		$criteria->order = "id DESC";
-		
+        
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+			'sort' => array(
+                'defaultOrder' => 'created DESC'
+            ),
+            'pagination' => array(
+                'pageSize' => 9
+            )
 		));
 	}
 	

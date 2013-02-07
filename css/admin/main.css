@@ -77,14 +77,83 @@
 .hidden {
 	display:none;
 }
-.qq-upload-list {
-	margin-top: 10px;
-}
-.qq-upload-failed-text {display:none;}
-.qq-upload-fail .qq-upload-failed-text {display:inline;}
-.qq-upload-size { margin-left: 10px;}
 
 blockquote.comment {
 	border-left: 5px solid #CE4444;
 	margin-left:50px;
 }
+
+/* ------------------------------------------------ */
+
+body > .navbar .brand {
+   padding-left: 20px; 
+}
+
+.list-view .well {
+    padding: 5px 19px;
+}
+
+.list-view .well h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e1e1e8;
+}
+
+.list-view .items {
+    clear:both;
+}
+
+.list-view .items #content-well {
+    position:relative;
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.list-view .items #content-well .content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 165px;
+    width: 100%;
+}
+
+.list-view .items #content-well .author-block .nav-header {
+    padding: 0px;
+    margin-top: -10px;
+}
+
+.list-view .items #content-well .footer-date {
+    border-top: 1px solid #e1e1e8;
+    padding-top: 8px;
+    position:absolute;
+    bottom: 35px;
+    width: 88%;
+}
+
+.list-view .items #content-well .footer {
+    border-top: 1px solid #e1e1e8;
+    position:absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    width: 88%;
+}
+
+.list-view .items #content-well .footer #comment-button [class^="icon-"] {
+    margin-top: 2px;
+}
+
+.list-view .items #content-well .footer #comment-button a
+{
+    font-weight: bold;
+    color:#CE4444;
+}
+
+.list-view .sorter h4 {
+    margin-top: 0px;
+}
+.list-view .pagination {
+    clear:both;
+}
+

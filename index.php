@@ -19,5 +19,5 @@ if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 	error_reporting(-1);
 	
 $ciimsConfig = require_once($config);
-require_once((string)$ciimsConfig['params']['yiiPath'].'yiilite.php');
+require_once((string)$ciimsConfig['params']['yiiPath'].'yii.php');
 Yii::createWebApplication($config)->run();

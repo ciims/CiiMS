@@ -7,22 +7,24 @@ class ACiiController extends CController
 {
 	
 	public $main_menu = array();
-	
+	public $sidebarMenu = array();
 	/**
 	 * @return array action filters
 	 */
+	 /*
 	public function filters()
 	{
 		return array(
 			'accessControl'
 		);
 	}
-
+*/
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
+	 /*
 	public function accessRules()
 	{
 		return array(
@@ -35,11 +37,10 @@ class ACiiController extends CController
 			),
 		);
 	}
-	
+	*/
 	public function beforeAction($action)
 	{
 		$this->main_menu = array(
-        array('label'=>'Administration Panel'),
         array(
         	'label'=>'Dashboard', 
         	'icon'=>'home', 
@@ -81,7 +82,7 @@ class ACiiController extends CController
         	'icon'=>'cog', 
         	'url'=>Yii::app()->createUrl('/admin/settings/'), 
         	'active'=>$this->id == 'settings' ? true : false
-		),
+		)
 	);
 		return true;
 	}

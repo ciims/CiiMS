@@ -5,7 +5,7 @@ class ContentController extends ACiiController
 
 	public function beforeAction($action)
 	{
-		$this->menu = array(
+		$this->sidebarMenu = array(
 			array('label'=>'Content Options'),
 			array('label'=>'New Post', 'url'=>Yii::app()->createUrl('admin/content/save'))
 		);
