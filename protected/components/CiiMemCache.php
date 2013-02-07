@@ -25,7 +25,7 @@
  * array(
  *     'components'=>array(
  *         'cache'=>array(
- *             'class'=>'CMemCache',
+ *             'class'=>'CiiMemCache',
  *             'servers'=>array(
  *                 array(
  *                     'host'=>'server1',
