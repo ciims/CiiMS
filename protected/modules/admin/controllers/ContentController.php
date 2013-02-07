@@ -20,7 +20,7 @@ class ContentController extends ACiiController
 	public function actionSave($id=NULL)
 	{
 		$version = 0;
-		
+		$preferMarkdown = Cii::get(Configuration::model()->findByAttributes(array('key' => 'preferMarkdown')), 'value', false);
 		if ($id == NULL)
 		{
 			$model = new Content;
