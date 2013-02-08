@@ -8,6 +8,7 @@
         <div class="content"><?php echo $md->safeTransform($data['content']); ?></div>
         
         <div class="author-block footer-date">
+            <h6 class="nav-header pull-left"><?php echo $data->status == 1 ? 'Published' : 'Draft'; ?></h6>
             <h6 class="nav-header pull-right"><?php echo $data->createdFormatted; ?></h6>
         </div>
         <div class="footer">

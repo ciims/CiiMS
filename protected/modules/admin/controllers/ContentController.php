@@ -3,28 +3,24 @@
 class ContentController extends ACiiController
 {
 
-	public function beforeAction($action)
-	{
-		$this->sidebarMenu = array(
-			array('label'=>'Content Options'),
-			array('label'=>'New Post', 'url'=>Yii::app()->createUrl('admin/content/save'))
-		);
-		return parent::beforeAction($action);
-		
-	}
-
 	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * Handles the creation and editing of Content models.
+     * If no id is provided, a new model will be created. Otherwise attempt to edit
+     * @param int $id   The ContentId of the model we want to manipulate
 	 */
 	public function actionSave($id=NULL)
 	{
+	    // ContentVersionID
 		$version = 0;
+        
+        // Editor Preferences
 		$preferMarkdown = Configuration::model()->findByAttributes(array('key' => 'preferMarkdown'));
         if ($preferMarkdown == NULL)
             $preferMarkdown = false;
         else
             $preferMarkdown = (bool)$preferMarkdown->value;
+        
+        // Determine what we're doing, new model or existing one
 		if ($id == NULL)
 		{
 			$model = new Content;
@@ -33,9 +29,13 @@ class ContentController extends ACiiController
 		else
 		{
 			$model=$this->loadModel($id);
+            
 			if ($model == NULL)
 				throw new CHttpException(400,'We were unable to retrieve a post with that id. Please do not repeat this request again.');
-			$version = sizeof(Content::model()->findAllByAttributes(array('id' => $id)));
+            
+            // Determine the version number based upon the count of existing rows
+            // We do this manually to make sure we have the correct data
+			$version = Content::model()->countByAttributes(array('id' => $id));
 		}
 
 		if(isset($_POST['Content']))
@@ -59,10 +59,10 @@ class ContentController extends ACiiController
 		}
 
 		$this->render('save',array(
-			'model'=>$model,
-			'id'=>$id,
-			'version'=>$version,
-			'preferMarkdown' => $preferMarkdown
+			'model'          =>  $model,
+			'id'             =>  $id,
+			'version'        =>  $version,
+			'preferMarkdown' =>  $preferMarkdown
 		));
 	}
 
@@ -127,9 +127,10 @@ class ContentController extends ACiiController
 		$md = new CMarkdownParser();
 		$this->renderPartial('preview', array('md'=>$md, 'data'=>$_POST));
 	}
+    
 	/**
 	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * If deletion is successful, the browser will be redirected
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionMetaDelete($id, $key)
@@ -144,7 +145,8 @@ class ContentController extends ACiiController
 	}
 
 	/**
-	 * Lists all models.
+	 * Default management page
+     * Display all items in a CListView for easy editing
 	 */
 	public function actionIndex()
 	{
@@ -162,6 +164,8 @@ class ContentController extends ACiiController
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
+     * 
+     * @return Content $model
 	 */
 	public function loadModel($id)
 	{
