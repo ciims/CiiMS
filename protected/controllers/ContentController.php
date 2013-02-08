@@ -46,12 +46,10 @@ class ContentController extends CiiController
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
-		{
 			throw new CHttpException(404,'The specified post cannot be found.');
-		}
 		
 		// Retrieve the HTTP Request
-		$r= new CHttpRequest();
+		$r = new CHttpRequest();
 		
 		// Retrieve what the actual URI
 		$requestUri = str_replace($r->baseUrl, '', $r->requestUri);
@@ -62,9 +60,7 @@ class ContentController extends CiiController
 		
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
-		{
 			throw new CHttpException(404, 'The requested post cannot be found.');
-		}
 	}
 	
 	/**
@@ -80,8 +76,10 @@ class ContentController extends CiiController
 		
 		// Retrieve the data
 		$content = Content::model()->with('category')->findByPk($id);
+        
 		if ($content->status != 1)
 			throw new CHttpException('404', 'The article you specified does not exist. If you bookmarked this page, please delete it.');
+        
 		$this->breadcrumbs = array_merge(Categories::model()->getParentCategories($content['category_id']), array($content['title']));
 		
 		// Check for a password
@@ -105,6 +103,7 @@ class ContentController extends CiiController
 		$this->setLayout($layout);
 		
 		$view = isset($meta['view']) ? $meta['view']['value'] : 'blog';
+        
 		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
 		
 		$this->render($view, array('id'=>$id, 'data'=>$content, 'meta'=>$meta, 'comments'=>$content->comments, 'model'=>Comments::model()));
@@ -118,18 +117,11 @@ class ContentController extends CiiController
 	{	
 		$this->setPageTitle(Yii::app()->name . ' | Password Requires');
 		
-		// Session is not automatically starting. VM issue?
-		session_start();
-		
 		if ($id == NULL)
-		{
 			$this->redirect(Yii::app()->user->returnUrl);
-		}
 		
 		if (!isset($_SESSION['password']))
-		{
 			$_SESSION['password'] = array('tries'=>0);
-		}
 			
 		if (isset($_POST['password']))
 		{
@@ -141,9 +133,8 @@ class ContentController extends CiiController
 				$this->redirect(Yii::app()->createUrl($content->attributes['slug']));
 			}
 			else
-			{
 				$_SESSION['password']['tries'] = $_SESSION['password']['tries'] + 1;
-			}
+            
 		}
 		$themeView = Configuration::model()->findByAttributes(array('key'=>'themePasswordView'))->value;
 		if ($themeView === NULL || $themeView != 1)
@@ -170,20 +161,20 @@ class ContentController extends CiiController
 		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize'))->value), 10);		
 		
 		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-		$criteria->addCondition('type_id >= 2');
-		$criteria->addCondition('password = ""');
-		$criteria->addCondition('status = 1');
-		$criteria->order = 'created DESC';
-		$criteria->limit = $pageSize;			
+        $criteria->order = 'created DESC';
+        $criteria->limit = $pageSize;
+		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
+		         ->addCondition('type_id >= 2')
+		         ->addCondition('password = ""')
+		         ->addCondition('status = 1');
 		
 		$itemCount = Content::model()->count($criteria);
 		$pages=new CPagination($itemCount);
-		$pages->pageSize=$pageSize;		
+		$pages->pageSize=$pageSize;
 		
-		$criteria->offset = $criteria->limit*($pages->getCurrentPage());			
+		$criteria->offset = $criteria->limit*($pages->getCurrentPage());
 		$data = Content::model()->findAll($criteria);
-		$pages->applyLimit($criteria);	
+		$pages->applyLimit($criteria);
 		
 		$this->render('all', array('data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
@@ -196,9 +187,10 @@ class ContentController extends CiiController
 	{
 		$this->layout=false;
 		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-		$criteria->addCondition('type_id >= 2');
-		$criteria->addCondition('status = 1');
+		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
+		         ->addCondition('type_id >= 2')
+		         ->addCondition('status = 1');
+                 
 		if ($id != NULL)
 			$criteria->addCondition("category_id = " . $id);
 					

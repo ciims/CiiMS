@@ -75,9 +75,10 @@ class ContentController extends ACiiController
 	{
 		// we only allow deletion via POST request
 		// and we delete /everything/
-		$command = Yii::app()->db->createCommand("DELETE FROM content WHERE id = :id");
-		$command->bindParam(":id", $id, PDO::PARAM_STR);
-		$command->execute();
+		$command = Yii::app()->db
+		              ->createCommand("DELETE FROM content WHERE id = :id")
+		              ->bindParam(":id", $id, PDO::PARAM_STR)
+		              ->execute();
 
 		Yii::app()->user->setFlash('success', 'Post has been deleted');
 		
