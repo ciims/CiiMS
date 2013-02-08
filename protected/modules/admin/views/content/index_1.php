@@ -1,13 +1,14 @@
 <div class="row-fluid">
     <div>
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'type' => 'primary',
-        'label' => 'New Post',
-        'htmlOptions' => array(
+     <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
+         'htmlOptions' => array(
             'class' => 'pull-right'
+         ),
+        'buttons'=>array(
+            array('label'=>'', 'url'=> $this->createUrl('/admin/content/perspective?id=1'), 'icon' => 'th-large', 'htmlOptions' => array('class'=>'active')),
+            array('label'=>'', 'url'=>$this->createUrl('/admin/content/perspective?id=2'), 'icon' => 'th-list'),
+            array('label' => 'New Post', 'url' => $this->createUrl('/admin/content/save'), 'type'=>'primary'),
         ),
-        'size' => 'small',
-        'url' => $this->createUrl('/admin/content/save')
     )); ?>
     </div>
     <div class="clearfix"></div>

@@ -145,6 +145,17 @@ class ContentController extends ACiiController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
+    /**
+     * Sets the dashboard perspective from the list view to the card view
+     */
+    public function actionPerspective()
+    {
+        $perspective = Cii::get($_GET, 'id', 1);
+        $perspective = in_array($perspective, array(1,2)) ? $perspective : 1;
+        Yii::app()->session['admin_perspective'] = $perspective;
+        $this->redirect($this->createUrl('/admin/content'));
+    }
+    
 	/**
 	 * Default management page
      * Display all items in a CListView for easy editing
@@ -156,7 +167,10 @@ class ContentController extends ACiiController
 		if(isset($_GET['Content']))
 			$model->attributes=$_GET['Content'];
 
-		$this->render('index',array(
+        if (!isset(Yii::app()->session['admin_perspective']))
+            Yii::app()->session['admin_perspective'] = 1;
+        $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
+		$this->render($viewFile, array(
 			'model'=>$model,
 		));
 	}

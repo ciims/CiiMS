@@ -388,4 +388,22 @@ class SiteController extends CiiController
 		}
 		$this->render('register', array('captcha'=>$captcha, 'model'=>$model, 'error'=>$error, 'user'=>$user));
 	}
+
+    public function actionMigrate()
+    {
+        $runner=new CConsoleCommandRunner();
+        $runner->commands=array(
+            'migrate' => array(
+                'class' => 'system.cli.commands.MigrateCommand',
+                'interactive' => false,
+            ),
+        );
+        
+        ob_start();
+        $runner->run(array(
+            'yiic',
+            'migrate',
+        ));
+        echo htmlentities(ob_get_clean(), null, Yii::app()->charset);
+    }
 }
