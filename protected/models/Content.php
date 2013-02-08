@@ -32,6 +32,7 @@
  */
 class Content extends CiiModel
 {
+    public $pageSize = 9;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -141,7 +142,7 @@ class Content extends CiiModel
                 'defaultOrder' => 'created DESC'
             ),
             'pagination' => array(
-                'pageSize' => 9
+                'pageSize' => $this->pageSize
             )
 		));
 	}

@@ -2,7 +2,6 @@
 
 class ContentController extends ACiiController
 {
-
 	/**
 	 * Handles the creation and editing of Content models.
      * If no id is provided, a new model will be created. Otherwise attempt to edit
@@ -87,6 +86,26 @@ class ContentController extends ACiiController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 	
+    public function actionDeleteMany()
+    {
+        $key = key($_POST);
+        if (count($_POST[$key]) == 0)
+            throw new CHttpException(500, 'No records were supplied to delete');
+        
+        foreach ($POST[$key] as $id)
+        {
+            $command = Yii::app()->db
+                      ->createCommand("DELETE FROM content WHERE id = :id")
+                      ->bindParam(":id", $id, PDO::PARAM_STR)
+                      ->execute();
+        }
+        
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
 	/**
 	 * Handles file uploading for the controller
 	 */
@@ -169,6 +188,10 @@ class ContentController extends ACiiController
 
         if (!isset(Yii::app()->session['admin_perspective']))
             Yii::app()->session['admin_perspective'] = 1;
+        
+        if(Yii::app()->session['admin_perspective'] == 2)
+            $model->pageSize = 20;
+        $this->setLayout('contentWrapper');
         $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
 		$this->render($viewFile, array(
 			'model'=>$model,

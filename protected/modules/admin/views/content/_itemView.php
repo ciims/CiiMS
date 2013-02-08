@@ -28,7 +28,7 @@
                     'buttons'=>array(
                         array('label'=>'', 'url'=>$this->createUrl('/admin/content/save/' . $data['id']), 'icon'=>'icon-edit'),
                         array('label'=>'', 'url'=>$this->createUrl($data['slug']), 'icon'=>'icon-eye-open'),
-                        array('label'=>'', 'url'=>$this->createUrl('/admin/content/delete?id=' . $data['id']), 'icon'=>'icon-trash')
+                        array('label'=>'', 'url'=>$this->createUrl('/admin/content/delete/id/' . $data['id']), 'icon'=>'icon-trash')
                     ),
                 ));
                 ?>

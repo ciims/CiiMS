@@ -109,19 +109,4 @@ class CiiController extends CController
 		    echo $output;
 	    }
 	}
-	
-	/**
-	 * Outputs readable debug information at request
-	 * @param $array - Data to be outputted
-	 * @action - Outputs readable debug info
-	 **/
-	public function debug($array)
-	{
-		if (!YII_DEBUG)
-			return;
-		
-		echo '<pre class="cii-debug">';
-		print_r($array);
-		echo '</pre>';
-	}
 }

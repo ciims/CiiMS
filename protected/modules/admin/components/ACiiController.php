@@ -3,7 +3,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class ACiiController extends CController
+class ACiiController extends CiiController
 {
 	
 	public $main_menu = array();
@@ -88,11 +88,12 @@ class ACiiController extends CController
 	}
 	
 	public $params = array();
+    
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
 	 */
-	public $layout='//layouts/dashboard';
+	public $layout='dashboard';
 	
 	/**
 	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
@@ -105,41 +106,4 @@ class ACiiController extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
-	
-	/**
-	 * Sets the layout for the view
-	 * @param $layout - Layout
-	 * @action - Sets the layout
-	 **/
-	protected function setLayout($layout)
-	{
-		$this->layout = $layout;
-	}
-	
-	/**
-	 * Overloaded Render allows us to generate dynamic content
-	 **/
-	public function render($view,$data=null,$return=false)
-	{
-	    if($this->beforeRender($view))
-	    {
-	    	if (isset($data['meta']))
-	    	{
-	    		$this->params['meta'] = $data['meta'];
-	    	}
-	    	
-		$output=$this->renderPartial($view,$data,true);
-		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
-		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>isset($data['meta']) ? $this->params['meta'] : ''),true);
-
-		$this->afterRender($view,$output);
-
-		$output=$this->processOutput($output);
-
-		if($return)
-		    return $output;
-		else
-		    echo $output;
-	    }
-	}
 }
