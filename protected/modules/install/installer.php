@@ -134,7 +134,8 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                    var progress = 0;
                    // Initiate the download
                    $.post('', 
-                        { _ajax : true, 
+                        { 
+                        	_ajax : true, 
                             _method : 'initYiiDownload', 
                             data : { 
                                 runtime : "<?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?>",
@@ -149,7 +150,8 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                    
                    interval = setInterval(function() {
                        $.post('', 
-                            { _ajax : true, 
+                            { 
+                            	_ajax : true, 
                                 _method : 'checkDownloadProgress', 
                                 data : { 
                                     runtime : "<?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?>",
