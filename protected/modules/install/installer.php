@@ -51,7 +51,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <div class="clearfix"></div>
                     <hr />
                     <a href="?stage=2" class="btn btn-small btn-info pull-left" type="button">Install Yii For Me</a>
-                    <a href="/" id="proceedButton" class="btn btn-small btn-inverse pull-right disabled" type="button">Proceed</a>
+                    <a href="?stage=4" id="proceedButton" class="btn btn-small btn-inverse pull-right disabled" type="button">Proceed</a>
                     <div class="clearfix"></div>
                 <?php elseif ($stage == 2): // Instructions for Installing Yii Framework within the runtime directory ?>
                     
@@ -97,7 +97,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <h4>Thanks for Choosing CiiMS!</h4>
                     <p>This installer will walk you through the installation of CiiMS. This process should only take around 5 minutes, but could take longer depending upon your configuration.</p>
                     
-                    <a href="?stage=3" class="btn btn-small btn-inverse pull-right" type="button">Click To Begin</a>
+                    <a href="?stage=1" class="btn btn-small btn-inverse pull-right" type="button">Click To Begin</a>
                 <?php endif; ?>
             </div>
             <div class="clearfix"></div>
@@ -118,7 +118,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     {
                         $(".yii-path").removeClass("inputError").attr('disabled', 'disabled').parent().removeClass("error");
                         $("#checkYiiPathButton").removeClass("btn-inverse").removeClass("btn-danger").addClass("btn-success").addClass("disabled");
-                        $("#proceedButton").removeClass("disabled").removeClass("btn-inverse").addClass('btn-success');
+                        $("#proceedButton").removeClass("disabled").removeClass("btn-inverse").addClass('btn-success').unbind('click');
                     }
                     else
                     {
