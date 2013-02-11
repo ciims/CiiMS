@@ -76,7 +76,7 @@ class DatabaseForm extends CFormModel
                 return false;
             }
         }
-        
+        $this->addError('dsn', 'Unable to connect to database using the provided credentials.');
         return false;
     }
     
