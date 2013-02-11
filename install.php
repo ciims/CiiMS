@@ -9,7 +9,6 @@
  * Otherwise, this is a basic Yii App running only the install module 
  */
 error_reporting(-1);
-
 // change the following paths if necessary
 $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
@@ -20,17 +19,21 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',2);
 
 $ciimsConfig = require_once($config);
+
+// Session Management check for CMS Config
+session_start();
 if (!isset($_SESSION['config']))
     $_SESSION['config'] = array();
 
+// Sessio
 $ciimsConfig = array_merge($ciimsConfig, $_SESSION['config']);
+session_write_close();
 
-if (!file_exists($mainConfig) && $ciimsConfig['params']['stage'] <= 5) 
+if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "") 
 {
     require_once(dirname(__FILE__).'/protected/modules/install/installer.php');
     exit();
 }
 
-$ciimsConfig = require_once($mainConfig);
-require_once((string)$ciimsConfig['params']['yiiPath'].'yii.php');
+require_once($ciimsConfig['params']['yiiPath'].'yii.php');
 Yii::createWebApplication($config)->run();

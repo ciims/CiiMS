@@ -13,6 +13,6 @@ class DefaultController extends CController
     
     public function actionIndex()
     {
-        Cii::debug('HelloWorld!');
+        Cii::debug('HelloWorld!'); die();
     }
 }
