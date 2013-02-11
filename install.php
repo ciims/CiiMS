@@ -25,7 +25,7 @@ session_start();
 if (!isset($_SESSION['config']))
     $_SESSION['config'] = array();
 
-// Sessio
+// Session
 $ciimsConfig = array_merge($ciimsConfig, $_SESSION['config']);
 session_write_close();
 
@@ -38,7 +38,8 @@ if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "")
 require_once($ciimsConfig['params']['yiiPath'].'yii.php');
 
 // If YiiBootstrap throws a CException becausae of permissions, catch the error, route to back to the installer, and display it within pre-bootstrap for the user to correct.
-try {
+try
+{
     Yii::createWebApplication($config)->run();
 } 
 catch (Exception $e) 

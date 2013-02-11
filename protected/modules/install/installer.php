@@ -1,5 +1,6 @@
 <?php
-$stage = max($ciimsConfig['params']['stage'], isset($_GET['stage']) ? $_GET['stage'] : 0);
+
+$stage = max((isset($ciimsConfig['params']['stage']) ? $ciimsConfig['params']['stage'] : 0), isset($_GET['stage']) ? $_GET['stage'] : 0);
 $stage = isset($e) && !empty($e) ? 10 : $stage;
 if ($stage == 10)
     header("HTTP/1.0 409 Conflic");

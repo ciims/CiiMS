@@ -99,22 +99,37 @@ class DefaultController extends CController
         // Set the stage to 5
         $this->stage = Yii::app()->session['stage'] = 5;
         
+		$this->runMigrationTool(Yii::app()->session['dsn']);
         $this->render('migrate');
     }
 	
 	/**
 	 * Runs the migration tool, effectivly installing the database an all appliciable default settings
 	 */
-	private function runMigrationTool()
+	private function runMigrationTool(array $dsn)
 	{
-	    $commandPath = Yii::app()->getBasePath() . DIRECTORY_SEPARATOR . 'commands';
-	    $runner = new CConsoleCommandRunner();
-	    $runner->addCommands($commandPath);
-	    $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
-	    $runner->addCommands($commandPath);
-	    $args = array('yiic', 'migrate', '--interactive=0');
-	    ob_start();
-	    $runner->run($args);
-	    echo htmlentities(ob_get_clean(), null, Yii::app()->charset);
+	    $runner=new CConsoleCommandRunner();
+		$runner->commands=array(
+		    'migrate' => array(
+		        'class' => 'application.commands.CiiMigrateCommand',
+		        'dsn' => $dsn,
+		        'interactive' => 0,
+		    ),
+		    'db'=>array(
+                'class'=>'CDbConnection',
+                'connectionString' => "mysql:host={$dsn['host']};dbname={$dsn['dbname']}",
+                'emulatePrepare' => true,
+                'username' => $dsn['username'],
+                'password' => $dsn['password'],
+                'charset' => 'utf8',
+            ),
+		);
+		
+		ob_start();
+		$runner->run(array(
+		    'yiic',
+		    'migrate'
+		));
+		echo htmlentities(ob_get_clean(), null, Yii::app()->charset);
 	}
 }

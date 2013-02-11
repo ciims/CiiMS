@@ -62,6 +62,7 @@ class DatabaseForm extends CFormModel
                 $connection = new CDbConnection("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
                 $connection->setActive(true);
                 $connection->setActive(false);
+				$this->dsn = $connection->connectionString;
                 return true;
             }
             catch (Exception $e)

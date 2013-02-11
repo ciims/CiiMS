@@ -6,6 +6,7 @@ class m130207_175450_keywords extends CDbMigration
 	// Use safeUp/safeDown to do migration with transaction
 	public function safeUp()
 	{
+		// Refactor for EXECUTE style queries
 		$data = ContentMetadata::model()->findAllByAttributes(array('key'=>'keywords'));
 		
 		foreach ($data as $d)
