@@ -2,10 +2,8 @@
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => 'CiiMS Installer',
     'defaultController' => 'default',
-    
     'preload' => array(
         'bootstrap',
-        'log'
     ),
     'import' => array(
         'application.components.*',
@@ -26,15 +24,7 @@
         ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
-            'responsiveCss' => true
-        ),
-        'clientScript' => array(
-            'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles' => false,
-            'combineCssFiles' => false,
-            'optimizeCssFiles' => false,
-            'optimizeScriptFiles' => false,
-            'compressHTML'        => false
+            'responsiveCss' => false
         ),
         'errorHandler' => array(
             'errorAction' => '/install/default/error',
@@ -53,7 +43,8 @@
     'params' => array(
         'yiiVersionPath' => 'yii-1.1.13',
         'yiiDownloadPath' => 'https://github.com/yiisoft/yii/archive/1.1.13.zip', // 1.1.13 is the latest version of the framework
-        'yiiPath' => ''
+        'yiiPath' => '',
+        'stage' => 0
     ),
 );
 

@@ -2,6 +2,11 @@
 
 class DefaultController extends CController
 {
+    public $layout = 'main';
+    
+    public $breadcrumbs = array(
+        
+    );
     /**
      * Error Action
      * The installer shouldn't error, if this happens, flat out die and blame the developer
@@ -13,6 +18,6 @@ class DefaultController extends CController
     
     public function actionIndex()
     {
-        Cii::debug('HelloWorld!'); die();
+        $this->render('index');
     }
 }
