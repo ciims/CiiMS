@@ -36,7 +36,8 @@
             'urlFormat' => 'path',
             'showScriptName' => false,
             'rules' => array(
-                '' => '/install/default/index'
+                '' => '/install/default/index',
+                '/migrate' => '/install/default/migrate',
             ),
         ),
     ),

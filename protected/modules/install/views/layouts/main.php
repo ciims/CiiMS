@@ -18,6 +18,12 @@
             </ul>
             <div class="content">
                 <hr />
+                <?php $this->widget('bootstrap.widgets.TbAlert', array(
+                    'block'=>true, // display a larger alert block?
+                    'fade'=>true, // use transitions?
+                    'closeText'=>'x', // close link text - if set to false, no close link is displayed
+                ));
+                ?>
                 <?php echo $content; ?>
             </div>
             <div class="clearfix"></div>

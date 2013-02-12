@@ -54,13 +54,51 @@ class DefaultController extends CController
     }
     
     /**
-     * 
+     * Initial action the user arrives to.
+     * Handles setting up the database connection
      */
     public function actionIndex()
     {
         // Set the stage to 4
         $this->stage = Yii::app()->session['stage'] = 4;
+        $model = new DatabaseForm;
         
-        $this->render('index');
+        // Assign previously set credentials
+        if (Cii::get(Yii::app()->session['dsn']) != "")
+            $model->attributes = Yii::app()->session['dsn'];
+        
+        // If a post request was sent
+        if (Cii::get($_POST, 'DatabaseForm') != NULL)
+        {
+            $model->attributes = $_POST['DatabaseForm'];
+            
+            if ($model->validateConnection())
+            {
+                Yii::app()->session['dsn'] = $model->attributes;
+                $this->redirect($this->createUrl('/migrate'));
+            }
+            else
+            {
+                Yii::app()->user->setFlash('error', '<strong>Warning!</strong> ' . $model->getError('dsn'));
+            }
+        }
+        $this->render('index', array('model'=>$model));
+    }
+    
+    /**
+     * Handles the database migrations
+     * This is the whole point/benefit of wrapping the installer in Yii. We can run CDbMigrations
+     * directly from the web app itself, which means the installer is _must_ cleaner
+     */
+    public function actionMigrate()
+    {
+        // Don't let the user get to this action if they haven't setup a DSN yet.
+        if (Yii::app()->session['dsn'] == "")
+            $this->redirect($this->createUrl('/'));
+        
+        // Set the stage to 5
+        $this->stage = Yii::app()->session['stage'] = 5;
+        
+        $this->render('migrate');
     }
 }
