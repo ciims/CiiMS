@@ -36,4 +36,13 @@ if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "")
 }
 
 require_once($ciimsConfig['params']['yiiPath'].'yii.php');
-Yii::createWebApplication($config)->run();
+
+// If YiiBootstrap throws a CException becausae of permissions, catch the error, route to back to the installer, and display it within pre-bootstrap for the user to correct.
+try {
+    Yii::createWebApplication($config)->run();
+} 
+catch (Exception $e) 
+{
+    require_once(dirname(__FILE__).'/protected/modules/install/installer.php');
+    exit();
+}

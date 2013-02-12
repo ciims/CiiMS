@@ -14,9 +14,12 @@
                 </div>
             </div>
             <ul class="breadcrumb">
-                <li class ="active">BREADCRUMBS<span class="divider">></span></li>
+                <li class ="active"><?php echo $this->breadcrumbs[$this->stage]; ?><span class="divider">></span></li>
             </ul>
-            <?php echo $content; ?>
+            <div class="content">
+                <hr />
+                <?php echo $content; ?>
+            </div>
             <div class="clearfix"></div>
         </div>
         <?php Yii::app()->clientScript->registerScriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'); ?>

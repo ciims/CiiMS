@@ -1,10 +1,15 @@
 <?php
 $stage = max($ciimsConfig['params']['stage'], isset($_GET['stage']) ? $_GET['stage'] : 0);
+$stage = isset($e) && !empty($e) ? 10 : $stage;
+if ($stage == 10)
+    header("HTTP/1.0 409 Conflic");
+
 $breadCrumbs = array(
     0 => 'Lets Get Started',
     1 => 'Where is Yii Framework At?',
     2 => 'Install Yii',
-    3 => 'Downloading Yii...'
+    3 => 'Downloading Yii...',
+    10 => 'Things to Fix Before Proceeding',
 );
 
 if (isset($_POST['_ajax']) && isset($_POST['_method']))
@@ -16,7 +21,6 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
         $helper->$_POST['_method']($_POST['data']);
 }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -93,6 +97,15 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     
                     <a href="?stage=2" class="btn btn-small btn-inverse pull-left" type="button">Review Previous Instructions</a>
                     <a href="?stage=4" id="continueButton" class="btn btn-small btn-inverse pull-right" style="display:none;" type="button">Continue With Installation</a>
+                <?php elseif ($stage == 10): ?>
+                    <h4>Address Issues Before Continuing</h4>
+                    <p>Before CiiMS can continue with the installation, the following issues need to be addressed.</p>
+                    <pre><?php echo $e->getMessage(); ?></pre>
+                    <p>Most likely the error above is a permission error. You can correct this by making the following <strong>assets</strong> and <strong>runtime</strong> directories writable.</p>
+                    <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?> 777</pre>
+                    <pre>chmod -R <?php echo str_replace('/protected/modules/install', '', dirname(__FILE__) . '/assets/'); ?> 777</pre>
+                    
+                    <p>When you have addressed the issue above, refresh the page to continue with the installation.</p>
                 <?php else: ?>
                     <h4>Thanks for Choosing CiiMS!</h4>
                     <p>This installer will walk you through the installation of CiiMS. This process should only take around 5 minutes, but could take longer depending upon your configuration.</p>
