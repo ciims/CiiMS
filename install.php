@@ -8,16 +8,12 @@
  * If you want to make any changes to the PRE YiiPath install, edit /protected/modules/install/installer.php
  * Otherwise, this is a basic Yii App running only the install module 
  */
+
 error_reporting(-1);
+
 // change the following paths if necessary
 $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
-
-// remove the following lines when in production mode
-defined('YII_DEBUG') or define('YII_DEBUG',true);
-// specify how many levels of call stack should be shown in each log message
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',2);
-
 $ciimsConfig = require_once($config);
 
 // Session Management check for CMS Config
@@ -38,12 +34,9 @@ if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "")
 require_once($ciimsConfig['params']['yiiPath'].'yii.php');
 
 // If YiiBootstrap throws a CException becausae of permissions, catch the error, route to back to the installer, and display it within pre-bootstrap for the user to correct.
-try
-{
+try {
     Yii::createWebApplication($config)->run();
-} 
-catch (Exception $e) 
-{
+} catch (Exception $e) {
     require_once(dirname(__FILE__).'/protected/modules/install/installer.php');
     exit();
 }

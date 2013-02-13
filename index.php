@@ -15,7 +15,7 @@ if (file_exists('install.php') && !file_exists($config))
 
 // Allow full debug mode for development. Otherwise disable error_reporting at the file level
 error_reporting(0);
-if (YII_DEBUG && YII_TRACE_LEVEL == 3)
+if (YII_DEBUG && YII_TRACE_LEVEL == 2)
 	error_reporting(-1);
 	
 $ciimsConfig = require_once($config);
