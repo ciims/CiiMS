@@ -1,7 +1,7 @@
 <?php
 
 // change the following paths if necessary
-$config=dirname(__FILE__).'/config/main.php';
+$config=dirname(__FILE__).'/config/ciims.php';
 
 // Pull yiic path from
 $ciimsConfig = require_once($config);

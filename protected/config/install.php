@@ -32,6 +32,16 @@
         'session' => array(
             'autoStart' => true,
         ),
+        'db' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=ciims',
+            'emulatePrepare' => true,
+            'username' => 'ciims',
+            'password' => 'YWj4NHRs9veEczUe',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => '3600',
+            'enableProfiling' => true,
+        ),
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,

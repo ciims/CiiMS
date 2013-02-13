@@ -7,16 +7,19 @@ class m130207_175450_keywords extends CDbMigration
 	public function safeUp()
 	{
 		// Refactor for EXECUTE style queries
-		$data = ContentMetadata::model()->findAllByAttributes(array('key'=>'keywords'));
-		
-		foreach ($data as $d)
-		{
-			$keywords = explode(', ', $d['value']);
-			$keywords = json_encode($keywords);
-			$d->value = $keywords;
-			$d->save();
-		}
-		
+		$connection = $this->getDbConnection();
+		$data = $connection->createCommand('SELECT content_id, value, content_metadata.key FROM content_metadata WHERE content_metadata.key = "keyword"')->queryAll();
+        
+        foreach ($data as $row)
+        {
+            $keywords = json_encode(explode(', ', $row['value']));
+            $connection->createCommand('UPDATE content_metadata SET value = :value WHERE content_id = :id AND content_metadata.key = :key')
+                       ->bindParam(':value', $keywords)
+                       ->bindParam(':id', $row['content_id'])
+                       ->bindParam(':key', $row['key'])
+                       ->execute();
+        }
+        
 		return true;
 	}
 

@@ -7,8 +7,10 @@ class m120101_000000_base extends CDbMigration
         // Try to get the table names, if we get something back, do not run this migration
         try {
             $test = Yii::app()->db->schema->getTables();
+            if (count($test) <= 1)
+                throw new Exception('CiiMS doesn\'t exist. Applying base migration');
             return true;
-        } catch (CDbException $e) {}
+        } catch (Exception $e) {}
         // Otherwise, run the install migration
         
         // Categories
@@ -175,6 +177,21 @@ class m120101_000000_base extends CDbMigration
               PRIMARY KEY (`id`)
             ) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
             
+        
+        // Alter Commands
+        $this->execute("ALTER TABLE `categories` ADD FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `categories_metadata` ADD FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `comments` ADD  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION, ADD FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `comment_metadata` ADD FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `tags` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `users` ADD FOREIGN KEY (`user_role`) REFERENCES `user_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
+        $this->execute("ALTER TABLE `user_metadata` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
+        
+        $this->execute("ALTER TABLE  `content` ADD FOREIGN KEY (  `author_id` ) REFERENCES  `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION ;");
+        $this->execute("ALTER TABLE  `content` ADD FOREIGN KEY (  `category_id` ) REFERENCES  `categories` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION ;");
+        $this->execute("ALTER TABLE `content_metadata` ADD FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
+        
+        
         // Inserts
         $this->execute("INSERT INTO `user_roles` (`id`, `name`, `created`, `updated`) VALUES
             (1, 'User', NOW(),NOW()),
@@ -183,23 +200,6 @@ class m120101_000000_base extends CDbMigration
             (4, 'Moderator', NOW(), NOW()),
             (5, 'Administrator', NOW(), NOW());");
         $this->execute("INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `created`, `updated`) VALUES (1, 1, 'Uncategorized', 'uncategorized', NOW(), NOW());");
-        $this->execute("INSERT INTO `content` (`id`, `vid`, `author_id`, `title`, `content`, `extract`, `status`, `commentable`, `parent_id`, `category_id`, `type_id`, `password`, `comment_count`, `slug`, `created`, `updated`) VALUES (1, 1, 1, 'My First Blog Post', 'Welcome To CiiMS!\r\n\r\nIf you are seeing this message, then CiiMS has been successfully installed. Why don''t you check out the admin panel to see everything you can do?', 'CiiMS Initial Install Message', 1, 0, 1, 1, 2, '', 0, 'my-first-post', NOW(), NOW());");
-        $this->execute("INSERT INTO `configuration` (`key`, `value`, `created`, `updated`) VALUES
-            ('categoryPaginationSize', '10', NOW(),NOW()),
-            ('contentPaginationSize', '10', NOW(), NOW()),
-            ('searchPaginationSize', '10', NOW(), NOW()),
-            ('theme', 'default', NOW(), NOW());");
-        
-        // Alter Commands
-        $this->execute("ALTER TABLE `categories` ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `categories_metadata` ADD CONSTRAINT `categories_metadata_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `comments` ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION, ADD CONSTRAINT `comments_ibfk_3` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `comment_metadata` ADD CONSTRAINT `comment_metadata_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `content` ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION, ADD CONSTRAINT `content_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `content_metadata` ADD CONSTRAINT `content_metadata_ibfk_2` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `tags` ADD CONSTRAINT `tags_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `users` ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_role`) REFERENCES `user_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;");
-        $this->execute("ALTER TABLE `user_metadata` ADD CONSTRAINT `user_metadata_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;");
         
         return true;
     }
