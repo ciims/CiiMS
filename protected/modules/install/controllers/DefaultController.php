@@ -99,10 +99,38 @@ class DefaultController extends CController
         // Set the stage to 5
         $this->stage = Yii::app()->session['stage'] = 5;
         
-		$this->runMigrationTool(Yii::app()->session['dsn']);
         $this->render('migrate');
     }
 	
+    /**
+     * This action enables us to create an admin user for CiiMS
+     */
+    public function actionCreateAdmin()
+    {
+        $this->stage = Yii::app()->session['stage'] = 6;
+        
+        $model = '';
+        $this->render('createadmin', array('model' => $model));
+    }
+    
+    /**
+     * Ajax comment to run CDbMigrations
+     */
+    public function actionRunMigrations()
+    {
+        header('Content-Type: application/json');
+        
+        $response = $this->runMigrationTool(Yii::app()->session['dsn']);
+        
+        $data = array('migrated' => false, 'details' => $response);
+        
+        if (strpos($response, 'Migrated up successfully.') || strpos($response, 'Your system is up-to-date.'))
+            $data = array('migrated' => true, 'details' => $response);
+        
+        echo CJavaScript::jsonEncode($data);
+        Yii::app()->end();
+    }
+    
 	/**
 	 * Runs the migration tool, effectivly installing the database an all appliciable default settings
 	 */
@@ -130,6 +158,7 @@ class DefaultController extends CController
 		    'yiic',
 		    'migrate'
 		));
-		echo htmlentities(ob_get_clean(), null, Yii::app()->charset);
+        
+		return htmlentities(ob_get_clean(), null, Yii::app()->charset);
 	}
 }
