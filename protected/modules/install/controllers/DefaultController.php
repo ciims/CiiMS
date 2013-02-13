@@ -22,7 +22,7 @@ class DefaultController extends CController
         4 => 'Connect to Database',
         5 => 'Migrate Database',
         6 => 'Create Admin User',
-        7 => 'Verify Permissions',
+        7 => 'Finalize Configuration',
         10 => 'Error',
     );
 
@@ -109,8 +109,31 @@ class DefaultController extends CController
     {
         $this->stage = Yii::app()->session['stage'] = 6;
         
-        $model = '';
+        $model = new UserForm;
+        
+        if (Cii::get($_POST, 'UserForm') != NULL)
+        {
+            $model->attributes = Cii::get($_POST, 'UserForm', array());
+            if ($model->save())
+                $this->redirect($this->createUrl('/admin'));
+            
+            $errors = $model->getErrors();
+            $firstError = array_values($errors);
+            Yii::app()->user->setFlash('error', '<strong>Warning!</strong> ' . $firstError[0][0]);
+        }
+        
         $this->render('createadmin', array('model' => $model));
+    }
+    
+    /**
+     * This action finalizes the setup by writing the config file out
+     */
+    public function actionAdmin()
+    {
+        $this->stage = Yii::app()->session['stage'] = 7;
+        $this->generateConfigFile();
+        
+        $this->render('admin');
     }
     
     /**
@@ -131,6 +154,67 @@ class DefaultController extends CController
         Yii::app()->end();
     }
     
+    /**
+     * Generates a configuration file inside our config directory
+     * Writes to /config/main.php
+     */
+    private function generateConfigFile()
+    {
+        // Load the configuration file
+        $defaultConfig = include(dirname(__FILE__) . '/../../../config/main.default.php');
+        
+        // Set our config values
+        $defaultConfig['name']                                  = Yii::app()->session['siteName'];
+        $defaultConfig['components']['db']['connectionString']  = Yii::app()->session['dsn']['dsn'];
+        $defaultConfig['components']['db']['username']          = Yii::app()->session['dsn']['username'];
+        $defaultConfig['components']['db']['password']          = Yii::app()->session['dsn']['password'];
+        
+        $defaultConfig['params']['yiiPath']                     = $_SESSION['config']['params']['yiiPath'];
+        $defaultConfig['params']['encryptionKey']               = Yii::app()->session['encryptionKey'];
+        $defaultConfig['params']['webmasterEmail']              = $defaultConfig['params']['editorEmail'] = Yii::app()->session['primaryEmail'];
+        
+        // Write the configuration file out
+        $fileString = "";
+        $this->buildArray($defaultConfig, 0, $fileString);
+        $fh = fopen(dirname(__FILE__) . '/../../../config/main.php', 'w');
+        fwrite($fh, '<?php return ' . $fileString);
+        fclose($fh);
+    }
+    
+    /**
+     * Recursively builds an a readable PHP array for us to read from
+     * @param array $array      The array we want to transform into a string
+     * @param int $level        How deep we are
+     * @param &string $d        The string we will manipualate (should be an empty string)
+     */
+    private function buildArray($array, $level = 0, &$d)
+    {
+        $d.= "array(\n";
+        foreach ($array as $k=>$v)
+        {
+            $spaces = $level * 4;
+            for ($i = 0; $i < $spaces; $i++)
+                $d.=' ';
+            if (is_array($k))
+                $this->buildArray($k, $level+1, $d);
+            else if (is_array($v))
+            {
+                $d.= "'" . $k ."' => ";
+                $this->buildArray($v, $level+1, $d);
+            }
+            else if (is_int($k))
+                $d.="'" . $v . "',\n";
+            else if (is_bool($v))
+                $d.= "'" . $k . "' => " . ($v ? 'true' : 'false') .",\n";
+            else
+                $d.= "'" . $k . "' => '" . $v ."',\n";
+        }
+        $d.= ")";
+        if ($level == 0)
+            $d.= ';';
+        else
+            $d.= ",\n";
+    }
 	/**
 	 * Runs the migration tool, effectivly installing the database an all appliciable default settings
 	 */

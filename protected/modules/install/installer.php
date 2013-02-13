@@ -102,8 +102,9 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <h4>Address Issues Before Continuing</h4>
                     <p>Before CiiMS can continue with the installation, the following issues need to be addressed.</p>
                     <pre><?php echo $e->getMessage(); ?></pre>
-                    <p>Most likely the error above is a permission error. You can correct this by making the following <strong>assets</strong> and <strong>runtime</strong> directories writable.</p>
+                    <p>Most likely the error above is a permission error. You can correct this by making the following <strong>assets</strong>, <strong>runtime</strong> and <strong>config</strong> directories writable.</p>
                     <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?> 777</pre>
+                    <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/config/'); ?> 777</pre>
                     <pre>chmod -R <?php echo str_replace('/protected/modules/install', '', dirname(__FILE__) . '/assets/'); ?> 777</pre>
                     
                     <p>When you have addressed the issue above, refresh the page to continue with the installation.</p>

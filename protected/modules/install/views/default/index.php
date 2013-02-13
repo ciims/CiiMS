@@ -19,4 +19,4 @@
     <div class="clearfix" style="margin: 5px;"></div>
     <hr />
     <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Validate', 'htmlOptions' => array('class'=>'pull-right btn-inverse')) ); ?>
-<?php $this->endWidget();
+<?php $this->endWidget(); ?>

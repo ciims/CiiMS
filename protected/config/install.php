@@ -40,6 +40,7 @@
                 '/migrate' => '/install/default/migrate',
                 '/runmigrations' => '/install/default/runmigrations',
                 '/createadmin' => '/install/default/createadmin',
+                '/admin' => '/install/default/admin'
             ),
         ),
     ),
