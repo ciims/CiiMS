@@ -1430,6 +1430,10 @@
 			if (buttons.redo)
 				buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
+            group6 = makeGroup(6);
+            buttons.preview = makeButton(buttonOptions.preview, bindCommand("doPreviewLive"), group6);
+            
+                
             if (buttonOptions.help) {
                 group5 = makeGroup(5);
                 group5.className = group5.className + " pull-right";
@@ -1500,6 +1504,23 @@
         return this.doBorI(chunk, postProcessing, 2, "strong text");
     };
 
+    commandProto.doPreviewLive = function(chunk, postProcessing) {
+            // Toggle the preview icon
+            var previewIcon = $("#wmd-preview-button").find("i");
+            if ($(previewIcon).hasClass("icon-eye-open"))
+                $(previewIcon).removeClass("icon-eye-open").addClass("icon-eye-close");
+            else
+                $(previewIcon).removeClass("icon-eye-close").addClass("icon-eye-open");
+            
+            $("#Content_content").toggle(function() {
+                    $(this).css('margin-left', '-99999px');
+                },
+                function() {
+                    $(this).css("margin-left", "0px");        
+            });
+            $("#wmd-preview").toggle();
+    }
+    
     commandProto.doItalic = function (chunk, postProcessing) {
         return this.doBorI(chunk, postProcessing, 1, "emphasized text");
     };
@@ -2160,7 +2181,8 @@
                 hr: { id: "wmd-hr-button", title: "Horizontal Rule <hr> Ctrl+R", icon: "icon-hr-line" },
                 undo: { id: "wmd-undo-button", title: "Undo - Ctrl+Z", icon: "icon-undo" },
                 redo: { id: "wmd-redo-button", 
-                        title: /win/.test(nav.platform.toLowerCase()) ? "Redo - Ctrl+Y" : "Redo - Ctrl+Shift+Z" /* mac and other non-Windows platforms*/, icon: "icon-share-alt" }
+                        title: /win/.test(nav.platform.toLowerCase()) ? "Redo - Ctrl+Y" : "Redo - Ctrl+Shift+Z" /* mac and other non-Windows platforms*/, icon: "icon-share-alt" },
+                preview: {id : "wmd-preview-button", title: "Preview", icon : "icon-eye-open" }
             };
             
         return result;

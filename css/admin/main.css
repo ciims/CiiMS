@@ -157,3 +157,6 @@ body > .navbar .brand {
     clear:both;
 }
 
+#wmd-preview {
+    display: none;
+}
