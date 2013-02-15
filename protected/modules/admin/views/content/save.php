@@ -23,8 +23,19 @@
             ?>
         <?php endif; ?>
     </div>
-    <div class="span4">
-        <div class="well">test</div>
+    <div class="span4 sidebarNav">
+        <div class="well">
+            <h5><i class="icon-upload"></i> Uploads</h5>
+        </div>
+        
+        <div class="well">
+            <h5><i class="icon-tags"></i> Tags</h5>
+        </div>
+        
+        <div class="well">
+            <h5><i class="icon-align-justify"></i> Details</h5>
+        </div>
+        
     </div>
     <?php $this->endWidget(); ?>
 </div>
