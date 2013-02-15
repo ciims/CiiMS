@@ -158,7 +158,7 @@ class ContentController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize'))->value), 10);		
+		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize')), 'value', 10);		
 		
 		$criteria=new CDbCriteria;
         $criteria->order = 'created DESC';

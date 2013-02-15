@@ -11,6 +11,12 @@ class Cii {
 	 */
 	public static function get($array, $item=NULL, $default=NULL)
 	{
+		if ($array == NULL)
+			return isset($default) ? $default : $item;
+		
+		if (isset($array->$item))
+			return $array->$item;
+		
 		if (!is_array($array))
 			return isset($array) ? $array : $item;
 		

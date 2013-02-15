@@ -21,7 +21,7 @@ class CiiController extends CController
 	public function beforeAction($action)
 	{
 	    header('Content-type: text/html; charset=utf-8');
-		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
+		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
 		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../themes/'.$theme) ? $theme : 'default');
 		return true;
 	}
