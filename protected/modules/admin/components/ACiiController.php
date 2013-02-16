@@ -11,20 +11,17 @@ class ACiiController extends CiiController
 	/**
 	 * @return array action filters
 	 */
-	 /*
 	public function filters()
 	{
 		return array(
 			'accessControl'
 		);
 	}
-*/
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	 /*
 	public function accessRules()
 	{
 		return array(
@@ -37,7 +34,7 @@ class ACiiController extends CiiController
 			),
 		);
 	}
-	*/
+	
 	public function beforeAction($action)
 	{
 		$this->main_menu = array(

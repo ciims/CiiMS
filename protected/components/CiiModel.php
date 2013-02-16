@@ -48,11 +48,17 @@ class CiiModel extends CActiveRecord
 		return $items;
 	}
 	
+	/**
+	 * @return formatted date
+	 */
     private function formatDate($date)
     {
         return date('F jS, Y @ H:i', strtotime($date));
     }
     
+	/**
+	 * @return formatted date
+	 */
     public function getCreatedFormatted()
     {
         if ($this->hasAttribute('created'))
@@ -60,6 +66,9 @@ class CiiModel extends CActiveRecord
         return false;
     }
     
+	/**
+	 * @return formatted date
+	 */
     public function getUpdatedFormatted()
     {
         if ($this->hasAttribute('updated'))
@@ -79,6 +88,8 @@ class CiiModel extends CActiveRecord
 		if ($slug == '')
 			$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '-', $title)));
 		
+		// Remove all of the extra junk characters that aren't valid urls
+		$slug = preg_replace("/[^A-Za-z0-9 ]/", "", $slug);
 		return strToLower($this->checkSlug($slug));
 	}
 	

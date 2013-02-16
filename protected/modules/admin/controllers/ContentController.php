@@ -53,15 +53,23 @@ class ContentController extends ACiiController
 			}
 			else
 			{
+				$model->attributes = $model2->attributes;
+				$model->vid = $model2->vid-1;
 				Yii::app()->user->setFlash('error', 'There was an error saving your content. Please try again');
 			}
 		}
 
+		$attachmentCriteria = new CDbCriteria(array(
+		    'condition' => "t.key LIKE 'upload-%'",
+		) );
+		$attachments = ContentMetadata::model()->findAll($attachmentCriteria);
+		
 		$this->render('save',array(
 			'model'          =>  $model,
 			'id'             =>  $id,
 			'version'        =>  $version,
-			'preferMarkdown' =>  $preferMarkdown
+			'preferMarkdown' =>  $preferMarkdown,
+			'attachments' 	 =>  $attachments
 		));
 	}
 
@@ -86,6 +94,10 @@ class ContentController extends ACiiController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 	
+	/**
+	 * Public function to delete many records from the content table
+	 * TODO, add verification notice on this
+	 */
     public function actionDeleteMany()
     {
         $key = key($_POST);
@@ -106,17 +118,44 @@ class ContentController extends ACiiController
         if(!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
+
+	/**
+	 * Public action to add a tag to the particular model
+	 * @return bool		If the insert was successful or not
+	 */
+	public function actionAddTag()
+	{
+		$id = Cii::get($_POST, 'id', NULL);
+		$model = Content::model()->findByPk($id);
+		if ($model == NULL)
+			throw new CHttpException(400, 'Your request is invalid');
+		
+		return $model->addTag(Cii::get($_POST, 'keyword'));
+	}
+	
+	/**
+	 * Public action to add a tag to the particular model
+	 * @return bool		If the insert was successful or not
+	 */
+	public function actionRemoveTag()
+	{
+		$id = Cii::get($_POST, 'id', NULL);
+		$model = Content::model()->findByPk($id);
+		if ($model == NULL)
+			throw new CHttpException(400, 'Your request is invalid');
+		
+		return $model->removeTag(Cii::get($_POST, 'keyword'));
+	}
+	
 	/**
 	 * Handles file uploading for the controller
 	 */
-	public function actionUpload()
+	public function actionUpload($id)
 	{
 		if (Yii::app()->request->isPostRequest)
 		{
 			Yii::import("ext.EAjaxUpload.qqFileUploader");
 			$path = '/';
-			if ($_GET['title'] == 'blog-image')
-				$path = '/blog-images/';
 	        $folder=Yii::app()->getBasePath() .'/../uploads' . $path;// folder for uploaded files
 	        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');//array("jpg","jpeg","gif","exe","mov" and etc...
 	        $sizeLimit = 10 * 1024 * 1024;// maximum file size in bytes
@@ -125,13 +164,14 @@ class ContentController extends ACiiController
 			
 			if ($result['success'] = true)
 			{
-				$meta = ContentMetadata::model()->findbyAttributes(array('content_id'=>$_GET['id'], 'key'=>$_GET['title']));
+				$meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
 				if ($meta == NULL)
 					$meta = new ContentMetadata;
-				$meta->content_id = $_GET['id'];
-				$meta->key = $_GET['title'];
+				$meta->content_id = $id;
+				$meta->key = $result['filename'];
 				$meta->value = '/uploads' . $path . $result['filename'];
 				$meta->save();
+				$result['filepath'] = '/uploads/' . $result['filename'];
 			}
 	        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
  

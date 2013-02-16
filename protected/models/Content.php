@@ -33,6 +33,7 @@
 class Content extends CiiModel
 {
     public $pageSize = 9;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -111,12 +112,77 @@ class Content extends CiiModel
 			'type_id' => 'Type',
 			'password' => 'Password',
 			'comment_count' => 'Comments',
+			'tags' => 'Tags',
 			'slug' => 'Slug',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
 	}
 	
+	/**
+	 * Gets keyword tags for this entry
+	 * @return array
+	 */
+	public function getTags()
+	{
+		$tags = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
+		return $tags === NULL ? array() : json_decode($tags->value, true);
+	}
+	
+	/**
+	 * Adds a tag to the model
+	 * @param string $tag	The tag to add
+	 * @return bool			If the insert was successful or not
+	 */
+	public function addTag($tag)
+	{
+		$tags = $this->tags;
+		if (in_array($tag, $tags)  || $tag == "")
+			return false;
+		
+		$tags[] = $tag;
+		$tags = json_encode($tags);
+		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
+		if ($metaTag == false)
+		{
+			$metaTag = new ContentMetadata;
+			$metaTag->content_id = $this->id;
+			$metaTag->key = 'keywords';
+		}
+		
+		$metaTag->value = $tags;		
+		return $metaTag->save();
+	}
+	
+	/**
+	 * Removes a tag from the model
+	 * @param string $tag	The tag to remove
+	 * @return bool			If the removal was successful
+	 */
+	public function removeTag($tag)
+	{
+		$tags = $this->tags;
+		if (!in_array($tag, $tags) || $tag == "")
+			return false;
+		
+		$key = array_search($tag, $tags);
+		unset($tags[$key]);
+		$tags = json_encode($tags);
+		
+		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
+		$metaTag->value = $tags;		
+		return $metaTag->save();
+	}
+	
+	/**
+	 * Gets a flattened list of keyword tags for jQuery.tag.js
+	 * @return string
+	 */
+	public function getTagsFlat()
+	{
+		return implode(',', $this->tags);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -161,8 +227,6 @@ class Content extends CiiModel
 		// If we do not supply a condition or parameters, use our overwritten method
 		if ($condition == '' && empty($params))
 		{			
-			// Trace
-			Yii::trace(get_class($this).'.findByPk() Override','system.db.ar.CActiveRecord');
 			$criteria = new CDbCriteria;
 			$criteria->addCondition("t.id={$pk}");
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id={$pk})");

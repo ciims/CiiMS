@@ -1508,16 +1508,15 @@
             // Toggle the preview icon
             var previewIcon = $("#wmd-preview-button").find("i");
             if ($(previewIcon).hasClass("icon-eye-open"))
+            {
                 $(previewIcon).removeClass("icon-eye-open").addClass("icon-eye-close");
+                $(".wmd-input").css("margin-left", '-9999px').css("position", 'absolute');
+            }
             else
+            {
                 $(previewIcon).removeClass("icon-eye-close").addClass("icon-eye-open");
-            
-            $("#Content_content").toggle(function() {
-                    $(this).css('margin-left', '-99999px');
-                },
-                function() {
-                    $(this).css("margin-left", "0px");        
-            });
+                $(".wmd-input").css("margin-left", '0px').css("position", "relative");
+            }
             $("#wmd-preview").toggle();
     }
     

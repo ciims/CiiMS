@@ -170,3 +170,13 @@ body > .navbar .brand {
     padding-bottom: 2px;
     border-bottom: 1px solid #e1e1e8;
 }
+.sidebarNav .control-group {
+	margin-bottom: 10px;
+}
+
+.sidebarNav input.span12 {
+	margin-bottom: 10px;
+}
+.sidebarNav .image-holder {
+    width: 100%; display: inline-block; margin-top: -10px; margin-left: 7%; margin-right: auto;
+}

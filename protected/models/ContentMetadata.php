@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property Content $content
  */
-class ContentMetadata extends CActiveRecord
+class ContentMetadata extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -74,10 +74,10 @@ class ContentMetadata extends CActiveRecord
 			'key' => 'Key',
 			'value' => 'Value',
 			'created' => 'Created',
-			'updated' => 'Updated',
+			'updated' => 'Updated'
 		);
 	}
-
+	
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
