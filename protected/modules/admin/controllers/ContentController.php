@@ -147,6 +147,25 @@ class ContentController extends ACiiController
 		return $model->removeTag(Cii::get($_POST, 'keyword'));
 	}
 	
+    /**
+     * Removes an image from a given post
+     */
+    public function actionRemoveImage()
+    {
+        $id = Cii::get($_POST, 'id');
+        $key = Cii::get($_POST, 'key');
+        
+        // Only proceed if we have valid date
+        if ($id == NULL || $key == NULL)
+            return false;
+        
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
+        if ($model === NULL)
+            return false;
+        
+        return $model->delete();
+    }
+    
 	/**
 	 * Handles file uploading for the controller
 	 */

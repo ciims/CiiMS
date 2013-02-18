@@ -56,10 +56,13 @@
 										   }"
 								        )
 								)); ?></h5>
-								
-						<div class="image-holder">
+					   
+						<div class="image-holder ">
 							<?php foreach ($attachments as $attachment): ?>
-								<?php echo CHtml::image($attachment->value, NULL, array('class'=> 'thumb', 'href' => $attachment->value, 'title' => $attachment->value)); ?>
+							    <div class="image-ctrl">
+    								<?php echo CHtml::image($attachment->value, NULL, array('class'=> 'thumb', 'href' => $attachment->value, 'title' => $attachment->value)); ?>
+                                    <span class="delete-button icon icon-remove" id="<?php echo $attachment->key; ?>"></span>
+                                </div>
 							<?php endforeach; ?>
 							<li id="new-attachment" style="display:none;"></li>
 						</div>
@@ -101,6 +104,7 @@
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/admin/jquery.tags.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.thumbs.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.colorbox.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.gridster.js'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_tags', '
 $("#tags").tagsInput({
 		defaultText : "Add a Tag",
@@ -116,3 +120,15 @@ $("#tags").tagsInput({
 '); ?>
 <?php Yii::app()->clientScript->registerScript('admin_thumbs', '$(".thumb").thumbs();'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_colorbox', '$(".thumb").colorbox({rel:"thumb"});'); ?>
+<?php Yii::app()->clientScript->registerScript('admin_promote', 'var timeoutId = 0; $(".image-ctrl").mousedown(function() {
+        timeoutId = setTimeout(promote, 1000);
+    }).bind("mouseup mouseleave", function() {
+        clearTimeout(timeoutId);
+    });'); ?>
+<?php Yii::app()->clientScript->registerScript('admin_delete', '$(".delete-button").click(function() {
+    var element = $(this);
+    $.post("../../removeImage", { id : ' . $model->id . ', key : $(this).attr("id") }, function () {
+        element.parent().fadeOut();
+    });
+})'); ?>
+<?php Yii::app()->clientScript->registerScript('admin_promote_action', 'function promote() { console.log("promote"); }'); ?>

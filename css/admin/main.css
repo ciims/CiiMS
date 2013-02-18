@@ -178,5 +178,22 @@ body > .navbar .brand {
 	margin-bottom: 10px;
 }
 .sidebarNav .image-holder {
-    width: 100%; display: inline-block; margin-top: -10px; margin-left: 7%; margin-right: auto;
+    width: 100%; 
+    display: inline-block; 
+    margin-top: -10px; 
+    margin-left: 7%; 
+    margin-right: auto;
+}
+
+.image-ctrl {
+    display: inline-block;
+    position:relative
+}
+
+
+.delete-button {
+    z-index: 10;
+    position: absolute;
+    top: 4%;
+    right: 5%;
 }

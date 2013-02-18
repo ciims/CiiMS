@@ -21,7 +21,7 @@
             'class' => 'ext.minify.EClientScript',
             'combineScriptFiles' => false,
             'combineCssFiles' => false,
-            'optimizeCssFiles' => true,
+            'optimizeCssFiles' => false,
             'optimizeScriptFiles' => false,
             'compressHTML'        => true
         ),
