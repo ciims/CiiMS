@@ -67,7 +67,7 @@ class CategoriesController extends ACiiController
         if (count($_POST[$key]) == 0)
             throw new CHttpException(500, 'No records were supplied to delete');
         
-        foreach ($POST[$key] as $id)
+        foreach ($_POST[$key] as $id)
         {
             if ($id != 1)
             {

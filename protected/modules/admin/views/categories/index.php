@@ -15,7 +15,7 @@
                         'size' => 'small',
                         'label' => 'Delete Selected',
                         'click' => 'js:function(values) {
-                            $.post("categories/deleteMany", values, function(data) {
+                            $.post("deleteMany", values, function(data) {
                                 values.each(function() {
                                     $(this).parent().parent().remove();
                                 });
