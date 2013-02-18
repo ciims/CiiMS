@@ -190,10 +190,20 @@ body > .navbar .brand {
     position:relative
 }
 
-
 .delete-button {
     z-index: 10;
     position: absolute;
     top: 4%;
     right: 5%;
+}
+
+.thumb-container {
+    transition: border-color 1s linear;
+    -moz-transition: border-color 1s linear;    /* FF3.7+ */
+    -o-transition: border-color 1s linear;      /* Opera 10.5 */
+    -webkit-transition: border-color 1s linear; /* Saf3.2+, Chrome */
+}
+
+.transition {
+    border: 1px solid #468847;
 }

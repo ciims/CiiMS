@@ -155,8 +155,8 @@ class ContentController extends ACiiController
      */
     public function actionRemoveImage()
     {
-        $id = Cii::get($_POST, 'id');
-        $key = Cii::get($_POST, 'key');
+        $id     = Cii::get($_POST, 'id');
+        $key    = Cii::get($_POST, 'key');
         
         // Only proceed if we have valid date
         if ($id == NULL || $key == NULL)
@@ -169,6 +169,38 @@ class ContentController extends ACiiController
         return $model->delete();
     }
     
+    /**
+     * Promotes an image to blog-image
+     */
+    public function actionPromoteImage()
+    {
+        $id          = Cii::get($_POST, 'id');
+        $key         = Cii::get($_POST, 'key');
+        $promotedKey = 'blog-image';
+        // Only proceed if we have valid date
+        if ($id == NULL || $key == NULL)
+            return false;
+        
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
+        if ($model === NULL)
+            return false;
+        
+        // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
+        if ($model->key == $promotedKey)
+            return true;
+        
+        $model2 = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $promotedKey));
+        if ($model2 === NULL)
+        {
+            $model2->content_id = $id;
+            $model2->key = $promotedKey;
+        }
+        
+        $model2->value = $model->value;
+        
+        return $model2->save();
+        
+    }
 	/**
 	 * Handles file uploading for the controller
 	 */

@@ -27,7 +27,7 @@
                 <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
                     'buttons'=>array(
                         array('label'=>'', 'url'=>$this->createUrl('/admin/content/save/id/' . $data['id']), 'icon'=>'icon-edit'),
-                        array('label'=>'', 'url'=>$this->createUrl($data['slug']), 'icon'=>'icon-eye-open'),
+                        array('label'=>'', 'url'=>$this->createUrl('/' . $data['slug']), 'icon'=>'icon-eye-open'),
                         array('label'=>'', 'url'=>$this->createUrl('/admin/content/delete/id/' . $data['id']), 'icon'=>'icon-trash')
                     ),
                 ));
