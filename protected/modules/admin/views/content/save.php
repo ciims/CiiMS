@@ -59,7 +59,7 @@
 					   
 						<div class="image-holder ">
 							<?php foreach ($attachments as $attachment): ?>
-							    <div class="image-ctrl">
+							    <div class="image-ctrl" id="<?php echo $attachment->key; ?>">
     								<?php echo CHtml::image($attachment->value, NULL, array('class'=> 'thumb', 'href' => $attachment->value, 'title' => $attachment->value)); ?>
                                     <span class="delete-button icon icon-remove" id="<?php echo $attachment->key; ?>"></span>
                                 </div>
@@ -121,7 +121,7 @@ $("#tags").tagsInput({
 <?php Yii::app()->clientScript->registerScript('admin_thumbs', '$(".thumb").thumbs();'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_colorbox', '$(".thumb").colorbox({rel:"thumb"});'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_promote', 'var timeoutId = 0; $(".image-ctrl").mousedown(function() {
-        timeoutId = setTimeout(promote, 1000);
+        timeoutId = setTimeout(promote, 1000, ($(this).attr("id")));
     }).bind("mouseup mouseleave", function() {
         clearTimeout(timeoutId);
     });'); ?>
@@ -131,4 +131,8 @@ $("#tags").tagsInput({
         element.parent().fadeOut();
     });
 })'); ?>
-<?php Yii::app()->clientScript->registerScript('admin_promote_action', 'function promote() { console.log("promote"); }'); ?>
+<?php Yii::app()->clientScript->registerScript('admin_promote_action', 'function promote(id) {
+    $.post("../../promoteImage", { id : ' . $model->id . ', key : id }, function() {
+        
+    });
+}'); ?>

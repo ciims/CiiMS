@@ -60,8 +60,11 @@ class ContentController extends ACiiController
 		}
 
 		$attachmentCriteria = new CDbCriteria(array(
-		    'condition' => "t.key LIKE 'upload-%'",
-		) );
+		    'condition' => "t.key LIKE 'upload-%' OR t.key = 'blog-image'",
+		    'order'     => 't.key ASC',
+		    'group'     => 't.value'
+		));
+        
 		$attachments = ContentMetadata::model()->findAll($attachmentCriteria);
 		
 		$this->render('save',array(
