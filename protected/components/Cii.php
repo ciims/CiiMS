@@ -24,8 +24,7 @@ class Cii {
 			return $array[$item];
 		return $default;	
 	}
-	
-	
+
 	/**
 	 * CiiController debug method
 	 */

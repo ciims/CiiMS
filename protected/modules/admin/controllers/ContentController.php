@@ -11,6 +11,9 @@ class ContentController extends ACiiController
 	{
 	    // ContentVersionID
 		$version = 0;
+        $theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
+        $viewFiles = $this->getViewFiles($theme);
+        $layouts   = $this->getLayouts($theme);
         
         // Editor Preferences
 		$preferMarkdown = Configuration::model()->findByAttributes(array('key' => 'preferMarkdown'));
@@ -45,7 +48,9 @@ class ContentController extends ACiiController
 			$model2->extract = $_POST['Content']['extract'];
 			$model2->id = $id;
 			$model2->vid = $model->vid+1;
-			
+			$model2->viewFile = $_POST['Content']['view'];
+            $model2->layoutFile = $_POST['Content']['layout'];
+            
 			if($model2->save()) 
 			{
 				Yii::app()->user->setFlash('success', 'Content has been updated');
@@ -72,7 +77,9 @@ class ContentController extends ACiiController
 			'id'             =>  $id,
 			'version'        =>  $version,
 			'preferMarkdown' =>  $preferMarkdown,
-			'attachments' 	 =>  $attachments
+			'attachments' 	 =>  $attachments,
+			'views'          =>  $viewFiles,
+			'layouts'        =>  $layouts 
 		));
 	}
 
@@ -319,4 +326,52 @@ class ContentController extends ACiiController
 			Yii::app()->end();
 		}
 	}
+    
+    /**
+     * Retrieves the available view files under the current theme
+     * @return array    A list of files by name
+     */
+    private function getViewFiles($theme='default')
+    {
+        $files = Yii::app()->cache->get($theme.'-available-views');
+        if ($files == NULL)
+        {
+            $fileHelper = new CFileHelper;
+            $files = $fileHelper->findFiles(dirname(__FILE__).'/../../../../themes/' . $theme . '/views/content', array('fileTypes'=>array('php'), 'level'=>0));
+            Yii::app()->cache->set($theme.'-available-view', $files);
+        }
+        $returnFiles = array();
+        foreach ($files as $file)
+        {
+            $f = str_replace('.php', '', substr( $file, strrpos( $file, '/' )+1 ));
+            if (!in_array($f, array('all', 'password')))
+                $returnFiles[$f] = $f;
+        }
+        
+        return $returnFiles;
+    }
+    
+    /**
+     * Retrieves the available layouts under the current theme
+     * @return array    A list of files by name
+     */
+    private function getLayouts($theme='default')
+    {
+        $files = Yii::app()->cache->get($theme.'-available-layouts');
+        if ($files == NULL)
+        {
+            $fileHelper = new CFileHelper;
+            $files = $fileHelper->findFiles(dirname(__FILE__).'/../../../../themes/' . $theme . '/views/layouts', array('fileTypes'=>array('php'), 'level'=>0));
+            Yii::app()->cache->set($theme.'-available-layouts', $files);
+        }
+        $returnFiles = array();
+        foreach ($files as $file)
+        {
+            $f = str_replace('.php', '', substr( $file, strrpos( $file, '/' )+1 ));
+            if (!in_array($f, array('main', 'default')))
+                $returnFiles[$f] = $f;
+        }
+        
+        return $returnFiles;
+    }
 }

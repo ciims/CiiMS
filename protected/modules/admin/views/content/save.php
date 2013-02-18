@@ -80,23 +80,26 @@
 				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), array('class'=>'span12')); ?>
 				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span12')); ?>
 				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'),array('class'=>'span12')); ?>
+				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'span12', 'options' => array($model->view => array('selected' => true)))); ?>
+                <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'span12', 'options' => array($model->layout => array('selected' => true)))); ?>
+                
 				<hr />
 				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?>
 				<?php echo $form->textField($model,'slug',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Slug')); ?>
+				
 	        </div>
 	        <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
 		        'htmlOptions' => array(
 					'class' => 'pull-right'
 				),
 			    'buttons'=>array(
+			        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug)),
 				    array('label'=>'Save', 'buttonType' => 'submit', 'type' => 'primary')
 			    ),
 			)); ?>
 	    </div>
     <?php $this->endWidget(); ?>
 </div>
-
-
 
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/admin/jquery.tags.css'); ?>
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/admin/colorbox.css'); ?>

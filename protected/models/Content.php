@@ -34,6 +34,10 @@ class Content extends CiiModel
 {
     public $pageSize = 9;
 	
+    public $viewFile = 'blog';
+    
+    public $layoutFile = 'blog';
+    
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -182,7 +186,42 @@ class Content extends CiiModel
 	{
 		return implode(',', $this->tags);
 	}
+    
+    /**
+     * Retrieves the layout used from Metadata
+     * We cache this to speed up the viewfile
+     */
+    public function getLayout()
+    {
+        $layout = Yii::app()->cache->get('content-' . $this->id . '-layout');
+        if ($layout === false)
+        {
+            $model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+            $layout = $model === NULL ? 'blog' : $model->value;
+            Yii::app()->cache->set('content-' . $this->id . '-layout', $layout);
+        }
+        
+        return $layout;
+    }
+    
+    /**
+     * Retrieves the viewfile used from Metadata
+     * We cache this to speed up the viewfile
+     */
+    public function getView()
+    {
+        $view = Yii::app()->cache->get('content-' . $this->id . '-view');
+        if ($view === false)
+        {
+            $model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+            $view = $model === NULL ? 'blog' : $model->value;
+            Yii::app()->cache->set('content-' . $this->id . '-view', $view);
+        }
+        
+        return $view;
+    }
 
+    
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -214,14 +253,14 @@ class Content extends CiiModel
 	}
 	
 	/**
-         * Finds all active records with the specified primary keys.
-         * Overloaded to support composite primary keys. For our content, we want to find the latest version of that primary key, defined as MAX(vid) WHERE id = pk
-         * See {@link find()} for detailed explanation about $condition and $params.
-         * @param mixed $pk primary key value(s). Use array for multiple primary keys. For composite key, each key value must be an array (column name=>column value).
-         * @param mixed $condition query condition or criteria.
-         * @param array $params parameters to be bound to an SQL statement.
-         * @return array the records found. An empty array is returned if none is found.
-         */
+     * Finds all active records with the specified primary keys.
+     * Overloaded to support composite primary keys. For our content, we want to find the latest version of that primary key, defined as MAX(vid) WHERE id = pk
+     * See {@link find()} for detailed explanation about $condition and $params.
+     * @param mixed $pk primary key value(s). Use array for multiple primary keys. For composite key, each key value must be an array (column name=>column value).
+     * @param mixed $condition query condition or criteria.
+     * @param array $params parameters to be bound to an SQL statement.
+     * @return array the records found. An empty array is returned if none is found.
+     */
 	public function findByPk($pk, $condition='', $params=array())
 	{
 		// If we do not supply a condition or parameters, use our overwritten method
@@ -236,8 +275,12 @@ class Content extends CiiModel
 		return parent::findByPk($pk, $conditions, $params);
 	}
 	
+    /**
+     * BeforeValidate
+     * @see CActiveRecord::beforeValidate
+     */
 	public function beforeValidate()
-	{
+	{        
     	if ($this->isNewRecord)
     	{
     		// Implicit flush to delete the URL rules
@@ -253,6 +296,11 @@ class Content extends CiiModel
 	    return parent::beforeValidate();
 	}
 	
+    /**
+     * BeforeSave
+     * Clears caches for rebuilding, creates the end slug that we are going to use
+     * @see CActiveRecord::beforeSave();
+     */
 	public function beforeSave()
 	{
 		if ($this->isNewRecord)
@@ -261,25 +309,116 @@ class Content extends CiiModel
     		Yii::app()->cache->delete('content-listing');
 			Yii::app()->cache->delete('WFF-content-url-rules');
 		}
-		
+        
+		Yii::app()->cache->set('content-' . $this->id . '-layout', $this->layoutFile);
+        Yii::app()->cache->set('content-' . $this->id . '-view', $this->viewFile);
+        
 		$this->slug = $this->verifySlug($this->slug, $this->title);
-		
 		return parent::beforeSave();
 	}
 	
+    /**
+     * AfterSave
+     * Updates the layout and view if necessary
+     * @see CActiveRecord::afterSave()
+     */
+    public function afterSave()
+    {
+        $this->saveLayoutAndView();
+        return parent::afterSave();
+    }
+    
+    /**
+     * BeforeDelete
+     * Clears caches for rebuilding
+     * @see CActiveRecord::beforeDelete
+     */
 	public function beforeDelete()
 	{		
 		Yii::app()->cache->delete('content');
 		Yii::app()->cache->delete('content-listing');
 		Yii::app()->cache->delete('WFF-content-url-rules');
-		
+		Yii::app()->cache->delete('content-' . $this->id . '-layout');
+        Yii::app()->cache->delete('content-' . $this->id . '-view');
+        
 		return parent::beforeDelete();
 	}
 	
+    /**
+     * Saves the layout and view file to the database if they are different from blog
+     * If either are blog, we won't worry about applying it since we can pick this up pretty cheaply inline via caching
+     */
+    private function saveLayoutAndView()
+    {
+        $this->saveLayout();
+        $this->saveView();
+    }
+    
+    /**
+     * Saves or deletes the layout in the db if necessary 
+     */
+    private function saveLayout()
+    {
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+        
+        // If we don't have anything in ContentMetadata and the layout file is blog
+        if ($model === NULL && $this->layoutFile === 'blog')
+            return;
+        
+        if ($model === NULL)
+        {
+            $model = new ContentMetadata();
+            $model->content_id = $this->id;
+            $model->key = 'layout';
+        }
+        
+        // If this is an existing record, and we're changing it to blog, delete it instead of saving.
+        if ($this->layoutFile == 'blog' && !$model->isNewRecord)
+            return $model->delete();
+        
+        $model->value = $this->layoutFile;
+        return $model->save();
+    }
+    
+    /**
+     * Saves or deletes the view in the db if necessary
+     */
+    private function saveView()
+    {
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+        
+        // If we don't have anything in ContentMetadata and the layout file is blog
+        if ($model === NULL && $this->viewFile === 'blog')
+            return;
+        
+        if ($model === NULL)
+        {
+            $model = new ContentMetadata();
+            $model->content_id = $this->id;
+            $model->key = 'layout';
+        }
+        
+        // If this is an existing record, and we're changing it to blog, delete it instead of saving.
+        if ($this->viewFile == 'blog' && !$model->isNewRecord)
+            return $model->delete();
+        
+        $model->value = $this->viewFile;
+        return $model->save();
+    }
+    
+    /**
+     * Fancy truncate function to help clean up our strings for the extract
+     * @param string $string    The string we want to apply the text to
+     * @param int    $limit     How many characters we want to break into
+     * @param string $break     Characters we want to break on if possible
+     * @param string $pad       The padding we want to apply
+     * @return string           Truncated string
+     */
 	private function myTruncate($string, $limit, $break=".", $pad="...")
 	{
 		// return with no change if string is shorter than $limit
-		if(strlen($string) <= $limit) return $string;
+		if(strlen($string) <= $limit) 
+		  return $string;
 
 		// is $break present between $limit and the end of the string?
 		if(false !== ($breakpoint = strpos($string, $break, $limit)))

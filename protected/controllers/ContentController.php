@@ -14,7 +14,7 @@ class ContentController extends CiiController
         if ($id != NULL)
 		{
 			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
-			$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme'))->value, 'default');
+			$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value');
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
 			
@@ -96,17 +96,13 @@ class ContentController extends CiiController
 		
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
-		
-		$layout = isset($meta['layout']) ? $meta['layout']['value'] : 'blog';
-		
+        
 		// Set the layout
-		$this->setLayout($layout);
-		
-		$view = isset($meta['view']) ? $meta['view']['value'] : 'blog';
+		$this->setLayout($content->layout);
         
 		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
 		
-		$this->render($view, array('id'=>$id, 'data'=>$content, 'meta'=>$meta, 'comments'=>$content->comments, 'model'=>Comments::model()));
+		$this->render($content->view, array('id'=>$id, 'data'=>$content, 'meta'=>$meta, 'comments'=>$content->comments, 'model'=>Comments::model()));
 	}
 	
 	/**
