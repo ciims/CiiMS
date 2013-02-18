@@ -30,6 +30,7 @@
         ),
         'session' => array(
             'autoStart' => true,
+            'sessionName' => 'CiiMS'
         ),
         'urlManager' => array(
             'class' => 'SlugURLManager',

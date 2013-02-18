@@ -58,7 +58,17 @@ class CiiController extends CController
 	 */
 	public $breadcrumbs=array();
 	
-
+    /**
+     * Retrieves keywords for use in the viewfile
+     */
+    public function getKeywords()
+    {
+        $keywords = Cii::get($this->params['meta'], 'keywords', array());
+        if (Cii::get($this->params['meta']['keywords'], 'value', false) !== false)
+            $keywords = implode(',', json_decode($keywords['value']));
+        
+        return $keywords == "" ? Cii::get($this->params['data'], 'title', Yii::app()->name): $keywords;
+    }
 	
 	/**
 	 * Sets the layout for the view
@@ -83,30 +93,30 @@ class CiiController extends CController
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 	    	
-		$output=$this->renderPartial($view,$data,true);
-        
-		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
-		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>isset($data['meta']) ? $this->params['meta'] : ''),true);
-
-		$this->afterRender($view,$output);
-        
-		$output=$this->processOutput($output);
-        $config = Yii::app()->getComponents(false);
-        if (isset($config['clientScript']->compressHTML) && $config['clientScript']->compressHTML == true)
-        {
-            Yii::import('ext.contentCompactor.*');
-            $compactor = new ContentCompactor();
+    		$output=$this->renderPartial($view,$data,true);
             
-            if($compactor == null)
-                throw new CHttpException(500, Yii::t('messages', 'Missing component ContentCompactor in configuration.'));
-         
-            $output = $compactor->compact($output, array());
-        }
-		
-		if($return)
-		    return $output;
-		else
-		    echo $output;
+    		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
+    		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>isset($data['meta']) ? $this->params['meta'] : ''),true);
+    
+    		$this->afterRender($view,$output);
+            
+    		$output=$this->processOutput($output);
+            $config = Yii::app()->getComponents(false);
+            if (isset($config['clientScript']->compressHTML) && $config['clientScript']->compressHTML == true)
+            {
+                Yii::import('ext.contentCompactor.*');
+                $compactor = new ContentCompactor();
+                
+                if($compactor == null)
+                    throw new CHttpException(500, Yii::t('messages', 'Missing component ContentCompactor in configuration.'));
+             
+                $output = $compactor->compact($output, array());
+            }
+    		
+    		if($return)
+    		    return $output;
+    		else
+    		    echo $output;
 	    }
 	}
 }

@@ -31,7 +31,7 @@ class CiiModel extends CActiveRecord
 	public function parseMeta($model)
 	{
 		$items = array();
-		if (!empty($model))
+		if ($model !== NULL)
 		{
 			foreach ($model as $v)
 			{

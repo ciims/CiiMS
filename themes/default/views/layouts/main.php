@@ -4,7 +4,7 @@
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="keywords" content="<?php echo isset($this->params['meta']['keywords']) && !is_array(isset($this->params['meta']['keywords'])) ? $this->params['meta']['keywords'] : ''; ?>" />
+		<meta name="keywords" content="<?php echo $this->keywords; ?>" />
 		<meta name="description" content="<?php echo strip_tags($this->params['data']['extract']); ?>" />
 		<?php Yii::app()->clientScript->registerCoreScript('jquery')
 									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.js')
