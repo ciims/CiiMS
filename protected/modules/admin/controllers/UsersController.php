@@ -3,6 +3,15 @@
 class UsersController extends ACiiController
 {
 	
+    public function actions()
+    {
+        return array_merge(parent::actions(), array(
+            'toggle' => array(
+            'class'=>'bootstrap.actions.TbToggleAction',
+            'modelName' => 'Users',
+            )
+        ));
+    }
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -53,6 +62,35 @@ class UsersController extends ACiiController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
+     /**
+     * Public function to delete many records from the content table
+     * TODO, add verification notice on this
+     */
+    public function actionDeleteMany()
+    {
+        $key = key($_POST);
+        if (count($_POST[$key]) == 0)
+            throw new CHttpException(500, 'No records were supplied to delete');
+        
+        foreach ($_POST[$key] as $id)
+        {
+            // Prevent deleting root and self
+            if ($id != 1 && $id != Yii::app()->user->id)
+            {
+                $command = Yii::app()->db
+                          ->createCommand("DELETE FROM users WHERE id = :id")
+                          ->bindParam(":id", $id, PDO::PARAM_STR)
+                          ->execute();
+            }
+        }
+        
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+    
 	/**
 	 * Lists all models.
 	 */

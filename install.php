@@ -31,7 +31,7 @@ if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "")
     exit();
 }
 
-require_once($ciimsConfig['params']['yiiPath'].'yii.php');
+require_once($ciimsConfig['params']['yiiPath'].'yiilite.php');
 
 // If YiiBootstrap throws a CException becausae of permissions, catch the error, route to back to the installer, and display it within pre-bootstrap for the user to correct.
 try {
