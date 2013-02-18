@@ -176,4 +176,45 @@ class Categories extends CiiModel
 			}
 		}
 	}
+    
+    /**
+     * checkSlug - Recursive method to verify that the slug can be used
+     * This method is purposfuly declared here to so that Content::findByPk is used instead of CiiModel::findByPk
+     * @param string $slug - the slug to be checked
+     * @param int $id - the numeric id to be appended to the slug if a conflict exists
+     * @return string $slug - the final slug to be used
+     */
+    public function checkSlug($slug, $id=NULL)
+    {
+        $content = false;
+        
+        // Find the number of items that have the same slug as this one
+        $count = $this->countByAttributes(array('slug'=>$slug . $id));
+        
+        if ($count == 0)
+        {
+            $content = true;
+            $count = Content::model()->countByAttributes(array('slug'=>$slug . $id));
+        }
+        
+        // If we found an item that matched, it's possible that it is the current item (or a previous version of it)
+        // in which case we don't need to alter the slug
+        if ($count)
+        {
+            if ($content)
+                return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+            
+            // Pull the data that matches
+            $data = $this->findByPk($this->id == NULL ? -1 : $this->id);
+            
+            // Check the pulled data id to the current item
+            if ($data !== NULL && $data->id == $this->id)
+                return $slug;
+        }
+        
+        if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
+            return $slug . $id;
+        else
+            return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+    }
 }

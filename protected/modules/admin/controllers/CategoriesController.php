@@ -46,6 +46,8 @@ class CategoriesController extends ACiiController
 	 */
 	public function actionDelete($id)
 	{
+	    if ($id === 1)
+            throw new CHttpException(400, 'Cannot delete parent category');
 		// we only allow deletion via POST request
 		$this->loadModel($id)->delete();
 
@@ -55,6 +57,34 @@ class CategoriesController extends ACiiController
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
+    /**
+     * Public function to delete many records from the content table
+     * TODO, add verification notice on this
+     */
+    public function actionDeleteMany()
+    {
+        $key = key($_POST);
+        if (count($_POST[$key]) == 0)
+            throw new CHttpException(500, 'No records were supplied to delete');
+        
+        foreach ($POST[$key] as $id)
+        {
+            if ($id != 1)
+            {
+                $command = Yii::app()->db
+                          ->createCommand("DELETE FROM categories WHERE id = :id")
+                          ->bindParam(":id", $id, PDO::PARAM_STR)
+                          ->execute();
+            }
+        }
+        
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+    
 	/**
 	 * Lists all models.
 	 */
