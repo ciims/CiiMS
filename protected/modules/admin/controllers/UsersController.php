@@ -91,6 +91,22 @@ class UsersController extends ACiiController
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
     
+    /**
+     * Removes the metadata attribute from a user
+     */
+    public function actionRemoveMeta()
+    {
+        $id = Cii::get($_POST, 'key');
+        $user = Cii::get($_POST, 'user_id');
+        
+        $model = UserMetadata::model()->findByAttributes(array('user_id' => $user, 'key' => $id));
+        Cii::debug($model->attributes);
+        if ($model == NULL)
+            return false;
+        
+        return $model->delete();
+    }
+    
 	/**
 	 * Lists all models.
 	 */
