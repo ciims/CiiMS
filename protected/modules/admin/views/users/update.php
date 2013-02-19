@@ -1,5 +1,5 @@
 <div class="row-fluid">
-    <div class="span6">
+    <div class="span8">
         <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
             'title' => 'Modify Profile',
             'headerIcon' => 'icon-user',
@@ -36,7 +36,7 @@
             <?php $this->endWidget(); ?>
         <?php $this->endWidget(); ?>
     </div>
-    <div class="span3">
+    <div class="span4">
         <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
             'title' => 'Application Data',
             'headerIcon' => 'icon-cog',
@@ -55,6 +55,7 @@
             </table>
         <?php $this->endWidget(); ?>
     </div>
+    <!--
     <div class="span3">
         <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
             'title' => 'Security Events',
@@ -63,6 +64,7 @@
             <p><small>Any security events attached to this user will be displayed here.</small></p>
         <?php $this->endWidget(); ?>
     </div>
+    -->
 </div>
 
 <?php Yii::app()->clientScript->registerScript('delete_meta', '
