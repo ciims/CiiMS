@@ -41,10 +41,22 @@
             ));
         ?>
     </div>
-    <div class="span4 sidebarNav">
-        <div class="well">
-            <h5>Create a New Category</h5>
+    <div class="span4 ">
+        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+            'title' => 'Create a New Category',
+            'headerButtons' => array(
+                array(
+                    'class' => 'bootstrap.widgets.TbButton',
+                    'buttonType'=>'submit',
+                    'type'=>'primary',
+                    'label'=>'Create',
+                    'htmlOptions' => array(
+                        'style' => 'margin-right: 10px;'
+                    )
+                )
+            )
+        )); ?>
             <?php $this->renderPartial('_form', array('model' => $model)); ?>
-        </div>
+        <?php $this->endWidget(); ?>
     </div>
 </div>

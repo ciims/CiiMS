@@ -213,3 +213,7 @@ body > .navbar .brand {
     margin-right: auto;
     width: 80%;
 }
+
+.icon-button-container {
+    font-weight: bold;
+}

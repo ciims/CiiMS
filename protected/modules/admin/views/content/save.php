@@ -6,34 +6,42 @@
         'type'=>'horizontal',
     )); ?>
 	    <div class="span8">
-	    	<?php echo $form->hiddenField($model, 'id'); ?>
-	    	<?php echo $form->hiddenField($model, 'vid'); ?>
-	    	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
-			<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id,)); ?>
-	    	<?php echo $form->textFieldRow($model, 'title', array('placeholder' => 'Title', 'style' => 'width: 98%')); ?>
-	        <?php if ($preferMarkdown): ?>
-	            <?php echo $form->markdownEditorRow($model, 'content', array('height'=>'200px'));?>
-	        <?php else: ?>
-	            <?php $this->widget('ImperaviRedactorWidget', array(
-	                    'model' => $model,
-	                    'attribute' => 'content',
-	                    'options' => array(
-	                        'focus' => true,
-	                        'autoresize' => false,
-	                        'autosave' => $this->createUrl('/admin/content/save/' . $model->id),
-	                        'interval' => 120,
-	                        'autosaveCallback' => 'saveCallback',
-	                    )
-	                ));
-	            ?>
-	        <?php endif; ?>
-	        
-	        <?php echo $form->textAreaRow($model, 'extract', array('style' => 'width: 98%; height: 100px')); ?>
+	        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                'title' => 'Content',
+                'headerIcon' => 'icon-leaf',
+            )); ?>
+    	    	<?php echo $form->hiddenField($model, 'id'); ?>
+    	    	<?php echo $form->hiddenField($model, 'vid'); ?>
+    	    	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
+    			<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id,)); ?>
+    	    	<?php echo $form->textFieldRow($model, 'title', array('placeholder' => 'Title', 'style' => 'width: 98%')); ?>
+    	        <?php if ($preferMarkdown): ?>
+    	            <?php echo $form->markdownEditorRow($model, 'content', array('height'=>'200px'));?>
+    	        <?php else: ?>
+    	            <?php $this->widget('ImperaviRedactorWidget', array(
+    	                    'model' => $model,
+    	                    'attribute' => 'content',
+    	                    'options' => array(
+    	                        'focus' => true,
+    	                        'autoresize' => false,
+    	                        'autosave' => $this->createUrl('/admin/content/save/' . $model->id),
+    	                        'interval' => 120,
+    	                        'autosaveCallback' => 'saveCallback',
+    	                    )
+    	                ));
+    	            ?>
+    	        <?php endif; ?>
+    	        
+    	        <?php echo $form->textAreaRow($model, 'extract', array('style' => 'width: 98%; height: 100px')); ?>
+	        <?php $this->endWidget(); ?>
 	    </div>
-	    <div class="span4 sidebarNav">
-	    	<?php if ($model->vid >= 1): ?>
-		        <div class="well">
-		            <h5><i class="icon-upload"></i> Uploads <?php $this->widget('ext.EAjaxUpload.EAjaxUpload',
+	    <div class="span4 ">
+	    	<?php if ($model->vid >= 1): ?>        
+		        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                    'title' => 'Uploads',
+                    'headerIcon' => 'icon-upload',
+                )); ?>
+                <?php $this->widget('ext.EAjaxUpload.EAjaxUpload',
 								array(
 								        'id'=>'uploadFile',
 								        'config'=>array(
@@ -67,15 +75,21 @@
 							<li id="new-attachment" style="display:none;"></li>
 						</div>
 					<div class="clearfix"></div>
-		        </div>
+		         <?php $this->endWidget(); ?>
 		        
-		        <div class="well">
-		            <h5><i class="icon-tags"></i> Tags</h5>
-		            <?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
-		        </div>
+		        
+                <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                    'title' => 'Tags',
+                    'headerIcon' => 'icon-tags',
+                )); ?>
+                    <?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
+                <?php $this->endWidget(); ?>
 	        <?php endif; ?>
-	        <div class="well">
-	            <h5><i class="icon-align-justify"></i> Details</h5>
+	        
+	        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                    'title' => 'Details',
+                    'headerIcon' => 'icon-align-justify',
+                )); ?>
 	            <?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), array('class'=>'span12')); ?>
 				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), array('class'=>'span12')); ?>
 				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span12')); ?>
@@ -83,17 +97,17 @@
 				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'span12', 'options' => array($model->view => array('selected' => true)))); ?>
                 <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'span12', 'options' => array($model->layout => array('selected' => true)))); ?>
                 
-				<hr />
-				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?>
+				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?><br /><br />
 				<?php echo $form->textField($model,'slug',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Slug')); ?>
-				
-	        </div>
+		    <?php $this->endWidget(); ?>
 	        <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
 		        'htmlOptions' => array(
 					'class' => 'pull-right'
 				),
 			    'buttons'=>array(
-			        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug)),
+			        array('label' => $model->comment_count, 'url'=>$this->createUrl('/admin/content/comments/' . $model->id), 'icon' => 'icon-comment', 'type' => 'danger'),
+			        array('label' => $model->like_count, 'url'=>'#', 'icon' => 'icon-heart', 'type' => 'warning'),
+			        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug), 'type' => 'success'),
 				    array('label'=>'Save', 'buttonType' => 'submit', 'type' => 'primary')
 			    ),
 			)); ?>
