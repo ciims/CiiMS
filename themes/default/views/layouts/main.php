@@ -3,21 +3,17 @@
 	<head>
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="keywords" content="<?php echo $this->keywords; ?>" />
-		<meta name="description" content="<?php echo strip_tags($this->params['data']['extract']); ?>" />
+	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
+                                      ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
+                                      ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description'); ?>
 		<?php Yii::app()->clientScript->registerCoreScript('jquery')
 									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.js')
 								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js')
 									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
 									  ->registerCssFile(Yii::app()->baseUrl.'/css/jquery.gritter.css'); ?>
-
-
 		<!--[if lt IE 9]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
-
 	</head>
 	<body>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
@@ -49,8 +45,8 @@
 			if (Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikExtension')), 'value', 0) == 1):
 				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 
 					array(
-						'id'=>Configuration::model()->findByAttributes(array('key'=>'piwikId'))->value, 
-						'baseUrl'=>Configuration::model()->findByAttributes(array('key'=>'piwikBaseUrl'))->value
+						'id'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikId')), 'value', NULL), 
+						'baseUrl'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikBaseUrl')), 'value', NULL)
 					)
 				); 
 			endif;
@@ -58,9 +54,9 @@
 			if (Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaExtension')), 'value', 0) == 1):
 				$this->widget('ext.analytics.EGoogleAnalyticsWidget', 
 					array(
-						'account'=>Configuration::model()->findByAttributes(array('key'=>'gaAccount'))->value, 
-						'addThis'=>Configuration::model()->findByAttributes(array('key'=>'gaAddThis'))->value, 
-						'addThisSocial'=>Configuration::model()->findByAttributes(array('key'=>'gaAddThisSocial'))->value
+						'account'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAccount')), 'value', NULL), 
+						'addThis'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAddThis')), 'value', NULL), 
+						'addThisSocial'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAddThisSocial')), 'value', NULL)
 					)
 				);
 			endif; 

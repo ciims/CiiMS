@@ -14,8 +14,8 @@ class Cii {
 		if ($array == NULL)
 			return isset($default) ? $default : $item;
 		
-		if (isset($array->$item))
-			return $array->$item;
+		if (is_object($array) && isset($array->$item))
+            return $array->$item; 
 		
 		if (!is_array($array))
 			return isset($array) ? $array : $item;

@@ -101,10 +101,10 @@
     <?php $this->endWidget(); ?>
 </div>
 
-<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/admin/jquery.tags.css'); ?>
-<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/admin/colorbox.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/jquery.tags.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/colorbox.css'); ?>
 <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/jquery.thumbs.css'); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/admin/jquery.tags.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.tags.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.thumbs.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.colorbox.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.gridster.js'); ?>
