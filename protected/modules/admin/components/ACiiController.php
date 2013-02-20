@@ -55,12 +55,6 @@ class ACiiController extends CiiController
 			'icon'=>'th-list',
 			'url'=>Yii::app()->createUrl('admin/categories'),
 			'active'=>$this->id == 'categories' ? true : false
-		),
-		array(
-			'label'=>'Comments', 
-			'icon'=>'comment',
-			'url'=>Yii::app()->createUrl('admin/comments'),
-			'active'=>$this->id == 'comments' ? true : false
 		),/*
 		array(
 			'label'=>'Tags', 

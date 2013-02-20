@@ -35,11 +35,47 @@
     	        <?php echo $form->textAreaRow($model, 'extract', array('style' => 'width: 98%; height: 100px')); ?>
 	        <?php $this->endWidget(); ?>
 	    </div>
-	    <div class="span4 ">
-	    	<?php if ($model->vid >= 1): ?>        
+	    <div class="span4">
+	    	<?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                    'title' => 'Details',
+                    'headerIcon' => 'icon-align-justify',
+                    'headerButtons' => array(
+		                array(
+		                    'class' => 'bootstrap.widgets.TbButtonGroup',
+		                    'buttons'=>array(
+						        array('label' => $model->comment_count, 'url'=>$this->createUrl('/admin/content/comments/id/' . $model->id), 'icon' => 'icon-comment', 'htmlOptions' => array('style' => 'padding: 4px 0px; padding-right: 8px;' . ($model->commentable == 1 ?: 'display:none;'))),
+						        array('label' => $model->like_count, 'url'=>'#', 'icon' => 'icon-heart', 'htmlOptions' => array('style' => 'padding: 4px 0px; padding-right: 8px;')),
+						        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug)),
+							    array('label'=>'Save', 'buttonType' => 'submit')
+						    ),
+		                )
+		            )
+                )); ?>
+	            <?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), array('class'=>'span12')); ?>
+				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), array('class'=>'span12')); ?>
+				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span12')); ?>
+				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'),array('class'=>'span12')); ?>
+				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'span12', 'options' => array($model->view => array('selected' => true)))); ?>
+                <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'span12', 'options' => array($model->layout => array('selected' => true)))); ?>
+                
+				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?><br /><br />
+				<?php echo $form->textField($model,'slug',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Slug')); ?>
+		    <?php $this->endWidget(); ?>
+			
+	    	<?php if ($model->vid >= 1): ?>
+	    		<?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+                    'title' => 'Tags',
+                    'headerIcon' => 'icon-tags',
+                )); ?>
+                    <?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
+                <?php $this->endWidget(); ?>  
+                 
 		        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
                     'title' => 'Uploads',
                     'headerIcon' => 'icon-upload',
+                    'htmlOptions' => array(
+						'class' => 'contentSidebar'
+					)
                 )); ?>
                 <?php $this->widget('ext.EAjaxUpload.EAjaxUpload',
 								array(
@@ -64,7 +100,7 @@
 										   }"
 								        )
 								)); ?></h5>
-					   
+					   	<div style="clear:both;"></div>
 						<div class="image-holder ">
 							<?php foreach ($attachments as $attachment): ?>
 							    <div class="image-ctrl" id="<?php echo $attachment->key; ?>">
@@ -76,41 +112,7 @@
 						</div>
 					<div class="clearfix"></div>
 		         <?php $this->endWidget(); ?>
-		        
-		        
-                <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
-                    'title' => 'Tags',
-                    'headerIcon' => 'icon-tags',
-                )); ?>
-                    <?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
-                <?php $this->endWidget(); ?>
 	        <?php endif; ?>
-	        
-	        <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
-                    'title' => 'Details',
-                    'headerIcon' => 'icon-align-justify',
-                )); ?>
-	            <?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), array('class'=>'span12')); ?>
-				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), array('class'=>'span12')); ?>
-				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span12')); ?>
-				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'),array('class'=>'span12')); ?>
-				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'span12', 'options' => array($model->view => array('selected' => true)))); ?>
-                <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'span12', 'options' => array($model->layout => array('selected' => true)))); ?>
-                
-				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?><br /><br />
-				<?php echo $form->textField($model,'slug',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Slug')); ?>
-		    <?php $this->endWidget(); ?>
-	        <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
-		        'htmlOptions' => array(
-					'class' => 'pull-right'
-				),
-			    'buttons'=>array(
-			        array('label' => $model->comment_count, 'url'=>$this->createUrl('/admin/content/comments/' . $model->id), 'icon' => 'icon-comment', 'type' => 'danger'),
-			        array('label' => $model->like_count, 'url'=>'#', 'icon' => 'icon-heart', 'type' => 'warning'),
-			        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug), 'type' => 'success'),
-				    array('label'=>'Save', 'buttonType' => 'submit', 'type' => 'primary')
-			    ),
-			)); ?>
 	    </div>
     <?php $this->endWidget(); ?>
 </div>

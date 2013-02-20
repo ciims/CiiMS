@@ -30,30 +30,6 @@ class CommentsController extends ACiiController
 			$model->approved ^= 1;
 		$model->save();
 	}
-	
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$active=new CActiveDataProvider('Comments', array(
-		    'criteria'=>array(
-		        'condition'=>'approved=1',
-		        'order'=>'created DESC',
-		    ),
-		    'pagination'=>array(
-		        'pageSize'=>30,
-		    ),
-		));
-		$flagged = Comments::model()->findAllByAttributes(array('approved'=>-1));
-		$notapproved = Comments::model()->findAllByAttributes(array('approved'=>0));
-		$this->render('index',array(
-			'flagged'=>$flagged,
-			'notapproved'=>$notapproved,
-			'active'=>$active
-		));
-	}
-
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

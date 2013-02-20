@@ -207,3 +207,9 @@ body > .navbar .brand {
 .transition {
     border: 1px solid #468847;
 }
+.qq-upload-button {
+	top: -34px;
+}
+.contentSidebar .bootstrap-widget-content {
+	padding-top: 0px;
+}

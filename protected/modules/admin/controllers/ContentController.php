@@ -84,6 +84,16 @@ class ContentController extends ACiiController
 	}
 
 	/**
+	 * Action for handling comments for a given post
+	 */
+	public function actionComments($id)
+	{
+		$comments = Content::model()->findByPk($id)->comments;
+		
+		$this->render('comments', array('comments' => $comments));
+	}
+	
+	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted

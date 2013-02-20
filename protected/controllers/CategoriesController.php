@@ -83,7 +83,7 @@ class CategoriesController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = Cii::get((Configuration::model()->findByAttributes(array('key'=>'categoryPaginationSize'))->value), 10);
+		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'categoryPaginationSize'), 'value'), 10);
 		
 		$criteria=new CDbCriteria;
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
