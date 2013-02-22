@@ -52,11 +52,19 @@ class UsersController extends ACiiController
 	public function actionDelete($id)
 	{
 		// we only allow deletion via POST request
-		$m = $this->loadModel($id);
-		$m->status = 0;
-		$m->delete();
+		$model = $this->loadModel($id);
 
-		Yii::app()->user->setFlash('success', 'User has been deleted');
+        if ($model->id != Yii::app()->user->id && $id != 1)
+        {
+            $model->delete();
+		    Yii::app()->user->setFlash('success', 'User has been deleted');
+        }
+        else
+        {
+            throw new CHttpException(403, 'This user cannoot be deleted');
+            Yii::app()->user->setFlash('warning', 'This user cannot be deleted');
+        }
+        
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -100,9 +108,8 @@ class UsersController extends ACiiController
         $user = Cii::get($_POST, 'user_id');
         
         $model = UserMetadata::model()->findByAttributes(array('user_id' => $user, 'key' => $id));
-        Cii::debug($model->attributes);
         if ($model == NULL)
-            return false;
+            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
         
         return $model->delete();
     }

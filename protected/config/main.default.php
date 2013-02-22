@@ -23,7 +23,7 @@
             'combineCssFiles' => false,
             'optimizeCssFiles' => false,
             'optimizeScriptFiles' => false,
-            'compressHTML'        => true
+            'compressHTML'        => false
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',

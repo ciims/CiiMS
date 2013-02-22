@@ -177,11 +177,11 @@ class ContentController extends ACiiController
         
         // Only proceed if we have valid date
         if ($id == NULL || $key == NULL)
-            return false;
+            throw new CHttpException(403, 'Insufficient data provided. Invalid request');
         
         $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
         if ($model === NULL)
-            return false;
+            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
         
         return $model->delete();
     }
@@ -200,7 +200,7 @@ class ContentController extends ACiiController
         
         $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
         if ($model === NULL)
-            return false;
+            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
         
         // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
         if ($model->key == $promotedKey)
@@ -215,8 +215,10 @@ class ContentController extends ACiiController
         
         $model2->value = $model->value;
         
-        return $model2->save();
-        
+        if (!$model->save())
+            throw new CHttpException(403, 'Unable to promote image');
+       
+        return true;
     }
 	/**
 	 * Handles file uploading for the controller
@@ -247,7 +249,8 @@ class ContentController extends ACiiController
 	        $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
  
         echo $return;
-		}		
+		}	
+		Yii::app()->end();	
 	}
 
 	/**
