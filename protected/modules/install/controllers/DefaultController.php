@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(-1);
 class DefaultController extends CController
 {
     /**
@@ -68,7 +68,7 @@ class DefaultController extends CController
             $model->attributes = Yii::app()->session['dsn'];
         
         // If a post request was sent
-        if (Cii::get($_POST, 'DatabaseForm') != NULL)
+        if (Cii::get($_POST, 'DatabaseForm'))
         {
             $model->attributes = $_POST['DatabaseForm'];
             
