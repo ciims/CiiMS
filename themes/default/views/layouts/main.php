@@ -18,10 +18,27 @@
 	<body>
 		<header>
 		    <div class="header-top-bar"></div>
+		    <div class="row-fluid header-middle-bar">
+			    	<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+						'brand' => Yii::app()->name,
+						'fixed' => false,
+						'items' => array(
+							array(
+								'class' => 'bootstrap.widgets.TbMenu',
+								'items' => $this->getCiiMenu()
+							)
+						)
+					)); ?>
+		    </div>		    
 		</header>
 	    
 		<main class="main">
-		    <div class="container">
+		    <div class="container image-container">
+		    	<div class="row-fluid image-viewport">
+		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::get(Configuration::model()->findByAttributes(array('key' => 'splash-logo')), 'value', '/images/splash-logo.jpg')); ?>
+		    	</div>
+		   	</div>
+		   	<div class="container">
                 <div class="row-fluid">
                     <?php echo $content; ?>
                 </div>

@@ -17,10 +17,63 @@ body {
 
 /** Header **/
 header .header-top-bar {
-    min-height: 5px;
+    min-height: 7px;
     padding-bottom: 0px;
     background: #303030;
     border-bottom: 1px solid #444;
+}
+
+header .header-middle-bar {
+	margin-top: 20px;
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header .header-middle-bar .navbar .brand {
+	margin-top: 8px;
+}
+
+header .header-middle-bar .navbar-inner {
+	min-height: 55px;
+	border-radius: 5px;
+}
+
+header .header-middle-bar .navbar .nav {
+	margin: 8px 10px 0 0;
+}
+
+header .header-middle-bar .navbar .nav > li {
+	border-right: 1px solid #cacaca;
+}
+
+header .header-middle-bar .navbar .nav > li:first-child {
+	border-left: 1px solid #cacaca;
+}
+
+header .header-middle-bar .navbar .nav > li:last-child {
+	border-right: none;
+}
+
+main .image-container {
+	border-bottom: 1px solid #cacaca;
+	margin-bottom: 15px;
+}
+
+main .image-viewport {
+	overflow: hidden;
+	border: 10px solid #FFFFFF;
+	border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.2);
+	max-height: 2000px;
+	transition: all 1s ease 0s;
+	max-width: 900px;
+	width: 77%;
+	margin-left: auto;
+	margin-right: auto;
+	max-height: 300px;
+	margin-bottom: 20px;
 }
 
 /** Footer **/

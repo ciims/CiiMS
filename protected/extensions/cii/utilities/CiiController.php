@@ -183,7 +183,7 @@ class CiiController extends CController
         if ($items === false)
         {
             // Get the menu items from Configuration
-            $menuRoutes = Cii::get(Configuration::model()->findByAttributes(array('key' => 'menu')), 'value', NULL);
+            $menuRoutes = Cii::get(Configuration::model()->findByAttributes(array('key' => 'menu')), 'value', '');
             
             // If the configuration is not provided, then set this to our defualt items
             if ($menuRoutes == NULL)
