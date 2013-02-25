@@ -96,8 +96,8 @@ class ContentController extends ACiiController
             throw new CHttpException(400, 'Comments for this content do not exists');
             
 		$comments = $content->comments;
-		
-		$this->render('comments', array('comments' => $comments, 'content' => $content));
+		$md = new CMarkdownParser();
+		$this->render('comments', array('comments' => $comments, 'content' => $content, 'md' => $md));
 	}
 	
 	/**

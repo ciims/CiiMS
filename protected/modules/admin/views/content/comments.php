@@ -1,6 +1,14 @@
 <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
     'title' => 'Comments',
     'headerIcon' => 'icon-comment',
+    'headerButtons' => array(
+        array(
+            'class' => 'bootstrap.widgets.TbButton',
+            'type' => 'primary',
+            'url' => '#comment-box', 
+            'label' => 'Comment'
+        )
+    )
 )); ?>
     <?php foreach($comments as $comment): ?>
         <div class="comment-container <?php echo $comment->content->author->id == $comment->author->id ? 'byself' : NULL; ?>">
@@ -14,13 +22,14 @@
                         <?php echo CHtml::link($comment->approved == 1 ? 'Flag' : 'Approve', $this->createUrl('/admin/comments/approve/id/' . $comment->id), array('data-attr-id' => $comment->id, 'class' => 'flag-comment')); ?>
                     </span>
                 </div>
-                <?php echo $comment->comment; ?>
+                <?php echo $md->safeTransform($comment->comment); ?>
             </div>
         </div>
         <div class="clearfix"></div>
     <?php endforeach; ?>
 <?php $this->endWidget(); ?>
 
+<a id="comment-box"></a>
 <div class="comment-box">
     
 </div>
