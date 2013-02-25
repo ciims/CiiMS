@@ -224,6 +224,7 @@ body > .navbar .brand {
 }
 
 .comment-container .comment {
+    margin-bottom: 10px;
     float:left;
     margin-left: 10px;
     background: #FAFEFF;
@@ -287,4 +288,52 @@ body > .navbar .brand {
     margin-right: 10px;
     margin-left: 0px;
     border: 1px solid #B5CDD7;
+}
+
+.sharebox-submit  {
+    background:#9eca80;
+    border-radius:2px;
+    float:right;
+    margin-top: 5px;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    font-size:80%;
+    font-weight:bold;
+}
+#sharebox {
+    border:1px solid #ddd;
+}
+#sharebox #a {
+    display:none;
+    padding: 10px;
+    color:#000;
+    position:relative;
+}
+#sharebox #b {
+    padding:10px;
+    min-height:15px;
+    cursor:text;
+}
+ 
+#sharebox #close, #sharebox #textbox {
+    float:left;
+}
+
+#sharebox #textbox {
+    width:99%;
+    min-height:20px;
+    outline:none;
+    min-height:50px;
+}
+
+#sharebox #close {
+    background: no-repeat url(../../images/admin/bg.png) -33px -31px;
+    height: 9px;
+    width: 9px;
+    cursor: pointer;
+    right: 11px;
+    margin: 1px;
+    position: absolute;
+    top: 11px;
 }

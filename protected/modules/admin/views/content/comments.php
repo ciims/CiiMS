@@ -5,8 +5,12 @@
         array(
             'class' => 'bootstrap.widgets.TbButton',
             'type' => 'primary',
+            'size' => 'small',
             'url' => '#comment-box', 
-            'label' => 'Comment'
+            'label' => 'Comment',
+            'htmlOptions' => array(
+                'style' => 'margin-right: 5px;'
+            )
         )
     )
 )); ?>
@@ -25,15 +29,32 @@
                 <?php echo $md->safeTransform($comment->comment); ?>
             </div>
         </div>
-        <div class="clearfix"></div>
+        
+    <div class="clearfix"></div>
     <?php endforeach; ?>
+    <div id="new-comment"></div>
 <?php $this->endWidget(); ?>
 
 <a id="comment-box"></a>
-<div class="comment-box">
-    
+<div id="sharebox" class="comment-box">
+    <div id="a">
+        <div id="textbox" contenteditable="true"></div>
+        <div id="close"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div id="b" style="color:#999">Comment on this post</div> 
 </div>
 
+<?php $this->widget('bootstrap.widgets.TbButton', array(
+    'type' => 'success',
+    'label' => 'Submit',
+    'url' => '#',
+    'htmlOptions' => array(
+        'id' => 'submit',
+        'class' => 'sharebox-submit',
+        'style' => 'display:none'
+    )
+)); ?>
 
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',
@@ -71,5 +92,45 @@
                    $(element).text("Flag");
            }
        });
+    });
+'); ?>
+
+<?php Yii::app()->clientScript->registerScript('comment-box', '
+    $("#b").click( function () {
+        $(this).html("");
+        $("#a").slideDown("fast");
+        $("#submit").show();
+        setTimeout(function() {
+            $("#textbox").focus();
+        }, 100);
+    });
+    $("#textbox").keydown( function() {
+        if($(this).text() != "")
+            $("#submit").css("background","#3b9000");
+        else
+            $("#submit").css("background","#9eca80");
+        });
+    $("#close").click( function () {
+        $("#b").html("Comment on this post");
+        $("#textbox").html("");
+        $("#a").slideUp("fast");
+        $("#submit").hide();
+    });
+    
+    $("#submit").click(function(e) {
+        e.preventDefault();
+        if ($("#textbox").text() == "")
+            return;
+        
+        $.post("../../../comments/comment/id/' . $content->id .'", { comment : $("#textbox").text() }, function(data, textStatus, jqXHR) {
+            if (jqXHR.status == 200)
+            {
+                
+            }
+            else
+            {
+                console.log(jqXHR);   
+            }
+        }); 
     });
 '); ?>

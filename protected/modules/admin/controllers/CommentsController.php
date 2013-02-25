@@ -16,7 +16,8 @@ class CommentsController extends ACiiController
             throw new CHttpException(400, 'Cannot find comment');
 		$c = Content::model()->findByPk($comment->content_id);		
         	
-		$c->comment_count = $c->comment_count - 1;
+		$c->comment_count = max($c->comment_count - 1, 0);
+        
 		if ($comment->delete() && $c->save())
 		    Yii::app()->user->setFlash('success', 'Comment has been deleted.');
         else
@@ -48,6 +49,37 @@ class CommentsController extends ACiiController
         
         $this->redirect($this->createUrl('/admin/content/comments/id/' . $model->content->id));
 	}
+    
+    /**
+     * Allows the user to comment on a particular article
+     * @param int $id       The id of the article we want to comment on.
+     */
+    public function actionComment($id=NULL)
+    {
+        if ($id == NULL)
+            throw new CHttpException(400, 'Content not found');
+        
+        $content = Content::model()->findByPk($id);
+        if ($content === NULL)
+            throw new CHttpException(400, 'Content does not exist');
+        
+        $md = new CMarkdownParser();
+        
+        $comment = new Comments();
+        $comment->content_id = $id;
+        $comment->user_id = Yii::app()->user->id;
+        $comment->comment = Cii::get($_POST, 'comment', "");
+        $comment->parent_id = 0;
+        $comment->approved = 1;
+        
+        if ($comment->comment == "")
+            throw new CHttpException(400, 'Comment cannot be empty');
+        
+        if ($comment->save())
+            $this->renderPartial('comment', array('md' => $md, 'comment' => $comment));
+        else
+            throw new CHttpException(400, 'There were errors saving your post.');
+    }
     
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
