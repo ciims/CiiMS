@@ -12,25 +12,43 @@ class CommentsController extends ACiiController
 	{
 		// we only allow deletion via POST request
 		$comment = $this->loadModel($id);
-		$c = Content::model()->findByPk($comment->content_id);			
-		$comment->delete();
+        if ($comment === NULL)
+            throw new CHttpException(400, 'Cannot find comment');
+		$c = Content::model()->findByPk($comment->content_id);		
+        	
 		$c->comment_count = $c->comment_count - 1;
-		$c->save();
-		
-		Yii::app()->user->setFlash('success', 'Comment has been deleted.');
+		if ($comment->delete() && $c->save())
+		    Yii::app()->user->setFlash('success', 'Comment has been deleted.');
+        else
+            Yii::app()->user->setFlash('warning', 'Unable to delete comment');
+        
+        $this->redirect($this->createUrl('/admin/content/comments/id/' . $c->id));
 	}
-
+    
+    /**
+     * Flags or approves a particular comment
+     * @param int $id   The id of the comment
+     * 
+     */
 	public function actionApprove($id=NULL)
 	{
 		$model=$this->loadModel($id);
-		
+		if ($model === NULL)
+            throw new CHttpException(400, 'Unable to load comment');
+        
 		if ($model->approved == -1)
 			$model->approved = 1;
 		else
 			$model->approved ^= 1;
-		$model->save();
+		
+        if ($model->save())
+            Yii::app()->user->setFlash('success', 'Comment has been altered');
+        else
+            Yii::app()->user->setFlash('warning', 'Unable to un/approve comment');
+        
+        $this->redirect($this->createUrl('/admin/content/comments/id/' . $model->content->id));
 	}
-
+    
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

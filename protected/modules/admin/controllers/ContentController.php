@@ -88,9 +88,16 @@ class ContentController extends ACiiController
 	 */
 	public function actionComments($id)
 	{
-		$comments = Content::model()->findByPk($id)->comments;
+	    if ($id == NULL)
+            throw new CHttpException(400, 'Content ID is required before proceeding');
+            
+	    $content = Content::model()->findByPk($id);
+        if ($content === NULL)
+            throw new CHttpException(400, 'Comments for this content do not exists');
+            
+		$comments = $content->comments;
 		
-		$this->render('comments', array('comments' => $comments));
+		$this->render('comments', array('comments' => $comments, 'content' => $content));
 	}
 	
 	/**
