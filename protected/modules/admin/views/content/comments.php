@@ -35,26 +35,31 @@
     <div id="new-comment"></div>
 <?php $this->endWidget(); ?>
 
-<a id="comment-box"></a>
-<div id="sharebox" class="comment-box">
-    <div id="a">
-        <div id="textbox" contenteditable="true"></div>
-        <div id="close"></div>
-        <div style="clear:both"></div>
-    </div>
-    <div id="b" style="color:#999">Comment on this post</div> 
-</div>
-
-<?php $this->widget('bootstrap.widgets.TbButton', array(
-    'type' => 'success',
-    'label' => 'Submit',
-    'url' => '#',
-    'htmlOptions' => array(
-        'id' => 'submit',
-        'class' => 'sharebox-submit',
-        'style' => 'display:none'
-    )
+<?php $this->beginWidget('bootstrap.widgets.TbBox', array(
+    'title' => 'New Comment',
+    'headerIcon' => 'icon-leaf',
 )); ?>
+    <a id="comment-box"></a>
+    <div id="sharebox" class="comment-box">
+        <div id="a">
+            <div id="textbox" contenteditable="true"></div>
+            <div id="close"></div>
+            <div style="clear:both"></div>
+        </div>
+        <div id="b" style="color:#999">Comment on this post</div> 
+    </div>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'type' => 'success',
+        'label' => 'Submit',
+        'url' => '#',
+        'htmlOptions' => array(
+            'id' => 'submit',
+            'class' => 'sharebox-submit',
+            'style' => 'display:none'
+        )
+    )); ?>
+<?php $this->endWidget(); ?>
+
 
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',
