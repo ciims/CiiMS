@@ -33,14 +33,46 @@
 				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', isset($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
 				    ),
 				)); ?>
-		<div class="container">
-  			<div class="row-fluid">
-				<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-				    'links'=>$this->breadcrumbs
-				)); ?>
-				<?php echo $content; ?>
-  			</div>
+		<div class="main">
+		    <div class="container">
+                <div class="row-fluid">
+                    <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+                        'links'=>$this->breadcrumbs
+                    )); ?>
+                    <?php echo $content; ?>
+                </div>
+            </div>
 		</div>
+		
+		
+		<footer>
+		    <div class="footer-top-block">
+		        <div class="container"></div>
+		    </div>
+		    <div class="footer-main-block">
+		        <div class="row-fluid">
+		            <div class="inner-container">
+                        <div class="span3 well"></div>
+		                <div class="span3">
+                            <h5><span class="colored-header">///</span> Categories</h5>
+                        </div>
+                        <div class="span3">
+                            <h5><span class="colored-header">///</span> Recent Posts</h5>
+                        </div>
+                        <div class="span3">
+                            <h5><span class="colored-header">///</span> Search</h5>
+                        </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="footer-bottom-block">
+		        <div class="container">
+                        <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?></div>
+                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu'); ?></div>
+		        </div>
+		    </div>
+		</footer>
+		
 		<?php if (!YII_DEBUG):
 			if (Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikExtension')), 'value', 0) == 1):
 				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 

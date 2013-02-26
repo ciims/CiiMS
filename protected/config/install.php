@@ -3,6 +3,7 @@
     'name' => 'CiiMS Installer',
     'defaultController' => 'default',
     'preload' => array(
+        'cii',
         'bootstrap',
     ),
     'import' => array(
@@ -21,6 +22,9 @@
                     'levels'=>'trace,error,warning,notice',
                 )       
             ),
+        ),
+        'cii' => array(
+            'class' => 'ext.cii.components.CiiBase'
         ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',

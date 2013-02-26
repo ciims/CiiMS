@@ -1,49 +1,91 @@
-.image {
-	background: white;
-	border: 1px solid #DDD;
-	padding: 5px;
-	margin-bottom: 10px;
+
+@media (max-width: 767px) {
+    body {
+        padding: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .main {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
-.container {
-	width: 1200px;
+/** Footer **/
+footer a, footer a:visited, footer a:active {
+    color: #999; 
 }
 
-.avatar {
-	  	width: 60px;
-		height: 60px;
-		display: block;
-		float: left;
-	  }
-	
-p.comment-post {
-	clear:none;
-}	
-
-div.comment-block {
-	padding: 5px;
-	margin-left: 70px;
+footer a:hover {
+    color: #7daf27;
 }
 
-.author {
-	font-weight:bold;
-	border-radius: 4px;
-	-moz-border-radiu: 4px;
-	-webkit-border-radius: 4px;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+footer h5 {
+    margin-bottom: 5px;
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
-.small-text {
-	font-size: 11px;
-	margin-top: -3px;
-	margin-left: 5px;
+footer h5 .colored-header {
+    color: #7daf27;
 }
 
-blockquote.comment {
-	border-left: 5px solid #CE4444;
-	margin-left:50px;
+footer .container {
+    margin: 0 10px;
 }
 
-blockquote.author-comment {
- 	border-left: 5px solid #CE4444;
+footer .well {
+    background-color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 13px;
+    color: #999;
+}
+
+footer .container {
+    padding: 0 10px;
+}
+footer .footer-top-block {
+    padding: 20px 0px;
+    background: #3a3a3a;
+    padding-bottom: 0px;
+    color: #FFF;
+}
+
+footer .footer-main-block {
+    padding: 30px 0px;
+    padding-bottom: 10px;
+    background: #303030;
+    color: #cacaca;
+    border-top: 1px solid #444;
+    border-bottom: 1px solid #444;
+}
+
+footer .footer-main-block .inner-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer .footer-bottom-block {
+    padding: 3px 0px;
+    background: #3a3a3a;
+    color: #999;
+    font-size: 11px;
+    border-bottom: 5px solid #000;
+}
+
+footer .footer-bottom-block .cii-menu ul {
+    margin: 0px;
+}
+footer .footer-bottom-block .cii-menu ul li {
+    display: inline;
+}
+
+footer .footer-bottom-block .cii-menu ul li:after {
+    content: " /";
+}
+
+footer .footer-bottom-block .cii-menu ul li:last-child:after {
+    content: "";
 }

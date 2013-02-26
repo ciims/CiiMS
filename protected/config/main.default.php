@@ -2,6 +2,7 @@
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'preload' => array(
+        'cii',
         'bootstrap',
     ),
     'import' => array(
@@ -13,6 +14,9 @@
         'admin',
     ),
     'components' => array(
+        'cii' => array(
+            'class' => 'ext.cii.components.CiiBase'
+        ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
             'responsiveCss' => true
