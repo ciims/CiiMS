@@ -38,7 +38,11 @@ class SettingsController extends ACiiController
         $this->render('_form',array('model'=>$model));
 	}
 
-
+    public function actionManaged()
+    {
+        $this->render('managed');
+    }
+    
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

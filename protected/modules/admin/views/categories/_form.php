@@ -6,6 +6,7 @@
     
     <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
         'title' => 'Create a New Category',
+        'headerIcon' => 'icon-plus',
         'headerButtons' => array(
             array(
                 'class' => 'bootstrap.widgets.TbButton',

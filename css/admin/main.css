@@ -337,3 +337,8 @@ body > .navbar .brand {
     position: absolute;
     top: 11px;
 }
+@media (max-width: 767px) {
+    tfoot {
+        display:none;
+    }   
+}
