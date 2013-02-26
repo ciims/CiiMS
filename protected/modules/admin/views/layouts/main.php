@@ -10,6 +10,7 @@
         'fixed'=>'top',
         'collapse' => true,
         'brand'=>'Admin',
+        'brandUrl' => Yii::app()->getBaseUrl(true),
         'items'=>array(
             array(
                 'class'=>'bootstrap.widgets.TbMenu',
