@@ -130,7 +130,10 @@
         $.post("../../../comments/comment/id/' . $content->id .'", { comment : $("#textbox").text() }, function(data, textStatus, jqXHR) {
             if (jqXHR.status == 200)
             {
-                
+                $("#new-comment").replaceWith(data);
+                $(".comment-container:last").fadeIn();
+                $("#textbox").html("");
+                $("#close").click();
             }
             else
             {

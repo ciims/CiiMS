@@ -134,4 +134,34 @@ class Comments extends CiiModel
 		else 
 			return false;
 	}
+    
+    /**
+     * After Save, incriments the comment count of the parent content
+     */
+    public function afterSave()
+    {
+        $content = Content::model()->findByPk($this->content_id);
+        if ($content === NULL)
+            return true;
+        
+        $content->comment_count = $content->comment_count = max($content->comment_count + 1, 0);
+        
+        $content->save();
+        return parent::afterSave();
+    }
+    
+    /**
+     * After Delete method, decriments the comment count of the parent content
+     */
+    public function afterDelete()
+    {
+        $content = Content::model()->findByPk($this->content_id);
+        if ($content === NULL)
+            return true;
+        
+        $content->comment_count = $content->comment_count = max($content->comment_count - 1, 0);
+        
+        $content->save();
+        return parent::afterDelete();
+    }
 }

@@ -11,19 +11,16 @@ class CommentsController extends ACiiController
 	public function actionDelete($id=NULL)
 	{
 		// we only allow deletion via POST request
-		$comment = $this->loadModel($id);
+		$comment = Comments::model()->findByPk($id);
         if ($comment === NULL)
             throw new CHttpException(400, 'Cannot find comment');
-		$c = Content::model()->findByPk($comment->content_id);		
-        	
-		$c->comment_count = max($c->comment_count - 1, 0);
         
-		if ($comment->delete() && $c->save())
+		if ($comment->delete())
 		    Yii::app()->user->setFlash('success', 'Comment has been deleted.');
         else
             Yii::app()->user->setFlash('warning', 'Unable to delete comment');
         
-        $this->redirect($this->createUrl('/admin/content/comments/id/' . $c->id));
+        $this->redirect($this->createUrl('/admin/content/comments/id/' . $comment->content_id));
 	}
     
     /**
@@ -33,7 +30,7 @@ class CommentsController extends ACiiController
      */
 	public function actionApprove($id=NULL)
 	{
-		$model=$this->loadModel($id);
+		$comment = Comments::model()->findByPk($id);
 		if ($model === NULL)
             throw new CHttpException(400, 'Unable to load comment');
         
@@ -80,19 +77,6 @@ class CommentsController extends ACiiController
         else
             throw new CHttpException(400, 'There were errors saving your post.');
     }
-    
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=Comments::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
 
 	/**
 	 * Performs the AJAX validation.

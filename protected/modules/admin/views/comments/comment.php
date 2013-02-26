@@ -1,4 +1,4 @@
-<div class="comment-container <?php echo $comment->content->author->id == $comment->author->id ? 'byself' : NULL; ?>">
+<div class="comment-container <?php echo $comment->content->author->id == $comment->author->id ? 'byself' : NULL; ?>" style="display:none;">
     <div class="user-photo rounded-img"><?php echo CHtml::image($comment->author->gravatarImage(40)); ?></div>
     <div class="comment">
         <div class="info-row">
