@@ -25,7 +25,8 @@ class CategoriesController extends ACiiController
 
 		if(isset($_POST['Categories']))
 		{
-			$model->attributes=$_POST['Categories'];
+			$model->attributes = Cii::get($_POST, 'Categories', array());
+            $model->id = Cii::get($_POST['Categories'], 'id', NULL);
 			if($model->save())
 			{
 				Yii::app()->user->setFlash('success', 'Category has been updated');
@@ -34,9 +35,7 @@ class CategoriesController extends ACiiController
 			Yii::app()->user->setFlash('error', 'There was an error in your submission, please verify you data before trying again.');
 		}
 		
-		$this->render('save',array(
-			'model'=>$model,
-		));
+		$this->render('_form',array('model'=>$model));
 	}
 
 	/**

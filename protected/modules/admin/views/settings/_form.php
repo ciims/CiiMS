@@ -1,11 +1,11 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-    'id'=>'categories-form',
+    'id'=>'configuration-form',
     'enableAjaxValidation'=>false,
-    'action'=>Yii::app()->createUrl('/admin/categories/save/id/' . $model->id)
+    'action'=>Yii::app()->createUrl('/admin/settings/save/id/' . $model->key)
 )); ?>
-    
+
     <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
-        'title' => 'Create a New Category',
+        'title' => 'Add a Setting',
         'headerButtons' => array(
             array(
                 'class' => 'bootstrap.widgets.TbButton',
@@ -21,15 +21,10 @@
         <p class="help-block">Fields with <span class="required">*</span> are required.</p>
     
         <?php echo $form->errorSummary($model); ?>
-        
-        <?php if (!$model->isNewRecord): ?>
-            <?php echo $form->hiddenField($model, 'id'); ?>
-        <?php endif; ?>
-        <?php echo $form->dropDownListRow($model,'parent_id',CHtml::listData(Categories::model()->findAll(), 'id', 'name'), array('class'=>'span11')); ?>
     
-        <?php echo $form->textFieldRow($model,'name',array('class'=>'span11','maxlength'=>150)); ?>
     
-        <?php echo $form->textFieldRow($model,'slug',array('class'=>'span11','maxlength'=>150)); ?>
-
+        <?php echo $form->textFieldRow($model,'key',array('class'=>'span11','maxlength'=>150)); ?>
+    
+        <?php echo $form->textFieldRow($model,'value',array('class'=>'span11','maxlength'=>150)); ?>
     <?php $this->endWidget(); ?>
 <?php $this->endWidget(); ?>

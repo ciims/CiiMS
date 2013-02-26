@@ -24,18 +24,17 @@
                         )
                     ),
                     'checkBoxColumnConfig' => array(
-                        'name' => 'id'
+                        'name' => 'key'
                     ),
                 ),
                 'columns' => array(
-                    'id',
-                    'name',
-                    'slug',
+                    'key',
+                    'value',
                     array(
                         'class'=>'bootstrap.widgets.TbButtonColumn',
-                        'viewButtonUrl'=>'Yii::app()->createUrl("/" . $data->slug)',
-                        'updateButtonUrl' => 'Yii::app()->createUrl("/admin/categories/save/id/" . $data->id)',
-                        'deleteButtonUrl'=>'Yii::app()->createUrl("/admin/categories/delete/id/" . $data->id)',
+                        'template' => '{update}{delete}',
+                        'updateButtonUrl' => 'Yii::app()->createUrl("/admin/settings/save/id/" . $data->key)',
+                        'deleteButtonUrl'=>'Yii::app()->createUrl("/admin/settings/delete/id/" . $data->key)',
                     ),
                 ),
             ));

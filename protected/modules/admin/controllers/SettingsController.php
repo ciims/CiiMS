@@ -1,30 +1,7 @@
 <?php
 
 class SettingsController extends ACiiController
-{
-
-	
-	public function beforeAction($action)
-	{
-		$this->menu = array(
-			array('label'=>'Configuration Options'),
-			array('label'=>'New Settings', 'url'=>Yii::app()->createUrl('admin/settings/save')),
-		);
-		return parent::beforeAction($action);
-		
-	}
-	
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
+{	
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -32,23 +9,33 @@ class SettingsController extends ACiiController
 	public function actionSave($id=NULL)
 	{
 		if ($id == NULL)
-			$model=new Configuration;
-		else
-			$model=$this->loadModel($id);
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+            $model = new Configuration;
+        else
+            $model=$this->loadModel($id);
+        
+        // Uncomment the following line if AJAX validation is needed
+        //$this->performAjaxValidation($model);
 
-		if(isset($_POST['Configuration']))
-		{
-			$model->attributes=$_POST['Configuration'];
-			if($model->save())
-				$this->redirect(array('save','id'=>$model->key));
-		}
-
-		$this->render('save',array(
-			'model'=>$model,
-			'id'=>$id
-		));
+        if(isset($_POST['Configuration']))
+        {
+            $model->attributes = Cii::get($_POST, 'Configuration', array());
+            $model->key = Cii::get($_POST['Configuration'], 'key', NULL);
+            try {
+                if($model->save())
+                {
+                    Yii::app()->user->setFlash('success', 'Setting has been updated');
+                    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+                }
+            } 
+            catch (CDbException $e)
+            {
+                Yii::app()->user->setFlash('error', 'A setting with that key already exists.');
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+            }
+            Yii::app()->user->setFlash('error', 'There was an error in your submission, please verify you data before trying again.');
+        }
+        
+        $this->render('_form',array('model'=>$model));
 	}
 
 
@@ -68,6 +55,35 @@ class SettingsController extends ACiiController
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
+    /**
+     * Public function to delete many records from the content table
+     * TODO, add verification notice on this
+     */
+    public function actionDeleteMany()
+    {
+        $key = key($_POST);
+        if (count($_POST[$key]) == 0)
+            throw new CHttpException(500, 'No records were supplied to delete');
+        
+        foreach ($_POST[$key] as $k=>$id)
+        {
+            if ($id != 1)
+            {
+                $command = Yii::app()->db
+                          ->createCommand("DELETE FROM configuration WHERE configuration.key = :key")
+                          ->bindParam(":key", $id, PDO::PARAM_STR)
+                          ->execute();
+            }
+        }
+        
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+    
+    
 	/**
 	 * Lists all models.
 	 */

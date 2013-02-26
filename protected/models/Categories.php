@@ -121,7 +121,7 @@ class Categories extends CiiModel
 			
 		return parent::beforeValidate();
 	}
-	
+        
 	public function beforeSave()
 	{
     	if ($this->isNewRecord)
