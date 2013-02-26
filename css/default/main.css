@@ -31,10 +31,6 @@ footer h5 .colored-header {
     color: #7daf27;
 }
 
-footer .container {
-    margin: 0 10px;
-}
-
 footer .well {
     background-color: #333;
     border: 1px solid rgba(0, 0, 0, 0.05);
