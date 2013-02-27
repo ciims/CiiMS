@@ -53,7 +53,7 @@ class ACiiController extends CiiController
 		array(
 			'label'=>'Categories', 
 			'icon'=>'th-list',
-			'url'=>$this->createUrl('admin/categories'),
+			'url'=>$this->createUrl('/admin/categories'),
 			'active'=>$this->id == 'categories' ? true : false
 		),/*
 		array(

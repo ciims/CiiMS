@@ -135,13 +135,14 @@ class Categories extends CiiModel
 	   	else
 			$this->updated = new CDbExpression('NOW()');
 		
+        Yii::app()->cache->delete('categories-listing');
 	    return parent::beforeSave();
 	}
 	
 	public function beforeDelete()
 	{			
 		Yii::app()->cache->delete('categories');
-		Yii::app()->cache->delete('ctegories-listing');
+        Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('WFF-categories-url-rules');
 		Yii::app()->cache->delete('categories-pid');
 		return parent::beforeDelete();

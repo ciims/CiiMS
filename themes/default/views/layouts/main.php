@@ -52,7 +52,9 @@
 		    <div class="footer-main-block">
 		        <div class="row-fluid">
 		            <div class="inner-container">
-                        <div class="span3 well"></div>
+                        <div class="span3 well" id="eChrip">
+                            <?php $this->widget('ext.echirp.EChirp', array('options' => array('user' => Cii::get(Configuration::model()->findByAttributes(array('key' => 'twitter_username')), 'value', '')))); ?>
+                        </div>
 		                <div class="span3">
                             <h5><span class="colored-header">///</span> Categories</h5>
                             <?php $this->widget('zii.widgets.CMenu', array(
