@@ -44,7 +44,6 @@
 		                    'class' => 'bootstrap.widgets.TbButtonGroup',
 		                    'buttons'=>array(
 						        array('label' => $model->comment_count, 'url'=>$this->createUrl('/admin/content/comments/id/' . $model->id), 'icon' => 'icon-comment', 'htmlOptions' => array('style' => 'padding: 4px 0px; padding-right: 8px;' . ($model->commentable == 1 ?: 'display:none;'))),
-						        array('label' => $model->like_count, 'url'=>'#', 'icon' => 'icon-heart', 'htmlOptions' => array('style' => 'padding: 4px 0px; padding-right: 8px;')),
 						        array('label'=>'View', 'url' => Yii::app()->createUrl('/' . $model->slug)),
 							    array('label'=>'Save', 'buttonType' => 'submit')
 						    ),
