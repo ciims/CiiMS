@@ -55,12 +55,25 @@
                         <div class="span3 well"></div>
 		                <div class="span3">
                             <h5><span class="colored-header">///</span> Categories</h5>
+                            <?php $this->widget('zii.widgets.CMenu', array(
+                                'items' => $this->getCategories()
+                            )); ?>
                         </div>
                         <div class="span3">
                             <h5><span class="colored-header">///</span> Recent Posts</h5>
+                            <?php $this->widget('zii.widgets.CMenu', array(
+                                'items' => $this->getRecentPosts()
+                            )); ?>
                         </div>
                         <div class="span3">
                             <h5><span class="colored-header">///</span> Search</h5>
+                            <p>Looking for something on the blog?</p>
+                            <?php echo CHtml::beginForm($this->createUrl('/search'), 'get', array('id' => 'search')); ?>
+                                <div class="input-append">
+                                    <?php echo CHtml::textField('q', Cii::get($_GET, 'q', ''), array('type' => 'text', 'style' => 'width: 75%', 'placeholder' => 'Search...')); ?>
+                                    <?php echo CHtml::button('Search', array('type' => 'button', 'class' => 'btn btn-inverse')); ?>
+                                </div>
+                            <?php echo CHtml::endForm(); ?>
                         </div>
 		            </div>
 		        </div>

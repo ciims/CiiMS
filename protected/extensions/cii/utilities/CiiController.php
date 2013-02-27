@@ -119,4 +119,48 @@ class CiiController extends CController
     		    echo $output;
 	    }
 	}
+
+    /**
+     * Retrieves all categories to display int he footer
+     * @return array $items     The CMenu Items we are going to return
+     */
+    public function getCategories()
+    {
+        $items = array(array('label' => 'All Posts', 'url' => $this->createUrl('/blogs')));
+        $categories = Yii::app()->cache->get('categories-listing');
+        
+        if ($categories == false)
+        {
+            $categories = Yii::app()->db->createCommand('SELECT categories.id AS id, categories.name AS name, categories.slug AS slug, COUNT(DISTINCT(content.id)) AS content_count FROM categories LEFT JOIN content ON categories.id = content.category_id WHERE content.type_id = 2 AND content.status = 1 GROUP BY categories.id')->queryAll();
+            Yii::app()->cache->set('categories-listing', $categories);                          
+        }
+        
+        foreach ($categories as $k=>$v)
+        {
+            if ($v['name'] != 'Uncategorized')
+                $items[] = array('label' => $v['name'], 'url' => $this->createUrl('/' . $v['slug']));
+        }
+        
+        return $items;
+    }
+    
+    /**
+     * Retrieves the recent post items so that the view is cleaned up
+     * @return array $items     The CMenu items we are going to return
+     */
+    public function getRecentPosts()
+    {
+        $items = array();
+        $content = Yii::app()->cache->get('content-listing');
+        if ($content == false)
+        {
+            $content = Yii::app()->db->createCommand('SELECT title, extract, content.slug AS content_slug, categories.slug AS category_slug, categories.name AS category_name, comment_count, content.created FROM content LEFT JOIN categories ON content.category_id = categories.id WHERE vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) AND type_id = 2 AND status = 1 ORDER BY content.created DESC LIMIT 5')->queryAll();
+            Yii::app()->cache->set('content-listing', $content);                            
+        }
+        
+        foreach ($content as $k=>$v)
+            $items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']));
+        
+        return $items;
+    }
 }
