@@ -63,10 +63,10 @@ class CiiController extends CController
      */
     public function getKeywords()
     {
-        $keywords = Cii::get($this->params['meta'], 'keywords', array());
-        if (Cii::get($this->params['meta']['keywords'], 'value', false) != false)
+        $keywords = Cii::get($this->params['meta'], 'keywords', '');
+        if (Cii::get($keywords, 'value', false) != false)
             $keywords = implode(',', json_decode($keywords['value']));
-        
+            
         return $keywords == "" ? Cii::get($this->params['data'], 'title', Yii::app()->name): $keywords;
     }
 	

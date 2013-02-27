@@ -33,17 +33,14 @@
 				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', isset($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
 				    ),
 				)); ?>
-		<div class="main">
+	    
+		<main class="main">
 		    <div class="container">
                 <div class="row-fluid">
-                    <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-                        'links'=>$this->breadcrumbs
-                    )); ?>
                     <?php echo $content; ?>
                 </div>
             </div>
-		</div>
-		
+		</main>
 		
 		<footer>
 		    <div class="footer-top-block">

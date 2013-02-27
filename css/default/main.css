@@ -1,3 +1,6 @@
+body {
+    background:url(../../../images/default/bg.png) repeat;
+}
 
 /** Mobile View **/
 @media (max-width: 767px) {
