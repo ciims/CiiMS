@@ -16,9 +16,11 @@ body {
 }
 
 /** Header **/
-header {
-    margin-top: 10px;
-    margin-bottom: 25px;
+header .header-top-bar {
+    min-height: 5px;
+    padding-bottom: 0px;
+    background: #303030;
+    border-bottom: 1px solid #444;
 }
 
 /** Footer **/
@@ -68,6 +70,7 @@ footer .well {
 footer .container {
     padding: 0 10px;
 }
+
 footer .footer-top-block {
     padding: 20px 0px;
     background: #3a3a3a;

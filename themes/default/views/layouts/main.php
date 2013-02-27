@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<header>
-		    
+		    <div class="header-top-bar"></div>
 		</header>
 	    
 		<main class="main">
