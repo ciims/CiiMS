@@ -139,7 +139,7 @@ $("#tags").tagsInput({
 '); ?>
 <?php Yii::app()->clientScript->registerScript('admin_thumbs', '$(".thumb").thumbs();'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_colorbox', '$(".thumb").colorbox({rel:"thumb"});'); ?>
-<?php Yii::app()->clientScript->registerScript('admin_promote', 'var timeoutId = 0; $(".image-ctrl").mousedown(function() {
+<?php Yii::app()->clientScript->registerScript('admin_promote', 'var timeoutId = 0; $(".image-ctrl").mousedown(function(e) {
         timeoutId = setTimeout(promote, 1000, ($(this).attr("id")));
     }).bind("mouseup mouseleave", function() {
         clearTimeout(timeoutId);

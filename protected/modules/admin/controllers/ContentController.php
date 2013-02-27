@@ -206,8 +206,6 @@ class ContentController extends ACiiController
             return false;
         
         $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
-        if ($model === NULL)
-            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
         
         // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
         if ($model->key == $promotedKey)
@@ -216,15 +214,17 @@ class ContentController extends ACiiController
         $model2 = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $promotedKey));
         if ($model2 === NULL)
         {
+            $model2 = new ContentMetadata;
             $model2->content_id = $id;
             $model2->key = $promotedKey;
         }
         
         $model2->value = $model->value;
         
-        if (!$model->save())
+        Cii::debug($model2->attributes);
+        if (!$model2->save())
             throw new CHttpException(403, 'Unable to promote image');
-       
+        
         return true;
     }
 	/**
