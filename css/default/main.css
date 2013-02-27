@@ -15,12 +15,23 @@ body {
     }
 }
 
+/** Header **/
+header {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
 /** Footer **/
 footer a, footer a:visited, footer a:active {
     color: #999; 
 }
 
 footer a:hover {
+    color: #7daf27;
+}
+
+footer ul.nav li:before {
+    content: "» ";
     color: #7daf27;
 }
 
@@ -91,14 +102,23 @@ footer .footer-bottom-block .cii-menu ul {
     font-size: 11px;
     margin: 0px;
 }
+
 footer .footer-bottom-block .cii-menu ul li {
     display: inline;
 }
 
 footer .footer-bottom-block .cii-menu ul li:after {
-    content: " /";
+    content: " / ";
 }
 
 footer .footer-bottom-block .cii-menu ul li:last-child:after {
+    content: "";
+}
+
+footer .nav > li > a {
+    display: inline;   
+}
+
+footer ul.footer-nav li:before {
     content: "";
 }

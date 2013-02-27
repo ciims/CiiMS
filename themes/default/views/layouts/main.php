@@ -5,34 +5,20 @@
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
-                                      ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description'); ?>
-		<?php Yii::app()->clientScript->registerCoreScript('jquery')
+                                      ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
+		                              ->registerCoreScript('jquery')
 									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.js')
 								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js')
 									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
 									  ->registerCssFile(Yii::app()->baseUrl.'/css/jquery.gritter.css'); ?>
 		<!--[if lt IE 9]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 	</head>
 	<body>
-		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
-				    'fixed'=>false,
-				    'brand'=>Yii::app()->name,
-				    'brandUrl'=>Yii::app()->getBaseUrl(true),
-				    'collapse'=>true, // requires bootstrap-responsive.css
-				    'items'=>array(
-				        array(
-				            'class'=>'bootstrap.widgets.TbMenu',
-				            'items'=>array(
-				                 '---',
-				                array('label'=>'Blog', 'url'=>Yii::app()->createUrl('/blog'), 'active'=>($this->id === 'content') ? true : false),
-				                array('label'=>'Admin', 'url'=>Yii::app()->createUrl('/admin')),
-				            ),
-				        ),
-				        '<form class="navbar-search pull-right" method="GET" action="' . Yii::app()->createUrl('/search'). '">' . CHtml::textField('q', isset($_GET['q']), array('placeholder'=>'Search', )) .'</form>',
-				    ),
-				)); ?>
+		<header>
+		    
+		</header>
 	    
 		<main class="main">
 		    <div class="container">
@@ -54,13 +40,13 @@
                         </div>
 		                <div class="span3">
                             <h5><span class="colored-header">///</span> Categories</h5>
-                            <?php $this->widget('zii.widgets.CMenu', array(
+                            <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->getCategories()
                             )); ?>
                         </div>
                         <div class="span3">
                             <h5><span class="colored-header">///</span> Recent Posts</h5>
-                            <?php $this->widget('zii.widgets.CMenu', array(
+                            <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->getRecentPosts()
                             )); ?>
                         </div>
@@ -80,7 +66,7 @@
 		    <div class="footer-bottom-block">
 		        <div class="container">
                         <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?></div>
-                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu'); ?></div>
+                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getCiiMenu(), 'htmlOptions' => array('class' => 'footer-nav'))); ?></div>
 		        </div>
 		    </div>
 		</footer>
