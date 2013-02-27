@@ -16,7 +16,7 @@ body {
     position: static;
     left: auto;
     right: auto;
-    width: 40%;
+    width: 60%;
     margin: 120px auto;
     padding: 0;
     font-family: 'PT Sans', sans-serif;
@@ -58,4 +58,20 @@ hr {
 
 .input-small {
     width: 45%;
+}
+
+.yii-path {
+    width: 80%;
+}
+
+@media (max-width: 900px) {
+    .yii-path {
+        width: 65%;
+    }
+}
+@media (max-width: 500px)
+{
+    .yii-path {
+        width: 53%;
+    }
 }

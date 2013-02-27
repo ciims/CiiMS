@@ -47,7 +47,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <p>CiiMS requires Yii Framework to run. In order to proceed with the installation, we need to know the patch where Yii's <strong>framework</strong> folder is located at.</p>
                     
                     <div class="path-field">
-                        <div class="input-append control-group">
+                        <div class="control-group" style="width: 100%;">
                             <input type="text" placeholder="/path/to/yii/framework" required class="yii-path" />
                             <a href="#" id="checkYiiPathButton" class="btn btn-inverse pull-right" type="button">Check</a>
                         </div>
