@@ -1,5 +1,5 @@
 ## CiiMS
-
+[![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 #### GENERAL UPGRADE
 You can update CiiMS now by running the following commands from your command line.
 
