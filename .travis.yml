@@ -1,0 +1,24 @@
+language: php
+
+branches:
+  only:
+    - master
+    - develop    
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+
+services:
+  - memcached
+  - redis
+  - mysql
+
+notifications:
+  email:
+    on_success: change
+    on_failure: never
+
+before_script:
+  - mysql -e 'create database ciims_test;'

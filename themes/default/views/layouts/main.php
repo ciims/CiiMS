@@ -6,11 +6,11 @@
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
+                                      ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
+                                      ->registerCssFile(Yii::app()->baseUrl.'/css/jquery.gritter.css')
 		                              ->registerCoreScript('jquery')
-									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.js')
-								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js')
-									  ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
-									  ->registerCssFile(Yii::app()->baseUrl.'/css/jquery.gritter.css'); ?>
+									  ->registerScriptFile(Yii::app()->baseUrl.'/js/jquery.gritter.min.js')
+								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js'); ?>
 		<!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
