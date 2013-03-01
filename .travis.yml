@@ -22,7 +22,6 @@ notifications:
 
 before_script:
   - mysql -e 'create database ciims_test;'          # Create Database
-  - ls
   - cd protected/runtime/                           # Download Yii Framework to Runtime Directory
   - git clone git://github.com/yiisoft/yii.git yii
   - cd ../
