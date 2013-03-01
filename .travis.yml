@@ -21,4 +21,10 @@ notifications:
     on_failure: never
 
 before_script:
-  - mysql -e 'create database ciims_test;'
+  - mysql -e 'create database ciims_test;'          # Create Database
+  - cd protected/runtime/                           # Download Yii Framework to Runtime Directory
+  - git clone git://github.com/yiisoft/yii.git yii
+  - cd ../
+  - ./yiic migrate up --interactive=0               # Run Migrations
+  - cd tests
+  

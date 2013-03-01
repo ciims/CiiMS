@@ -4,4 +4,10 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
         stopOnFailure="false">
+        
+        <testsuites>
+            <testsuite name="Tests">
+                <directory suffix=".php">*</directory>
+            </testsuite>
+        </testsuites>
 </phpunit>
