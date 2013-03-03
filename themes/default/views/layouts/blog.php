@@ -11,6 +11,8 @@
                 </div>
             <?php echo CHtml::endForm(); ?>
 		</div>
+		
+		<!-- Related Posts -->
 		<div class="well">
 			<h4>Related Posts</h4>
 			<?php $related = Yii::app()->db->createCommand('
@@ -18,6 +20,12 @@
 				' AND id != ' . $this->params['data']['id'] . ' AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) AND password="" ORDER BY updated DESC LIMIT 5')->queryAll(); ?>
 		</div>
 		
+		<!-- Tag Cloud -->
+		<div class="well">
+			<h4>Tags</h4>
+			<?php $tags = Content::model()->findByPk($this->params['data']['id'])->getTags(); ?>
+			
+		</div>
 		<?php
 
 			
