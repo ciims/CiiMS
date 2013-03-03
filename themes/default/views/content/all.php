@@ -4,7 +4,7 @@
     <?php endforeach; ?>
 </div>
 <?php $this->widget('ext.yiinfinite-scroll.YiinfiniteScroller', array(
-    'url'=>'blog',
+    'url'=>isset($url) ? $url : 'blog',
     'contentSelector' => '#posts',
     'itemSelector' => 'div.post',
     'loadingText' => 'Loading...',
