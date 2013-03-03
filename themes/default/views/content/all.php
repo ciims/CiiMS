@@ -1,6 +1,6 @@
 <div id="posts">
     <?php foreach($data as $content): ?>
-    	<?php $this->renderPartial('_post', array('content' => $content)); ?>
+    	<?php $this->renderPartial('//content/_post', array('content' => $content)); ?>
     <?php endforeach; ?>
 </div>
 <?php $this->widget('ext.yiinfinite-scroll.YiinfiniteScroller', array(

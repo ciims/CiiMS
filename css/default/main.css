@@ -129,7 +129,7 @@ main .sidebar .well ul.nav li:before {
 }
 
 
-main #posts .post {
+main  .post {
 	background: #ffffff;
 	border: 1px solid #dddddd;
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -141,35 +141,35 @@ main #posts .post {
 	border-top: 0px;	
 }
 
-main #posts {
+main  {
 	color: #333;
 }
 
-main #posts .post .post-inner {
+main  .post .post-inner {
 	padding: 15px;
 	padding-top: 0px;
 	position: relative;
 }
 
-main #posts .post .post-header h3 {
+main  .post .post-header h3 {
 	margin-top: 0px;
 	font-size: 16px;
 }
 
-main #posts .post .post-header h3 a {
+main  .post .post-header h3 a {
 	color: #333;
 }
 
-main #posts .post .blog-meta, main #posts .post .blog-meta a {
+main  .post .blog-meta, main  .post .blog-meta a {
 	color:#aaa;
 }
 
-main #posts .post .read-more-icon span, main .infinite_navigation #more span {
+main  .post .read-more-icon span, main .infinite_navigation #more span {
 	background: url("../../../images/default/arrow-right.png") no-repeat scroll center center #222;
 }
 
 /*blog meta*/
-main #posts .post .blog-meta {
+main  .post .blog-meta {
 	float:left;
 	display: block;
 	position: relative;
@@ -178,9 +178,11 @@ main #posts .post .blog-meta {
 	font-size: 12px;
 	font-weight: normal;
 }
+main  .post .blog-meta.inline {
+	top: -20px;
+}
 
-
-main #posts .post .read-more-icon, main .infinite_navigation #more {
+main  .post .read-more-icon, main .infinite_navigation #more {
 	transition: 1s;
 	-moz-transition: 1s;
 	-o-transition: 1s;
@@ -206,7 +208,7 @@ main .infinite_navigation #more {
 	border-bottom: 1px solid #222;
 }
 
-main #posts .post .read-more-icon span, main .infinite_navigation #more span {
+main  .post .read-more-icon span, main .infinite_navigation #more span {
 	display:block;
 	line-height:30px;
 	height:30px;
@@ -216,7 +218,7 @@ main #posts .post .read-more-icon span, main .infinite_navigation #more span {
 	right:0;
 }
 
-main #posts .post .read-more-icon strong, main .infinite_navigation #more strong {
+main  .post .read-more-icon strong, main .infinite_navigation #more strong {
 	display:block;
 	line-height:30px;
 	height:30px;
@@ -226,7 +228,7 @@ main #posts .post .read-more-icon strong, main .infinite_navigation #more strong
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-main #posts .post .read-more-icon:hover, main .infinite_navigation #more:hover {
+main  .post .read-more-icon:hover, main .infinite_navigation #more:hover {
 	background:#222;
 	color:#fff;
 	transition: 1s;
@@ -237,7 +239,7 @@ main #posts .post .read-more-icon:hover, main .infinite_navigation #more:hover {
 	text-decoration: none;
 }
 
-main #posts .post .read-more-icon:hover strong, main .infinite_navigation #more:hover strong {
+main  .post .read-more-icon:hover strong, main .infinite_navigation #more:hover strong {
 	display:block;
 }
 
