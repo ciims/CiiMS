@@ -39,7 +39,7 @@
 		    	</div>
 		   	</div>
 		   	<div class="container">
-                <div class="row-fluid">
+                <div class="row-fluid main-body">
                     <?php echo $content; ?>
                 </div>
             </div>
@@ -56,19 +56,19 @@
                             <?php $this->widget('ext.echirp.EChirp', array('options' => array('user' => Cii::get(Configuration::model()->findByAttributes(array('key' => 'twitter_username')), 'value', '')))); ?>
                         </div>
 		                <div class="span3">
-                            <h5><span class="colored-header">///</span> Categories</h5>
+                            <h5>Categories</h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->getCategories()
                             )); ?>
                         </div>
                         <div class="span3">
-                            <h5><span class="colored-header">///</span> Recent Posts</h5>
+                            <h5>Recent Posts</h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->getRecentPosts()
                             )); ?>
                         </div>
                         <div class="span3">
-                            <h5><span class="colored-header">///</span> Search</h5>
+                            <h5>Search</h5>
                             <p>Looking for something on the blog?</p>
                             <?php echo CHtml::beginForm($this->createUrl('/search'), 'get', array('id' => 'search')); ?>
                                 <div class="input-append">

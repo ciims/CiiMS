@@ -1,5 +1,5 @@
 body {
-    background:url(../../../images/default/bg.png) repeat;
+    background:url("../../../images/default/bg.png") repeat;
 }
 
 /** Mobile View **/
@@ -55,6 +55,12 @@ header .header-middle-bar .navbar .nav > li:last-child {
 	border-right: none;
 }
 
+/** Main **/
+
+main .main-body {
+	margin-left: -18px;
+}
+
 main .image-container {
 	border-bottom: 1px solid #cacaca;
 	margin-bottom: 15px;
@@ -76,6 +82,165 @@ main .image-viewport {
 	margin-bottom: 20px;
 }
 
+main .sidebar .well, main .infinite_navigation {
+	padding-top: 10px;
+	background: #ffffff;
+	border: 1px solid #dddddd;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	margin: 0 0 20px 0;
+	float: left;
+	width: 100%;
+	padding-bottom: 5px;
+}
+
+main .infinite_navigation {
+	position: relative;
+	min-height: 15px;	
+}
+
+main .sidebar .well h4 {
+	font-size: 16px;
+	text-transform: uppercase;
+	padding-bottom: 4px;
+	margin-bottom: 6px;
+	border-bottom: 1px solid #cacaca;
+}
+
+main .sidebar .well h4:before {
+	content: "/// ";
+	color: #7daf27;
+}
+
+main .sidebar .well ul.nav li {
+	margin-left: 15px;
+}
+
+main .sidebar .well ul.nav li a {
+	display: inline-block;
+}
+
+main .sidebar .well ul.nav li:before {
+    content: "» ";
+    color: #7daf27;
+    position: relative;
+	top: -2px;
+}
+
+
+main #posts .post {
+	background: #ffffff;
+	border: 1px solid #dddddd;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	margin: 0 0 20px 0;
+	float: left;
+	width: 100%;
+	border-top: 0px;	
+}
+
+main #posts {
+	color: #333;
+}
+
+main #posts .post .post-inner {
+	padding: 15px;
+	padding-top: 0px;
+	position: relative;
+}
+
+main #posts .post .post-header h3 {
+	margin-top: 0px;
+	font-size: 16px;
+}
+
+main #posts .post .post-header h3 a {
+	color: #333;
+}
+
+main #posts .post .blog-meta, main #posts .post .blog-meta a {
+	color:#aaa;
+}
+
+main #posts .post .read-more-icon span, main .infinite_navigation #more span {
+	background: url("../../../images/default/arrow-right.png") no-repeat scroll center center #222;
+}
+
+/*blog meta*/
+main #posts .post .blog-meta {
+	float:left;
+	display: block;
+	position: relative;
+	top: 11px;
+	width: 95%;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+
+main #posts .post .read-more-icon, main .infinite_navigation #more {
+	transition: 1s;
+	-moz-transition: 1s;
+	-o-transition: 1s;
+	-webkit-transition: 1s;
+	width: 30px; overflow: hidden;
+	position: absolute;
+	bottom: -25px;
+	right:0;
+	outline: none;
+	z-index: 100;
+	display:block;
+	line-height:30px;
+	height:30px;
+	width:30px;
+	overflow: hidden;
+	background:#222;
+	color:#fff;
+}
+
+main .infinite_navigation #more {
+	bottom: -2px;
+	width: 100px;
+	border-bottom: 1px solid #222;
+}
+
+main #posts .post .read-more-icon span, main .infinite_navigation #more span {
+	display:block;
+	line-height:30px;
+	height:30px;
+	width:30px;
+	position: absolute;
+	bottom: 0;
+	right:0;
+}
+
+main #posts .post .read-more-icon strong, main .infinite_navigation #more strong {
+	display:block;
+	line-height:30px;
+	height:30px;
+	font-size: 10px;
+	padding:0 30px 0 10px;
+	text-decoration: none;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+main #posts .post .read-more-icon:hover, main .infinite_navigation #more:hover {
+	background:#222;
+	color:#fff;
+	transition: 1s;
+	-moz-transition: 1s;
+	-o-transition: 1s;
+	-webkit-transition: 1s;
+	width: 100px;
+	text-decoration: none;
+}
+
+main #posts .post .read-more-icon:hover strong, main .infinite_navigation #more:hover strong {
+	display:block;
+}
+
 /** Footer **/
 footer a, footer a:visited, footer a:active {
     color: #999; 
@@ -88,6 +253,8 @@ footer a:hover {
 footer ul.nav li:before {
     content: "» ";
     color: #7daf27;
+    position: relative;
+	top: -2px;
 }
 
 footer p, footer ul {
@@ -109,7 +276,8 @@ footer h5 {
     text-transform: uppercase;
 }
 
-footer h5 .colored-header {
+footer h5:before {
+	content: "/// ";
     color: #7daf27;
 }
 

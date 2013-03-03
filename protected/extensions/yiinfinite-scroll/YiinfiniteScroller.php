@@ -89,7 +89,9 @@ class YiinfiniteScroller extends CBasePager {
 
     private function renderNavigation()
     {
-        $next_link = CHtml::link('Next Page',$this->createPageUrl($this->getCurrentPage()+1));
+        $next_link = CHtml::link('<strong style="width: 93px;">Load More</strong>
+			<span></span>',$this->createPageUrl($this->getCurrentPage()+1), array('id' => 'more', 'escape' => true));
+		Yii::app()->clientScript->registerScript(uniqid() . 'bind-scroll', "$('#more').click(function(e) { e.preventDefault(); $(document).trigger('retrieve.infscr'); });");
         echo '<div class="infinite_navigation">'.$next_link.'</div>';
     }
 
