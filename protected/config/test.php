@@ -1,4 +1,6 @@
-<?php return array_merge(require_once(dirname(__FILE__) .'/main.default.php'),
+<?php 
+$config = require_once(dirname(__FILE__) .'/main.default.php');
+return array_merge($config,
     array(
         'components' => array(
                 'db' => array(
