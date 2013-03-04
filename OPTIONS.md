@@ -1,5 +1,6 @@
-#### Built in Extensions
-CiiMS has several built in extensions and modules that are disabled by default, but can easily be enabled by modifying CiiMS configuration file.
+#### Available Options
+CiiMS has a bunch of options that are available through the _settings_ module in the admin panel. All available options and how to use/config them are documented in this file.
+
 
 ##### HybridAuth
 HybridAuth is a plugin which allows visitors to signin and comment using their social network identity. CiiMS automatically integrates social identies with existing user records if they exist.
