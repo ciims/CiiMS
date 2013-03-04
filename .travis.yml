@@ -24,7 +24,9 @@ before_script:
   - mysql -e 'create database ciims_test;'          # Create Database
   - cd protected/runtime/                           # Download Yii Framework to Runtime Directory
   - git clone git://github.com/yiisoft/yii.git yii
-  - cd ../
+  - cd ../config
+  - ln -s test.php main.php
+  - cd ..
   - php yiic.php migrate up --interactive=0         # Run Migrations
   - cd tests                                        # Navigate to the Tests Directory to run the tests
   
