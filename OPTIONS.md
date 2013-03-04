@@ -26,35 +26,29 @@ PROVIDER_NAME, and keys will need to be changed for each provider. Make sure you
 
 The callback URL is http://your-site-domain.tld/hybridauth/provider. Assuming you have configured CiiMS with the appropriate config, and setup the provider everything should fire right up. If you run into issues make sure your provider config is setup properly and that the provider config on the providers site is setup properly.
 
-Make sure your URLManager Rules has an item for HybridAuth. This rule should suffice for any and all provides you install.
+You'll also need to add a URL Management rule to your protected/config/main.php file. This rule should suffice for any and all provides you install.
+
 ~~~~
     'hybridauth/<provider:\w+>'=>'/hybridauth',
 ~~~~
+
 Additional HybridAuth providers can be installed by copying the provider file to protected/modules/hybridauth/hybrid/providers/
 
-Additional information can be found on [hybridauths website](http://hybridauth.sourceforge.net/userguide.html#index)
+Additional information can be found on [Hybridauth's Website](http://hybridauth.sourceforge.net/userguide.html#index)
 
 ##### CSS/Script Optimization
-By default, CiiMS will optimize and combine any CSS/Script files registered with
-
-```php
-    Yii::app()->clientScript->register[Script|Css|ScriptFile|CssFile]
-```
-
-By default, CSS compression and combination is on and script combination is on.
-
-Scrpt compression is disabled by default because of some issues that arise when certain scripts are combined together. If you wish to enable this feature, change the following to true
+CiiMS has experimental support for CSS/JS combination and compression through script registerd with CClientScript. This is _off_ by default. To enable, modify the _clientScript_ options in your protected/config/main.php file for each option you want to apply. This feature is __experimental__ and may _break_ your site. The recommended behavior is to turn it off _unless you know what you're doing__
 
 ```php
     'components' => array(
         'clientScript' => array(
-            'optimizeScriptFiles '=> false
+            [...] => [...]
         )
     )
 ```
 
 ##### Enable Memcache Support
-By default CiiMS will run with CFileCache enabled. Performance can be improved by using CiiMemCache instead. Memcache support can be enabled by modifying the 'cache' item under 'components':
+By default CiiMS will run with CFileCache enabled. Performance can be improved by using CiiMemCache or CiiRedisCache instead. You can modify the behavior by updating the _cache_ section of your protected/config/main.php file.
 
 ```php
     'cache'=>array(
@@ -80,11 +74,11 @@ First, add the following to your params array
 
 ```php
     'sphinxHost'=>'localhost',
-        'sphinxPort'=>'9312',
-        'sphinxSource'=>'SOURCE_NAME',
+    'sphinxPort'=>'9312',
+    'sphinxSource'=>'SOURCE_NAME',
 ```
 
-Second, replace the URLManager->rules->search array with the following
+Second, replace the URLManager->rules->search array with the following. This will allow your app to connect to the sphinx search action.
 
 ```php
     'search/<page:\d+>'=>'/site/search',

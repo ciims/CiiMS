@@ -13,7 +13,7 @@
             ),
         ),
         'params' => array(
-            'yiiPath' => dirname(__FILE__) . '/../../runtime/yii/framework/',
+            'yiiPath' => dirname(__FILE__) . '/../runtime/yii/framework/',
             'encryptionKey' => 'ag93ba23r'
         )
     )
