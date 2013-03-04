@@ -1,7 +1,6 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 
-
 #### UPDATING CIIMS
 The _easiest_ way to upgrade CiiMS is to use git, and manually run the migrations as such:
 
@@ -42,7 +41,7 @@ Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) becaus
 
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](http://www.erianna.com)
 
-#### Just Show Me the DEmo
+#### Just Show Me the Demo
 Sure thing boss: A demo of CiiMS can be found at:
 
     Site: http://ciims.erianna.com
@@ -60,8 +59,8 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Based on Yii Framework
 * Wordpress _like_ installer
 * Beautiful Default Theme
-* [Bootstrapped](http://yii-booster.clevertech.biz/) Admin Panel
-* [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
+* [Bootstrapped](http://yii-booster.clevertech.biz/) For Beauty
+* Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
 * SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
 * Password Protected Content
 * Sitewide and Category Specific RSS Feeds
