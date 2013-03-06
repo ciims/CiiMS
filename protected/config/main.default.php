@@ -45,7 +45,6 @@
                 '/sitemap.xml' => '/site/sitemap',
                 '/search/<page:\d+>' => '/site/mysqlsearch',
                 '/search' => '/site/mysqlsearch',
-                '/contact' => '/site/contact',
                 '/blog.rss' => '/content/rss',
                 '/blog/<page:\d+>' => '/content/list',
                 '/' => '/content/list',
@@ -76,8 +75,6 @@
     ),
     'params' => array(
         'yiiPath' => NULL,
-        'webmasterEmail' => NULL,
-        'editorEmail' => NULL,
         'encryptionKey' => NULL,
     ),
 );

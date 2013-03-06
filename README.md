@@ -1,7 +1,8 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
-#### GENERAL UPGRADE
-You can update CiiMS now by running the following commands from your command line.
+
+#### UPDATING CIIMS
+The _easiest_ way to upgrade CiiMS is to use git, and manually run the migrations as such:
 
 ~~~~
 cd _repo dir_
@@ -20,32 +21,27 @@ $PHP yiic.php migrate --interactive=0
 ~~~~
 
 #### UPGRADING FROM VERSIONS OLDER THAN 1.1.2
-I have restructed the way that CiiMS derives certain paths in order to make future development easier, and to support many new features. After upgrading you _*MUST*_ add the following to your config file:
+I have restructed the way that CiiMS derives certain paths in order to make future development easier, and to support many new features. After upgrading you _*MUST*_ add the following to your config file. Your blog will be unavailable until this is corrected. If you are upgrading from versions older than 1.1.2, it is recommended that you add this to your config file, then run the upgrade instructions listed above.
 
 ~~~~
     'params' => array(
-	'yiiPath'=>'/opt/frameworks/php/yii/framework/',
+	    'yiiPath'=>'/opt/frameworks/php/yii/framework/',
      )
 ~~~~
 
-Failure to do so will result in your blog being unavailable until it is corrected. The installer supports adding this if it does not already exist.
 
 ------------------------------------------------
 
 #### What is CiiMS?
 
-CiiMS is a high performance CMS designed for both end users and developers. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, APC, and Sphinx, but can run in other configurations.
+CiiMS is a high performance CMS designed for both end users and developers. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
 
-CiiMS is designed to be fast, easy to deploy, and easy to modify.
-
-#### The One Rule
+#### The One Rule/Suggestion/Request
 Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) because I think it is awesome. If you use and love CiiMS create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site. If you want to a border color that's fine too.
 
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](http://www.erianna.com)
 
-#### Seeing is Believing
-    Forget the details, just let me see it already...
-
+#### Just Show Me the Demo
 Sure thing boss: A demo of CiiMS can be found at:
 
     Site: http://ciims.erianna.com
@@ -59,279 +55,57 @@ You may use the following credentials to login and manage the site.
 Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
 
 #### Features
-* Full Admin Panel
-* Self Installer
-* [Bootstrapped](http://twitter.github.com/bootstrap/) for Beauty
-* [Markdown Extra](http://daringfireball.net/projects/markdown/) Support
-* Auto CSS/Script optimization and compression
-* Dynamic URL Slugs for SEO
-* Automatic SEO (Metadata, Keywords, URLs)
-* Password Protected Feeds
-* Integrated RSS
-* Multiple Content Types (Posts, Pages)
-* Interchangable Caching Systems
+
+* Based on Yii Framework
+* Wordpress _like_ installer
+* Beautiful Default Theme
+* [Bootstrapped](http://yii-booster.clevertech.biz/) For Beauty
+* Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
+* SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
+* Password Protected Content
+* Sitewide and Category Specific RSS Feeds
+* Multiple Content Type Support
+* Interchangable Caching Systems (Redis, APC, Memcache, Files)
 * Low Memory Footprint
 * Themable
-* Social Integration
+* Social Integration (Social Signon, Social Sharing)
 * Extendable with custom modules/extensions
+* _And a bunch of other things!_
 
 ------------------
 
 #### Requirements
 
-* Yii Framework 1.1+ (Consequently Basic Yii Requirements)
-* MySQL 5.5+ (Should be compatible with MySQL 5.0, Postgres, and SQLite manual installations)
+* Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
+* MySQL 5.5+ (CiiMS can run on Postgres/SQLite, but you have to do a manual installation which isn't covered in this readme.
 
 #### Recomendations
 The following extensions/applications are recommended to improve performance.
 
-* Memcache/d
+* Memcache/Redis
 * APC Cache
 * Sphinx Search Server
 
 ------------------
 
-#### Setup, Notes and Installation
-CiiMS comes with a built in installer which will walk you through the setup process and provide you with information in the event it can't do something. Each step is outlined below.
+#### Setup Notes and Installation
+CiiMS comes with a built in installer which will walk you through the setup process and provide you with information in the event it can't do something. The installer should be fairly straightforward. If you run into issues during the installation, it's most likely a permission issues with /assets, /protected/runtime, or /protected/config. The installer has built in error support, and by default will recommend you make a few directories writable. Any others are most likely a _setup_ issue rather than an issue with the installer.
 
-##### Welcome Page
-The welcome page will tell you what you need for your installation.
+#### Support
+If you require support at any time, submit a Github issue and I'll look into it as soon as I can.
 
-##### Yii Framework
-The yii page will help you in setting up CiiMS with the Yii Framework location.
-
-##### Requirements Check
-CiiMS will check that all requirements are met for both Yii and it's internal system. Any issue will be flagged with a red error label. All issues must be resolved before submitting.
-
-Most likely the issues you will be presented with are a missing extension or invalid permissions.
-
-For missing extensions, install the extension manually using:
-
-    pecl install [extension]
-
-For bad permissions
-
-    chmod 755 [dir/file]
-
-##### MySQL Setup
-The installer currently only supports MySQL. If you wish to use another database you will have to manually build the config file. The Installer will prompt you for the following information:
-
-* Database Host
-* Database Name
-* Database User
-* Database Password
-
-##### Final Setup
-The last page will prompt you to supply the admin user information and the site name.
-
-After completing this last stage you will be prompted to remove the install.php Via FTP or bash, remove the file
-
-    rm install.php
-
-Then refresh the page. If everything went well you should now be presented with you blog front page.
-
-If you encounter any errors, PHP should output those errors to the browser for you to correct.
-
-#### Post Install
-
-One thing you will need to do before users can register on your site is setup your site with ReCaptcha keys. Go to [recaptcha](http://www.recaptcha.com) and register your site and retrieve your keys, then edit the 'params' array in protected/config/main.php with the following
-
-```php
-	'params' => array(
-		'reCaptchaPrivateKey' => 'YOUR_PK_HERE',
-		'reCaptchaPublicKey'  => 'YOUR_PUB_KEY_HERE'
-	)
-```
-
-------------------
-
-#### Built in Extensions
-CiiMS has several built in extensions and modules that are disabled by default, but can easily be enabled by modifying CiiMS configuration file.
-
-##### HybridAuth
-HybridAuth is a plugin which allows visitors to signin and comment using their social network identity. CiiMS automatically integrates social identies with existing user records if they exist.
-
-To enable you will need key and secret key by the network provider (Twitter/Facebook/Google). Information about how to obtain these can be found [here](http://hybridauth.sourceforge.net/userguide.html#index)
-
-Once you have the key and secret, add the following to the "modules" section of
-
-    protected/config/main.php
-
-PROVIDER_NAME, and keys will need to be changed for each provider. Make sure you provide only what is necessary. If your provider doesn't require a component, leave it blank.
-```php
-	'hybridauth' => array(
-		'providers'=> array(
-			'PROVIDER_NAME' => array(
-				'enabled' => true
-				'keys' => array('id' => '', 'key' => '', 'secret'=>''),
-				'scope' => ''
-			)
-		)
-	)
-```
-
-The callback URL is http://your-site-domain.tld/hybridauth/provider. Assuming you have configured CiiMS with the appropriate config, and setup the provider everything should fire right up. If you run into issues make sure your provider config is setup properly and that the provider config on the providers site is setup properly.
-
-Make sure your URLManager Rules has an item for HybridAuth. This rule should suffice for any and all provides you install.
-~~~~
-    'hybridauth/<provider:\w+>'=>'/hybridauth',
-~~~~
-Additional HybridAuth providers can be installed by copying the provider file to protected/modules/hybridauth/hybrid/providers/
-
-Additional information can be found on [hybridauths website](http://hybridauth.sourceforge.net/userguide.html#index)
-
-##### CSS/Script Optimization
-By default, CiiMS will optimize and combine any CSS/Script files registered with
-
-```php
-    Yii::app()->clientScript->register[Script|Css|ScriptFile|CssFile]
-```
-
-By default, CSS compression and combination is on and script combination is on.
-
-Scrpt compression is disabled by default because of some issues that arise when certain scripts are combined together. If you wish to enable this feature, change the following to true
-
-```php
-	'components' => array(
-		'clientScript' => array(
-			'optimizeScriptFiles '=> false
-		)
-	)
-```
-
-##### Enable Memcache Support
-By default CiiMS will run with CFileCache enabled. Performance can be improved by using CiiMemCache instead. Memcache support can be enabled by modifying the 'cache' item under 'components':
-
-```php
-	'cache'=>array(
-         	'class'=>'application.components.CiiMemCache',
-                   'servers'=>array(
-                            array(
-                                    'host'=>'127.0.0.1',
-                                    'port'=>11211,
-                                    'weight'=>60
-                            ),
-                   ),
-         ),
-```
-
-Edit the host, port and weight as you see fit.
-
-##### Sphinx Search
-CiiMS has built in support for Sphinx Server, allowing it to quickly index and search documents. By default this is disabled for MySQLSearch, which isn't nearly as accurate or fast.
-
-To enable Sphinx, you need to make server changes to your config file.
-
-First, add the following to your params array
-
-```php
-	'sphinxHost'=>'localhost',
-        'sphinxPort'=>'9312',
-        'sphinxSource'=>'SOURCE_NAME',
-```
-
-Second, replace the URLManager->rules->search array with the following
-
-```php
-	'search/<page:\d+>'=>'/site/search',
-	'search/<id:\d+>'=>'/site/search',
-```
-
-While configuring Sphinx is beyond the scope of this document, your datasource should be configured as followed:
-
-~~~~
-source src
-{
-        type                    = mysql
-        sql_host                = DBHOST
-        sql_user                = DBUSER
-        sql_pass                = DBPASS
-        sql_db                  = DBNAME
-        sql_port                = 3306
-
-        sql_sock               = /var/lib/mysql/mysql.sock
-        sql_query               = \
-                SELECT id, title, content, extract FROM content AS t WHERE vid = (SELECT MAX(vid) FROM content WHERE id = t.id) AND status = 1;
-}
-
-index index_name
-{
-        source = src
-        path   = /var/lib/sphinx/data/index_name
-}
-~~~~
-
-I recommend that you put Sphinx on a cronjob to reindex hourly (or as frequently as you desire).
-
-------------------
-
-##### Google Analytics Plugin
-Google Analytics is disabled by default. To enable, add the following to settings via the admin panel: (without "key", and "value"
-
-~~~~
-key: gaExtension
-value: 1
-~~~~
-
-The Google Analytics Plugin also comes with serveral other options as defined below
-
-~~~~
-key: gaAccount    value: GAAccountCode (required)
-key: gaAddThis    value: true/false    // Enables Add This in GA
-key: gaAddThisShare value: 'true'/'false // note the quotes
-~~~~
-
-##### Piwik Analytics
-CiiMS also comes with support for Piwik. This can be enabled by adding the following to settings via the admin panel
-
-~~~~
-key: piwikExtension
-value: 1
-~~~~
-
-The Piwik Plugin also has the following options
-
-~~~~
-key: piwikID	value: PiwikSiteID // required
-key: piwikBaseUrl value: baseUrlOfPiwk // required
-~~~~
-
-
-##### AddThis
-CiiMS has integrated support for AddThis. AddThis can be enabled by adding the following to settings via the admin panel
-
-~~~~
-key: addThisExtension
-value: 1
-
-key: addThisAccount
-value: AddThisAccountID [ra-xxxxxxxxxxxxxxxxxxx]
-~~~~
-
-#### Comment Notifications
-
-CiiMS supports email notifications when a new comment is created on a post you created. To enable this, add the following to your config. By default it is disabled.
-~~~~
-key: notifyAuthorOnComment
-value: 1
-~~~~
-
-------------------
-
-#### What If I Need Additional Help?
-At the present you can submit a Github issue. If the need arises I'll create a support forum.
+#### Extensions & Options
+CiiMS uses a key => value options system which is managed through the _settings_ tab of the admin panel. A details list of all available options is available at [OPTIONS.md](OPTIONS.md).
 
 #### What Still Needs to be Done?
 The current roadmap will be added to this soon. For now:
 
-* Unit Tests
+* Unit & Functional Testing (We're currently hooked into TravisCI, but we don't have a lot of tests running at the moment)
 * i18n Language Support (PHP Support. [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
-* Dashboard Widgets (new and pretty ones!)
-* Menu Management [see #4](https://github.com/charlesportwoodii/CiiMS/issues/4)
 
 #### License
 
-MIT LICENSE
+[MIT LICENSE](http://opensource.org/licenses/MIT)
 Copyright (c) 2012 Charles R. Portwood II
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -339,3 +113,6 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+###### TL;DR
+Free to use, modify, and do whatever the heck you want it so long as maintain this notice and don't sue me. (Though if you make a lot of money off of it, _at least_ let me know.) =)

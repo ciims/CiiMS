@@ -171,7 +171,6 @@ class DefaultController extends CController
         
         $defaultConfig['params']['yiiPath']                     = $_SESSION['config']['params']['yiiPath'];
         $defaultConfig['params']['encryptionKey']               = Yii::app()->session['encryptionKey'];
-        $defaultConfig['params']['webmasterEmail']              = $defaultConfig['params']['editorEmail'] = Yii::app()->session['primaryEmail'];
         
         // Write the configuration file out
         $fileString = "";
