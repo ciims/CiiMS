@@ -305,17 +305,14 @@ class Content extends CiiModel
      */
 	public function beforeSave()
 	{
-		if ($this->isNewRecord)
-		{			
-    		Yii::app()->cache->delete('content');
-    		Yii::app()->cache->delete('content-listing');
-			Yii::app()->cache->delete('WFF-content-url-rules');
-		}
-        
+		$this->slug = $this->verifySlug($this->slug, $this->title);		
+		Yii::app()->cache->delete('content');
+		Yii::app()->cache->delete('content-listing');
+		Yii::app()->cache->delete('WFF-content-url-rules');
+		
 		Yii::app()->cache->set('content-' . $this->id . '-layout', $this->layoutFile);
         Yii::app()->cache->set('content-' . $this->id . '-view', $this->viewFile);
         
-		$this->slug = $this->verifySlug($this->slug, $this->title);
 		return parent::beforeSave();
 	}
 	

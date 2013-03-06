@@ -28,7 +28,15 @@ class Cii {
         
 		return $default;	
 	}
-
+	
+	/**
+	 * Provides methods to format a date throughout a model
+	 */
+	public static function formatDate($date, $format = 'F jS, Y @ H:i')
+	{
+		return date($format, strtotime($date));
+	}
+	
 	/**
 	 * CiiController debug method
 	 */

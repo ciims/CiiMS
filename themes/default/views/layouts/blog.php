@@ -15,26 +15,18 @@
 		<!-- Related Posts -->
 		<div class="well">
 			<h4>Related Posts</h4>
-			<?php $related = Yii::app()->db->createCommand('
-				SELECT id, title, slug, comment_count FROM content  WHERE status = 1 AND category_id = ' . $this->params['data']['category_id'] .
-				' AND id != ' . $this->params['data']['id'] . ' AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) AND password="" ORDER BY updated DESC LIMIT 5')->queryAll(); ?>
+			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getRelatedPosts())); ?>
 		</div>
 		
 		<!-- Tag Cloud -->
-		<div class="well">
-			<h4>Tags</h4>
-			<?php $tags = Content::model()->findByPk($this->params['data']['id'])->getTags(); ?>
-			
-		</div>
+		<?php if ($this->getContentTags()): ?>
+			<div class="well tags">
+				<h4>Tags</h4>
+				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->getContentTags())); ?>
+			</div>
+		<?php endif; ?>
 		<?php
 
-			
-			foreach ($related as $k=>$v)
-			{
-				echo '<li>';
-				echo CHtml::link($v['title'], Yii::app()->createUrl('/'.$v['slug']));
-				echo '</li>';
-			}
 	    $addThisExtension = Configuration::model()->findByAttributes(array('key'=>'addThisExtension'));
 			if (isset($addThisExtension->value) && $addThisExtension->value == 1): ?>
 				<li class="nav-header">Share This</li>

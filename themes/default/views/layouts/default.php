@@ -13,7 +13,7 @@
 		</div>
 		<div class="well">
 			<h4>Recent Posts</h4>
-			<?php $this->widget('bootstrap.widgets.TbMenu', array(
+			<?php $this->widget('cii.widgets.CiiMenu', array(
                 'items' => $this->getRecentPosts()
             )); ?>
 		</div>

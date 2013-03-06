@@ -73,7 +73,6 @@
                             <?php echo CHtml::beginForm($this->createUrl('/search'), 'get', array('id' => 'search')); ?>
                                 <div class="input-append">
                                     <?php echo CHtml::textField('q', Cii::get($_GET, 'q', ''), array('type' => 'text', 'style' => 'width: 75%', 'placeholder' => 'Search...')); ?>
-                                    <?php echo CHtml::button('Search', array('type' => 'button', 'class' => 'btn btn-inverse')); ?>
                                 </div>
                             <?php echo CHtml::endForm(); ?>
                         </div>

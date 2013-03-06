@@ -135,7 +135,7 @@ class CiiController extends CController
      */
     public function getCategories()
     {
-        $items = array(array('label' => 'All Posts', 'url' => $this->createUrl('/blogs')));
+        $items = array(array('label' => 'All Posts', 'url' => $this->createUrl('/blog')));
         $categories = Yii::app()->cache->get('categories-listing');
         if ($categories == false)
         {
@@ -162,16 +162,65 @@ class CiiController extends CController
         $content = Yii::app()->cache->get('content-listing');
         if ($content == false)
         {
-            $content = Yii::app()->db->createCommand('SELECT title, extract, content.slug AS content_slug, categories.slug AS category_slug, categories.name AS category_name, comment_count, content.created FROM content LEFT JOIN categories ON content.category_id = categories.id WHERE vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) AND type_id = 2 AND status = 1 ORDER BY content.created DESC LIMIT 5')->queryAll();
+            $content = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS content_slug, 
+            												 categories.slug AS category_slug, 
+            												 categories.name AS category_name, 
+            												 comment_count, content.created 
+            										  FROM content LEFT JOIN categories ON content.category_id = categories.id 
+            										  WHERE vid = (
+            										  	SELECT MAX(vid) 
+            										  	FROM content AS content2 
+            										  	WHERE content2.id = content.id
+													  ) 
+													  AND type_id = 2 AND status = 1 
+            										  ORDER BY content.created DESC LIMIT 5')->queryAll();
             Yii::app()->cache->set('content-listing', $content);                            
         }
         
         foreach ($content as $k=>$v)
-            $items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']));
+			$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => $v['id'], 'created' => $v['created']));
         
         return $items;
     }
     
+	/**
+	 * Gets tags for a content for CMenu
+	 * @returna array $items
+	 */
+	public function getContentTags()
+	{
+		$items = array();
+		$tags = Content::model()->findByPk($this->params['data']['id'])->getTags();
+		foreach ($tags as $item)
+			$items[] = array('label' => $item, 'url' => $this->createUrl('/search?q=' . $item));
+		
+		return $items;
+	}
+	
+	/**
+	 * Retrieves related posts
+	 */
+	public function getRelatedPosts()
+	{
+		$items = array();
+		$related = Yii::app()->db->createCommand('SELECT content.id, title, slug, content.created
+												  FROM content  WHERE status = 1 AND category_id = :category_id 
+												  AND id != :id AND vid = (
+												  	SELECT MAX(vid) 
+												  	FROM content AS content2 
+												  	WHERE content2.id = content.id) 
+												  AND password="" 
+												  ORDER BY updated DESC LIMIT 5')
+								 ->bindParam(':category_id', $this->params['data']['category_id'])
+								 ->bindParam(':id', $this->params['data']['id'])
+		 						 ->queryAll();
+				
+		 foreach ($related as $v)
+		 	$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => $v['id'], 'created' => $v['created']));
+        
+        return $items;
+	}
+	
     /**
      * Retrieves the CiiMenuItems from the configuration. If the items are not populated, then it 
      * builds them out from CiiMenu::$defaultItems

@@ -70,7 +70,7 @@ class ContentController extends ACiiController
 		    'group'     => 't.value'
 		));
         
-		$attachments = ContentMetadata::model()->findAll($attachmentCriteria);
+		$attachments = $id != NULL ? ContentMetadata::model()->findAll($attachmentCriteria) : NULL;
 		
 		$this->render('save',array(
 			'model'          =>  $model,

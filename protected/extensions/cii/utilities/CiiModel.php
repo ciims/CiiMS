@@ -53,7 +53,7 @@ class CiiModel extends CActiveRecord
 	 */
     private function formatDate($date)
     {
-        return date('F jS, Y @ H:i', strtotime($date));
+        return Cii::formatDate($date);
     }
     
 	/**

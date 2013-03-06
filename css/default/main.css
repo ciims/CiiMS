@@ -1,5 +1,6 @@
 body {
     background:url("../../../images/default/bg.png") repeat;
+    color: #666;
 }
 
 /** Mobile View **/
@@ -118,16 +119,59 @@ main .sidebar .well ul.nav li {
 }
 
 main .sidebar .well ul.nav li a {
-	display: inline-block;
+	display: block;
+	color: #666;
+	font-weight:bold;
+	font-size: 13px;
 }
 
-main .sidebar .well ul.nav li:before {
-    content: "» ";
+main .sidebar .well ul.nav li a:before {
+	content: "» ";
+	color: #7daf27;
+}
+
+main .sidebar .well ul.nav li a:hover {
+	background: none;
+}
+
+main .sidebar .tags ul.nav li {
+	display: inline-block;
+	padding: 3px;
+	margin: 2px;
+	margin-left: 0px;
+	margin-right: 5px;
+	color: #333;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+main .sidebar .tags ul.nav li a {
+	color: #666;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+main .sidebar .tags ul.nav li a:hover {
+	background: none;
+	color: #FFF;
+}
+
+main .sidebar .tags ul li:hover {
+	background-color:#99cc00;
+	color : #FFF;
+	-webkit-transition: background-color .1s linear, color .1s linear;
+	-moz-transition: background-color .1s linear, color .1s linear;
+	-o-transition: background-color .1s linear, color .1s linear;
+	-ms-transition: background-color .1s linear, color .1s linear;
+	transition: background-color .1s linear, color .1s linear;
+}
+
+main .sidebar .tags ul.nav li a:before {
+    content: " ";
     color: #7daf27;
     position: relative;
-	top: -2px;
+	top: 0px;
 }
-
 
 main  .post {
 	background: #ffffff;
@@ -138,7 +182,6 @@ main  .post {
 	margin: 0 0 20px 0;
 	float: left;
 	width: 100%;
-	border-top: 0px;	
 }
 
 main  {
@@ -241,6 +284,10 @@ main  .post .read-more-icon:hover, main .infinite_navigation #more:hover {
 
 main  .post .read-more-icon:hover strong, main .infinite_navigation #more:hover strong {
 	display:block;
+}
+
+main #wmd-preview {
+    display: none;
 }
 
 /** Footer **/
