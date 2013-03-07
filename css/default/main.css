@@ -286,8 +286,60 @@ main  .post .read-more-icon:hover strong, main .infinite_navigation #more:hover 
 	display:block;
 }
 
-main #wmd-preview {
-    display: none;
+main .post .post-inner .post-header-comments {
+    margin-top: 10px;
+}
+
+
+main #sharebox {
+    border:1px solid #ddd;
+}
+
+main #sharebox #a {
+    display:none;
+    padding: 10px;
+    color:#000;
+    position:relative;
+}
+
+main #sharebox #b {
+    padding:10px;
+    min-height:15px;
+    cursor:text;
+}
+ 
+main #sharebox #close, #sharebox #textbox {
+    float:left;
+}
+
+main #sharebox #textbox {
+    width:99%;
+    min-height:20px;
+    outline:none;
+    min-height:50px;
+}
+
+main #sharebox #close {
+    background: no-repeat url(../../images/admin/bg.png) -33px -31px;
+    height: 9px;
+    width: 9px;
+    cursor: pointer;
+    right: 11px;
+    margin: 1px;
+    position: absolute;
+    top: 11px;
+}
+
+main .sharebox-submit  {
+    background:#9eca80;
+    border-radius:2px;
+    float:right;
+    margin-top: 5px;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    font-size:80%;
+    font-weight:bold;
 }
 
 /** Footer **/

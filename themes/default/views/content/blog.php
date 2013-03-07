@@ -30,6 +30,7 @@
 					<?php echo $content->comment_count; ?> Comments</a>					
 				</span>
 			</div>
+			<div class="clearfix"></div>
 				<?php $md = new CMarkdownParser; echo $md->safeTransform($content->content); ?>
 		</div>
 	    <div style="clear:both;"><br /></div>
@@ -41,37 +42,75 @@
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
 		<div class="post">
 			<div class="post-inner">
-				<div class="post-header">
-					<h3><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', count($comments)); ?></h3>
+				<div class="post-header post-header-comments">
+					<h3 class="pull-left"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', count($comments)); ?></h3>
+					
+					<div class="likes pull-right">        
+					    <a href="#" data-action="upvote" title="Star this discussion">             
+					        <span class="icon-heart"></span>            
+					        <span class="counter">
+					            <span data-role="like-count"><?php echo $content->like_count; ?></span>
+					        </span>      
+					    </a>
+					</div>
 				</div>
-				<?php
-					foreach ($comments as $comment):
-						if (!$comment->approved)
-							continue;
-						$count++;
-						$this->renderPartial('/comment/comment', array('comment'=>$comment));
-					endforeach;
-				?>
+				<div class="clearfix"></div>
+				<a id="comment-box"></a>
+                <div id="sharebox" class="comment-box">
+                    <div id="a">
+                        <div id="textbox" contenteditable="true"></div>
+                        <div id="close"></div>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div id="b" style="color:#999">Comment on this post</div> 
+                </div>
+                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                    'type' => 'success',
+                    'label' => 'Submit',
+                    'url' => '#',
+                    'htmlOptions' => array(
+                        'id' => 'submit',
+                        'class' => 'sharebox-submit',
+                        'style' => 'display:none'
+                    )
+                )); ?>
 				<div id="new-comment" style="display:none;"></div>
-				<?php if (Yii::app()->user->isGuest): ?>
-					<p>Only registered users to can leave comments. Please <?php echo CHtml::link('login', Yii::app()->createUrl('/login')); ?> to leave a comment.</p>
-				<?php else: ?>
-					<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-							'id'=>'reply',
-							'focus'=>array($model,'comment'),
-							'enableAjaxValidation'=>false,
-							'errorMessageCssClass'=>'alertBox-alert',
-						)); ?>
-						<?php echo $form->error($model,'comment'); ?>
-						<?php echo $form->hiddenField($model, 'content_id', array('value'=>$data->id)); ?>	
-						<?php echo CHtml::hiddenField('count', NULL, array('value'=>$count)); ?>	
-						<?php echo $form->markdownEditorRow($model, 'comment', array('height'=>'200px'));?>
-				
-						<?php echo CHtml::submitButton('Comment', array('class'=>'btn btn-inverse', 'style'=>'float:right;')); ?>
-					<?php $this->endWidget(); ?>
-				<?php endif; ?>
+
+                <div class="clearfix"></div>
 			</div>
 		</div>
 		<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/' . Yii::app()->theme->name .'/commentform.js'); ?>
 	<?php endif; ?>
 </div>
+
+
+<?php Yii::app()->clientScript->registerScript('comment-box', '
+    $("#b").click( function () {
+        $(this).html("");
+        $("#a").slideDown("fast");
+        $("#submit").show();
+        setTimeout(function() {
+            $("#textbox").focus();
+        }, 100);
+    });
+    $("#textbox").keydown( function() {
+        if($(this).text() != "")
+            $("#submit").css("background","#3b9000");
+        else
+            $("#submit").css("background","#9eca80");
+        });
+    $("#close").click( function () {
+        $("#b").html("Comment on this post");
+        $("#textbox").html("");
+        $("#a").slideUp("fast");
+        $("#submit").hide();
+    });
+    
+    $("#submit").click(function(e) {
+        e.preventDefault();
+        if ($("#textbox").text() == "")
+            return;
+        
+        
+    });
+'); ?>

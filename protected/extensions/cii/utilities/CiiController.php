@@ -178,7 +178,7 @@ class CiiController extends CController
         }
         
         foreach ($content as $k=>$v)
-			$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => $v['id'], 'created' => $v['created']));
+			$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
         
         return $items;
     }
@@ -216,7 +216,7 @@ class CiiController extends CController
 		 						 ->queryAll();
 				
 		 foreach ($related as $v)
-		 	$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => $v['id'], 'created' => $v['created']));
+		 	$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
         
         return $items;
 	}

@@ -301,9 +301,11 @@ body > .navbar .brand {
     font-size:80%;
     font-weight:bold;
 }
+
 #sharebox {
     border:1px solid #ddd;
 }
+
 #sharebox #a {
     display:none;
     padding: 10px;
