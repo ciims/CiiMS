@@ -8,6 +8,7 @@ class ACiiController extends CiiController
 	
 	public $main_menu = array();
 	public $sidebarMenu = array();
+	
 	/**
 	 * @return array action filters
 	 */

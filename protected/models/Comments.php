@@ -96,6 +96,16 @@ class Comments extends CiiModel
 	}
 
 	/**
+	 * Returns a threaded instance for display within the viewfile
+	 * You should only call this instance on array instance
+	 * @return ThreadedComments
+	 */
+	public function thread()
+	{
+		return new ThreadedComments($this);
+	}
+	
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

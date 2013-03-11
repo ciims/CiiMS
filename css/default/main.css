@@ -3,6 +3,12 @@ body {
     color: #666;
 }
 
+.icon-red {
+	background-image: url("../images/glyphicons-halflings-red.png");
+}
+.icon-yellow {
+	background-image: url("../images/glyphicons-halflings-red.png");
+}
 /** Mobile View **/
 @media (max-width: 767px) {
     body {
@@ -203,6 +209,10 @@ main  .post .post-header h3 a {
 	color: #333;
 }
 
+main  .post .post-header h3.left-header {
+	margin-top: -7px;
+}
+
 main  .post .blog-meta, main  .post .blog-meta a {
 	color:#aaa;
 }
@@ -342,6 +352,51 @@ main .sharebox-submit  {
     font-weight:bold;
 }
 
+main .likes a {
+	color: #5e5e5e;
+	display: block;
+	position: relative;
+	height: 23px;
+	padding: 5px 8px 0 8px;
+	z-index: 100;
+	background: rgba(34,59,74,0.2);
+	font-weight: bold;
+	font-size: 13px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	text-decoration: none;
+}
+
+main .likes a:hover {
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	background: rgba(53, 66, 73, 0.32);
+	font-weight: bold;
+	font-size: 13px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+main .likes .counter {
+	
+	overflow: hidden;
+	padding: 0;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
 /** Footer **/
 footer a, footer a:visited, footer a:active {
     color: #999; 

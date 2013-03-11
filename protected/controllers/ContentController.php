@@ -2,7 +2,6 @@
 
 class ContentController extends CiiController
 {
-	
 	/**
 	 * Base filter, allows logged in and non-logged in users to cache the page
 	 */
@@ -27,6 +26,7 @@ class ContentController extends CiiController
 			$eTag = $this->id . Cii::get($this->action, 'id', NULL) . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
 			
             return array(
+                'accessControl',
                 array(
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
@@ -36,6 +36,29 @@ class ContentController extends CiiController
 		}
 		return parent::filters();
     }
+	
+	
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow',  // Allow all users to any section
+				'actions' => array('index', 'password', 'list', 'rss'),
+				'users'=>array('*'),
+			),
+			array('allow',  // deny all users
+				'actions' => array('like'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
 	
 	/**
 	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
@@ -102,7 +125,76 @@ class ContentController extends CiiController
         
 		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
 		
-		$this->render($content->view, array('id'=>$id, 'data'=>$content, 'meta'=>$meta, 'comments'=>$content->comments, 'model'=>Comments::model()));
+		$this->render($content->view, array(
+				'id'=>$id, 
+				'data'=>$content, 
+				'meta'=>$meta, 
+				'comments'=>Comments::model()->findByAttributes(array('content_id' => $content->id, 'approved' => 1))->count(), 
+				'model'=>Comments::model()
+			)
+		);
+	}
+	
+	/**
+	 * Provides functionality for "liking and un-liking" a post
+	 * @param int $id		The Content ID
+	 */
+	public function actionLike($id=NULL)
+	{
+		$this->layout=false;
+		header('Content-type: application/json');
+		
+		// Load the content
+		$content = Content::model()->findByPk($id);
+		if ($id === NULL || $content === NULL)
+		{
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to access post'));
+			return Yii::app()->end();
+		}
+		
+		// Load the user likes, create one if it does not exist
+		$user = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'likes'));
+		if ($user === NULL)
+		{
+			$user = new UserMetadata;
+			$user->user_id = Yii::app()->user->id;
+			$user->key = 'likes';
+			$user->value = json_encode(array());
+		}
+		
+		$likes = json_decode($user->value, true);
+		if (in_array($id, array_values($likes)))
+		{
+			$content->like_count -= 1;
+			if ($content->like_count <= 0)
+				$content->like_count = 0;
+			$element = array_search($id, $likes);
+			unset($likes[$element]);
+		}
+		else
+		{
+			$content->like_count += 1;
+			array_push($likes, $id);
+		}
+		
+		$user->value = json_encode($likes);
+		Cii::debug($likes);
+		if (!$user->save())
+		{
+			Cii::Debug($user->getErrors());
+			Cii::Debug(Yii::app()->user->id);
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save user like'));
+			return Yii::app()->end();
+		}
+
+		if (!$content->save())
+		{
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save like'));
+			return Yii::app()->end();
+		}
+		
+		echo CJavaScript::jsonEncode(array('status' => 'success', 'message' => 'Liked saved'));
+		return Yii::app()->end();
 	}
 	
 	/**

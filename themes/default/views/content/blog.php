@@ -43,15 +43,17 @@
 		<div class="post">
 			<div class="post-inner">
 				<div class="post-header post-header-comments">
-					<h3 class="pull-left"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', count($comments)); ?></h3>
+					<h3 class="pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
 					
-					<div class="likes pull-right">        
-					    <a href="#" data-action="upvote" title="Star this discussion">             
-					        <span class="icon-heart"></span>            
-					        <span class="counter">
-					            <span data-role="like-count"><?php echo $content->like_count; ?></span>
-					        </span>      
-					    </a>
+					<div class="likes-container pull-right">
+						<div class="likes">     
+						    <a href="#" data-action="upvote" title="Like this discussion">
+						    	<span class="icon-heart icon-red"></span>
+						        <span class="counter">
+						            <span data-role="like-count"><?php echo $content->like_count; ?></span>
+						        </span>      
+						    </a>
+						</div>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -74,6 +76,7 @@
                         'style' => 'display:none'
                     )
                 )); ?>
+                <div id="comment-container"></div>
 				<div id="new-comment" style="display:none;"></div>
 
                 <div class="clearfix"></div>
