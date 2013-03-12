@@ -39,6 +39,7 @@
 
 <div class="comments">
 	<?php if ($data->commentable): $count = 0;?>
+		
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
 		<div class="post">
 			<div class="post-inner">

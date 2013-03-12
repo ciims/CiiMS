@@ -30,7 +30,7 @@ class ContentController extends CiiController
                 array(
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-                    'etagSeed'=>$eTag
+                    'etagSeed'=> YII_DEBUG ? mt_rand() : $eTag
                 ),
             );
 		}
@@ -129,7 +129,7 @@ class ContentController extends CiiController
 				'id'=>$id, 
 				'data'=>$content, 
 				'meta'=>$meta, 
-				'comments'=>Comments::model()->findByAttributes(array('content_id' => $content->id, 'approved' => 1))->count, 
+				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id)), 
 				'model'=>Comments::model()
 			)
 		);
