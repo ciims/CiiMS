@@ -1,5 +1,5 @@
 body {
-    background:url("../../../images/default/bg.png") repeat;
+    background:url("../images/bg.png") repeat;
     color: #666;
 }
 
@@ -218,7 +218,7 @@ main  .post .blog-meta, main  .post .blog-meta a {
 }
 
 main  .post .read-more-icon span, main .infinite_navigation #more span {
-	background: url("../../../images/default/arrow-right.png") no-repeat scroll center center #222;
+	background: url("../images/arrow-right.png") no-repeat scroll center center #222;
 }
 
 /*blog meta*/
