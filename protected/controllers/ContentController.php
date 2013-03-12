@@ -124,12 +124,12 @@ class ContentController extends CiiController
 		$this->setLayout($content->layout);
         
 		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
-		
+	
 		$this->render($content->view, array(
 				'id'=>$id, 
 				'data'=>$content, 
 				'meta'=>$meta, 
-				'comments'=>Comments::model()->findByAttributes(array('content_id' => $content->id, 'approved' => 1))->count, 
+				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)), 
 				'model'=>Comments::model()
 			)
 		);

@@ -2,6 +2,7 @@
 /protected/runtime/*
 .settings
 .project
+*sublime*
 /protected/config/*
 .htaccess
 /uploads/*
