@@ -32,7 +32,7 @@ header .header-top-bar {
 
 header .header-middle-bar {
 	margin-top: 20px;
-	width: 65%;
+	width: 85%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -64,10 +64,11 @@ header .header-middle-bar .navbar .nav > li:last-child {
 
 /** Main **/
 
-main .main-body {
-	margin-left: -18px;
+@media (min-width: 767px) {
+	main .main-body {
+		margin-left: -18px;
+	}
 }
-
 main .image-container {
 	border-bottom: 1px solid #cacaca;
 	margin-bottom: 15px;
@@ -271,6 +272,11 @@ main  .post .read-more-icon span, main .infinite_navigation #more span {
 	right:0;
 }
 
+@media (max-width: 550px) {
+	main .post .read-more-icon {
+		bottom: -46px;
+	}
+}
 main  .post .read-more-icon strong, main .infinite_navigation #more strong {
 	display:block;
 	line-height:30px;
