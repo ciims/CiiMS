@@ -22,12 +22,33 @@ class CommentController extends CiiController
 			array('allow',  // allow authenticated users to perform any action
 				'users'=>array('@'),
 			),
+			array('allow',
+				'actions' => array('getComments'),
+				'users'=>array('*')
+				),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
 	
+	/**
+	 * Retrieves a renderPartial view of all comments for a particular post
+	 * @param  int $id 		The id of the content
+	 * @return viewfile 	Returns a renderPartial view for comment
+	 */
+	public function actionGetComments($id = NULL)
+	{
+		$this->layout = false;
+
+		if ($id == NULL)
+			throw new CHttpException(400, 'Unable to retrieve comments for that post');
+
+		$comments = Comments::model()->findByAttributes(array('content_id' => $id));
+
+		return Comments::model()->thread($comments);
+	}
+
 	public function actionComment()
 	{
 		if (Yii::app()->request->isAjaxRequest && isset($_POST))

@@ -114,7 +114,5 @@
         e.preventDefault();
         if ($("#textbox").text() == "")
             return;
-        
-        
     });
 '); ?>

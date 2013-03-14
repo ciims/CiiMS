@@ -28,18 +28,13 @@ class ThreadedComments
     }
 
     /**
+     * Outputs the comment to display at a given depth
      * @param array $comment
      * @param int $depth
      */
     private function ouputComment($comment, $depth)
     {
-        for ($depth; $depth > 0; $depth--)
-        {
-            echo "<--- ";
-        }
-
-        echo $comment['comment'];
-        echo "<br />";
+        Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth));
     }
 
     /**
