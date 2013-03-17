@@ -162,9 +162,11 @@ class ContentController extends CiiController
 			$user->value = json_encode(array());
 		}
 		
+		$type = "inc";
 		$likes = json_decode($user->value, true);
 		if (in_array($id, array_values($likes)))
 		{
+			$type = "dec";
 			$content->like_count -= 1;
 			if ($content->like_count <= 0)
 				$content->like_count = 0;
@@ -178,11 +180,8 @@ class ContentController extends CiiController
 		}
 		
 		$user->value = json_encode($likes);
-		Cii::debug($likes);
 		if (!$user->save())
 		{
-			Cii::Debug($user->getErrors());
-			Cii::Debug(Yii::app()->user->id);
 			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save user like'));
 			return Yii::app()->end();
 		}
@@ -193,7 +192,7 @@ class ContentController extends CiiController
 			return Yii::app()->end();
 		}
 		
-		echo CJavaScript::jsonEncode(array('status' => 'success', 'message' => 'Liked saved'));
+		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => 'Liked saved'));
 		return Yii::app()->end();
 	}
 	

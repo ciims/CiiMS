@@ -153,6 +153,28 @@ class Users extends CiiModel
 	}
 	
 	/**
+	 * Lets us know if the user likes a given content post or not
+	 * @param  int $id The id of the content we want to know about
+	 * @return bool    Whether or not the user likes the post
+	 */
+	public function likesPost($id = NULL)
+	{
+		if ($id === NULL)
+			return false;
+
+		$likes = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'likes'));
+
+		if ($likes === NULL)
+			return false;
+
+		$likesArray = json_decode($likes->value, true);
+		if (in_array($id, array_values($likesArray)))
+			return true;
+
+		return false;
+	}
+
+	/**
 	 * Creates an encrypted hash to be used as a password
 	 * @param string $email 	The user email
 	 * @param string $password	The password to be encrypted

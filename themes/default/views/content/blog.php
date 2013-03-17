@@ -8,7 +8,18 @@
 		<?php endif; ?>
 		<div class="post-inner">
 			<div class="post-header">
-				<h3><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h3>
+				<h3 class="pull-left"><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h3>
+				<div class="likes-container likes-container--topfix pull-right">
+					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
+					    <a href="#" id="upvote" title="Like this post and discussion">
+					    	<span class="icon-heart icon-red"></span>
+					        <span class="counter">
+					            <span id="like-count"><?php echo $content->like_count; ?></span>
+					        </span>      
+					    </a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
 			</div>
 			<div class="blog-meta inline">
 				<span class="date"><?php echo $content->getCreatedFormatted() ?></span>
@@ -39,7 +50,6 @@
 
 <div class="comments">
 	<?php if ($data->commentable): $count = 0;?>
-		
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
 		<div class="post">
 			<div class="post-inner">
@@ -47,11 +57,11 @@
 					<h3 class="pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
 					
 					<div class="likes-container pull-right">
-						<div class="likes">     
-						    <a href="#" data-action="upvote" title="Like this discussion">
+						<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
+						    <a href="#" id="upvote" title="Like this post and discussion">
 						    	<span class="icon-heart icon-red"></span>
 						        <span class="counter">
-						            <span data-role="like-count"><?php echo $content->like_count; ?></span>
+						            <span id="like-count"><?php echo $content->like_count; ?></span>
 						        </span>      
 						    </a>
 						</div>
@@ -115,4 +125,24 @@
         if ($("#textbox").text() == "")
             return;
     });
+')->registerScript('likeButton', '
+	$("[id ^=\'upvote\']").click(function(e) {
+		e.preventDefault();
+
+		$.post("content/like/id/' . $content->id . '", function(data, textStatus, jqXHR) {
+			if (data.status == undefined)
+				window.location = "' . $this->createUrl('/login') . '"
+
+			if (data.status == "success")
+			{
+				var count = parseInt($("#like-count").text());
+				if (data.type == "inc")
+					$("[id ^=\'like-count\']").text(count + 1).parent().parent().parent().addClass("liked");
+				else
+					$("[id ^=\'like-count\']").text(count - 1).parent().parent().parent().removeClass("liked");
+			}
+		});
+		return false;
+	});
+
 '); ?>

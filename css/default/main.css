@@ -346,6 +346,10 @@ main #sharebox #close {
     top: 11px;
 }
 
+main .likes-container--topfix {
+	margin-top: 10px;
+}
+
 main .sharebox-submit  {
     background:#9eca80;
     border-radius:2px;
@@ -391,6 +395,13 @@ main .likes a:hover {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+}
+
+main .likes.liked a, main .likes.liked a:hover {
+	background: #8fc847;
+	background: rgba(132,192,62,0.9);
+	-webkit-transform: translate3d(0,0,0);
+	color: white;
 }
 
 main .likes .counter {
