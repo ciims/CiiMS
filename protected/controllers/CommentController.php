@@ -44,7 +44,7 @@ class CommentController extends CiiController
 		if ($id == NULL)
 			throw new CHttpException(400, 'Unable to retrieve comments for that post');
 
-		$comments = Comments::model()->findByAttributes(array('content_id' => $id));
+		$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
 
 		return Comments::model()->thread($comments);
 	}

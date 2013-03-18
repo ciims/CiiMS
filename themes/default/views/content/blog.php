@@ -69,27 +69,33 @@
 				</div>
 				<div class="clearfix"></div>
 				<a id="comment-box"></a>
-                <div id="sharebox" class="comment-box">
-                    <div id="a">
-                        <div id="textbox" contenteditable="true"></div>
-                        <div id="close"></div>
-                        <div style="clear:both"></div>
-                    </div>
-                    <div id="b" style="color:#999">Comment on this post</div> 
-                </div>
-                <?php $this->widget('bootstrap.widgets.TbButton', array(
-                    'type' => 'success',
-                    'label' => 'Submit',
-                    'url' => '#',
-                    'htmlOptions' => array(
-                        'id' => 'submit',
-                        'class' => 'sharebox-submit',
-                        'style' => 'display:none'
-                    )
-                )); ?>
-                <div id="comment-container"></div>
+				<?php if (!Yii::app()->user->isGuest): ?>
+	                <div id="sharebox" class="comment-box">
+	                    <div id="a">
+	                        <div id="textbox" contenteditable="true"></div>
+	                        <div id="close"></div>
+	                        <div style="clear:both"></div>
+	                    </div>
+	                    <div id="b" style="color:#999">Comment on this post</div> 
+	                </div>
+	                <?php $this->widget('bootstrap.widgets.TbButton', array(
+	                    'type' => 'success',
+	                    'label' => 'Submit',
+	                    'url' => '#',
+	                    'htmlOptions' => array(
+	                        'id' => 'submit',
+	                        'class' => 'sharebox-submit',
+	                        'style' => 'display:none'
+	                    )
+	                )); ?>
+	            <?php else: ?>
+					<div class="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>Hey there!</strong> Before leaving a comment, you must <?php echo CHtml::link('login', $this->createUrl('/login')); ?> or <?php echo CHtml::link('signup', $this->createUrl('/register')); ?>
+					</div>
+	        	<?php endif; ?>
 				<div id="new-comment" style="display:none;"></div>
-
+                <div id="comment-container" style="display:none;"></div>
                 <div class="clearfix"></div>
 			</div>
 		</div>
@@ -129,7 +135,7 @@
 	$("[id ^=\'upvote\']").click(function(e) {
 		e.preventDefault();
 
-		$.post("content/like/id/' . $content->id . '", function(data, textStatus, jqXHR) {
+		$.post("' . $this->createUrl('/content/like/id/' . $content->id) . '", function(data, textStatus, jqXHR) {
 			if (data.status == undefined)
 				window.location = "' . $this->createUrl('/login') . '"
 
@@ -144,5 +150,8 @@
 		});
 		return false;
 	});
-
+')->registerScript('fetchComments', '
+	$.post("' . $this->createUrl('/comment/getComments/id/' . $content->id) . '", function(data) {
+		$("#comment-container").html(data).fadeIn();
+	});
 '); ?>

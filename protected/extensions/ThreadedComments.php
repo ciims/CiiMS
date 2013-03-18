@@ -22,7 +22,7 @@ class ThreadedComments
             else
                 $this->children[$comment['parent_id']][] = $comment;
         }
-		
+
 		foreach ($this->parents as $c)
             $this->threadParent($c);
     }
@@ -32,7 +32,7 @@ class ThreadedComments
      * @param array $comment
      * @param int $depth
      */
-    private function ouputComment($comment, $depth)
+    private function ouputComment($comment = NULL, $depth = 0)
     {
         Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth));
     }

@@ -1,1 +1,1 @@
-This is a comment <<------
+<?php Cii::debug($comment->attributes); echo $depth; ?><br />
