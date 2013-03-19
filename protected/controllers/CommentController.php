@@ -25,7 +25,11 @@ class CommentController extends CiiController
 			array('allow',
 				'actions' => array('getComments'),
 				'users'=>array('*')
-				),
+			),
+			array('allow',
+				'users'=>array('@'),
+				'expression'=>'!Yii::app()->user->isGuest'
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -49,6 +53,9 @@ class CommentController extends CiiController
 		return Comments::model()->thread($comments);
 	}
 
+	/**
+	 * Provides functionality to make a comment
+	 */
 	public function actionComment()
 	{
 		if (Yii::app()->request->isAjaxRequest && isset($_POST))
@@ -88,6 +95,11 @@ class CommentController extends CiiController
 		}
 	}
 	
+	/**
+	 * Provides functionality for authenticated users to flag a comment
+	 * @param  int $id    The id of a user
+	 * @return true       on success, CHttpException 400 on error
+	 */
 	public function actionFlag($id=NULL)
 	{
 		if (Yii::app()->request->isPostRequest)
@@ -98,7 +110,7 @@ class CommentController extends CiiController
 			
 			$comment->approved = '-1';
 			if($comment->save())
-				return 1;
+				return true;
 			else
 				throw new CHttpException(400, 'Something went wrong');
 		}

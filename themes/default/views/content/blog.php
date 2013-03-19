@@ -95,7 +95,7 @@
 					</div>
 	        	<?php endif; ?>
 				<div id="new-comment" style="display:none;"></div>
-                <div id="comment-container" style="display:none;"></div>
+                <div id="comment-container" style="display:none; margin-top: -1px;"></div>
                 <div class="comment"></div>
                 <div class="clearfix"></div>
 			</div>
@@ -159,7 +159,11 @@
 		      return \'<span class="\' + $(this).attr(\'class\') + \'" style="background:url(\' + $(this).attr(\'src\') + \') no-repeat center center; width: \' + $(this).width() + \'px; height: \' + $(this).height() + \'px;" />\';
 		    });
 		    $(this).css("opacity","0");
-		  });
+		});
+
+		$("[class ^=\'flag\']").click(function() {
+			$.post("comment/flag/id/" + $(this).attr("data-attr-id"));
+		});
 	});
 ');
 

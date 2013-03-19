@@ -16,7 +16,9 @@
 			<?php echo $md->safeTransform($comment->comment); ?>
 		</div>
 		<div class="comment-body comment-byline comment-byline-footer">
-			<span class="reply">reply</span>
+			<?php if (!Yii::app()->user->isGuest): ?>
+				<span class="reply">reply</span> • <span class="flag" data-attr-id="<?php echo $comment->id; ?>">flag</span>
+			<?php endif; ?>
 		</div>
 	</div>
 	<div class="clearfix"></div>
