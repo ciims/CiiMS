@@ -7,8 +7,9 @@
 class ThreadedComments
 {
 
-    public $parents  = array();
-    public $children = array();
+    public  $parents  = array();
+    public  $children = array();
+    private $md       = array();
 
     /**
      * @param array $comments
@@ -23,6 +24,8 @@ class ThreadedComments
                 $this->children[$comment['parent_id']][] = $comment;
         }
 
+        $this->md = new CMarkdownParser();
+
 		foreach ($this->parents as $c)
             $this->threadParent($c);
     }
@@ -34,7 +37,7 @@ class ThreadedComments
      */
     private function ouputComment($comment = NULL, $depth = 0)
     {
-        Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth));
+        Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth, 'md' => $this->md));
     }
 
     /**
@@ -49,7 +52,7 @@ class ThreadedComments
 
             if (isset($this->children[$c['id']]))
             {
-                $this->threadParent($this->children[$c['id']], $depth + 1);
+                $this->threadParent($this->children[$c['id']], min($depth + 1, 3));
             }
         }
     }

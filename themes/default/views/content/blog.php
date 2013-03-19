@@ -96,6 +96,7 @@
 	        	<?php endif; ?>
 				<div id="new-comment" style="display:none;"></div>
                 <div id="comment-container" style="display:none;"></div>
+                <div class="comment"></div>
                 <div class="clearfix"></div>
 			</div>
 		</div>
@@ -153,5 +154,17 @@
 ')->registerScript('fetchComments', '
 	$.post("' . $this->createUrl('/comment/getComments/id/' . $content->id) . '", function(data) {
 		$("#comment-container").html(data).fadeIn();
+		$(".rounded-img").load(function() {
+		    $(this).wrap(function(){
+		      return \'<span class="\' + $(this).attr(\'class\') + \'" style="background:url(\' + $(this).attr(\'src\') + \') no-repeat center center; width: \' + $(this).width() + \'px; height: \' + $(this).height() + \'px;" />\';
+		    });
+		    $(this).css("opacity","0");
+		  });
 	});
-'); ?>
+');
+
+$this->widget('ext.timeago.JTimeAgo', array(
+    'selector' => ' .timeago',
+ 
+));
+?>

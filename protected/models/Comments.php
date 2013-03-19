@@ -72,7 +72,7 @@ class Comments extends CiiModel
 		// class name for the relations automatically generated below.
 		return array(
 			'metadata' => array(self::HAS_MANY, 'CommentMetadata', 'comment_id'),
-			'parent' => array(self::BELONGS_TO, 'Content', 'parent_id'),
+			'parent' => array(self::BELONGS_TO, 'Comments', 'parent_id'),
 			'content' => array(self::BELONGS_TO, 'Content', 'content_id'),
 			'author' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);

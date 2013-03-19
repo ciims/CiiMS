@@ -6,9 +6,59 @@ body {
 .icon-red {
 	background-image: url("../images/glyphicons-halflings-red.png");
 }
+
 .icon-yellow {
 	background-image: url("../images/glyphicons-halflings-red.png");
 }
+
+/** Misc Styles **/
+div[class*='-indicator'] {
+	padding-left: 20px;
+}
+
+.black-indicator {
+	border-left:5px solid #444;
+}
+
+.green-indicator {
+	border-left:5px solid #A7CE44;
+}
+
+.blue-indicator {
+	border-left:5px solid #59A0DC;
+}
+
+.red-indicator {
+	border-left:5px solid #CE4444;
+}
+
+.yellow-indicator {
+	border-left:5px solid #CABF42;
+}
+
+.magenta-indicator {
+	border-left:5px solid #A9014B;
+}
+
+.orange-indicator {
+	border-left:5px solid #FF5C00;
+}
+
+.author-indicator {
+	padding-right: 0px;
+	margin-left: 40px;
+}
+
+.rounded-image {
+	display: inline-block;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	-moz-box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .9), 0 -1px 0 rgba(0, 0, 0, .6);
+}
+
 /** Mobile View **/
 @media (max-width: 767px) {
     body {
@@ -69,6 +119,7 @@ header .header-middle-bar .navbar .nav > li:last-child {
 		margin-left: -18px;
 	}
 }
+
 main .image-container {
 	border-bottom: 1px solid #cacaca;
 	margin-bottom: 15px;
@@ -346,6 +397,11 @@ main #sharebox #close {
     top: 11px;
 }
 
+main .comment-box-inline {
+	width: 93%;
+	margin-top: 5px;
+}
+
 main .likes-container--topfix {
 	margin-top: 10px;
 }
@@ -405,7 +461,6 @@ main .likes.liked a, main .likes.liked a:hover {
 }
 
 main .likes .counter {
-	
 	overflow: hidden;
 	padding: 0;
 	-webkit-transition: all .2s ease-in-out;
@@ -413,6 +468,64 @@ main .likes .counter {
 	-ms-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
+}
+
+main .comment {
+	clear:both;
+	font-size: 13px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+	position: relative;
+}
+
+main .comment:first {
+	border-top: 0px;
+}
+
+main .comment .comment-byline {
+	margin-left: 10px;
+	font-weight: 400;
+	font-size: 85%;
+	color: #999;
+}
+
+main .comment .comment-byline-footer {
+	margin-top: -10px;
+	cursor: pointer;
+}
+
+main .comment .comment-byline-footer span {
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+main .comment .comment-byline-footer span:hover {
+	color: #666;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .comment .comment-body {
+	padding-left: 10px;
+	margin-left: 30px;
+	clear: none;
+}
+
+main .comment .avatar {
+	display: block;
+	float: left;
+	margin-top: 5px;
+}
+
+main .comment .author-indicator > .comment-body {
+	margin-left: -10px;
+	padding-left: 0px;
 }
 /** Footer **/
 footer a, footer a:visited, footer a:active {
