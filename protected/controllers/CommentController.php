@@ -62,11 +62,11 @@ class CommentController extends CiiController
 		{
 			$comment = new Comments();
 			$comment->attributes = array(
-				'user_id'=>Yii::app()->user->id,
-				'content_id'=>$_POST['Comments']['content_id'],
-				'comment'=>$_POST['Comments']['comment'],
-				'parent_id'=>0,
-				'approved'=>1
+				'user_id'	=>	Yii::app()->user->id,
+				'content_id'=>	$_POST['Comments']['content_id'],
+				'comment'	=>	$_POST['Comments']['comment'],
+				'parent_id'	=>	Cii::get($_POST['Comments'], 'parent_id', 0),
+				'approved'	=>	1
 			);
 			
 			if ($comment->save())
@@ -78,7 +78,6 @@ class CommentController extends CiiController
 				// Send an email to the author if someone makes a comment on their blog
 				if ($content->author->id != Yii::app()->user->id && Configuration::model()->findByAttributes(array('key'=>'notifyAuthorOnComment'))->value == 1) 
 				{
-					Yii::trace('comment trace');
 					Yii::import('application.extensions.phpmailer.JPhpMailer');
 					$mail = new JPhpMailer;
 					$mail->IsSMTP();
