@@ -17,9 +17,25 @@
 		</div>
 		<div class="comment-body comment-byline comment-byline-footer">
 			<?php if (!Yii::app()->user->isGuest): ?>
-				<span class="reply">reply</span> • <span class="flag" data-attr-id="<?php echo $comment->id; ?>">flag</span>
+				<span class="reply">reply</span> • <span class="flag <?php echo $comment->approved == -1 ? 'flagged' : NULL; ?>" data-attr-id="<?php echo $comment->id; ?>"><?php echo $comment->approved == -1 ? 'flagged' : 'flag'; ?></span>
 			<?php endif; ?>
 		</div>
 	</div>
+		<?php $model = new Comments(); ?>
+		<?php $comment->parent_id = $comment->parent_id; ?>
+		<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+		    'id'=>'comment-form',
+		    'htmlOptions' => array('style' => 'display:none; padding-left: 50px; margin-top: 10px; margin-bottom: 0px; padding-bottom: -10px;')
+		)); ?>
+			<?php echo $form->textField($model, 'comment', array('class'=>'span10')); ?>
+			<?php $this->widget('bootstrap.widgets.TbButton', array(
+				'buttonType'=>'submit', 
+				'type' => 'primary',
+				'label'=>'Submit',
+				'htmlOptions' => array(
+					'style' => 'margin-top: -10px'
+				)
+			)); ?>
+		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
 </div>

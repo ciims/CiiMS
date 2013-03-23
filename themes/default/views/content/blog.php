@@ -100,7 +100,6 @@
                 <div class="clearfix"></div>
 			</div>
 		</div>
-		<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/' . Yii::app()->theme->name .'/commentform.js'); ?>
 	<?php endif; ?>
 </div>
 
@@ -161,8 +160,20 @@
 		    $(this).css("opacity","0");
 		});
 
+		// Flag option
 		$("[class ^=\'flag\']").click(function() {
-			$.post("comment/flag/id/" + $(this).attr("data-attr-id"));
+			if ($(this).hasClass("flagged"))
+				return;
+
+			var element = $(this);
+			$.post("comment/flag/id/" + $(this).attr("data-attr-id"), function() {
+				$(element).addClass("flagged").text("flagged");
+			});
+		});
+
+		// Reply button
+		$("[class ^=\'reply\']").click(function() { 
+			$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
 		});
 	});
 ');
