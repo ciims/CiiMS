@@ -120,5 +120,3 @@ class CategoriesController extends CiiController
 		$this->render('list', array('categories'=>$categories));
 	}
 }
-
-?>

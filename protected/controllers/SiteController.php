@@ -34,6 +34,9 @@ class SiteController extends CiiController
 		}
 	}
 	
+    /**
+     * Provides basic sitemap functionality via XML
+     */
 	public function actionSitemap()
 	{		
 		$this->layout = false;
@@ -42,9 +45,13 @@ class SiteController extends CiiController
 		$content = Yii::app()->db->createCommand('SELECT slug, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1;')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
 		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories));
-		return;
+		Yii::app()->end();
 	}
 	
+    /**
+     * Provides search functionality through Sphinx
+     * @param int $id   The pagination $id
+     */
 	public function actionSearch($id=1)
 	{
 		$this->setPageTitle(Yii::app()->name . ' | Search');
@@ -54,7 +61,7 @@ class SiteController extends CiiController
 		$itemCount = 0;
 		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize')), 'value', 10);
 		
-		if (isset($_GET['q']) && $_GET['q'] != '')
+		if (Cii::get($_GET, 'q', "") != "")
 		{
 					
 			// Load the search data
@@ -63,8 +70,9 @@ class SiteController extends CiiController
 			$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
 			$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
 			$sphinx->setMaxQueryTime(15);
-			$result = $sphinx->query($_GET['q'], Yii::app()->params['sphinxSource']);			
+			$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);			
 			
+            // Perform a MySQL query based upon the retrieved search results
 			$criteria=new CDbCriteria;
 			$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
@@ -85,6 +93,10 @@ class SiteController extends CiiController
 		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 
+    /**
+     * Provides basic MySQL searching functionality
+     * @param int $id   The search pagination id
+     */
 	public function actionMySQLSearch($id=1)
 	{
 		$this->setPageTitle(Yii::app()->name . ' | Search');
@@ -94,11 +106,11 @@ class SiteController extends CiiController
 		$itemCount = 0;
 		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize')), 'value', 10);
 		
-		if (isset($_GET['q']) && $_GET['q'] != '')
+		if (Cii::get($_GET, 'q', "") != "")
 		{	
 			$criteria=new CDbCriteria;
-			$criteria->addSearchCondition('content', $_GET['q'], true, 'OR');
-			$criteria->addSearchCondition('title', $_GET['q'], true, 'OR');
+			$criteria->addSearchCondition('content', Cii::get($_GET, 'q', NULL), true, 'OR');
+			$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
 			$criteria->addCondition('status = 1');
@@ -116,26 +128,29 @@ class SiteController extends CiiController
 		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 	
+    /**
+     * Provides functionality to log a user into the system
+     */
 	public function actionLogin()
 	{
 		$this->setPageTitle(Yii::app()->name . ' | Login to your account');
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
-		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
 			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
+            
 			if($model->validate() && $model->login())
-			{ 
 				$this->redirect(Yii::app()->user->returnUrl);
-			}
 		}
-		// display the login form
+        
 		$this->render('login',array('model'=>$model));
 	}
 	
+    /**
+     * Provides functionality to log a user out
+     */
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
@@ -389,6 +404,11 @@ class SiteController extends CiiController
 		$this->render('register', array('captcha'=>$captcha, 'model'=>$model, 'error'=>$error, 'user'=>$user));
 	}
 
+    /**
+     * Migrate Action
+     * Allows the Site to perform migrations during the installation process
+     * @return CiiMigrate Output
+     */
     public function actionMigrate()
     {
         $runner=new CConsoleCommandRunner();

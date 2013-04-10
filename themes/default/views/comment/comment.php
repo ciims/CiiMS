@@ -17,7 +17,10 @@
 		</div>
 		<div class="comment-body comment-byline comment-byline-footer">
 			<?php if (!Yii::app()->user->isGuest): ?>
-				<span class="reply">reply</span> • <span class="flag <?php echo $comment->approved == -1 ? 'flagged' : NULL; ?>" data-attr-id="<?php echo $comment->id; ?>"><?php echo $comment->approved == -1 ? 'flagged' : 'flag'; ?></span>
+			    <?php if ($comment->content->commentable): ?>
+				    <span class="reply">reply</span>
+				<?php endif; ?>
+				 • <span class="flag <?php echo $comment->approved == -1 ? 'flagged' : NULL; ?>" data-attr-id="<?php echo $comment->id; ?>"><?php echo $comment->approved == -1 ? 'flagged' : 'flag'; ?></span>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -29,13 +32,13 @@
 		)); ?>
 			<?php echo $form->textField($model, 'comment', array('class'=>'span10')); ?>
 			<?php $this->widget('bootstrap.widgets.TbButton', array(
-				'buttonType'=>'submit', 
-				'type' => 'primary',
-				'label'=>'Submit',
-				'htmlOptions' => array(
-					'style' => 'margin-top: -10px'
-				)
-			)); ?>
+                'type' => 'success',
+                'label' => 'Submit',
+                'url' => '#',
+                'htmlOptions' => array(
+                    'id' => 'submit',
+                    'class' => 'sharebox-submit',
+            )); ?>
 		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
 </div>

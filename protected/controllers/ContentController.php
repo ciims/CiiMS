@@ -288,4 +288,3 @@ class ContentController extends CiiController
 		return;
 	}
 }
-?>

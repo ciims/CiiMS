@@ -49,7 +49,7 @@
 </div>
 
 <div class="comments">
-	<?php if ($data->commentable): $count = 0;?>
+	<?php $count = 0;?>
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
 		<div class="post">
 			<div class="post-inner">
@@ -68,26 +68,28 @@
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<a id="comment-box"></a>
 				<?php if (!Yii::app()->user->isGuest): ?>
-	                <div id="sharebox" class="comment-box">
-	                    <div id="a">
-	                        <div id="textbox" contenteditable="true"></div>
-	                        <div id="close"></div>
-	                        <div style="clear:both"></div>
-	                    </div>
-	                    <div id="b" style="color:#999">Comment on this post</div> 
-	                </div>
-	                <?php $this->widget('bootstrap.widgets.TbButton', array(
-	                    'type' => 'success',
-	                    'label' => 'Submit',
-	                    'url' => '#',
-	                    'htmlOptions' => array(
-	                        'id' => 'submit',
-	                        'class' => 'sharebox-submit',
-	                        'style' => 'display:none'
-	                    )
-	                )); ?>
+    				<?php if ($data->commentable): ?>
+        				<a id="comment-box"></a>
+        	                <div id="sharebox" class="comment-box">
+        	                    <div id="a">
+        	                        <div id="textbox" contenteditable="true"></div>
+        	                        <div id="close"></div>
+        	                        <div style="clear:both"></div>
+        	                    </div>
+        	                    <div id="b" style="color:#999">Comment on this post</div> 
+        	                </div>
+        	                <?php $this->widget('bootstrap.widgets.TbButton', array(
+        	                    'type' => 'success',
+        	                    'label' => 'Submit',
+        	                    'url' => '#',
+        	                    'htmlOptions' => array(
+        	                        'id' => 'submit-comment',
+        	                        'class' => 'sharebox-submit',
+        	                        'style' => 'display:none; margin-bottom: 5px;'
+        	                    )
+        	                )); ?>
+        	        <?php endif; ?>
 	            <?php else: ?>
 					<div class="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -100,7 +102,6 @@
                 <div class="clearfix"></div>
 			</div>
 		</div>
-	<?php endif; ?>
 </div>
 
 
@@ -108,28 +109,31 @@
     $("#b").click( function () {
         $(this).html("");
         $("#a").slideDown("fast");
-        $("#submit").show();
+        $("#submit-comment").show();
         setTimeout(function() {
             $("#textbox").focus();
         }, 100);
     });
     $("#textbox").keydown( function() {
         if($(this).text() != "")
-            $("#submit").css("background","#3b9000");
+            $("#submit-comment").css("background","#3b9000");
         else
-            $("#submit").css("background","#9eca80");
+            $("#submit-comment").css("background","#9eca80");
         });
     $("#close").click( function () {
         $("#b").html("Comment on this post");
         $("#textbox").html("");
         $("#a").slideUp("fast");
-        $("#submit").hide();
+        $("#submit-comment").hide();
     });
     
-    $("#submit").click(function(e) {
+    $("#submit-comment").click(function(e) {
         e.preventDefault();
         if ($("#textbox").text() == "")
             return;
+        // TODO: Add comment functionality here
+        console.log($("#textbox").text());
+        
     });
 ')->registerScript('likeButton', '
 	$("[id ^=\'upvote\']").click(function(e) {
