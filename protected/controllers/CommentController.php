@@ -39,7 +39,7 @@ class CommentController extends CiiController
 	/**
 	 * Retrieves a renderPartial view of all comments for a particular post
 	 * @param  int $id 		The id of the content
-	 * @return viewfile 	Returns a renderPartial view for comment
+	 * @return viewfile 	Returns a renderPartial view for ThreadedComments
 	 */
 	public function actionGetComments($id = NULL)
 	{
@@ -49,7 +49,7 @@ class CommentController extends CiiController
 			throw new CHttpException(400, 'Unable to retrieve comments for that post');
 
 		$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
-
+        
 		return Comments::model()->thread($comments);
 	}
 

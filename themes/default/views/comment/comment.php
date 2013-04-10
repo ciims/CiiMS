@@ -13,10 +13,14 @@
 			</time>
 		</div>
 		<div class="comment-body">
-			<?php echo $md->safeTransform($comment->comment); ?>
+		    <?php if ($comment->approved == -2): ?>
+		        <em class="flagged">Comment has been redacted</em>
+		    <?php else: ?>
+			    <?php echo $md->safeTransform($comment->comment); ?>
+			<?php endif; ?>
 		</div>
 		<div class="comment-body comment-byline comment-byline-footer">
-			<?php if (!Yii::app()->user->isGuest): ?>
+			<?php if (!Yii::app()->user->isGuest && $comment->approved != -2): ?>
 			    <?php if ($comment->content->commentable): ?>
 				    <span class="reply">reply</span>
 				<?php endif; ?>
@@ -38,7 +42,7 @@
                 'htmlOptions' => array(
                     'id' => 'submit',
                     'class' => 'sharebox-submit',
-            )); ?>
+            ))); ?>
 		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
 </div>

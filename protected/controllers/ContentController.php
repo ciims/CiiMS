@@ -84,6 +84,8 @@ class ContentController extends CiiController
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
 			throw new CHttpException(404, 'The requested post cannot be found.');
+        
+        return str_replace($r->baseUrl, '', $r->requestUri);;
 	}
 	
 	/**
@@ -95,8 +97,11 @@ class ContentController extends CiiController
 	public function actionIndex($id=NULL)
 	{
 		// Run a pre check of our data
-		$this->beforeCiiAction($id);
+		$requestUri = $this->beforeCiiAction($id);
 		
+        // Set the ReturnURL to this page so that the user can be redirected back to her after login
+        Yii::app()->user->setReturnUrl($requestUri);
+        
 		// Retrieve the data
 		$content = Content::model()->with('category')->findByPk($id);
         
