@@ -146,7 +146,6 @@
         		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
         	}
         );
-        
     });
 ')->registerScript('likeButton', '
 	$("[id ^=\'upvote\']").click(function(e) {
