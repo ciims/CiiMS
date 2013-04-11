@@ -1,7 +1,7 @@
 <?php $content = &$data; ?>
 <?php $meta = Content::model()->parseMeta($content->metadata); ?>
 
-<div class="content">
+<div class="content" data-attr-id="<?php echo $content->id; ?>">
 	<div class="post">
 		<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
 			<p style="text-align:center;"><?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'image')); ?></p>
@@ -50,58 +50,57 @@
 
 <div class="comments">
 	<?php $count = 0;?>
-		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
-		<div class="post">
-			<div class="post-inner">
-				<div class="post-header post-header-comments">
-					<h3 class="pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
-					
-					<div class="likes-container pull-right">
-						<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
-						    <a href="#" id="upvote" title="Like this post and discussion">
-						    	<span class="icon-heart icon-red"></span>
-						        <span class="counter">
-						            <span id="like-count"><?php echo $content->like_count; ?></span>
-						        </span>      
-						    </a>
-						</div>
+	<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
+	<div class="post">
+		<div class="post-inner">
+			<div class="post-header post-header-comments">
+				<h3 class="pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
+				
+				<div class="likes-container pull-right">
+					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
+					    <a href="#" id="upvote" title="Like this post and discussion">
+					    	<span class="icon-heart icon-red"></span>
+					        <span class="counter">
+					            <span id="like-count"><?php echo $content->like_count; ?></span>
+					        </span>      
+					    </a>
 					</div>
 				</div>
-				<div class="clearfix"></div>
-				<?php if (!Yii::app()->user->isGuest): ?>
-    				<?php if ($data->commentable): ?>
-        				<a id="comment-box"></a>
-        	                <div id="sharebox" class="comment-box">
-        	                    <div id="a">
-        	                        <div id="textbox" contenteditable="true"></div>
-        	                        <div id="close"></div>
-        	                        <div style="clear:both"></div>
-        	                    </div>
-        	                    <div id="b" style="color:#999">Comment on this post</div> 
-        	                </div>
-        	                <?php $this->widget('bootstrap.widgets.TbButton', array(
-        	                    'type' => 'success',
-        	                    'label' => 'Submit',
-        	                    'url' => '#',
-        	                    'htmlOptions' => array(
-        	                        'id' => 'submit-comment',
-        	                        'class' => 'sharebox-submit',
-        	                        'style' => 'display:none; margin-bottom: 5px;'
-        	                    )
-        	                )); ?>
-        	        <?php endif; ?>
-	            <?php else: ?>
-					<div class="alert">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>Hey there!</strong> Before leaving a comment, you must <?php echo CHtml::link('login', $this->createUrl('/login')); ?> or <?php echo CHtml::link('signup', $this->createUrl('/register')); ?>
-					</div>
-	        	<?php endif; ?>
-				<div id="new-comment" style="display:none;"></div>
-                <div id="comment-container" style="display:none; margin-top: -1px;"></div>
-                <div class="comment"></div>
-                <div class="clearfix"></div>
 			</div>
+			<div class="clearfix"></div>
+			<?php if (!Yii::app()->user->isGuest): ?>
+				<?php if ($data->commentable): ?>
+    				<a id="comment-box"></a>
+    	                <div id="sharebox" class="comment-box">
+    	                    <div id="a">
+    	                        <div id="textbox" contenteditable="true"></div>
+    	                        <div id="close"></div>
+    	                        <div style="clear:both"></div>
+    	                    </div>
+    	                    <div id="b" style="color:#999">Comment on this post</div> 
+    	                </div>
+    	                <?php $this->widget('bootstrap.widgets.TbButton', array(
+    	                    'type' => 'success',
+    	                    'label' => 'Submit',
+    	                    'url' => '#',
+    	                    'htmlOptions' => array(
+    	                        'id' => 'submit-comment',
+    	                        'class' => 'sharebox-submit',
+    	                        'style' => 'display:none; margin-bottom: 5px;'
+    	                    )
+    	                )); ?>
+    	        <?php endif; ?>
+            <?php else: ?>
+				<div class="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Hey there!</strong> Before leaving a comment, you must <?php echo CHtml::link('login', $this->createUrl('/login')); ?> or <?php echo CHtml::link('signup', $this->createUrl('/register')); ?>
+				</div>
+        	<?php endif; ?>
+            <div id="comment-container" style="display:none; margin-top: -1px;"></div>
+            <div class="comment"></div>
+            <div class="clearfix"></div>
 		</div>
+	</div>
 </div>
 
 
@@ -131,8 +130,21 @@
         e.preventDefault();
         if ($("#textbox").text() == "")
             return;
-        // TODO: Add comment functionality here
-        console.log($("#textbox").text());
+        $.post("/comment/comment", 
+        	{ 
+        		"Comments" : 
+        		{ 
+        			"comment" : $("#textbox").text(), 
+        			"content_id" : $(".content").attr("data-attr-id") 
+        		}
+        	}, 
+        	function(data) { 
+        		$("#textbox").text("");  
+        		$("#comment-container").prepend(data);
+        		$("div#comment-container").children(":first").fadeIn();
+        		$("#close").click();
+        	}
+        );
         
     });
 ')->registerScript('likeButton', '
@@ -156,7 +168,9 @@
 	});
 ')->registerScript('fetchComments', '
 	$.post("' . $this->createUrl('/comment/getComments/id/' . $content->id) . '", function(data) {
-		$("#comment-container").html(data).fadeIn();
+		$("#comment-container").html(data);
+		$(".comment").show();
+		$("#comment-container").fadeIn();
 		$(".rounded-img").load(function() {
 		    $(this).wrap(function(){
 		      return \'<span class="\' + $(this).attr(\'class\') + \'" style="background:url(\' + $(this).attr(\'src\') + \') no-repeat center center; width: \' + $(this).width() + \'px; height: \' + $(this).height() + \'px;" />\';
@@ -184,6 +198,5 @@
 
 $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',
- 
 ));
 ?>

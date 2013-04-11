@@ -131,7 +131,8 @@ class Comments extends CiiModel
 		));
 	}
 	
-	public function beforeSave() {
+	public function beforeSave() 
+	{
     	if ($this->isNewRecord)
     	{
 			$this->created = new CDbExpression('NOW()');

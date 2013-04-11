@@ -117,17 +117,12 @@ class ContentController extends CiiController
 			$tmpPassword = $_SESSION['password'][$id];
 			
 			if ($tmpPassword != $content->attributes['password'])
-			{
 				$this->redirect(Yii::app()->createUrl('/content/password/' . $id));
-			}
 		}
 		
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
-        
-		// Set the layout
 		$this->setLayout($content->layout);
-        
 		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
 	
 		$this->render($content->view, array(

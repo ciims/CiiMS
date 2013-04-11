@@ -50,7 +50,7 @@ class CommentController extends CiiController
 
 		$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
         
-		return Comments::model()->thread($comments);
+		return Comments::model()->thread(array_reverse($comments));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class CommentController extends CiiController
 				'content_id'=>	$_POST['Comments']['content_id'],
 				'comment'	=>	$_POST['Comments']['comment'],
 				'parent_id'	=>	Cii::get($_POST['Comments'], 'parent_id', 0),
-				'approved'	=>	1
+				'approved'	=>	1,
 			);
 			
 			if ($comment->save())
@@ -88,8 +88,16 @@ class CommentController extends CiiController
 					$mail->AddAddress($content->author->email, $content->author->displayName);
 					$mail->Send();
 				}
-				
-				$this->renderPartial('comment', array('count'=>$_POST['count'], 'comment'=>$comment));
+
+				// Pass the values as "now" for the comment view"
+				$comment->created = $comment->updated = "now";
+
+				$this->renderPartial('comment', array(
+					'count'=>$content->comment_count, 
+					'comment'=>$comment,
+					'depth' => 0,
+					'md' => new CMarkdownParser
+				));
 			}
 		}
 	}
