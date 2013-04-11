@@ -54,7 +54,7 @@
 	<div class="post">
 		<div class="post-inner">
 			<div class="post-header post-header-comments">
-				<h3 class="pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
+				<h3 class="comment-count pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
 				
 				<div class="likes-container pull-right">
 					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
@@ -143,6 +143,7 @@
         		$("#comment-container").prepend(data);
         		$("div#comment-container").children(":first").fadeIn();
         		$("#close").click();
+        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
         	}
         );
         

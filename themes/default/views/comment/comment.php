@@ -1,4 +1,4 @@
-<div class="comment comment-<?php echo $comment->id; ?>" style="margin-left: <?php echo $depth*4 * 10; ?>px; display:none;">
+<div class="comment comment-<?php echo $comment->id; ?>" data-attr-id="<?php echo $comment->id; ?>" style="margin-left: <?php echo $depth*4 * 10; ?>px; display:none;">
 	<?php echo CHtml::image($comment->author->gravatarImage(30), NULL, array('class' => 'rounded-image avatar')); ?>
 	<div class="<?php echo $comment->author->id == $comment->content->author->id ? 'green-indicator author-indicator' : NULL; ?>">
 		<div class="comment-body comment-byline">
@@ -34,7 +34,7 @@
 		    'id'=>'comment-form',
 		    'htmlOptions' => array('style' => 'display:none; padding-left: 50px; margin-top: 10px; margin-bottom: 0px; padding-bottom: -10px;')
 		)); ?>
-			<?php echo $form->textField($model, 'comment', array('class'=>'span10')); ?>
+			<?php echo $form->textField($model, 'comment', array('class'=>'span10', 'placeholder' => 'Type here to reply')); ?>
 			<?php $this->widget('bootstrap.widgets.TbButton', array(
                 'type' => 'success',
                 'label' => 'Submit',
@@ -42,6 +42,7 @@
                 'htmlOptions' => array(
                     'id' => 'submit',
                     'class' => 'sharebox-submit',
+                    'style' => 'margin-top: 0px'
             ))); ?>
 		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
