@@ -15,7 +15,8 @@ class CommentsController extends ACiiController
         if ($comment === NULL)
             throw new CHttpException(400, 'Cannot find comment');
         
-		if ($comment->delete())
+        $comment->approved = -2;
+		if ($comment->save())
 		    Yii::app()->user->setFlash('success', 'Comment has been deleted.');
         else
             Yii::app()->user->setFlash('warning', 'Unable to delete comment');
