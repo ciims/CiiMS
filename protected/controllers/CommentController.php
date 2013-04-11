@@ -92,12 +92,18 @@ class CommentController extends CiiController
 				// Pass the values as "now" for the comment view"
 				$comment->created = $comment->updated = "now";
 
+				// Set the attributed id to make life easier...
+				header("X-Attribute-Id: {$comment->id}");
 				$this->renderPartial('comment', array(
 					'count'=>$content->comment_count, 
 					'comment'=>$comment,
-					'depth' => 0,
+					'depth' => Cii::get($_POST['Comments'], 'parent_id', 0) == 0 ? 0 : 1,
 					'md' => new CMarkdownParser
 				));
+			}
+			else
+			{
+				throw new CHttpException(400, 'Missing or malformed request');
 			}
 		}
 	}

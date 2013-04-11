@@ -10,33 +10,7 @@
  * @property string $updated
  */
 class Configuration extends CActiveRecord
-{
-	
-	/**
-	 * Improves page performance by caching static options
-	 * @see CActiveRecord::__get()
-	 * @return mixed $element
-	 */
-	public function __get($name)
-	{
-		// MySQL should be faster than CFileCache. QueryCache should be sufficient
-		if (get_class(Yii::app()->cache) == 'CFileCache')
-			return parent::__get($name);
-		
-		// Other caching systems should be faster than MySQL, so store the attribute in that system, and poll from that
-		$element = Yii::app()->cache->get(get_class($this) . $name);
-		if($element===false)
-		{
-			// Request from MySQL if we don't have it already, then store it in cache so long as it isn't NULL. Let __get() throw
-			// And error on NULL attributes
-		    $element = parent::__get($name);
-			if ($element !== NULL)
-				Yii::app()->cache->set(get_class($this) . $name, $element);
-		}
-		
-		return $element;
-	}
-	
+{	
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

@@ -358,35 +358,40 @@ main .post .post-inner .post-header-comments {
 }
 
 
-main #sharebox {
+main #sharebox, main [id*='sharebox-'] {
     border:1px solid #ddd;
 }
 
-main #sharebox #a {
+main [id*='sharebox-'] {
+	width: 87%;
+	float: left;
+}
+
+main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
     display:none;
     padding: 10px;
     color:#000;
     position:relative;
 }
 
-main #sharebox #b {
+main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
     padding:10px;
     min-height:15px;
     cursor:text;
 }
  
-main #sharebox #close, #sharebox #textbox {
+main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
     float:left;
 }
 
-main #sharebox #textbox {
+main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
     width:99%;
     min-height:20px;
     outline:none;
     min-height:50px;
 }
 
-main #sharebox #close {
+main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
     background: no-repeat url(../../images/admin/bg.png) -33px -31px;
     height: 9px;
     width: 9px;
@@ -477,6 +482,15 @@ main .comment {
 	padding-bottom: 10px;
 	border-top: 1px solid rgba(0,0,0,0.1);
 	position: relative;
+}
+
+main .comment-form {
+	display:none; 
+	padding-left: 50px; 
+	margin-top: 10px; 
+	margin-bottom: 0px; 
+	padding-bottom: -10px; 
+	height: 40px;
 }
 
 main .comment:first {
