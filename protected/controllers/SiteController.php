@@ -307,8 +307,7 @@ class SiteController extends CiiController
 					
 					// Delete the activationKey
 					$meta->delete();
-					Yii::app()->user->setFlash('activation-success', 'You may now login');
-					$this->redirect('/login');
+					Yii::app()->user->setFlash('activation-success', 'Activation was successful! You may now ' . CHtml::link('login', $this->createUrl('/login')));
 				}
 				else
 				{
@@ -317,6 +316,7 @@ class SiteController extends CiiController
 			}
 			else
 			{
+				Cii::debug($user); die();
 				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
 			}
 		}
