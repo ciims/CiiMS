@@ -92,7 +92,11 @@ The following extensions/applications are recommended to improve performance.
 CiiMS comes with a built in installer which will walk you through the setup process and provide you with information in the event it can't do something. The installer should be fairly straightforward. If you run into issues during the installation, it's most likely a permission issues with /assets, /protected/runtime, or /protected/config. The installer has built in error support, and by default will recommend you make a few directories writable. Any others are most likely a _setup_ issue rather than an issue with the installer.
 
 #### Support
-If you require support at any time, submit a Github issue and I'll look into it as soon as I can.
+If you require support at any time, submit a Github issue and I'll look into it as soon as I can. 
+
+#### Project Management.
+I use a combination of tools to manage this project. I'll track most bugs through Github Issues. New features and testing require a some more testing, so I've been using [Trello](https://trello.com/board/ciims/501db2c1467ee918041c158e) to manage new items.
+Please only use Trello if you intend to participate in making CiiMS better I'd prefer to leave it open. If Trello starts to get abused, I'll lock it down.
 
 #### Extensions & Options
 CiiMS uses a key => value options system which is managed through the _settings_ tab of the admin panel. A details list of all available options is available at [OPTIONS.md](OPTIONS.md).
