@@ -58,7 +58,7 @@ class Users extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, firstName, lastName, displayName, user_role, status', 'required'),
+			array('email, password, displayName, user_role, status', 'required'),
 			array('user_role, status', 'numerical', 'integerOnly'=>true),
 			array('email, firstName, lastName, displayName', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),

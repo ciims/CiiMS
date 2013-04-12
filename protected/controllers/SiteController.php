@@ -214,7 +214,7 @@ class SiteController extends CiiController
 					Yii::import('application.extensions.phpmailer.JPhpMailer');
 					$mail = new JPhpMailer;
 					$mail->IsSMTP();
-					$mail->SetFrom(Configuration::model()->findByAttributes(array('key'=>'adminEmail'))->value, Yii::app()->name . ' Administrator');
+					$mail->SetFrom('noreply@' . $_SERVER['HTTP_HOST'], Yii::app()->name . ' Administrator');
 					$mail->Subject = 'Your Password Reset Information';
 					$mail->MsgHTML($message);
 					$mail->AddAddress($user->email, $user->displayName);
@@ -287,11 +287,13 @@ class SiteController extends CiiController
 	
 	/**
 	 * Activation handler
+	 * @param string $email 	The user's email
+	 * @param int $id 			The activation key
 	 */
 	public function actionActivation($email=NULL, $id=NULL) 
 	{
 		$this->layout = '//layouts/main';
-		if ($id != NULL || $email=NULL)
+		if ($id != NULL || $email = NULL)
 		{
 			$user = Users::model()->findByPk($email);
 			if ($user != NULL && $user->status == 0)
@@ -306,6 +308,7 @@ class SiteController extends CiiController
 					// Delete the activationKey
 					$meta->delete();
 					Yii::app()->user->setFlash('activation-success', 'You may now login');
+					$this->redirect('/login');
 				}
 				else
 				{
@@ -314,7 +317,7 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				Yii::app()->user->setFlash('activation-error', 'The user requested either does not exist, or has already been activated.');
+				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
 			}
 		}
 		else
@@ -322,6 +325,7 @@ class SiteController extends CiiController
 			Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
 		}
 		
+		sleep(2);
 		$this->render('activation');
 	}
 	
@@ -336,8 +340,6 @@ class SiteController extends CiiController
 		$model = new RegisterForm();
 		$user = new Users();
 		
-		Yii::import('ext.recaptchalib');
-		$captcha = new recaptchalib();
 		$error = '';
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -346,22 +348,14 @@ class SiteController extends CiiController
 			if ($model->validate())
 			{
 				$user->attributes = array(
-					'email'=>$_POST['RegisterForm']['email'],
-					'password'=>Users::model()->encryptHash($_POST['RegisterForm']['email'], $_POST['RegisterForm']['password'], Yii::app()->params['encryptionKey']),
-					'firstName'=>$_POST['RegisterForm']['firstName'],
-					'lastName'=>$_POST['RegisterForm']['lastName'],
-					'displayName'=>$_POST['RegisterForm']['displayName'],
+					'email'=>Cii::get($_POST['RegisterForm'], 'email'),
+					'password'=>Users::model()->encryptHash(Cii::get($_POST['RegisterForm'], 'email'), Cii::get($_POST['RegisterForm'], 'password'), Yii::app()->params['encryptionKey']),
+					'firstName'=> NULL,
+					'lastName'=> NULL,
+					'displayName'=>Cii::get($_POST['RegisterForm'], 'displayName'),
 					'user_role'=>1,
 					'status'=>0
 				);
-				
-				$resp = $captcha->recaptcha_check_answer(Yii::app()->params['reCaptchaPrivateKey'], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-
-				if (!$resp->is_valid) {
-					$error = 'The CAPTCHA that you entered was invalid. Please try again';
-					$this->render('register', array('captcha'=>$captcha, 'model'=>$model, 'error'=>$error, 'user'=>$user));
-					return;
-				} 
 				
 				try 
 				{
@@ -385,13 +379,13 @@ class SiteController extends CiiController
 						Yii::import('application.extensions.phpmailer.JPhpMailer');
 						$mail = new JPhpMailer;
 						$mail->IsSMTP();
-						$mail->SetFrom(Configuration::model()->findByAttributes(array('key'=>'adminEmail'))->value, Yii::app()->name . ' Administrator');
+						$mail->SetFrom('noreply@' . $_SERVER['HTTP_HOST'], Yii::app()->name . ' Administrator');
 						$mail->Subject = 'Activate Your Account';
 						$mail->MsgHTML($message);
 						$mail->AddAddress($user->email, $user->displayName);
 						$mail->Send();
 					
-						$this->render('register-success');
+						$this->redirect('/register-success');
 						return;
 					}
 				}
@@ -401,7 +395,18 @@ class SiteController extends CiiController
 				}
 			}
 		}
-		$this->render('register', array('captcha'=>$captcha, 'model'=>$model, 'error'=>$error, 'user'=>$user));
+
+		$this->render('register', array('model'=>$model, 'error'=>$error, 'user'=>$user));
+	}
+
+	/**
+	 * Handles successful registration
+	 */
+	public function actionRegistersuccess()
+	{
+		$this->setPageTitle(Yii::app()->name . ' | Registration Successful');
+		$this->layout = '//layouts/main';
+		$this->render('register-success');
 	}
 
     /**

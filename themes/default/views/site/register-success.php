@@ -1,4 +1,8 @@
-<div class="well">
-	<h1>Thanks for Registering!</h1>
-	<p>We're glad you decided to register with us. Before you can login you need to activate your account. We just sent you an email with your activation link. Please allow up to 10 minutes of delivery.</p>
+<div class="login-container" style="width: 70%;">
+	<div class="sidebar">
+		<div class="well">
+			<h4>Thanks for Registering!</h4>
+			<p>Before you can login to your account we need you to verify your email address. Be on the lookout for an email from: <?php echo 'noreply@' . $_SERVER['HTTP_HOST']; ?> containing activating instructions.</p>
+		</div>
+	</div>
 </div>

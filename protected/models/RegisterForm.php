@@ -20,7 +20,7 @@ class RegisterForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('email, password, password2, firstName, lastName, displayName', 'required'),
+			array('email, password, password2, displayName', 'required'),
 			// password needs to be authenticated
 			array('password', 'compare', 'compareAttribute'=>'password2'),
 			array('password', 'length', 'min'=>8),

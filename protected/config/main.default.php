@@ -54,6 +54,7 @@
                 '/forgot/<id:\w+>' => '/site/forgot',
                 '/forgot' => '/site/forgot',
                 '/register' => '/site/register',
+                '/register-success' => '/site/registersuccess',
                 '/login' => '/site/login',
                 '/logout' => '/site/logout',
                 '/admin' => '/admin'
