@@ -7,26 +7,54 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	/**
+	 * Constant variable for defining lockout status
+	 * @var const ERROR_PASSWORD_LOCKOUT
+	 */
 	const ERROR_PASSWORD_LOCKOUT=3;
 
+	/**
+	 * The user id
+	 * @var int $_id
+	 */
 	private $_id;
 	
+	/**
+	 * Whether or not to allow login or not
+	 * Possibly should be renamed to doLogin
+	 * @var boolean $force
+	 */
 	private $force = false;
 
+	/**
+	 * Password Hash of user
+	 * @var string $hash
+	 */
 	private $hash = NULL;
 
-	private $cost = NULL;
+	/**
+	 * bcrypt hashing cost
+	 * @var int
+	 */
+	private $cost = 13;
 
+	/**
+	 * Authenticates the user into the system
+	 * @param  boolean $force 				Whether or not to bypass the login process (passwordless logins from HybridAuth)
+	 * @return UserIdentity::$errorCode 	The error code associated to the login process
+	 */
 	public function authenticate($force=false)
 	{
-		$record = Users::model()->findByAttributes(array('email'=>$this->username));
-		if (!function_exists('password_hash'))
-			require_once(dirname(__FILE__) . '/../extensions/bcrypt/bcrypt.php');
+		$record 	= Users::model()->findByAttributes(array('email'=>$this->username));
+		$this->cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $this->cost);
 
-		// Check the database for the cost, use 13 as a default value
-		$this->cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
+
 		if ($this->cost <= 12)
 			$this->cost = 13;
+
+		// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
+		if (!function_exists('password_hash'))
+			require_once(dirname(__FILE__) . '/../extensions/bcrypt/bcrypt.php');
 
 		// We still want to secure our password using this algorithm
 		$this->hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
@@ -41,22 +69,23 @@ class UserIdentity extends CUserIdentity
 			// Create a new temporary object, since we may want to save it later
 			if ($meta === null)
 			{
-				$meta = new UserMetadata;
-				$meta->user_id = $record->id;
-				$meta->key = 'passwordAttempts';
-				$meta->value = 0;
+				$meta 			= new UserMetadata;
+				$meta->user_id 	= $record->id;
+				$meta->key 		= 'passwordAttempts';
+				$meta->value 	= 0;
 			}
 
 			// Create a new temporary object, since we may want to save it later
 			if ($meta2 === null)
 			{
-				$meta2 = new UserMetadata;
+				$meta2 			= new UserMetadata;
 				$meta2->user_id = $record->id;
-				$meta2->key = 'passwordLockoutReset';
-				$meta2->value = 0;
+				$meta2->key 	= 'passwordLockoutReset';
+				$meta2->value 	= 0;
 			}
 		}
 
+		// Begin login tests
 		if($record===null)
 		{
 			// If we can't find the user's email, return identity failure
@@ -92,17 +121,18 @@ class UserIdentity extends CUserIdentity
 
 		if ($this->force && $record != NULL)
 		{
-			// Delete some metadata
+			// Delete some metadata if necessary
 			if (!$meta->isNewRecord)
 				$meta->delete();
+
 			if (!$meta2->isNewRecord)
 				$meta2->delete();
 
-			$this->_id = $record->id;			
-			$this->setState('email', $record->email);
-			$this->setState('displayName', $record->displayName);
-			$this->setState('status', $record->status);
-		  	$this->setState('role', $record->user_role);
+			$this->_id 					  = $record->id;			
+			$this->setState('email', 		$record->email);
+			$this->setState('displayName', 	$record->displayName);
+			$this->setState('status', 		$record->status);
+		  	$this->setState('role', 		$record->user_role);
 		    $this->errorCode=self::ERROR_NONE;
 		}
 		else
@@ -121,7 +151,10 @@ class UserIdentity extends CUserIdentity
 		return !$this->errorCode;
     }
 
-	
+	/**
+	 * Creates a bcrypt password hash
+	 * @param  User $record   The UserModel associated to the particular user
+	 */
 	private function updateRecord(&$record)
 	{
 		$record->password = password_hash($this->hash, PASSWORD_BCRYPT, array('cost' => $this->cost));
@@ -137,6 +170,6 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function getId()
 	{
-    		return $this->_id;
+    	return $this->_id;
 	}
 }
