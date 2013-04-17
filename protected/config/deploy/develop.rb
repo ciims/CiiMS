@@ -29,7 +29,7 @@ end
 task :move_configs do
 	run "cp -R #{deploy_to}/current/protected/config/* '#{deploy_to}/persistent/config/'"
 	run "rm -rf #{deploy_to}/current/protected/config"
-	run "ln -s '#{deploy_to}/persistent/config' '#{deploy_to}/current/protected/config'"
+	run "ln -s '#{deploy_to}/persistent/config/' '#{deploy_to}/current/protected/'"
 end
 
 task :migrate do
