@@ -1,8 +1,8 @@
 language: php
 
 env:
-  secure: "Ug1yifDS73wE4wF7k+EyC42NKr8BGI0Z7p3O1swFt2+psDvUk+b8QCTOqRz1\nig0kdbYUGtvbBkc1H8SvSR8yEjV/pDPi2+b94hv2NwXzQ40C04f9jp16J67O\nT+iE/cczMInpwtLZoh8eax6BOIRglrQ3V6B211FLt513RbbHHqU="
-
+  secure: "RcFoZDD5ezk3v7qhrzna+6q/WisX08zRkRHlpQbQJqQG09nFllMZfA6EyblL\n/igIrS2RaqJmaOrCLb2BmE1s8yIIrXsFfkivyL5PmuEUVNKM5hovTmODIBeT\nTiY5rzIsX6jt6ZGrOOPqXOdKNOhhcp5m3ffzSscOfjitnSriWuM="
+  
 branches:
   only:
     - master
