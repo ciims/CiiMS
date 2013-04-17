@@ -59,13 +59,13 @@ class UserIdentity extends CUserIdentity
 		// We still want to secure our password using this algorithm
 		$this->hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
 
+
+		// Pull the lockout attempt count
+		$meta 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordAttempts'));
+		$meta2 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordLockoutReset'));
 		// We need to pull metadata about the user 
 		if ($record !== null)
 		{
-			// Pull the lockout attempt count
-			$meta 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordAttempts'));
-			$meta2 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordLockoutReset'));
-
 			// Create a new temporary object, since we may want to save it later
 			if ($meta === null)
 			{
@@ -140,6 +140,7 @@ class UserIdentity extends CUserIdentity
 			// Cap at 5 to prevent potential int overflow attacks on the db
 			$meta->value = min($meta->value + 1, 5);
 			$meta->save();
+
 			if ($meta->value >= 5)
 			{
 				// Lock out for 5 minutes
