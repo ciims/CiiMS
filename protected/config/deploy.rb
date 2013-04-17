@@ -6,7 +6,7 @@
 # This will be used when setting up folders on the target system.
 set :application, 'CiiMS'
 
-set :repository, "git@github.com:charlesportwoodii/#{application}.git"
+set :repository, "https://github.com/charlesportwoodii/#{application}.git"
 
 set :application, application.downcase
 
@@ -46,7 +46,7 @@ set :deploy_via, :remote_cache
 # Used if deploy_via is :copy
 set :copy_compression, :gzip
 set :copy_cache, true
-set :copy_exclude, [".git*", ".svn*", ".DS_Store", "*.md", "*.textile", "*apfile", "*.rb", "*.log", "nbproject", "*.conf"]
+set :copy_exclude, [".git*", ".svn*", ".DS_Store", "*.md", "*.textile", "*apfile", "*.rb", "*.log", "nbproject", "*.conf", "install.php", "index-test.php"]
 
 # Define the stages used.
 set :stages, %w(develop master) # MUST NOT HAVE A STAGE NAMED "STAGE"
