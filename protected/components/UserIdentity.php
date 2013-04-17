@@ -11,7 +11,7 @@ class UserIdentity extends CUserIdentity
 	 * Constant variable for defining lockout status
 	 * @var const ERROR_PASSWORD_LOCKOUT
 	 */
-	const ERROR_PASSWORD_LOCKOUT=3;
+	const ERROR_PASSWORD_LOCKOUT = 3;
 
 	/**
 	 * The user id
@@ -59,14 +59,14 @@ class UserIdentity extends CUserIdentity
 		// We still want to secure our password using this algorithm
 		$this->hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
 
-		if ($record !== null)
+		if ($record !== NULL)
 		{
 			// Pull the lockout attempt count
 			$meta 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordAttempts'));
 			$meta2 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordLockoutReset'));
 
 			// Create a new temporary object, since we may want to save it later
-			if ($meta === null)
+			if ($meta === NULL)
 			{
 				$meta 			= new UserMetadata;
 				$meta->user_id 	= $record->id;
@@ -75,7 +75,7 @@ class UserIdentity extends CUserIdentity
 			}
 
 			// Create a new temporary object, since we may want to save it later
-			if ($meta2 === null)
+			if ($meta2 === NULL)
 			{
 				$meta2 			= new UserMetadata;
 				$meta2->user_id = $record->id;
@@ -85,12 +85,12 @@ class UserIdentity extends CUserIdentity
 		}
 
 		// Begin login tests
-		if($record===null)
+		if($record === NULL)
 		{
 			// If we can't find the user's email, return identity failure
 		    $this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
 
-		    // Return early if the record is null. Bad things seem to happen with the $meta if we don't =(
+		    // Return early if the record is NULL. Bad things seem to happen with the $meta if we don't =(
 		    return !$this->errorCode;
 		}
 		else if ($record->status == 3 || $record->status == 0)
