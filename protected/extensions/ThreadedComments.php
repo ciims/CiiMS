@@ -51,9 +51,7 @@ class ThreadedComments
             $this->ouputComment($c, $depth);
 
             if (isset($this->children[$c['id']]))
-            {
                 $this->threadParent($this->children[$c['id']], min($depth + 1, 3));
-            }
         }
     }
 }
