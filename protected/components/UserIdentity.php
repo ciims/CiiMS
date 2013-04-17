@@ -47,7 +47,7 @@ class UserIdentity extends CUserIdentity
 	{
 		$record 	= Users::model()->findByAttributes(array('email'=>$this->username));
 		$this->cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $this->cost);
-
+		$meta 		= $meta2 = NULL;	// Define this up here
 
 		if ($this->cost <= 12)
 			$this->cost = 13;
@@ -59,13 +59,12 @@ class UserIdentity extends CUserIdentity
 		// We still want to secure our password using this algorithm
 		$this->hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
 
-		// Pull the lockout attempt count
-		$meta 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordAttempts'));
-		$meta2 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordLockoutReset'));\
-		
-		// We need to pull metadata about the user 
 		if ($record !== null)
 		{
+			// Pull the lockout attempt count
+			$meta 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordAttempts'));
+			$meta2 	= UserMetadata::model()->findbyAttributes(array('user_id' => $record->id, 'key' => 'passwordLockoutReset'));
+
 			// Create a new temporary object, since we may want to save it later
 			if ($meta === null)
 			{
@@ -90,6 +89,9 @@ class UserIdentity extends CUserIdentity
 		{
 			// If we can't find the user's email, return identity failure
 		    $this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
+
+		    // Return early if the record is null. Bad things seem to happen with the $meta if we don't =(
+		    return !$this->errorCode;
 		}
 		else if ($record->status == 3 || $record->status == 0)
 		{
