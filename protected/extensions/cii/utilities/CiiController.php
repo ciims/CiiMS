@@ -20,6 +20,19 @@ class CiiController extends CController
     
 	public function beforeAction($action)
 	{
+        $offlineMode = (bool)Cii::get(Configuration::model()->findByAttributes(array('key'=>'offline')), 'value', false);
+
+        if ($offlineMode)
+        {
+            if ($this->id == "site")
+            {
+                if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
+                    throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
+            }
+            else
+                throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
+        }
+
 	    header('Content-type: text/html; charset=utf-8');
 		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
 		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../themes/'.$theme) ? $theme : 'default');
@@ -99,7 +112,7 @@ class CiiController extends CController
 	    	$this->params['meta'] = Cii::get($data, 'meta', array());
             if (empty($this->params['meta']))
                 $data['meta'] = array();
-            
+
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 	    	

@@ -1,9 +1,10 @@
 <?php header('Content-type: text/xml; charset=utf-8'); ?>
 <?php $url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl; ?>
 <?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
-	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<?php foreach ($content as $v): ?>
-		<?php if ($v->password != '') { continue; } ?>
+		<?php if ($v['password'] != '') { continue; } ?>
 		<url>
 			<loc><?php echo $url .'/'. htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></loc>
 			<lastmod><?php echo date('c', strtotime($v['updated']));?></lastmod>
@@ -25,4 +26,4 @@
 		<changefreq>monthly</changefreq>
 		<priority>0.5</priority>
 	</url>
-	</urlset>
+</urlset>
