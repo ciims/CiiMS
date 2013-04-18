@@ -166,11 +166,11 @@ class SiteController extends CiiController
 		$this->layout = '//layouts/main';
 		if ($id == NULL)
 		{
-			if (isset($_POST['email']))
+			if (Cii::get($_POST, 'email', NULL))
 			{
 				// Verify the email is a real email
 				$validator=new CEmailValidator;
-				if (!$validator->validateValue($_POST['email']))
+				if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
 				{
 					Yii::app()->user->setFlash('reset-error', 'The email your provided is not a valid email address.');
 					$this->render('forgot', array('id'=>$id));
@@ -178,7 +178,7 @@ class SiteController extends CiiController
 				}
 				
 				// Check to see if we have a user with that email address
-				$user = Users::model()->findByAttributes(array('email'=>$_POST['email']));
+				$user = Users::model()->findByAttributes(array('email'=>Cii::get($_POST, 'email', NULL)));
 				if (count($user) == 1)
 				{
 					// Generate hash and populate db
@@ -221,11 +221,11 @@ class SiteController extends CiiController
 					$mail->Send();
 					
 					// Set success flash
-					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . $_POST['email'] . ' with further instructions on how to reset your password');
+					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
 				}
 				else
 				{
-					Yii::app()->user->setFlash('reset-error', 'No user with that email address was found');
+					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}
