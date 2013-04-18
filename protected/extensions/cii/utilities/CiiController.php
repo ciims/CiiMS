@@ -96,16 +96,17 @@ class CiiController extends CController
 	{
 	    if($this->beforeRender($view))
 	    {
-	    	if (isset($data['meta']))
-	    		$this->params['meta'] = $data['meta'];
-	    	
+	    	$this->params['meta'] = Cii::get($data, 'meta', array());
+            if (empty($this->params['meta']))
+                $data['meta'] = array();
+            
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 	    	
     		$output=$this->renderPartial($view,$data,true);
             
     		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
-    		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>isset($data['meta']) ? $this->params['meta'] : ''),true);
+    		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>$this->params['meta']),true);
     
     		$this->afterRender($view,$output);
             

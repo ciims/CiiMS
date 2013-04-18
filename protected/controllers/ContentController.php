@@ -114,7 +114,7 @@ class ContentController extends CiiController
 		if ($content->attributes['password'] != '')
 		{
 			// Check SESSION to see if a password is set
-			$tmpPassword = $_SESSION['password'][$id];
+			$tmpPassword = Cii::get(Cii::get($_SESSION, 'password', array()), $id, NULL);
 			
 			if ($tmpPassword != $content->attributes['password'])
 				$this->redirect(Yii::app()->createUrl('/content/password/' . $id));
@@ -207,7 +207,7 @@ class ContentController extends CiiController
 		if ($id == NULL)
 			$this->redirect(Yii::app()->user->returnUrl);
 		
-		if (!isset($_SESSION['password']))
+		if (Cii::get($_SESSION, 'password', NULL) == NULL)
 			$_SESSION['password'] = array('tries'=>0);
 			
 		if (isset($_POST['password']))
@@ -223,11 +223,8 @@ class ContentController extends CiiController
 				$_SESSION['password']['tries'] = $_SESSION['password']['tries'] + 1;
             
 		}
-		$themeView = Configuration::model()->findByAttributes(array('key'=>'themePasswordView'))->value;
-		if ($themeView === NULL || $themeView != 1)
-			Yii::app()->setTheme('default');
 		
-		$this->layout = 'main';
+		$this->layout = 'password';
 		$this->render('password', array('id'=>$id));
 	}
 	

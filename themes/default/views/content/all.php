@@ -21,7 +21,7 @@
 		<?php endif; ?>
 		<div class="post-inner">
 			<div class="post-header">
-				<h3>There are no posts in this category.</h3>
+				<h4>There are no posts in this category.</h4>
 			</div>
 		</div>
 	    <div style="clear:both;"><br /></div>
