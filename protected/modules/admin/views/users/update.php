@@ -27,7 +27,7 @@
                 <?php echo $form->errorSummary($model); ?>
             
                 <?php echo $form->textFieldRow($model,'email',array('class'=>'span12','maxlength'=>255)); ?>        
-                <?php echo $form->passwordFieldRow($model,'password',array('value'=>'', 'class'=>'span12','maxlength'=>64)); ?>        
+                <?php echo $form->passwordFieldRow($model,'password',array('value'=>'', 'class'=>'span12','maxlength'=>64, 'placeholder' => 'Set a password for the user here. Leave blank to keep existing password.')); ?>        
                 <?php echo $form->textFieldRow($model,'firstName',array('class'=>'span12','maxlength'=>255)); ?>        
                 <?php echo $form->textFieldRow($model,'lastName',array('class'=>'span12','maxlength'=>255)); ?>        
                 <?php echo $form->textFieldRow($model,'displayName',array('class'=>'span12','maxlength'=>255)); ?>        
