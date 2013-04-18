@@ -26,12 +26,21 @@ class UsersController extends ACiiController
 
 		if(isset($_POST['Users']))
 		{
+			// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
+			if (!function_exists('password_hash'))
+				require_once(dirname(__FILE__) . '/../../../extensions/bcrypt/bcrypt.php');
+
+			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $cost);
+			if ($cost <= 12)
+				$cost = 13;
+
 			if ($_POST['Users']['password'] != '')
-				$_POST['Users']['password'] = Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']);
+				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));;
 			else
 				unset($_POST['Users']['password']);
 				
 			$model->attributes=$_POST['Users'];
+			
 			if($model->save()) 
 			{
 				Yii::app()->user->setFlash('success', 'User has been updated.');

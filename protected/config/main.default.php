@@ -37,28 +37,10 @@
             'sessionName' => 'CiiMS'
         ),
         'urlManager' => array(
-            'class' => 'SlugURLManager',
+            'class' => 'CiiURLManager',
             'cache' => true,
             'urlFormat' => 'path',
-            'showScriptName' => false,
-            'rules' => array(
-                '/sitemap.xml' => '/site/sitemap',
-                '/search/<page:\d+>' => '/site/mysqlsearch',
-                '/search' => '/site/mysqlsearch',
-                '/blog.rss' => '/content/rss',
-                '/blog/<page:\d+>' => '/content/list',
-                '/' => '/content/list',
-                '/blog' => '/content/list',
-                '/activation/<email:\w+>/<id:\w+>' => '/site/activation',
-                '/activation' => '/site/activation',
-                '/forgot/<id:\w+>' => '/site/forgot',
-                '/forgot' => '/site/forgot',
-                '/register' => '/site/register',
-                '/register-success' => '/site/registersuccess',
-                '/login' => '/site/login',
-                '/logout' => '/site/logout',
-                '/admin' => '/admin'
-            ),
+            'showScriptName' => false
         ),
         'db' => array(
             'class' => 'CDbConnection',
@@ -79,4 +61,3 @@
         'encryptionKey' => NULL,
     ),
 );
-

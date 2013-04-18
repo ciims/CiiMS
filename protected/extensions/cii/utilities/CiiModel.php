@@ -18,6 +18,7 @@ class CiiModel extends CActiveRecord
 		'forgot',
 		'register',
 		'register-success',
+		'profile',
 		'login',
 		'logout',
 		'admin',
