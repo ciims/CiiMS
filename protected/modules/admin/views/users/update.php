@@ -1,5 +1,10 @@
 <div class="row-fluid">
     <div class="span8">
+        
+            <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+                'id'=>'users-form',
+                'enableAjaxValidation'=>false,
+            )); ?>
         <?php $this->beginWidget('bootstrap.widgets.TbBox', array(
             'title' => 'Modify Profile',
             'headerIcon' => 'icon-user',
@@ -15,10 +20,6 @@
                 )
             )
         )); ?>
-            <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-                'id'=>'users-form',
-                'enableAjaxValidation'=>false,
-            )); ?>
             
                 <p class="help-block">Fields with <span class="required">*</span> are required. 
                     To change a users password, provide a new one. If left blank the existing password will be retained.</p>

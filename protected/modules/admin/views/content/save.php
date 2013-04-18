@@ -14,7 +14,9 @@
     	    	<?php echo $form->hiddenField($model, 'vid'); ?>
     	    	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
     			<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id,)); ?>
-    	    	<?php echo $form->textFieldRow($model, 'title', array('placeholder' => 'Title', 'style' => 'width: 98%')); ?>
+    			<div class="control" style="margin-bottom: 20px;">
+	    	    	<?php echo $form->textField($model, 'title', array('placeholder' => 'Title', 'style' => 'width: 98%')); ?>
+	    	    </div>
     	        <?php if ($preferMarkdown): ?>
     	            <?php echo $form->markdownEditorRow($model, 'content', array('height'=>'200px'));?>
     	        <?php else: ?>
@@ -30,9 +32,10 @@
     	                    )
     	                ));
     	            ?>
+    	            <br />
     	        <?php endif; ?>
     	        
-    	        <?php echo $form->textAreaRow($model, 'extract', array('style' => 'width: 98%; height: 100px')); ?>
+    	        <?php echo $form->textArea($model, 'extract', array('style' => 'width: 98%; height: 100px', 'placeholder' => 'Enter preview text and description here')); ?>
 	        <?php $this->endWidget(); ?>
 	    </div>
 	    <div class="span4">
@@ -156,3 +159,7 @@ $("#tags").tagsInput({
         $("div[id*=\'" + id + "\']").find(".thumb-container").addClass("transition");
     });
 }'); ?>
+<?php Yii::app()->clientScript->registerScript('wmd-panel', 'setTimeout(function() { 
+	$(".wmd-panel").first().parent().css("margin-left", 0); 
+	$(".wmd-panel").first().parent().parent().find(".control-label").remove()
+});');

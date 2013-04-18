@@ -20,7 +20,7 @@
 							  	<strong>Oops!</strong> We weren't able to log you in using the provided credentials.
 							</div>
 						<?php endif; ?>
-						<?php echo $form->TextField($model, 'username', array('id'=>'email', 'placeholder'=>'Email Address or Username')); ?>
+						<?php echo $form->TextField($model, 'username', array('id'=>'email', 'placeholder'=>'Email Address')); ?>
 						<?php echo $form->PasswordField($model, 'password', array('id'=>'password', 'placeholder'=>'Password')); ?>
 					</div>
 					<div class="login-form-footer">
