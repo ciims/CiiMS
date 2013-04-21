@@ -10,6 +10,7 @@
  * @property string $firstName
  * @property string $lastName
  * @property string $displayName
+ * @property string $about
  * @property integer $user_role
  * @property integer $status
  * @property string $created
@@ -64,7 +65,7 @@ class Users extends CiiModel
 			array('password', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, email, password, firstName, lastName, displayName, user_role, status, created, updated', 'safe', 'on'=>'search'),
+			array('id, email, password, firstName, lastName, displayName, about, user_role, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -128,6 +129,7 @@ class Users extends CiiModel
 		$criteria->compare('firstName',$this->firstName,true);
 		$criteria->compare('lastName',$this->lastName,true);
 		$criteria->compare('displayName',$this->displayName,true);
+		$criteria->compare('about',$this->displayName,true);
 		$criteria->compare('user_role',$this->user_role);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);

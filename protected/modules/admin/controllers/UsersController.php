@@ -35,7 +35,7 @@ class UsersController extends ACiiController
 				$cost = 13;
 
 			if ($_POST['Users']['password'] != '')
-				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));;
+				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));
 			else
 				unset($_POST['Users']['password']);
 				

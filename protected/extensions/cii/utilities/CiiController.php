@@ -187,6 +187,7 @@ class CiiController extends CController
             										  	WHERE content2.id = content.id
 													  ) 
 													  AND type_id = 2 AND status = 1 
+                                                      AND password=""
             										  ORDER BY content.created DESC LIMIT 5')->queryAll();
             Yii::app()->cache->set('content-listing', $content);                            
         }
@@ -228,13 +229,39 @@ class CiiController extends CController
 								 ->bindParam(':category_id', $this->params['data']['category_id'])
 								 ->bindParam(':id', $this->params['data']['id'])
 		 						 ->queryAll();
-				
+			
 		 foreach ($related as $v)
 		 	$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
         
         return $items;
 	}
 	
+    public function getPostsByAuthor($id=1)
+    {
+        $items = array();
+        $related = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS slug, 
+                                                             categories.slug AS category_slug, 
+                                                             categories.name AS category_name, 
+                                                             comment_count, content.created 
+                                                      FROM content LEFT JOIN categories ON content.category_id = categories.id 
+                                                      WHERE vid = (
+                                                        SELECT MAX(vid) 
+                                                        FROM content AS content2 
+                                                        WHERE content2.id = content.id
+                                                      ) 
+                                                      AND type_id = 2 AND status = 1 
+                                                      AND password=""
+                                                      AND content.author_id = :author_id
+                                                      ORDER BY content.created DESC LIMIT 5')
+                                 ->bindParam(':author_id', $id)
+                                 ->queryAll();
+            
+         foreach ($related as $v)
+            $items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
+        
+        return $items;
+    }
+
     /**
      * Retrieves the CiiMenuItems from the configuration. If the items are not populated, then it 
      * builds them out from CiiMenu::$defaultItems

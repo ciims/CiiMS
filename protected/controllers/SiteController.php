@@ -88,20 +88,30 @@ class SiteController extends CiiController
 		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize')), 'value', 10);
 		
 		if (Cii::get($_GET, 'q', "") != "")
-		{
-					
-			// Load the search data
-			Yii::import('ext.sphinx.SphinxClient');
-			$sphinx = new SphinxClient();
-			$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
-			$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
-			$sphinx->setMaxQueryTime(15);
-			$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);			
-			
-            // Perform a MySQL query based upon the retrieved search results
+		{	
 			$criteria=new CDbCriteria;
-			$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
-			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+			if (strpos($_GET['q'], 'user_id') !== false)
+			{
+				$criteria->addCondition('author_id = :author_id');
+				$criteria->params = array(
+					':author_id' => str_replace('user_id:', '', $_GET['q'])
+				);
+			}
+			else
+			{
+
+				// Load the search data
+				Yii::import('ext.sphinx.SphinxClient');
+				$sphinx = new SphinxClient();
+				$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
+				$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
+				$sphinx->setMaxQueryTime(15);
+				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);	
+			
+				$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
+				$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+    		}	
+
 			$criteria->addCondition('password = ""');
 			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
@@ -135,9 +145,20 @@ class SiteController extends CiiController
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
 			$criteria=new CDbCriteria;
-			$criteria->addSearchCondition('content', Cii::get($_GET, 'q', NULL), true, 'OR');
-			$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
-			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+			if (strpos($_GET['q'], 'user_id') !== false)
+			{
+				$criteria->addCondition('author_id = :author_id');
+				$criteria->params = array(
+					':author_id' => str_replace('user_id:', '', $_GET['q'])
+				);
+			}
+			else
+			{
+				$criteria->addSearchCondition('content', Cii::get($_GET, 'q', NULL), true, 'OR');
+				$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
+    		}	
+
+    		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
 			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
@@ -148,7 +169,7 @@ class SiteController extends CiiController
 			
 			$criteria->offset = $criteria->limit*($pages->getCurrentPage());			
 			$data = Content::model()->findAll($criteria);
-    		$pages->applyLimit($criteria);		
+    		$pages->applyLimit($criteria);	
 		}		
 		
 		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));

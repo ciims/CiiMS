@@ -157,12 +157,28 @@ main .sidebar .well, main .infinite_navigation {
 	padding-bottom: 5px;
 }
 
+main .sidebar .well-span {
+	padding-top: 5px;
+	background: #ffffff;
+	border: 1px solid #dddddd;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+	margin-right: 30px;
+	padding-bottom: 5px;
+	margin-left: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+	float:left;
+}
+
 main .infinite_navigation {
 	position: relative;
 	min-height: 15px;	
 }
 
-main .sidebar .well h4 {
+main .sidebar .well h4, main .sidebar .well-span h4 {
 	font-size: 16px;
 	text-transform: uppercase;
 	padding-bottom: 4px;
@@ -170,28 +186,28 @@ main .sidebar .well h4 {
 	border-bottom: 1px solid #cacaca;
 }
 
-main .sidebar .well h4:before {
+main .sidebar .well h4:before, main .sidebar .well-span h4:before {
 	content: "/// ";
 	color: #7daf27;
 }
 
-main .sidebar .well ul.nav li {
+main .sidebar .well ul.nav li, main .sidebar .well-span ul.nav li  {
 	margin-left: 15px;
 }
 
-main .sidebar .well ul.nav li a {
+main .sidebar .well ul.nav li a, main .sidebar .well-span ul.nav li a {
 	display: block;
 	color: #666;
 	font-weight:bold;
 	font-size: 13px;
 }
 
-main .sidebar .well ul.nav li a:before {
+main .sidebar .well ul.nav li a:before, main .sidebar .well-span ul.nav li a:before {
 	content: "» ";
 	color: #7daf27;
 }
 
-main .sidebar .well ul.nav li a:hover {
+main .sidebar .well ul.nav li a:hover, main .sidebar .well-span ul.nav li a:hover {
 	background: none;
 }
 

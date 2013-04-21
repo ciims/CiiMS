@@ -26,7 +26,7 @@
 				<span class="separator">⋅</span>
 				<span class="blog-author minor-meta"><strong>by </strong>
 					<span>
-						<?php echo $content->author->displayName; ?>
+						<?php echo CHtml::link($content->author->displayName, $this->createUrl("/profile/{$content->author->id}/")); ?>
 					</span>
 					<span class="separator">⋅</span> 
 				</span> 

@@ -28,6 +28,7 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
+
 class CiiURLManager extends CUrlManager
 {
 
@@ -150,4 +151,3 @@ class CiiURLManager extends CUrlManager
 	}
 
 }
-?>
