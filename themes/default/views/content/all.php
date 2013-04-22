@@ -6,11 +6,7 @@
 
 <?php if (count($data)): ?>
 	<?php $this->widget('ext.yiinfinite-scroll.YiinfiniteScroller', array(
-	    'url'=>isset($url) ? $url : 'blog',
-	    'contentSelector' => '#posts',
-	    'itemSelector' => 'div.post',
-	    'loadingText' => 'Loading...',
-	    'donetext' => '&nbsp;',
+	    'path'=>isset($url) ? $url : 'blog',
 	    'pages' => $pages,
 	    'errorCallback' => 'js:function() { $(".infinite_navigation").hide(); }',
 	    'callback' => '
@@ -21,7 +17,7 @@
 	    	console.log(this);
 	    '
 	)); ?>
-	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
+	<?php //Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
 <?php else: ?>
 	<div class="alert alert-info">
 		<strong>Woah!</strong> It looks like there isn't any posts in this category yet. Why don't you check out some of our other pages or check back later?
