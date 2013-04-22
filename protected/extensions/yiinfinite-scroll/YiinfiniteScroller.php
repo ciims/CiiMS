@@ -26,6 +26,7 @@ class YiinfiniteScroller extends CBasePager {
         'donetext'      => null,
         'itemSelector'  => null,
         'errorCallback' => null,
+        'callback'      => null,
     );
 
     private $_default_options = array(
@@ -33,6 +34,8 @@ class YiinfiniteScroller extends CBasePager {
         'nextSelector'  => 'div.infinite_navigation a:first',
         'bufferPx'      => '300',
     );
+
+    private $_callback = null;
 
     public function init()
     {
@@ -76,7 +79,14 @@ class YiinfiniteScroller extends CBasePager {
 
     private function createInfiniteScrollScript()
     {
-        Yii::app()->clientScript->registerScript(uniqid(), "$('{$this->contentSelector}').infinitescroll(".$this->buildInifiniteScrollOptions().");");
+        // Allow for callback function
+        if ($this->_options['callback'] !== null)
+        {
+            $this->_callback = $this->_options['callback'];
+            unset($this->_options['callback']);
+        }
+
+        Yii::app()->clientScript->registerScript(uniqid(), "$('{$this->contentSelector}').infinitescroll(".$this->buildInifiniteScrollOptions().", function(data) {".$this->_callback."});");
     }
 
     private function buildInifiniteScrollOptions()

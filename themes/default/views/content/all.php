@@ -12,6 +12,14 @@
 	    'loadingText' => 'Loading...',
 	    'donetext' => '&nbsp;',
 	    'pages' => $pages,
+	    'errorCallback' => 'js:function() { $(".infinite_navigation").hide(); }',
+	    'callback' => '
+	    	// Keep the selector shown
+	    	$(".infinite_navigation").show();
+	    	// Send GA/Piwik Analytics Tracking
+	    	//console.log(data);
+	    	console.log(this);
+	    '
 	)); ?>
 	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
 <?php else: ?>
