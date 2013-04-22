@@ -16,35 +16,19 @@ class YiinfiniteScroller extends CBasePager {
     public $contentSelector = '#content';
 
     private $_options = array(
-        'loading' => array(
-            'finished'      => null,
-            'finishedMsg'   => null,
-            'img'           => null,
-            'msg'           => null,
-            'msgText'       => null,
-            'selector'      => null,
-            'speed'         => 'fast',
-            'start'         => null
+        'url'           => null,
+        'debug'         => true,
+        'param'         => array(
+            'getParam' => null,
+            'param' => null
         ),
-        'pages'             => null,   
-        'path'              => null,
-        'callback'          => null,
-        'path'              => null,
-        'debug'             => null,
-        'behavior'          => null,
-        'nextSelector'      => 'div.infinite_navigation',
-        'navSelector'       => 'div.infinite_navigation a:first',
-        'contentSelector'   => null,
-        'extraScrollPx'     => 150,
-        'itemSelector'      => 'div.post',
-        'animate'           => false,
-        'pathParse'         => null,
-        'dataType'          => 'html',
-        'appendCallback'    => true,
-        'bufferPx'          => '300',
-        'errorCallback'     => null,
-        'infid'             => null,
-        'pixelsFromNavToBottom' => null,
+        
+    );
+
+    private $_default_options = array(
+        'navSelector'   => 'div.infinite_navigation',
+        'nextSelector'  => 'div.infinite_navigation a:first',
+        'bufferPx'      => '300',
     );
 
     private $_callback = null;
@@ -91,19 +75,13 @@ class YiinfiniteScroller extends CBasePager {
 
     private function createInfiniteScrollScript()
     {
-        // Allow for callback function
-        if ($this->_options['callback'] !== null)
-        {
-            $this->_callback = $this->_options['callback'];
-            unset($this->_options['callback']);
-        }
-
         Yii::app()->clientScript->registerScript(uniqid(), "$('{$this->contentSelector}').infinitescroll(".$this->buildInifiniteScrollOptions().");");
     }
 
     private function buildInifiniteScrollOptions()
     {
-        $options = array_filter( $this->_options );
+        $options = array_merge($this->_options, $this->_default_options);
+        $options = array_filter( $options );
         $options = CJavaScript::encode($options);
         return $options;
     }
@@ -112,7 +90,7 @@ class YiinfiniteScroller extends CBasePager {
     {
         $next_link = CHtml::link('<strong style="width: 93px;">Load More</strong>
 			<span></span>',$this->createPageUrl($this->getCurrentPage()+1), array('id' => 'more', 'escape' => true));
-		Yii::app()->clientScript->registerScript(uniqid() . 'bind-scroll', "$('#more').click(function(e) { e.preventDefault(); $(document).trigger('retrieve.infscr'); });");
+		Yii::app()->clientScript->registerScript(uniqid() . 'bind-scroll', "$('#more').click(function(e) { e.preventDefault(); $('#posts').infinitescroll('retrieve'); $('#posts').infinitescroll('updateUrl'); });");
         echo '<div class="infinite_navigation">'.$next_link.'</div>';
     }
 
@@ -123,6 +101,9 @@ class YiinfiniteScroller extends CBasePager {
     
     public function createPageUrl($id=1)
     {
-        return $id;
+        $queryParam = NULL;
+        if (Cii::get($this->_options['param'], 'getParam', NULL) != NULL)
+            $queryParam = '?' . Cii::get($this->_options['param'], 'getParam', NULL) . '=' . Cii::get($this->_options['param'], 'param', NULL);
+        return '/'.$this->_options['url'] .'/' . ($id+1) . $queryParam;
     }
 }
