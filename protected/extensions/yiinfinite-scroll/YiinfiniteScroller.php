@@ -10,6 +10,7 @@
  * access all the pages.
  *
  * @author davi_alexandre
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net>
  */
 class YiinfiniteScroller extends CBasePager {
 
@@ -17,10 +18,18 @@ class YiinfiniteScroller extends CBasePager {
 
     private $_options = array(
         'url'           => null,
-        'debug'         => true,
-        'param'         => array(
-            'getParam' => null,
-            'param' => null
+        'debug'         => false,
+        'defaultCallback'   => 'js:function(text, data) { }',
+        'errorCallback'     => 'js:function() { $(".infinite_navigation").fadeOut(); }',     
+        'loading' => array(
+            'finishedMsg'   => null,
+            'msgText'       => 'Loading more content...',
+            'selector'      => null,
+            'speed'         => 'fast',
+        ),
+        'param'  => array(
+            'getParam'  => null,
+            'param'     => null
         ),
         
     );

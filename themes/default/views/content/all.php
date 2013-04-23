@@ -9,6 +9,7 @@
 	    'url'=>isset($url) ? $url : 'blog',
 	    'contentSelector' => '#posts',
 	    'pages' => $pages,
+	    'defaultCallback' => 'js:function(text, data) { console.log("done"); }'
 	)); ?>
 	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
 <?php else: ?>
