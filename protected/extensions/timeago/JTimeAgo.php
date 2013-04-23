@@ -129,8 +129,11 @@ class JTimeAgo extends CWidget
     public function registerClientScripts()
     {
         //> .register js file;
-        $this->cs->registerCoreScript('jquery')->registerScriptFile($this->baseUrl . '/jquery.timeago.js');
-
+        if (YII_DEBUG)
+            $this->cs->registerCoreScript('jquery')->registerScriptFile($this->baseUrl . '/jquery.timeago.js');
+        else
+            $this->cs->registerCoreScript('jquery')->registerScriptFile($this->baseUrl . '/jquery.timeago.min.js');
+        
         if($this->useLocale == true) $this->handleLocale(true);
 
         if (empty($this->selector)) {
