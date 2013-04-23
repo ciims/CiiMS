@@ -23,11 +23,9 @@
         ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles' => false,
-            'combineCssFiles' => false,
-            'optimizeCssFiles' => false,
-            'optimizeScriptFiles' => false,
-            'compressHTML'        => false
+            'combineScriptFiles'    => true,
+            'combineCssFiles'       => true,
+            'compressHTML'          => true
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',

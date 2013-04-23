@@ -399,8 +399,8 @@ class EClientScript extends CClientScript
 	 */
 	private function optimizeCssCode($code)
 	{
-		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'CssMin.php';
-		return CssMin::minify($code, array('compress-unit-values' => true, 'compress-color-values' => true));
+		//require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'CssMin.php';
+		return str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$code)))));
 	}
 
 	/**
