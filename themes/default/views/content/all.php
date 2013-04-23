@@ -9,7 +9,23 @@
 	    'url'=>isset($url) ? $url : 'blog',
 	    'contentSelector' => '#posts',
 	    'pages' => $pages,
-	    'defaultCallback' => 'js:function(text, data) { console.log("done"); }'
+	    'defaultCallback' => "js:function(response, data) { 
+	    	var url = response.options.path.join(response.options.state.currPage);
+
+	    	// Try GA Tracking
+	    	try {
+			    _gaq.push(['_trackPageview', url]);
+			} catch (e) {
+				// Don't do anything if the tracking event failed
+			}
+
+			// Try Piwik Tracking
+			try {
+			    _paq.push(['trackPageView', url]);
+			} catch (e) {
+				// Don't do anything if the tracking event failed
+			}			    
+ 		}"
 	)); ?>
 	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
 <?php else: ?>
