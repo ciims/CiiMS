@@ -60,7 +60,7 @@
 				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'span12', 'options' => array($model->view => array('selected' => true)))); ?>
                 <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'span12', 'options' => array($model->layout => array('selected' => true)))); ?>
                 
-				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)')); ?><br /><br />
+				<?php echo $form->textField($model,'password',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Password (Optional)', 'value' => rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), base64_decode($model->password), MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))), "\0"))); ?><br /><br />
 				<?php echo $form->textField($model,'slug',array('class'=>'span12','maxlength'=>150, 'placeholder' => 'Slug')); ?>
 		    <?php $this->endWidget(); ?>
 			

@@ -44,13 +44,16 @@ class ContentController extends ACiiController
 		{
 			$model2 = new Content;
 			$model2->attributes=$_POST['Content'];
+            if ($_POST['Content']['password'] != "")
+            	$model2->password = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), $_POST['Content']['password'], MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))));
+
 			// For some reason this isn't setting with the other data
 			$model2->extract = $_POST['Content']['extract'];
 			$model2->id = $id;
 			$model2->vid = $model->vid+1;
 			$model2->viewFile = $_POST['Content']['view'];
             $model2->layoutFile = $_POST['Content']['layout'];
-            
+
 			if($model2->save()) 
 			{
 				Yii::app()->user->setFlash('success', 'Content has been updated');

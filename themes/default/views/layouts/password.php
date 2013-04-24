@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CiiMS Installer</title>
+        <title><?php echo $this->pageTitle; ?></title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
         <link href="/css/install/main.css" rel="stylesheet" />
@@ -10,7 +10,7 @@
         <div class="well well-container">
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
-                    <a class="brand" href="#">CiiMS Installer</a>
+                    <a class="brand" href="#">Password Required!</a>
                 </div>
             </div>
             <ul class="breadcrumb">

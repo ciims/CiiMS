@@ -141,7 +141,7 @@ class ContentController extends CiiController
 		if ($content->attributes['password'] != '')
 		{
 			// Check SESSION to see if a password is set
-			$tmpPassword = Cii::get(Cii::get($_SESSION, 'password', array()), $id, NULL);
+			$tmpPassword = Cii::get(Cii::get(Cii::get($_SESSION, 'password', array()), $id, array()), 'password', NULL);
 			
 			if ($tmpPassword != $content->attributes['password'])
 				$this->redirect(Yii::app()->createUrl('/content/password/' . $id));
@@ -234,20 +234,45 @@ class ContentController extends CiiController
 		if ($id == NULL)
 			$this->redirect(Yii::app()->user->returnUrl);
 		
-		if (Cii::get($_SESSION, 'password', NULL) == NULL)
-			$_SESSION['password'] = array('tries'=>0);
-			
-		if (isset($_POST['password']))
+		// Set some default data
+		if (Cii::get(Cii::get($_SESSION, 'password', array()), $id, NULL) == NULL)
+			$_SESSION['password'][$id] = array('tries'=>0, 'expires' => time() + 300);
+
+		// If the number of attempts is >= 3
+		if (Cii::get(Cii::get(Cii::get($_SESSION, 'password', array()), $id, array()), 'tries', 0) >= 3)
+		{
+			// If the expires time has already passed, unlock the account
+			if (Cii::get(Cii::get(Cii::get($_SESSION, 'password', array()), $id, array()), 'expires', 0) <= time())
+			{
+				$_SESSION['password'][$id] = array('tries'=>0, 'expires' => time() + 300);
+			}
+			else
+			{
+				// Otherwise prevent access to it
+				Yii::app()->user->setFlash('error', 'Too many password attempts. Please try again in 5 minutes');
+				unset($_POST['password']);
+				$_SESSION['password'][$id]['expires'] 	= time() + 300;
+			}
+		}
+
+		if (Cii::get($_POST, 'password', NULL) !== NULL)
 		{
 			$content = Content::model()->findByPk($id);
-			if ($_POST['password'] == $content->attributes['password'])
+
+			$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), $_POST['password'], MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))));
+
+			if ($encrypted == $content->attributes['password'])
 			{
-				$_SESSION['password'][$_POST['id']] = $_POST['password'];
-				$_SESSION['password']['tries'] = 0;
+				$_SESSION['password'][$id]['password'] = $encrypted;
+				$_SESSION['password'][$id]['tries'] = 0;
 				$this->redirect(Yii::app()->createUrl($content->attributes['slug']));
 			}
 			else
-				$_SESSION['password']['tries'] = $_SESSION['password']['tries'] + 1;
+			{
+				Yii::app()->user->setFlash('error', 'Incorrect password');
+				$_SESSION['password'][$id]['tries'] 	= $_SESSION['password'][$id]['tries'] + 1;
+				$_SESSION['password'][$id]['expires'] 	= time() + 300;
+			}
             
 		}
 		
