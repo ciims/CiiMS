@@ -97,6 +97,7 @@ class Users extends CiiModel
 			'firstName' => 'First Name',
 			'lastName' => 'Last Name',
 			'displayName' => 'Display Name',
+			'about'		=> 'About',
 			'user_role' => 'User Role',
 			'status' => 'Status',
 			'created' => 'Created',

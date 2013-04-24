@@ -5,10 +5,10 @@
 			<table>
                 <tbody>
                 	<tr>
-	                    <td rowspan="2">
+	                    <td style="padding-left: 0px;" rowspan="2">
 	                    	<?php echo CHtml::image($model->gravatarImage(50)); ?>
 	                    </td>
-	                    <td><strong><?php echo $contentCount; ?></strong> Post(s)</td>
+	                    <td style="padding-left: 10px;"><strong><?php echo $contentCount; ?></strong> Post(s)</td>
 	                    <th><em>bio</em></th>
 	                    <td>Website</td>
 	                    <td>
@@ -20,7 +20,7 @@
 	                    
 	                </tr>
 	                <tr>
-	                    <td><strong><?php echo Comments::model()->countByAttributes(array('user_id' => $model->id)); ?></strong> Comments</td>
+	                    <td style="padding-left: 10px;"><strong><?php echo Comments::model()->countByAttributes(array('user_id' => $model->id)); ?></strong> Comments</td>
 	                    <th></th>
 	                    <td>Member since</td>
 	                    <td>
