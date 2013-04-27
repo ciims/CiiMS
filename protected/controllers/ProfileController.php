@@ -117,6 +117,35 @@ class ProfileController extends CiiController
 	{
 		$model = Users::model()->findByPk(Yii::app()->user->id);
 
+		if (Cii::get($_POST, 'Users', NULL) !== NULL)
+		{
+			// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
+			if (!function_exists('password_hash'))
+				require_once(dirname(__FILE__) . '../../extensions/bcrypt/bcrypt.php');
+
+			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 12);
+			if ($cost <= 12)
+				$cost = 13;
+
+			if ($_POST['Users']['password'] != '')
+				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));
+			else
+				unset($_POST['Users']['password']);
+
+			unset($_POST['Users']['status']);
+			unset($_POST['Users']['user_role']);
+			$model->attributes = Cii::get($_POST, 'Users', array());
+			if ($model->save())
+			{
+				Yii::app()->user->setFlash('success', 'Your profile has been updated!');
+				$this->redirect($this->createUrl('/profile/'. $model->id . '/' . $model->displayName));
+			}
+			else
+			{
+				Yii::app()->user->setFlash('warning', 'There were errors saving your profile. Please correct them before trying to save again.');
+			}
+		}
+
 		$this->render('edit', array('model' => $model));
 	}
 

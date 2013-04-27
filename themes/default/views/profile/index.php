@@ -1,4 +1,20 @@
-<h4><?php echo $model->name; ?></h4>
+<h4 class="pull-left"><?php echo $model->name; ?></h4>
+<?php if (!Yii::app()->user->isGuest && $model->id == Yii::app()->user->id): ?>
+	<span class="pull-right">
+		<?php echo CHtml::link('edit', '/profile/edit'); ?>
+	</span>
+<?php endif; ?>
+<div class="clearfix"></div>
+<?php
+$this->widget('bootstrap.widgets.TbAlert', array(
+    'block'=>true, // display a larger alert block?
+    'fade'=>true, // use transitions?
+    'closeText'=>'×', // close link text - if set to false, no close link is displayed
+    'alerts'=>array( // configurations per alert type
+	    'success'=>array('block'=>true, 'fade'=>true, 'closeText'=>'×'), // success, info, warning, error or danger
+    ),
+));
+?>
 <div class="posts">
 	<div class="post">
 		<div style="padding: 5px; ">

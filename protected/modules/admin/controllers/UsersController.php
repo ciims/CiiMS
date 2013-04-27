@@ -30,7 +30,7 @@ class UsersController extends ACiiController
 			if (!function_exists('password_hash'))
 				require_once(dirname(__FILE__) . '/../../../extensions/bcrypt/bcrypt.php');
 
-			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $cost);
+			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 12);
 			if ($cost <= 12)
 				$cost = 13;
 

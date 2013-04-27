@@ -221,7 +221,6 @@ class ContentController extends ACiiController
         
         $model2->value = $model->value;
         
-        Cii::debug($model2->attributes);
         if (!$model2->save())
             throw new CHttpException(403, 'Unable to promote image');
         

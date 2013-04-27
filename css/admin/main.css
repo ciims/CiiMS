@@ -177,6 +177,11 @@ body > .navbar .brand {
 .sidebarNav input.span12 {
 	margin-bottom: 10px;
 }
+.image-holder {
+    margin-top: -20px;
+    margin-left: 5%;
+}
+
 .sidebarNav .image-holder {
     width: 100%; 
     display: inline-block; 
@@ -197,6 +202,12 @@ body > .navbar .brand {
     right: 5%;
 }
 
+.star-button {
+    z-index: 10;
+    position: absolute;
+    top: 25%;
+    right: 7%;
+}
 .thumb-container {
     transition: border-color 1s linear;
     -moz-transition: border-color 1s linear;    /* FF3.7+ */
