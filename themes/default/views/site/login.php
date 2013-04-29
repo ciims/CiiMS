@@ -47,7 +47,7 @@
     	        	<div style="margin-left: auto; margin-right: auto">
 	    	            <?php foreach (Cii::get(Cii::get($config, 'hybridauth', array()), 'providers', array()) as $k=>$v): ?>
 							<?php if (Cii::get($v, 'enabled', false) == 1): ?>
-								<?php echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/images/icons/' . strtolower($k) . '.png', NULL, array('class'=>'social-icons ' . strtolower($k))), $this->createUrl('/hybridauth/'.$k)); ?>
+								<?php echo CHtml::link(NULL, $this->createUrl('/hybridauth/'.$k), array('class' => 'social-icons ' . strtolower($k))); ?>
 							<?php endif; ?>
 	    	        	<?php endforeach; ?>
 	    	        </div>

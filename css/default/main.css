@@ -600,6 +600,52 @@ main #login-form input[type="text"], main #login-form input[type="password"] {
 	width: 100%;
 }
 
+/** Social Media Icons **/
+main .social-icons {
+	width: 32px;
+	height: 32px;
+	display:block;
+	-webkit-transition: .5s linear;
+	-moz-transition: .5s linear;
+	-o-transition: .5s linear;
+	-ms-transition: .5s linear;
+	transition: .5s linear;
+	float:left;
+	margin: 5px;
+}
+
+main .social-icons.facebook {
+	background: url('../../images/icons/facebook.png') no-repeat;
+}
+
+main .social-icons.facebook:hover {
+	background: url('../../images/icons/facebook_hover.png') no-repeat;
+}
+
+main .social-icons.linkedin {
+	background: url('../../images/icons/linkedin.png') no-repeat;
+}
+
+main .social-icons.linkedin:hover {
+	background: url('../../images/icons/linkedin_hover.png') no-repeat;
+}
+
+main .social-icons.google {
+	background: url('../../images/icons/google.png') no-repeat;
+}
+
+main .social-icons.google:hover {
+	background: url('../../images/icons/google_hover.png') no-repeat;
+}
+
+main .social-icons.twitter {
+	background: url('../../images/icons/twitter.png') no-repeat;
+}
+
+main .social-icons.twitter:hover {
+	background: url('../../images/icons/twitter_hover.png') no-repeat;
+}
+
 /** Footer **/
 footer a, footer a:visited, footer a:active {
     color: #999; 
