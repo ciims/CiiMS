@@ -33,7 +33,7 @@
                 <?php echo $form->textFieldRow($model,'displayName',array('class'=>'span12','maxlength'=>255)); ?>        
                 <?php echo $form->dropDownListRow($model,'user_role',CHtml::listdata(UserRoles::model()->findAll(), 'id', 'name'), array('class'=>'span12')); ?>        
                 <?php echo $form->dropDownListRow($model,'status', array('1'=>'Active', '0'=>'Inactive'), array('class'=>'span12')); ?>
-
+                <?php echo $form->textAreaRow($model, 'about', array('class' => 'span12')); ?>
             <?php $this->endWidget(); ?>
         <?php $this->endWidget(); ?>
     </div>

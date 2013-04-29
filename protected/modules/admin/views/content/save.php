@@ -108,6 +108,7 @@
 							    <div class="image-ctrl" id="<?php echo $attachment->key; ?>">
     								<?php echo CHtml::image($attachment->value, NULL, array('class'=> 'thumb', 'href' => $attachment->value, 'title' => $attachment->value)); ?>
                                     <span class="delete-button icon icon-remove" id="<?php echo $attachment->key; ?>"></span>
+                                     <span class="star-button icon icon-star-empty" id="<?php echo $attachment->key; ?>"></span>
                                 </div>
 							<?php endforeach; ?>
 							<li id="new-attachment" style="display:none;"></li>
@@ -126,7 +127,7 @@
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.thumbs.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.colorbox.min.js'); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.gridster.js'); ?>
-<?php Yii::app()->clientScript->registerScript('admin_promoted_image', 'setTimeout(function() { $("img.thumb").css("left", 0).css("right", 0).css("top", 0); $("#blog-image").find(".thumb-container").addClass("transition"); }, 500);'); ?>
+<?php Yii::app()->clientScript->registerScript('admin_promoted_image', 'setTimeout(function() { $("img.thumb").css("left", 0).css("right", 0).css("top", 0); $("#blog-image").find(".star-button").removeClass("icon-star-empty").addClass("icon-star"); $("#blog-image").find(".thumb-container").addClass("transition"); }, 500);'); ?>
 <?php if (!$model->isNewRecord): ?>
 	<?php Yii::app()->clientScript->registerScript('admin_tags', '
 	$("#tags").tagsInput({
@@ -143,23 +144,21 @@
 	'); ?>
 	<?php Yii::app()->clientScript->registerScript('admin_thumbs', '$(".thumb").thumbs();'); ?>
 	<?php Yii::app()->clientScript->registerScript('admin_colorbox', '$(".thumb").colorbox({rel:"thumb"});'); ?>
-	<?php Yii::app()->clientScript->registerScript('admin_promote', 'var timeoutId = 0; $(".image-ctrl").mousedown(function(e) {
-	        timeoutId = setTimeout(promote, 1000, ($(this).attr("id")));
-	    }).bind("mouseup mouseleave", function() {
-	        clearTimeout(timeoutId);
-	    });'); ?>
+	<?php Yii::app()->clientScript->registerScript('admin_promote', '$(".star-button").click(function() { 
+		var id = $(this).attr("id");
+		$.post("../../promoteImage", { id : ' . $model->id . ', key : id }, function() {
+	        $(".image-ctrl").find(".thumb-container").css("border-color", "").removeClass("transition");
+	        $("div[id*=\'" + id + "\']").find(".thumb-container").addClass("transition");
+	        $(".star-button").addClass("icon-star-empty").removeClass("icon-star");
+	        $("div[id*=\'" + id + "\']").find(".star-button").removeClass("icon-star-empty").addClass("icon-star");
+	    });
+	});'); ?>
 	<?php Yii::app()->clientScript->registerScript('admin_delete', '$(".delete-button").click(function() {
 	    var element = $(this);
 	    $.post("../../removeImage", { id : ' . $model->id . ', key : $(this).attr("id") }, function () {
 	        element.parent().fadeOut();
 	    });
 	})'); ?>
-	<?php Yii::app()->clientScript->registerScript('admin_promote_action', 'function promote(id) {
-	    $.post("../../promoteImage", { id : ' . $model->id . ', key : id }, function() {
-	        $(".image-ctrl").find(".thumb-container").css("border-color", "").removeClass("transition");
-	        $("div[id*=\'" + id + "\']").find(".thumb-container").addClass("transition");
-	    });
-	}'); ?>
 <?php endif; ?>
 <?php Yii::app()->clientScript->registerScript('wmd-panel', 'setTimeout(function() { 
 	$(".wmd-panel").first().parent().css("margin-left", 0); 
