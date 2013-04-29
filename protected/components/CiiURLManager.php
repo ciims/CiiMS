@@ -61,6 +61,7 @@ class CiiURLManager extends CUrlManager
 		'/sitemap.xml' 						=> '/site/sitemap',
         '/search/<page:\d+>' 				=> '/site/mysqlsearch',
         '/search' 							=> '/site/mysqlsearch',
+        '/hybridauth/<provider:\w+>'		=> '/hybridauth',
         '/contact' 							=> '/site/contact',
         '/blog.rss' 						=> '/content/rss',
         '/blog/<page:\d+>' 					=> '/content/list',
