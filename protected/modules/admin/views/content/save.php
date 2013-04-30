@@ -132,7 +132,7 @@
 	<?php Yii::app()->clientScript->registerScript('autosave', '
 		// Autosave the document every 1 minute
 		// Because I am tired of getting timeout errors while editing a post!
-		setInterval(function() { $.post(window.location.pathname, { data :$("form").serialize() }}, 60000);
+		setInterval(function() { $.post(window.location.pathname, { data :$("form").serialize() }); }, 60000);
 	'); ?>
 	<?php Yii::app()->clientScript->registerScript('admin_tags', '
 	$("#tags").tagsInput({

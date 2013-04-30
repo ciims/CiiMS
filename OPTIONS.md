@@ -1,6 +1,11 @@
 #### Available Options
 CiiMS has a bunch of options that are available through the _settings_ module in the admin panel. All available options and how to use/config them are documented in this file.
 
+_Many_ options are available as key=>value settings, however there are some settings that require modifying your main.php config file.
+
+------------------------
+
+## Configuration File Options
 
 ##### HybridAuth
 HybridAuth is a plugin which allows visitors to signin and comment using their social network identity. CiiMS automatically integrates social identies with existing user records if they exist.
@@ -12,58 +17,68 @@ Once you have the key and secret, add the following to the "modules" section of
     protected/config/main.php
 
 PROVIDER_NAME, and keys will need to be changed for each provider. Make sure you provide only what is necessary. If your provider doesn't require a component, leave it blank.
+
 ```php
-    'hybridauth' => array(
-        'providers'=> array(
-            'PROVIDER_NAME' => array(
-                'enabled' => true
-                'keys' => array('id' => '', 'key' => '', 'secret'=>''),
-                'scope' => ''
-            )
+'hybridauth' => array(
+    'providers'=> array(
+        'PROVIDER_NAME_UC_WORDS' => array(
+            'enabled' => true
+            'keys' => array('id' => '', 'key' => '', 'secret'=>''),
+            'scope' => ''
         )
     )
+)
 ```
 
 The callback URL is http://your-site-domain.tld/hybridauth/provider. Assuming you have configured CiiMS with the appropriate config, and setup the provider everything should fire right up. If you run into issues make sure your provider config is setup properly and that the provider config on the providers site is setup properly.
-
-You'll also need to add a URL Management rule to your protected/config/main.php file. This rule should suffice for any and all provides you install.
-
-~~~~
-    'hybridauth/<provider:\w+>'=>'/hybridauth',
-~~~~
 
 Additional HybridAuth providers can be installed by copying the provider file to protected/modules/hybridauth/hybrid/providers/
 
 Additional information can be found on [Hybridauth's Website](http://hybridauth.sourceforge.net/userguide.html#index)
 
-##### CSS/Script Optimization
-CiiMS has experimental support for CSS/JS combination and compression through script registerd with CClientScript. This is _off_ by default. To enable, modify the _clientScript_ options in your protected/config/main.php file for each option you want to apply. This feature is __experimental__ and may _break_ your site. The recommended behavior is to turn it off _unless you know what you're doing__
+##### Enable Memcache/Redis/APC Caching Support
+By default CiiMS will run with CFileCache enabled. Performance can be improved by using CiiMemCache, CiiAPCCache, or CiiRedisCache instead.
+You can modify the behavior by updating the _cache_ section of your protected/config/main.php file.
+
+My recommendation is to use CiiMemCache or CiiRedisCache for the best performance.
+
+###### CiiMemCache
 
 ```php
-    'components' => array(
-        'clientScript' => array(
-            [...] => [...]
-        )
+'cache'=>array(
+    'class'=>'application.components.CiiMemCache',
+           'servers'=>array(
+                array(
+                    'host'=>'127.0.0.1',
+                    'port'=>11211,
+                    'weight'=>60
+                ),
+           ),
+     ),
+```
+
+###### CiiAPCCache
+
+```php
+cache' => array(
+    'class' => 'system.caching.CApcCache',
+),
+```
+
+###### CiiRedisCache
+CiiRedisCache is configured to use [phpredis](https://github.com/nicolasff/phpredis) as the Redis driver. You'll need to install this package to your system _before_ configuring your Redis cache.
+
+```php
+'cache' => array(
+    'class' => 'CiiRedisCache',
+    'servers' => array(
+        'host' => '127.0.0.1',
+        'port' => 6379
     )
+),
 ```
 
-##### Enable Memcache Support
-By default CiiMS will run with CFileCache enabled. Performance can be improved by using CiiMemCache or CiiRedisCache instead. You can modify the behavior by updating the _cache_ section of your protected/config/main.php file.
-
-```php
-    'cache'=>array(
-            'class'=>'application.components.CiiMemCache',
-                   'servers'=>array(
-                            array(
-                                    'host'=>'127.0.0.1',
-                                    'port'=>11211,
-                                    'weight'=>60
-                            ),
-                   ),
-         ),
-```
-
-Edit the host, port and weight as you see fit.
+Edit the host, port and weight as you see fit for each of the examples provided above
 
 ##### Sphinx Search
 CiiMS has built in support for Sphinx Server, allowing it to quickly index and search documents. By default this is disabled for MySQLSearch, which isn't nearly as accurate or fast.
@@ -78,14 +93,14 @@ First, add the following to your params array
     'sphinxSource'=>'SOURCE_NAME',
 ```
 
-Second, replace the URLManager->rules->search array with the following. This will allow your app to connect to the sphinx search action.
+Second, _add_ the URLManager->rules->search array with the following. This will allow your app to connect to the sphinx search action.
 
 ```php
     'search/<page:\d+>'=>'/site/search',
     'search/<id:\d+>'=>'/site/search',
 ```
 
-While configuring Sphinx is beyond the scope of this document, your datasource should be configured as followed:
+While configuring Sphinx is beyond the scope of this document, your datasource should be configured as followed. This will ensure you get accurate search results.
 
 ~~~~
 source src
@@ -112,6 +127,8 @@ index index_name
 I recommend that you put Sphinx on a cronjob to reindex hourly (or as frequently as you desire).
 
 ------------------
+
+## Key Value Options
 
 ##### Google Analytics Plugin
 Google Analytics is disabled by default. To enable, add the following to settings via the admin panel: (without "key", and "value"
@@ -163,5 +180,3 @@ CiiMS supports email notifications when a new comment is created on a post you c
 key: notifyAuthorOnComment
 value: 1
 ~~~~
-
-------------------

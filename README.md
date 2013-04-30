@@ -1,41 +1,11 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 
-#### UPDATING CIIMS
-The _easiest_ way to upgrade CiiMS is to use git, and manually run the migrations as such:
-
-~~~~
-cd _repo dir_
-git pull origin master
-php protected/yiic.php migrate --interactive=0
-~~~~
-
-This will update the repository with the latest code and perform any database migrations. You can automate migrations by adding the following to your *.git/hooks/post-receive* file
-
-~~~~
-#!/bin/bash
-cd ../../protected/
-PHP=$(which php)
-
-$PHP yiic.php migrate --interactive=0
-~~~~
-
-#### UPGRADING FROM VERSIONS OLDER THAN 1.1.2
-I have restructed the way that CiiMS derives certain paths in order to make future development easier, and to support many new features. After upgrading you _*MUST*_ add the following to your config file. Your blog will be unavailable until this is corrected. If you are upgrading from versions older than 1.1.2, it is recommended that you add this to your config file, then run the upgrade instructions listed above.
-
-~~~~
-    'params' => array(
-	    'yiiPath'=>'/opt/frameworks/php/yii/framework/',
-     )
-~~~~
-
-
-------------------------------------------------
-
 #### What is CiiMS?
 
 CiiMS is a high performance CMS designed for both end users and developers. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
 
+#### Upgrading CiiMS?
 #### The One Rule/Suggestion/Request
 Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) because I think it is awesome. If you use and love CiiMS create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site. If you want to a border color that's fine too.
 
@@ -57,9 +27,9 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Features
 
 * Based on Yii Framework
-* Wordpress _like_ installer
+* Installs in under 5 Minutes (Will Install Yii for you too!)
 * Beautiful Default Theme
-* [Bootstrapped](http://yii-booster.clevertech.biz/) For Beauty
+* Based in [Twitter Boostrap](http://yii-booster.clevertech.biz/) For Easy Development
 * Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
 * SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
 * Password Protected Content
@@ -77,13 +47,14 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Requirements
 
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
+* PHP 5.1+
 * MySQL 5.5+ (CiiMS can run on Postgres/SQLite, but you have to do a manual installation which isn't covered in this readme.
 
 #### Recomendations
 The following extensions/applications are recommended to improve performance.
 
 * Memcache/Redis
-* APC Cache
+* APC Cache/ZendOpcache+
 * Sphinx Search Server
 
 ------------------
@@ -106,6 +77,7 @@ The current roadmap will be added to this soon. For now:
 
 * Unit & Functional Testing (We're currently hooked into TravisCI, but we don't have a lot of tests running at the moment)
 * i18n Language Support (PHP Support. [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
+* Make the Dashboard Awesome
 
 #### License
 
