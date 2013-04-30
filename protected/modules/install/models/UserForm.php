@@ -170,7 +170,11 @@ class UserForm extends CFormModel
      */
     public function getEncryptedPassword()
     {
-        return $this->encryptHash($this->email, $this->password, $this->encryptionKey);
+        if (!function_exists('password_hash'))
+            require_once(dirname(__FILE__) . '/../../../extensions/bcrypt/bcrypt.php');
+
+        $hash = $this->encryptHash($this->email, $this->password, $this->encryptionKey);
+        return password_hash($hash, PASSWORD_BCRYPT, array('cost' => 13));
     }
     
     /**

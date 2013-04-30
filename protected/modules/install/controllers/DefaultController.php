@@ -116,6 +116,7 @@ class DefaultController extends CController
             $model->attributes = Cii::get($_POST, 'UserForm', array());
             if ($model->save())
                 $this->redirect($this->createUrl('/admin'));
+            Cii::debug($model->getErrors());
             
             $errors = $model->getErrors();
             $firstError = array_values($errors);

@@ -402,7 +402,7 @@ class SiteController extends CiiController
 				$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
 				if ($cost <= 12)
 					$cost = 13;
-				$password = password_hash($hash, PASSWORD_BCRYPT, array('cost' => $this->cost));
+				$password = password_hash($hash, PASSWORD_BCRYPT, array('cost' => $cost));
 
 				$user->attributes = array(
 					'email'=>Cii::get($_POST['RegisterForm'], 'email'),
