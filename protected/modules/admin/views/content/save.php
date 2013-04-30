@@ -129,6 +129,11 @@
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.gridster.js'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_promoted_image', 'setTimeout(function() { $("img.thumb").css("left", 0).css("right", 0).css("top", 0); $("#blog-image").find(".star-button").removeClass("icon-star-empty").addClass("icon-star"); $("#blog-image").find(".thumb-container").addClass("transition"); }, 500);'); ?>
 <?php if (!$model->isNewRecord): ?>
+	<?php Yii::app()->clientScript->registerScript('autosave', '
+		// Autosave the document every 1 minute
+		// Because I am tired of getting timeout errors while editing a post!
+		setInterval(function() { $.post(window.location.pathname, { data :$("form").serialize() }}, 60000);
+	'); ?>
 	<?php Yii::app()->clientScript->registerScript('admin_tags', '
 	$("#tags").tagsInput({
 			defaultText : "Add a Tag",
