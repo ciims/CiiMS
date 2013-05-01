@@ -130,53 +130,144 @@ I recommend that you put Sphinx on a cronjob to reindex hourly (or as frequently
 
 ## Key Value Options
 
-##### Google Analytics Plugin
-Google Analytics is disabled by default. To enable, add the following to settings via the admin panel: (without "key", and "value"
+The following table contains a list of all available options that CiiMS currently supports. This table has been sorted alphabetically for ease of searchability. Please note, I am using set notation for a lot of the valid options. Just a reminder.
 
-~~~~
-key: gaExtension
-value: 1
-~~~~
-
-The Google Analytics Plugin also comes with serveral other options as defined below
-
-~~~~
-key: gaAccount    value: GAAccountCode (required)
-key: gaAddThis    value: true/false    // Enables Add This in GA
-key: gaAddThisShare value: 'true'/'false // note the quotes
-~~~~
-
-##### Piwik Analytics
-CiiMS also comes with support for Piwik. This can be enabled by adding the following to settings via the admin panel
-
-~~~~
-key: piwikExtension
-value: 1
-~~~~
-
-The Piwik Plugin also has the following options
-
-~~~~
-key: piwikID    value: PiwikSiteID // required
-key: piwikBaseUrl value: baseUrlOfPiwk // required
-~~~~
-
-
-##### AddThis
-CiiMS has integrated support for AddThis. AddThis can be enabled by adding the following to settings via the admin panel
-
-~~~~
-key: addThisExtension
-value: 1
-
-key: addThisAccount
-value: AddThisAccountID [ra-xxxxxxxxxxxxxxxxxxx]
-~~~~
-
-#### Comment Notifications
-
-CiiMS supports email notifications when a new comment is created on a post you created. To enable this, add the following to your config. By default it is disabled.
-~~~~
-key: notifyAuthorOnComment
-value: 1
-~~~~
+```
+Z is the set of all integers
+n is any given integer given a condition
+| means such that
+```
+<table width="100%">
+    <tr>
+        <td width="20%"><em>Option Key</em></td>
+        <td><em>Description</em></td>
+        <td><em>Default Value</em></td>
+        <td><em>Valid Options</em></td>
+    </tr>
+    <tr>
+        <td><strong>addThisExtension</strong></td>
+        <td>Whether or not the [AddThis](http://www.addthis.com) extention should be enabled. This should _always_ be used with __addThisAccount__</td>
+        <td>0</td>
+        <td>0,1</td>
+    </tr>
+    <tr>
+        <td><strong>addThisAccount</strong></td>
+        <td>The account associated with [AddThis](http://www.addthis.com). This should _always_ be used with __addThisExtension__, as the extension will not render unless it is enabled</td>
+        <td>0</td>
+        <td>0,1</td>
+    </tr>
+    <tr>
+        <td><strong>bcrypt_cost</strong></td>
+        <td>This is the total work effort that the bcrypt hashing algorithm should use to calculating password hashes. The larger the number, the more time it takes to calculate a password hash. As a security precaution, CiiMS prevents any number less than 12. It is recommended that you monitor this number every 18 months or so. Faster computers will be able to run bcrypt faster, so as computers become more powerful you'll need to adjust this. <br />Changing the number will require a hash recalculation the next time the user logs in, allowing you to arbitarily set the cost without any consequence to the end user. You can read more about bcrypt and its implementation [here](http://en.wikipedia.org/wiki/Bcrypt)</td>
+        <td>12</td>
+        <td>n >= 12</td>
+    </tr>
+    <tr>
+        <td><strong>categoryPaginationSize</strong></td>
+        <td>This is the number of blog posts that should be shown on a category page.</td>
+        <td>10</td>
+        <td>n &sub; Z | n > 0</td>
+    </tr>
+    <tr>
+        <td><strong>contentPaginationSize</strong></td>
+        <td>This is the number of blog posts that should be shown on a content page.</td>
+        <td>10</td>
+        <td>n &sub; Z | n > 0</td>
+    </tr>
+    <tr>
+        <td><strong>gaAccount</strong></td>
+        <td>The account number found in Google Analytics. Use this on conjunction with __gaExtension__</td>
+        <td>NULL</td>
+        <td>Google Analytics Account Number</td>
+    </tr>
+    <tr>
+        <td><strong>gaAddThis</strong> <em>experimental</em></td>
+        <td>Whether or not AddThis should try to inject into Google Analytics. See [this article](http://support.addthis.com/customer/portal/articles/381260-google-analytics-integration) for more information</td>
+        <td>NULL</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>gaAddThisSocial</strong> <em>experimental</em></td>
+        <td>Whether or not AddThis should try to inject into Google Analytics. See [this article](http://support.addthis.com/customer/portal/articles/381260-google-analytics-integration) for more information</td>
+        <td>NULL</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>gaExtension</strong></td>
+        <td>Whether or not [Google Analytics](analytics.google.com) tracking code should be injected in the page source code. __gaAccount__ _must_ be set of this option is enabled, otherwise tracking will fail.</td>
+        <td>0</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>menu</strong></td>
+        <td>This option provides _extremely limited_ menu management functionality, and accepts any valid _slug_ as a pipe "|" separated list. Each option will be rendered via Yii::app()->createUrl(), and use menu item as the url _and_ the link title. On the default theme, this renders at the top and bottom of each page.</td>
+        <td>blog|admin</td>
+        <td>page|page1|page2|page3</td>
+    </tr>
+    <tr>
+        <td><strong>notifyAuthorOnComment</strong></td>
+        <td>This determines whether or not an author should be notified when someone comments on a article they wrote.</td>
+        <td>false</td>
+        <td>0,1</td>
+    </tr>
+    <tr>
+        <td><strong>offline</strong></td>
+        <td>Whether or not the site should be put into offline mode. When the site is in offline mode, only the dashboard is accessible. Any other page will return an HTTP 403 error with generic site offline messaging</td>
+        <td>0</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>piwikBaseUrl</strong></td>
+        <td>This is the schema, host, and port which your [Piwik](http://www.piwik.org) instance is running. See __piwikExtension__ for more details.</td>
+        <td>NULL</td>
+        <td>schema://<domain>:<port></td>
+    </tr>
+    <tr>
+        <td><strong>piwikExtension</strong></td>
+        <td>Whether or not [Piwik](http://www.piwik.org) analytics tracking code should be injected in the page source code. This extension uses [EPiwikAnalyticsWidget](https://github.com/charlesportwoodii/EPiwikAnalyticsWidget). For displaying the plugin. If you enable this extension, you must also provide valid values for __piwikBaseUrl__ and __piwikId__.</td>
+        <td>0</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>piwikId</strong></td>
+        <td>This is the instance id of your site in [Piwik](http://www.piwik.org). See the "All Websites" tab in Piwik to determine what your site_id is. See __piwikExtension__ for more details.</td>
+        <td>NULL</td>
+        <td>Integer ID of piwik site tracking id</td>
+    </tr>
+    <tr>
+        <td><strong>preferMarkdown</strong></td>
+        <td>Whether or not Markdown should be used for the default content editor. When set to "1", the default content editor will be a standard text area with Markdown Extra previewing support. When set to "0", [Imperavi Redactor](redactor.imperavi.ru) will be used. instead.</td>
+        <td>1</td>
+        <td>0, 1</td>
+    </tr>
+    <tr>
+        <td><strong>searchPaginationSize</strong></td>
+        <td>This is the number of blog posts that should be shown in the search results.</td>
+        <td>10</td>
+        <td>n &sub; Z | n > 0</td>
+    </tr>
+    <tr>
+        <td><strong>splash-logo</strong></td>
+        <td>This is the splash page logo that is used on every page on the default theme. Not all themes support this option.</td>
+        <td>/images/splash-logo.jpg</td>
+        <td>Any image. Recommended size is 965px x 400px</td>
+    </tr>
+    <tr>
+        <td><strong>theme</strong></td>
+        <td>Determines the theme that should be used. "default" will be used if one is not specified, the requested theme doesn't exist, or there was an error in the theme rendering process.</td>
+        <td>default</td>
+        <td>Any valid theme foldername in the /themes folder</td>
+    </tr>
+    <tr>
+        <td><strong>twitter_username</strong></td>
+        <td>On the default theme, this is the twitter handle that is used to display updates in the bottom left corner of the footer. This may provide interconnectivity with other feature on the dashboard in the future.</td>
+        <td>charlesportwoodii</td>
+        <td>Any valid @twitter handle/td>
+    </tr>
+    <tr>
+        <td><strong></strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
