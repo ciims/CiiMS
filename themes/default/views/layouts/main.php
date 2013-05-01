@@ -29,7 +29,7 @@
 					)); ?>
 		    </div>		    
 		</header>
-	    
+		
 		<main class="main">
 		    <div class="container image-container">
 		    	<div class="row-fluid image-viewport">

@@ -18,8 +18,26 @@ class CiiController extends CController
         );
     }
     
+    /**
+     * Sets the application language for the site based upon $_POST, $_SESSION, http headers
+     * @return string   string for translations
+     */
+    private function setApplicationLanguage()
+    {
+        $app = Yii::app();
+        if (Cii::get($_POST, '_lang', false))
+            $app->language = $app->session['_lang'] = $_POST['_lang'];
+        else if (Cii::get($app->session, '_lang', false))
+            $app->language = $app->session['_lang'];
+        else
+            $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
+
+        return $app->language;
+    }
+
 	public function beforeAction($action)
 	{
+        $this->setApplicationLanguage();
         $offlineMode = (bool)Cii::get(Configuration::model()->findByAttributes(array('key'=>'offline')), 'value', false);
 
         if ($offlineMode)
