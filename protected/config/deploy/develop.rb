@@ -27,9 +27,7 @@ end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
-	run "cp -R #{deploy_to}/current/protected/config/* '#{deploy_to}/persistent/config/'"
-	run "rm -rf #{deploy_to}/current/protected/config"
-	run "ln -s '#{deploy_to}/persistent/config/' '#{deploy_to}/current/protected/'"
+	run "cp '#{deploy_to}/persistent/config/main.php' '#{deploy_to}/current/protected/config/main.php'"
 end
 
 task :migrate do

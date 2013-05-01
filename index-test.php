@@ -7,6 +7,6 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
-$ciimsConfig = require_once($config);
-require_once((string)$ciimsConfig['params']['yiiPath'].'yii.php');
+$ciimsConfig = require($config);
+require((string)$ciimsConfig['params']['yiiPath'].'yii.php');
 Yii::createWebApplication($config)->run();

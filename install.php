@@ -14,7 +14,7 @@ error_reporting(-1);
 // change the following paths if necessary
 $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
-$ciimsConfig = require_once($config);
+$ciimsConfig = require($config);
 
 // Session Management check for CMS Config
 session_start();
@@ -27,7 +27,7 @@ session_write_close();
 
 if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "") 
 {
-    require_once(dirname(__FILE__).'/protected/modules/install/installer.php');
+    require(dirname(__FILE__).'/protected/modules/install/installer.php');
     exit();
 }
 
@@ -37,6 +37,6 @@ require_once($ciimsConfig['params']['yiiPath'].'yiilite.php');
 try {
     Yii::createWebApplication($config)->run();
 } catch (Exception $e) {
-    require_once(dirname(__FILE__).'/protected/modules/install/installer.php');
+    require(dirname(__FILE__).'/protected/modules/install/installer.php');
     exit();
 }

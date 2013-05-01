@@ -16,7 +16,7 @@ $breadCrumbs = array(
 if (isset($_POST['_ajax']) && isset($_POST['_method']))
 {
     // Retreive the installHelper 
-    require_once(dirname(__FILE__) . '/installHelper.php');
+    require(dirname(__FILE__) . '/installHelper.php');
     $helper = new InstallHelper;
     if (method_exists($helper, $_POST['_method']))
         $helper->$_POST['_method']($_POST['data']);
@@ -103,9 +103,9 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <p>Before CiiMS can continue with the installation, the following issues need to be addressed.</p>
                     <pre><?php echo $e->getMessage(); ?></pre>
                     <p>Most likely the error above is a permission error. You can correct this by making the following <strong>assets</strong>, <strong>runtime</strong> and <strong>config</strong> directories writable.</p>
-                    <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?> 777</pre>
-                    <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/config/'); ?> 777</pre>
-                    <pre>chmod -R <?php echo str_replace('/protected/modules/install', '', dirname(__FILE__) . '/assets/'); ?> 777</pre>
+                    <pre>chmod -R 777 <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?></pre>
+                    <pre>chmod -R 777 <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/config/'); ?></pre>
+                    <pre>chmod -R 777 <?php echo str_replace('/protected/modules/install', '', dirname(__FILE__) . '/assets/'); ?></pre>
                     
                     <p>When you have addressed the issue above, refresh the page to continue with the installation.</p>
                 <?php else: ?>

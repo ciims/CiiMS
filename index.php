@@ -9,7 +9,7 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',0);
 
 if (file_exists('install.php') && !file_exists($config)) 
 {
-	require_once('install.php');
+	require('install.php');
 	exit();
 }
 
@@ -21,6 +21,6 @@ if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 	error_reporting(-1);
 	ini_set('display_errors', 1);
 }
-$ciimsConfig = require_once($config);
-require_once((string)$ciimsConfig['params']['yiiPath'].'yii.php');
+$ciimsConfig = require($config);
+require((string)$ciimsConfig['params']['yiiPath'].'yii.php');
 Yii::createWebApplication($config)->run();
