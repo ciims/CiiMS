@@ -53,7 +53,7 @@
 						$element = $node->getAttribute('href');
 
 						// Don't follow links outside of this site, and always open them in a new tab
-						if ($element{0} !== "/")
+						if ($element[0] !== "/")
 						{
 							$node->setAttribute('rel', 'nofollow');
 							$node->setAttribute('target', '_blank');
