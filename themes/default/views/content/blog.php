@@ -42,7 +42,26 @@
 				</span>
 			</div>
 			<div class="clearfix"></div>
-				<?php $md = new CMarkdownParser; echo $md->safeTransform($content->content); ?>
+				<?php
+					$md = new CMarkdownParser;
+					$dom = new DOMDocument();
+					$dom->loadHtml($md->safeTransform($content->content));
+					$x = new DOMXPath($dom);
+
+					foreach ($x->query('//a') as $node)
+					{
+						$element = $node->getAttribute('href');
+
+						// Don't follow links outside of this site, and always open them in a new tab
+						if ($element{0} !== "/")
+						{
+							$node->setAttribute('rel', 'nofollow');
+							$node->setAttribute('target', '_blank');
+						}
+					}
+
+					echo $dom->saveHtml();
+				?>
 		</div>
 	    <div style="clear:both;"><br /></div>
 	</div>

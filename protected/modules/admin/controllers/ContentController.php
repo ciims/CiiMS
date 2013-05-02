@@ -362,11 +362,13 @@ class ContentController extends ACiiController
             $files = $fileHelper->findFiles(dirname(__FILE__).'/../../../../themes/' . $theme . '/views/content', array('fileTypes'=>array('php'), 'level'=>0));
             Yii::app()->cache->set($theme.'-available-view', $files);
         }
+        
         $returnFiles = array();
+
         foreach ($files as $file)
         {
             $f = str_replace('.php', '', substr( $file, strrpos( $file, '/' )+1 ));
-            if (!in_array($f, array('all', 'password')))
+            if (!in_array($f, array('all', 'password', '_post')))
                 $returnFiles[$f] = $f;
         }
         
