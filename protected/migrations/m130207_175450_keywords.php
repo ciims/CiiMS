@@ -8,7 +8,7 @@ class m130207_175450_keywords extends CDbMigration
 	{
 		// Refactor for EXECUTE style queries
 		$connection = $this->getDbConnection();
-		$data = $connection->createCommand('SELECT content_id, value, content_metadata.key FROM content_metadata WHERE content_metadata.key = "keyword"')->queryAll();
+		$data = $connection->createCommand('SELECT content_id, value, content_metadata.key FROM content_metadata WHERE content_metadata.key = "keywords"')->queryAll();
         
         foreach ($data as $row)
         {
