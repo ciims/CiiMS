@@ -13,14 +13,14 @@
 			<span class="separator">⋅</span>
 			<span class="blog-author minor-meta"><strong>by </strong>
 				<span>
-					<?php echo CHtml::link($content->author->displayName, $this->createUrl("/profile/{$content->author->id}/")); ?>
+					<?php echo CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?>
 				</span>
 				<span class="separator">⋅</span> 
 			</span> 
 			<span class="minor-meta-wrap">
 				<span class="blog-categories minor-meta"><strong>in </strong>
 				<span>
-					<?php echo CHtml::link($content->category->name, Yii::app()->createUrl($content->category->slug)); ?>
+					<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 				</span> 
 				<span class="separator">⋅</span> 
 			</span> 					

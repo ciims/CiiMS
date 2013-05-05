@@ -8,7 +8,7 @@
 		<?php endif; ?>
 		<div class="post-inner">
 			<div class="post-header">
-				<h3 class="pull-left"><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h3>
+				<h3 class="pull-left"><?php echo CHtml::link(CHtml::encode($content->title), Yii::app()->createUrl($content->slug)); ?></h3>
 				<div class="likes-container likes-container--topfix pull-right">
 					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
 					    <a href="#" id="upvote" title="Like this post and discussion">
@@ -26,14 +26,14 @@
 				<span class="separator">⋅</span>
 				<span class="blog-author minor-meta"><strong>by </strong>
 					<span>
-						<?php echo CHtml::link($content->author->displayName, $this->createUrl("/profile/{$content->author->id}/")); ?>
+						<?php echo CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?>
 					</span>
 					<span class="separator">⋅</span> 
 				</span> 
 				<span class="minor-meta-wrap">
 					<span class="blog-categories minor-meta"><strong>in </strong>
 					<span>
-						<?php echo CHtml::link($content->category->name, Yii::app()->createUrl($content->category->slug)); ?>
+						<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 					</span> 
 					<span class="separator">⋅</span> 
 				</span> 					

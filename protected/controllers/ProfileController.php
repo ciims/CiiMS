@@ -134,11 +134,14 @@ class ProfileController extends CiiController
 
 			unset($_POST['Users']['status']);
 			unset($_POST['Users']['user_role']);
+
 			$model->attributes = Cii::get($_POST, 'Users', array());
+			$model->about = Cii::get(Cii::get($_POST, 'Users', array()), 'about', NULL);
+
 			if ($model->save())
 			{
 				Yii::app()->user->setFlash('success', 'Your profile has been updated!');
-				$this->redirect($this->createUrl('/profile/'. $model->id . '/' . $model->displayName));
+				$this->redirect($this->createUrl('/profile/'. $model->id));
 			}
 			else
 			{

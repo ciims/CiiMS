@@ -1,4 +1,4 @@
-<h4 class="pull-left"><?php echo $model->name; ?></h4>
+<h4 class="pull-left"><?php echo CHtml::encode($model->name); ?></h4>
 <?php if (!Yii::app()->user->isGuest && $model->id == Yii::app()->user->id): ?>
 	<span class="pull-right">
 		<?php echo CHtml::link('edit', '/profile/edit'); ?>
@@ -30,7 +30,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 	                    <td>
 	                    	<?php $website = Cii::get($model->parseMeta($model->metadata), 'website', NULL); ?>
 	                    	<?php if ($website !== NULL): ?>
-								<?php echo CHtml::link($website['value'], $website['value'], array('rel' => 'nofollow me')); ?>
+								<?php echo CHtml::link(CHtml::encode($website['value']), $website['value'], array('rel' => 'nofollow me')); ?>
 	                    	<?php endif; ?>
 	                    </td>
 	                    

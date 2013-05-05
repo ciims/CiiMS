@@ -60,6 +60,7 @@ class Users extends CiiModel
 		// will receive user inputs.
 		return array(
 			array('email, password, displayName, user_role, status', 'required'),
+			array('email', 'email'),
 			array('user_role, status', 'numerical', 'integerOnly'=>true),
 			array('email, firstName, lastName, displayName', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
@@ -130,7 +131,7 @@ class Users extends CiiModel
 		$criteria->compare('firstName',$this->firstName,true);
 		$criteria->compare('lastName',$this->lastName,true);
 		$criteria->compare('displayName',$this->displayName,true);
-		$criteria->compare('about',$this->displayName,true);
+		$criteria->compare('about',$this->about,true);
 		$criteria->compare('user_role',$this->user_role);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
@@ -144,15 +145,15 @@ class Users extends CiiModel
 	
 	public function beforeSave()
 	{
-	    	if ($this->isNewRecord)
-	    	{
+    	if ($this->isNewRecord)
+    	{
 			$this->created = new CDbExpression('NOW()');
 			$this->updated = new CDbExpression('NOW()');
 		}
 	   	else
 			$this->updated = new CDbExpression('NOW()');
 	 
-	    	return parent::beforeSave();
+	    return parent::beforeSave();
 	}
 	
 	/**

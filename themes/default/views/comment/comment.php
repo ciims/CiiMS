@@ -2,9 +2,9 @@
 	<?php echo CHtml::image($comment->author->gravatarImage(30), NULL, array('class' => 'rounded-image avatar')); ?>
 	<div class="<?php echo $comment->author->id == $comment->content->author->id ? 'green-indicator author-indicator' : NULL; ?>">
 		<div class="comment-body comment-byline">
-			<?php echo $comment->author->name; ?>
+			<?php echo CHtml::encode($comment->author->name); ?>
 			<?php if ($comment->parent_id != 0): ?>
-				<span class="icon-share-alt"></span> <?php echo $comment->parent->author->name; ?> •
+				<span class="icon-share-alt"></span> <?php echo CHtml::encode($comment->parent->author->name); ?> •
 			<?php else: ?>
 			 •
 			<?php endif; ?>
