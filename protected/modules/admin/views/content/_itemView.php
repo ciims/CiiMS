@@ -1,8 +1,8 @@
     <?php $md = new CMarkdownParser(); ?>
     <div id="content-well" class="well span4">
-        <h4><?php echo $data->title; ?></h4>
+        <h4><?php echo CHtml::encode($data->title); ?></h4>
         <div class="author-block">
-            <h6 class="nav-header pull-right"><?php echo $data->author['displayName']; ?></h6>
+            <h6 class="nav-header pull-right"><?php echo CHtml::encode($data->author['displayName']); ?></h6>
         </div>
         <div class="clearfix"></div>
         <div class="content"><?php echo $md->safeTransform($data['content']); ?></div>
