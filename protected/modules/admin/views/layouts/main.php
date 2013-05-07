@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-        <?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl .'/css/admin/main.css'); ?>
+        <?php $asset=Yii::app()->assetManager->publish(dirname(__FILE__).'/../../assets'); ?>
+        <?php Yii::app()->clientScript->registerCssFile($asset.'/css/main.css'); ?>
     </head>
     <body>
         <?php $this->widget('bootstrap.widgets.TbNavbar', array(

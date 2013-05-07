@@ -1,14 +1,15 @@
-
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	    <?php $asset=Yii::app()->assetManager->publish(dirname(__FILE__).'/../../assets'); ?>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
-                                      ->registerCssFile(Yii::app()->baseUrl.'/css/default/main.css')
+                                      ->registerCssFile($asset .'/css/main.css')
 		                              ->registerCoreScript('jquery')
-								      ->registerScriptFile(Yii::app()->baseUrl.'/js/default/script.js'); ?>
+								      ->registerScriptFile($asset .'/js/script.js'); ?>
 		<!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->

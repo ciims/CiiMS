@@ -411,7 +411,7 @@ main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
 }
 
 main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
-    background: no-repeat url(../../images/admin/bg.png) -33px -31px;
+    background: no-repeat url(../images/admin/bg.png) -33px -31px;
     height: 9px;
     width: 9px;
     cursor: pointer;
@@ -615,35 +615,35 @@ main .social-icons {
 }
 
 main .social-icons.facebook {
-	background: url('../../images/icons/facebook.png') no-repeat;
+	background: url('../images/icons/facebook.png') no-repeat;
 }
 
 main .social-icons.facebook:hover {
-	background: url('../../images/icons/facebook_hover.png') no-repeat;
+	background: url('../images/icons/facebook_hover.png') no-repeat;
 }
 
 main .social-icons.linkedin {
-	background: url('../../images/icons/linkedin.png') no-repeat;
+	background: url('../images/icons/linkedin.png') no-repeat;
 }
 
 main .social-icons.linkedin:hover {
-	background: url('../../images/icons/linkedin_hover.png') no-repeat;
+	background: url('../images/icons/linkedin_hover.png') no-repeat;
 }
 
 main .social-icons.google {
-	background: url('../../images/icons/google.png') no-repeat;
+	background: url('../images/icons/google.png') no-repeat;
 }
 
 main .social-icons.google:hover {
-	background: url('../../images/icons/google_hover.png') no-repeat;
+	background: url('../images/icons/google_hover.png') no-repeat;
 }
 
 main .social-icons.twitter {
-	background: url('../../images/icons/twitter.png') no-repeat;
+	background: url('../images/icons/twitter.png') no-repeat;
 }
 
 main .social-icons.twitter:hover {
-	background: url('../../images/icons/twitter_hover.png') no-repeat;
+	background: url('../images/icons/twitter_hover.png') no-repeat;
 }
 
 /** Footer **/

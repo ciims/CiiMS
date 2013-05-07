@@ -119,14 +119,14 @@
 	    </div>
     <?php $this->endWidget(); ?>
 </div>
-
-<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/jquery.tags.css'); ?>
-<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/colorbox.css'); ?>
-<?php Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/css/jquery.thumbs.css'); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.tags.min.js'); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.thumbs.min.js'); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.colorbox.min.js'); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery.gridster.js'); ?>
+<?php $asset=Yii::app()->assetManager->publish(dirname(__FILE__).'/../../assets'); ?>
+<?php Yii::app()->clientScript->registerCssFile($asset . '/css/jquery.tags.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile($asset . '/css/colorbox.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile($asset . '/css/jquery.thumbs.css'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($asset . '/js/jquery.tags.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($asset . '/js/jquery.thumbs.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($asset . '/js/jquery.colorbox.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($asset . '/js/jquery.gridster.js'); ?>
 <?php Yii::app()->clientScript->registerScript('admin_promoted_image', 'setTimeout(function() { $("img.thumb").css("left", 0).css("right", 0).css("top", 0); $("#blog-image").find(".star-button").removeClass("icon-star-empty").addClass("icon-star"); $("#blog-image").find(".thumb-container").addClass("transition"); }, 500);'); ?>
 <?php if (!$model->isNewRecord): ?>
 	<?php Yii::app()->clientScript->registerScript('autosave', '
