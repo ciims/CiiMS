@@ -90,7 +90,7 @@ class ContentMetadata extends CiiModel
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('content_id',$this->content_id);
-		$criteria->compare('key',$this->key,true);
+		$criteria->compare('t.key',$this->key,true);
 		$criteria->compare('value',$this->value,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);

@@ -81,7 +81,7 @@ class Configuration extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('key',$this->key,true);
+        $criteria->compare('t.key',$this->key,true);
         $criteria->compare('value',$this->value,true);
         $criteria->compare('created',$this->created,true);
         $criteria->compare('updated',$this->updated,true);

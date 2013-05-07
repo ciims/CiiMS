@@ -355,15 +355,19 @@ class ContentController extends ACiiController
      */
     private function getViewFiles($theme='default')
     {
+    	$returnFiles = array();
+
+    	if (!file_exists(dirname(__FILE__).'/../../../../themes/' . $theme))
+    		$theme = 'default';
+
         $files = Yii::app()->cache->get($theme.'-available-views');
+        
         if ($files == NULL)
         {
             $fileHelper = new CFileHelper;
             $files = $fileHelper->findFiles(dirname(__FILE__).'/../../../../themes/' . $theme . '/views/content', array('fileTypes'=>array('php'), 'level'=>0));
             Yii::app()->cache->set($theme.'-available-view', $files);
         }
-        
-        $returnFiles = array();
 
         foreach ($files as $file)
         {
@@ -381,18 +385,25 @@ class ContentController extends ACiiController
      */
     private function getLayouts($theme='default')
     {
+        $returnFiles = array();
+
+    	if (!file_exists(dirname(__FILE__).'/../../../../themes/' . $theme))
+    		$theme = 'default';
+
         $files = Yii::app()->cache->get($theme.'-available-layouts');
+
         if ($files == NULL)
         {
             $fileHelper = new CFileHelper;
             $files = $fileHelper->findFiles(dirname(__FILE__).'/../../../../themes/' . $theme . '/views/layouts', array('fileTypes'=>array('php'), 'level'=>0));
             Yii::app()->cache->set($theme.'-available-layouts', $files);
         }
-        $returnFiles = array();
+
+
         foreach ($files as $file)
         {
             $f = str_replace('.php', '', substr( $file, strrpos( $file, '/' )+1 ));
-            if (!in_array($f, array('main', 'default')))
+            if (!in_array($f, array('main', 'default', 'password')))
                 $returnFiles[$f] = $f;
         }
         
