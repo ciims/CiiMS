@@ -22,12 +22,12 @@ end
 
 # Fix Permissions
 task :fix_permissions do
-    #run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup}  #{deploy_to}"
+    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
-	run "cp '#{deploy_to}/persistent/config/main.php' '#{deploy_to}/current/protected/config/main.php'"
+	run "#{try_sudo} cp '#{deploy_to}/persistent/config/main.php' '#{release_path}/protected/config/main.php'"
 end
 
 task :migrate do
@@ -37,4 +37,4 @@ end
 # After Actions
 after "deploy:setup", :setup_directories
 after "deploy:setup", :fix_permissions
-after "deploy", :move_configs
+before "deploy:create_symlink", :move_configs
