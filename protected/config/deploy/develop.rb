@@ -35,6 +35,6 @@ task :migrate do
 end
 
 # After Actions
+before "deploy:create_symlink", :move_configs
 after "deploy:setup", :setup_directories
 after "deploy:setup", :fix_permissions
-before "deploy:create_symlink", :move_configs
