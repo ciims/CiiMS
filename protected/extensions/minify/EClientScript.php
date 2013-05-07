@@ -8,109 +8,40 @@
  * @license http://www.yiiframework.com/license/
  * @version 1.3
  *
- */
-/**
-  Requirements
-  --------------
-  Yii 1.1.x or above
-
-  Description:
-  --------------
-  This extension just extend from {link: CClientScript} using few codes, it will allow you
-  to automatically combine all script files and css files into a single (or several) script or css files.
-  Basically this will reduce the HTTP calls for resources files by merging several resources files into
-  a single (or more) files.
-  It can automatically detect the required list of files, and generate a unique filename hash,
-  so boldly ease of use.
-
-  ####Css Files:
-  CSS files are merged based on there media attribute, background images with a relative path
-  in file can also be displayed correctly.
-
-  ####Script files:
-  Script files are merged based on their position, If you use the 'CClientScript::POS_HEAD'
-  you will end up with a single file for all the script files you've used on that page.
-  If you use 'CClientScript::POS_HEAD' and 'CClientScript::POS_END' for example then you'll
-  end up with two files for each page on that request, Since those resources are located in different positions.
-
-  ####File optmization or compress (EXPERIMENTAL, @since: 1.1)
-  [CssMin](http://code.google.com/p/cssmin/) used to optmize merged css file. You can set property 'optmizeCssFiles' of the component to enable this feature.
-  [JSMinPlus](http://crisp.tweakblogs.net/blog/1856/jsmin+-version-13.html) used to optimize merged script file. You can set property 'optmizeScriptFiles' of the component to enable this feature.
-
-  Usage:
-  ---------------
-
-  Using this extension is as simple as adding the following code to the application configuration under the components array:
-
-  ~~~
-  [php]
-  'clientScript' => array(
-  'class' => 'ext.minify.EClientScript',
-  'combineScriptFiles' => true, // By default this is set to false, set this to true if you'd like to combine the script files
-  'combineCssFiles' => true, // By default this is set to false, set this to true if you'd like to combine the css files
-  'optimizeScriptFiles' => false,	// @since: 1.1
-  'optimizeCssFiles' => false,	// @since: 1.1
-  ),
-  ~~~
-
-  Then you'd use the regular 'registerScriptFile' & 'registerCssFile' methods as normal and the files will be combined automatically.
-
-  NOTE:
-  ---------------
-  If you registered some external resource files that not in the web application root directory, they will be kept and not combined.
-  Compression or optmization is a EXPERIMENTAL feature, please use it carefully(@since: 1.1)
-
-  ChangesLog:
-  ---------------
-  Nov 23, 2010
-  * Skip the minimization of files whose names include `.pack.`
-  * Add the last modification time as the QUERY_STRING to merged file, to avoid not properly flush the browser cache when the file updated.
-  Nov 6, 2010
-  * New version number 1.3
-  * Not repeat the minimization of files those who have been minimized, whose names include `.min.`
-  * Fixed `getRelativeUrl()` platform compatibility issue. (thanks to Troto)
-
-  Known Issues:
-  ----------------
-  When some resource files can not be merged and strictly dependent on loading order, then may have some problem.
-
-  Reporting Issue:
-  -----------------
-  Reporting Issues and comments are welcome, plz report them to offical forum of Yii.
-  [Report issue](http://www.yiiframework.com/forum/index.php?/topic/12476-extension-eclientscript/)
-
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net
+ * @description This class provides functionality for automatic compression and minification for javascript and css
+ * assets. Additionally, it also provides functionlity to inject NewRelic timing headers into the HTML, assuming it is enabled
+ * at the application level
  */
 
-/**
- * Extended clientscript to automatically merge script and css files
- *
- * @author hightman <hightman2@yahoo.com.cn>
- * @version $Id $
- * @package extensions.minify
- * @since 1.0
- */
-class EClientScript extends CClientScript
+Yii::import('ext.yii-newrelic.YiiNewRelicClientScript');
+class EClientScript extends YiiNewRelicClientScript
 {
 	/**
 	 * @var combined script file name
 	 */
 	public $scriptFileName = 'script.js';
+
 	/**
 	 * @var combined css stylesheet file name
 	 */
 	public $cssFileName = 'style.css';
+
 	/**
 	 * @var boolean if to combine the script files or not
 	 */
 	public $combineScriptFiles = false;
+
 	/**
 	 * @var boolean if to combine the css files or not
 	 */
 	public $combineCssFiles = false;
+
 	/**
 	 * @var boolean if to optimize the css files
 	 */
 	public $optimizeCssFiles = false;
+
 	/**
 	 * @var boolean if to optimize the script files via googleCompiler(this may cause to much slower)
 	 */
@@ -120,6 +51,7 @@ class EClientScript extends CClientScript
      * @var booolean if you want to optimize HTML data
      */
     public $compressHTML        = false;
+
 	/**
 	 * Combine css files and script files before renderHead.
 	 * @param string the output to be inserted with scripts.

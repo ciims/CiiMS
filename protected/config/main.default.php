@@ -15,7 +15,15 @@
     'modules' => array(
         'admin',
     ),
+     'behaviors' => array(
+        'onBeginRequest' => array(
+             'class' => 'ext.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
+        ),
+    ),
     'components' => array(
+        'newRelic' => array(
+            'class' => 'ext.yii-newrelic.YiiNewRelic',
+        ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
         ),

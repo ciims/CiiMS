@@ -37,7 +37,13 @@ class CiiController extends CController
 
 	public function beforeAction($action)
 	{
+        // Attempt to contact NewRelic with Reporting Data
+        try {
+            @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
+        } catch (Exception $e) {}
+
         $this->setApplicationLanguage();
+
         $offlineMode = (bool)Cii::get(Configuration::model()->findByAttributes(array('key'=>'offline')), 'value', false);
 
         if ($offlineMode)
@@ -52,8 +58,10 @@ class CiiController extends CController
         }
 
 	    header('Content-type: text/html; charset=utf-8');
+
 		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
 		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../themes/'.$theme) ? $theme : 'default');
+
 		return true;
 	}
 	
@@ -62,8 +70,14 @@ class CiiController extends CController
      * Default items to populate CiiMenu With
      */
     public $defaultItems = array(
-        array('label' => 'Blog', 'url' => array('/blog'), 'active' => false),
-        array('label' => 'Admin', 'url' => array('/admin'), 'active' => false),
+        array(
+            'label' => 'Blog', 
+            'url' => array('/blog'), 
+            'active' => false),
+        array(
+            'label' => 'Admin', 
+            'url' => array('/admin'),
+            'active' => false),
     );
     
 	/**
@@ -121,9 +135,12 @@ class CiiController extends CController
 	}
 	
 	/**
-	 * Overloaded Render allows us to generate dynamic content
+	 * Overloaded Render allows us to generate dynamic content and to provide compression
+     * @param string $view      The viewfile we want to render
+     * @param array $data       The data that is passed to us from $this->render()
+     * @param bool $return      Whether or not we should return the data as a variable or echo it.
 	 **/
-	public function render($view,$data=null,$return=false)
+	public function render($view, $data=null, $return=false)
 	{
 	    if($this->beforeRender($view))
 	    {
@@ -141,16 +158,13 @@ class CiiController extends CController
     
     		$this->afterRender($view,$output);
             
-    		$output=$this->processOutput($output);
+    		$output = $this->processOutput($output);
             $config = Yii::app()->getComponents(false);
+
             if (isset($config['clientScript']->compressHTML) && $config['clientScript']->compressHTML == true)
             {
                 Yii::import('ext.contentCompactor.*');
                 $compactor = new ContentCompactor();
-                
-                if($compactor == null)
-                    throw new CHttpException(500, Yii::t('messages', 'Missing component ContentCompactor in configuration.'));
-             
                 $output = $compactor->compact($output, array());
             }
     		

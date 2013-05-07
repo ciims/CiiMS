@@ -16,11 +16,13 @@ if (file_exists('install.php') && !file_exists($config))
 // Allow full debug mode for development. Otherwise disable error_reporting at the file level
 error_reporting(0);
 ini_set('display_errors', 0);
+
 if (YII_DEBUG && YII_TRACE_LEVEL == 3) 
 {
 	error_reporting(-1);
 	ini_set('display_errors', 1);
 }
+
 $ciimsConfig = require($config);
 require((string)$ciimsConfig['params']['yiiPath'].'yii.php');
 Yii::createWebApplication($config)->run();
