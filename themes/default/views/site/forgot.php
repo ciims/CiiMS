@@ -2,7 +2,12 @@
 	<div class="sidebar">
 		<div class="well-span">
 			<h4>Forgot Your Password?</h4>
-			<?php echo CHtml::beginForm(Yii::app()->baseUrl.'/forgot/'.$id, 'POST', array('name'=>'reset', 'id'=>'login-form')) ?>
+			<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+						'id'					=> 'login-form',
+						'focus'					=> 'input[type="text"]:first',
+						'name' 					=> 'reset'
+						'enableAjaxValidation'	=>	true
+					)); ?>
 			<div class="login-form-container">
 				<?php if(Yii::app()->user->hasFlash('reset-sent')):?>
 					<div class="alert alert-success" style="margin-bottom: -5px;">
@@ -53,7 +58,7 @@
 	    	                    )
 	    	                )); ?>
 
-					<?php echo CHtml::endForm(); ?>	
+				<?php $this->endWidget(); ?>
 			</div>
 		</div>
 	</div>
