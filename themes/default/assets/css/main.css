@@ -14,6 +14,7 @@ body {
 input[type="text"], input[type="password"] {
 	min-height: 30px;
 }
+
 /** Misc Styles **/
 div[class*='-indicator'] {
 	padding-left: 20px;
@@ -350,6 +351,7 @@ main  .post .read-more-icon span, main .infinite_navigation #more span {
 		bottom: -46px;
 	}
 }
+
 main  .post .read-more-icon strong, main .infinite_navigation #more strong {
 	display:block;
 	line-height:30px;
@@ -550,6 +552,7 @@ main .comment .comment-byline-footer span:hover {
 main .comment .comment-byline-footer span.flagged {
 	color: #CE4444;
 }
+
 main .comment .comment-body {
 	padding-left: 10px;
 	margin-left: 30px;
@@ -653,6 +656,13 @@ main .social-icons.twitter {
 
 main .social-icons.twitter:hover {
 	background: url('../images/icons/twitter_hover.png') no-repeat;
+}
+
+main .addthis_toolbox {
+	width: 185px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 10px;
 }
 
 /** Footer **/

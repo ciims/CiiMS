@@ -28,11 +28,13 @@
 		<?php 
 			$addThisExtension = Configuration::model()->findByAttributes(array('key'=>'addThisExtension'));
 			if (isset($addThisExtension->value) && $addThisExtension->value == 1): ?>
-				<li class="nav-header">Share This</li>
+				<div class="well">
+					<h4>Share This</h4>
 				<?php $this->widget('ext.analytics.EAddThisWidget', 
 					array(
 						'account'=>Configuration::model()->findByAttributes(array('key'=>'addThisAccount'))->value,
 					)); ?>
+				</div>
 		<?php endif; ?>
 	</div>
 <?php $this->endContent(); ?>
