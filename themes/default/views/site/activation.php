@@ -1,6 +1,6 @@
 <div class="login-container">
 	<div class="sidebar">
-		<div class="well">
+		<div class="well-span">
 			<h4>Activate your Account</h4>
 			<?php if(Yii::app()->user->hasFlash('activation-error')):?>
 				<div class="alert alert-error" style="margin-top: 20px;">

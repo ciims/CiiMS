@@ -1,6 +1,6 @@
 <div class="login-container">
 	<div class="sidebar">
-		<div class="well">
+		<div class="well-span">
 			<h4>Forgot Your Password?</h4>
 			<?php echo CHtml::beginForm(Yii::app()->baseUrl.'/forgot/'.$id, 'POST', array('name'=>'reset', 'id'=>'login-form')) ?>
 			<div class="login-form-container">

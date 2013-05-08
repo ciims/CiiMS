@@ -1,6 +1,6 @@
 <div class="login-container">
 	<div class="sidebar">
-		<div class="well">
+		<div class="well-span">
 			<h4>Register An Account</h4>
 			<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 						'id'					=>	'login-form',
