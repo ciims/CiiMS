@@ -73,6 +73,9 @@ div[class*='-indicator'] {
         padding-left: 20px;
         padding-right: 20px;
     }
+    .main-container {
+    	margin-left:-10px;
+    }
 }
 
 /** Header **/
@@ -117,11 +120,7 @@ header .header-middle-bar .navbar .nav > li:last-child {
 
 /** Main **/
 
-@media (max-width: 767px) {
-	main .row-fluid.main-body {
-		margin-left: -19px;
-	}
-}
+
 
 main .image-container {
 	border-bottom: 1px solid #cacaca;
@@ -614,6 +613,11 @@ main .social-icons {
 	margin: 5px;
 }
 
+main .social-buttons {
+	margin-left: auto;
+	margin-right: auto;
+	width: 51%;
+}
 main .social-icons.facebook {
 	background: url('../images/icons/facebook.png') no-repeat;
 }

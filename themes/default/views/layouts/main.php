@@ -38,7 +38,7 @@
 		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::get(Configuration::model()->findByAttributes(array('key' => 'splash-logo')), 'value', '/images/splash-logo.jpg')); ?>
 		    	</div>
 		   	</div>
-		   	<div class="container">
+		   	<div class="container main-container">
                 <div class="row-fluid main-body">
                     <?php echo $content; ?>
                 </div>
