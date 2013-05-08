@@ -1,5 +1,6 @@
 <?php 
 return array(
+    'basePath' => '/home/travis/build/charlesportwoodii/CiiMS/protected/config/..',
     'name' => 'CiiMS',
     'components' => array(
         'db' => array(
