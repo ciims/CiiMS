@@ -40,19 +40,21 @@
 	    	                    )
 	    	                )); ?>
     	            <?php endif; ?>
-    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
-    	            <?php $config = Yii::app()->getModules(false); ?>
-    	            <?php if (Cii::get($config, 'hybridauth', array()) >= 1): ?>
-						<span class="login-form-links">Or register with one of these social networks</span>
-    	        	<?php endif; ?>
-    	        	<div class="clearfix"></div>
-    	        	<div class="social-buttons">
-	    	            <?php foreach (Cii::get(Cii::get($config, 'hybridauth', array()), 'providers', array()) as $k=>$v): ?>
-							<?php if (Cii::get($v, 'enabled', false) == 1): ?>
-								<?php echo CHtml::link(NULL, $this->createUrl('/hybridauth/'.$k), array('class' => 'social-icons ' . strtolower($k))); ?>
-							<?php endif; ?>
-	    	        	<?php endforeach; ?>
-	    	        </div>
+    	            <?php if (Yii::app()->user->isGuest): ?>
+	    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
+	    	            <?php $config = Yii::app()->getModules(false); ?>
+	    	            <?php if (Cii::get($config, 'hybridauth', array()) >= 1): ?>
+							<span class="login-form-links">Or register with one of these social networks</span>
+	    	        	<?php endif; ?>
+	    	        	<div class="clearfix"></div>
+	    	        	<div class="social-buttons">
+		    	            <?php foreach (Cii::get(Cii::get($config, 'hybridauth', array()), 'providers', array()) as $k=>$v): ?>
+								<?php if (Cii::get($v, 'enabled', false) == 1): ?>
+									<?php echo CHtml::link(NULL, $this->createUrl('/hybridauth/'.$k), array('class' => 'social-icons ' . strtolower($k))); ?>
+								<?php endif; ?>
+		    	        	<?php endforeach; ?>
+		    	        </div>
+		    	    <?php endif; ?>
 				</div>
 			<?php $this->endWidget(); ?>
 		</div>
