@@ -260,6 +260,10 @@ main  .post {
 	width: 100%;
 }
 
+main .post .image {
+	width: 100%;
+}
+
 main  {
 	color: #333;
 }
@@ -618,6 +622,7 @@ main .social-buttons {
 	margin-right: auto;
 	width: 51%;
 }
+
 main .social-icons.facebook {
 	background: url('../images/icons/facebook.png') no-repeat;
 }

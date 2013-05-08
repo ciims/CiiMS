@@ -125,6 +125,11 @@ class Content extends CiiModel
 		);
 	}
 	
+	public function getCommentCount()
+	{
+		return Comments::model()->countByAttributes(array('content_id' => $this->id));
+	}
+
 	/**
 	 * Gets keyword tags for this entry
 	 * @return array
