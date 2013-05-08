@@ -117,9 +117,9 @@ header .header-middle-bar .navbar .nav > li:last-child {
 
 /** Main **/
 
-@media (min-width: 767px) {
-	main .main-body {
-		margin-left: -18px;
+@media (max-width: 767px) {
+	main .row-fluid.main-body {
+		margin-left: -19px;
 	}
 }
 

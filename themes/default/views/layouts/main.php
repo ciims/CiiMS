@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php $asset=Yii::app()->assetManager->publish(dirname(__FILE__).'/../../assets'); ?>
