@@ -13,11 +13,11 @@ return array(
                 'enableProfiling' => true,
         ),
         'cache' => array(
-            'class' => 'CiiRedisCache',
-            'servers' => array(
+            'class' => 'CFileCache',
+            /*'servers' => array(
                 'host' => '127.0.0.1',
                 'port' => 6379
-            )
+            )*/
         ),
     ),
     'params' => array(
