@@ -326,7 +326,7 @@ main  .post .read-more-icon, main .infinite_navigation #more {
 }
 
 main .infinite_navigation #more {
-	bottom: -2px;
+	bottom: -1px;
 	width: 100px;
 	border-bottom: 1px solid #222;
 }
