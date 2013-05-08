@@ -21,7 +21,6 @@
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @category   CategoryName
  * @package    CiiMS Content Management System
  * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
  * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013

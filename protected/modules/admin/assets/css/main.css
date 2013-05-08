@@ -350,6 +350,11 @@ body > .navbar .brand {
     position: absolute;
     top: 11px;
 }
+
+.redactor_.redactor_editor {
+    min-height: 400px;
+}
+
 @media (max-width: 767px) {
     tfoot {
         display:none;

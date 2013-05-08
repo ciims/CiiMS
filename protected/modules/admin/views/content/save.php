@@ -29,6 +29,7 @@
     	                        'autosave' => $this->createUrl('/admin/content/save/' . $model->id),
     	                        'interval' => 120,
     	                        'autosaveCallback' => 'saveCallback',
+    	                        'minHeight' =>'200px'
     	                    )
     	                ));
     	            ?>
