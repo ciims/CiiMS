@@ -3,7 +3,7 @@
 
 #### What is CiiMS?
 
-CiiMS is a high performance CMS designed for both end users and developers. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
+CiiMS is a high performance CMS blogging platform designed to be easy to use, fun to work with, and easy to develop with. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
 
 #### Upgrading CiiMS?
 #### The One Rule/Suggestion/Request
@@ -19,7 +19,7 @@ Sure thing boss: A demo of CiiMS can be found at:
     
 You may use the following credentials to login and manage the site.
 
-    Email: admin
+    Email: admin@erianna.com
     Pasword: admin
 
 Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
