@@ -22,9 +22,7 @@ end
 
 # Fix Permissions
 task :fix_permissions do
-    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{release_path}"
-    run "#{try_sudo} chmod -R 775 #{sudo_user}:#{sshgroup} #{release_path}/protected/runtime"
-    run "#{try_sudo} chmod -R 775 #{sudo_user}:#{sshgroup} #{release_path}/assets"
+    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
