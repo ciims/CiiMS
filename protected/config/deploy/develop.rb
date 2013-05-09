@@ -33,10 +33,11 @@ task :move_configs do
 end
 
 task :migrate do
-	run "cd /#{webroot}/#{application}/#{stage}/deployments/current/protected/ && php yiic.php migrate --interactive=0"
+	run "cd #{release_path}/protected/ && php yiic.php migrate --interactive=0"
 end
 
-# After Actions
-before "deploy:create_symlink", :move_configs
 after "deploy:setup", :setup_directories
 after "deploy:setup", :fix_permissions
+
+before "deploy:create_symlink", :move_configs
+before "deploy:create_symlink", :migrate
