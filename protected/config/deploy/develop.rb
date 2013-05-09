@@ -20,16 +20,10 @@ task :setup_directories do
   run "test -d '#{deploy_to}/persistent/config' || #{try_sudo} mkdir -p '#{deploy_to}/persistent/config'"
 end
 
-# Fix Permissions
-task :fix_permissions do
-    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
-end
-
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
 	run "#{try_sudo} cp '#{deploy_to}/persistent/config/main.php' '#{release_path}/protected/config/main.php'"
 	run "#{try_sudo} rm -rf '#{release_path}/protected/modules/admin/views/default/cards/001-server.php'"
-	run "#{try_sudo} rm -rf '#{release_path}/protected/runtime/cache/*"
 end
 
 task :migrate do
@@ -37,7 +31,6 @@ task :migrate do
 end
 
 after "deploy:setup", :setup_directories
-after "deploy:setup", :fix_permissions
 
 before "deploy:create_symlink", :move_configs
 before "deploy:create_symlink", :migrate
