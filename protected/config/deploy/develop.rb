@@ -28,6 +28,8 @@ end
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
 	run "#{try_sudo} cp '#{deploy_to}/persistent/config/main.php' '#{release_path}/protected/config/main.php'"
+	run "#{try_sudo} rm -rf '#{release_path}/protected/modules/admin/views/default/cards/001-server.php'"
+	run "#{try_sudo} rm -rf '#{release_path}/protected/runtime/cache/*"
 end
 
 task :migrate do
