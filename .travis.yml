@@ -44,4 +44,4 @@ after_success:
   - gem install capistrano railsless-deploy capistrano_colors                           # Install necessary gems for Automated Deployment
   - cd ../                                                                              # Get the root Directory
   - git branch --no-color | sed -e 's/* (no branch)//g' | sed '/./!d' | sed 's/^[ \t]*//' > branch        # Derive the current branch name
-  - cat branch | while read line; do cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy:setup; cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy;  done                          # Export the branch to a variable
+  - cat branch | while read line; do cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy:setup; cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy; cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com migrate; done                          # Export the branch to a variable
