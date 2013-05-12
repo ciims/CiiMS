@@ -125,17 +125,14 @@ class Categories extends CiiModel
 	public function beforeSave()
 	{
     	if ($this->isNewRecord)
-    	{
-    		Yii::app()->cache->delete('categories');
-			Yii::app()->cache->delete('WFF-categories-url-rules');
-			Yii::app()->cache->delete('categories-pid');
-			$this->created = new CDbExpression('NOW()');			
-			$this->updated = new CDbExpression('NOW()');
-		}
+			$this->created = new CDbExpression('NOW()');
 	   	else
 			$this->updated = new CDbExpression('NOW()');
 		
         Yii::app()->cache->delete('categories-listing');
+		Yii::app()->cache->delete('categories');
+		Yii::app()->cache->delete('WFF-categories-url-rules');
+		Yii::app()->cache->delete('categories-pid');
 	    return parent::beforeSave();
 	}
 	
