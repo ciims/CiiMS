@@ -95,7 +95,6 @@ class CiiURLManager extends CUrlManager
 		$this->rules['<controller:\w+>/<action:\w+>/<id:\d+>'] = '<controller>/<action>';
 		$this->rules['<controller:\w+>/<action:\w+>'] = '<controller>/<action>';
 
-
 		parent::processRules();
 	}
 	
@@ -124,6 +123,7 @@ class CiiURLManager extends CUrlManager
 		    	Yii::app()->cache->set($item, $urlRules);
 		}
 		
+		$tmpRules = array();
 		foreach ($urlRules as $route)
 		{
 			if ($route['slug'] == NULL)
@@ -139,14 +139,14 @@ class CiiURLManager extends CUrlManager
 				$rule = '';
 			}
 			
-			$this->rules[$pageRule] = "{$fromString}/index/id/{$route['id']}";
+			$tmpRules[$pageRule] = "{$fromString}/index/id/{$route['id']}";
 			
 			if ($fromString == 'categories')
-				$this->rules[$rule.'.rss'] = "content/rss/id/{$route['id']}";
+				$tmpRules[$rule.'.rss'] = "content/rss/id/{$route['id']}";
 			
-			$this->rules[$rule] = "{$fromString}/index/id/{$route['id']}";
-			
+			$tmpRules[$rule] = "{$fromString}/index/id/{$route['id']}";
 		}
-	}
 
+		$this->rules = CMap::mergeArray($tmpRules, $this->rules);
+	}
 }
