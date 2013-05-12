@@ -60,7 +60,7 @@ class CiiController extends CController
 	    header('Content-type: text/html; charset=utf-8');
 
 		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
-		Yii::app()->setTheme(file_exists(dirname(__FILE__).'/../../../../themes/'.$theme) ? $theme : 'default');
+		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
         return true;
 	}
