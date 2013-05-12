@@ -104,8 +104,7 @@ class CiiURLManager extends CUrlManager
 	 */
 	private function addBasicRules()
 	{
-		foreach ($this->defaultRules as $k=>$v)
-			$this->rules[$k] = $v;
+		$this->rules = CMap::mergeArray($this->defaultRules, $this->rules);
 	}
 
 	/**
