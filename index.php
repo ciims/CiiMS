@@ -45,7 +45,7 @@ if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 }
 
 // Load the configuration file
-require((string)$config['params']['yiiPath'].'yii.php');
+require((string)$config['params']['yiiPath']. (YII_DEBUG ? 'yii.php' : 'yiilite.php'));
 
 // Merge it with our default config file
 $config = CMap::mergeArray(require(dirname(__FILE__).'/protected/config/main.default.php'), $config);
