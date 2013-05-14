@@ -28,7 +28,7 @@ class UsersController extends ACiiController
 		{
 			// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
 			if (!function_exists('password_hash'))
-				require_once(dirname(__FILE__) . '/../../../extensions/bcrypt/bcrypt.php');
+				require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 
 			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 12);
 			if ($cost <= 12)

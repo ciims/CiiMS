@@ -298,20 +298,20 @@ class SiteController extends CiiController
 					{
 						if (strlen($_POST['password']) >= 8)
 						{
-						// Reset the password
-						$user = Users::model()->findByPk($hash->user_id);
-						$user->password = Users::model()->encryptHash($user->email, $_POST['password'], Yii::app()->params['encryptionKey']);
-						$user->save();
-						
-						// Delete the password hash and expires from the database
-						$hash->delete();
-						$expires->delete();
-						
-						// Set a success flash message
-						Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
-						
-						// Redirect to the login page
-						$this->redirect('/login');
+							// Reset the password
+							$user = Users::model()->findByPk($hash->user_id);
+							$user->password = Users::model()->encryptHash($user->email, $_POST['password'], Yii::app()->params['encryptionKey']);
+							$user->save();
+							
+							// Delete the password hash and expires from the database
+							$hash->delete();
+							$expires->delete();
+							
+							// Set a success flash message
+							Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
+							
+							// Redirect to the login page
+							$this->redirect('/login');
 						}
 	
 						Yii::app()->user->setFlash('reset-error', 'The password you provided must be at least 8 characters.');
@@ -363,7 +363,6 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				Cii::debug($user); die();
 				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
 			}
 		}
@@ -372,7 +371,6 @@ class SiteController extends CiiController
 			Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
 		}
 		
-		sleep(2);
 		$this->render('activation');
 	}
 	
@@ -395,8 +393,8 @@ class SiteController extends CiiController
 			if ($model->validate())
 			{
 				if (!function_exists('password_hash'))
-					require_once(dirname(__FILE__) . '/../extensions/bcrypt/bcrypt.php');
-
+					require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
+				
 				// Bcrypt the initial password instead of just using the basic hashing mechanism
 				$hash = Users::model()->encryptHash(Cii::get($_POST['RegisterForm'], 'email'), Cii::get($_POST['RegisterForm'], 'password'), Yii::app()->params['encryptionKey']);
 				$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
