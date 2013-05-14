@@ -7,6 +7,26 @@ _Many_ options are available as key=>value settings, however there are some sett
 
 ## Configuration File Options
 
+##### Enabling YII_DEBUG (Debug Mode + Full Stack Trace On Error)
+
+By default, CiiMS runs yiilite rather than yii to improve performance. However if you're trying to debug an issue this can be extremely problematic. To run using Yii rather than YiiLite, and to get more verbode debugging errors, open up
+    
+    protected/config/main.php
+
+And in the _params_ section, add the following,
+
+    'debug' => true,
+
+Debug mode can be disabled by either removing the line, or changing it to false.
+
+###### Enabling Stack Traces
+
+To enable the default Yii Stack Trace option YII_TRACE, enable YII_DEBUG, then add the following to your _params_ section of your config file.
+
+    'trace' => 3
+    
+Valid values for trace are 0, 1, 2, and 3.
+
 ##### HybridAuth
 HybridAuth is a plugin which allows visitors to signin and comment using their social network identity. CiiMS automatically integrates social identies with existing user records if they exist.
 
