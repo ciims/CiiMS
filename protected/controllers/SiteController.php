@@ -298,20 +298,20 @@ class SiteController extends CiiController
 					{
 						if (strlen($_POST['password']) >= 8)
 						{
-						// Reset the password
-						$user = Users::model()->findByPk($hash->user_id);
-						$user->password = Users::model()->encryptHash($user->email, $_POST['password'], Yii::app()->params['encryptionKey']);
-						$user->save();
-						
-						// Delete the password hash and expires from the database
-						$hash->delete();
-						$expires->delete();
-						
-						// Set a success flash message
-						Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
-						
-						// Redirect to the login page
-						$this->redirect('/login');
+							// Reset the password
+							$user = Users::model()->findByPk($hash->user_id);
+							$user->password = Users::model()->encryptHash($user->email, $_POST['password'], Yii::app()->params['encryptionKey']);
+							$user->save();
+							
+							// Delete the password hash and expires from the database
+							$hash->delete();
+							$expires->delete();
+							
+							// Set a success flash message
+							Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
+							
+							// Redirect to the login page
+							$this->redirect('/login');
 						}
 	
 						Yii::app()->user->setFlash('reset-error', 'The password you provided must be at least 8 characters.');
