@@ -363,7 +363,6 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				Cii::debug($user); die();
 				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
 			}
 		}
@@ -372,7 +371,6 @@ class SiteController extends CiiController
 			Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
 		}
 		
-		sleep(2);
 		$this->render('activation');
 	}
 	
