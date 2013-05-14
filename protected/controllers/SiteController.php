@@ -395,8 +395,8 @@ class SiteController extends CiiController
 			if ($model->validate())
 			{
 				if (!function_exists('password_hash'))
-					require_once(dirname(__FILE__) . '/../extensions/bcrypt/bcrypt.php');
-
+					require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
+				
 				// Bcrypt the initial password instead of just using the basic hashing mechanism
 				$hash = Users::model()->encryptHash(Cii::get($_POST['RegisterForm'], 'email'), Cii::get($_POST['RegisterForm'], 'password'), Yii::app()->params['encryptionKey']);
 				$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
