@@ -292,7 +292,7 @@ class SiteController extends CiiController
 			
 			if (isset($_POST['password']))
 			{
-				if (Cii::get($_POST, 'password') != NULL && $Cii::get($_POST,'password2') != NULL)
+				if (Cii::get($_POST, 'password') != NULL && Cii::get($_POST,'password2') != NULL)
 				{
 					if ($_POST['password'] === $_POST['password2'])
 					{
