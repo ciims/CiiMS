@@ -5,6 +5,53 @@
  */
 class CiiController extends CController
 {
+    /**
+     * @var array
+     * Default items to populate CiiMenu With
+     */
+    public $defaultItems = array(
+        array(
+            'label' => 'Blog', 
+            'url' => array('/blog'), 
+            'active' => false),
+        array(
+            'label' => 'Admin', 
+            'url' => array('/admin'),
+            'active' => false),
+    );
+    
+    /**
+     * @var array the default params for any request
+     * 
+     */
+    public $params = array(
+        'meta'=>array(
+            'keywords'=>'',
+            'description'=>'',
+        ),
+        'data'=>array(
+            'extract'=>''
+        )
+    );
+    
+    /**
+     * @var string the default layout for the controller view. Defaults to '//layouts/column1',
+     * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
+     */
+    public $layout='//layouts/blog';
+    
+    /**
+     * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+     */
+    public $menu=array();
+    
+    /**
+     * @var array the breadcrumbs of the current page. The value of this property will
+     * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
+     * for more details on how to specify this property.
+     */
+    public $breadcrumbs=array();
+
 	/**
 	 * Default filter prevents dynamic pages (pagination, etc...) from being cached
 	 */
@@ -35,6 +82,17 @@ class CiiController extends CController
         return $app->language;
     }
 
+    /**
+     * BeforeAction method
+     * The events defined here occur before every controller action that extends CiiController occurs.
+     * This method will run the following tasks:
+     *     - Attempt to update NewRelic if it is enabled
+     *     - Prevent access to the site if it is in offline mode
+     *     - Set the language for i18n
+     *     - Apply the correct theme
+     * @param  CAction $action The details of the action we want to run
+     * @return CController::beforeAction($action)
+     */
 	public function beforeAction($action)
 	{
         // Attempt to contact NewRelic with Reporting Data
@@ -62,55 +120,8 @@ class CiiController extends CController
 		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
-        return true;
+        return parent::beforeAction($action);;
 	}
-	
-    /**
-     * @var array
-     * Default items to populate CiiMenu With
-     */
-    public $defaultItems = array(
-        array(
-            'label' => 'Blog', 
-            'url' => array('/blog'), 
-            'active' => false),
-        array(
-            'label' => 'Admin', 
-            'url' => array('/admin'),
-            'active' => false),
-    );
-    
-	/**
-	 * @var array the default params for any request
-	 * 
-	 */
-	public $params = array(
-		'meta'=>array(
-			'keywords'=>'',
-			'description'=>'',
-		),
-		'data'=>array(
-			'extract'=>''
-		)
-	);
-	
-	/**
-	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
-	 */
-	public $layout='//layouts/blog';
-	
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
-	public $menu=array();
-	
-	/**
-	 * @var array the breadcrumbs of the current page. The value of this property will
-	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-	 * for more details on how to specify this property.
-	 */
-	public $breadcrumbs=array();
 	
     /**
      * Retrieves keywords for use in the viewfile
