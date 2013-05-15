@@ -29,6 +29,7 @@
 							<div class="password_strength_separator" style="left: 25%;"></div>
 							<div class="password_strength_separator" style="left: 50%;"></div>
 							<div class="password_strength_separator" style="left: 75%;"></div>
+							<div class="password_strength_desc"></div>
 							<div class="clearfix"></div>
 						</div>
 						<?php echo $form->PasswordField($model, 'password2', array('id'=>'password', 'placeholder'=>'Password (again)', 'id' => 'password2')); ?>
@@ -38,6 +39,7 @@
 							<div class="password_strength_separator" style="left: 25%;"></div>
 							<div class="password_strength_separator" style="left: 50%;"></div>
 							<div class="password_strength_separator" style="left: 75%;"></div>
+							<div class="password_strength_desc"></div>
 							<div class="clearfix"></div>
 						</div>
 					</div>
