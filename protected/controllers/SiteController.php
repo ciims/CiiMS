@@ -257,10 +257,10 @@ class SiteController extends CiiController
 					$mail = new JPhpMailer;
 					$mail->IsSMTP();
 
-					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost');
-					$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort');
-					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser');
-					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass');
+					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
+					$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
+					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
+					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
 
 					if ($smptHost !== NULL)
 						$mail->Host       = $smptHost->value; 
@@ -442,10 +442,10 @@ class SiteController extends CiiController
 						$mail = new JPhpMailer;
 						$mail->IsSMTP();
 
-						$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost');
-						$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort');
-						$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser');
-						$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass');
+						$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
+						$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
+						$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
+						$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
 
 						if ($smptHost !== NULL)
 							$mail->Host       = $smptHost->value; 
