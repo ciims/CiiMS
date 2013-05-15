@@ -48,8 +48,9 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Requirements
 
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
-* PHP 5.1+
+* PHP 5.1+ (Strong recommend 5.3+)
 * MySQL 5.5+ (CiiMS can run on Postgres/SQLite, but you have to do a manual installation which isn't covered in this readme.
+* crypt/mcrypt library
 
 #### Recomendations
 The following extensions/applications are recommended to improve performance.

@@ -35,7 +35,7 @@ return array(
     'modules' => array(
         'admin',
     ),
-     'behaviors' => array(
+    'behaviors' => array(
         'onBeginRequest' => array(
              'class' => 'ext.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
         ),
@@ -61,33 +61,34 @@ return array(
             'errorAction' => 'site/error',
         ),
         'session' => array(
-            'autoStart' => true,
-            'sessionName' => 'CiiMS'
+            'autoStart'     => true,
+            'sessionName'   => 'CiiMS',
+            'cookieMode'    => 'only', 
         ),
         'urlManager' => array(
-            'class' => 'CiiURLManager',
-            'cache' => true,
-            'urlFormat' => 'path',
+            'class'          => 'CiiURLManager',
+            'cache'          => true,
+            'urlFormat'      => 'path',
             'showScriptName' => false
         ),
         'db' => array(
-            'class' => 'CDbConnection',
-            'connectionString' => NULL,
-            'emulatePrepare' => true,
-            'username' => NULL,
-            'password' => NULL,
-            'charset' => 'utf8',
+            'class'                 => 'CDbConnection',
+            'connectionString'      => NULL,
+            'emulatePrepare'        => true,
+            'username'              => NULL,
+            'password'              => NULL,
+            'charset'               => 'utf8',
             'schemaCachingDuration' => '3600',
-            'enableProfiling' => true,
+            'enableProfiling'       => true,
         ),
         'cache' => array(
             'class' => 'CFileCache',
         ),
     ),
     'params' => array(
-        'yiiPath' => NULL,
+        'yiiPath'       => NULL,
         'encryptionKey' => NULL,
-        'debug' => false,
-        'trace' => 0
+        'debug'         => false,
+        'trace'         => 0
     ),
 );

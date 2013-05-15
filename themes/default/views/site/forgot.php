@@ -5,7 +5,6 @@
 			<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 						'id'					=> 'login-form',
 						'focus'					=> 'input[type="text"]:first',
-						'name' 					=> 'reset'
 						'enableAjaxValidation'	=>	true
 					)); ?>
 			<div class="login-form-container">
