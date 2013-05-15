@@ -28,17 +28,6 @@
 						<br />
 						<br />
 						<?php echo CHtml::passwordField('password2',  isset($_POST['password2']) ? $_POST['password2'] : '', array('placeholder'=>'Once more with feeling!')); ?>
-						<br />
-						<?php $this->widget('bootstrap.widgets.TbButton', array(
-								'buttonType' => 'submit',
-	    	                    'type' => 'success',
-	    	                    'label' => 'Submit',
-	    	                    'htmlOptions' => array(
-	    	                        'id' => 'submit-comment',
-	    	                        'class' => 'sharebox-submit pull-right',
-	    	                        'style' => 'margin-top: -4px'
-	    	                    )
-	    	                )); ?>
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
