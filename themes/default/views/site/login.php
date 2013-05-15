@@ -39,9 +39,9 @@
 	    	                )); ?>
     	            <?php endif; ?>
     	            <?php if (Yii::app()->user->isGuest): ?>
-	    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
 	    	            <?php $config = Yii::app()->getModules(false); ?>
-	    	            <?php if (Cii::get($config, 'hybridauth', array()) >= 1): ?>
+	    	            <?php if (count(Cii::get($config, 'hybridauth', array())) >= 1): ?>
+	    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
 							<span class="login-form-links">Or sign in with one of these social networks</span>
 	    	        	<?php endif; ?>
 	    	        	<div class="clearfix"></div>

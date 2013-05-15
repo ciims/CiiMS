@@ -23,7 +23,23 @@
 						<?php echo $form->TextField($model, 'email', array('id'=>'email', 'placeholder'=>'Email Address')); ?>
 						<?php echo $form->TextField($model, 'displayName', array('id'=>'email', 'placeholder'=>'Username')); ?>
 						<?php echo $form->PasswordField($model, 'password', array('id'=>'password', 'placeholder'=>'Password')); ?>
-						<?php echo $form->PasswordField($model, 'password2', array('id'=>'password', 'placeholder'=>'Password (again)')); ?>
+						<div id ="password_strength_1" class="password_strength_container">
+							<div class="password_strength_bg"></div>
+							<div class="password_strength" style="width: 0%;"></div>
+							<div class="password_strength_separator" style="left: 25%;"></div>
+							<div class="password_strength_separator" style="left: 50%;"></div>
+							<div class="password_strength_separator" style="left: 75%;"></div>
+							<div class="clearfix"></div>
+						</div>
+						<?php echo $form->PasswordField($model, 'password2', array('id'=>'password', 'placeholder'=>'Password (again)', 'id' => 'password2')); ?>
+						<div id ="password_strength_2" class="password_strength_container">
+							<div class="password_strength_bg"></div>
+							<div class="password_strength" style="width: 0%;"></div>
+							<div class="password_strength_separator" style="left: 25%;"></div>
+							<div class="password_strength_separator" style="left: 50%;"></div>
+							<div class="password_strength_separator" style="left: 75%;"></div>
+							<div class="clearfix"></div>
+						</div>
 					</div>
 					<div class="login-form-footer">
 						<?php echo CHtml::link('login', Yii::app()->createUrl('/login'), array('class' => 'login-form-links')); ?>
@@ -41,9 +57,9 @@
 	    	                )); ?>
     	            <?php endif; ?>
     	            <?php if (Yii::app()->user->isGuest): ?>
-	    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
 	    	            <?php $config = Yii::app()->getModules(false); ?>
-	    	            <?php if (Cii::get($config, 'hybridauth', array()) >= 1): ?>
+	    	            <?php if (count(Cii::get($config, 'hybridauth', array())) >= 1): ?>
+	    	            <div class="clearfix" style="border-bottom: 1px solid #aaa; margin: 15px;"></div>
 							<span class="login-form-links">Or register with one of these social networks</span>
 	    	        	<?php endif; ?>
 	    	        	<div class="clearfix"></div>
@@ -60,3 +76,12 @@
 		</div>
 	</div>
 </div>
+
+<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets')); ?>
+<?php Yii::app()->clientScript->registerScriptFile($asset .'/js/zxcvbn.js'); ?>
+<?php Yii::app()->clientScript->registerScript('password_strength_meter', '
+$("#password, #password2").keyup(function() { 
+    var element = $(this).attr("id") == "password" ? "password_strength_1" : "password_strength_2";
+    console.log(element);
+});
+', CClientScript::POS_END);

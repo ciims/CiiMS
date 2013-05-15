@@ -4,7 +4,7 @@
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	    <?php $asset=Yii::app()->assetManager->publish(dirname(__FILE__).'/../../assets'); ?>
+	    <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets')); ?>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
