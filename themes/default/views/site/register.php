@@ -8,6 +8,10 @@
 						'enableAjaxValidation'	=>	true
 					)); ?>
 				<div class="login-form-container">
+					<div id="jsAlert" class="alert alert-warning" style="display:none">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<div id="jsAlertContent"></div>
+					</div>
 					<?php if (!Yii::app()->user->isGuest): ?>
 						<div class="alert alert-info" style="margin-top: 20px;">
 						  	<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -82,6 +86,11 @@
 <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets')); ?>
 <?php Yii::app()->clientScript->registerScriptFile($asset .'/js/zxcvbn.js'); ?>
 <?php Yii::app()->clientScript->registerScript('password_strength_meter', '
+$(document).ready(function() {
+	if ($("#password").val().length > 0)
+		setTimeout(function() { $("#password, #password2").keyup(); }, 200);
+});
+
 $("#password, #password2").keyup(function() { 
     var element = $(this).attr("id") == "password" ? "password_strength_1" : "password_strength_2";
     var score = zxcvbn($(this).val()).score;
@@ -96,6 +105,26 @@ $("#password, #password2").keyup(function() {
     	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("great").css("width", "100%");
     else
     	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").css("width", "25%");
-   
+});
+
+// Override the submit form to display password issues
+$("form").submit(function(e) { 
+	$("#jsAlert").hide();
+
+	if ($("#password").val().length < 8)
+	{
+		$("#jsAlertContent").text("Your password must be at least 8 characters.").parent().slideDown();
+		e.preventDefault();
+		return false;
+	}
+
+	if ($("#password2").val() != $("#password").val())
+	{
+		$("#jsAlertContent").text("Your passwords do not match!").parent().slideDown();
+		e.preventDefault();
+		return false;
+	}
+
+	return true;
 });
 ', CClientScript::POS_END);

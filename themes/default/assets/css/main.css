@@ -665,6 +665,10 @@ main .addthis_toolbox {
 	padding-bottom: 10px;
 }
 
+main #password_strength_2 {
+	margin-bottom: 15px;
+}
+
 main .password_strength_container {
 	position: relative;
 	width: 103%;
