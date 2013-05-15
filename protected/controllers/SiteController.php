@@ -250,20 +250,33 @@ class SiteController extends CiiController
 					$meta->value = $expires;
 					$meta->save();
 					
-					// Create the message to be sent to the user
-					$message = "
-					{$user->displayName},<br /><br />
-					You recently notified us that you forgot your password. Don't worry, it happens to all of us. To reset your password, please " . CHtml::link('click here', Yii::app()->createAbsoluteUrl('/forgot/' . $hash)) .
-					".<br /><br />Thank you,<br />" . Yii::app()->name . 
-					" Team<br /><br />P.S. If you did not request this email, you may safely ignore it.";
-					
+
 					// Send email
+					$adminUser = Users::model()->findByPk(1);
 					Yii::import('application.extensions.phpmailer.JPhpMailer');
 					$mail = new JPhpMailer;
 					$mail->IsSMTP();
-					$mail->SetFrom('noreply@' . $_SERVER['HTTP_HOST'], Yii::app()->name . ' Administrator');
+
+					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost');
+					$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort');
+					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser');
+					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass');
+
+					if ($smptHost !== NULL)
+						$mail->Host       = $smptHost->value; 
+
+					if ($smtpPort !== NULL)
+						$mail->Port       = $smtpPort->value;
+
+					if ($smtpUser !== NULL)                    
+						$mail->Username   = $smptUser->value; 
+
+					if ($smptPass !== NULL)
+						$mail->Password   = $smptPass->value;       
+
+					$mail->SetFrom($adminUser->email, $adminUser->name);
 					$mail->Subject = 'Your Password Reset Information';
-					$mail->MsgHTML($message);
+					$mail->MsgHTML( $this->renderPartial('//email/forgot', array('user' => $user, 'hash' => $hash), true, true));
 					$mail->AddAddress($user->email, $user->displayName);
 					$mail->Send();
 					
@@ -422,21 +435,33 @@ class SiteController extends CiiController
 						$meta->key = 'activationKey';
 						$meta->value = $hash;
 						$meta->save();
-						
-						// Create the message to be sent to the user
-						$message = "
-						{$user->displayName},<br /><br />
-						Thanks for registering your account! To activate your account, " . CHtml::link('click here', Yii::app()->createAbsoluteUrl('/activation/'.$user->id.'/'.$hash)) .
-						".<br /><br />Thank you,<br />" . Yii::app()->name . 
-						" Team<br /><br />P.S. If you did not request this email, you may safely ignore it.";
-						
+											
 						// Send email
+						$adminUser = Users::model()->findByPk(1);
 						Yii::import('application.extensions.phpmailer.JPhpMailer');
 						$mail = new JPhpMailer;
 						$mail->IsSMTP();
-						$mail->SetFrom('noreply@' . $_SERVER['HTTP_HOST'], Yii::app()->name . ' Administrator');
+
+						$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost');
+						$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort');
+						$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser');
+						$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass');
+
+						if ($smptHost !== NULL)
+							$mail->Host       = $smptHost->value; 
+
+						if ($smtpPort !== NULL)
+							$mail->Port       = $smtpPort->value;
+
+						if ($smtpUser !== NULL)                    
+							$mail->Username   = $smptUser->value; 
+
+						if ($smptPass !== NULL)
+							$mail->Password   = $smptPass->value;       
+
+						$mail->SetFrom($adminUser->email, $adminUser->name);
 						$mail->Subject = 'Activate Your Account';
-						$mail->MsgHTML($message);
+						$mail->MsgHTML( $this->renderPartial('//email/register', array('user' => $user, 'hash' => $hash), true, true));
 						$mail->AddAddress($user->email, $user->displayName);
 						$mail->Send();
 					

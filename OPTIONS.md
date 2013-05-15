@@ -267,6 +267,30 @@ n is any given integer given a condition
         <td>n &sub; Z | n > 0</td>
     </tr>
     <tr>
+        <td><strong>SMTPHost</strong></td>
+        <td>The hostname of the SMTP server you are attempting to connect to. If not provided, the system will attempt to send emails through the local system (eg Postfix)</td>
+        <td>localhost</td>
+        <td>localhost, 127.0.0.1, smtp.example.com</td>
+    </tr>
+    <tr>
+        <td><strong>SMTPPort</strong></td>
+        <td>The integer port number that the SMTP server is listening on. If not provided, this option will not be used</td>
+        <td>NULL</td>
+        <td>25</td>
+    </tr>
+    <tr>
+        <td><strong>SMTPUser</strong></td>
+        <td>The username used to authenticate with the SMTP server</td>
+        <td>NULL</td>
+        <td>user@example.com</td>
+    </tr>
+    <tr>
+        <td><strong>SMTPPass</strong></td>
+        <td>The password associated to the SMTPUser used for authentication</td>
+        <td>NULL</td>
+        <td>password</td>
+    </tr>
+    <tr>
         <td><strong>splash-logo</strong></td>
         <td>This is the splash page logo that is used on every page on the default theme. Not all themes support this option.</td>
         <td>/images/splash-logo.jpg</td>
