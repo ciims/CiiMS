@@ -688,15 +688,15 @@ main .password_strength {
 	left: 0;
 }
 
-main .password_strength .great {
+main .password_strength.great {
 	background-color: rgb(39, 179, 15);
 }
 
-main .password_strength .good {
+main .password_strength.good {
 	background-color: rgb(166, 192, 96);
 }
 
-main .password_strength .poor {
+main .password_strength.poor {
 	background-color: rgb(255, 172, 29);
 }
 

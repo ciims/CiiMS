@@ -82,6 +82,18 @@
 <?php Yii::app()->clientScript->registerScript('password_strength_meter', '
 $("#password, #password2").keyup(function() { 
     var element = $(this).attr("id") == "password" ? "password_strength_1" : "password_strength_2";
-    console.log(element);
+    var score = zxcvbn($(this).val()).score;
+
+    if (score <= 1 || $(this).val().length <= 8)
+    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").css("width", "25%");
+    if (score == 2)
+    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("poor").css("width", "50%");
+    else if (score == 3)
+    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("good").css("width", "75%");
+    else if (score == 4)
+    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("great").css("width", "100%");
+    else
+    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").css("width", "25%");
+   
 });
 ', CClientScript::POS_END);
