@@ -131,7 +131,7 @@ class CommentController extends CiiController
 
 					$mail->SetFrom($adminUser->email, $adminUser->name);
 					$mail->Subject = 'New Comment Notification From CiiMS Blog';
-					$mail->MsgHTML($this->renderPartial('//email/comments', array('content'=>$content, 'comment'=>$comment));
+					$mail->MsgHTML($this->renderPartial('//email/comments', array('content'=>$content, 'comment'=>$comment)));
 					$mail->AddAddress($user->email, $user->displayName);
 					$mail->Send();
 				}
