@@ -20,6 +20,8 @@
     	        <?php if ($preferMarkdown): ?>
     	            <?php echo $form->markdownEditorRow($model, 'content', array('height'=>'200px'));?>
     	        <?php else: ?>
+    	        	<?php $md = new CMarkdownParser(); ?>
+    	        	<?php $model->content = $md->safeTransform($model->content); ?>
     	            <?php $this->widget('ImperaviRedactorWidget', array(
     	                    'model' => $model,
     	                    'attribute' => 'content',
