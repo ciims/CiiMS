@@ -258,21 +258,21 @@ class SiteController extends CiiController
 					$mail->IsSMTP();
 
 					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-					$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
+					$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
 					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
 					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
 
-					if ($smptHost !== NULL)
-						$mail->Host       = $smptHost->value; 
+					if ($smtpHost !== NULL)
+						$mail->Host       = $smtpHost->value; 
 
 					if ($smtpPort !== NULL)
 						$mail->Port       = $smtpPort->value;
 
 					if ($smtpUser !== NULL)                    
-						$mail->Username   = $smptUser->value; 
+						$mail->Username   = $smtpUser->value; 
 
 					if ($smptPass !== NULL)
-						$mail->Password   = $smptPass->value;       
+						$mail->Password   = $smtpPass->value;           
 
 					$mail->SetFrom($adminUser->email, $adminUser->name);
 					$mail->Subject = 'Your Password Reset Information';
@@ -355,19 +355,44 @@ class SiteController extends CiiController
 		$this->layout = '//layouts/main';
 		if ($id != NULL || $email = NULL)
 		{
-			$user = Users::model()->findByPk($email);
+			$record = $user = Users::model()->findByPk($email);
 			if ($user != NULL && $user->status == 0)
 			{
 				$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$email, 'key'=>'activationKey', 'value'=>$id));
 				if ($meta != NULL)
 				{
-					// Update the user status
-					$user->status = 1;
-					$user->save();
-					
-					// Delete the activationKey
-					$meta->delete();
-					Yii::app()->user->setFlash('activation-success', 'Activation was successful! You may now ' . CHtml::link('login', $this->createUrl('/login')));
+					if ($password = Cii::get($_POST, 'password', NULL))
+					{
+						$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
+
+						if ($cost <= 12)
+							$cost = 13;
+
+						// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
+						if (!function_exists('password_hash'))
+							require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
+
+						// We still want to secure our password using this algorithm
+						$hash = Users::model()->encryptHash($record->email, $password, Yii::app()->params['encryptionKey']);
+
+						if (password_verify($hash, $record->password))
+						{
+							// Update the user status
+							$user->status = 1;
+							$user->save();
+							
+							// Delete the activationKey
+							$meta->delete();
+							Yii::app()->user->setFlash('activation-success', 'Activation was successful! You may now ' . CHtml::link('login', $this->createUrl('/login')));
+							return $this->render('activation');
+						}
+						else
+						{
+							Yii::app()->user->setFlash('activation-error', 'Please provide the password you used during the signup process.');
+						}
+					}
+
+					Yii::app()->user->setFlash('activation-info', 'Enter the password you used to register your account to verify your email address.');
 				}
 				else
 				{
@@ -443,21 +468,21 @@ class SiteController extends CiiController
 						$mail->IsSMTP();
 
 						$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-						$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
+						$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
 						$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
 						$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
 
-						if ($smptHost !== NULL)
-							$mail->Host       = $smptHost->value; 
+						if ($smtpHost !== NULL)
+							$mail->Host       = $smtpHost->value; 
 
 						if ($smtpPort !== NULL)
 							$mail->Port       = $smtpPort->value;
 
 						if ($smtpUser !== NULL)                    
-							$mail->Username   = $smptUser->value; 
+							$mail->Username   = $smtpUser->value; 
 
 						if ($smptPass !== NULL)
-							$mail->Password   = $smptPass->value;       
+							$mail->Password   = $smtpPass->value;       
 
 						$mail->SetFrom($adminUser->email, $adminUser->name);
 						$mail->Subject = 'Activate Your Account';

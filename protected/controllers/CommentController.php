@@ -113,21 +113,21 @@ class CommentController extends CiiController
 					$mail->IsSMTP();
 
 					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-					$smtpPost = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
+					$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
 					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
 					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
 
-					if ($smptHost !== NULL)
-						$mail->Host       = $smptHost->value; 
+					if ($smtpHost !== NULL)
+						$mail->Host       = $smtpHost->value; 
 
 					if ($smtpPort !== NULL)
 						$mail->Port       = $smtpPort->value;
 
 					if ($smtpUser !== NULL)                    
-						$mail->Username   = $smptUser->value; 
+						$mail->Username   = $smtpUser->value; 
 
 					if ($smptPass !== NULL)
-						$mail->Password   = $smptPass->value;       
+						$mail->Password   = $smtpPass->value;      
 
 					$mail->SetFrom($adminUser->email, $adminUser->name);
 					$mail->Subject = 'New Comment Notification From CiiMS Blog';
