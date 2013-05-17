@@ -95,19 +95,18 @@ class ProfileController extends CiiController
 		$model = Users::model()->findByPk($id);
 
 		$this->pageTitle = $model->displayName . ' | ' . Yii::app()->name;
-		$contentCount =  Yii::app()->db->createCommand('SELECT content.id
-													   FROM content WHERE vid = (
-                                                        SELECT MAX(vid) 
-                                                        FROM content AS content2 
-                                                        WHERE content2.id = content.id
-                                                      ) 
-                                                      AND type_id = 2 AND status = 1 
-                                                      AND password=""
-                                                      AND content.author_id = :author_id
-                                                      ORDER BY content.created DESC LIMIT 5')
-                                 ->bindParam(':author_id', $id)
-                                 ->queryAll();
-		$this->render('index', array('model' => $model, 'contentCount' => count($contentCount)));
+		$postsCriteria = new CDbCriteria;
+	    $postsCriteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+	    $postsCriteria->addCondition('type_id=2');
+	    $postsCriteria->addCondition('status=1');
+	    $postsCriteria->addCondition('password=""');
+	    $postsCriteria->addCondition('author_id=:id');
+	    $postsCriteria->params = array(
+	    	':id' => $id
+	    );
+
+		$contentCount =  Content::model()->count($postsCriteria);
+		$this->render('index', array('model' => $model, 'contentCount' => $contentCount));
 	}
 
 	/**
