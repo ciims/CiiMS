@@ -90,6 +90,8 @@ class SiteController extends CiiController
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
 			$criteria=new CDbCriteria;
+			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
 				$criteria->addCondition('author_id = :author_id');
@@ -107,9 +109,8 @@ class SiteController extends CiiController
 				$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
 				$sphinx->setMaxQueryTime(15);
 				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);	
-			
 				$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
-				$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+				
     		}	
 
 			$criteria->addCondition('password = ""');
