@@ -164,8 +164,7 @@ class EClientScript extends YiiNewRelicClientScript
 							}
 							// Append the contents to the fileBuffer
 							//$fileBuffer .= "/*** CSS File: {$url}";
-							if ($this->optimizeCssFiles 
-								&& strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
+							if ($this->optimizeCssFiles)
 							{
 								//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 								$contents = $this->optimizeCssCode($contents);
@@ -242,8 +241,7 @@ class EClientScript extends YiiNewRelicClientScript
 					{
 						// Append the contents to the fileBuffer
 						//$fileBuffer .= "/*** Script File: {$url}";
-						if ($this->optimizeScriptFiles
-							&& strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
+						if ($this->optimizeScriptFiles)
 						{
 							//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 							$contents = $this->optimizeScriptCode($contents);
@@ -349,6 +347,7 @@ class EClientScript extends YiiNewRelicClientScript
 			return $code;
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'JSMin.php';
 		$minified = JSMin::minify($code);
+
 		return ($minified === false ? $code : $minified);
 	}
 }
