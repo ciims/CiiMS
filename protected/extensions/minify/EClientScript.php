@@ -331,6 +331,9 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	private function optimizeCssCode($code)
 	{
+		if (YII_DEBUG)
+			return $code;
+
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'CssMin.php';
 		return CssMin::minify(str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$code))))));
 	}
@@ -342,6 +345,8 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	private function optimizeScriptCode($code)
 	{
+		if (YII_DEBUG)
+			return $code;
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'JSMin.php';
 		$minified = JSMin::minify($code);
 		return ($minified === false ? $code : $minified);
