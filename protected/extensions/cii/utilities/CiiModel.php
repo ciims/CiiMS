@@ -91,7 +91,7 @@ class CiiModel extends CActiveRecord
 			$slug = str_replace('/', '-', str_replace('\'', '-', str_replace(' ', '-', $title)));
 		
 		// Remove all of the extra junk characters that aren't valid urls
-		$slug = preg_replace("/[^A-Za-z0-9 ]/", "", $slug);
+		$slug = preg_replace("/[^A-Za-z0-9 ]/", "-", $slug);
 		return strToLower($this->checkSlug($slug));
 	}
 	
