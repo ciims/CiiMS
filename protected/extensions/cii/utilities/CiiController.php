@@ -118,6 +118,17 @@ class CiiController extends CController
 	    header('Content-type: text/html; charset=utf-8');
 
         $theme = Cii::getConfig('theme', 'default');
+
+        Yii::import('ext.mobile_detect.*');
+
+        // Allow for mobile devices to have a separate theme
+        if (MobileDetect::isMobileS())
+        {
+            $mobileTheme = Cii::getConfig('mobileTheme');
+            if ($mobileTheme !== NULL)
+                $themne = $mobileTheme;
+        }
+
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
         return parent::beforeAction($action);;

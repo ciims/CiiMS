@@ -45,6 +45,11 @@ class Cii {
         return $data->value;
     }
 
+    /**
+     * Consolodates the finding of retrievinv the bcrypt_Cost
+     * @param  integer $default The default bcrypt cost
+     * @return int              The bcrypt cost
+     */
     public static function getBcryptCost($default = 13)
     {
         $cost = Cii::getConfig('bcrypt_cost', $default);
