@@ -225,6 +225,12 @@ n is any given integer given a condition
         <td>page|page1|page2|page3</td>
     </tr>
     <tr>
+        <td><strong>mobileTheme</strong></td>
+        <td>This option provides the ability to present a different theme for mobile users. (Eg SmartPhones). While your desktop site may be responsive, it may not be mobile optimized. This option allows you to have a dedicated theme that is more lightweight and more geared towards mobile users.</td>
+        <td>NULL</td>
+        <td>mobile</td>
+    </tr>
+    <tr>
         <td><strong>notifyAuthorOnComment</strong></td>
         <td>This determines whether or not an author should be notified when someone comments on a article they wrote.</td>
         <td>false</td>
