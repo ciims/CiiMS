@@ -162,15 +162,11 @@ class EClientScript extends YiiNewRelicClientScript
 								$reurl = $this->getRelativeUrl(Yii::app()->assetManager->baseUrl, dirname($url));
 								$contents = preg_replace($urlRegex, 'url(${1}' . $reurl . '/${2}', $contents);
 							}
-							// Append the contents to the fileBuffer
-							//$fileBuffer .= "/*** CSS File: {$url}";
-							if ($this->optimizeCssFiles)
+							
+							if ($this->optimizeCssFiles && strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
 							{
-								//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 								$contents = $this->optimizeCssCode($contents);
-								//$fileBuffer .= number_format(strlen($contents));
 							}
-							//$fileBuffer .= " ***/\n";
 							$fileBuffer .= (($this->optimizeCssFiles == true) ? preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $contents) : $contents);
 						}
 					}
@@ -239,15 +235,10 @@ class EClientScript extends YiiNewRelicClientScript
 					$contents = file_get_contents($file);
 					if ($contents)
 					{
-						// Append the contents to the fileBuffer
-						//$fileBuffer .= "/*** Script File: {$url}";
-						if ($this->optimizeScriptFiles)
+						if ($this->optimizeScriptFiles && strpos($file, '.min.') === false && strpos($file, '.pack.') === false)
 						{
-							//$fileBuffer .= ", Original size: " . number_format(strlen($contents)) . ", Compressed size: ";
 							$contents = $this->optimizeScriptCode($contents);
-							//$fileBuffer .= number_format(strlen($contents));
 						}
-						//$fileBuffer .= " ***/\n";
 						$fileBuffer .= (($this->optimizeScriptFiles == true) ? preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $contents) : $contents);
 					}
 				}
@@ -333,7 +324,7 @@ class EClientScript extends YiiNewRelicClientScript
 			return $code;
 
 		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'CssMin.php';
-		return CssMin::minify(str_replace('; ',';',str_replace(' }','}',str_replace('{ ','{',str_replace(array("\r\n","\r","\n","\t",'  ','    ','    '),"",preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$code))))));
+		return CssMin::minify($code);
 	}
 
 	/**
