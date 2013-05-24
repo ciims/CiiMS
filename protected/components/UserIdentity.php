@@ -45,6 +45,7 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate($force=false)
 	{
+		$this->force = $force;
 		$record 	= Users::model()->findByAttributes(array('email'=>$this->username));
 		$this->cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $this->cost);
 		$meta 		= $meta2 = NULL;	// Define this up here
@@ -87,6 +88,15 @@ class UserIdentity extends CUserIdentity
 		// Begin login tests
 		if($record === NULL)
 		{
+			// If we can't find the user's email, return identity failure
+		    $this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
+
+		    // Return early if the record is NULL. Bad things seem to happen with the $meta if we don't =(
+		    return !$this->errorCode;
+		}
+		else if ($this->password == md5("PUBUSER"))
+		{
+			// This is a socially authenticated user who hasn't set a password. Do not allow them to login using the wildcard password
 			// If we can't find the user's email, return identity failure
 		    $this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
 
