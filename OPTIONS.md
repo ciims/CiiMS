@@ -228,7 +228,7 @@ n is any given integer given a condition
         <td><strong>mobileTheme</strong></td>
         <td>This option provides the ability to present a different theme for mobile users. (Eg SmartPhones). While your desktop site may be responsive, it may not be mobile optimized. This option allows you to have a dedicated theme that is more lightweight and more geared towards mobile users.</td>
         <td>NULL</td>
-        <td>mobile</td>
+        <td>Any valid theme foldername in the /themes folder</td>
     </tr>
     <tr>
         <td><strong>notifyAuthorOnComment</strong></td>
