@@ -4,7 +4,6 @@
         'dataProvider' => $model->search(),
         'filter' => $model,
         'responsiveTable' => true,
-        'template' => "{items}",
         'bulkActions' => array(
         'actionButtons' => array(
             array(
