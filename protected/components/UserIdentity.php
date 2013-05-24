@@ -47,11 +47,8 @@ class UserIdentity extends CUserIdentity
 	{
 		$this->force = $force;
 		$record 	= Users::model()->findByAttributes(array('email'=>$this->username));
-		$this->cost = Cii::getConfig('bcrypt_cost', $this->cost);
+		$this->cost = Cii::getBcryptCost($this->cost);
 		$meta 		= $meta2 = NULL;	// Define this up here
-
-		if ($this->cost <= 12)
-			$this->cost = 13;
 
 		// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
 		if (!function_exists('password_hash'))

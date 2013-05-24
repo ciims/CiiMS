@@ -45,6 +45,16 @@ class Cii {
         return $data->value;
     }
 
+    public static function getBcryptCost($default = 13)
+    {
+        $cost = Cii::getConfig('bcrypt_cost', $default);
+
+        if ($cost <= 12)
+            return 13;
+
+        return $cost;
+    }
+
 	/**
 	 * Provides methods to format a date throughout a model
 	 */
