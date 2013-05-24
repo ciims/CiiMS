@@ -178,7 +178,7 @@ class EClientScript extends YiiNewRelicClientScript
 					file_put_contents($fpath, $fileBuffer);
 				}
 				// real url of combined file
-				$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);
+				$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
 			}
 			$cssFiles[$url] = $media;
 		}
@@ -256,7 +256,7 @@ class EClientScript extends YiiNewRelicClientScript
 				file_put_contents($fpath, $fileBuffer);
 			}
 			// add the combined file into scriptFiles
-			$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);;
+			$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
 			$scriptFiles[$url] = $url;
 		}
 		// use new scriptFiles list replace old ones
