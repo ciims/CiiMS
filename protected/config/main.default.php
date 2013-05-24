@@ -55,6 +55,7 @@ return array(
             'class' => 'ext.minify.EClientScript',
             'combineScriptFiles'    => true,
             'combineCssFiles'       => true,
+            'optimizeCssFiles'      => true,
             'compressHTML'          => true
         ),
         'errorHandler' => array(
