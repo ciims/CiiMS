@@ -56,6 +56,7 @@ return array(
             'combineScriptFiles'    => true,
             'combineCssFiles'       => true,
             'optimizeCssFiles'      => true,
+            'optimizeScriptFiles'   => true,
             'compressHTML'          => true
         ),
         'errorHandler' => array(

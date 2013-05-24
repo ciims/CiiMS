@@ -342,8 +342,8 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	private function optimizeScriptCode($code)
 	{
-		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'JSMinPlus.php';
-		$minified = JSMinPlus::minify($code);
+		require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'JSMin.php';
+		$minified = JSMin::minify($code);
 		return ($minified === false ? $code : $minified);
 	}
 }
