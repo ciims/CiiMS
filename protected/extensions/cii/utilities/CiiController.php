@@ -126,7 +126,7 @@ class CiiController extends CController
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
             if ($mobileTheme !== NULL)
-                $themne = $mobileTheme;
+                $theme = $mobileTheme;
         }
 
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
