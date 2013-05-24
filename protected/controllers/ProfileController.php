@@ -122,7 +122,7 @@ class ProfileController extends CiiController
 			if (!function_exists('password_hash'))
 				require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 
-			$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 12);
+			$cost = Cii::getConfig('bcrypt_cost', 13);
 			if ($cost <= 12)
 				$cost = 13;
 

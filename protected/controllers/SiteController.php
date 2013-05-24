@@ -85,7 +85,7 @@ class SiteController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize')), 'value', 10);
+		$pageSize = Cii::getConfig('searchPaginationSize', 10);
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
@@ -141,7 +141,7 @@ class SiteController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'searchPaginationSize')), 'value', 10);
+		$pageSize = Cii::getConfig('searchPaginationSize', 10);
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
@@ -364,7 +364,7 @@ class SiteController extends CiiController
 				{
 					if ($password = Cii::get($_POST, 'password', NULL))
 					{
-						$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
+						$cost = Cii::getConfig('bcrypt_cost', 13);
 
 						if ($cost <= 12)
 							$cost = 13;
@@ -436,9 +436,11 @@ class SiteController extends CiiController
 				
 				// Bcrypt the initial password instead of just using the basic hashing mechanism
 				$hash = Users::model()->encryptHash(Cii::get($_POST['RegisterForm'], 'email'), Cii::get($_POST['RegisterForm'], 'password'), Yii::app()->params['encryptionKey']);
-				$cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), 13);
+				$cost = Cii::getConfig('bcrypt_cost', 13);
+
 				if ($cost <= 12)
 					$cost = 13;
+
 				$password = password_hash($hash, PASSWORD_BCRYPT, array('cost' => $cost));
 
 				$user->attributes = array(

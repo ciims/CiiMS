@@ -35,7 +35,7 @@
 		<main class="main">
 		    <div class="container image-container">
 		    	<div class="row-fluid image-viewport">
-		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::get(Configuration::model()->findByAttributes(array('key' => 'splash-logo')), 'value', '/images/splash-logo.jpg')); ?>
+		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::getConfig('splash-logo', '/images/splash-logo.jpg'); ?>
 		    	</div>
 		   	</div>
 		   	<div class="container main-container">
@@ -53,7 +53,7 @@
 		        <div class="row-fluid">
 		            <div class="inner-container">
                         <div class="span3 well" id="eChrip">
-                            <?php $this->widget('ext.echirp.EChirp', array('options' => array('user' => Cii::get(Configuration::model()->findByAttributes(array('key' => 'twitter_username')), 'value', '')))); ?>
+                            <?php $this->widget('ext.echirp.EChirp', array('options' => array('user' => Cii::getConfig('twitter_username')))); ?>
                         </div>
 		                <div class="span3">
                             <h5>Categories</h5>
@@ -88,21 +88,21 @@
 		</footer>
 		
 		<?php if (!YII_DEBUG):
-			if (Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikExtension')), 'value', 0) == 1):
+			if (Cii::getConfig('piwikId') !== NULL):
 				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 
 					array(
-						'id'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikId')), 'value', NULL), 
-						'baseUrl'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'piwikBaseUrl')), 'value', NULL)
+						'id' 		=> Cii::getConfig('piwikId'),
+						'baseUrl' 	=> Cii::getConfig('piwikBaseUrl')
 					)
 				); 
 			endif;
 			
-			if (Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaExtension')), 'value', 0) == 1):
+			if (Cii::getConfig('gaAccount') !== NULL):
 				$this->widget('ext.analytics.EGoogleAnalyticsWidget', 
 					array(
-						'account'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAccount')), 'value', NULL), 
-						'addThis'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAddThis')), 'value', NULL), 
-						'addThisSocial'=>Cii::get(Configuration::model()->findByAttributes(array('key'=>'gaAddThisSocial')), 'value', NULL)
+						'account'=>Cii::getConfig('gaAccount'), 
+						'addThis'=>Cii::getConfig('gaAddThis'), 
+						'addThisSocial'=>Cii::getConfig('gaAddThisSocial'),
 					)
 				);
 			endif; 

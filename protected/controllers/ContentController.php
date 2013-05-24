@@ -40,7 +40,7 @@ class ContentController extends CiiController
         if ($id != NULL)
 		{
 			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
-			$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value');
+			$theme = Cii::getConfig('theme', 'default');
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
 			
@@ -294,7 +294,7 @@ class ContentController extends CiiController
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
-		$pageSize = Cii::get(Configuration::model()->findByAttributes(array('key'=>'contentPaginationSize')), 'value', 10);		
+		$pageSize = Cii::getConfig('contentPaginationSize', 10);	
 		
 		$criteria=new CDbCriteria;
         $criteria->order = 'created DESC';

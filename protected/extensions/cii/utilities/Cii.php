@@ -29,6 +29,22 @@ class Cii {
 		return $default;	
 	}
 	
+    /**
+     * Gets a configuration value from CiiMS::Configuration
+     * @param  string $key     The key we want to retrieve from Configuration
+     * @param  mixed  $default The default value to return if key is not found
+     * @return mixed           The value from Config, or default
+     */
+    public static function getConfig($key, $default=NULL)
+    {
+        $data = Configuration::model()->findByAttributes(array('key' => $key));
+
+        if ($data === NULL)
+            return $default;
+
+        return $data->value;
+    }
+
 	/**
 	 * Provides methods to format a date throughout a model
 	 */

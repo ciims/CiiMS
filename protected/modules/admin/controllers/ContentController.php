@@ -11,12 +11,13 @@ class ContentController extends ACiiController
 	{
 	    // ContentVersionID
 		$version = 0;
-        $theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
+		$theme = Cii::getConfig('theme', 'default');
         $viewFiles = $this->getViewFiles($theme);
         $layouts   = $this->getLayouts($theme);
         
         // Editor Preferences
-		$preferMarkdown = Configuration::model()->findByAttributes(array('key' => 'preferMarkdown'));
+        $preferMarkdown = Cii::getConfig('preferMarkdown');
+
         if ($preferMarkdown == NULL)
             $preferMarkdown = false;
         else

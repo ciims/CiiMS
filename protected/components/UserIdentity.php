@@ -47,7 +47,7 @@ class UserIdentity extends CUserIdentity
 	{
 		$this->force = $force;
 		$record 	= Users::model()->findByAttributes(array('email'=>$this->username));
-		$this->cost = Cii::get(Configuration::model()->findByAttributes(array('key'=>'bcrypt_cost'), 'value'), $this->cost);
+		$this->cost = Cii::getConfig('bcrypt_cost', $this->cost);
 		$meta 		= $meta2 = NULL;	// Define this up here
 
 		if ($this->cost <= 12)

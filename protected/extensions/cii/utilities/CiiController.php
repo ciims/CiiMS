@@ -102,7 +102,7 @@ class CiiController extends CController
 
         $this->setApplicationLanguage();
 
-        $offlineMode = (bool)Cii::get(Configuration::model()->findByAttributes(array('key'=>'offline')), 'value', false);
+        $offlineMode = (bool)Cii::getConfig('offline', false);
 
         if ($offlineMode)
         {
@@ -117,7 +117,7 @@ class CiiController extends CController
 
 	    header('Content-type: text/html; charset=utf-8');
 
-		$theme = Cii::get(Configuration::model()->findByAttributes(array('key'=>'theme')), 'value', 'default');
+        $theme = Cii::getConfig('theme', 'default');
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
         return parent::beforeAction($action);;
@@ -316,7 +316,7 @@ class CiiController extends CController
         if ($items === false)
         {
             // Get the menu items from Configuration
-            $menuRoutes = Cii::get(Configuration::model()->findByAttributes(array('key' => 'menu')), 'value', '');
+            $menuRoutes = Cii::getConfig('menu', '');
             
             // If the configuration is not provided, then set this to our defualt items
             if ($menuRoutes == NULL)
