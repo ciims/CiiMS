@@ -200,6 +200,6 @@ class Users extends CiiModel
 	 */
 	public function gravatarImage($size=20, $default=NULL)
 	{
-		return "http://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))).'?s='.$size;
+		return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))).'?s='.$size;
 	}
 }
