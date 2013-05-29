@@ -41,6 +41,7 @@ class EGoogleAnalyticsWidget extends CWidget
 	 */
     public function run()
     {
+    	$gaq = "";
     	if ($this->addThis)
 		{
 			$at = "var addthis_config = {
@@ -48,11 +49,18 @@ class EGoogleAnalyticsWidget extends CWidget
 				      data_ga_social: {$this->addThisSocial}
 				   };";
 		}
+
     	if (!empty($this->domainName))
     	{
     		$gaq = "_gaq.push(['_setDomainName','$this->domainName']);";
     	}
 		
+
+    	$gaq .= " setTimeout(\"_gaq.push(['_trackEvent', '15_seconds', 'read'])\",15000);";
+    	$gaq .= " setTimeout(\"_gaq.push(['_trackEvent', '30_seconds', 'read'])\",30000);";
+    	$gaq .= " setTimeout(\"_gaq.push(['_trackEvent', '60_seconds', 'read'])\",60000);";
+
+
         Yii::app()->clientScript->registerScript('GoogleAnalytics',
             "var _gaq = _gaq || [];_gaq.push(['_setAccount', '{$this->account}']);{$gaq}_gaq.push(['_trackPageview']);{$at}(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();"    
             ,CClientScript::POS_END
