@@ -24,7 +24,7 @@ class UsersController extends ACiiController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Users']))
+		if (Cii::get($_POST, 'Users', NULL) !== NULL)
 		{
 			// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
 			if (!function_exists('password_hash'))
@@ -63,7 +63,13 @@ class UsersController extends ACiiController
 
         if ($model->id != Yii::app()->user->id && $id != 1)
         {
+        	// Cascade deletion
+        	Yii::app()->db->createCommand("DELETE user_metadata WHERE user_id = :id")
+        				  ->param(":id", $id)
+        				  ->execute();
+
             $model->delete();
+            
 		    Yii::app()->user->setFlash('success', 'User has been deleted');
         }
         else
