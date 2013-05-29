@@ -64,7 +64,7 @@ class UsersController extends ACiiController
         if ($model->id != Yii::app()->user->id && $id != 1)
         {
         	// Cascade deletion
-        	Yii::app()->db->createCommand("DELETE user_metadata WHERE user_id = :id")
+        	Yii::app()->db->createCommand("DELETE FROM user_metadata WHERE user_id = :id")
         				  ->bindParam(":id", $id)
         				  ->execute();
 
