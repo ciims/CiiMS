@@ -15,13 +15,13 @@ class ContentController extends ACiiController
         $viewFiles = $this->getViewFiles($theme);
         $layouts   = $this->getLayouts($theme);
         
-        // Editor Preferences
-        $preferMarkdown = Cii::getConfig('preferMarkdown');
+         // Editor Preferences
+        $preferMarkdown = Cii::getConfig('preferMarkdown',false);
 
         if ($preferMarkdown == NULL)
             $preferMarkdown = false;
         else
-            $preferMarkdown = (bool)$preferMarkdown->value;
+            $preferMarkdown = (bool)$preferMarkdown;
         
         // Determine what we're doing, new model or existing one
 		if ($id == NULL)
