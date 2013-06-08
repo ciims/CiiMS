@@ -45,7 +45,7 @@ class EAddThisWidget extends CWidget
 			Yii::app()->clientScript->registerScript('addThisTrackURL', 'var addthis_config={"data_track_addressbar":true};');
 		
 		// Register the AddThis script
-		Yii::app()->clientScript->registerScriptFile('http://s7.addthis.com/js/250/addthis_widget.js#pubid='.$this->account);
+		Yii::app()->clientScript->registerScriptFile('https://s7.addthis.com/js/250/addthis_widget.js#pubid='.$this->account);
     }
 }
 ?>
