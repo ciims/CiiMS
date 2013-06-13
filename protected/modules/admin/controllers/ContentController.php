@@ -362,7 +362,7 @@ class ContentController extends ACiiController
     		$theme = 'default';
 
         $files = Yii::app()->cache->get($theme.'-available-views');
-        
+
         if ($files == NULL)
         {
             $fileHelper = new CFileHelper;
@@ -373,6 +373,10 @@ class ContentController extends ACiiController
         foreach ($files as $file)
         {
             $f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+            
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+            	$f = trim(substr($f, strrpos($f, '\\') + 1));
+
             if (!in_array($f, array('all', 'password', '_post')))
                 $returnFiles[$f] = $f;
         }
@@ -402,7 +406,11 @@ class ContentController extends ACiiController
 
         foreach ($files as $file)
         {
-             $f = str_replace('layout', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+            $f = str_replace('layout', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+            	$f = trim(substr($f, strrpos($f, '\\') + 1));
+
             if (!in_array($f, array('main', 'default', 'password')))
                 $returnFiles[$f] = $f;
         }
