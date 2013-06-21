@@ -7,11 +7,39 @@
  * @copyright 2012 The Authors
  */
 
+// Allow some constants to be set when this file is required
 if (!defined('PASSWORD_BCRYPT')) {
-
 	define('PASSWORD_BCRYPT', 1);
 	define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
+}
 
+/**
+ * If mcrypt isn't installed, fall back to just returning the hashed password
+ */
+if (!function_exists('crypt'))
+{
+	function password_hash($password, $algo, array $options = array()) 
+	{
+		return $password;
+	}
+
+	function password_get_info($hash)
+	{
+		return false;
+	}
+
+	function password_needs_rehash($hash, $algo, array $options = array())
+	{
+		return false;
+	}
+
+    function password_verify($password, $hash)
+    {
+    	return $password == $hash;
+    }
+}
+else // Otherwise use bcrypt
+{
 	/**
 	 * Hash the password using the specified algorithm
 	 *
@@ -216,5 +244,3 @@ if (!defined('PASSWORD_BCRYPT')) {
 		return $status === 0;
 	}
 }
-
-
