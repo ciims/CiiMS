@@ -38,7 +38,7 @@
 					<span class="separator">⋅</span> 
 				</span> 					
 				<span class="comment-container">
-					<?php echo $content->comment_count; ?> Comments</a>					
+					<?php echo $content->getCommentCount(); ?> Comments</a>					
 				</span>
 			</div>
 			<div class="clearfix"></div>

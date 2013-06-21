@@ -122,7 +122,7 @@ class ProfileController extends CiiController
 			if (!function_exists('password_hash'))
 				require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 
-			$cost = Cii::getBcryptCost($this->cost);
+			$cost = Cii::getBcryptCost();
 
 			if ($_POST['Users']['password'] != '')
 				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));

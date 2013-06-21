@@ -287,7 +287,8 @@ class Content extends CiiModel
      * @see CActiveRecord::beforeValidate
      */
 	public function beforeValidate()
-	{        
+	{   
+
 		// If this is a new record and we don't have a created data pre-populated
 		// Failing to check the $this->created results in posts losing their original creation date
     	if ($this->isNewRecord && $this->created == NULL)

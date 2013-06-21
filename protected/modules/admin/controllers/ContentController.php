@@ -15,13 +15,13 @@ class ContentController extends ACiiController
         $viewFiles = $this->getViewFiles($theme);
         $layouts   = $this->getLayouts($theme);
         
-        // Editor Preferences
-        $preferMarkdown = Cii::getConfig('preferMarkdown');
+         // Editor Preferences
+        $preferMarkdown = Cii::getConfig('preferMarkdown',false);
 
         if ($preferMarkdown == NULL)
             $preferMarkdown = false;
         else
-            $preferMarkdown = (bool)$preferMarkdown->value;
+            $preferMarkdown = (bool)$preferMarkdown;
         
         // Determine what we're doing, new model or existing one
 		if ($id == NULL)
@@ -54,6 +54,7 @@ class ContentController extends ACiiController
 			$model2->vid = $model->vid+1;
 			$model2->viewFile = $_POST['Content']['view'];
             $model2->layoutFile = $_POST['Content']['layout'];
+            $model2->created = $_POST['Content']['created'];
 
 			if($model2->save()) 
 			{
@@ -362,7 +363,7 @@ class ContentController extends ACiiController
     		$theme = 'default';
 
         $files = Yii::app()->cache->get($theme.'-available-views');
-        
+
         if ($files == NULL)
         {
             $fileHelper = new CFileHelper;
@@ -373,6 +374,10 @@ class ContentController extends ACiiController
         foreach ($files as $file)
         {
             $f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+            
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+            	$f = trim(substr($f, strrpos($f, '\\') + 1));
+
             if (!in_array($f, array('all', 'password', '_post')))
                 $returnFiles[$f] = $f;
         }
@@ -402,7 +407,11 @@ class ContentController extends ACiiController
 
         foreach ($files as $file)
         {
-             $f = str_replace('layout', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+            $f = str_replace('layout', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+            	$f = trim(substr($f, strrpos($f, '\\') + 1));
+
             if (!in_array($f, array('main', 'default', 'password')))
                 $returnFiles[$f] = $f;
         }

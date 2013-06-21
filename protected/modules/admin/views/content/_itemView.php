@@ -18,7 +18,7 @@
                         'id' => 'comment-button'
                     ),
                     'buttons'=>array(
-                        array('label'=>$data['comment_count'], 'url'=>$this->createUrl('/admin/content/comments/id/' . $data['id']), 'icon'=>'icon-comment', 
+                        array('label'=>$data->getCommentCount(), 'url'=>$this->createUrl('/admin/content/comments/id/' . $data['id']), 'icon'=>'icon-comment', 
                         	'htmlOptions' => array( 'style' => $data['commentable'] == 1 ?: 'display:none;')),
                         array('label'=>$data['like_count'], 'url'=>'#', 'icon'=>'icon-heart')
                     ),
