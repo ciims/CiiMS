@@ -12,6 +12,7 @@
             )); ?>
     	    	<?php echo $form->hiddenField($model, 'id'); ?>
     	    	<?php echo $form->hiddenField($model, 'vid'); ?>
+    	    	<?php echo $form->hiddenField($model, 'created'); ?>
     	    	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
     			<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id,)); ?>
     			<div class="control" style="margin-bottom: 20px;">

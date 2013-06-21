@@ -54,6 +54,7 @@ class ContentController extends ACiiController
 			$model2->vid = $model->vid+1;
 			$model2->viewFile = $_POST['Content']['view'];
             $model2->layoutFile = $_POST['Content']['layout'];
+            $model2->created = $_POST['Content']['created'];
 
 			if($model2->save()) 
 			{
