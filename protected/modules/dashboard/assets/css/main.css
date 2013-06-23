@@ -1,0 +1,196 @@
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.clearfix {
+	clear: both;
+}
+
+body {
+	background: #eee;
+	margin: 0;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+/** Header **/
+header {
+	background: #2D2D29;
+	color: #eee;
+	margin: 0px;
+	width: 100%;
+	height: 35px;
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	margin-bottom: 30px;
+	position: relative;
+}
+
+/** Header Navigation **/
+header .navigation, header .user {
+	margin: 0 5%;
+	margin-top: 8px;
+	color: #eee;
+	font-size: 12px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+}
+
+header .navigation a, header .user a {
+	color: #999;
+	display: inline-block;
+	position: relative;
+	text-transform: uppercase;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+header .navigation ul li {
+	display: inline-block;
+	margin: 0 10px;
+}
+
+header .navigation ul:first-child {
+	margin-left: 0px;
+}
+
+header .navigation a:hover, header .user a:hover {
+	background: transparent;
+	text-decoration: none;
+    color: #eee;
+    -webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+header .navigation a:hover:after {
+	content: "";
+    display: block;
+	border-style: solid;
+	border-width: 0 7.5px 7.5px 7.5px;
+	border-color: transparent transparent #007bff transparent;
+    border-bottom-color: #fff;
+    position: absolute;
+    bottom: -10px;
+    left: 43%;
+}
+
+/** Header User **/
+
+header .user img.user-image {
+	display: inline-block;
+	border: 1px solid #82837E;
+	padding: 1px;
+	margin-left: 10px;
+	margin-top: -4px;
+}
+
+header .user .options {
+	margin-left: 5px;
+	display: inline-block;
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #82837E;
+}
+
+/** Main **/
+
+/** Main Dashboard **/
+
+main .dashboard .push-header {
+	margin-bottom: 10px;
+}
+
+main .dashboard .header {
+	height: 30px;
+	background: #fff;
+	margin: 0 5%;
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	padding: 5px;
+}
+
+main .dashboard .header .content .welcome {
+	display:inline-block;
+}
+
+main .dashboard .header .content .header-nav {
+	display: inline-block;
+	margin-left: 5%;
+}
+
+main .dashboard .header .content {
+	width: 100%;
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 10px;
+	font-family: 'Open Sans';
+	font-size: 12px;
+	color: #2D2D29;
+}
+
+main .dashboard .header .content a {
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 0 10px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .dashboard .header .content a:hover {
+	text-decoration: none;
+	color: #000;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .dashboard .header .content a span {
+	margin-right: 5px;
+}
+
+main .dashboard .widget-container {
+	position: relative;
+    width: 90%;
+    max-width: 100%;
+    margin: 0 5%;
+}
+
+main .dashboard .widget-container > .ss-placeholder-child {
+    background: transparent;
+    border: 1px dashed blue;
+}
+
+main .dashboard .widget-container > div {
+    background: #fff;
+    border: 1px solid #eee;
+    position: absolute;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    height: 230px;
+    width: 230px;
+}

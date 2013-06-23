@@ -18,15 +18,16 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
+$preload = array('cii');
+if (strpos($_SERVER['REQUEST_URI'], '/dashboard'))
+    $preload[] = 'bootstrap';
+
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
     'language' => 'en_US',
-    'preload' => array(
-        'cii',
-        'bootstrap',
-    ),
+    'preload' => $preload,
     'import' => array(
         'application.models.*',
         'application.components.*',
@@ -34,6 +35,7 @@ return array(
     ),
     'modules' => array(
         'admin',
+        'dashboard',
     ),
     'behaviors' => array(
         'onBeginRequest' => array(
