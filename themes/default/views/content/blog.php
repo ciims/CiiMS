@@ -45,7 +45,7 @@
 				<?php
 					$md = new CMarkdownParser;
 					$dom = new DOMDocument();
-					$dom->loadHtml($md->safeTransform($content->content));
+					$dom->loadHtml('<?xml encoding="UTF-8">'.$md->safeTransform($content->content));
 					$x = new DOMXPath($dom);
 
 					foreach ($x->query('//a') as $node)
