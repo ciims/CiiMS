@@ -19,7 +19,7 @@
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
 $preload = array('cii');
-if (strpos($_SERVER['REQUEST_URI'], '/dashboard'))
+if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
     $preload[] = 'bootstrap';
 
 return array(

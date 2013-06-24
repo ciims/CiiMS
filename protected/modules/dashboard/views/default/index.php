@@ -15,22 +15,8 @@
 	<div class="clearfix push-header"></div>
 
 	<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
-	<?php Yii::app()->clientScript
-								  ->registerScriptFile($asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
+	<?php Yii::app()->clientScript->registerScriptFile($asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
 								  ->registerScriptFile($asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END); ?>
-
-  <!-- Javascript -->
-    <script>
-    $(document).ready(function() {
-      $(".widget-container").shapeshift({
-        minColumns: 3,
-        gutterX: 20,
-        gutterY: 20,
-        paddingX: 0,
-        paddingY: 0
-      });
-    })
-    </script>
 	<div class="widget-container">
 	    <div style="width: 482px; height:  230px;" data-ss-colspan="2"></div>
 	    <div></div>
@@ -40,10 +26,22 @@
 	    <div></div>
 	    <div style="width: 482px; height:  482px;" data-ss-colspan="2"></div>
 	    <div></div>
-	     <div></div>
+	    <div></div>
 	    <div></div>
 	    <div></div>
 	    <div></div>
 	    <div></div>
 	</div>
 </div>
+
+<?php Yii::app()->clientScript->registerScript('widgetLoader', '
+$(document).ready(function() {
+      $(".widget-container").shapeshift({
+        minColumns: 3,
+        gutterX: 20,
+        gutterY: 20,
+        paddingX: 0,
+        paddingY: 0
+      });
+    })
+'); ?>

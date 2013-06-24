@@ -19,12 +19,12 @@
  * @property integer $comment_count
  * @property integer $like_count
  * @property string $slug
+ * @property string $published
  * @property string $created
  * @property string $updated
  *
  * The followings are the available model relations:
  * @property Comments[] $comments
- * @property Comments[] $comments1
  * @property Users $author
  * @property Content $parent
  * @property Content[] $contents
@@ -78,7 +78,7 @@ class Content extends CiiModel
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -104,8 +104,8 @@ class Content extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'vid' => 'Vid',
+			'id' => 'Id',
+			'vid' => 'Version',
 			'author_id' => 'Author',
 			'title' => 'Title',
 			'content' => 'Content',
@@ -120,6 +120,7 @@ class Content extends CiiModel
 			'like_count' => 'Likes',
 			'tags' => 'Tags',
 			'slug' => 'Slug',
+			'published' => 'Published',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -246,6 +247,7 @@ class Content extends CiiModel
 		$criteria->compare('content',$this->slug,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('published',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
         
 		return new CActiveDataProvider($this, array(
@@ -298,6 +300,10 @@ class Content extends CiiModel
 			$this->comment_count = 0;
 		}
 	   	
+	   	// Allow publication times to be set automatically
+		if ($this->published == NULL)
+			$this->published = new CDbExpression('NOW()');
+
 	   	$this->updated = new CDbExpression('NOW()');
 		
 		if (strlen($this->extract) == 0)

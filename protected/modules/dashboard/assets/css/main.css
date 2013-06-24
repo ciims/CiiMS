@@ -64,7 +64,7 @@ header .navigation ul:first-child {
 	margin-left: 0px;
 }
 
-header .navigation a:hover, header .user a:hover {
+header .navigation a:hover, header .user a:hover, header .navigation ul li.active a {
 	background: transparent;
 	text-decoration: none;
     color: #eee;
@@ -75,9 +75,9 @@ header .navigation a:hover, header .user a:hover {
 	transition: all .2s ease-in-out;
 }
 
-header .navigation a:hover:after {
+header .navigation a:hover:after, header .navigation ul li.active a:after {
 	content: "";
-    display: block;
+    display: inline-block;
 	border-style: solid;
 	border-width: 0 7.5px 7.5px 7.5px;
 	border-color: transparent transparent #007bff transparent;
@@ -110,7 +110,6 @@ header .user .options {
 /** Main **/
 
 /** Main Dashboard **/
-
 main .dashboard .push-header {
 	margin-bottom: 10px;
 }
@@ -193,4 +192,60 @@ main .dashboard .widget-container > div {
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     height: 230px;
     width: 230px;
+}
+
+/** Main Content **/
+main .posts-container{
+	margin: 0 5%;
+	width: 90%;
+	overflow: hidden;
+}
+
+main .posts-container #posts {
+	float: left;
+	margin-right: 15px;
+	width: 450px;
+	background: #fff;
+    border: 1px solid #eee;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	padding: 10px;
+}
+
+main .posts-container #posts .header {
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+main .posts-container #posts .header a.icon-plus {
+	text-decoration: none;
+	background: #8fc847;
+	background: rgba(132,192,62,0.9);
+	padding: 5px;
+	font-size: 10px;
+	color: #eee;
+	border-radius: 4px;
+	margin-right: 10px;
+}
+
+main .posts-container #posts .header .icon-search {
+	padding: 5px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+main .posts-container .preview {
+	overflow:hidden;
+	height: 100px;
+	background: #fff;
+    border: 1px solid #eee;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 }

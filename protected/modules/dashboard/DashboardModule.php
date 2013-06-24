@@ -13,5 +13,11 @@ class DashboardModule extends CWebModule
 			'dashboard.models.*',
 			'dashboard.components.*',
 		));
+
+		 Yii::app()->setComponents(array(
+            'errorHandler' => array(
+            	'errorAction'  => 'dashboard/default/error',
+        	)
+        ));
 	}
 }

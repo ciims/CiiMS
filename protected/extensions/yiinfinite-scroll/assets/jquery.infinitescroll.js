@@ -204,7 +204,8 @@
             {
             	data = path.match(/^(.*?)\b\d\b(.*?$)/).slice(1);
             	this.options.state.currPage = path.split('/').slice(2);
-            	this.options.state.currPage = this.options.state.currPage[0] -1;
+            	this.options.state.currPage = this.options.state.currPage[this.options.state.currPage.length -1] -1;
+                
             	return data;
             }
 

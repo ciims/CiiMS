@@ -10,7 +10,6 @@
 					    			  ->registerCssFile('https://fonts.googleapis.com/css?family=PT+Sans:400,700')
 				                      ->registerCssFile('https://fonts.googleapis.com/css?family=Open+Sans:400,600,800')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
-				                      ->registerCssFile($bootstrap .'/css/bootstrap-responsive.min.css')
 				                      ->registerCssFile($asset .'/font-awesome/css/font-awesome.css')
 				                      ->registerCssFile($asset .'/css/main.css')
 				                      ->registerScriptFile($asset.'/js/jquery-2.0.0.min.js', CClientScript::POS_HEAD)
@@ -21,11 +20,11 @@
 			<div class="pull-left navigation">
 				<?php $this->widget('zii.widgets.CMenu', array(
 					'items' => array(
-						array('label' => 'Dashboard', 'url' => $this->createUrl('/dashboard')),
-						array('label' => 'Content', 'url' => $this->createUrl('/dashboard/content')),
-						array('label' => 'Categories', 'url' => $this->createUrl('/dashboard/categories')),
-						array('label' => 'People', 'url' => $this->createUrl('/dashboard/people')),
-						array('label' => 'Settings', 'url' => $this->createUrl('/dashboard/settings')),
+						array('label' => 'Dashboard', 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
+						array('label' => 'Content', 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
+						array('label' => 'Categories', 'url' => $this->createUrl('/dashboard/categories'), 'active' => $this->id == 'categories'),
+						array('label' => 'People', 'url' => $this->createUrl('/dashboard/people'), 'active' => $this->id == 'people'),
+						array('label' => 'Settings', 'url' => $this->createUrl('/dashboard/settings'), 'active' => $this->id == 'settings'),
 					)
 				)); ?>
 			</div>
