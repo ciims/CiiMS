@@ -3,8 +3,7 @@
 class m130623_192642_published extends CDbMigration
 {
 	/**
-	 * Transitions the existing image database so that the new dashboard can pick up the old images
-	 * @return [type] [description]
+	 * Addes publication timestamp to Content
 	 */
 	public function safeUp()
 	{
