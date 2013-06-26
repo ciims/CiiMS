@@ -201,7 +201,7 @@ main .posts-container{
 	overflow: hidden;
 }
 
-main .posts-container #posts {
+main .posts-container .list-view .posts {
 	float: left;
 	margin-right: 15px;
 	width: 450px;
@@ -213,7 +213,7 @@ main .posts-container #posts {
 	padding: 10px;
 }
 
-main .posts-container #posts .header {
+main .posts-container .list-view .posts .header {
 	color: #999;
 	font-size: 11px;
 	font-family: 'Open Sans';
@@ -223,7 +223,7 @@ main .posts-container #posts .header {
 	border-bottom: 1px solid #eee;
 }
 
-main .posts-container #posts .header a.icon-plus {
+main .posts-container .list-view .posts .header a.icon-plus {
 	text-decoration: none;
 	background: #8fc847;
 	background: rgba(132,192,62,0.9);
@@ -234,13 +234,29 @@ main .posts-container #posts .header a.icon-plus {
 	margin-right: 10px;
 }
 
-main .posts-container #posts .header .icon-search {
+main .posts-container .list-view .posts .header .icon-search {
 	padding: 5px;
 	font-size: 12px;
 	font-weight: 600;
 }
 
-main .posts-container .preview {
+main .posts-container .list-view .sorter {
+	clear: both;
+	margin-bottom: 25px;
+	font-family: 'Open Sans';
+	font-size: 12px;
+	color: #2D2D29;
+	padding: 5px;
+	height: 30px;
+	max-height: 30px;
+	background: #fff;
+    border: 1px solid #eee;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+main .posts-container .list-view .preview {
 	overflow:hidden;
 	height: 100px;
 	background: #fff;

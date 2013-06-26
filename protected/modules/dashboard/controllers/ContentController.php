@@ -8,34 +8,17 @@ class ContentController extends CiiDashboardController
 	 */
 	public function actionIndex()
 	{
-		$data = array();
-		$pages = array();
-		$itemCount = 0;
-		$pageSize = 10;	
-		
-		$criteria=new CDbCriteria;
-        $criteria->order = 'created DESC';
-        $criteria->limit = $pageSize;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         ->addCondition('type_id >= 2')
-		         ->addCondition('password = ""')
-		         ->addCondition('status = 1');
-		
-		$itemCount = Content::model()->count($criteria);
-		$pages=new CPagination($itemCount);
-		$pages->pageSize=$pageSize;
-		
-		$criteria->offset = $criteria->limit*($pages->getCurrentPage());
-		$data = Content::model()->findAll($criteria);
-		$pages->applyLimit($criteria);
-		
+		$model=new Content('search');
+        $model->unsetAttributes();  // clear any default values
+        if(isset($_GET['Content']))
+            $model->attributes=$_GET['Content'];
 
-        if (!isset(Yii::app()->session['admin_perspective']))
-            Yii::app()->session['admin_perspective'] = 1;
-
-		$viewFile = 'index_' . Yii::app()->session['admin_perspective'];
-
-		$this->render($viewFile, array('data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+        Yii::app()->session['admin_perspective'] = 1;
+        
+        $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
+        $this->render($viewFile, array(
+            'model'=>$model,
+        ));
 	}
 
 	/**
