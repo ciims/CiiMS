@@ -185,7 +185,7 @@ main .dashboard .widget-container > .ss-placeholder-child {
 
 main .dashboard .widget-container > div {
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid rgba(0,0,0, 0.1);
     position: absolute;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -206,7 +206,7 @@ main .posts-container .list-view .posts {
 	margin-right: 15px;
 	width: 450px;
 	background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -220,7 +220,7 @@ main .posts-container .list-view .posts .header {
 	font-weight: 600;
 	text-transform: uppercase;
 	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
 }
 
 main .posts-container .list-view .posts .header a.icon-plus {
@@ -247,7 +247,7 @@ main .posts-container .list-view .sorter {
 	height: 30px;
 	max-height: 30px;
 	background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -297,7 +297,7 @@ main .posts-container .list-view .preview {
 	overflow:hidden;
 	height: 100px;
 	background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
