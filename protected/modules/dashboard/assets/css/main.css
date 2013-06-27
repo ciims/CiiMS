@@ -270,7 +270,7 @@ main .posts-container .list-view .sorter .content ul li a {
 	font-family: 'Open Sans';
 	font-weight: 600;
 	text-transform: uppercase;
-	padding: 0 10px;
+	margin: 0 3px;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-ms-transition: all .2s ease-in-out;
@@ -293,6 +293,29 @@ main .posts-container .list-view .sorter .content ul li a:hover {
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
+
+.list-view .sorter a.desc {
+	background: transparent;
+}
+
+.list-view .sorter a.desc:after {
+	font-family: 'FontAwesome';
+	content: "\f107";
+	background: transparent;
+	padding-left: 5px;
+}
+
+.list-view .sorter a.asc {
+	background: transparent;
+}
+
+.list-view .sorter a.asc:after {
+	font-family: 'FontAwesome';
+	content: "\f106";
+	background: transparent;
+	padding-left: 5px;
+}
+
 main .posts-container .list-view .preview {
 	overflow:hidden;
 	height: 100px;
