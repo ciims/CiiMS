@@ -4,7 +4,7 @@
 	    'dataProvider' => $model->search(),
 	    'summaryText' => false,
 	    'itemView' => 'post',
-	    'sorterHeader' => 'Manage ContentSort By:',
+	    'sorterHeader' => '<div class="content"><strong>Manage Content</strong>',
 	    'itemsCssClass' => 'posts',
 	    'sorterCssClass' => 'sorter',
 	    'sortableAttributes' => array(

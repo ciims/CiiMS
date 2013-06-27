@@ -6,13 +6,13 @@
 	    <title>CiiMS Dashboard | <?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
 	    <?php $bootstrap=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.bootstrap.assets'), true, -1, YII_DEBUG); ?>
-	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
+	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
 					    			  ->registerCssFile('https://fonts.googleapis.com/css?family=PT+Sans:400,700')
 				                      ->registerCssFile('https://fonts.googleapis.com/css?family=Open+Sans:400,600,800')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
 				                      ->registerCssFile($asset .'/font-awesome/css/font-awesome.css')
 				                      ->registerCssFile($asset .'/css/main.css')
-				                      ->registerScriptFile($asset.'/js/jquery-2.0.0.min.js', CClientScript::POS_HEAD)
+				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD); ?>
 	</head>
 	<body>

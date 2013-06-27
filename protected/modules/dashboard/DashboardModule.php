@@ -14,10 +14,19 @@ class DashboardModule extends CWebModule
 			'dashboard.components.*',
 		));
 
+		 $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG);
 		 Yii::app()->setComponents(array(
             'errorHandler' => array(
             	'errorAction'  => 'dashboard/default/error',
-        	)
+        	),
+            'clientScript'=>array(
+                'packages'=>array(
+                    'jquery'=>array(
+                        'baseUrl'=>$asset . '/js/',
+                        'js'=>array('jquery-2.0.0.min.js')
+                    )
+                )
+            ),
         ));
 	}
 }
