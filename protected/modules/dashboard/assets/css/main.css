@@ -325,6 +325,11 @@ main .posts-container .list-view .sorter a.asc:after {
 	padding-left: 5px;
 }
 
+main .posts-container .list-view .pager {
+	float: left;
+	width: 450px;
+	text-align: center;
+}
 main .posts-container .list-view .preview {
 	overflow:hidden;
 	height: 100px;

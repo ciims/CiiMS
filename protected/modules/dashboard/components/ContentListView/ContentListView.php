@@ -79,8 +79,11 @@ class ContentListView extends CListView
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag($this->itemsTagName);
 		
-		echo CHtml::tag('div', array('class' => 'preview'));
-		echo CHtml::tag('div', array('class' => 'clearfix'));
+		echo CHtml::openTag('div', array('class' => 'preview'));
+		echo CHtml::closeTag('div');
+		echo CHtml::openTag('div', array('class' => 'clearfix'));
+		echo CHtml::closeTag('div');
+
 	}
 
 	/**
