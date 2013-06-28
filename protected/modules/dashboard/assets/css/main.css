@@ -1,14 +1,7 @@
-
-.pull-right {
-	float: right;
-}
-
-.pull-left {
-	float: left;
-}
-
-.clearfix {
-	clear: both;
+body, html {
+	height: 95%;
+	min-height: 95%;
+	max-height: 95%;
 }
 
 body {
@@ -110,6 +103,11 @@ header .user .options {
 /** Main **/
 
 /** Main Dashboard **/
+main {
+	min-height: 100%;
+	height: 100%;
+}
+
 main .dashboard .push-header {
 	margin-bottom: 10px;
 }
@@ -195,16 +193,26 @@ main .dashboard .widget-container > div {
 }
 
 /** Main Content **/
-main .posts-container{
+main .posts-container {
 	margin: 0 5%;
 	width: 90%;
 	overflow: hidden;
+	height: 100%;
+	min-height: 100%;
+}
+
+main .posts-container .list-view {
+	min-height: 90%;
+	height: 90%;
 }
 
 main .posts-container .list-view .posts {
 	float: left;
 	margin-right: 15px;
 	width: 450px;
+	height: 90%;
+	max-height: 90%;
+	overflow: hidden;
 	background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -278,13 +286,12 @@ main .posts-container .list-view .sorter .content ul li a {
 	transition: all .2s ease-in-out;
 }
 
-
 main .posts-container .list-view .sorter .content ul {
 	float: right;
 	margin-right: 20px;
 }
-main .posts-container .list-view .sorter .content ul li a:hover {
 
+main .posts-container .list-view .sorter .content ul li a:hover {
  	text-decoration: none;
 	color: #000;
 	-webkit-transition: all .2s ease-in-out;
@@ -294,22 +301,24 @@ main .posts-container .list-view .sorter .content ul li a:hover {
 	transition: all .2s ease-in-out;
 }
 
-.list-view .sorter a.desc {
+main .posts-container .list-view .sorter a.desc {
 	background: transparent;
+	padding-right: 0px;
 }
 
-.list-view .sorter a.desc:after {
+main .posts-container .list-view .sorter a.desc:after {
 	font-family: 'FontAwesome';
 	content: "\f107";
 	background: transparent;
 	padding-left: 5px;
 }
 
-.list-view .sorter a.asc {
+main .posts-container .list-view .sorter a.asc {
 	background: transparent;
+	padding-right: 0px;
 }
 
-.list-view .sorter a.asc:after {
+main .posts-container .list-view .sorter a.asc:after {
 	font-family: 'FontAwesome';
 	content: "\f106";
 	background: transparent;
@@ -324,4 +333,59 @@ main .posts-container .list-view .preview {
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+
+/** initial setup **/
+.nano {
+  position : relative;
+  overflow : hidden;
+}
+.nano .content {
+  position      : absolute;
+  overflow      : scroll;
+  overflow-x    : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+}
+.nano .content:focus {
+  outline: thin dotted;
+}
+.nano .content::-webkit-scrollbar {
+  visibility: hidden;
+}
+.has-scrollbar .content::-webkit-scrollbar {
+  visibility: visible;
+}
+.nano > .pane {
+  background : rgba(0,0,0,.25);
+  position   : absolute;
+  width      : 10px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01; 
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;  
+  border-radius         : 5px;
+}
+.nano > .pane > .slider {
+  background: #444;
+  background: rgba(0,0,0,.5);
+  position              : relative;
+  margin                : 0 1px;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;  
+  border-radius         : 3px;
+}
+.nano:hover > .pane, .pane.active, .pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
 }

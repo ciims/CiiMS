@@ -54,7 +54,29 @@ class ContentListView extends CListView
 	 */
 	public function renderItems()
 	{
-		parent::renderItems();
+		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
+		echo CHtml::openTag('div', array('class' => 'content'));
+		$data=$this->dataProvider->getData();
+		if(($n=count($data))>0)
+		{
+			$owner=$this->getOwner();
+			$viewFile=$owner->getViewFile($this->itemView);
+			$j=0;
+			foreach($data as $i=>$item)
+			{
+				$data=$this->viewData;
+				$data['index']=$i;
+				$data['data']=$item;
+				$data['widget']=$this;
+				$owner->renderFile($viewFile,$data);
+				if($j++ < $n-1)
+					echo $this->separator;
+			}
+		}
+		else
+			$this->renderEmptyText();
+		echo CHtml::closeTag('div');
+		echo CHtml::closeTag($this->itemsTagName);
 		echo CHtml::tag('div', array('class' => 'preview'));
 		echo CHtml::tag('div', array('class' => 'clearfix'));
 	}
