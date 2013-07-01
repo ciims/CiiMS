@@ -115,10 +115,10 @@ class CiiController extends CController
         if ($smtpUser !== NULL)                    
             $mail->Username   = $smtpUser->value; 
 
-        if ($smptPass !== NULL)
+        if ($smtpPass !== NULL)
             $mail->Password   = $smtpPass->value;      
 
-        if ($notifyEmail == NULL && $notifyName == NULL)
+        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
             $notifyUser = Users::model()->findByPk(1);
 
         $mail->SetFrom($notifyUser->email, $notifyUser->displayName);
@@ -131,6 +131,8 @@ class CiiController extends CController
         } catch (Exception $e) {
             return false;
         }
+
+        return false;
     }
 
     /**
