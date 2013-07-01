@@ -252,34 +252,7 @@ class SiteController extends CiiController
 					$meta->save();
 					
 
-					// Send email
-					$adminUser = Users::model()->findByPk(1);
-					Yii::import('application.extensions.phpmailer.JPhpMailer');
-					$mail = new JPhpMailer;
-					$mail->IsSMTP();
-
-					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-					$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
-					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
-					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
-
-					if ($smtpHost !== NULL)
-						$mail->Host       = $smtpHost->value; 
-
-					if ($smtpPort !== NULL)
-						$mail->Port       = $smtpPort->value;
-
-					if ($smtpUser !== NULL)                    
-						$mail->Username   = $smtpUser->value; 
-
-					if ($smptPass !== NULL)
-						$mail->Password   = $smtpPass->value;           
-
-					$mail->SetFrom($adminUser->email, $adminUser->name);
-					$mail->Subject = 'Your Password Reset Information';
-					$mail->MsgHTML( $this->renderPartial('//email/forgot', array('user' => $user, 'hash' => $hash), true, true));
-					$mail->AddAddress($user->email, $user->displayName);
-					$mail->Send();
+					$this->sendEmail($user, 'Your Password Reset Information', '//email/forgot', array('user' => $user, 'hash' => $hash), true, true);
 					
 					// Set success flash
 					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
@@ -457,35 +430,9 @@ class SiteController extends CiiController
 						$meta->key = 'activationKey';
 						$meta->value = $hash;
 						$meta->save();
-											
-						// Send email
-						$adminUser = Users::model()->findByPk(1);
-						Yii::import('application.extensions.phpmailer.JPhpMailer');
-						$mail = new JPhpMailer;
-						$mail->IsSMTP();
-
-						$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-						$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
-						$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
-						$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
-
-						if ($smtpHost !== NULL)
-							$mail->Host       = $smtpHost->value; 
-
-						if ($smtpPort !== NULL)
-							$mail->Port       = $smtpPort->value;
-
-						if ($smtpUser !== NULL)                    
-							$mail->Username   = $smtpUser->value; 
-
-						if ($smptPass !== NULL)
-							$mail->Password   = $smtpPass->value;       
-
-						$mail->SetFrom($adminUser->email, $adminUser->name);
-						$mail->Subject = 'Activate Your Account';
-						$mail->MsgHTML( $this->renderPartial('//email/register', array('user' => $user, 'hash' => $hash), true, true));
-						$mail->AddAddress($user->email, $user->displayName);
-						$mail->Send();
+						
+						// Send the registration email
+						$this->sendEmail($user, 'Activate Your Account', '//email/register', array('user' => $user, 'hash' => $hash), true, true);
 					
 						$this->redirect('/register-success');
 						return;

@@ -65,6 +65,74 @@ class CiiController extends CController
         );
     }
     
+
+    /**
+     * Sets the layout for the view
+     * @param $layout - Layout
+     * @action - Sets the layout
+     **/
+    protected function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    /**
+     * Generic method for sending an email. Instead of having to call a bunch of code all over over the place
+     * This method can be called which should be able to handle almost anything.
+     *
+     * By calling this method, the SMTP details will automatically be setup as well the notify email and user
+     * 
+     * @param  Users   $user          The User we are sending the email to
+     * @param  string  $subject       The email Subject
+     * @param  string  $viewFile      The view file we want to render. Generally this should be in the form //email/<file>
+     *                                And should correspond to a viewfile in /themes/<theme>/views/email/<file>
+     * @param  array   $content       The content to pass to renderPartial()
+     * @param  boolean $return        Whether the output should be returned. The default is TRUE since this output will be passed to MsgHTML
+     * @param  boolean $processOutput Whether the output should be processed. The default is TRUE since this output will be passed to MsgHTML
+     * @return boolean                Whether or not the email sent sucessfully
+     */
+    protected function sendEmail(Users $user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
+    {
+        Yii::import('application.extensions.phpmailer.JPhpMailer');
+        $mail = new JPhpMailer;
+        $mail->IsSMTP();
+
+        $smtpHost    = Cii::getConfig('SMTPHost',    NULL);
+        $smtpPort    = Cii::getConfig('SMTPPort',    NULL);
+        $smtpUser    = Cii::getConfig('SMTPUser',    NULL);
+        $smtpPass    = Cii::getConfig('SMTPPass',    NULL);
+
+        $notifyUser  = new stdClass;
+        $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
+        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+
+        if ($smtpHost !== NULL)
+            $mail->Host       = $smtpHost->value; 
+
+        if ($smtpPort !== NULL)
+            $mail->Port       = $smtpPort->value;
+
+        if ($smtpUser !== NULL)                    
+            $mail->Username   = $smtpUser->value; 
+
+        if ($smptPass !== NULL)
+            $mail->Password   = $smtpPass->value;      
+
+        if ($notifyEmail == NULL && $notifyName == NULL)
+            $notifyUser = Users::model()->findByPk(1);
+
+        $mail->SetFrom($notifyUser->email, $notifyUser->displayName);
+        $mail->Subject = $subject;
+        $mail->MsgHTML($this->renderPartial($viewFile, $content, $return, $processOutput));
+        $mail->AddAddress($user->email, $user->displayName);
+
+        try {
+            return $mail->Send();
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     /**
      * Sets the application language for the site based upon $_POST, $_SESSION, http headers
      * @return string   string for translations
@@ -145,17 +213,7 @@ class CiiController extends CController
             
         return $keywords == "" ? Cii::get($this->params['data'], 'title', Yii::app()->name): $keywords;
     }
-	
-	/**
-	 * Sets the layout for the view
-	 * @param $layout - Layout
-	 * @action - Sets the layout
-	 **/
-	protected function setLayout($layout)
-	{
-		$this->layout = $layout;
-	}
-	
+		
 	/**
 	 * Overloaded Render allows us to generate dynamic content and to provide compression
      * @param string $view      The viewfile we want to render
@@ -254,7 +312,7 @@ class CiiController extends CController
     
 	/**
 	 * Gets tags for a content for CMenu
-	 * @returna array $items
+	 * @return array $items
 	 */
 	public function getContentTags()
 	{
@@ -267,7 +325,7 @@ class CiiController extends CController
 	}
 	
 	/**
-	 * Retrieves related posts
+	 * Retrieves related posts to a given post
 	 */
 	public function getRelatedPosts()
 	{
@@ -290,6 +348,11 @@ class CiiController extends CController
         return $items;
 	}
 	
+    /**
+     * Retrieves the posts authored by a given user
+     * @param  integer $id the id of the user
+     * @return array of items
+     */
     public function getPostsByAuthor($id=1)
     {
         $items = array();

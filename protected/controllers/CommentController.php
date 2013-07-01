@@ -106,34 +106,7 @@ class CommentController extends CiiController
 				// Send an email to the author if someone makes a comment on their blog
 				if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1) 
 				{
-					// Send email
-					$adminUser = Users::model()->findByPk(1);
-					Yii::import('application.extensions.phpmailer.JPhpMailer');
-					$mail = new JPhpMailer;
-					$mail->IsSMTP();
-
-					$smtpHost = Configuration::model()->findByAttributes(array('key' => 'SMTPHost'));
-					$smtpPort = Configuration::model()->findByAttributes(array('key' => 'SMTPPort'));
-					$smtpUser = Configuration::model()->findByAttributes(array('key' => 'SMTPUser'));
-					$smtpPass = Configuration::model()->findByAttributes(array('key' => 'SMTPPass'));
-
-					if ($smtpHost !== NULL)
-						$mail->Host       = $smtpHost->value; 
-
-					if ($smtpPort !== NULL)
-						$mail->Port       = $smtpPort->value;
-
-					if ($smtpUser !== NULL)                    
-						$mail->Username   = $smtpUser->value; 
-
-					if ($smptPass !== NULL)
-						$mail->Password   = $smtpPass->value;      
-
-					$mail->SetFrom($adminUser->email, $adminUser->name);
-					$mail->Subject = 'New Comment Notification From CiiMS Blog';
-					$mail->MsgHTML($this->renderPartial('//email/comments', array('content'=>$content, 'comment'=>$comment)));
-					$mail->AddAddress($user->email, $user->displayName);
-					$mail->Send();
+					$this->sendEmail($user, 'New Comment Notification From CiiMS Blog', '//email/comments', array('content'=>$content, 'comment'=>$comment));
 				}
 
 				// Pass the values as "now" for the comment view"
