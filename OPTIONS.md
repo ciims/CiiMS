@@ -237,6 +237,18 @@ n is any given integer given a condition
         <td>0,1</td>
     </tr>
     <tr>
+        <td><strong>notifyEmail</strong></td>
+        <td>The email address that should be used for system notifications. This must be used in tandem with notifyName, otherwise it will fall back to the admin user</td>
+        <td>Admin User's Email</td>
+        <td>user@example.com {string}</td>
+    </tr>
+    <tr>
+        <td><strong>notifyName</strong></td>
+        <td>The name that emails will originate from. This must be used in tandem with notifyEmail, otherwise it will fall back to the admin user's display name</td>
+        <td>Admin User's name</td>
+        <td>{string}</td>
+    </tr>
+    <tr>
         <td><strong>offline</strong></td>
         <td>Whether or not the site should be put into offline mode. When the site is in offline mode, only the dashboard is accessible. Any other page will return an HTTP 403 error with generic site offline messaging</td>
         <td>0</td>
