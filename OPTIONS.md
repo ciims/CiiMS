@@ -195,30 +195,6 @@ n is any given integer given a condition
         <td>n &sub; Z | n > 0</td>
     </tr>
     <tr>
-        <td><strong>gaAccount</strong></td>
-        <td>The account number found in Google Analytics. Use this on conjunction with __gaExtension__</td>
-        <td>NULL</td>
-        <td>Google Analytics Account Number</td>
-    </tr>
-    <tr>
-        <td><strong>gaAddThis</strong> <em>experimental</em></td>
-        <td>Whether or not AddThis should try to inject into Google Analytics. See [this article](http://support.addthis.com/customer/portal/articles/381260-google-analytics-integration) for more information</td>
-        <td>NULL</td>
-        <td>0, 1</td>
-    </tr>
-    <tr>
-        <td><strong>gaAddThisSocial</strong> <em>experimental</em></td>
-        <td>Whether or not AddThis should try to inject into Google Analytics. See [this article](http://support.addthis.com/customer/portal/articles/381260-google-analytics-integration) for more information</td>
-        <td>NULL</td>
-        <td>0, 1</td>
-    </tr>
-    <tr>
-        <td><strong>gaExtension</strong></td>
-        <td>Whether or not [Google Analytics](analytics.google.com) tracking code should be injected in the page source code. __gaAccount__ _must_ be set of this option is enabled, otherwise tracking will fail.</td>
-        <td>0</td>
-        <td>0, 1</td>
-    </tr>
-    <tr>
         <td><strong>menu</strong></td>
         <td>This option provides _extremely limited_ menu management functionality, and accepts any valid _slug_ as a pipe "|" separated list. Each option will be rendered via Yii::app()->createUrl(), and use menu item as the url _and_ the link title. On the default theme, this renders at the top and bottom of each page.</td>
         <td>blog|admin</td>
@@ -253,24 +229,6 @@ n is any given integer given a condition
         <td>Whether or not the site should be put into offline mode. When the site is in offline mode, only the dashboard is accessible. Any other page will return an HTTP 403 error with generic site offline messaging</td>
         <td>0</td>
         <td>0, 1</td>
-    </tr>
-    <tr>
-        <td><strong>piwikBaseUrl</strong></td>
-        <td>This is the schema, host, and port which your [Piwik](http://www.piwik.org) instance is running. See __piwikExtension__ for more details.</td>
-        <td>NULL</td>
-        <td>schema://<domain>:<port></td>
-    </tr>
-    <tr>
-        <td><strong>piwikExtension</strong></td>
-        <td>Whether or not [Piwik](http://www.piwik.org) analytics tracking code should be injected in the page source code. This extension uses [EPiwikAnalyticsWidget](https://github.com/charlesportwoodii/EPiwikAnalyticsWidget). For displaying the plugin. If you enable this extension, you must also provide valid values for __piwikBaseUrl__ and __piwikId__.</td>
-        <td>0</td>
-        <td>0, 1</td>
-    </tr>
-    <tr>
-        <td><strong>piwikId</strong></td>
-        <td>This is the instance id of your site in [Piwik](http://www.piwik.org). See the "All Websites" tab in Piwik to determine what your site_id is. See __piwikExtension__ for more details.</td>
-        <td>NULL</td>
-        <td>Integer ID of piwik site tracking id</td>
     </tr>
     <tr>
         <td><strong>preferMarkdown</strong></td>
