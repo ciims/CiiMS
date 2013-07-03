@@ -18,9 +18,11 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
-$preload = array('cii');
-if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
-    $preload[] = 'bootstrap';
+$preload = array('cii', 'analytics');
+if (isset($_SERVER['REQUEST_URI'])) {
+    if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
+        $preload[] = 'bootstrap';
+}
 
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -48,6 +50,11 @@ return array(
         ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
+        ),
+        'analytics' => array(
+            'class' => 'ext.cii.components.CiiAnalytics',
+            'lowerBounceRate' => true,
+            'options' => array(),
         ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
