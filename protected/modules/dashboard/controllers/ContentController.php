@@ -8,16 +8,23 @@ class ContentController extends CiiDashboardController
 	 */
 	public function actionIndex()
 	{
+        $preview = NULL;
+
 		$model=new Content('search');
         $model->unsetAttributes();  // clear any default values
         if(isset($_GET['Content']))
             $model->attributes=$_GET['Content'];
 
+        if (isset($_GET['id']))
+            $preview = $this->loadModel($_GET['id']);
+
+        $model->pageSize = 20;
         Yii::app()->session['admin_perspective'] = 1;
         
         $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
         $this->render($viewFile, array(
-            'model'=>$model,
+            'model' => $model,
+            'preview' => $preview
         ));
 	}
 

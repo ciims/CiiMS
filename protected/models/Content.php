@@ -117,6 +117,7 @@ class Content extends CiiModel
 			'type_id' => 'Type',
 			'password' => 'Password',
 			'comment_count' => 'Comments',
+			'commentcount',
 			'like_count' => 'Likes',
 			'tags' => 'Tags',
 			'slug' => 'Slug',
@@ -125,7 +126,7 @@ class Content extends CiiModel
 			'updated' => 'Updated',
 		);
 	}
-	
+
 	public function getCommentCount()
 	{
 		return Comments::model()->countByAttributes(array('content_id' => $this->id));
@@ -249,7 +250,7 @@ class Content extends CiiModel
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('published',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-        
+
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(

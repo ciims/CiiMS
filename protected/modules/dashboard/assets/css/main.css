@@ -330,9 +330,11 @@ main .posts-container .list-view .pager {
 	width: 450px;
 	text-align: center;
 }
+
 main .posts-container .list-view .preview {
 	overflow:hidden;
-	height: 100px;
+	height: 93%;
+	max-height: 93%;
 	background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -340,6 +342,89 @@ main .posts-container .list-view .preview {
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 }
 
+main .post {
+	color: #2D2D29;
+	padding: 10px;
+	padding-top: 0px;
+	border: 1px solid #eee;
+	cursor: default;
+}
+
+main .post:active {
+	-webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+main .post-data {
+	color: #2D2D29;
+	position: relative;
+	overflow: hidden;
+}
+
+main .post-data h6 {
+	color: #2D2D29;
+	margin-bottom: 0px;
+}
+
+main .post-data .author {
+	color: #999;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+main .post-data .status {
+	display: block;
+	color: #999;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+main .post-data .status abbr[title], main .post-data .status abbr[data-original-title] {
+	border-bottom: 0px;
+}
+
+main .post-data .status.draft {
+	color: #CE4444;
+}
+
+main .post-data .status.scheduled {
+	color: #FFF73B;
+}
+
+main .post-metadata {
+	color: #2D2D29;
+	position: relative;
+	float: right;
+    width: 50px;
+}
+
+main .post-metadata-inner {
+	color: #2D2D29;
+	padding-right: 5px;
+	padding-top: 5px;
+	position: relative;
+	float:right;
+	font-size: 12px;
+}
+
+main .post-metadata-inner .row {
+	display: block;
+	width: 100%;
+	margin-left: 0px;
+}
+
+main .post-metadata-inner .row.comments {
+	color: #A7CE44;
+}
+
+main .post-metadata-inner .row.likes {
+	color: #CE4444;
+}
+
+main .post-metadata-inner .row.views {
+	color: #59A0DC;
+}
 
 /** initial setup **/
 .nano {
@@ -369,7 +454,7 @@ main .posts-container .list-view .preview {
 	visibility: visible;
 }
 
-.nano > .pane {
+.nano > .pane, .nano > .pane2 {
 	background : rgba(0,0,0,.25);
 	position   : absolute;
 	width      : 10px;
@@ -387,7 +472,7 @@ main .posts-container .list-view .preview {
 	border-radius         : 5px;
 }
 
-.nano > .pane > .slider {
+.nano > .pane > .slider,.nano > .pane2 > .slider2 {
 	background: #444;
 	background: rgba(0,0,0,.5);
 	position              : relative;
@@ -397,7 +482,7 @@ main .posts-container .list-view .preview {
 	border-radius         : 3px;
 }
 
-.nano:hover > .pane, .pane.active, .pane.flashed {
+.nano:hover > .pane, .pane.active, .pane.flashed, .nano:hover > .pane2, .pane2.active, .pane2.flashed {
 	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 	opacity    : 0.99;
 }

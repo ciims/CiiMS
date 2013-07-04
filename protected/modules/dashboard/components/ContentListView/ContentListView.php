@@ -5,6 +5,7 @@ class ContentListView extends CListView
 	public $beforeAjaxUpdate;
 	public $afterAjaxUpdate;
 	public $ajaxUpdateError;
+	public $preview = NULL;
 
 	/**
 	 * Registers necessary client scripts.
@@ -54,7 +55,7 @@ class ContentListView extends CListView
 	 */
 	public function renderItems()
 	{
-		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
+		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass, 'id' => 'posts'))."\n";
 			echo CHtml::openTag('div', array('class' => 'content'));
 			$data=$this->dataProvider->getData();
 			if(($n=count($data))>0)
@@ -79,7 +80,10 @@ class ContentListView extends CListView
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag($this->itemsTagName);
 		
-		echo CHtml::openTag('div', array('class' => 'preview'));
+		echo CHtml::openTag('div', array('class' => 'preview nano', 'id' => 'preview'));
+			echo CHtml::openTag('div', array('class' => 'content'));
+				$this->render('preview', array('model' => $this->preview));
+			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 		echo CHtml::openTag('div', array('class' => 'clearfix'));
 		echo CHtml::closeTag('div');

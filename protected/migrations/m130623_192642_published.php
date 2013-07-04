@@ -9,7 +9,9 @@ class m130623_192642_published extends CDbMigration
 	{
 		// Refactor for EXECUTE style queries
 		$connection = $this->getDbConnection();
-		return $connection->createCommand('ALTER TABLE  `content` ADD  `published` TIMESTAMP NOT NULL AFTER  `slug` ;')->execute();
+		$connection->createCommand('ALTER TABLE  `content` ADD  `published` TIMESTAMP NOT NULL AFTER  `slug` ;')->execute();
+		$connection->createCommand('UPDATE `content` SET published = created')->execute();
+		return true;
 	}
 
 	public function safeDown()
