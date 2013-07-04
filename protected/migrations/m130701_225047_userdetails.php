@@ -12,8 +12,7 @@ class m130701_225047_userdetails extends CDbMigration
 		$connection = $this->getDbConnection();
 		$connection->createCommand('ALTER TABLE users MODIFY firstName VARCHAR(255) NULL')->execute();
 		$connection->createCommand('ALTER TABLE users MODIFY lastName VARCHAR(255) NULL')->execute();
-		$connection->createCommand('ALTER TABLE users MODIFY about VARCHAR(255) NULL')->execute();
-		$connection->createCommand('ALTER TABLE users MODIFY activation_key VARCHAR(255) NULL')->execute();
+		$connection->createCommand('ALTER TABLE users MODIFY about TEXT NULL')->execute();
 
 		return true;
   
