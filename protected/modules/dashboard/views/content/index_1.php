@@ -8,7 +8,10 @@
 	    'sorterHeader' => '<div class="content"><strong>Manage Content</strong>',
 	    'itemsCssClass' => 'posts nano',
 	    'sorterCssClass' => 'sorter',
-	    'beforeAjaxUpdate' => 'js:function() { previewPane = $("#preview .content") }',
+	    'beforeAjaxUpdate' => 'js:function() { 
+	    	previewPane = $("#preview .content") 
+	    	scrollTop = $("#preview .content").scrollTop();
+	    }',
 	    'afterAjaxUpdate' => 'js:function() { 
 	    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
 	    	$(".timeago").timeago(); 
@@ -16,7 +19,11 @@
 	    	$(".preview").remove();
 			$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 			$(".preview").html(contentPane).removeClass("has-scrollbar");
-			$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); }',
+			$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
+			$("#preview .content").animate({
+				scrollTop : scrollTop
+			}, 0);
+		}',
 	    'sortableAttributes' => array(
 	        'title',
 	        'author_id',
