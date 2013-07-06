@@ -15,6 +15,7 @@ class CiiDashboardController extends CiiController
 			'accessControl'
 		);
 	}
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -25,7 +26,7 @@ class CiiDashboardController extends CiiController
 		return array(
 			array('allow',  // allow authenticated admins to perform any action
 				'users'=>array('@'),
-				'expression'=>'Yii::app()->user->role==5'
+				'expression'=>'Yii::app()->user->role>=5'
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -40,16 +41,4 @@ class CiiDashboardController extends CiiController
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
 	 */
 	public $layout='main';
-	
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
-	public $menu=array();
-	
-	/**
-	 * @var array the breadcrumbs of the current page. The value of this property will
-	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-	 * for more details on how to specify this property.
-	 */
-	public $breadcrumbs=array();
 }

@@ -60,7 +60,8 @@ class ContentListView extends CListView
 
 				echo CHtml::openTag('div', array('class' => 'post post-header'));
 					echo CHtml::tag('h6', array('class' => 'pull-left'), 'Posts');
-					echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
+					if (Yii::app()->user->role !== 7)
+						echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
 					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 				echo CHtml::closeTag('div');
 			$data=$this->dataProvider->getData();
@@ -105,7 +106,7 @@ class ContentListView extends CListView
 			return;
 		echo CHtml::openTag('div',array('class'=>$this->sorterCssClass))."\n";
 		echo $this->sorterHeader===null ? Yii::t('zii','Sort by: ') : $this->sorterHeader;
-		echo CHtml::tag('span', array('class' => 'icon-gears pull-right'), NULL);
+		echo CHtml::tag('span', array('class' => 'icon-exchange pull-right', 'id' => 'perspective'), NULL);
 		echo "<ul>\n";
 			$sort=$this->dataProvider->getSort();
 			foreach($this->sortableAttributes as $name=>$label)

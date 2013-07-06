@@ -1,4 +1,5 @@
 <div class="posts-container">
+	<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 	<?php Yii::import('application.modules.dashboard.components.ContentListView.ContentListView'); ?>
 	<?php $this->widget('ContentListView', array(
 	    'dataProvider' => $model->search(),
@@ -7,16 +8,32 @@
 	    'itemView' => 'post',
 	    'sorterHeader' => '<div class="content"><strong>Manage Content</strong>',
 	    'itemsCssClass' => 'posts nano',
+	    'pagerCssClass' => 'pagination',
+	    'pager' => array('class'=>'bootstrap.widgets.TbPager'),
 	    'sorterCssClass' => 'sorter',
-	    'beforeAjaxUpdate' => 'js:function() { 
+	    'beforeAjaxUpdate' => 'js:function() {
 	    	previewPane = $("#preview .content");
 	    	scrollTop = $("#preview .content").scrollTop();
 	    }',
 	    'afterAjaxUpdate' => 'js:function() { 
+	    	// Change perspective
+			$("#perspective").click(function(e) {
+				console.log("BindClick");
+				$.post("' . $this->createUrl('/dashboard/content/index/perspective/2') . '", function() { 
+					window.location = "' .  $this->createUrl('/dashboard/content') .'";
+				});
+			});
+
+			// NanoScroller for main div
 	    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+
+	    	// Timeago
 	    	$(".timeago").timeago(); 
+
+	    	// Post Click Behavior
 	    	bindPostClick(); 
 
+	    	// Reset Preview Pane
 	    	$(".preview").remove();
 			$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 			$(".preview").html(contentPane).removeClass("has-scrollbar");
@@ -47,11 +64,12 @@
 	});
 '); ?>
 
-<?php Yii::app()->getClientScript()->registerScript('listview-settings', '
+<?php Yii::app()->getClientScript()->registerScript('listview-perspective', '
 	$(document).ready(function() {
-		$(".icon-gears").click(function(e) {
-			e.preventDefault();
-			return false;
+		$("#perspective").click(function(e) {
+			$.post("' . $this->createUrl('/dashboard/content/index/perspective/2') . '", function() { 
+				window.location = "' .  $this->createUrl('/dashboard/content') .'";
+			});
 		});
 	});
 '); ?>

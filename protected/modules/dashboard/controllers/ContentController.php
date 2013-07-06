@@ -2,6 +2,28 @@
 
 class ContentController extends CiiDashboardController
 {
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules()
+    {
+        return array(
+            array('allow',  // allow authenticated admins to perform any action
+                'users'=>array('@'),
+                'expression'=>'Yii::app()->user->role>=7'
+            ),
+            array('deny',   // Prevent Editors from deleting content
+                'actions' => array('delete', 'deleteMany'),
+                'expression' => 'Yii::app()->user->role==7'
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
+
 	/**
 	 * Default management page
      * Display all items in a CListView for easy editing
@@ -12,21 +34,85 @@ class ContentController extends CiiDashboardController
 
 		$model=new Content('search');
         $model->unsetAttributes();  // clear any default values
-        if(isset($_GET['Content']))
+        if(Cii::get($_GET, 'Content') !== NULL)
             $model->attributes=$_GET['Content'];
 
-        if (isset($_GET['id']))
+        // Only show posts that belong to that user if they are not an editor or an admin
+        if (($role =Yii::app()->user->role))
+        {
+            if ($role != 7 && $role != 9)
+                $model->author_id = Yii::app()->user->id;
+        }
+
+        if (Cii::get($_GET, 'id') !== NULL)
             $preview = $this->loadModel($_GET['id']);
 
         $model->pageSize = 20;
-        Yii::app()->session['admin_perspective'] = 1;
+
+        if (!isset(Yii::app()->session['admin_perspective']))
+            Yii::app()->session['admin_perspective'] = 1;
         
+        if (Cii::get($_GET, 'perspective') !== NULL)
+        {
+            if (in_array((int)Cii::get($_GET, 'perspective'), array(1, 2)))
+                Yii::app()->session['admin_perspective'] = Cii::get($_GET, 'perspective');
+        }
+
+        if (Yii::app()->session['admin_perspective'] == 2)
+            $model->pageSize = 15;
+
         $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
         $this->render($viewFile, array(
             'model' => $model,
             'preview' => $preview
         ));
 	}
+
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     */
+    public function actionDelete($id)
+    {
+        // we only allow deletion via POST request
+        // and we delete /everything/
+        $command = Yii::app()->db
+                      ->createCommand("DELETE FROM content WHERE id = :id")
+                      ->bindParam(":id", $id, PDO::PARAM_STR)
+                      ->execute();
+
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+    
+    /**
+     * Public function to delete many records from the content table
+     * TODO, add verification notice on this
+     */
+    public function actionDeleteMany()
+    {
+        $key = key($_POST);
+        if (count($_POST[$key]) == 0)
+            throw new CHttpException(500, 'No records were supplied to delete');
+        
+        foreach ($_POST[$key] as $id)
+        {
+            $command = Yii::app()->db
+                      ->createCommand("DELETE FROM content WHERE id = :id")
+                      ->bindParam(":id", $id, PDO::PARAM_STR)
+                      ->execute();
+        }
+        
+        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if(!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

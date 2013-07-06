@@ -221,6 +221,11 @@ main .posts-container .list-view .posts {
 	padding: 10px;
 }
 
+main .posts-container .list-view .pagination {
+	float:left;
+	text-align:center;
+	width: 450px;
+}
 main .posts-container .list-view .posts .header {
 	color: #999;
 	font-size: 11px;
@@ -262,6 +267,11 @@ main .posts-container .list-view .sorter {
 	text-align: left;
 }
 
+main .posts-container .list-view .grid-view .sorter {
+	position: relative;
+	top: -20px;
+}
+
 main .posts-container .list-view .sorter .content {
 	width: 100%;
 	display: inline-block;
@@ -291,7 +301,7 @@ main .posts-container .list-view .sorter .content ul {
 	margin-right: 20px;
 }
 
-main .posts-container .list-view .sorter .content span.icon-gears {
+main .posts-container .list-view .sorter .content span.icon-exchange {
 	position: relative;
 	top: 5px;
 	right: 20px;
@@ -299,9 +309,17 @@ main .posts-container .list-view .sorter .content span.icon-gears {
 	color: #999;
 	font-size: 11px;
 	text-decoration: none;
+	cursor: pointer;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 
-main .posts-container .list-view .sorter .content ul li a:hover {
+main .posts-container .list-view .sorter .content ul li a:hover, 
+main .posts-container .list-view .sorter .content span.icon-exchange:hover, 
+main .posts-container .grid-view table .button-column a:hover {
  	text-decoration: none;
 	color: #000;
 	-webkit-transition: all .2s ease-in-out;
@@ -333,6 +351,58 @@ main .posts-container .list-view .sorter a.asc:after {
 	content: "\f106";
 	background: transparent;
 	padding-left: 5px;
+}
+
+main .posts-container .grid-view .summary-text {
+	float:right;
+	margin-right: 10px;
+	color: #999;
+	text-transform: uppercase;
+}
+
+main .posts-container .grid-view .icon-plus {
+	background: #A7CE44;
+	border-radius: 4px;
+	padding: 5px;
+	color: #fff;
+	font-size: 10px;
+	text-decoration: none;
+	margin-right: 25px;
+	position: relative;
+}
+main .posts-container .grid-view table {
+	position: relative;
+	top: -20px;
+	border: 1px solid rgba(0,0,0, 0.1);
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	border-collapse: separate;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background: #fff;
+}
+
+main .posts-container .grid-view table .button-column a {
+	font-family: "FontAwesome";
+	font-weight: 400;
+	color: #999;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+main .posts-container .grid-view table .button-column a i {
+	display: none;
+	
+}
+
+main .posts-container .grid-view table a.sort-link {
+	font-family: 'Open Sans';
+	font-size: 12px;
+	color: #2D2D29;
 }
 
 main .posts-container .list-view .pager {
@@ -493,6 +563,11 @@ main .preview .preview-metadata {
 	font-size: 12px;
 	margin-top: -10px;
 	margin-bottom: 15px;
+}
+
+.ui-tooltip {
+	width:50px;
+	text-align: center;
 }
 
 /** initial setup **/

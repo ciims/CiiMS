@@ -15,6 +15,7 @@ class m130626_203729_roles extends CDbMigration
 		$connection->createCommand('INSERT INTO user_roles (id, name, created, updated) VALUES (8, "Publisher", NOW(), NOW());')->execute();
 		$connection->createCommand('INSERT INTO user_roles (id, name, created, updated) VALUES (9, "Administrator", NOW(), NOW());')->execute();
 
+		$connection->createCommand('UPDATE users SET user_role = 9 WHERE user_role = 5;')->execute();
 		return true;
 	}
 

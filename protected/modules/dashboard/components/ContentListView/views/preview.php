@@ -2,8 +2,7 @@
 	<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 	<div class="preview-header">
 		<span class="title pull-left"><?php echo $model->title; ?></span>
-		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-gear pull-right')); ?>
-		<?php echo CHtml::link(NULL, '#', array('class' => 'icon-edit pull-right')); ?>
+		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-edit pull-right')); ?>
 		<div class="clearfix"></div>
 	</div>
 	<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
