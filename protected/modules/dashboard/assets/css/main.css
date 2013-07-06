@@ -208,7 +208,7 @@ main .posts-container .list-view {
 
 main .posts-container .list-view .posts {
 	float: left;
-	margin-right: 15px;
+	margin-right: 5px;
 	width: 450px;
 	height: 90%;
 	max-height: 90%;
@@ -291,6 +291,16 @@ main .posts-container .list-view .sorter .content ul {
 	margin-right: 20px;
 }
 
+main .posts-container .list-view .sorter .content span.icon-gears {
+	position: relative;
+	top: 5px;
+	right: 20px;
+	padding-left: 5px;
+	color: #999;
+	font-size: 11px;
+	text-decoration: none;
+}
+
 main .posts-container .list-view .sorter .content ul li a:hover {
  	text-decoration: none;
 	color: #000;
@@ -354,6 +364,33 @@ main .post:active {
 	-webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+main .post.active {
+	border-left: 3px solid #999;
+	background: #F5F5F5;
+}
+
+main .post.post-header h6 {
+	margin-bottom: 0px;
+}
+
+main .post.post-header .icon-plus {
+	top: 9px;
+	position: relative;
+	background: #A7CE44;
+	border-radius: 4px;
+	padding: 5px;
+	color: #fff;
+	font-size: 10px;
+	text-decoration: none;
+	margin-right: 5px;
+}
+
+main .post.post-header:active, main .post.active:active {
+	-webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+    -moz-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0);
 }
 
 main .post-data {
@@ -426,6 +463,38 @@ main .post-metadata-inner .row.views {
 	color: #59A0DC;
 }
 
+main .preview .preview-header {
+	border-bottom: 1px solid #eee;
+	padding: 10px 20px;
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+main .preview .preview-header .icon-edit, main .preview .preview-header .icon-gear {
+	position: relative;
+	top: 5px;
+	color: #999;
+	text-decoration: none;
+	padding-left: 5px;
+}
+
+main .preview .preview-image {
+	width: 100%;
+}
+
+main .preview .preview-data {
+	margin: 20px;
+}
+
+main .preview .preview-metadata {
+	font-size: 12px;
+	margin-top: -10px;
+	margin-bottom: 15px;
+}
+
 /** initial setup **/
 .nano {
 	position : relative;
@@ -457,7 +526,7 @@ main .post-metadata-inner .row.views {
 .nano > .pane, .nano > .pane2 {
 	background : rgba(0,0,0,.25);
 	position   : absolute;
-	width      : 10px;
+	width      : 7px;
 	right      : 0;
 	top        : 0;
 	bottom     : 0;

@@ -100,7 +100,7 @@ class CommentController extends CiiController
 			if ($comment->save())
 			{
 				$content = Content::model()->findByPk($_POST['Comments']['content_id']);
-				$content->comment_count++;
+				$content->comment_count = $content->getCommentCount();
 				$content->save();
 				
 				// Send an email to the author if someone makes a comment on their blog

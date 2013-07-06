@@ -9,13 +9,14 @@
 	    'itemsCssClass' => 'posts nano',
 	    'sorterCssClass' => 'sorter',
 	    'beforeAjaxUpdate' => 'js:function() { 
-	    	previewPane = $("#preview .content") 
+	    	previewPane = $("#preview .content");
 	    	scrollTop = $("#preview .content").scrollTop();
 	    }',
 	    'afterAjaxUpdate' => 'js:function() { 
 	    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
 	    	$(".timeago").timeago(); 
 	    	bindPostClick(); 
+
 	    	$(".preview").remove();
 			$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 			$(".preview").html(contentPane).removeClass("has-scrollbar");
@@ -28,6 +29,8 @@
 	        'title',
 	        'author_id',
 	        'like_count',
+	        'comment_count',
+	        'category_id',
 	        'status',
 	        'created',
 	        'updated',
@@ -43,9 +46,24 @@
 		$("#posts.nano").nanoScroller();
 	});
 '); ?>
+
+<?php Yii::app()->getClientScript()->registerScript('listview-settings', '
+	$(document).ready(function() {
+		$(".icon-gears").click(function(e) {
+			e.preventDefault();
+			return false;
+		});
+	});
+'); ?>
+
 <?php Yii::app()->getClientScript()->registerScript('clickBinding', '
 	function bindPostClick() {
 		$(".post").click(function() { 
+			if ($(this).hasClass("post-header"))
+				return;
+			
+			$(".post").removeClass("active");
+			$(this).addClass("active"); 
 			var id = $(this).attr("data-attr-id");
 
 			$.get("' . $this->createUrl('/dashboard/content/index/id/') . '/" + id, function(data, textStatus, jqXHR) {
@@ -58,7 +76,9 @@
 		});
 	}
 
-	bindPostClick();
+	$(document).ready(function() {
+		bindPostClick();
+	});
 '); ?>
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',

@@ -57,6 +57,12 @@ class ContentListView extends CListView
 	{
 		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass, 'id' => 'posts'))."\n";
 			echo CHtml::openTag('div', array('class' => 'content'));
+
+				echo CHtml::openTag('div', array('class' => 'post post-header'));
+					echo CHtml::tag('h6', array('class' => 'pull-left'), 'Posts');
+					echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
+					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+				echo CHtml::closeTag('div');
 			$data=$this->dataProvider->getData();
 			if(($n=count($data))>0)
 			{
@@ -95,7 +101,28 @@ class ContentListView extends CListView
 	 */
 	public function renderSorter()
 	{
-		parent::renderSorter();
+		if($this->dataProvider->getItemCount()<=0 || !$this->enableSorting || empty($this->sortableAttributes))
+			return;
+		echo CHtml::openTag('div',array('class'=>$this->sorterCssClass))."\n";
+		echo $this->sorterHeader===null ? Yii::t('zii','Sort by: ') : $this->sorterHeader;
+		echo CHtml::tag('span', array('class' => 'icon-gears pull-right'), NULL);
+		echo "<ul>\n";
+			$sort=$this->dataProvider->getSort();
+			foreach($this->sortableAttributes as $name=>$label)
+			{
+				echo "<li>";
+				if(is_integer($name))
+					echo $sort->link($label);
+				else
+					echo $sort->link($name,$label);
+				echo "</li>\n";
+			}
+		echo "</ul>";
+
+		echo $this->sorterFooter;
+
+		echo CHtml::closeTag('div');
+
 		echo CHtml::closeTag('div');
 	}
 }
