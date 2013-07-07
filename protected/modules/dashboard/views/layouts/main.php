@@ -22,9 +22,7 @@
 					'items' => array(
 						array('label' => 'Dashboard', 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
 						array('label' => 'Content', 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
-						array('label' => 'Categories', 'url' => $this->createUrl('/dashboard/categories'), 'active' => $this->id == 'categories'),
-						array('label' => 'People', 'url' => $this->createUrl('/dashboard/people'), 'active' => $this->id == 'people'),
-						array('label' => 'Settings', 'url' => $this->createUrl('/dashboard/settings'), 'active' => $this->id == 'settings'),
+						array('label' => 'Settings', 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
 					)
 				)); ?>
 			</div>

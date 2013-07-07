@@ -1,6 +1,6 @@
 <?php
 
-class AnalyticsController extends CiiDashboardController
+class AnalyticsController extends CiiSettingsController
 {
 	public function actionIndex()
 	{

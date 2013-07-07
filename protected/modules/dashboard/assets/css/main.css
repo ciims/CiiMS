@@ -193,7 +193,8 @@ main .dashboard .widget-container > div {
 }
 
 /** Main Content **/
-main .posts-container {
+main .posts-container,
+main .settings-container {
 	margin: 0 5%;
 	width: 90%;
 	overflow: hidden;
@@ -206,7 +207,8 @@ main .posts-container .list-view {
 	height: 90%;
 }
 
-main .posts-container .list-view .posts {
+main .posts-container .list-view .posts,
+main .settings-container .sidebar {
 	float: left;
 	margin-right: 5px;
 	width: 450px;
@@ -221,11 +223,71 @@ main .posts-container .list-view .posts {
 	padding: 10px;
 }
 
+main .settings-container .sidebar {
+	width: 350px;
+	padding: 0px;
+	height: 93%;
+	max-height: 93%;
+}
+
+main .settings-container .sidebar .header {
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
+	padding: 10px 20px;
+}
+
+main .settings-container .sidebar .header h3 {
+	font-size: 25px;
+	font-weight: 600;
+}
+
+main .settings-container .sidebar .header p {
+	font-size: 13px;
+}
+
+main .settings-container .sidebar ul.menu {
+	margin: 0px;
+}
+
+main .settings-container .sidebar .menu li {
+	color: #999;
+	display: block;
+	width: 100%;
+	padding: 20px;
+	margin: 0px;
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li:hover,
+main .settings-container .sidebar .menu li:hover a {
+	color: #2D2D29;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li a {
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+	padding-left: 20px;
+	text-decoration: none;
+}
+
 main .posts-container .list-view .pagination {
 	float:left;
 	text-align:center;
 	width: 450px;
 }
+
 main .posts-container .list-view .posts .header {
 	color: #999;
 	font-size: 11px;
@@ -394,6 +456,7 @@ main .posts-container .grid-view table .button-column a {
 	-o-transition: all .2s ease-in-out;
 	transition: all .2s ease-in-out;
 }
+
 main .posts-container .grid-view table .button-column a i {
 	display: none;
 	
@@ -411,7 +474,8 @@ main .posts-container .list-view .pager {
 	text-align: center;
 }
 
-main .posts-container .list-view .preview {
+main .posts-container .list-view .preview,
+main .settings-container .body-content {
 	overflow:hidden;
 	height: 93%;
 	max-height: 93%;

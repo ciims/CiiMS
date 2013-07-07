@@ -1,6 +1,6 @@
 <?php
 
-class AuthorsController extends CiiDashboardController
+class UsersController extends CiiSettingsController
 {
 	public function actionIndex()
 	{

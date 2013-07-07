@@ -66,7 +66,12 @@ class ContentController extends CiiDashboardController
             'model' => $model,
             'preview' => $preview
         ));
-	}
+    }
+
+    public function actionSave()
+    {
+
+    }
 
     /**
      * Deletes a particular model.

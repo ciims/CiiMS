@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesController extends CiiDashboardController
+class CategoriesController extends CiiSettingsController
 {
 	public function actionIndex()
 	{
