@@ -249,6 +249,7 @@ main .settings-container .sidebar ul.menu {
 }
 
 main .settings-container .sidebar .menu li {
+	cursor: pointer;
 	color: #999;
 	display: block;
 	width: 100%;
