@@ -181,6 +181,8 @@ class CiiController extends CController
                 if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
                     throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
             }
+            else if (isset($this->module) && $this->module->getName() == "dashboard")
+                $nop;
             else
                 throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
         }
@@ -192,16 +194,24 @@ class CiiController extends CController
         Yii::import('ext.mobile_detect.*');
 
         // Allow for mobile devices to have a separate theme
-        if (MobileDetect::isMobileS())
+        if (MobileDetect::isMobileDevice())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
             if ($mobileTheme !== NULL)
                 $theme = $mobileTheme;
         }
 
+        // Allow for tablet devices to have a separate theme from desktop and mobile
+        if (MobileDetect::isTabletDevice())
+        {
+            $tabletTheme = Cii::getConfig('tabletTheme');
+            if ($tabletTheme !== NULL)
+                $theme = $tabletTheme;
+        }
+
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
-        return parent::beforeAction($action);;
+        return parent::beforeAction($action);
 	}
 	
     /**
