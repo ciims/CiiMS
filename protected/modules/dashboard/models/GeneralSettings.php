@@ -1,36 +1,35 @@
 <?php
 
-class GeneralSettings extends CFormModel
+Yii::import('application.modules.dashboard.components.CiiSettingsModel');
+class GeneralSettings extends CiiSettingsModel
 {
-	public $name;
+	protected $name;
 
-	public $dateFormat;
+	protected $dateFormat;
 
-	public $timeFormat;
+	protected $timeFormat;
 
-	public $timezone;
+	protected $timezone;
 
-	public $defaultLanguage;
+	protected $defaultLanguage = 'en_US';
 
-	public $url;
+	protected $url;
 
-	public $subdomain;
+	protected $subdomain;
 
-	public $menu;
+	protected $menu = 'admin|blog';
 
-	public $offline;
+	protected $offline = false;
 
-	public $preferMarkdown;
+	protected $preferMarkdown = true;
 
-	public $splashLogo;
+	protected $bcrypt_cost = 13;
 
-	public $bcrypt_cost;
+	protected $searchPaginationSize = 10;
 
-	public $searchPaginationSize;
+	protected $categoryPaginationSize = 10;
 
-	public $categoryPaginationSize;
-
-	public $contentPaginationSize;
+	protected $contentPaginationSize = 10;
 
 	public function rules()
 	{
@@ -38,6 +37,7 @@ class GeneralSettings extends CFormModel
 		);
 	}
 
+	
 	/**
 	 * Attribute labels
 	 * @return array
@@ -61,11 +61,5 @@ class GeneralSettings extends CFormModel
 			'categoryPaginationSize' => 'Category Post Count',
 			'contentPaginationSize' => 'Content Post Cost'
 		);
-	}
-
-	public function save()
-	{
-		if (!$this->validate())
-			return false;
 	}
 }
