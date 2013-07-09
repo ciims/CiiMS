@@ -230,17 +230,17 @@ main .settings-container .sidebar {
 	max-height: 93%;
 }
 
-main .settings-container .sidebar .header {
+main .settings-container .header {
 	border-bottom: 1px solid rgba(0,0,0, 0.1);
 	padding: 10px 20px;
 }
 
-main .settings-container .sidebar .header h3 {
+main .settings-container .header h3 {
 	font-size: 25px;
 	font-weight: 600;
 }
 
-main .settings-container .sidebar .header p {
+main .settings-container .header p {
 	font-size: 13px;
 }
 
