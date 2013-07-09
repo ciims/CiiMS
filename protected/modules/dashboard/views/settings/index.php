@@ -3,9 +3,4 @@
 	<p>Set basic information about your site and change global settings.</p>
 </div>
 
-<?php $form = $this->beginWidget('CActiveForm', array(
-    'id'=>'GeneralSettings',
-    'enableAjaxValidation'=>true,
-)); ?>
-	<?php echo $form->textField($model, 'bcrypt_cost'); ?>
-<?php $this->endWidget(); ?>
+<?php $this->widget('application.modules.dashboard.components.CiiSettingsForm', array('model' => $model)); ?>

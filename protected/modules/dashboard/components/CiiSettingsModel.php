@@ -8,6 +8,8 @@
  */
 class CiiSettingsModel extends CFormModel
 {
+	public $attributes = array();
+
 	/**
 	 * Overload the __getter so that it checks for data in the following order
 	 * 1) Pull From db/cache (Cii::getConfig now does caching of elements for improved performance)
@@ -34,17 +36,88 @@ class CiiSettingsModel extends CFormModel
 	}
 
 	/**
+	 * Generic setter
+	 * Since @protected properties exists, we can't take advantage of __set(), so we have to roll our own
+	 * @param string $name 	The name of the varliable
+	 * @param mixed  $value The value to set
+	 */
+	private function set($name, $value)
+	{
+		if (property_exists($this, $name))
+		{
+			$this->$name = $value;
+			$this->attributes[$name] = $value;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Provides a generic method for populating data
+	 * @param  array  $data $_POST data
+	 * @return bool
+	 */
+	public function populate($data = array())
+	{
+		$data = Cii::get($data, get_class($this));
+
+		foreach ($data as $attribute=>$value)
+			$this->set($attribute, $value);
+		return true;
+	}
+
+	public function validate($attributes=null, $clearErrors=true)
+	{
+		if ($attributes == NULL)
+			$attributes = $this->attributes;
+
+	    if($clearErrors)
+	        $this->clearErrors();
+
+	    if($this->beforeValidate())
+	    {
+	        foreach($this->getValidators() as $validator)
+	           $validator->validate($this,$attributes);
+
+	        $this->afterValidate();
+
+	        Cii::debug(!$this->hasErrors(), true);
+	        return !$this->hasErrors();
+	    }
+	    else
+	        return false;
+	}
+
+	/**
 	 * Save function for Configuration
 	 * @return bool      Whether or not the save succedded or not
 	 */
-	public function save()
+	public function save($runValidation=true)
 	{
-		if (!$this->validate())
-			return false;
-
-		foreach($this->attributes as $field)
+		if($runValidation && !$this->validate())
 		{
-			Cii::debug($field);
+			echo "FALSE";
+			return false;
 		}
+
+		$connection = Yii::app()->db;
+		$transaction = $connection->beginTransaction();
+
+		try {
+			foreach($this->attributes as $field=>$value)
+			{
+				$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:field, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+				$command->bindParam(':field', $field);
+				$command->bindParam(':value', $value);
+				$command->bindParam(':value2', $value);
+				$ret = $command->execute();
+			}
+		} catch (Exception $e) {
+			$transaciton->rollBack();
+			return false;
+		}
+
+		return $transaction->commit();
 	}
 }

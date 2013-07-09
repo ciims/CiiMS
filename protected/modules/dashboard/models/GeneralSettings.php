@@ -9,7 +9,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $timeFormat;
 
-	protected $timezone;
+	protected $timezone = "UTC";
 
 	protected $defaultLanguage = 'en_US';
 
@@ -34,9 +34,14 @@ class GeneralSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
+			array('name, dateFormat, timeFormat, timezone, defaultLanguage, offline, preferMarkdown', 'required'),
+			array('name, dateFormat, timeFormat, timezone, defaultLanguage, menu, subdomain', 'length', 'max' => 255),
+			array('offline, preferMarkdown', 'boolean'),
+			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13),
+			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true),
+			array('url', 'url')
 		);
 	}
-
 	
 	/**
 	 * Attribute labels
@@ -55,7 +60,6 @@ class GeneralSettings extends CiiSettingsModel
 			'menu' => 'Menu Navigation',
 			'offline' => 'Offline Mode',
 			'preferMarkdown' => 'Editor Preferences',
-			'splashLogo' => 'Splash Image',
 			'bcrypt_cost' => 'Password Strength Settings',
 			'searchPaginationSize' => 'Search Post Count',
 			'categoryPaginationSize' => 'Category Post Count',
