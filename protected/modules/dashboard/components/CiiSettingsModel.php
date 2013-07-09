@@ -26,7 +26,7 @@ class CiiSettingsModel extends CFormModel
 	{
 		$data = Cii::getConfig($name);
 
-		if ($data !== NULL)
+		if ($data !== NULL && $data !== "")
 			return $data;
 
 		if (property_exists($this, $name))
@@ -67,27 +67,6 @@ class CiiSettingsModel extends CFormModel
 		return true;
 	}
 
-	public function validate($attributes=null, $clearErrors=true)
-	{
-		if ($attributes == NULL)
-			$attributes = $this->attributes;
-
-	    if($clearErrors)
-	        $this->clearErrors();
-
-	    if($this->beforeValidate())
-	    {
-	        foreach($this->getValidators() as $validator)
-	           $validator->validate($this,$attributes);
-
-	        $this->afterValidate();
-
-	        Cii::debug(!$this->hasErrors(), true);
-	        return !$this->hasErrors();
-	    }
-	    else
-	        return false;
-	}
 
 	/**
 	 * Save function for Configuration
@@ -95,29 +74,28 @@ class CiiSettingsModel extends CFormModel
 	 */
 	public function save($runValidation=true)
 	{
-		if($runValidation && !$this->validate())
+		
+		if (!$runValidation || $this->validate())
 		{
-			echo "FALSE";
-			return false;
-		}
+			$connection = Yii::app()->db;
+			$transaction = $connection->beginTransaction();
 
-		$connection = Yii::app()->db;
-		$transaction = $connection->beginTransaction();
-
-		try {
-			foreach($this->attributes as $field=>$value)
-			{
-				$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:field, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
-				$command->bindParam(':field', $field);
-				$command->bindParam(':value', $value);
-				$command->bindParam(':value2', $value);
-				$ret = $command->execute();
+			try {
+				foreach($this->attributes as $field=>$value)
+				{
+					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:field, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+					$command->bindParam(':field', $field);
+					$command->bindParam(':value', $value);
+					$command->bindParam(':value2', $value);
+					$ret = $command->execute();
+				}
+			} catch (Exception $e) {
+				$transaciton->rollBack();
+				return false;
 			}
-		} catch (Exception $e) {
-			$transaciton->rollBack();
-			return false;
-		}
 
-		return $transaction->commit();
+			return $transaction->commit();
+		}
+		return false;
 	}
 }
