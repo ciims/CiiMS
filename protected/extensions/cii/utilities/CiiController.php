@@ -223,7 +223,7 @@ class CiiController extends CController
         if (Cii::get($keywords, 'value', false) != false)
             $keywords = implode(',', json_decode($keywords['value']));
             
-        return $keywords == "" ? Cii::get($this->params['data'], 'title', Yii::app()->name): $keywords;
+        return $keywords == "" ? Cii::get($this->params['data'], 'title', Cii::getConfig('name', Yii::app()->name)): $keywords;
     }
 		
 	/**

@@ -150,7 +150,7 @@ class ContentController extends CiiController
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
 		$this->setLayout($content->layout);
-		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | ' . $content->title);
 	
 		$this->render($content->view, array(
 				'id'=>$id, 

@@ -37,12 +37,20 @@ class Cii {
      */
     public static function getConfig($key, $default=NULL)
     {
-        $data = Configuration::model()->findByAttributes(array('key' => $key));
+        $cache = Yii::app()->cache->get('settings_'.$key);
+        if ($cache === false)
+        {
+            $data = Configuration::model()->findByAttributes(array('key' => $key));
 
-        if ($data === NULL)
-            return $default;
+            if ($data === NULL)
+                $cache = $default;
+            else
+                $cache = $data->value;
 
-        return $data->value;
+            Yii::app()->cache->set('settings_'.$key, $cache);
+        }
+
+        return $cache;
     }
 
     /**
@@ -52,19 +60,20 @@ class Cii {
      */
     public static function getBcryptCost($default = 13)
     {
-        $cost = Cii::getConfig('bcrypt_cost', $default);
-
-        if ($cost <= 12)
-            return 13;
-
-        return $cost;
+        return Cii::getConfig('bcrypt_cost', $default);
     }
 
 	/**
 	 * Provides methods to format a date throughout a model
 	 */
-	public static function formatDate($date, $format = 'F jS, Y @ H:i')
+	public static function formatDate($date, $format = NULL)
 	{
+        if ($format == NULL)
+            $format = Cii::getConfig('dateFormat') . ' @ ' . Cii::getConfig('timeFormat');
+
+        if ($format == ' @ ')
+            $format = 'F jS, Y @ H:i';
+
 		return date($format, strtotime($date));
 	}
 	

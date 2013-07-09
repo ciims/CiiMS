@@ -5,9 +5,9 @@ class GeneralSettings extends CiiSettingsModel
 {
 	protected $name = NULL;
 
-	protected $dateFormat = NULL;
+	protected $dateFormat = 'F jS, Y';
 
-	protected $timeFormat = NULL;
+	protected $timeFormat = 'H:i';
 
 	protected $timezone = "UTC";
 
@@ -19,9 +19,9 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $menu = 'admin|blog';
 
-	protected $offline = false;
+	protected $offline = 0;
 
-	protected $preferMarkdown = true;
+	protected $preferMarkdown = 1;
 
 	protected $bcrypt_cost = 13;
 
@@ -30,6 +30,36 @@ class GeneralSettings extends CiiSettingsModel
 	protected $categoryPaginationSize = 10;
 
 	protected $contentPaginationSize = 10;
+
+	/**
+	 * Overload the getter so we can the site name from Yii::app()
+	 * @see CiiSettingsModel::__get($name);
+	 * @return  bool
+	 */
+	public function __get($name)
+	{
+		$ret = NULL;
+		if ($name == 'name')
+			 $ret = $this->getName();
+
+		if ($ret !== NULL)
+			return $ret;
+
+		return parent::__get($name);
+
+	}
+
+	/**
+	 * Get the site name if it isn't set
+	 * @return mixed
+	 */
+	public function getName()
+	{
+		if ($this->name === NULL && !isset($this->attributes['name']))
+			return Yii::app()->name;
+
+		return NULL;
+	}
 
 	public function rules()
 	{

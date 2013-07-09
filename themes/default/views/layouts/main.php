@@ -20,7 +20,7 @@
 		    <div class="header-top-bar"></div>
 		    <div class="row-fluid header-middle-bar">
 			    	<?php $this->widget('bootstrap.widgets.TbNavbar', array(
-						'brand' => Yii::app()->name,
+						'brand' => Cii::getConfig('name', Yii::app()->name),
 						'fixed' => false,
 						'items' => array(
 							array(
@@ -81,7 +81,7 @@
 		    </div>
 		    <div class="footer-bottom-block">
 		        <div class="container">
-                        <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?></div>
+                        <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Cii::getConfig('name', Yii::app()->name); ?></div>
                         <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getCiiMenu(), 'htmlOptions' => array('class' => 'footer-nav'))); ?></div>
 		        </div>
 		    </div>

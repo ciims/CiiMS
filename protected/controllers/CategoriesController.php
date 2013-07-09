@@ -101,7 +101,7 @@ class CategoriesController extends CiiController
 		// Parse Metadata
 		$meta = Categories::model()->parseMeta($category->metadata);		
 		
-		$this->setPageTitle(Yii::app()->name . ' | ' . $category->name);
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | ' . $category->name);
 		$layout = isset($meta['layout']) ? $meta['layout']['value'] : 'default';		
 
 		// Set the layout
@@ -138,7 +138,7 @@ class CategoriesController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Categories');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name)) . ' | Categories');
 		$this->setLayout('main');
 		$this->breadcrumbs = array('All Categories');
 		$criteria = new CDbCriteria();

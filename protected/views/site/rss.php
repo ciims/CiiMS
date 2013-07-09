@@ -2,9 +2,9 @@
 <?php $url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl; ?>
 <rss version="2.0">
 	<channel>
-		<title><?php echo Yii::app()->name; ?></title>
+		<title><?php echo Cii::getConfig('name', Yii::app()->name); ?></title>
 		<link><?php echo $url; ?></link>
-		<description><?php echo Yii::app()->name; ?> Blog</description>
+		<description><?php echo YCii::getConfig('name', Yii::app()->name); ?> Blog</description>
 		<language>en-us</language>
 		<pubDate><?php echo date('D, d M Y H:i:s T'); ?></pubDate>
 		<lastBuildDate><?php echo date('D, d M Y H:i:s T'); ?></lastBuildDate>

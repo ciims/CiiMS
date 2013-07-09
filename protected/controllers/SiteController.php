@@ -56,7 +56,7 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				$this->setPageTitle(Yii::app()->name . ' | Error ' . $error['code']);
+				$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Error ' . $error['code']);
 				$this->render('error', array('error'=>$error));
 			}
 		}
@@ -80,7 +80,7 @@ class SiteController extends CiiController
      */
 	public function actionSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -136,7 +136,7 @@ class SiteController extends CiiController
      */
 	public function actionMySQLSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -181,7 +181,7 @@ class SiteController extends CiiController
      */
 	public function actionLogin()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Login to your account');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Login to your account');
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
@@ -389,7 +389,7 @@ class SiteController extends CiiController
 	 **/
 	public function actionRegister()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Sign Up');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Sign Up');
 		$this->layout = '//layouts/main';
 		$model = new RegisterForm();
 		$user = new Users();
@@ -453,7 +453,7 @@ class SiteController extends CiiController
 	 */
 	public function actionRegistersuccess()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Registration Successful');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Registration Successful');
 		$this->layout = '//layouts/main';
 		$this->render('register-success');
 	}

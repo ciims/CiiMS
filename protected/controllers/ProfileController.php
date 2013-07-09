@@ -94,7 +94,7 @@ class ProfileController extends CiiController
 
 		$model = Users::model()->findByPk($id);
 
-		$this->pageTitle = $model->displayName . ' | ' . Yii::app()->name;
+		$this->pageTitle = $model->displayName . ' | ' . Cii::getConfig('name', Yii::app()->name);
 		$postsCriteria = new CDbCriteria;
 	    $postsCriteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 	    $postsCriteria->addCondition('type_id=2');

@@ -4,11 +4,20 @@
  * CiiSettingsModel provides basic form functionality for {$key} => {$value} table Configuration
  * These Models act as wrappers to contained sections of models/Configuration
  *
- * Some overhead is inherited by this, but it makes the end UI/UX much better
+ * Some overhead is inherited by this, but it makes the end UI/UX much better.
  */
 class CiiSettingsModel extends CFormModel
 {
-	public $attributes = array();
+	/**
+	 * Deliberate overload of $attributes for internal use by this class
+	 * 
+	 * $this->attributes _will_ behaved differently than CActiveRecord. After the class loads it WILL be empty
+	 * which means you can't check $this->attributes['name'] BEFORE populate is called. If you NEED to know
+	 * what the current attributes are, you SHOULD call $this->getAttributes()
+	 * 
+	 * @var array $attributes   Attributes
+	 */
+	private $attributes = array();
 
 	/**
 	 * Overload the __getter so that it checks for data in the following order
@@ -64,52 +73,75 @@ class CiiSettingsModel extends CFormModel
 
 		foreach ($data as $attribute=>$value)
 			$this->set($attribute, $value);
+
 		return true;
 	}
 
-	public function validate($attributes=null, $clearErrors=true)
+	/**
+	 * Allow for beforeSave events
+	 * @return bool   If beforeSave passed
+	 */
+	protected function beforeSave()
 	{
-	    if($clearErrors)
-	        $this->clearErrors();
-	    if($this->beforeValidate())
+	    if($this->hasEventHandler('onBeforeSave'))
 	    {
-	        foreach($this->getValidators() as $validator)
-	        	$validator->validate($this,$attributes);
-
-	        $this->afterValidate();
-	        return !$this->hasErrors();
+	        $event=new CModelEvent($this);
+	        $this->onBeforeSave($event);
+	        return $event->isValid;
 	    }
 	    else
-	        return false;
+	        return true;
+	}
+
+	/**
+	 * Allow for afterSave events
+	 * @return bool   If afterSave passed
+	 */
+	protected function afterSave()
+	{
+	    if($this->hasEventHandler('onAfterSave'))
+	        $this->onAfterSave(new CEvent($this));
 	}
 
 	/**
 	 * Save function for Configuration
+	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
+	 * and we should abort
 	 * @return bool      Whether or not the save succedded or not
 	 */
 	public function save($runValidation=true)
 	{
-		if ($runValidation && !$this->validate())
-			return false;
-		
-		$connection = Yii::app()->db;
-		$transaction = $connection->beginTransaction();
+		if ($this->beforeSave())
+		{
+			// If we want to run validation AND the validation failed, give up
+			if ($runValidation && !$this->validate())
+				return false;
+			
+			$connection = Yii::app()->db;
+			$transaction = $connection->beginTransaction();
 
-		try {
-			foreach($this->attributes as $field=>$value)
-			{
-				$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:field, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
-				$command->bindParam(':field', $field);
-				$command->bindParam(':value', $value);
-				$command->bindParam(':value2', $value);
-				$ret = $command->execute();
+			try {
+				foreach($this->attributes as $key=>$value)
+				{
+					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+					$command->bindParam(':key', $key);
+					$command->bindParam(':value', $value);
+					$command->bindParam(':value2', $value);
+					$ret = $command->execute();
+				}
+			} catch (Exception $e) {
+				$transaciton->rollBack();
+				return false;
 			}
-		} catch (Exception $e) {
-			$transaciton->rollBack();
-			return false;
-		}
 
-		return $transaction->commit();
+			$commit = $transaction->commit();
+
+			// Only run afterSave if the commit failed
+			if ($commit)
+				$this->afterSave();
+
+			// Return the commit response
+			return $commit;
+		}
 	}
-	
 }
