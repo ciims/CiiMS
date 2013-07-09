@@ -3,19 +3,19 @@
 Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 class GeneralSettings extends CiiSettingsModel
 {
-	protected $name;
+	protected $name = NULL;
 
-	protected $dateFormat;
+	protected $dateFormat = NULL;
 
-	protected $timeFormat;
+	protected $timeFormat = NULL;
 
 	protected $timezone = "UTC";
 
 	protected $defaultLanguage = 'en_US';
 
-	protected $url;
+	protected $url = NULL;
 
-	protected $subdomain;
+	protected $subdomain = NULL;
 
 	protected $menu = 'admin|blog';
 
