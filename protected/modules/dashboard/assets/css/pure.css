@@ -281,6 +281,7 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     vertical-align: middle;
     width: 10em;
     margin: 0 1em 0 0;
+    margin-top: -10px;
 }
 
 .pure-form-aligned .pure-controls {
