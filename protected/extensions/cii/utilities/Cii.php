@@ -37,11 +37,23 @@ class Cii {
      */
     public static function getConfig($key, $default=NULL)
     {
-        $data = Configuration::model()->findByAttributes(array('key' => $key));
+        $cache = false;//Yii::app()->cache->get('settings_'.$key);
 
-        if ($data === NULL)
-            return $default;
-        return $data->value;
+        if ($cache === false)
+        {
+            $data = Yii::app()->db->createCommand('SELECT value FROM configuration AS t WHERE t.key = :key')
+                                   ->bindParam(':key', $key)
+                                   ->queryAll();
+
+            if (!isset($data[0]['value']))
+                $cache = $default;
+            else
+                $cache = $data[0]['value'];
+
+            Yii::app()->cache->set('settings_'.$key, $cache);
+        }
+
+        return $cache;
     }
 
     /**
