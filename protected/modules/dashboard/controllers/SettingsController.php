@@ -14,7 +14,7 @@ class SettingsController extends CiiSettingsController
 				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
 		}
 
-		$this->render('form', array('model' => $model,'header' => array(
+		$this->render('form', array('model' => $model, 'header' => array(
 			'h3' => 'General Settings', 
 			'p' => 'Set basic information about your site and change global settings.',
 			'save-text' => 'Save Changes',
