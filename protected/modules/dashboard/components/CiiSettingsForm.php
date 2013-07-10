@@ -12,6 +12,11 @@ class CiiSettingsForm extends CWidget
 		'save-icon' => NULL
 	);
 
+	public function init()
+	{
+		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG);
+		Yii::app()->getClientScript()->registerCssFile($asset.'/css/pure.css'); 
+	}
 	public function run()
 	{
 		$reflection = new ReflectionClass($this->model);
@@ -54,7 +59,7 @@ class CiiSettingsForm extends CWidget
 					echo CHtml::closeTag('div');
 				}
 				
-				echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-small pure-button-primary pull-right'));
+				echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pull-right'));
 
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
