@@ -89,7 +89,7 @@ return array(
             'username'              => NULL,
             'password'              => NULL,
             'charset'               => 'utf8',
-            'schemaCachingDuration' => '3600',
+            'schemaCachingDuration' => 3600,
             'enableProfiling'       => false,
         ),
         'cache' => array(
