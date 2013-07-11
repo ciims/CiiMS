@@ -117,10 +117,13 @@ class CiiSettingsModel extends CFormModel
 	 *                                the validators for the property
 	 * @return array      The validators as clean strings (required, boolean, string, url, number...etc)
 	 */
-	public function getStringValidator($attribute='', $validators=NULL)
+	public function getStringValidator($attribute=NULL, $validators=NULL)
 	{
+		if ($attribute == NULL && $validators == NULL)
+			return array();
+
 		$v = array();
-		if ($validators == NULL)
+		if ($validators == NULL && $attribute !== NULL)
 			$validators = $this->getValidators($attribute);
 
 		$validators = array_values($validators);

@@ -86,7 +86,6 @@ class GeneralSettings extends CiiSettingsModel
 			'timezone' => 'Timezone',
 			'defaultLanguage' => 'Default Language',
 			'url' => 'Site URL',
-			'subdomain' => 'Subdomain',
 			'menu' => 'Menu Navigation',
 			'offline' => 'Offline Mode',
 			'preferMarkdown' => 'Use Markdown',
