@@ -311,6 +311,35 @@ main .settings-container .body-content #main .content {
 	padding-left: 60px;
 }
 
+main .settings-container .body-content #main .content .output {
+	display: inline-block;
+	margin-left: 10px;
+	border: 1px solid rgba(0,0,0, 0.1);
+	padding: .5em .6em;
+	display: inline-block;
+	border: 1px solid #ccc;
+	font-size: .8em;
+	box-shadow: inset 0 1px 3px #ddd;
+	border-radius: 4px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content #main .content .output:hover {
+	border-color: #129FEA;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
 main .posts-container .list-view .pagination {
 	float:left;
 	text-align:center;
@@ -722,6 +751,26 @@ main .preview .preview-metadata {
 .nano:hover > .pane, .pane.active, .pane.flashed, .nano:hover > .pane2, .pane2.active, .pane2.flashed {
 	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 	opacity    : 0.99;
+}
+
+/** Webkit Specific hacks for the preview */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	input[type='range'] {  
+	    -webkit-appearance: none;  
+	    background-color: #999;  
+	    height: 4px;
+	}  
+	  
+	input[type='range']::-webkit-slider-thumb {  
+		-webkit-appearance: none;
+	    background-color: #333;  
+	    width: 10px;  
+	    height: 7px; 
+	}
+}
+
+input[type="range"]::-ms-fill-lower {
+	background-color: #0078e7;
 }
 
 /* ------------------------------------------

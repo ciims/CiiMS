@@ -15,7 +15,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $url = NULL;
 
-	//protected $subdomain = NULL;
+	protected $subdomain = NULL;
 
 	protected $menu = 'admin|blog';
 

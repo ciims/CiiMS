@@ -108,7 +108,7 @@ class CiiSettingsForm extends CWidget
 				
 				// If we want a custom form view, render that view instead of the default behavior
 				if ($this->model->form !== NULL)
-					$this->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
+					$this->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
 				else
 				{
 					foreach ($this->properties as $property)
@@ -117,8 +117,8 @@ class CiiSettingsForm extends CWidget
 							'class' => 'pure-input-2-3'
 						);
 
-						$validator = $this->model->getValidators($property->name);
-						$stringValidators = $this->model->getStringValidator($property->name, $validator);
+						$validators = $this->model->getValidators($property->name);
+						$stringValidators = $this->model->getStringValidator($property->name, $validators);
 
 						if (in_array('required', $stringValidators))
 							$htmlOptions['required'] = true;
@@ -126,7 +126,11 @@ class CiiSettingsForm extends CWidget
 						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
 						if (in_array('boolean', $stringValidators))
 						{
-							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions);
+							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
+						}
+						else if (in_array('number', $stringValidators))
+						{
+							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						}
 						else
 							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
@@ -140,7 +144,42 @@ class CiiSettingsForm extends CWidget
 		echo CHtml::closeTag('div');
 	}
 
-	private function togglebuttonRow($form, $model, $property, $htmlOptions)
+	private function rangeRow($form, $model, $property, $htmlOptions, $validators)
+	{
+		$htmlOptions['style'] = 'width: 59%';
+		foreach ($validators as $k=>$v)
+		{
+			if (get_class($v) == "CNumberValidator")
+			{
+				$htmlOptions['min']  = $v->min;
+				$htmlOptions['max']  = $v->max;
+				$htmlOptions['step'] = 1;
+			}
+			break;
+		}
+		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
+		echo CHtml::activeRangeField($model, $property, $htmlOptions);
+		echo CHtml::tag('div', array('class' => 'output'), NULL);
+
+		Yii::app()->getClientScript()->registerScript('slider', '
+			$("input[type=\"range\"]").each(function() {
+				$(this).parent().find(".output").html($(this).val());
+			})
+
+			$("input[type=\"range\"]").change(function() { 
+				$(this).parent().find(".output").html($(this).val()); 
+			});');
+	}
+
+	/**
+	 * Provides a styled Toggle Switch Checkbox
+	 * @param  [type] $form        [description]
+	 * @param  [type] $model       [description]
+	 * @param  [type] $property    [description]
+	 * @param  [type] $htmlOptions [description]
+	 * @return [type]              [description]
+	 */
+	private function toggleButtonRow($form, $model, $property, $htmlOptions, $validators)
 	{
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
