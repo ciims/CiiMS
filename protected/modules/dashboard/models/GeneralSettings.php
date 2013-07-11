@@ -15,7 +15,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $url = NULL;
 
-	protected $subdomain = NULL;
+	//protected $subdomain = NULL;
 
 	protected $menu = 'admin|blog';
 
@@ -67,8 +67,8 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage, menu, subdomain', 'length', 'max' => 255),
 			array('offline, preferMarkdown', 'boolean'),
-			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13),
-			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true),
+			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
+			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
 			array('url', 'url')
 		);
 	}
