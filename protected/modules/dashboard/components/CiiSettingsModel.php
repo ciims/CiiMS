@@ -20,6 +20,13 @@ class CiiSettingsModel extends CFormModel
 	private $attributes = array();
 
 	/**
+	 * Provide the ability to supply a custom form. This should be in alias form to be parsed by Yii::getPathOfAlias()
+	 * eg application.dashboard.views.settings.form._myFormElement
+	 * @var string alias
+	 */
+	public $form = NULL;
+
+	/**
 	 * Overload the __getter so that it checks for data in the following order
 	 * 1) Pull From db/cache (Cii::getConfig now does caching of elements for improved performance)
 	 * 2) Check for __protected__ property, which we consider the default vlaue
@@ -103,6 +110,26 @@ class CiiSettingsModel extends CFormModel
 	        $this->onAfterSave(new CEvent($this));
 	}
 
+	/**
+	 * Gets the validator types as strings to be used for the form parser
+	 * @param  string     $attribute  The property name we want to work with
+	 * @param  CValidator $validators Often times we may already have the validator, so if this is provided, it will be used instead of fetching
+	 *                                the validators for the property
+	 * @return array      The validators as clean strings (required, boolean, string, url, number...etc)
+	 */
+	public function getStringValidator($attribute='', $validators=NULL)
+	{
+		$v = array();
+		if ($validators == NULL)
+			$validators = $this->getValidators($attribute);
+
+		$validators = array_values($validators);
+
+		foreach ($validators as $validator)
+			$v[] = strtolower(str_replace('Validator', '', substr(get_class($validator), 1, strlen(get_class($validator)))));
+
+		return $v;
+	}
 	/**
 	 * Save function for Configuration
 	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them

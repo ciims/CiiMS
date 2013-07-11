@@ -64,7 +64,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('name, dateFormat, timeFormat, timezone, defaultLanguage, offline, preferMarkdown', 'required'),
+			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage, menu, subdomain', 'length', 'max' => 255),
 			array('offline, preferMarkdown', 'boolean'),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13),
@@ -72,7 +72,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('url', 'url')
 		);
 	}
-	
+
 	/**
 	 * Attribute labels
 	 * @return array

@@ -284,6 +284,13 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     margin-top: -10px;
 }
 
+.pure-form-aligned .pure-control-group label.toggle {
+    margin: 0px 2px;
+    margin-bottom: 10px;
+    margin-top: -2px;
+    width: 100px;
+}
+
 .pure-form-aligned .pure-controls {
     margin: 1.5em 0 0 10em;
 }
@@ -349,43 +356,48 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     padding-left: .3em;
     color: #666;
     vertical-align: middle;
-    font-size: 90%}
+    font-size: 90%
+}
+
 .pure-form-message {
     display: block;
     color: #666;
-    font-size: 90%}
+    font-size: 90%;
+}
+
 @media only screen and (max-width :480px) {
     .pure-form button[type=submit] {
-    margin: .7em 0 0;
-}
+        margin: .7em 0 0;
+    }
 
-.pure-form input[type=text], .pure-form input[type=password], .pure-form input[type=email], .pure-form input[type=url], .pure-form input[type=date], .pure-form input[type=month], .pure-form input[type=time], .pure-form input[type=datetime], .pure-form input[type=datetime-local], .pure-form input[type=week], .pure-form input[type=number], .pure-form input[type=search], .pure-form input[type=tel], .pure-form input[type=color], .pure-form label {
-    margin-bottom: .3em;
-    display: block;
-}
+    .pure-form input[type=text], .pure-form input[type=password], .pure-form input[type=email], .pure-form input[type=url], .pure-form input[type=date], .pure-form input[type=month], .pure-form input[type=time], .pure-form input[type=datetime], .pure-form input[type=datetime-local], .pure-form input[type=week], .pure-form input[type=number], .pure-form input[type=search], .pure-form input[type=tel], .pure-form input[type=color], .pure-form label {
+        margin-bottom: .3em;
+        display: block;
+    }
 
-.pure-group input[type=text], .pure-form input[type=password], .pure-form input[type=email], .pure-form input[type=url], .pure-form input[type=date], .pure-form input[type=month], .pure-form input[type=time], .pure-form input[type=datetime], .pure-form input[type=datetime-local], .pure-form input[type=week], .pure-form input[type=number], .pure-form input[type=search], .pure-form input[type=tel], .pure-form input[type=color] {
-    margin-bottom: 0;
-}
+    .pure-group input[type=text], .pure-form input[type=password], .pure-form input[type=email], .pure-form input[type=url], .pure-form input[type=date], .pure-form input[type=month], .pure-form input[type=time], .pure-form input[type=datetime], .pure-form input[type=datetime-local], .pure-form input[type=week], .pure-form input[type=number], .pure-form input[type=search], .pure-form input[type=tel], .pure-form input[type=color] {
+        margin-bottom: 0;
+    }
 
-.pure-form-aligned .pure-control-group label {
-    margin-bottom: .3em;
-    text-align: left;
-    display: block;
-    width: 100%;
-}
+    .pure-form-aligned .pure-control-group label {
+        margin-bottom: .3em;
+        text-align: left;
+        display: block;
+        width: 100%;
+    }
 
-.pure-form-aligned .pure-controls {
-    margin: 1.5em 0 0;
-}
+    .pure-form-aligned .pure-controls {
+        margin: 1.5em 0 0;
+    }
 
-.pure-form .pure-help-inline, .pure-form-message-inline, .pure-form-message {
-    display: block;
-    font-size: 80%;
-    padding: .2em 0 .8em;
-}
+    .pure-form .pure-help-inline, .pure-form-message-inline, .pure-form-message {
+        display: block;
+        font-size: 80%;
+        padding: .2em 0 .8em;
+    }
 
-.pure-form-aligned .pure-control-group {
-	margin-bottom: .5em;
-	padding: 4px 0px;
+    .pure-form-aligned .pure-control-group {
+    	margin-bottom: .5em;
+    	padding: 4px 0px;
+    }
 }

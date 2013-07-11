@@ -28,13 +28,26 @@ class CiiSettingsForm extends CWidget
 	);
 
 	/**
+	 * Protected properties from Reflection
+	 * @var [type]
+	 */
+	private $properties = NULL;
+
+	/**
 	 * Widget init function
 	 * @see CActiveForm init()
 	 */
 	public function init()
 	{
+		// Use Reflection::getProperties(PROTECTED) to get protected properties from the passed model
+		$reflection = new ReflectionClass($this->model);
+		$this->properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+
 		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG);
-		Yii::app()->getClientScript()->registerCssFile($asset.'/css/pure.css'); 
+		$cs = Yii::app()->getClientScript();
+		$cs->registerCssFile($asset.'/css/pure.css'); 
+		$cs->registerCssFile($asset.'/prism/prism-light.css'); 
+		$cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); 
 
 		return parent::init();
 	}
@@ -44,11 +57,7 @@ class CiiSettingsForm extends CWidget
 	 */
 	public function run()
 	{
-		// Use Reflection::getProperties(PROTECTED) to get protected properties from the passed model
-		$reflection = new ReflectionClass($this->model);
-		$properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
-
-		if (count($properties) == 0)
+		if (count($this->properties) == 0)
 			return;
 
 		// Setup the form
@@ -60,6 +69,19 @@ class CiiSettingsForm extends CWidget
 		    )
 		));
 
+			$this->renderHeader($form);
+
+			$this->renderMain($form);
+
+		// Close the form
+		$this->endWidget();
+	}
+
+	/**
+	 * Renders the header
+	 */
+	private function renderHeader($form)
+	{
 		// Render out the header
 		echo CHtml::openTag('div', array('class'=>'header'));
 			echo CHtml::openTag('div', array('class'=>'pull-left'));
@@ -73,24 +95,62 @@ class CiiSettingsForm extends CWidget
 
 			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 		echo CHtml::closeTag('div');
+	}
 
+	/**
+	 * Renders the main body content
+	 */
+	private function renderMain($form)
+	{
 		// #main .content
 		echo CHtml::openTag('div', array('id' => 'main', 'class' => 'nano'));
 			echo CHtml::openTag('div', array('class' => 'content'));
 				
-				foreach ($properties as $property)
+				// If we want a custom form view, render that view instead of the default behavior
+				if ($this->model->form !== NULL)
+					$this->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
+				else
 				{
-					echo CHtml::openTag('div', array('class' => 'pure-control-group'));
-					echo $form->textFieldRow($this->model, $property->name, array('class' => 'pure-input-2-3'));
-					echo CHtml::closeTag('div');
+					foreach ($this->properties as $property)
+					{
+						$htmlOptions = array(
+							'class' => 'pure-input-2-3'
+						);
+
+						$validator = $this->model->getValidators($property->name);
+						$stringValidators = $this->model->getStringValidator($property->name, $validator);
+
+						if (in_array('required', $stringValidators))
+							$htmlOptions['required'] = true;
+
+						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
+						if (in_array('boolean', $stringValidators))
+						{
+							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions);
+						}
+						else
+							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
+						echo CHtml::closeTag('div');
+					}
 				}
 				
 				echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pull-right'));
 
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
+	}
 
-		// Close the form
-		$this->endWidget();
+	private function togglebuttonRow($form, $model, $property, $htmlOptions)
+	{
+		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
+		echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
+			echo $form->checkBox($model, $property, $htmlOptions);
+			echo CHtml::openTag('p');
+				echo CHtml::tag('span', array(), 'On');
+				echo CHtml::tag('span', array(), 'Off');
+			echo CHtml::closeTag('p');
+
+			echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
+		echo CHtml::closeTag('label');
 	}
 }
