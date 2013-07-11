@@ -144,9 +144,18 @@ class CiiSettingsForm extends CWidget
 		echo CHtml::closeTag('div');
 	}
 
-	private function rangeRow($form, $model, $property, $htmlOptions, $validators)
+	/**
+	 * rangeRow provides a pretty ish range slider with view controls
+	 * @param  CACtiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
+	 */
+	private function rangeRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
 	{
-		$htmlOptions['style'] = 'width: 59%';
+		//$htmlOptions['style'] = 'width: 59%';
 		foreach ($validators as $k=>$v)
 		{
 			if (get_class($v) == "CNumberValidator")
@@ -157,10 +166,12 @@ class CiiSettingsForm extends CWidget
 			}
 			break;
 		}
+
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::activeRangeField($model, $property, $htmlOptions);
+		echo $form->rangeField($model, $property, $htmlOptions);
 		echo CHtml::tag('div', array('class' => 'output'), NULL);
 
+		// Register a script. Allow it to be overriden since it is global
 		Yii::app()->getClientScript()->registerScript('slider', '
 			$("input[type=\"range\"]").each(function() {
 				$(this).parent().find(".output").html($(this).val());
@@ -168,28 +179,32 @@ class CiiSettingsForm extends CWidget
 
 			$("input[type=\"range\"]").change(function() { 
 				$(this).parent().find(".output").html($(this).val()); 
-			});');
+			});
+		');
 	}
 
 	/**
-	 * Provides a styled Toggle Switch Checkbox
-	 * @param  [type] $form        [description]
-	 * @param  [type] $model       [description]
-	 * @param  [type] $property    [description]
-	 * @param  [type] $htmlOptions [description]
-	 * @return [type]              [description]
+	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
+	 * @param  CACtiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
 	 */
-	private function toggleButtonRow($form, $model, $property, $htmlOptions, $validators)
+	private function toggleButtonRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
 	{
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
-			echo $form->checkBox($model, $property, $htmlOptions);
-			echo CHtml::openTag('p');
-				echo CHtml::tag('span', array(), 'On');
-				echo CHtml::tag('span', array(), 'Off');
-			echo CHtml::closeTag('p');
+		echo CHtml::openTag('div', array('class' => 'pure-input-2-3', 'style' => 'display: inline-block'));
+			echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
+				echo $form->checkBox($model, $property, $htmlOptions);
+				echo CHtml::openTag('p');
+					echo CHtml::tag('span', array(), 'On');
+					echo CHtml::tag('span', array(), 'Off');
+				echo CHtml::closeTag('p');
 
-			echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
-		echo CHtml::closeTag('label');
+				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
+			echo CHtml::closeTag('label');
+		echo CHtml::closeTag('div');
 	}
 }
