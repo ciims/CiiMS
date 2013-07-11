@@ -20,11 +20,22 @@ class CiiSettingsModel extends CFormModel
 	private $attributes = array();
 
 	/**
-	 * Provide the ability to supply a custom form. This should be in alias form to be parsed by Yii::getPathOfAlias()
+	 * Provide the ability to supply a custom form. This should be in alias to be parsed by Yii::getPathOfAlias()
 	 * eg application.dashboard.views.settings.form._myFormElement
 	 * @var string alias
 	 */
 	public $form = NULL;
+
+	/**
+	 * Alias to a view file to be displayed directly below the header but above all the content. This should be in alias 
+	 * to be parsed by Yii::getPathOfAlias()
+	 *
+	 * This might be useful when you want to inject custom functionality into a form, but just want to provide a regular CiiSettingsModel
+	 * as the datasource
+	 * 
+	 * @var string alias
+	 */
+	public $preContentView = NULL;
 
 	/**
 	 * Overload the __getter so that it checks for data in the following order

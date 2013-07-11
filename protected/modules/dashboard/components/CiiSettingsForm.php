@@ -69,8 +69,15 @@ class CiiSettingsForm extends CWidget
 		    )
 		));
 
+			// Header
 			$this->renderHeader($form);
 
+			// Before Content View
+			// CActiveForm elements should not be used so that they are not submitted
+			if ($this->model->preContentView !== NULL)
+				$this->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
+
+			// Main Content
 			$this->renderMain($form);
 
 		// Close the form
