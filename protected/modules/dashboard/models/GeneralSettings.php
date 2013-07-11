@@ -89,7 +89,7 @@ class GeneralSettings extends CiiSettingsModel
 			'subdomain' => 'Subdomain',
 			'menu' => 'Menu Navigation',
 			'offline' => 'Offline Mode',
-			'preferMarkdown' => 'Editor Preferences',
+			'preferMarkdown' => 'Use Markdown',
 			'bcrypt_cost' => 'Password Strength Settings',
 			'searchPaginationSize' => 'Search Post Count',
 			'categoryPaginationSize' => 'Category Post Count',
