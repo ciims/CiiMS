@@ -95,6 +95,11 @@ class CiiSettingsModel extends CFormModel
 		return true;
 	}
 
+	public function password($attribute, $params)
+	{
+		return true;
+	}
+	
 	/**
 	 * Allow for beforeSave events
 	 * @return bool   If beforeSave passed
@@ -140,7 +145,13 @@ class CiiSettingsModel extends CFormModel
 		$validators = array_values($validators);
 
 		foreach ($validators as $validator)
-			$v[] = strtolower(str_replace('Validator', '', substr(get_class($validator), 1, strlen(get_class($validator)))));
+		{
+			$ve = strtolower(str_replace('Validator', '', substr(get_class($validator), 1, strlen(get_class($validator)))));
+			if ($ve == 'inline')
+				$v[] = $validator->method;
+			else
+				$v[] = $ve;
+		}
 
 		return $v;
 	}

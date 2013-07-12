@@ -24,6 +24,7 @@ class EmailSettings extends CiiSettingsModel
 			array('notifyName, notifyEmail', 'required'),
 			array('notifyEmail', 'email'),
 			array('SMTPPort', 'numerical', 'integerOnly' => true, 'min' => 0),
+			array('SMTPPass', 'password'),
 			array('notifyName, SMTPPass, SMTPUser', 'length', 'max' => 255)
 		);
 	}
