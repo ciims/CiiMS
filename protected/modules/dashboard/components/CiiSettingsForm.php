@@ -57,8 +57,14 @@ class CiiSettingsForm extends CWidget
 	 */
 	public function run()
 	{
-		if (count($this->properties) == 0)
+		if (count($this->properties) == 0 && $this->model->preContentView == NULL)
 			return;
+		
+		if (count($this->properties) == 0 && $this->model->preContentView !== NULL)
+		{
+			$this->controller->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
+			return;
+		}
 
 		// Setup the form
 		$form = $this->beginWidget('TbActiveForm', array(
@@ -75,7 +81,7 @@ class CiiSettingsForm extends CWidget
 			// Before Content View
 			// CActiveForm elements should not be used so that they are not submitted
 			if ($this->model->preContentView !== NULL)
-				$this->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
+				$this->controller->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
 
 			// Main Content
 			$this->renderMain($form);
@@ -115,7 +121,7 @@ class CiiSettingsForm extends CWidget
 				
 				// If we want a custom form view, render that view instead of the default behavior
 				if ($this->model->form !== NULL)
-					$this->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
+					$this->controller->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
 				else
 				{
 					foreach ($this->properties as $property)
@@ -133,19 +139,14 @@ class CiiSettingsForm extends CWidget
 						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
 
 						if (in_array('boolean', $stringValidators))
-						{
 							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						}
 						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
-						{
 							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						}
 						else if (in_array('number', $stringValidators) && (!isset($validators[0]->max) || !isset($validators[0]->min)))
-						{
 							$this->numberRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						}
 						else
 							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
+
 						echo CHtml::closeTag('div');
 					}
 				}
@@ -176,7 +177,7 @@ class CiiSettingsForm extends CWidget
 			}
 			break;
 		}
-		
+
 		$htmlOptions['type'] = 'number';
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::tag('input', $htmlOptions);
