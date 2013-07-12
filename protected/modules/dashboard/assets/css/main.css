@@ -148,6 +148,10 @@ main .dashboard .header {
 	padding: 5px;
 }
 
+main .settings-container .header.secondary {
+	padding-left: 60px;
+}
+
 main .dashboard .header .content .welcome {
 	display:inline-block;
 }

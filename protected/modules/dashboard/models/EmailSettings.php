@@ -16,48 +16,13 @@ class EmailSettings extends CiiSettingsModel
 
 	protected $notifyEmail = NULL;
 
-	/**
-	 * Overload the getter so we can the site name from Yii::app()
-	 * @see CiiSettingsModel::__get($name);
-	 * @return  bool
-	 */
-	public function __get($name)
-	{
-		$ret = NULL;
-		if ($name == 'notifyName')
-			 $ret = $this->getNotifyName();
-		else if ($name == 'notifyEmail')
-			$ret = $this->getNotifyEmail();
-		else
-			$ret = NULL;
-
-		if ($ret !== NULL)
-			return $ret;
-
-		return parent::__get($name);
-	}
-
-	public function getNotifyName()
-	{
-		if ($this->notifyName === NULL && !isset($this->attributes['notifyName']))
-			return 'CiiMS No-Reply';
-
-		return NULL;
-	}
-
-	public function getNotifyEmail()
-	{
-		if ($this->notifyEmail === NULL && !isset($this->attributes['notifyEmail']))
-			return 'no-reply@' . $_SERVER['HTTP_HOST'];
-		return NULL;
-	}
+	public $preContentView = 'application.modules.dashboard.views.settings.email-test';
 
 	public function rules()
 	{
 		return array(
 			array('notifyName, notifyEmail', 'required'),
 			array('notifyEmail', 'email'),
-			array('SMTPHost', 'url'),
 			array('SMTPPort', 'numerical', 'integerOnly' => true, 'min' => 0),
 			array('notifyName, SMTPPass, SMTPUser', 'length', 'max' => 255)
 		);

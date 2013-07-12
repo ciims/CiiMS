@@ -39,4 +39,29 @@ class SettingsController extends CiiSettingsController
 			'save-text' => 'Save Changes'
 		)));
 	}
+
+	public function actionEmailTest()
+	{
+		if (Cii::get($_POST, 'email') !== NULL)
+		{
+			// Verify that the email is valid
+			if (filter_var(Cii::get($_POST, 'email'), FILTER_VALIDATE_EMAIL))
+			{
+				// Create a user object to pass to the sender
+				$user = new StdClass();
+				$user->displayName = NULL;
+				$user->email = Cii::get($_POST, 'email');
+
+				// Send the test email
+				$response = $this->sendEmail($user, 'CiiMS Test Email', 'application.modules.dashboard.views.email.test');
+
+				echo $response;
+				Yii::app()->end();
+			}
+
+			return false;
+		}
+
+		return false;
+	}
 }

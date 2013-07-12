@@ -142,8 +142,6 @@ class CiiSettingsForm extends CWidget
 							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
 							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						else if (in_array('number', $stringValidators) && (!isset($validators[0]->max) || !isset($validators[0]->min)))
-							$this->numberRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						else
 							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
 
@@ -179,6 +177,7 @@ class CiiSettingsForm extends CWidget
 		}
 
 		$htmlOptions['type'] = 'number';
+		$htmlOptions['value'] = $model->$property;
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::tag('input', $htmlOptions);
 	}

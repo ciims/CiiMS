@@ -91,7 +91,7 @@ class CiiController extends CController
      * @param  boolean $processOutput Whether the output should be processed. The default is TRUE since this output will be passed to MsgHTML
      * @return boolean                Whether or not the email sent sucessfully
      */
-    protected function sendEmail(Users $user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
+    protected function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
     {
         Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;
@@ -106,17 +106,22 @@ class CiiController extends CController
         $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
         $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
 
-        if ($smtpHost !== NULL)
-            $mail->Host       = $smtpHost->value; 
+        if ($smtpHost !== NULL && $smtpHost !== "")
+            $mail->Host       = $smtpHost; 
 
-        if ($smtpPort !== NULL)
-            $mail->Port       = $smtpPort->value;
+        if ($smtpPort !== NULL && $smtpPort !== "")
+        {
+            $mail->Port       = $smtpPort;
+        }
 
-        if ($smtpUser !== NULL)                    
-            $mail->Username   = $smtpUser->value; 
+        if ($smtpUser !== NULL && $smtpUser !== "")
+        {               
+            $mail->Username   = $smtpUser; 
+            $mail->SMTPAuth = true;
+        }
 
-        if ($smtpPass !== NULL)
-            $mail->Password   = $smtpPass->value;      
+        if ($smtpPass !== NULL && $smtpPass !== "")
+            $mail->Password   = $smtpPass;      
 
         if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
             $notifyUser = Users::model()->findByPk(1);
