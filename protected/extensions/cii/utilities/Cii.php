@@ -87,6 +87,45 @@ class Cii {
 	}
 	
     /**
+     * Returns an array of HybridAuth providers to be used by HybridAuth and other parts of CiiMS
+     * @return array of HA Providers prettily formatted
+     */
+    public static function getHybridAuthProviders()
+    {
+        $providers = Yii::app()->cache->get('hybridauth_providers');
+
+        if ($providers === false)
+        {
+            // Init the array
+            $providers = array();
+
+            // Query for the providors rather than using Cii::getConfig(). The SQL performance SHOULD be faster
+            $response = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "ha_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "ha_%"')->queryAll();
+            foreach ($response as $element)
+            {
+                $k = $element['key'];
+                $v = $element['value'];
+                $data = explode('_', $k);
+                $provider = $data[0];
+                $key = $data[1];
+                if ($provider == 'linkedin')
+                    $provider = 'LinkedIn';
+
+                $provider = ucwords($provider);
+
+                if (!in_array($key, array('id', 'key', 'secret')))
+                    $providers[$provider][$key] = $v;
+                else
+                    $providers[$provider]['keys'][$key] = $v;
+            }
+            
+            Yii::app()->cache->set('hybridauth_providers', $providers);
+        }
+        
+        return $providers;
+    }
+
+    /**
      * Provides a _very_ simple encryption method that we can user to encrypt things like passwords.
      * This way, if the database is exposed AND the encryptionKey is not exposed, important stuff like
      * SMTP Passwords and what not aren't publicly exposed.

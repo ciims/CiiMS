@@ -38,6 +38,9 @@ return array(
     'modules' => array(
         'admin',
         'dashboard',
+        'hybridauth' => array(
+            'providers' => array()
+        ),
     ),
     'behaviors' => array(
         'onBeginRequest' => array(

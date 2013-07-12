@@ -33,14 +33,14 @@ class m130712_220749_settings extends CDbMigration
 		{
 			foreach (Cii::get(Cii::get($config, 'hybridauth', array()), 'providers', array()) as $k=>$v)
 			{
-				$key = strtolower($k) . '_';
+				$key = 'ha_'.strtolower($k) . '_';
 				foreach ($v as $j=>$l)
 				{
 					if ($j == 'keys')
 					{
 						foreach ($l as $m=>$n)
 						{
-							$key  = strtolower($k) . '_' . $m;
+							$key  = 'ha_'.strtolower($k) . '_' . $m;
 							$value = $n;
 							Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 	  			 ->bindParam(':key', $key)->bindParam(':value', $n)->execute();
@@ -49,7 +49,7 @@ class m130712_220749_settings extends CDbMigration
 					else
 					{
 						$value = $l;
-						$key = strtolower($k) . '_' .  $j;
+						$key = 'ha_'.strtolower($k) . '_' .  $j;
 						Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 	  		 ->bindParam(':key', $key)->bindParam(':value', $value)->execute();
 					}

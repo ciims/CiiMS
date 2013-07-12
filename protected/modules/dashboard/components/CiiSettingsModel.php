@@ -143,9 +143,9 @@ class CiiSettingsModel extends CFormModel
 
 	    // Store new config values in cache
 	    foreach($this->attributes as $key=>$value)
-	    {
 	    	Yii::app()->cache->set($key, $value);
-	    }
+
+	    return true;
 	}
 
 	/**
