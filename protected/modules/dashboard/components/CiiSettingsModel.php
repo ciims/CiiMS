@@ -95,20 +95,15 @@ class CiiSettingsModel extends CFormModel
 		return true;
 	}
 
-
+	/**
+	 * Validates passwords by encrypting them for storage
+	 * @param  mixed $attribute
+	 * @param  mixed $params
+	 * @return true
+	 */
 	public function password($attribute, $params)
 	{
-		$this->$attribute = base64_encode(
-			mcrypt_encrypt(
-				MCRYPT_RIJNDAEL_256, 
-				md5(Yii::app()->params['encryptionKey']), 
-				$this->$attribute, 
-				MCRYPT_MODE_CBC, 
-				md5(md5(Yii::app()->params['encryptionKey']))
-				)
-			);
-
-		$this->attributes[$attribute] = $this->$attribute;
+		$this->attributes[$attribute] = $this->$attribute = Cii::encrypt($this->$attribute);
 		return true;
 	}
 

@@ -37,7 +37,7 @@ class Cii {
      */
     public static function getConfig($key, $default=NULL)
     {
-        $cache = false;//Yii::app()->cache->get('settings_'.$key);
+        $cache = Yii::app()->cache->get('settings_'.$key);
 
         if ($cache === false)
         {
@@ -68,7 +68,13 @@ class Cii {
 
 	/**
 	 * Provides methods to format a date throughout a model
-	 */
+     * By forcing all components through this method, we can provide a comprehensive
+     * and consistent date format for the entire site
+     * @param  mxied  $date   Likely a string in date format (of some kind)
+     * @param  string $format The format we want to FORCE the dts to be formatted to
+     *                        If this isn't supplied, we'll pull it from Cii::getConfig()
+     * @return Date
+     */
 	public static function formatDate($date, $format = NULL)
 	{
         if ($format == NULL)
@@ -80,9 +86,58 @@ class Cii {
 		return date($format, strtotime($date));
 	}
 	
+    /**
+     * Provides a _very_ simple encryption method that we can user to encrypt things like passwords.
+     * This way, if the database is exposed AND the encryptionKey is not exposed, important stuff like
+     * SMTP Passwords and what not aren't publicly exposed.
+     *
+     * Since often times these passwords are the same password used to access more critical seems, _I_
+     * think it is imnportant that they aren't stored in plain text, but with some form of reversible encryption
+     * so that the user doesn't have to decrypt it on their own.
+     *
+     * The purpose of this is to _assist_ in hardened security, and is in no means a substitude for a more comprehensive
+     * security strategy. This _WILL NOT_ help you if you encryptionKey is taken as well - but it might buy you some time.
+     * 
+     * @param  string $field The data we want to ecrnypt
+     * @return string        encrypted data
+     */
+    public static function encrypt($field)
+    {
+        return base64_encode(
+            mcrypt_encrypt(
+                MCRYPT_RIJNDAEL_256, 
+                md5(Yii::app()->params['encryptionKey']), 
+                $field,
+                MCRYPT_MODE_CBC, 
+                md5(md5(Yii::app()->params['encryptionKey']))
+                )
+            );
+    }
+
+    /**
+     * Acts are a counterpart to Cii::encrypt().
+     * @see  Cii::encrypt()
+     * @param  string $field encrypted text
+     * @return string        unencrypted text
+     */
+    public static function decrypt($field)
+    {
+        return rtrim(
+            mcrypt_decrypt(
+                MCRYPT_RIJNDAEL_256, 
+                md5(Yii::app()->params['encryptionKey']),
+                base64_decode($field), 
+                MCRYPT_MODE_CBC, 
+                md5(md5(Yii::app()->params['encryptionKey']))
+            ), 
+        "\0");
+    }
+
 	/**
-	 * CiiController debug method
-	 */
+	 * Beause doing this all over the place is stupid...
+     * @param  mixed $data     The data we want to debug
+     * @param  bool $full_dump Whether or not we want the data outputted with var_dump or not
+     */
 	public static function debug($data, $full_dump = false)
 	{
 		echo '<pre class="cii-debug">';

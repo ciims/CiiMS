@@ -120,7 +120,7 @@ class CiiController extends CController
 
         if ($smtpPass !== NULL && $smtpPass !== "")
         {
-            $mail->Password   = $smtpPass;
+            $mail->Password   = Cii::decrypt($smtpPass);
             $mail->SMTPAuth = true;
         }
 
