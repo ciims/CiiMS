@@ -359,6 +359,11 @@ main .settings-container .body-content #main .content .output:hover {
 	transition: all .2s ease-in-out;
 }
 
+main .settings-container .body-content #main .content .group-header {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 main .posts-container .list-view .pagination {
 	float:left;
 	text-align:center;

@@ -7,9 +7,9 @@ class Cii {
 	 * @param array $array 	 The array to check
 	 * @param mixed $item	 The indicie to check against
 	 * @param mixed $default The default return value
-	 * @return mixed array index or default]
+	 * @return mixed array index or default
 	 */
-	public static function get($array, $item=NULL, $default=NULL)
+	public static function get($array=NULL, $item=NULL, $default=NULL)
 	{
 		if ($array === NULL)
 			return isset($default) ? $default : $item;

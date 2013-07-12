@@ -81,6 +81,15 @@ class CiiSettingsModel extends CFormModel
 	}
 
 	/**
+	 * Allows settings to be grouped together in logical sections
+	 * @return array
+	 */
+	public function groups()
+	{
+		return array();
+	}
+
+	/**
 	 * Provides a generic method for populating data
 	 * @param  array  $data $_POST data
 	 * @return bool
@@ -131,6 +140,12 @@ class CiiSettingsModel extends CFormModel
 	{
 	    if($this->hasEventHandler('onAfterSave'))
 	        $this->onAfterSave(new CEvent($this));
+
+	    // Store new config values in cache
+	    foreach($this->attributes as $key=>$value)
+	    {
+	    	Yii::app()->cache->set($key, $value);
+	    }
 	}
 
 	/**

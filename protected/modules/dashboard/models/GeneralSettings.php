@@ -1,6 +1,5 @@
 <?php
 
-Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 class GeneralSettings extends CiiSettingsModel
 {
 	protected $name = NULL;
@@ -39,7 +38,8 @@ class GeneralSettings extends CiiSettingsModel
 	{
 		return array(
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
-			array('name, dateFormat, timeFormat, timezone, defaultLanguage, menu, subdomain', 'length', 'max' => 255),
+			array('name, menu, subdomain', 'length', 'max' => 255),
+			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
 			array('offline, preferMarkdown', 'boolean'),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),

@@ -1,8 +1,5 @@
 <?php
-// Import bootstrap TBActiveForm
-Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('application.extensions.bootstrap'));
-Yii::import('application.extensions.bootstrap.widgets.TbActiveForm'); 
-
+Yii::import('application.extensions.cii.widgets.CiiActiveForm');
 /**
  * CiiSettingsForm is a CWidget that acts as a form builder based upon the information provided in Dashboard Settings Models
  * This class utilizes components from TbActiveForm
@@ -43,12 +40,6 @@ class CiiSettingsForm extends CWidget
 		$reflection = new ReflectionClass($this->model);
 		$this->properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
 
-		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG);
-		$cs = Yii::app()->getClientScript();
-		$cs->registerCssFile($asset.'/css/pure.css'); 
-		$cs->registerCssFile($asset.'/prism/prism-light.css'); 
-		$cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); 
-
 		return parent::init();
 	}
 
@@ -67,7 +58,7 @@ class CiiSettingsForm extends CWidget
 		}
 
 		// Setup the form
-		$form = $this->beginWidget('TbActiveForm', array(
+		$form = $this->beginWidget('CiiActiveForm', array(
 		    'id'=>get_class($this->model),
 		    'enableAjaxValidation'=>true,
 		    'htmlOptions' => array(
@@ -124,34 +115,30 @@ class CiiSettingsForm extends CWidget
 					$this->controller->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
 				else
 				{
-					foreach ($this->properties as $property)
+					$groups = $this->model->groups();
+
+					if (!empty($groups))
 					{
-						$htmlOptions = array(
-							'class' => 'pure-input-2-3'
-						);
-
-						$validators = $this->model->getValidators($property->name);
-						$stringValidators = $this->model->getStringValidator($property->name, $validators);
-
-						if (in_array('required', $stringValidators))
-							$htmlOptions['required'] = true;
-
-						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
-
-						// TODO: Number (not range), password
-						if (in_array('boolean', $stringValidators))
-							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
-							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						else if (in_array('number', $stringValidators) && (isset($validators[0]->max) || isset($validators[0]->min)))
-							$this->numberRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						else if (in_array('password', $stringValidators))
-							echo $this->passwordFieldRow($form, $this->model, $property->name, $htmlOptions, $validators);
-						else
-							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
-
-						echo CHtml::closeTag('div');
+						foreach ($groups as $name=>$attributes)
+						{
+							echo CHtml::tag('h4', array('class' => 'group-header'), $name);
+							echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+							foreach ($attributes as $property)
+							{
+								$p = new StdClass();
+								$p->name = $property;
+								$this->renderProperties($form, $p);
+							}
+						}
 					}
+					else
+					{
+						foreach ($this->properties as $property)
+						{
+							$this->renderProperties($form, $property);
+						}
+					}
+					
 				}
 				
 				echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pull-right'));
@@ -160,115 +147,32 @@ class CiiSettingsForm extends CWidget
 		echo CHtml::closeTag('div');
 	}
 
-	/**
-	 * passwordFieldRow provides a password box that decrypts the database stored value since it will be encrypted in the db
-	 * @param  CACtiveForm      $form        The CActiveForm element
-	 * @param  CiiSettingsModel $model       The model that we are operating on
-	 * @param  string           $property    The name of the property we are working with
-	 * @param  array            $htmlOptions An array of HTML Options
-	 * @param  CValidator       $validators  The Validator(s) for this property
-	 *                                       Since we already have it, it's worth passing through
-	 */
-	private function passwordFieldRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
+	private function renderProperties(&$form, $property)
 	{
-		$htmlOptions['value'] = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), base64_decode($model->$property), MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))), "\0");
-		$htmlOptions['type'] = 'password';
-		$htmlOptions['id'] = get_class($model) . '_' . $property;
-		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
-		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::tag('input', $htmlOptions);
-	}
+		$htmlOptions = array(
+			'class' => 'pure-input-2-3'
+		);
 
-	/**
-	 * numberRow HTML5 number elemtn to work with
-	 * @param  CACtiveForm      $form        The CActiveForm element
-	 * @param  CiiSettingsModel $model       The model that we are operating on
-	 * @param  string           $property    The name of the property we are working with
-	 * @param  array            $htmlOptions An array of HTML Options
-	 * @param  CValidator       $validators  The Validator(s) for this property
-	 *                                       Since we already have it, it's worth passing through
-	 */
-	private function numberRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
-	{
-		// TODO: Value isn't being set? TbInput?
-		foreach ($validators as $k=>$v)
-		{
-			if (get_class($v) == "CNumberValidator")
-			{
-				$htmlOptions['min']  = $v->min;
-				$htmlOptions['step'] = 1;
-			}
-			break;
-		}
+		$validators = $this->model->getValidators($property->name);
+		$stringValidators = $this->model->getStringValidator($property->name, $validators);
 
-		$htmlOptions['value'] = $model->$property;
-		$htmlOptions['type'] = 'number';
-		$htmlOptions['id'] = get_class($model) . '_' . $property;
-		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
-		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::tag('input', $htmlOptions);
-	}
+		if (in_array('required', $stringValidators))
+			$htmlOptions['required'] = true;
 
-	/**
-	 * rangeRow provides a pretty ish range slider with view controls
-	 * @param  CACtiveForm      $form        The CActiveForm element
-	 * @param  CiiSettingsModel $model       The model that we are operating on
-	 * @param  string           $property    The name of the property we are working with
-	 * @param  array            $htmlOptions An array of HTML Options
-	 * @param  CValidator       $validators  The Validator(s) for this property
-	 *                                       Since we already have it, it's worth passing through
-	 */
-	private function rangeRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
-	{
-		foreach ($validators as $k=>$v)
-		{
-			if (get_class($v) == "CNumberValidator")
-			{
-				$htmlOptions['min']  = $v->min;
-				$htmlOptions['max']  = $v->max;
-				$htmlOptions['step'] = 1;
-			}
-			break;
-		}
+		echo CHtml::openTag('div', array('class' => 'pure-control-group'));
 
-		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo $form->rangeField($model, $property, $htmlOptions);
-		echo CHtml::tag('div', array('class' => 'output'), NULL);
+		// TODO: Number (not range), password
+		if (in_array('boolean', $stringValidators))
+			$form->toggleButtonRow($this->model, $property->name, $htmlOptions, $validators);
+		else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
+			$form->rangeFieldRow($this->model, $property->name, $htmlOptions, $validators);
+		else if (in_array('number', $stringValidators) && (isset($validators[0]->max) || isset($validators[0]->min)))
+			$form->numberFieldRow($this->model, $property->name, $htmlOptions, $validators);
+		else if (in_array('password', $stringValidators))
+			echo $form->passwordFieldRow($this->model, $property->name, $htmlOptions, $validators);
+		else
+			echo $form->textFieldRow($this->model, $property->name, $htmlOptions, $validators);
 
-		// Register a script. Allow it to be overriden since it is global
-		Yii::app()->getClientScript()->registerScript('slider', '
-			$("input[type=\"range\"]").each(function() {
-				$(this).parent().find(".output").html($(this).val());
-			})
-
-			$("input[type=\"range\"]").change(function() { 
-				$(this).parent().find(".output").html($(this).val()); 
-			});
-		');
-	}
-
-	/**
-	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
-	 * @param  CACtiveForm      $form        The CActiveForm element
-	 * @param  CiiSettingsModel $model       The model that we are operating on
-	 * @param  string           $property    The name of the property we are working with
-	 * @param  array            $htmlOptions An array of HTML Options
-	 * @param  CValidator       $validators  The Validator(s) for this property
-	 *                                       Since we already have it, it's worth passing through
-	 */
-	private function toggleButtonRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
-	{
-		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::openTag('div', array('class' => 'pure-input-2-3', 'style' => 'display: inline-block'));
-			echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
-				echo $form->checkBox($model, $property, $htmlOptions);
-				echo CHtml::openTag('p');
-					echo CHtml::tag('span', array(), 'On');
-					echo CHtml::tag('span', array(), 'Off');
-				echo CHtml::closeTag('p');
-
-				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
-			echo CHtml::closeTag('label');
 		echo CHtml::closeTag('div');
 	}
 }

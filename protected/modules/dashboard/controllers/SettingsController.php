@@ -42,6 +42,26 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	/**
+	 * Provides "social" settings control
+	 * @class GeneralSettings
+	 */
+	public function actionSocial()
+	{
+		$model = new SocialSettings;
+		
+		$this->submitPost($model);
+
+		$this->render('form', array('model' => $model, 'header' => array(
+			'h3' => 'Social Settings', 
+			'p' => 'Provide Credentials for accessing and submitting data to various third party social media sites.',
+			'save-text' => 'Save Changes'
+		)));
+	}
+
+	/**
+	 * Provides functionality to send a test email
+	 */
 	public function actionEmailTest()
 	{
 		if (Cii::get($_POST, 'email') !== NULL)
