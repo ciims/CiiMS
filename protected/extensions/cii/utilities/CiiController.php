@@ -110,9 +110,7 @@ class CiiController extends CController
             $mail->Host       = $smtpHost; 
 
         if ($smtpPort !== NULL && $smtpPort !== "")
-        {
             $mail->Port       = $smtpPort;
-        }
 
         if ($smtpUser !== NULL && $smtpUser !== "")
         {               
@@ -121,7 +119,10 @@ class CiiController extends CController
         }
 
         if ($smtpPass !== NULL && $smtpPass !== "")
-            $mail->Password   = $smtpPass;      
+        {
+            $mail->Password   = $smtpPass;
+            $mail->SMTPAuth = true;
+        }
 
         if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
             $notifyUser = Users::model()->findByPk(1);

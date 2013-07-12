@@ -1,18 +1,22 @@
 <?php
 
+/**
+ * This controller provides basic settings control and management for all basic CiiMS settings
+ *
+ * Actions in this controller should take advantage of CiiSettingsModel and classes extended from it
+ * for automatic form construction, management, and validation
+ */
 class SettingsController extends CiiSettingsController
 {
+	/**
+	 * Provides "general" settings control
+	 * @class GeneralSettings
+	 */
 	public function actionIndex()
 	{
 		$model = new GeneralSettings;
 		
-		if (Cii::get($_POST, 'GeneralSettings') !== NULL)
-		{
-			$model->populate($_POST);
-
-			if ($model->save())
-				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
-		}
+		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
 			'h3' => 'General Settings', 
@@ -21,17 +25,15 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	/**
+	 * Provides basic email control
+	 * @class EmailSettings
+	 */
 	public function actionEmail()
 	{
 		$model = new EmailSettings;
 		
-		if (Cii::get($_POST, 'EmailSettings') !== NULL)
-		{
-			$model->populate($_POST);
-
-			if ($model->save())
-				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
-		}
+		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
 			'h3' => 'Email Settings', 
@@ -63,5 +65,16 @@ class SettingsController extends CiiSettingsController
 		}
 
 		return false;
+	}
+
+	private function submitPost($model)
+	{
+		if (Cii::get($_POST, get_class($model)) !== NULL)
+		{
+			$model->populate($_POST);
+
+			if ($model->save())
+				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
+		}
 	}
 }

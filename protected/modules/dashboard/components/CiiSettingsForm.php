@@ -138,6 +138,7 @@ class CiiSettingsForm extends CWidget
 
 						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
 
+						// TODO: Number (not range), password
 						if (in_array('boolean', $stringValidators))
 							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
@@ -166,6 +167,7 @@ class CiiSettingsForm extends CWidget
 	 */
 	private function numberRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
 	{
+		// TODO: Value isn't being set? TbInput?
 		foreach ($validators as $k=>$v)
 		{
 			if (get_class($v) == "CNumberValidator")
@@ -176,7 +178,6 @@ class CiiSettingsForm extends CWidget
 			break;
 		}
 
-		$htmlOptions['type'] = 'number';
 		$htmlOptions['value'] = $model->$property;
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::tag('input', $htmlOptions);
