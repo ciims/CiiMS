@@ -1,16 +1,38 @@
 <?php
-// Import bootstrap TBActiveForm
+// Import bootstrap TbActiveForm
 Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('application.extensions.bootstrap'));
 Yii::import('application.extensions.bootstrap.widgets.TbActiveForm'); 
+
 class CiiActiveForm extends TbActiveForm
 {
+	public $registerPureCss = true;
+
+	public $registerPrism = true;
+
+	/**
+	 * Initializes CiiActiveForm
+	 *
+	 * CiiActiveForm provides a number of enhanced functionalities and tools that wouldn't otherwise be provided, such as HTML5 elements
+	 * However it's primary benefit comes from using CiiSettingsModel via the dashboard. While use in the dashboard is recommended, it can
+	 * be used outside of that. However for the sake of extensibility it needs to be a part of Cii itself so that it can be used elsewhere
+	 * within the application by developers if they so choose to use it.
+	 * 
+	 * @see CActiveForm::init()
+	 */
 	public function init()
 	{
-		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG);
+		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG);
 		$cs = Yii::app()->getClientScript();
-		$cs->registerCssFile($asset.'/css/pure.css'); 
-		$cs->registerCssFile($asset.'/prism/prism-light.css'); 
-		$cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); 
+
+		if ($this->registerPureCss)
+			$cs->registerCssFile($asset.'/css/pure.css'); 
+
+		if ($this->registerPrism)
+		{
+			$cs->registerCssFile($asset.'/prism/prism-light.css'); 
+			$cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); 
+		}
+
 		return parent::init();
 	}
 
