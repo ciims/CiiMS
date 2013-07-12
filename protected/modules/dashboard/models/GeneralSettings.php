@@ -46,7 +46,6 @@ class GeneralSettings extends CiiSettingsModel
 			return $ret;
 
 		return parent::__get($name);
-
 	}
 
 	/**
@@ -61,6 +60,10 @@ class GeneralSettings extends CiiSettingsModel
 		return NULL;
 	}
 
+	/**
+	 * Validation rules
+	 * @return array
+	 */
 	public function rules()
 	{
 		return array(

@@ -13,7 +13,7 @@
 					array('url' => $this->createUrl('/dashboard/categories'), 'label' => 'Categories', 'itemOptions' => array('class' => 'icon-list')),
 					array('url' => $this->createUrl('/dashboard/analytics/settings'), 'label' => 'Analytics', 'itemOptions' => array('class' => 'icon-bar-chart')),
 					array('url' => $this->createUrl('/dashboard/settings/appearance'), 'label' => 'Appearance', 'itemOptions' => array('class' => 'icon-eye-open')),
-					array('url' => $this->createUrl('/dashboard/email/settings'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt')),
+					array('url' => $this->createUrl('/dashboard/settings/email'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt')),
 					array('url' => $this->createUrl('/dashboard/settings/social'), 'label' => 'Social', 'itemOptions' => array('class' => 'icon-twitter')),
 					array('url' => $this->createUrl('/dashboard/settings/cards'), 'label' => 'Cards & Plugins', 'itemOptions' => array('class' => 'icon-puzzle-piece')),
 					array('url' => $this->createUrl('/dashboard/settings/cache'), 'label' => 'System Cache', 'itemOptions' => array('class' => 'icon-cloud')),

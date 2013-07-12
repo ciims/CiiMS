@@ -131,13 +131,18 @@ class CiiSettingsForm extends CWidget
 							$htmlOptions['required'] = true;
 
 						echo CHtml::openTag('div', array('class' => 'pure-control-group'));
+
 						if (in_array('boolean', $stringValidators))
 						{
 							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						}
-						else if (in_array('number', $stringValidators))
+						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
 						{
 							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
+						}
+						else if (in_array('number', $stringValidators) && (!isset($validators[0]->max) || !isset($validators[0]->min)))
+						{
+							$this->numberRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						}
 						else
 							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
@@ -160,9 +165,34 @@ class CiiSettingsForm extends CWidget
 	 * @param  CValidator       $validators  The Validator(s) for this property
 	 *                                       Since we already have it, it's worth passing through
 	 */
+	private function numberRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
+	{
+		foreach ($validators as $k=>$v)
+		{
+			if (get_class($v) == "CNumberValidator")
+			{
+				$htmlOptions['min']  = $v->min;
+				$htmlOptions['step'] = 1;
+			}
+			break;
+		}
+		
+		$htmlOptions['type'] = 'number';
+		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
+		echo CHtml::tag('input', $htmlOptions);
+	}
+
+	/**
+	 * rangeRow provides a pretty ish range slider with view controls
+	 * @param  CACtiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
+	 */
 	private function rangeRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
 	{
-		//$htmlOptions['style'] = 'width: 59%';
 		foreach ($validators as $k=>$v)
 		{
 			if (get_class($v) == "CNumberValidator")
