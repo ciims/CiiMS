@@ -143,6 +143,10 @@ class CiiSettingsForm extends CWidget
 							$this->toggleButtonRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
 							$this->rangeRow($form, $this->model, $property->name, $htmlOptions, $validators);
+						else if (in_array('number', $stringValidators) && (isset($validators[0]->max) || isset($validators[0]->min)))
+							$this->numberRow($form, $this->model, $property->name, $htmlOptions, $validators);
+						else if (in_array('password', $stringValidators))
+							echo $this->passwordFieldRow($form, $this->model, $property->name, $htmlOptions, $validators);
 						else
 							echo $form->textFieldRow($this->model, $property->name, $htmlOptions);
 
@@ -157,7 +161,26 @@ class CiiSettingsForm extends CWidget
 	}
 
 	/**
-	 * rangeRow provides a pretty ish range slider with view controls
+	 * passwordFieldRow provides a password box that decrypts the database stored value since it will be encrypted in the db
+	 * @param  CACtiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
+	 */
+	private function passwordFieldRow($form, $model, $property, $htmlOptions=array(), $validators=NULL)
+	{
+		$htmlOptions['value'] = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), base64_decode($model->$property), MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))), "\0");
+		$htmlOptions['type'] = 'password';
+		$htmlOptions['id'] = get_class($model) . '_' . $property;
+		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
+		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
+		echo CHtml::tag('input', $htmlOptions);
+	}
+
+	/**
+	 * numberRow HTML5 number elemtn to work with
 	 * @param  CACtiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
@@ -179,6 +202,9 @@ class CiiSettingsForm extends CWidget
 		}
 
 		$htmlOptions['value'] = $model->$property;
+		$htmlOptions['type'] = 'number';
+		$htmlOptions['id'] = get_class($model) . '_' . $property;
+		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::tag('input', $htmlOptions);
 	}

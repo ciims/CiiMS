@@ -95,11 +95,23 @@ class CiiSettingsModel extends CFormModel
 		return true;
 	}
 
+
 	public function password($attribute, $params)
 	{
+		$this->$attribute = base64_encode(
+			mcrypt_encrypt(
+				MCRYPT_RIJNDAEL_256, 
+				md5(Yii::app()->params['encryptionKey']), 
+				$this->$attribute, 
+				MCRYPT_MODE_CBC, 
+				md5(md5(Yii::app()->params['encryptionKey']))
+				)
+			);
+
+		$this->attributes[$attribute] = $this->$attribute;
 		return true;
 	}
-	
+
 	/**
 	 * Allow for beforeSave events
 	 * @return bool   If beforeSave passed
