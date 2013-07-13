@@ -26,92 +26,60 @@ class UsersController extends CiiSettingsController
 				
 			$model->attributes=$_POST['Users'];
 			
+			// Handle saving and updating of Metadata via CDbCommand
+			// By wrapping this in a transaction, we can make sure all metadata is saved AND that the operation goes quickly
+			if (Cii::get($_POST, 'UserMetadata') !== NULL)
+			{
+				$connection = Yii::app()->db;
+				$transaction = $connection->beginTransaction();
+
+				foreach (Cii::get($_POST, 'UserMetadata') as $k=>$v)
+				{
+					// Allow items to be added
+					if (strpos($k, '__new') !== false)
+					{
+						$k = str_replace(' ', '_', str_replace('__new', '', $k));
+						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, value, user_id, created, updated) VALUES (:key, :value, :id, NOW(), NOW())');
+						$command->bindParam(':value', $v);
+					}
+					else if ($v == "" && $k)
+					{
+						$command = $connection->createCommand('DELETE FROM user_metadata WHERE `key` = :key AND user_id = :id');
+					}
+					else
+					{
+						// And updated
+						$command = $connection->createCommand('UPDATE user_metadata SET value = :value, updated = NOW() WHERE `key` = :key AND user_id = :id');
+						$command->bindParam(':value', $v);
+					}
+
+					$command->bindParam(':key', $k);
+					$command->bindParam(':id', $id);
+					try {
+						$ret = $command->execute();
+					} catch (Exception $e) {
+						$transaction->rollBack();
+						break;
+					}
+				}
+
+				// Allow metadata to be saved independently of the actual model
+				$transaction->commit();
+			}
+
 			if($model->save()) 
 			{
 				Yii::app()->user->setFlash('success', 'User has been updated.');
-				$this->redirect(array('index','id'=>$model->id));
+				$this->redirect(array('update','id'=>$model->id));
 			}
+			else 
+				$transaction->rollBack();
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
 		));
 	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		// we only allow deletion via POST request
-		$model = $this->loadModel($id);
-
-        if ($model->id != Yii::app()->user->id && $id != 1)
-        {
-        	// Cascade deletion
-        	Yii::app()->db->createCommand("DELETE FROM user_metadata WHERE user_id = :id")
-        				  ->bindParam(":id", $id)
-        				  ->execute();
-
-            $model->delete();
-            
-		    Yii::app()->user->setFlash('success', 'User has been deleted');
-        }
-        else
-        {
-            throw new CHttpException(403, 'This user cannoot be deleted');
-        }
-        
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-	}
-
-     /**
-     * Public function to delete many records from the content table
-     * TODO, add verification notice on this
-     */
-    public function actionDeleteMany()
-    {
-        $key = key($_POST);
-        if (count($_POST[$key]) == 0)
-            throw new CHttpException(500, 'No records were supplied to delete');
-        
-        foreach ($_POST[$key] as $id)
-        {
-            // Prevent deleting root and self
-            if ($id != 1 && $id != Yii::app()->user->id)
-            {
-                $command = Yii::app()->db
-                          ->createCommand("DELETE FROM users WHERE id = :id")
-                          ->bindParam(":id", $id, PDO::PARAM_STR)
-                          ->execute();
-            }
-        }
-        
-        Yii::app()->user->setFlash('success', 'Post has been deleted');
-        
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if(!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-    }
-    
-    /**
-     * Removes the metadata attribute from a user
-     */
-    public function actionRemoveMeta()
-    {
-        $id = Cii::get($_POST, 'key');
-        $user = Cii::get($_POST, 'user_id');
-        
-        $model = UserMetadata::model()->findByAttributes(array('user_id' => $user, 'key' => $id));
-        if ($model == NULL)
-            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
-        
-        return $model->delete();
-    }
     
 	/**
 	 * Lists all models.

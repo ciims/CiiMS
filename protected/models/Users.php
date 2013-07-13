@@ -102,7 +102,7 @@ class Users extends CiiModel
 			'displayName' => 'Display Name',
 			'about'		=> 'About',
 			'user_role' => 'User Role',
-			'status' => 'Status',
+			'status' => 'Active',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);

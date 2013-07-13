@@ -202,10 +202,23 @@ main .settings-container .list-view .settings-row .email {
 	font-weight: normal;
 	color: #999;
 }
+
 main .settings-container .list-view .settings-row .element {
 	position: relative;
 	top: 9px;
 	margin-left: 15px;
+}
+
+main .settings-container .meta-icon-plus {
+	top: 15px;
+	position: relative;
+	background: #A7CE44;
+	border-radius: 4px;
+	padding: 5px;
+	color: #fff;
+	font-size: 10px;
+	text-decoration: none;
+	margin-right: 5px;
 }
 
 main .dashboard .header .content .welcome {

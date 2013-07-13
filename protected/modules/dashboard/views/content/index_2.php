@@ -59,11 +59,9 @@ $this->widget('ext.bootstrap.widgets.TbExtendedGridView', array(
 </div>
 
 <?php Yii::app()->getClientScript()->registerScript('listview-perspective', '
-    $(document).ready(function() {
         $("#perspective").click(function(e) {
             $.post("' . $this->createUrl('/dashboard/content/index/perspective/1') . '", function() { 
                 window.location.reload();
             });
         });
-    });
 '); ?>
