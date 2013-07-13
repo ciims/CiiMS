@@ -367,7 +367,7 @@ class Cii {
     public static function titleize($word, $uppercase = '')
     {
         $uppercase = $uppercase == 'first' ? 'ucfirst' : 'ucwords';
-        return $uppercase(Inflector::humanize(Inflector::underscore($word)));
+        return $uppercase(Cii::humanize(Cii::underscore($word)));
     }
 
     // }}}
@@ -410,8 +410,8 @@ class Cii {
    public static function underscore($word)
     {
         return  strtolower(preg_replace('/[^A-Z^a-z^0-9]+/','_',
-        preg_replace('/([a-zd])([A-Z])/','1_2',
-        preg_replace('/([A-Z]+)([A-Z][a-z])/','1_2',$word))));
+        preg_replace('/([a-zd])([A-Z])/','$1_$2',
+        preg_replace('/([A-Z]+)([A-Z][a-z])/','$1_$2',$word))));
     }
 
     // }}}
@@ -458,7 +458,7 @@ class Cii {
     */
     public static function variablize($word)
     {
-        $word = Inflector::camelize($word);
+        $word = Cii::camelize($word);
         return strtolower($word[0]).substr($word,1);
     }
 
@@ -479,7 +479,7 @@ class Cii {
      */
     public static function tableize($class_name)
     {
-        return Inflector::pluralize(Inflector::underscore($class_name));
+        return Cii::pluralize(Cii::underscore($class_name));
     }
 
     // }}}
@@ -499,7 +499,7 @@ class Cii {
      */
     public static function classify($table_name)
     {
-        return Inflector::camelize(Inflector::singularize($table_name));
+        return Cii::camelize(Cii::singularize($table_name));
     }
 
     // }}}

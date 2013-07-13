@@ -8,15 +8,15 @@
 			<?php $this->widget('zii.widgets.CMenu', array(
 				'htmlOptions' => array('class' => 'menu'),
 				'items' => array(
-					array('url' => $this->createUrl('/dashboard/settings'), 'label' => 'General', 'itemOptions' => array('class' => 'icon-gears')),
-					array('url' => $this->createUrl('/dashboard/users'), 'label' => 'Users', 'itemOptions' => array('class' => 'icon-group')),
-					array('url' => $this->createUrl('/dashboard/categories'), 'label' => 'Categories', 'itemOptions' => array('class' => 'icon-list')),
-					array('url' => $this->createUrl('/dashboard/analytics/settings'), 'label' => 'Analytics', 'itemOptions' => array('class' => 'icon-bar-chart')),
-					array('url' => $this->createUrl('/dashboard/settings/appearance'), 'label' => 'Appearance', 'itemOptions' => array('class' => 'icon-eye-open')),
-					array('url' => $this->createUrl('/dashboard/settings/email'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt')),
-					array('url' => $this->createUrl('/dashboard/settings/social'), 'label' => 'Social', 'itemOptions' => array('class' => 'icon-twitter')),
-					array('url' => $this->createUrl('/dashboard/settings/cards'), 'label' => 'Cards & Plugins', 'itemOptions' => array('class' => 'icon-puzzle-piece')),
-					array('url' => $this->createUrl('/dashboard/settings/cache'), 'label' => 'System Cache', 'itemOptions' => array('class' => 'icon-cloud')),
+					array('url' => $this->createUrl('/dashboard/settings'), 'label' => 'General', 'itemOptions' => array('class' => 'icon-gears'), 'active' => ($this->id == 'settings' && $this->action->id == 'index' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/users'), 'label' => 'Users', 'itemOptions' => array('class' => 'icon-group'), 'active' => ($this->id == 'users' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/categories'), 'label' => 'Categories', 'itemOptions' => array('class' => 'icon-list'), 'active' => ($this->id == 'categories' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/analytics/settings'), 'label' => 'Analytics', 'itemOptions' => array('class' => 'icon-bar-chart'), 'active' => ($this->id == 'analytics' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/appearance'), 'label' => 'Appearance', 'itemOptions' => array('class' => 'icon-eye-open'), 'active' => ($this->id == 'settings' && $this->action->id == 'appearance' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/email'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt'), 'active' => ($this->id == 'settings' && $this->action->id == 'email' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/social'), 'label' => 'Social', 'itemOptions' => array('class' => 'icon-twitter'), 'active' => ($this->id == 'settings' && $this->action->id == 'social' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/cards'), 'label' => 'Cards & Plugins', 'itemOptions' => array('class' => 'icon-puzzle-piece'), 'active' => ($this->id == 'settings' && $this->action->id == 'cards' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/system'), 'label' => 'System', 'itemOptions' => array('class' => 'icon-cloud'), 'active' => ($this->id == 'settings' && $this->action->id == 'system' ? true : false))
 				)
 			)); ?>
 		</div>

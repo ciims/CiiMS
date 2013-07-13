@@ -94,7 +94,7 @@ class CiiSettingsForm extends CWidget
 			echo CHtml::closeTag('div');
 
 			echo CHtml::openTag('div', array('class'=>'pull-right'));
-				echo CHtml::submitButton($this->header['save-text'], array('id' =>'header-button', 'class' => 'pure-button pure-button-primary pull-right'));
+				echo CHtml::submitButton($this->header['save-text'], array('id' =>'header-button', 'class' => 'pure-button pure-button-primary pure-button-small'));
 			echo CHtml::closeTag('div');
 
 			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
@@ -109,40 +109,42 @@ class CiiSettingsForm extends CWidget
 		// #main .content
 		echo CHtml::openTag('div', array('id' => 'main', 'class' => 'nano'));
 			echo CHtml::openTag('div', array('class' => 'content'));
-				
-				// If we want a custom form view, render that view instead of the default behavior
-				if ($this->model->form !== NULL)
-					$this->controller->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
-				else
-				{
-					$groups = $this->model->groups();
-
-					if (!empty($groups))
-					{
-						foreach ($groups as $name=>$attributes)
-						{
-							echo CHtml::tag('h4', array('class' => 'group-header'), $name);
-							echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-							foreach ($attributes as $property)
-							{
-								$p = new StdClass();
-								$p->name = $property;
-								$this->renderProperties($form, $p);
-							}
-						}
-					}
+				echo CHtml::openTag('fieldset');
+					// If we want a custom form view, render that view instead of the default behavior
+					if ($this->model->form !== NULL)
+						$this->controller->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
 					else
 					{
-						foreach ($this->properties as $property)
+						$groups = $this->model->groups();
+
+						if (!empty($groups))
 						{
-							$this->renderProperties($form, $property);
+							foreach ($groups as $name=>$attributes)
+							{
+								echo CHtml::tag('legend', array(), $name);
+								echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+								foreach ($attributes as $property)
+								{
+									$p = new StdClass();
+									$p->name = $property;
+									$this->renderProperties($form, $p);
+								}
+							}
 						}
+						else
+						{
+							echo CHtml::tag('legend', array(), Cii::titleize(get_class($this->model)));
+							foreach ($this->properties as $property)
+							{
+								$this->renderProperties($form, $property);
+							}
+						}
+						
 					}
 					
-				}
-				
-				echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pull-right'));
+					echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
 
+				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 	}

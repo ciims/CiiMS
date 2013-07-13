@@ -278,10 +278,8 @@ https://github.com/yui/pure/blob/master/LICENSE.md
 .pure-form legend {
     display: block;
     width: 100%;
-    padding: .3em 0;
-    margin-bottom: .3em;
-    font-size: 125%;
-    color: #333;
+    color: #999;
+    font-size: 13px;
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -425,4 +423,17 @@ https://github.com/yui/pure/blob/master/LICENSE.md
     	margin-bottom: .5em;
     	padding: 4px 0px;
     }
+}
+
+.pure-plus {
+    padding: 9px;
+    padding-bottom: 8px;
+    position: relative;
+    right: -2px;
+    font-weight: 400 !important;
+}
+
+fieldset legend {
+    color: #999;
+    font-size: 13px;
 }

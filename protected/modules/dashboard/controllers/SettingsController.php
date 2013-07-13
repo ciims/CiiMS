@@ -59,6 +59,21 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	public function actionSystem()
+	{
+
+	}
+
+	public function actionCards()
+	{
+
+	}
+
+	public function actionAppearance()
+	{
+
+	}
+
 	/**
 	 * Provides functionality to send a test email
 	 */

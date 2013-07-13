@@ -150,6 +150,7 @@ main .dashboard .header {
 
 main .settings-container .header.secondary {
 	padding-left: 60px;
+	border-bottom: 0px;
 }
 
 main .dashboard .header .content .welcome {
@@ -294,7 +295,9 @@ main .settings-container .sidebar .menu li {
 }
 
 main .settings-container .sidebar .menu li:hover,
-main .settings-container .sidebar .menu li:hover a {
+main .settings-container .sidebar .menu li:hover a,
+main .settings-container .sidebar .menu li.active,
+main .settings-container .sidebar .menu li.active a {
 	color: #2D2D29;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
@@ -319,6 +322,11 @@ main .settings-container .body-content form {
 
 main .settings-container .body-content form #header-button {
 	margin: 27px 0px;
+}
+
+main .settings-container .body-content a#header-button {
+	margin: 27px 0px;
+	top: 4px;
 }
 main .settings-container .body-content #main {
 	height: 85%;
