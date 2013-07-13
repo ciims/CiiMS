@@ -25,6 +25,8 @@
  */
 class Users extends CiiModel
 {
+	public $pageSize = 15;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -136,10 +138,13 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->order = "id DESC";
+		$criteria->order = "user_role DESC, created DESC";
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $this->pageSize
+            )
 		));
 	}
 	

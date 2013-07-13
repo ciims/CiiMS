@@ -123,6 +123,7 @@ class UsersController extends CiiSettingsController
 		if(isset($_GET['Users']))
 			$model->attributes=$_GET['Users'];
 
+		$model->pageSize = 25;
 		$this->render('index',array(
 			'model'=>$model,
 		));

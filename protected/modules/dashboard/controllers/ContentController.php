@@ -32,7 +32,7 @@ class ContentController extends CiiDashboardController
 	{
         $preview = NULL;
 
-		$model=new Content('search');
+		    $model=new Content('search');
         $model->unsetAttributes();  // clear any default values
         if(Cii::get($_GET, 'Content') !== NULL)
             $model->attributes=$_GET['Content'];

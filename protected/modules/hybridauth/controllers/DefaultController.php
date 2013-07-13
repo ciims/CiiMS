@@ -38,6 +38,9 @@ class DefaultController extends CiiController
 		if ($provider==NULL)
 			throw new CException("You haven't supplied a provider");
 		
+		if (!function_exists('password_hash'))
+			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
+
 		$identity = new RemoteUserIdentity();
 		if ($identity->authenticate($provider))
 		{		
@@ -53,14 +56,32 @@ class DefaultController extends CiiController
 			}
 			
 			$user = Users::model()->findByPk($user->user_id);
+
 			// Log the user in with just their email address
 			$model=new LoginForm(true);
 			
+			// CiiMS 1.7 provided authentication schemes against md5 hashes. If we have any users in the system who still have md5 hashes
+			// as their password, allow authentication, but immediatly upgrade their password to something more secure.
 			$model->attributes=array(
 				'username'=>isset($user->email) ? $user->email : $identity->userData['email'],
 				'password'=>md5('PUBUSER'),
 			);
 			
+			// validate user input and redirect to the previous page if valid
+			if($model->validate() && $model->login())
+			{
+				// Upgradee the user's password to bcrypt so they don't stick out in database dumps
+				$user->password = password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13));
+				$user->save();
+				$this->redirect(Yii::app()->user->returnUrl);
+			}
+
+			// If the prevvious authentication failed, then the user has been upgraded, and we should attempt to use the bcrypt hash isntead of the md5 one
+			$model->attributes=array(
+				'username'=>isset($user->email) ? $user->email : $identity->userData['email'],
+				'password'=password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13)),
+			);
+
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 			{
@@ -77,7 +98,7 @@ class DefaultController extends CiiController
 			$user = new Users;
 			$user->attributes = array(
 					'email'=>$identity->userData['email'],
-					'password'=>md5('PUBUSER'),
+					'password'=>password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13)),
 					'firstName'=>Cii::get($identity->userData, 'firstName', 'UNKNOWN'),
 					'lastName'=>Cii::get($identity->userData, 'lastName', 'UNKNOWN'),
 					'displayName'=>($provider == 'twitter' ? $identity->userData['firstName'] : $identity->userData['displayName']),
@@ -99,13 +120,15 @@ class DefaultController extends CiiController
 			
 			$model->attributes=array(
 				'username'=>$identity->userData['email'],
-				'password'=>md5('PUBUSER'),
+				'password'=>password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13)),
 			);
+
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 			{ 
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
+
 			throw new CException('Unable to bind new user locally');
 		}
 		else 

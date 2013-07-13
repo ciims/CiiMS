@@ -153,6 +153,61 @@ main .settings-container .header.secondary {
 	border-bottom: 0px;
 }
 
+main .settings-container .list-view .items {
+	margin-top: -21px;
+}
+
+main .settings-container .list-view .settings-row {
+	font-family: 'Open Sans';
+	color: #2D2D29;
+	padding: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .list-view .settings-row:hover {
+	background: #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .list-view .settings-row .user-info {
+	left: 15px;
+	position: relative;
+}
+
+main .settings-container .list-view .settings-row .name,
+main .settings-container .list-view .settings-row .email {
+	display: block;
+	font-family: 'Open Sans';
+	font-size: 12px;
+	color: #2D2D29;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+main .settings-container .list-view .settings-row .email {
+	font-size: 11px;
+	font-style: italic;
+	font-weight: normal;
+	color: #999;
+}
+main .settings-container .list-view .settings-row .element {
+	position: relative;
+	top: 9px;
+	margin-left: 15px;
+}
+
 main .dashboard .header .content .welcome {
 	display:inline-block;
 }
@@ -783,6 +838,33 @@ main .preview .preview-metadata {
 .nano:hover > .pane, .pane.active, .pane.flashed, .nano:hover > .pane2, .pane2.active, .pane2.flashed {
 	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
 	opacity    : 0.99;
+}
+
+.pure-form .pure-search {
+    border: none !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+    margin-top: 11px;
+    font-size: 12px !important;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-style: italic;
+    box-shadow: none !important;
+    -webkit-box-shadow:none !important;
+    -mox-box-shadow: none !important;
+    -o-box-shadow: none !important;
+}
+
+.icon-legend {
+	margin-top: 18px;
+	margin-right: 5px;
+}
+
+.rounded-img {
+    display: inline-block;
+    border: solid 1px #DCDCDC;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 /** Webkit Specific hacks for the preview */
