@@ -180,6 +180,8 @@ class AnalyticsSettings extends CiiSettingsModel
 	protected $analyticsjs_Woopra_enabled = false;
 	protected $analyticsjs_Woopra_domain = NULL;
 
+	public $form = 'application.modules.dashboard.views.analytics.form';
+
 	public function groups()
 	{
 		return array(

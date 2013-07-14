@@ -112,7 +112,7 @@ class CiiSettingsForm extends CWidget
 				echo CHtml::openTag('fieldset');
 					// If we want a custom form view, render that view instead of the default behavior
 					if ($this->model->form !== NULL)
-						$this->controller->renderPartial(Yii::getPathOfAlias($this->model->form), array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
+						$this->controller->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
 					else
 					{
 						$groups = $this->model->groups();
@@ -140,9 +140,8 @@ class CiiSettingsForm extends CWidget
 							}
 						}
 						
+						echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
 					}
-					
-					echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
 
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
