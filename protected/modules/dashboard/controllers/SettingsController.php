@@ -59,6 +59,23 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	/**
+	 * Provides "general" settings control
+	 * @class GeneralSettings
+	 */
+	public function actionAnalytics()
+	{
+		$model = new AnalyticsSettings;
+		
+		$this->submitPost($model);
+
+		$this->render('form', array('model' => $model, 'header' => array(
+			'h3' => 'Analytics Settings', 
+			'p' => 'Enable and configure various Analytics providers',
+			'save-text' => 'Save Changes'
+		)));
+	}
+
 	public function actionSystem()
 	{
 

@@ -23,6 +23,7 @@
 					<?php echo $form->toggleButtonRow($model, 'status', $htmlOptions); ?>
 					<?php echo $form->emailFieldRow($model, 'email', $htmlOptions); ?>
 					<?php echo $form->textFieldRow($model, 'displayName', $htmlOptions); ?>
+					<?php echo $form->dropDownListrow($model, 'user_role', CHtml::listData(UserRoles::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
 
 				<legend>Optional Information</legend>
 					<?php echo $form->textFieldRow($model, 'firstName', $htmlOptions); ?>

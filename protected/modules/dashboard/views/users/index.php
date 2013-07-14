@@ -26,7 +26,7 @@
 			    			'id' => 'Users_displayName', 
 			    			'name' => 'Users[displayName]',
 			    			'class' => 'pull-right pure-input pure-search',
-			    			'placeholder' => 'Filter By Name'
+			    			'placeholder' => 'Filter by Name'
 						)
 			    	); ?>
 			    </form>

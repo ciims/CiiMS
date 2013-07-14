@@ -19,6 +19,8 @@
  */
 class Categories extends CiiModel
 {
+	public $pageSize = 15;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -97,9 +99,6 @@ class Categories extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -111,7 +110,10 @@ class Categories extends CiiModel
 		$criteria->order = "id DESC";
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $this->pageSize
+            )
 		));
 	}
 	
@@ -126,25 +128,52 @@ class Categories extends CiiModel
 	{
     	if ($this->isNewRecord)
 			$this->created = new CDbExpression('NOW()');
-	   	else
-			$this->updated = new CDbExpression('NOW()');
+	   	
+	   	$this->updated = new CDbExpression('NOW()');
 		
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('categories');
 		Yii::app()->cache->delete('WFF-categories-url-rules');
 		Yii::app()->cache->delete('categories-pid');
+
 	    return parent::beforeSave();
 	}
 	
 	public function beforeDelete()
-	{			
+	{
+		if ($this->id == 1)
+		{
+			Yii::app()->user->setFlash('error', 'This category cannot be deleted');
+			return false;
+		}
+		
 		Yii::app()->cache->delete('categories');
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('WFF-categories-url-rules');
 		Yii::app()->cache->delete('categories-pid');
+		
+		$parent = $this->parent_id;
+		$id = $this->id;
+
+		// Reassign all posts to the parent category
+		Yii::app()->db->createCommand('UPDATE content SET category_id = :parent_id WHERE category_id = :id')
+					  ->bindParam(':parent_id', $parent)
+					  ->bindParam(':id', $id)
+					  ->execute();
+
+		// Reassign all child categories to the parent category
+		$data = $this->findAllByAttributes(array('parent_id' => $id));
+		foreach ($data as $row)
+		{
+			$id = $row->id;
+			Yii::app()->db->createCommand('UPDATE categories SET parent_id = :parent_id WHERE id = :id')
+					  ->bindParam(':parent_id', $parent)
+					  ->bindParam(':id', $id)
+					  ->execute();
+		}
 		return parent::beforeDelete();
 	}
-	
+
 	public function getParentCategories($id)
 	{
 		// Retrieve the data from cache if necessary
