@@ -18,39 +18,54 @@
 <div id="main" class="nano">
 	<div class="content">
 		<fieldset>
-			<div class="pure-control-group">
 				<legend>System Information</legend>
+				<div class="pure-control-group">
 					<?php echo $form->toggleButtonRow($model, 'status', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->emailFieldRow($model, 'email', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->textFieldRow($model, 'displayName', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->dropDownListrow($model, 'user_role', CHtml::listData(UserRoles::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
+				</div>
 
 				<legend>Optional Information</legend>
+				<div class="pure-control-group">
 					<?php echo $form->textFieldRow($model, 'firstName', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->textFieldRow($model, 'lastName', $htmlOptions); ?>
-					
+				</div>
+				<div class="pure-control-group">					
 					<?php echo $form->textAreaRow($model, 'about', array('class' => 'pure-input-2-3', 'style' => 'height: 300px')); ?>
+				</div>
 
 				<legend>Password</legend>
+				<div class="pure-control-group">
 					<?php echo $form->passwordFieldRow($model, 'password', array('class' => 'pure-input-2-3', 'placeholder' => 'Set or change a user\'s password. Otherwise leave blank')); ?>
-
+				</div>
 				<legend>Metadata
 					<span class="meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
 				</legend>
 				<div class="meta-container">
 					<?php foreach ($model->metadata as $meta): ?>
 						<?php $options = array('class' => 'pure-input-2-3', 'type' => 'text', 'value' => $meta->value, 'name' => 'UserMetadata[' . $meta->key . ']'); ?>
-						<?php echo CHtml::tag('label', array(), Cii::titleize($meta->key)); ?>
-						<?php if (strpos($meta->key, 'Provider') !== false): ?>
-							<?php $options['disabled'] = true; ?>
-						<?php elseif ($meta->key == 'likes'): ?>
-							<?php $options['disabled'] = true; ?>
-							<?php $options['value'] = count(json_decode($meta->value, true)); ?>
-						<?php endif; ?>
-						<?php echo CHtml::tag('input', $options, NULL); ?>
+
+						<div class="pure-control-group">
+							<?php echo CHtml::tag('label', array(), Cii::titleize($meta->key)); ?>
+							<?php if (strpos($meta->key, 'Provider') !== false): ?>
+								<?php $options['disabled'] = true; ?>
+							<?php elseif ($meta->key == 'likes'): ?>
+								<?php $options['disabled'] = true; ?>
+								<?php $options['value'] = count(json_decode($meta->value, true)); ?>
+							<?php endif; ?>
+							<?php echo CHtml::tag('input', $options, NULL); ?>
+						</div>
 					<?php endforeach; ?>
 				</div>
-			</div>
 
 			<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
 		<fieldset>
@@ -65,7 +80,7 @@
 '); ?>
 <?php $cs->registerScript('add-meta', '
 	$(".meta-icon-plus").click(function(e) {
-		$(".meta-container").append("<label contenteditable=true>Click to Change</label><input type=\"text\" class=\"pure-input-2-3\" value=\"\" />");
+		$(".meta-container").append("<div class=\"pure-control-group\"><label contenteditable=true>Click to Change</label><input type=\"text\" class=\"pure-input-2-3\" value=\"\" /></div>");
 
 		$(".meta-container input").on("keyup change", function() {
 			$(this).attr("name", "UserMetadata[" + $(this).prev().text() + "__new]");

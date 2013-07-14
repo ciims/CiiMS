@@ -18,14 +18,19 @@
 <div id="main" class="nano">
 	<div class="content">
 		<fieldset>
-			<div class="pure-control-group">
 				<legend>Category Information</legend>
+				<div class="pure-control-group">
 					<?php echo $form->hiddenField($model, 'id'); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->textFieldRow($model, 'name', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->textFieldRow($model, 'slug', $htmlOptions); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->dropDownListRow($model, 'parent_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
-					
-			</div>
+				</div>
 
 			<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
 		<fieldset>
