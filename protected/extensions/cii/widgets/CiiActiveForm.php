@@ -36,6 +36,7 @@ class CiiActiveForm extends TbActiveForm
 		return parent::init();
 	}
 
+
 	/**
 	 * EmailField type
 	 * @param  CActiveForm      $form        The CActiveForm element
@@ -74,6 +75,44 @@ class CiiActiveForm extends TbActiveForm
 		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
 
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property) . (Cii::get($htmlOptions, 'required', false) ? CHtml::tag('span', array('class' => 'required'), ' *') : NULL));
+		echo CHtml::tag('input', $htmlOptions);
+	}
+
+	/**
+	 * TbActiveForm::textFieldRow() with min/max character length support.
+	 * @param  CActiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
+	 */
+	public function textFieldRowLabelFix($model, $property, $htmlOptions=array(), $validators=NULL)
+	{
+		if ($validators !== NULL)
+		{
+			foreach ($validators as $k=>$v)
+			{
+				if (get_class($v) == "CStringValidator")
+				{
+					if (isset($v->min))
+						$htmlOptions['min']  = $v->min;
+
+					if (isset($v->max))
+						$htmlOptions['max']  = $v->max;
+				}
+
+				if (get_class($v) == "CRequiredValidator")
+					$htmlOptions['required'] = true;
+			}
+		}
+
+		$htmlOptions['value'] = $model->$property;
+		$htmlOptions['type'] = 'text';
+		$htmlOptions['id'] = get_class($model) . '_' . $property;
+		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
+
+		echo CHtml::tag('label', array(), Cii::titleize($model->getAttributeLabel($property)) . (Cii::get($htmlOptions, 'required', false) ? CHtml::tag('span', array('class' => 'required'), ' *') : NULL));
 		echo CHtml::tag('input', $htmlOptions);
 	}
 
