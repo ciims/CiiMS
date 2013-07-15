@@ -1,0 +1,14 @@
+{
+	name : "Default",
+	folder : 'default',
+	description : "The default theme for CiiMS 2013",
+	author : {
+		email :"charlesportwoodii@ethreal.net", 
+		name : "Charles R. Portwood II"
+	},
+	license : "MIT",
+	version : "1.1",
+	homepage : "https://github.com/charlesportwoodii/CiiMS",
+	repository : null,
+	type : "Desktop"
+}
