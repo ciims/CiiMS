@@ -370,6 +370,10 @@ class Cii {
         return $uppercase(Cii::humanize(Cii::underscore($word)));
     }
 
+    public static function underscoretowords($word)
+    {
+        return ucwords(str_replace("_", " ", Cii::underscore($word)));
+    }
     // }}}
     // {{{ camelize()
 
