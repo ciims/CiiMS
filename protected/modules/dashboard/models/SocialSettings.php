@@ -67,4 +67,12 @@ class SocialSettings extends CiiSettingsModel
 			'ha_linkedin_secret' => 'Consumer Secret'
 		);
 	}
+
+	public function afterSave()
+	{
+		Yii::app()->cache->set('hybridauth_providers', false);
+		Cii::getHybridAuthProviders();
+		
+		return parent::afterSave();
+	}
 }

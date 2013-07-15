@@ -8,6 +8,6 @@ class CiiAnalytics extends EAnalytics
 
 	public function getProviders()
 	{
-		return $this->options;
+		return CMap::mergeArray($this->options, Cii::getAnalyticsProviders());
 	}
 }

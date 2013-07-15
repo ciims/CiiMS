@@ -86,6 +86,42 @@ class Cii {
 		return date($format, strtotime($date));
 	}
 	
+    public static function getAnalyticsProviders()
+    {
+        $providers = Yii::app()->cache->get('analyticsjs_providers');
+
+        if ($providers === false)
+        {
+            // Init the array
+            $providers = array();
+
+            // Retrieve all the providors that are enabled
+            $response = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_%_enabled" AND value = 1')->queryAll();
+            foreach ($response as $element)
+            {
+                $k = $element['key'];
+                $provider = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
+                $provider = reset($provider);
+
+                $sqlProvider = str_replace(" ", "__" ,str_replace(".", "___", $provider));
+                $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
+                
+                foreach ($data as $el)
+                {
+                    $k = $el['key'];
+                    $v = $el['value'];
+                    $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
+                    if ($v !== "")
+                        $providers[$provider][$p[1]] = $v;
+                }
+            }
+        
+            Yii::app()->cache->set('analyticsjs_providers', $providers);
+        }
+        
+        return $providers;
+    }
+
     /**
      * Returns an array of HybridAuth providers to be used by HybridAuth and other parts of CiiMS
      * @return array of HA Providers prettily formatted

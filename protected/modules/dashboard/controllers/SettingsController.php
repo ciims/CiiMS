@@ -127,6 +127,8 @@ class SettingsController extends CiiSettingsController
 
 			if ($model->save())
 				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
+			else
+				Cii::debug($model->getErrors());
 		}
 	}
 }

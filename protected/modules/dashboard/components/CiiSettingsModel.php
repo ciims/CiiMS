@@ -143,7 +143,7 @@ class CiiSettingsModel extends CFormModel
 
 	    // Store new config values in cache
 	    foreach($this->attributes as $key=>$value)
-	    	Yii::app()->cache->set($key, $value);
+	    	Yii::app()->cache->set('settings_'.$key, $value);
 
 	    return true;
 	}
@@ -208,14 +208,11 @@ class CiiSettingsModel extends CFormModel
 				return false;
 			}
 
-			$commit = $transaction->commit();
-
-			// Only run afterSave if the commit failed
-			if ($commit)
-				$this->afterSave();
+			$transaction->commit();
+			$this->afterSave();
 
 			// Return the commit response
-			return $commit;
+			return true;
 		}
 	}
 }

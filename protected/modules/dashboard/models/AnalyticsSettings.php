@@ -377,4 +377,12 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Woopra_domain' => 'domain',
 		);
 	}
+
+	public function afterSave()
+	{
+		Yii::app()->cache->set('analyticsjs_providers', false);
+		Cii::getAnalyticsProviders();
+
+		return parent::afterSave();
+	}
 }

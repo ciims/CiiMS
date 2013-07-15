@@ -11,6 +11,6 @@ class CiiCache extends CCache
          */
         protected function generateUniqueKey($key)
         {
-        	return md5(md5(Yii::getPathOfAlias('webroot')) . md5($this->keyPrefix.$key));
+        	return md5(md5(Yii::getPathOfAlias('webroot')) . Yii::app()->params['encryptionKey'] . md5($this->keyPrefix.$key));
         }
 }
