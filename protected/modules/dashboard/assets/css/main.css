@@ -1023,6 +1023,13 @@ input[type="range"]::-ms-fill-lower {
 	top: -6px;
 }
 
+.row.noItemsMessage {
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+	font-style: italic;
+}
+
 /* ------------------------------------------
 CSS TOGGLE SWITCHES (Ionuț Colceriu)
 Licensed under Unlicense 

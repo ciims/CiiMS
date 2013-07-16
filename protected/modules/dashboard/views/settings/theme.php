@@ -9,17 +9,24 @@
 		{
 			$themeFolder = str_replace('webroot.themes.', '', $v['folder']);
 			$elements[] = $themeFolder;
-			$elementOptions['options'][] = array('value' => $themeFolder, 'data-img-src' => Yii::app()->getBaseUrl(true) . '/themes/' . $themeFolder .'/default.png');
+
+			// This image SHOULD be publicly accessible at this location assuming you have a half sane setup
+			$elementOptions['options'][] = array(
+				'value' => $themeFolder, 
+				'data-img-src' => Yii::app()->getBaseUrl(true) . '/themes/'.$themeFolder.'/default.png'
+			);
 		}
 
 		$attribute = ($theme == 'desktop' ? 'theme' : $theme.'Theme');
+
 		echo CHtml::openTag('div', array('class' => 'pure-form-group', 'style' => 'padding-bottom: 20px'));
 			echo CHtml::tag('legend', array(), Cii::titleize($attribute));
 			echo $form->dropDownListRow($model, $attribute, $elements, $elementOptions);
+
 			if (count($options) == 0)
-				echo CHtml::tag('span', array('class' => 'noItemsMessage'), 'There are no themes installed for this category.');
-		echo CHtml::closeTag('div');
-		
+				echo CHtml::tag('div', array('class' => 'row noItemsMessage'), CHtml::tag('span', array(), 'There are no themes installed for this category.'));
+
+		echo CHtml::closeTag('div');		
 	}
 ?>
 </fieldset>
