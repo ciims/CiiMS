@@ -13,9 +13,8 @@
 	</div>
 	<div class="clearfix push-header"></div>
 
-	<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
-	<?php Yii::app()->clientScript->registerScriptFile($asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
-								  ->registerScriptFile($asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END); ?>
+	<?php Yii::app()->clientScript->registerScriptFile($this->asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
+								  ->registerScriptFile($this->asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END); ?>
 	<div class="widget-container">
 	    <div style="width: 482px; height:  230px;" data-ss-colspan="2"></div>
 	    <div></div>

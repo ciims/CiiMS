@@ -1,11 +1,10 @@
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
 <?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
 <ul class="providers">
 	<?php foreach ($model->groups() as $group=>$keys): ?>
 		<li class="provider">
 			<div class="tile" data-name="<?php echo str_replace(".", "_", str_replace(" ", "_", $group)); ?>">
 				<span class="title">
-					<?php echo CHtml::image($asset.'/images/providers/' . $group .'/logo.png'); ?>
+					<?php echo CHtml::image($this->asset.'/images/providers/' . $group .'/logo.png'); ?>
 				</span>
 				<?php $first = reset($keys); ?>
 				<?php echo $form->toggleButtonRow($model, $first, $htmlOptions); ?>

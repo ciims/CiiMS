@@ -72,9 +72,8 @@
 	</div>
 </div>
 <?php $this->endWidget(); ?>
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
 <?php $cs = Yii::app()->getClientScript(); ?>
-<?php $cs->registerScriptFile($asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
+<?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
 <?php $cs->registerScript('nano-scroller', '
 		$("#main.nano").nanoScroller();
 '); ?>

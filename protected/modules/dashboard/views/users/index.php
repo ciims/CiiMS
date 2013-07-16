@@ -49,8 +49,7 @@
 <?php $cs->registerCssFile($asset.'/prism/prism-light.css');  ?>
 <?php $cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); ?>
 
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG); ?>
-<?php $cs->registerScriptFile($asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
+<?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
 <?php $cs->registerScript('nano-scroller', '
 	$(document).ready(function() {
 		$("#main.nano").nanoScroller();

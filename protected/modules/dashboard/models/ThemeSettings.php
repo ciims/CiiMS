@@ -34,9 +34,9 @@ class ThemeSettings extends CiiSettingsModel
 		if ($themes == false)
 		{
 			$themes = array(
-				'desktop',
-				'mobile',
-				'tablet'
+				'desktop' => array(),
+				'mobile' => array(),
+				'tablet' => array()
 			);
 
 			$fileHelper = new CFileHelper;
