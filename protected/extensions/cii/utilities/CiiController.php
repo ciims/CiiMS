@@ -148,6 +148,11 @@ class CiiController extends CController
     private function setApplicationLanguage()
     {
         $app = Yii::app();
+        
+        // Set the default language to whatever we have in the dahsboard
+        $app->language = Cii::getConfig('defaultLanguage');
+
+        // If the language is set via POST, accept it
         if (Cii::get($_POST, '_lang', false))
             $app->language = $app->session['_lang'] = $_POST['_lang'];
         else if (Cii::get($app->session, '_lang', false))
@@ -155,6 +160,8 @@ class CiiController extends CController
         else
             $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
 
+        $app->session['_lang'] = $app->language;
+        
         return $app->language;
     }
 
