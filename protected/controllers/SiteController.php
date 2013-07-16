@@ -105,10 +105,10 @@ class SiteController extends CiiController
 				// Load the search data
 				Yii::import('ext.sphinx.SphinxClient');
 				$sphinx = new SphinxClient();
-				$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
+				$sphinx->setServer(Cii::getConfig('sphinxHost'), (int)Cii::getConfig('sphinxPort');
 				$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
 				$sphinx->setMaxQueryTime(15);
-				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);	
+				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Cii::getConfig('sphinxSource'));	
 				$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
 				
     		}	

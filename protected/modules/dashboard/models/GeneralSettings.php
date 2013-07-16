@@ -30,6 +30,23 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $contentPaginationSize = 10;
 
+	protected $sphinx_enabled = false;
+
+	protected $sphinxHost = 'localhost';
+
+	protected $sphinxPort = 9312;
+
+	protected $sphinxSource = NULL;
+
+	public function groups()
+	{
+		return array(
+			'Site Settings' => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			'Display Settings' => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
+			'Sphinx' => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource')
+		);
+	}
+
 	/**
 	 * Validation rules
 	 * @return array
@@ -40,7 +57,9 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
 			array('name, menu, subdomain', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled', 'boolean'),
+			array('sphinxHost, sphinxSource', 'length', 'max' => 255),
+			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
 			array('url', 'url')
@@ -66,7 +85,11 @@ class GeneralSettings extends CiiSettingsModel
 			'bcrypt_cost' => 'Password Strength Settings',
 			'searchPaginationSize' => 'Search Post Count',
 			'categoryPaginationSize' => 'Category Post Count',
-			'contentPaginationSize' => 'Content Post Cost'
+			'contentPaginationSize' => 'Content Post Cost',
+			'sphinx_enabled' => 'Enable Sphinx Search',
+			'sphinxHost' => 'Sphinx Hostname',
+			'sphinxPort' => 'Sphinx Port',
+			'sphinxSource' => 'Sphinx Source Name'
 		);
 	}
 }
