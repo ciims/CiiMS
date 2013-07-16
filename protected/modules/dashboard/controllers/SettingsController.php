@@ -76,16 +76,6 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
-	public function actionSystem()
-	{
-
-	}
-
-	public function actionCards()
-	{
-
-	}
-
 	public function actionAppearance()
 	{
 		$model = new ThemeSettings;
@@ -95,9 +85,20 @@ class SettingsController extends CiiSettingsController
 		$this->render('form', array('model' => $model, 'header' => array(
 			'h3' => 'Appearance', 
 			'p' => 'Change the site theme for desktop, tablet, and mobile',
-			'save-text' => 'Save Changes'
+			'save-text' => 'Save Theme'
 		)));
 	}
+
+	public function actionCards()
+	{
+
+	}
+	
+	public function actionSystem()
+	{
+
+	}
+
 
 	/**
 	 * Provides functionality to send a test email
