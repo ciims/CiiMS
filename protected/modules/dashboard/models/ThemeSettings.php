@@ -27,6 +27,14 @@ class ThemeSettings extends CiiSettingsModel
 		);
 	}
 
+	/**
+	 * Retrieves all of the themes from webroot.themes and returns them in an array group by type, each containing
+	 * the contents of theme.json. 
+	 *
+	 * The themes are then cached for easy retrieval later. (I really hate unecessary DiskIO if something isn't changing...)
+	 * 
+	 * @return array
+	 */
 	public function getThemes()
 	{
 		$themes = Yii::app()->cache->get('settings_themes');
@@ -52,23 +60,5 @@ class ThemeSettings extends CiiSettingsModel
 		}
 
 		return $themes;
-	}
-
-	public function getDesktopThemes()
-	{
-		$themes = $this->getThemes();
-		return $themes['desktop'];
-	}
-
-	public function getTabletThemes()
-	{
-		$themes = $this->getThemes();
-		return $themes['tablet'];
-	}
-
-	public function getMobileThemes()
-	{
-		$themes = $this->getThemes();
-		return $themes['mobile'];
 	}
 }

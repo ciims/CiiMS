@@ -1,6 +1,6 @@
 <fieldset>
 <?php
-	foreach ($model->getThemes() as $theme=>$options)
+	foreach ($model->themes as $theme=>$options)
 	{
 		$elements = array();
 		$elementOptions = array('options' => array());
