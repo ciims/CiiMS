@@ -1,9 +1,7 @@
 <?php
 
-Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 class EmailSettings extends CiiSettingsModel
 {
-
 	protected $SMTPHost = NULL;
 
 	protected $SMTPPort = NULL;

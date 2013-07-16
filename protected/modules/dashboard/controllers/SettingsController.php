@@ -88,7 +88,15 @@ class SettingsController extends CiiSettingsController
 
 	public function actionAppearance()
 	{
+		$model = new ThemeSettings;
+		
+		$this->submitPost($model);
 
+		$this->render('form', array('model' => $model, 'header' => array(
+			'h3' => 'Appearance', 
+			'p' => 'Change the site theme for desktop, tablet, and mobile',
+			'save-text' => 'Save Changes'
+		)));
 	}
 
 	/**
