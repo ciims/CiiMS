@@ -2,8 +2,18 @@
 <?php
 	foreach ($model->themes as $theme=>$options)
 	{
+		$attribute = ($theme == 'desktop' ? 'theme' : $theme.'Theme');
+
 		$elements = array();
 		$elementOptions = array('options' => array());
+
+		// Allow themes to be empty for non desktop theme
+		if ($attribute !== 'theme')
+		{
+			$elements = array(NULL);
+			$elementOptions = array('options' => array(array('value' => NULL)));
+		}
+		
 
 		foreach ($options as $k=>$v)
 		{
@@ -15,9 +25,7 @@
 				'value' => $themeFolder, 
 				'data-img-src' => Yii::app()->getBaseUrl(true) . '/themes/'.$themeFolder.'/default.png'
 			);
-		}
-
-		$attribute = ($theme == 'desktop' ? 'theme' : $theme.'Theme');
+		}		
 
 		echo CHtml::openTag('div', array('class' => 'pure-form-group', 'style' => 'padding-bottom: 20px'));
 			echo CHtml::tag('legend', array(), Cii::titleize($attribute));
