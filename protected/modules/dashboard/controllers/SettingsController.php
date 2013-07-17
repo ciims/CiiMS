@@ -76,6 +76,10 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	/**
+	 * Provides theme control settings
+	 * @class ThemeSettings
+	 */
 	public function actionAppearance()
 	{
 		$model = new ThemeSettings;
@@ -96,9 +100,20 @@ class SettingsController extends CiiSettingsController
 	
 	public function actionSystem()
 	{
-
+		$this->render('system', array('header' => array(
+			'h3' => 'System Information',
+			'p' => 'View system and diagnostic information'
+		)));
 	}
 
+	/**
+	 * Flushes the Yii::cache.
+	 * @return bool    If the cache flush was successful or not
+	 */
+	public function actionFlushCache()
+	{
+		return Yii::app()->cache->flush();
+	}
 
 	/**
 	 * Provides functionality to send a test email
@@ -121,14 +136,16 @@ class SettingsController extends CiiSettingsController
 				echo $response;
 				Yii::app()->end();
 			}
-
-			return false;
 		}
 
 		return false;
 	}
 
-	private function submitPost($model)
+	/**
+	 * Generic handler for sacing $model data since the model is completely generic.
+	 * @param  CiiSettingsModel $model The model we are working with
+	 */
+	private function submitPost(&$model)
 	{
 		if (Cii::get($_POST, get_class($model)) !== NULL)
 		{
@@ -137,7 +154,7 @@ class SettingsController extends CiiSettingsController
 			if ($model->save())
 				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
 			else
-				Cii::debug($model->getErrors());
+				Yii::app()->user->setFlash('error', 'There was an error saving your settings.');
 		}
 	}
 }
