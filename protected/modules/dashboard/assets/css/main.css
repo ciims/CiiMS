@@ -1030,6 +1030,15 @@ input[type="range"]::-ms-fill-lower {
 	font-style: italic;
 }
 
+.inline {
+	display: inline-block;
+	position: relative;
+	font-size: 12px;
+	color: #2d2d2d;
+	line-height: 20px;
+	top: -4px;
+}
+
 /* ------------------------------------------
 CSS TOGGLE SWITCHES (Ionuț Colceriu)
 Licensed under Unlicense 

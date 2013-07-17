@@ -1,7 +1,12 @@
 <?php
 
 class Cii {
-		
+	
+    public static function getVersion()
+    {
+        $data = json_decode(file_get_contents(Yii::getPathOfAlias('ext.cii').'/ciims.json'),true);
+        return $data['version'];
+    }
 	/**
 	 * Checks for the existance of an item at a given array index and returns that object if it exists
 	 * @param array $array 	 The array to check
