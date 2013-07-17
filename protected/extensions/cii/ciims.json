@@ -1,0 +1,13 @@
+{
+    "name": "CiiMS",
+    "author": {
+        "email": "charlesportwoodii@ethreal.net",
+        "name": "Charles R. Portwood II"
+    },
+    "license": "MIT",
+    "version": "1.7.1",
+    "repository": [
+        "github",
+        "charlesportwoodii/CiiMS"
+    ]
+}
