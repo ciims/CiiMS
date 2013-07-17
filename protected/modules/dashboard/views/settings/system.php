@@ -15,7 +15,7 @@
 
 			<!-- System Information -->
 			<div class="pull-left span7">
-				<legend>System Information</legend>
+				<legend><span class="icon-info-sign"></span>System Information</legend>
 				<div class="pull-left">
 					<div class="pure-control-group">
 						<label>PHP Version</label> 
@@ -48,7 +48,8 @@
 			</div>
 
 			<div class="pull-left span7">
-				<legend>Heads Up!</legend>
+				<legend><span class="icon-warning-sign"></span>Issues With CiiMS</legend>
+				<div class="issues"></div>
 			</div>
 		</div>
 	</div>
