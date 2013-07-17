@@ -106,6 +106,17 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
+	public function actionIssues()
+	{
+		$issues = array();
+		
+		// Check CiiMS version
+		
+		// Check if migrations have been run
+		
+		// Check common permission problems
+	}
+
 	/**
 	 * Flushes the Yii::cache.
 	 * @return bool    If the cache flush was successful or not
