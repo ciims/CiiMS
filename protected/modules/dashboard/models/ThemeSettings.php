@@ -37,7 +37,7 @@ class ThemeSettings extends CiiSettingsModel
 	 */
 	public function getThemes()
 	{
-		$themes = Yii::app()->cache->get('settings_themes');
+		$themes = false;//Yii::app()->cache->get('settings_themes');
 
 		if ($themes == false)
 		{

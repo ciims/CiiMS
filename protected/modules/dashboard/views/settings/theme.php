@@ -1,6 +1,6 @@
 <fieldset>
 <?php
-	foreach ($model->themes as $theme=>$options)
+	foreach ($model->getThemes() as $theme=>$options)
 	{
 		$attribute = ($theme == 'desktop' ? 'theme' : $theme.'Theme');
 
