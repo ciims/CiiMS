@@ -14,7 +14,7 @@
 		<div class="content">
 
 			<!-- System Information -->
-			<div class="pull-left span6">
+			<div class="pull-left span7">
 				<legend>System Information</legend>
 				<div class="pull-left">
 					<div class="pure-control-group">
@@ -47,7 +47,9 @@
 				<div class="clearfix"></div>
 			</div>
 
-			<div class="pull-left span6">test2</div>
+			<div class="pull-left span7">
+				<legend>Heads Up!</legend>
+			</div>
 		</div>
 	</div>
 <?php $this->endWidget(); ?>
