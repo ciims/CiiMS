@@ -106,15 +106,47 @@ class SettingsController extends CiiSettingsController
 		)));
 	}
 
-	public function actionIssues()
+	public function actionGetIssues()
 	{
 		$issues = array();
 		
 		// Check CiiMS version
-		
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => 'https://raw.github.com/charlesportwoodii/CiiMS/latest-version/protected/extensions/cii/ciims.json',
+		));
+
+		$json = json_decode(curl_exec($curl), true);
+		if ($json['version'] >= Cii::getVersion())
+			$issues[] = array('issue' => 'version', 'message' => 'CiiMS is out of date. Please update to the latest version (' . CHtml::link($json['version'], 'https://github.com/charlesportwoodii/CiiMS/tree/latest-version/', array('target' => '_blank')) . ')');
+
 		// Check if migrations have been run
-		
+		$migrations = Yii::app()->db->createCommand('SELECT COUNT(*) as count FROM tbl_migration')->queryScalar();
+		$fileHelper = new CFileHelper;
+		$files = count($fileHelper->findFiles(Yii::getPathOfAlias('application.migrations'), array('fileTypes'=>array('php'), 'level'=>1)));
+
+		if ($migrations < $files)
+			$issues[] = array('issue' => 'migrations', 'message' => 'CiiMS\' database is out of date. Please run yiic migrate up to migrate your database to the latest version.');
+
 		// Check common permission problems
+		if (!is_writable(Yii::getPathOfAlias('webroot.uploads')))
+			$issues[] = array('issue' => 'permssions', 'message' => 'Your uploads folder (' . Yii::getPathOfAlias('webroot.uploads') . ') is not writable. Please change the permissions on the folder to be writable');
+
+		if (count($issues) == 0)
+			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-success'), 'There are no issues with your system. =)');
+		else
+			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-error'), 'Please address the following issues.');
+
+		foreach ($issues as $issue)
+		{
+			echo CHtml::openTag('div', array('class' => 'pure-control-group'));
+				echo CHtml::tag('label', array(), Cii::titleize($issue['issue']));
+				echo CHtml::tag('span', array('class' => 'inline'), $issue['message']);
+			echo CHtml::closeTag('div');
+		}
+
+		return;		
 	}
 
 	/**

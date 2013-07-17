@@ -15,7 +15,7 @@
 
 			<!-- System Information -->
 			<div class="pull-left span7">
-				<legend><span class="icon-info-sign"></span>System Information</legend>
+				<legend><span class="icon-info-sign"></span> System Information</legend>
 				<div class="pull-left">
 					<div class="pure-control-group">
 						<label>PHP Version</label> 
@@ -48,14 +48,14 @@
 			</div>
 
 			<div class="pull-left span7">
-				<legend><span class="icon-warning-sign"></span>Issues With CiiMS</legend>
+				<legend><span class="icon-warning-sign"></span> Issues With CiiMS</legend>
 				<div class="issues"></div>
 			</div>
 		</div>
 	</div>
 <?php $this->endWidget(); ?>
 
-<?php Yii::app()->getClientScript()->registerScript('flush-cache-button', '
+<?php Yii::app()->getClientScript()->registerScript('system-settings', '
 	$("#header-button").click(function() {
 		// Fire off an in progress behavior
 
@@ -70,6 +70,13 @@
 			}
 
 			// Stop the "in progress" behavior
+		});
+	
+	});
+
+	$(document).ready(function() {
+		$.get("getissues", function(data) {
+			$(".issues").html(data);
 		});
 	});
 '); ?>
