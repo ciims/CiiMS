@@ -81,7 +81,9 @@
 			$(this).addClass("active"); 
 			var id = $(this).attr("data-attr-id");
 
-			$.get("' . $this->createUrl('/dashboard/content/index/id/') . '/" + id, function(data, textStatus, jqXHR) {
+			var url = "' . $this->createUrl('/dashboard/content/index/id/') . '/" + id;
+
+			$.get(url, function(data, textStatus, jqXHR) {
 				contentPane = $($.parseHTML(data)).find(".preview").html();
 				$(".preview").remove();
 				$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");

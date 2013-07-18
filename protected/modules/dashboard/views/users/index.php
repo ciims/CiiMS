@@ -56,8 +56,7 @@
 	});
 '); ?>
 
-<?php
-Yii::app()->clientScript->registerScript('search',
+<?php $cs->registerScript('search',
     "var ajaxUpdateTimeout;
     var ajaxRequest;
     $('input#Users_displayName').keyup(function(){

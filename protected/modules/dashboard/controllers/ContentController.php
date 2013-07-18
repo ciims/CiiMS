@@ -24,15 +24,15 @@ class ContentController extends CiiDashboardController
         );
     }
 
-	/**
-	 * Default management page
+  /**
+   * Default management page
      * Display all items in a CListView for easy editing
-	 */
-	public function actionIndex()
-	{
+   */
+  public function actionIndex()
+  {
         $preview = NULL;
 
-		    $model=new Content('search');
+        $model=new Content('search');
         $model->unsetAttributes();  // clear any default values
         if(Cii::get($_GET, 'Content') !== NULL)
             $model->attributes=$_GET['Content'];
@@ -45,7 +45,8 @@ class ContentController extends CiiDashboardController
         }
 
         if (Cii::get($_GET, 'id') !== NULL)
-            $preview = $this->loadModel($_GET['id']);
+            $preview = Content::model()->findByPk(Cii::get($_GET, 'id'));
+
 
         $model->pageSize = 20;
 
@@ -68,9 +69,89 @@ class ContentController extends CiiDashboardController
         ));
     }
 
-    public function actionSave()
+    /**
+     * Handles the creation and editing of Content models.
+     * If no id is provided, a new model will be created. Otherwise attempt to edit
+     * @param int $id   The ContentId of the model we want to manipulate
+     */
+    public function actionSave($id=NULL)
     {
+        $version   = 0;
+        $theme     = Cii::getConfig('theme', 'default');
+        $viewFiles = $this->getViewFiles($theme);
+        $layouts   = $this->getLayouts($theme);
+          
+        // Editor Preferences
+        $preferMarkdown = Cii::getConfig('preferMarkdown',false);
 
+        if ($preferMarkdown == NULL)
+            $preferMarkdown = false;
+        else
+            $preferMarkdown = (bool)$preferMarkdown;
+          
+        // Determine what we're doing, new model or existing one
+        if ($id == NULL)
+        {
+            $model = new Content;
+            $version = 0;
+        }
+        else
+        {
+            $model = Content::model()->findByPk(1);
+              
+            if ($model == NULL)
+                throw new CHttpException(400,'We were unable to retrieve a post with that id. Please do not repeat this request again.');
+              
+            // Determine the version number based upon the count of existing rows
+            // We do this manually to make sure we have the correct data
+            $version = Content::model()->countByAttributes(array('id' => $id));
+        }
+
+        if(Cii::get($_POST, 'Content'))
+        {
+            $model2 = new Content;
+            $model2->attributes = Cii::get($_POST, 'Content', array());
+            if ($_POST['Content']['password'] != "")
+                $model2->password = Cii::encrypt($_POST['Content']['password']);
+
+            // For some reason this isn't setting with the other data
+            $model2->extract    = $_POST['Content']['extract'];
+            $model2->id         = $id;
+            $model2->vid        = $model->vid+1;
+            $model2->viewFile   = $_POST['Content']['view'];
+            $model2->layoutFile = $_POST['Content']['layout'];
+            $model2->created    = $_POST['Content']['created'];
+
+            if($model2->save()) 
+            {
+                Yii::app()->user->setFlash('success', 'Content has been updated');
+                $this->redirect(array('save','id'=>$model2->id));
+            }
+            else
+            {
+                $model->attributes = $model2->attributes;
+                $model->vid = $model2->vid-1;
+                Yii::app()->user->setFlash('error', 'There was an error saving your content. Please try again');
+            }
+        }
+
+        $attachmentCriteria = new CDbCriteria(array(
+            'condition' => "content_id = {$id} AND (t.key LIKE 'upload-%' OR t.key = 'blog-image')",
+            'order'     => 't.key ASC',
+            'group'     => 't.value'
+        ));
+          
+        $attachments = $id != NULL ? ContentMetadata::model()->findAll($attachmentCriteria) : NULL;
+      
+        $this->render('save',array(
+            'model'          =>  $model,
+            'id'             =>  $id,
+            'version'        =>  $version,
+            'preferMarkdown' =>  $preferMarkdown,
+            'attachments'    =>  $attachments,
+            'views'          =>  $viewFiles,
+            'layouts'        =>  $layouts 
+        ));
     }
 
     /**
@@ -118,34 +199,6 @@ class ContentController extends CiiDashboardController
         if(!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
     }
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-     * 
-     * @return Content $model
-	 */
-	public function loadModel($id)
-	{
-		$model=Content::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
-
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='Content-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
     
     /**
      * Retrieves view files for a particular path
@@ -155,22 +208,22 @@ class ContentController extends CiiDashboardController
      */
     private function getFiles($theme='default', $type='views')
     {
-    	$folder = $type;
+        $folder = $type;
 
-    	if ($type == 'view')
-    		$folder = 'content';
+        if ($type == 'view')
+            $folder = 'content';
 
-    	$returnFiles = array();
+        $returnFiles = array();
 
-    	if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
-    		$theme = 'default';
+        if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
+            $theme = 'default';
 
         $files = Yii::app()->cache->get($theme.'-available-' . $type);
 
         if ($files == NULL)
         {
             $fileHelper = new CFileHelper;
-            $files = $fileHelper->findFiles(YiiBase::getPathOfAlias('webroot.themes.' . $theme .'.views.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
+            $files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
             Yii::app()->cache->set($theme.'-available-' . $type, $files);
         }
 
@@ -179,7 +232,7 @@ class ContentController extends CiiDashboardController
             $f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
             
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-            	$f = trim(substr($f, strrpos($f, '\\') + 1));
+              $f = trim(substr($f, strrpos($f, '\\') + 1));
 
             if (!in_array($f, array('all', 'password', '_post')))
                 $returnFiles[$f] = $f;
@@ -194,7 +247,7 @@ class ContentController extends CiiDashboardController
      */
     private function getViewFiles($theme='default')
     {
-    	return $this->getFiles($theme, 'views');
+        return $this->getFiles($theme, 'views');
     }
     
     /**
@@ -203,6 +256,6 @@ class ContentController extends CiiDashboardController
      */
     private function getLayouts($theme='default')
     {
-        return $this->getFiles($theme, 'layouts');
+        return $this->getFiles($theme, 'views.layouts');
     }
 }

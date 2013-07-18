@@ -293,7 +293,8 @@ main .dashboard .widget-container > div {
 
 /** Main Content **/
 main .posts-container,
-main .settings-container {
+main .settings-container,
+main .content-container {
 	margin: 0 5%;
 	width: 90%;
 	overflow: hidden;
@@ -307,12 +308,13 @@ main .posts-container .list-view {
 }
 
 main .posts-container .list-view .posts,
-main .settings-container .sidebar {
+main .settings-container .sidebar,
+main .content-container .editor {
 	float: left;
 	margin-right: 5px;
 	width: 450px;
-	height: 90%;
-	max-height: 90%;
+	height: 93%;
+	max-height: 93%;
 	overflow: hidden;
 	background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
@@ -320,6 +322,14 @@ main .settings-container .sidebar {
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	padding: 10px;
+	padding: 0px;
+}
+
+main .content-container .editor {
+	height: 93%;
+	max-height: 93%;
+	width: 48%;
+	padding: 0px;
 }
 
 main .settings-container .sidebar {
@@ -746,7 +756,8 @@ main .posts-container .list-view .pager {
 }
 
 main .posts-container .list-view .preview,
-main .settings-container .body-content {
+main .settings-container .body-content,
+main .content-container .body-content {
 	overflow:hidden;
 	height: 93%;
 	max-height: 93%;
