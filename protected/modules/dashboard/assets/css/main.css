@@ -406,7 +406,8 @@ main .settings-container .body-content a#header-button {
 	margin: 27px 0px;
 	top: 4px;
 }
-main .settings-container .body-content #main {
+main .settings-container .body-content #main,
+main .content-container #main {
 	height: 85%;
 	max-height: 85%;
 }
