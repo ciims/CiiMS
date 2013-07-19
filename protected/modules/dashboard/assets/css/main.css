@@ -138,7 +138,8 @@ main .dashboard .push-header {
 	margin-bottom: 10px;
 }
 
-main .dashboard .header {
+main .dashboard .header,
+main .content-container .header {
 	height: 30px;
 	background: #fff;
 	margin: 0 5%;
@@ -146,6 +147,11 @@ main .dashboard .header {
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	padding: 5px;
+}
+
+main .content-container .header {
+	margin: 0px;
+	margin-bottom: 10px;
 }
 
 main .settings-container .header.secondary {
@@ -221,7 +227,8 @@ main .settings-container .meta-icon-plus {
 	margin-right: 5px;
 }
 
-main .dashboard .header .content .welcome {
+main .dashboard .header .content .welcome,
+main .content-container .header .welcome {
 	display:inline-block;
 }
 
@@ -230,7 +237,8 @@ main .dashboard .header .content .header-nav {
 	margin-left: 5%;
 }
 
-main .dashboard .header .content {
+main .dashboard .header .content,
+main .content-container .header .content {
 	width: 100%;
 	display: inline-block;
 	margin-top: 5px;
@@ -349,6 +357,7 @@ main .content-container .editor textarea {
     border: none;
     padding: 15px;
 }
+
 main .settings-container .sidebar {
 	width: 350px;
 	padding: 0px;
@@ -356,17 +365,20 @@ main .settings-container .sidebar {
 	max-height: 93%;
 }
 
-main .settings-container .header {
+main .settings-container .header,
+main .content-container .header {
 	border-bottom: 1px solid rgba(0,0,0, 0.1);
 	padding: 10px 20px;
 }
 
-main .settings-container .header h3 {
+main .settings-container .header h3,
+main .content-container .header h3 {
 	font-size: 25px;
 	font-weight: 600;
 }
 
-main .settings-container .header p {
+main .settings-container .header p,
+main .content-container .header p {
 	font-size: 13px;
 }
 
@@ -425,8 +437,8 @@ main .settings-container .body-content a#header-button {
 }
 main .settings-container .body-content #main,
 main .content-container #main {
-	height: 85%;
-	max-height: 85%;
+	height: 100%;
+	max-height: 100%
 }
 
 main .settings-container .body-content #main .content {
@@ -784,6 +796,38 @@ main .content-container .body-content {
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+main .content-container input.title {
+	position: relative;
+	left: -22px;
+	top: -10px;
+	border: none;
+	box-shadow: none;
+	font-family: 'Open Sans';
+	color: #2D2D29;
+	font-weight:bold;
+	width: 100%;
+}
+
+main .content-container input.title::-webkit-input-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title::-moz-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title:-moz-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title:-ms-input-placeholder {
+	font-style: italic;
+	font-weight: normal;
 }
 
 main .post {

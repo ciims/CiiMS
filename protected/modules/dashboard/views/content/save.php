@@ -1,8 +1,23 @@
 <?php $form = $this->beginWidget('cii.widgets.CiiActiveForm'); ?>
 <div class="content-container">
+	<div class="header">
+		<div class="content">
+			<div class="pull-left" style="width: 48%;">
+				<?php echo $form->textField($model, 'title', array('placeholder' => 'Enter your post title here', 'class' => 'title')); ?>
+			</div>
+			<div class="pull-right">
+				<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-error pure-button-link')); ?>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
 	<div class="editor">
 		<div id="main">
+			<div class="top-header">
+				<span>Markdown</span>
+			</div>
 			<div class="content">
+				
 				<?php echo $form->textArea($model, 'content'); ?>
 			</div>
 		</div>
