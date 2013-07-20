@@ -155,6 +155,49 @@ class ContentController extends CiiDashboardController
     }
 
     /**
+     * Handles file uploading for the controller
+     */
+    public function actionUpload($id)
+    {
+        if (Yii::app()->request->isPostRequest)
+        {
+            $path = '/';
+            $folder = $this->getUploadPath();
+
+            $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
+            $sizeLimit = 10 * 1024 * 1024;
+
+            $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
+
+            $result = $uploader->handleUpload($folder);
+            
+            if ($result['success'] = true)
+            {
+                $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
+
+                if ($meta == NULL)
+                    $meta = new ContentMetadata;
+
+                $meta->content_id = $id;
+                $meta->key = $result['filename'];
+                $meta->value = '/uploads' . $path . $result['filename'];
+                $meta->save();
+                $result['filepath'] = '/uploads/' . $result['filename'];
+            }
+
+            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+ 
+        }  
+
+        Yii::app()->end();  
+    }
+
+    private function getUploadPath($path="/")
+    {
+        return Yii::app()->getBasePath() .'/../uploads' . $path;
+    }
+
+    /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted

@@ -36,6 +36,7 @@
 
 <?php $this->endWidget(); ?>
 
+<?php echo CHtml::tag('input', array('class' => 'preferMarkdown', 'value' => Cii::getConfig('preferMarkdown')), NULL); ?>
 <?php $cs = Yii::app()->getClientScript(); ?>
 
 <?php
@@ -60,7 +61,7 @@
 				  tables: true,
 				  breaks: true,
 				  pedantic: false,
-				  sanitize: true,
+				  sanitize: false,
 				  smartLists: true,
 				  smartypants: true,
 				  langPrefix: "lang-"
@@ -90,11 +91,71 @@
 
 							$(this).addClass("dropzone-" + hash);
 							var dz = new Dropzone(".preview div.dropzone-" + hash, {
-								url : "/file/upload"
+								url : "' . $this->createUrl('/dashboard/content/upload/id/' . $id) . '",
+								success : function(data) {
+									var response = $.parseJSON(data.xhr.response);
+									if (response.success == true)
+									{
+										var instance = 0;
+
+										var self = $(this);
+										var classEl = "";
+
+										var classes = $(this)[0].element.className.split(" ");
+										$(classes).each(function() { 
+									        var classElement = this + "";
+									        if (classElement != "dropzone" && classElement != "dz-clickable" && classElement != "dz-started")
+									        	classEl = classElement
+									    });
+
+										console.log(classEl);
+										// Iterate through all the dropzone objects on the page until this one is reached
+										var i = 0;
+										$(".preview div.dropzone").each(function() {
+											if ($(this).hasClass(classEl))
+												return false;
+											i++;
+										});
+
+										var index = GetSubstringIndex($("#Content_content").val(), "{image}", i + 1);
+
+										// Remove the uploader
+										$("." + classEl).remove();
+
+										// Append the text to the item at that index
+										var md = $("#Content_content").val();
+
+										// Insert either Markdown or an image tag depending upon the user preference
+										if ($(".preferMarkdown").val())
+											md = splice(md, index, 7, "![" + response.filename + "](" + response.filepath +")");
+										else
+											md = splice(md, index, 7, "<img src=\"" + response.filepath +"\" />");
+
+										// Then modify the markdown
+										$("#Content_content").val(md).keyup();
+									}
+
+								}
 							});
 		 				}
 		 			});
 				});
 
 		 		$("#Content_content").keyup();
+
+		 		function GetSubstringIndex(str, substring, n) {
+				    var times = 0, index = null;
+
+				    while (times < n && index !== -1) {
+				        index = str.indexOf(substring, index+1);
+				        times++;
+				    }
+
+				    return index;
+				}
+
+				function splice(str, idx, rem, s ) {
+				    return (str.slice(0,idx) + s + str.slice(idx + Math.abs(rem)));
+				};
+
 		'); ?>
