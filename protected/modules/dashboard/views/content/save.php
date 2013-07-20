@@ -25,6 +25,9 @@
 	<div class="body-content">
 		<div id="main" class="nano">
 			<div class="content">
+				<div class="top-header">
+					<span>Preview</span>
+				</div>
 				<div class="preview"></div>
 			</div>
 		</div>
@@ -38,11 +41,14 @@
 <?php
 	  $cs->registerCssFile($this->asset.'/highlight.js/default.css')
 		 ->registerCssFile($this->asset.'/highlight.js/github.css')
+		 ->registerCssFile($this->asset.'/dropzone/css/basic.css')
+		 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
 		 ->registerCss('form', 'form { height: 100%; }')
 
 		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
+		 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
 
 		 ->registerScript('nano-scroller', '$(".nano").nanoScroller();')
 		 ->registerScript('marked', '
@@ -61,8 +67,34 @@
 				});
 
 				$("#Content_content").keyup(function() {
-					var markdown = marked($(this).val());
+					var markdown = $("<div class=\"md-preview\">" + marked($(this).val()).replace(/{image}/g, "<div class=\"dropzone\"></div>") + "</div>");
+
+					var i = 0;
+
+					$(".preview div.dropzone").each(function() {
+						$(markdown).find("div.dropzone:eq(" + i + ")").replaceWith($(this));
+						i++;
+					});	
+
 					$(".preview").html(markdown);
 					$(".nano").nanoScroller();
-				})
+
+					$("div.dropzone").each(function() {
+						if (!$(this).hasClass("dz-clickable"))
+		 				{
+		 					// Make sure we do not have a hash collision
+		 					var hash = Math.random().toString(36).substring(7);
+
+		 					while ($(".dropzone-" + hash).length > 0)
+		 						hash = Math.random().toString(36).substring(15);
+
+							$(this).addClass("dropzone-" + hash);
+							var dz = new Dropzone(".preview div.dropzone-" + hash, {
+								url : "/file/upload"
+							});
+		 				}
+		 			});
+				});
+
+		 		$("#Content_content").keyup();
 		'); ?>

@@ -97,7 +97,7 @@ class ContentController extends CiiDashboardController
         }
         else
         {
-            $model = Content::model()->findByPk(1);
+            $model = Content::model()->findByPk($id);
               
             if ($model == NULL)
                 throw new CHttpException(400,'We were unable to retrieve a post with that id. Please do not repeat this request again.');
