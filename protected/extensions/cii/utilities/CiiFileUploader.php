@@ -43,7 +43,7 @@ class CiiFileUploader {
         $this->checkServerSettings();
 
         $this->file = false;
-       if (Cii::get($_FILES, 'file') !== NULL)
+        if (Cii::get($_FILES, 'file') !== NULL)
            $this->file = new CiiFile();
     }
 
@@ -100,7 +100,7 @@ class CiiFileUploader {
         //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
 
-        if($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions))
+        if(!in_array(strtolower($ext), $this->allowedExtensions))
         {
             $these = implode(', ', $this->allowedExtensions);
             return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');

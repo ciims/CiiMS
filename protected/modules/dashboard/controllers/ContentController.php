@@ -171,7 +171,7 @@ class ContentController extends CiiDashboardController
 
             $result = $uploader->handleUpload($folder);
             
-            if ($result['success'] = true)
+            if (Cii::get($result,'success', false) == true)
             {
                 $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
 
@@ -183,9 +183,15 @@ class ContentController extends CiiDashboardController
                 $meta->value = '/uploads' . $path . $result['filename'];
                 $meta->save();
                 $result['filepath'] = '/uploads/' . $result['filename'];
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            }
+            else
+            {
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+                throw new CHttpException(400, $result['error']);
             }
 
-            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            
  
         }  
 
