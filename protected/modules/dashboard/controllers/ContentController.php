@@ -135,20 +135,11 @@ class ContentController extends CiiDashboardController
             }
         }
 
-        $attachmentCriteria = new CDbCriteria(array(
-            'condition' => "content_id = {$id} AND (t.key LIKE 'upload-%' OR t.key = 'blog-image')",
-            'order'     => 't.key ASC',
-            'group'     => 't.value'
-        ));
-          
-        $attachments = $id != NULL ? ContentMetadata::model()->findAll($attachmentCriteria) : NULL;
-      
         $this->render('save',array(
             'model'          =>  $model,
             'id'             =>  $id,
             'version'        =>  $version,
             'preferMarkdown' =>  $preferMarkdown,
-            'attachments'    =>  $attachments,
             'views'          =>  $viewFiles,
             'layouts'        =>  $layouts 
         ));
@@ -156,8 +147,11 @@ class ContentController extends CiiDashboardController
 
     /**
      * Handles file uploading for the controller
+     *
+     * If successful, this will throw a 200 HTTP status code, otherwise it will throw a 400 http status code indicating the error to DropZone
+     * @param int $id       The id of the content
      */
-    public function actionUpload($id)
+    public function actionUpload($id, $promote = 0)
     {
         if (Yii::app()->request->isPostRequest)
         {
@@ -181,21 +175,61 @@ class ContentController extends CiiDashboardController
                 $meta->content_id = $id;
                 $meta->key = $result['filename'];
                 $meta->value = '/uploads' . $path . $result['filename'];
-                $meta->save();
-                $result['filepath'] = '/uploads/' . $result['filename'];
-                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+                if ($meta->save())
+                {
+
+                    if ($promote)
+                        $this->promote($id, $result['filename']);
+
+                    $result['filepath'] = '/uploads/' . $result['filename'];
+                    echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+                }
+                else
+                {
+                    throw CHttpException(400, 'Unable to save uploaded image');
+                }
             }
             else
             {
                 echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
                 throw new CHttpException(400, $result['error']);
             }
-
-            
- 
         }  
 
         Yii::app()->end();  
+    }
+
+    /**
+     * Promotes an image to blog-image
+     */
+    private function promote($id = NULL, $key = NULL)
+    {
+        $promotedKey = 'blog-image';
+
+        // Only proceed if we have valid date
+        if ($id == NULL || $key == NULL)
+            return false;
+        
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
+        
+        // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
+        if ($model->key == $promotedKey)
+            return true;
+        
+        $model2 = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $promotedKey));
+        if ($model2 === NULL)
+        {
+            $model2 = new ContentMetadata;
+            $model2->content_id = $id;
+            $model2->key = $promotedKey;
+        }
+        
+        $model2->value = $model->value;
+        
+        if (!$model2->save())
+            return false;
+        
+        return true;
     }
 
     private function getUploadPath($path="/")

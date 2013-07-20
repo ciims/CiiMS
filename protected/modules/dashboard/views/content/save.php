@@ -1,48 +1,54 @@
-<?php $form = $this->beginWidget('cii.widgets.CiiActiveForm'); ?>
-<div class="content-container">
-	<div class="header">
-		<div class="content">
-			<div class="pull-left" style="width: 48%;">
-				<?php echo $form->textField($model, 'title', array('placeholder' => 'Enter your post title here', 'class' => 'title')); ?>
+<?php $form = $this->beginWidget('cii.widgets.CiiActiveForm', array(
+	'htmlOptions' => array(
+		'class' => 'content-container-form'
+	)
+)); ?>
+	<?php echo $form->hiddenField($model, 'id'); ?>
+	<?php echo $form->hiddenField($model, 'vid'); ?>
+	<div class="content-container">
+		<div class="header">
+			<div class="content">
+				<div class="pull-left" style="width: 48%;">
+					<?php echo $form->textField($model, 'title', array('placeholder' => 'Enter your post title here', 'class' => 'title')); ?>
+				</div>
+				<div class="pull-right">
+					<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-error pure-button-link')); ?>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="pull-right">
-				<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-error pure-button-link')); ?>
-			</div>
-			<div class="clearfix"></div>
 		</div>
-	</div>
-	<div class="editor">
-		<div id="main">
+
+		<div class="editor">
 			<div class="top-header">
 				<span>Markdown</span>
 			</div>
-			<div class="content">
-				
-				<?php echo $form->textArea($model, 'content'); ?>
-			</div>
-		</div>
-	</div>
-	<div class="body-content">
-		<div id="main" class="nano">
-			<div class="content">
-				<div class="top-header">
-					<span>Preview</span>
+			<div id="main">
+				<div class="content">
+					<?php echo $form->textArea($model, 'content'); ?>
 				</div>
-				<div class="preview"></div>
 			</div>
 		</div>
-	</div>	
-</div>
+
+		<div class="body-content">
+			<div class="top-header">
+				<span>Preview</span>
+			</div>
+			<div id="main" class="nano">				
+				<div class="content">					
+					<div class="preview"></div>
+				</div>
+			</div>
+		</div>	
+	</div>
 
 <?php $this->endWidget(); ?>
 
-<?php echo CHtml::tag('input', array('class' => 'preferMarkdown', 'value' => Cii::getConfig('preferMarkdown')), NULL); ?>
+<?php echo CHtml::tag('input', array('type' => 'hidden', 'class' => 'preferMarkdown', 'value' => Cii::getConfig('preferMarkdown')), NULL); ?>
 <?php $cs = Yii::app()->getClientScript(); ?>
 
 <?php
 	  $cs->registerCssFile($this->asset.'/highlight.js/default.css')
 		 ->registerCssFile($this->asset.'/highlight.js/github.css')
-		 ->registerCssFile($this->asset.'/dropzone/css/basic.css')
 		 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
 		 ->registerCss('form', 'form { height: 100%; }')
 
@@ -68,6 +74,10 @@
 				});
 
 				$("#Content_content").keyup(function() {
+
+					if(typeof(Storage)!=="undefined")
+						localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
+					
 					var markdown = $("<div class=\"md-preview\">" + marked($(this).val()).replace(/{image}/g, "<div class=\"dropzone\"></div>") + "</div>");
 
 					var i = 0;
@@ -92,6 +102,7 @@
 							$(this).addClass("dropzone-" + hash);
 							var dz = new Dropzone(".preview div.dropzone-" + hash, {
 								url : "' . $this->createUrl('/dashboard/content/upload/id/' . $id) . '",
+								dictDefaultMessage : "Drop files here to upload - or click",
 								success : function(data) {
 									var response = $.parseJSON(data.xhr.response);
 									if (response.success == true)
@@ -133,8 +144,10 @@
 
 										// Then modify the markdown
 										$("#Content_content").val(md).keyup();
-									}
 
+										if(typeof(Storage)!=="undefined")
+											localStorage.setItem("content-" + $("#Content_id").val(), md);
+									}
 								}
 							});
 		 				}

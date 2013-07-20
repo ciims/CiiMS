@@ -153,12 +153,28 @@
   display: block;
 }
 .dropzone {
-  border: 1px solid rgba(0,0,0,0.03);
   min-height: 360px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  background: rgba(0,0,0,0.03);
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.02);
   padding: 23px;
+  border: 2px dashed #999;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  color: #999;
+}
+
+.dropzone:hover {
+  border: 2px dashed #2D2D2D;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  color: #2D2D2D;
 }
 .dropzone .dz-default.dz-message {
   opacity: 1;
@@ -169,8 +185,7 @@
   -o-transition: opacity 0.3s ease-in-out;
   -ms-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
-  background-image: url("../images/spritemap.png");
-  background-repeat: no-repeat;
+ 
   background-position: 0 0;
   position: absolute;
   width: 428px;
@@ -179,17 +194,21 @@
   margin-top: -61.5px;
   top: 50%;
   left: 50%;
+  text-align: center;
+  margin-top: -20px;
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
   .dropzone .dz-default.dz-message {
-    background-image: url("../images/spritemap@2x.png");
     -webkit-background-size: 428px 406px;
     -moz-background-size: 428px 406px;
     background-size: 428px 406px;
   }
 }
+
 .dropzone .dz-default.dz-message span {
-  display: none;
+  font-family: 'Open Sans', arial;
+  font-style: italic;
+  font-weight: 11px;
 }
 .dropzone.dz-square .dz-default.dz-message {
   background-position: 0 -123px;
