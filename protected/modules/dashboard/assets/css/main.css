@@ -442,9 +442,10 @@ main .settings-container .body-content a#header-button {
 	margin: 27px 0px;
 	top: 4px;
 }
+
 main .settings-container .body-content #main {
-	height: 75%;
-	max-height: 75%
+	height: 87%;
+	max-height: 87%
 }
 
 main .content-container #main {
@@ -989,6 +990,7 @@ main .preview .preview-header {
 
 main .preview .preview-header .icon-edit, 
 main .preview .preview-header .icon-gear,
+main .preview .preview-header .icon-trash,
 main .content-container .icon-gear {
 	position: relative;
 	top: 5px;
@@ -1009,6 +1011,11 @@ main .preview .preview-metadata {
 	font-size: 12px;
 	margin-top: -10px;
 	margin-bottom: 15px;
+}
+
+main .alert {
+	margin: 0 5%;
+	margin-bottom: 20px;
 }
 
 .ui-tooltip {

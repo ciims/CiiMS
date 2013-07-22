@@ -130,8 +130,12 @@ class ContentController extends CiiDashboardController
             }
             else
             {
-                $model->attributes = $model2->attributes;
+                foreach ($model2->attributes as $k=>$v)
+                    $model->$k = $v;
+
                 $model->vid = $model2->vid-1;
+                $model->addErrors($model2->getErrors());
+
                 Yii::app()->user->setFlash('error', 'There was an error saving your content. Please try again');
             }
         }

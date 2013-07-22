@@ -1,3 +1,4 @@
+<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <!DOCTYPE html>
 <html lang="<?php echo Yii::app()->language; ?>">
 	<head>
@@ -35,6 +36,11 @@
 		</header>
 		<div class="clearfix"></div>
 		<main>
+			<?php $this->widget('bootstrap.widgets.TbAlert', array(
+                  'block'=>true,
+                  'fade'=>true,
+                  'closeText'=>'×',
+              ));?>
 			<?php echo $content; ?>
 		</main>
 		<footer>
