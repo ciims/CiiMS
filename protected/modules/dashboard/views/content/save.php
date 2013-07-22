@@ -99,7 +99,9 @@
 				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textField($model, 'extract'); ?>
+				<?php $htmlOptions['style'] = 'width: 100%; height: 250px;'; ?>
+				<?php $htmlOptions['placeholder'] = 'Add a content extract here'; ?>
+				<?php echo $form->textArea($model, 'extract', $htmlOptions); ?>
 			</div>
 		</div>
 
