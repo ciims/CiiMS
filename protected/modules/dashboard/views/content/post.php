@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="post-data">
-		<h6><?php echo $data->title; ?></h6>
+		<h6><?php echo ($data->title !== '' ? $data->title : CHtml::tag('em', array(), 'Drafted Post')); ?></h6>
 		<span class="author">By: <?php echo $data->author->displayName; ?></span>
 
 		<?php if ($data->status == 0): ?>

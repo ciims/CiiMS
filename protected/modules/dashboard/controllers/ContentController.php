@@ -247,7 +247,7 @@ class ContentController extends CiiDashboardController
         
         return $model->delete();
     }
-    
+
     /**
      * Promotes an image to blog-image
      */
@@ -352,7 +352,7 @@ class ContentController extends CiiDashboardController
 
         $files = Yii::app()->cache->get($theme.'-available-' . $type);
 
-        if ($files == NULL)
+        if ($files === false)
         {
             $fileHelper = new CFileHelper;
             $files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
@@ -379,7 +379,7 @@ class ContentController extends CiiDashboardController
      */
     private function getViewFiles($theme='default')
     {
-        return $this->getFiles($theme, 'views');
+        return $this->getFiles($theme, 'views.content');
     }
     
     /**

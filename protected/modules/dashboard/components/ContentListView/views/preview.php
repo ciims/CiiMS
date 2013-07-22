@@ -10,8 +10,7 @@
 	<?php endif; ?>
 	<div class="preview-data">	
 		<div class="preview-metadata">
-			<span class="blog-author minor-meta">By
-				<?php echo CHtml::link(CHtml::encode($model->author->displayName), Yii::app()->createUrl("/profile/{$model->author->id}/")); ?>
+			<span class="blog-author minor-meta">By <?php echo CHtml::link(CHtml::encode($model->author->displayName), Yii::app()->createUrl("/profile/{$model->author->id}/")); ?>
 				<span class="separator">⋅</span> 
 			</span>
 			<span class="date"><?php echo $model->getCreatedFormatted() ?>
@@ -19,8 +18,7 @@
 			</span>
 			<span class="separator">⋅</span>
 			<span class="minor-meta-wrap">
-				<span class="blog-categories minor-meta">In
-				<?php echo CHtml::link(CHtml::encode($model->category->name), Yii::app()->createUrl($model->category->slug)); ?>
+				<span class="blog-categories minor-meta">In <?php echo CHtml::link(CHtml::encode($model->category->name), Yii::app()->createUrl($model->category->slug)); ?>
 				</span>
 			</span>
 		</div>

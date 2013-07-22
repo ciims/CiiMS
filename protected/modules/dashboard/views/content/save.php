@@ -98,6 +98,9 @@
 			<div class="pure-control-group">
 				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
 			</div>
+			<div class="pure-control-group">
+				<?php echo $form->textField($model, 'extract'); ?>
+			</div>
 		</div>
 
 	</div>

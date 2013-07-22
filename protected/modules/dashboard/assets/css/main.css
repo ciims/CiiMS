@@ -827,12 +827,13 @@ main .content-container .settings-content {
 main .content-container input.title {
 	position: relative;
 	left: -22px;
-	top: -10px;
+	top: -6px;
 	border: none;
 	box-shadow: none;
 	font-family: 'Open Sans';
 	color: #2D2D29;
-	font-weight:bold;
+	font-weight: bold;
+	font-size: 14px;
 	width: 100%;
 }
 
