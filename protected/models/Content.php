@@ -313,6 +313,28 @@ class Content extends CiiModel
 	    return parent::beforeValidate();
 	}
 	
+	/**
+	 * Saves a prototype copy of the model so that we can get an id back to work with
+	 * @return $model->save(false) without any validation rules
+	 */
+	public function savePrototype()
+	{
+		$this->title = '';
+        $this->content = '';
+        $this->extract = '';
+        $this->commentable = 1;
+        $this->status = 0;
+        $this->parent_id = 0;
+        $this->category_id = 1;
+        $this->type_id = 0;
+        $this->password = '';
+        $this->created = new CDbExpression('NOW()');
+        $this->updated = new CDbExpression('NOW()');
+        $this->vid = 0;
+        $this->author_id = Yii::app()->user->id;
+        return $this->save(false);
+	}
+
     /**
      * BeforeSave
      * Clears caches for rebuilding, creates the end slug that we are going to use

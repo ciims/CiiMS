@@ -93,7 +93,8 @@ class ContentController extends CiiDashboardController
         if ($id == NULL)
         {
             $model = new Content;
-            $version = 0;
+            $model->savePrototype();
+            $this->redirect($this->createUrl('/dashboard/content/save/id/' . $model->id));
         }
         else
         {

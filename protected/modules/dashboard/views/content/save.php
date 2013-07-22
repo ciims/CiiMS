@@ -20,7 +20,11 @@
 
 		<div class="editor">
 			<div class="top-header">
-				<span>Markdown</span>
+				<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
+					<span>Markdown</span>
+				<?php else: ?>
+					<span>Rich Text</span>
+				<?php endif; ?>
 			</div>
 			<div id="main">
 				<div class="content">
@@ -137,7 +141,7 @@
 				});
 
 				$("#Content_content").bind("input propertychange change", function(event) {
-					
+
 					if(typeof(Storage)!=="undefined")
 						localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
 					
@@ -199,13 +203,23 @@
 										var md = $("#Content_content").val();
 
 										// Insert either Markdown or an image tag depending upon the user preference
-										if ($(".preferMarkdown").val())
+										if ($(".preferMarkdown").val() == 1)
 											md = splice(md, index, 7, "![" + response.filename + "](" + response.filepath +")");
 										else
+										{
+											var text = $(".redactor_editor").html();
 											md = splice(md, index, 7, "<img src=\"" + response.filepath +"\" />");
+											var index2 = GetSubstringIndex($(".redactor_editor").html(), "{image}", i + 1);
+											text = splice(text, index2, 7, "<img src=\"" + response.filepath +"\" />");
+											console.log(text);
+											$(".redactor_editor").html(text);
+										}
 
 										// Then modify the markdown
-										$("#Content_content").val(md).keyup();
+										$("#Content_content").val(md).change();
+
+										// Then change the redactor view if it exists
+										
 
 										if(typeof(Storage)!=="undefined")
 											localStorage.setItem("content-" + $("#Content_id").val(), md);
