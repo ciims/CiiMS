@@ -324,7 +324,7 @@ class Content extends CiiModel
         $this->extract = '';
         $this->commentable = 1;
         $this->status = 0;
-        $this->parent_id = 0;
+        $this->parent_id = 1;
         $this->category_id = 1;
         $this->type_id = 0;
         $this->password = '';

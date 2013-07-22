@@ -200,6 +200,54 @@ class ContentController extends CiiDashboardController
         Yii::app()->end();  
     }
 
+
+    /**
+     * Public action to add a tag to the particular model
+     * @return bool     If the insert was successful or not
+     */
+    public function actionAddTag()
+    {
+        $id = Cii::get($_POST, 'id', NULL);
+        $model = Content::model()->findByPk($id);
+        if ($model == NULL)
+            throw new CHttpException(400, 'Your request is invalid');
+        
+        return $model->addTag(Cii::get($_POST, 'keyword'));
+    }
+    
+    /**
+     * Public action to add a tag to the particular model
+     * @return bool     If the insert was successful or not
+     */
+    public function actionRemoveTag()
+    {
+        $id = Cii::get($_POST, 'id', NULL);
+        $model = Content::model()->findByPk($id);
+        if ($model == NULL)
+            throw new CHttpException(400, 'Your request is invalid');
+        
+        return $model->removeTag(Cii::get($_POST, 'keyword'));
+    }
+    
+    /**
+     * Removes an image from a given post
+     */
+    public function actionRemoveImage()
+    {
+        $id     = Cii::get($_POST, 'id');
+        $key    = Cii::get($_POST, 'key');
+        
+        // Only proceed if we have valid date
+        if ($id == NULL || $key == NULL)
+            throw new CHttpException(403, 'Insufficient data provided. Invalid request');
+        
+        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
+        if ($model === NULL)
+            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
+        
+        return $model->delete();
+    }
+    
     /**
      * Promotes an image to blog-image
      */

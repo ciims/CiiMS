@@ -5,6 +5,9 @@
 )); ?>
 	<?php echo $form->hiddenField($model, 'id'); ?>
 	<?php echo $form->hiddenField($model, 'vid'); ?>
+	<?php echo $form->hiddenField($model, 'created'); ?>
+	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
+	<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id)); ?>
 	<div class="content-container">
 		<div class="header">
 			<div class="content">
@@ -67,6 +70,34 @@
 			<div class="pure-control-group">
 				<?php echo $form->textFieldRow($model, 'password', $htmlOptions); ?>
 			</div>
+
+			<div class="pure-control-group">
+				<?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), $htmlOptions); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), $htmlOptions); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'), $htmlOptions); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
+			</div>
+			<div class="pure-control-group">
+	            <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' => 'Password (Optional)', 'value' => Cii::decrypt($model->password))); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' => 'Slug')); ?>
+			</div>
+			<div class="pure-control-group">
+				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
+			</div>
 		</div>
 
 	</div>
@@ -80,15 +111,29 @@
 	  $cs->registerCssFile($this->asset.'/highlight.js/default.css')
 		 ->registerCssFile($this->asset.'/highlight.js/github.css')
 		 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
-		 ->registerCss('form', 'form { height: 100%; }')
+		 ->registerCssFile($this->asset . '/css/jquery.tags.css')
 
 		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
+		 ->registerScriptFile($this->asset . '/js/jquery.tags.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
 
 		 ->registerScript('nano-scroller', '$(".nano").nanoScroller();')
+		 ->registerScript('admin_tags', '
+			$("#tags").tagsInput({
+				defaultText : "Add a Tag",
+			    width: "99%",
+			    height : "40px",
+			    onRemoveTag : function(e) {
+			    	$.post("../../removeTag", { id : ' . $model->id . ', keyword : e });
+			    },
+			    onAddTag : function(e) {
+			    	$.post("../../addTag", { id : ' . $model->id . ', keyword : e });
+			    }
+			});
+		')
 		 ->registerScript('flip-behavior', '
 		 	function bindFlipEvent()
 		 	{

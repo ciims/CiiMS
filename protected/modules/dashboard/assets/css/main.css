@@ -431,6 +431,7 @@ main .settings-container .body-content form {
 
 main form.content-container-form {
 	margin: 0;
+	height:100%;
 }
 
 main .settings-container .body-content form #header-button {
@@ -858,6 +859,7 @@ main .content-container input.title:-ms-input-placeholder {
 main .content-container .flipbox {
 	background-color: #fff !important;
 }
+
 main .content-container .settings {
 	display: none;
 	padding: 20px;
