@@ -860,6 +860,7 @@ main .content-container .flipbox {
 }
 main .content-container .settings {
 	display: none;
+	padding: 20px;
 }
 
 main .post {

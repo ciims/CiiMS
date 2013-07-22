@@ -1,6 +1,6 @@
 <?php $form = $this->beginWidget('cii.widgets.CiiActiveForm', array(
 	'htmlOptions' => array(
-		'class' => 'content-container-form'
+		'class' => 'pure-form pure-form-aligned content-container-form'
 	)
 )); ?>
 	<?php echo $form->hiddenField($model, 'id'); ?>
@@ -49,7 +49,8 @@
 
 		<div class="body-content">
 			<div class="top-header">
-				<span>Preview</span>
+				<span class="show-settings">Preview</span>
+				<span class="show-preview" style="display:none">Content Settings</span>
 				<span class="pull-right icon-gear show-settings"></span>
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
 			</div>
@@ -61,7 +62,11 @@
 		</div>
 
 		<div class="settings">
+			<?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
 			<!-- Form Settings/Fields go here -->
+			<div class="pure-control-group">
+				<?php echo $form->textFieldRow($model, 'password', $htmlOptions); ?>
+			</div>
 		</div>
 
 	</div>
