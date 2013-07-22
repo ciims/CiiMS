@@ -32,76 +32,20 @@
 		<div class="body-content">
 			<div class="top-header">
 				<span>Preview</span>
-				<span class="pull-right icon-gears show-settings"></span>
-				<span class="pull-right icon-gears show-preview" style="display:none"></span>
+				<span class="pull-right icon-gear show-settings"></span>
+				<span class="pull-right icon-gear show-preview" style="display:none"></span>
 			</div>
-			<div id="main" class="nano flipbox">				
-				<div class="content">					
+			<div id="main" class="nano">				
+				<div class="content flipbox">					
 					<div class="preview"></div>
 				</div>
 			</div>
-
-			<div id="main" class="nano settings">				
-				<div class="content">
-					<div class="settings-content">
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						TEST<br />
-						
-					</div>
-				</div>
-			</div>
 		</div>
+
+		<div class="settings">
+			<!-- Form Settings/Fields go here -->
+		</div>
+
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -132,29 +76,25 @@
 					    verso: $(".settings"),
 					    onStart : function() {
 					    	$(".nano").nanoScroller({ destroy: true });
+					    	$(".nano").removeClass("has-scrollbar");
 					    },
 					    onFinish : function() {
-					    	$(".settings").show();
-					    	oldSettings = $(".settings");
-
 					    	$(".show-settings").hide();
 					    	$(".show-preview").show();
-
-
-					    	$(".nano.settings").nanoScroller();
+					    	$(".settings").show();
+					    	$(".nano").nanoScroller({ flash : true});
 					    	bindFlipEvent();
 					    },
 					    onReverseStart : function() {
-					    	$(".nano.settings").nanoScroller({ destroy: true });
+					    	$(".body-content").after($(".settings"));
+					    	$(".nano").nanoScroller({ destroy: true });
+					    	$(".nano").removeClass("has-scrollbar");
 					    },
 					    onReverseFinish : function() {
-					    	$(".flipbox").after(oldSettings);
 					    	$(".settings").hide();
-
 					    	$(".show-preview").hide();
 					    	$(".show-settings").show();
-					    	$(".nano").nanoScroller();
-
+					    	$(".nano").nanoScroller({ flash : true});
 					    	bindFlipEvent();
 					    }
 					 });
@@ -162,9 +102,6 @@
 
 		 		$(".show-preview").click(function() {
 			 		$(".flipbox").flippyReverse();
-			 		$(".nano.settings").nanoScroller({ destroy: true });
-			 		$(".nano").nanoScroller();
-
 			 	});
 			}
 
@@ -200,7 +137,7 @@
 					});	
 
 					$(".preview").html(markdown);
-					$(".nano.flipbox").nanoScroller();
+					$(".nano").nanoScroller();
 
 					$("div.dropzone").each(function() {
 						if (!$(this).hasClass("dz-clickable"))

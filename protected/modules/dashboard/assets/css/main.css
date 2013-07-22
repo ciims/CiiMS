@@ -983,7 +983,9 @@ main .preview .preview-header {
 	text-transform: uppercase;
 }
 
-main .preview .preview-header .icon-edit, main .preview .preview-header .icon-gear {
+main .preview .preview-header .icon-edit, 
+main .preview .preview-header .icon-gear,
+main .content-container .icon-gear {
 	position: relative;
 	top: 5px;
 	color: #999;
