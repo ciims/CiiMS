@@ -186,7 +186,7 @@ class ContentController extends CiiDashboardController
                 }
                 else
                 {
-                    throw CHttpException(400, 'Unable to save uploaded image');
+                    throw new CHttpException(400, 'Unable to save uploaded image.');
                 }
             }
             else

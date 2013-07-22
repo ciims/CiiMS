@@ -24,7 +24,21 @@
 			</div>
 			<div id="main">
 				<div class="content">
-					<?php echo $form->textArea($model, 'content'); ?>
+					<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
+						<?php echo $form->textArea($model, 'content'); ?>
+					<?php else: ?>
+						<?php $this->widget('ext.redactor.ImperaviRedactorWidget', array(
+	    	                    'model' => $model,
+	    	                    'attribute' => 'content',
+	    	                    'options' => array(
+	    	                        'focus' => true,
+	    	                        'autoresize' => false,
+	    	                        'minHeight' =>'100%',
+	    	                        'changeCallback' => 'js:function() { $("#Content_content").change(); }'
+	    	                    )
+	    	                ));
+	    	            ?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -122,8 +136,8 @@
 				  langPrefix: "lang-"
 				});
 
-				$("#Content_content").keyup(function() {
-
+				$("#Content_content").bind("input propertychange change", function(event) {
+					
 					if(typeof(Storage)!=="undefined")
 						localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
 					
@@ -150,7 +164,7 @@
 
 							$(this).addClass("dropzone-" + hash);
 							var dz = new Dropzone(".preview div.dropzone-" + hash, {
-								url : "' . $this->createUrl('/dashboard/content/upload/id/' . $id) . '",
+								url : "' . $this->createUrl('/dashboard/content/upload/id/' . $model->id) . '",
 								dictDefaultMessage : "Drop files here to upload - or click",
 								success : function(data) {
 									var response = $.parseJSON(data.xhr.response);
@@ -168,7 +182,6 @@
 									        	classEl = classElement
 									    });
 
-										console.log(classEl);
 										// Iterate through all the dropzone objects on the page until this one is reached
 										var i = 0;
 										$(".preview div.dropzone").each(function() {
@@ -203,7 +216,7 @@
 		 			});
 				});
 
-		 		$("#Content_content").keyup();
+		 		$("#Content_content").change();
 
 		 		function GetSubstringIndex(str, substring, n) {
 				    var times = 0, index = null;
