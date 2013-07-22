@@ -32,13 +32,76 @@
 		<div class="body-content">
 			<div class="top-header">
 				<span>Preview</span>
+				<span class="pull-right icon-gears show-settings"></span>
+				<span class="pull-right icon-gears show-preview" style="display:none"></span>
 			</div>
-			<div id="main" class="nano">				
+			<div id="main" class="nano flipbox">				
 				<div class="content">					
 					<div class="preview"></div>
 				</div>
 			</div>
-		</div>	
+
+			<div id="main" class="nano settings">				
+				<div class="content">
+					<div class="settings-content">
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						TEST<br />
+						
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -56,8 +119,57 @@
 		 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
+		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
 
 		 ->registerScript('nano-scroller', '$(".nano").nanoScroller();')
+		 ->registerScript('flip-behavior', '
+		 	function bindFlipEvent()
+		 	{
+			 	$(".show-settings").click(function() {
+				 	$(".flipbox").flippy({
+				 		color_target : "#FFF",
+					    duration: "500",
+					    verso: $(".settings"),
+					    onStart : function() {
+					    	$(".nano").nanoScroller({ destroy: true });
+					    },
+					    onFinish : function() {
+					    	$(".settings").show();
+					    	oldSettings = $(".settings");
+
+					    	$(".show-settings").hide();
+					    	$(".show-preview").show();
+
+
+					    	$(".nano.settings").nanoScroller();
+					    	bindFlipEvent();
+					    },
+					    onReverseStart : function() {
+					    	$(".nano.settings").nanoScroller({ destroy: true });
+					    },
+					    onReverseFinish : function() {
+					    	$(".flipbox").after(oldSettings);
+					    	$(".settings").hide();
+
+					    	$(".show-preview").hide();
+					    	$(".show-settings").show();
+					    	$(".nano").nanoScroller();
+
+					    	bindFlipEvent();
+					    }
+					 });
+				 });
+
+		 		$(".show-preview").click(function() {
+			 		$(".flipbox").flippyReverse();
+			 		$(".nano.settings").nanoScroller({ destroy: true });
+			 		$(".nano").nanoScroller();
+
+			 	});
+			}
+
+			bindFlipEvent();
+		 ')
 		 ->registerScript('marked', '
 				marked.setOptions({
 				  gfm: true,
@@ -88,7 +200,7 @@
 					});	
 
 					$(".preview").html(markdown);
-					$(".nano").nanoScroller();
+					$(".nano.flipbox").nanoScroller();
 
 					$("div.dropzone").each(function() {
 						if (!$(this).hasClass("dz-clickable"))

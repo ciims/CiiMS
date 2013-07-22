@@ -818,9 +818,11 @@ main .content-container .top-header {
 	text-transform: uppercase;
 }
 
-main .content-container .preview {
+main .content-container .preview,
+main .content-container .settings-content {
 	padding: 20px;
 }
+
 main .content-container input.title {
 	position: relative;
 	left: -22px;
@@ -851,6 +853,13 @@ main .content-container input.title:-moz-placeholder {
 main .content-container input.title:-ms-input-placeholder {
 	font-style: italic;
 	font-weight: normal;
+}
+
+main .content-container .flipbox {
+	background-color: #fff !important;
+}
+main .content-container .settings {
+	display: none;
 }
 
 main .post {
