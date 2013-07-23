@@ -146,6 +146,23 @@ class CiiSettingsForm extends CWidget
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
+
+		Yii::app()->getClientScript()->registerScript('change', '
+			$("input").on("input onpropertychange change", function() {
+
+				timeout = setTimeout(function() {
+					var data = $("form").serialize();
+					$.post($("form").attr("action"), data, function(data, textStatus) {
+						var d = $("#yw2", $.parseHTML(data));
+
+						$("#yw2").html($(d).html());						
+						$(".alert").fadeIn(1000);
+						setTimeout(function() { $(".alert").fadeOut(1000); }, 5000);
+					});
+
+				}, 1000);
+			});
+		');
 	}
 
 	private function renderProperties(&$form, $property)

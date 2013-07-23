@@ -13,7 +13,8 @@
 				                      ->registerCssFile($this->asset .'/font-awesome/css/font-awesome.css')
 				                      ->registerCssFile($this->asset .'/css/main.css')
 				                      ->registerCoreScript('jquery')
-				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD); ?>
+				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)
+				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });'); ?>
 	</head>
 	<body>
 		<header>

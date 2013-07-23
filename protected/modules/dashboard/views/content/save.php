@@ -38,7 +38,7 @@
 	    	                    'model' => $model,
 	    	                    'attribute' => 'content',
 	    	                    'options' => array(
-	    	                        'focus' => true,
+	    	                        'focus' => false,
 	    	                        'autoresize' => false,
 	    	                        'minHeight' =>'100%',
 	    	                        'changeCallback' => 'js:function() { $("#Content_content").change(); }'
