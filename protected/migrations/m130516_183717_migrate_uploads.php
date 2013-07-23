@@ -10,7 +10,7 @@ class m130516_183717_migrate_uploads extends CDbMigration
 	{
 		// Refactor for EXECUTE style queries
 		$connection = $this->getDbConnection();
-		$data = $this->createCommand('SELECT content_id, value, content_metadata.key FROM content_metadata WHERE content_metadata.value LIKE "%/upload%" AND content_metadata.key != "blog-image"')->queryAll();
+		$data = $connection->createCommand('SELECT content_id, value, content_metadata.key FROM content_metadata WHERE content_metadata.value LIKE "%/upload%" AND content_metadata.key != "blog-image"')->queryAll();
         
         foreach ($data as $row)
         {
