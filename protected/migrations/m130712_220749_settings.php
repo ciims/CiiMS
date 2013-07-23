@@ -5,9 +5,10 @@ class m130712_220749_settings extends CDbMigration
 	// Use safeUp/safeDown to do migration with transaction
 	public function safeUp()
 	{
-		$this->generalSettings();
-		$this->emailSettings();
-		$this->socialSettings();
+		$connection = $this->getDbConnection();
+		$this->generalSettings($connection);
+		$this->emailSettings($connection);
+		$this->socialSettings($connection);
 
 		// Because we're dealing with EVERY config value, we should flush the cache so that new values get loaded in
 		Yii::app()->cache->flush();
@@ -26,7 +27,7 @@ class m130712_220749_settings extends CDbMigration
 	/**
 	 * Attempts to import settings from HybridAuth config.
 	 */
-	private function socialSettings()
+	private function socialSettings(&$connection)
 	{
 		$config = Yii::app()->getModules(false);
 		if (isset($config['hybridauth']))
@@ -42,7 +43,7 @@ class m130712_220749_settings extends CDbMigration
 						{
 							$key  = 'ha_'.strtolower($k) . '_' . $m;
 							$value = $n;
-							Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+							$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 	  			 ->bindParam(':key', $key)->bindParam(':value', $n)->execute();
 						}
 					}
@@ -50,7 +51,7 @@ class m130712_220749_settings extends CDbMigration
 					{
 						$value = $l;
 						$key = 'ha_'.strtolower($k) . '_' .  $j;
-						Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+						$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 	  		 ->bindParam(':key', $key)->bindParam(':value', $value)->execute();
 					}
 				}
@@ -61,80 +62,80 @@ class m130712_220749_settings extends CDbMigration
 	/**
 	 * Sets the notifyName
 	 */
-	private function emailSettings()
+	private function emailSettings(&$connection)
 	{
 		$v = 'CiiMS No Reply';
 		$key = 'notifyName';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 	}
 
 	/**
 	 * Sets general settings where possible
 	 */
-	private function generalSettings()
+	private function generalSettings(&$connection)
 	{
 		if (Yii::app()->name !== 'CiiMS Installer' && Yii::app()->name !== NULL)
 		{
 			$name = Yii::app()->name;
 			$key = 'name';
-			Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+			$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $name)->execute();
 		}
 
 		$key = 'dateFormat';
 		$v = 'F jS, Y';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'timeFormat';
 		$v = 'H:i';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'timezone';
 		$v = date('e');
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'defaultLanguage';
 		$v = 'en_US';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'menu';
 		$v = 'admin|blog';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'offline';
 		$v = '0';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'preferMarkdown';
 		$v = '1';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key',$key)->bindParam(':value', $v)->execute();
 
 		$key = 'bcrypt_cost';
 		$v = '13';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'searchPaginationSize';
 		$v = '10';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'categoryPaginationSize';
 		$v = '10';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'contentPaginationSize';
 		$v = '10';
-		Yii::app()->db->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
+		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 	}
 }
