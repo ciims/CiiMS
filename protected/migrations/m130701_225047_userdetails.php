@@ -9,9 +9,8 @@ class m130701_225047_userdetails extends CDbMigration
 	public function safeUp()
 	{
 		// Refactor for EXECUTE style queries
-		$connection = $this->getDbConnection();
-		$connection->createCommand('ALTER TABLE users MODIFY firstName VARCHAR(255) NULL')->execute();
-		$connection->createCommand('ALTER TABLE users MODIFY lastName VARCHAR(255) NULL')->execute();
+		$this->execute('ALTER TABLE users MODIFY firstName VARCHAR(255) NULL');
+		$this->execute('ALTER TABLE users MODIFY lastName VARCHAR(255) NULL')-;
 
 		return true;
   

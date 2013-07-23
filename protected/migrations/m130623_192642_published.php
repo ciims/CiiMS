@@ -8,9 +8,8 @@ class m130623_192642_published extends CDbMigration
 	public function safeUp()
 	{
 		// Refactor for EXECUTE style queries
-		$connection = $this->getDbConnection();
-		$connection->createCommand('ALTER TABLE  `content` ADD  `published` TIMESTAMP NOT NULL AFTER  `slug` ;')->execute();
-		$connection->createCommand('UPDATE `content` SET published = created')->execute();
+		$this->execute('ALTER TABLE  `content` ADD  `published` TIMESTAMP NOT NULL AFTER  `slug` ;');
+		$this->execute('UPDATE `content` SET published = created');
 		return true;
 	}
 
