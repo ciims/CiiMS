@@ -15,8 +15,8 @@ Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) becaus
 #### Just Show Me the Demo
 Sure thing boss: A demo of CiiMS can be found at:
 
-    Site: http://ciims.erianna.com
-    Admin Panel: http://ciims.erianna.com/admin
+    Site: http://demo.ciims.org
+    Admin Panel: http://demo.ciims.org/dashboard
     
 You may use the following credentials to login and manage the site.
 
@@ -30,7 +30,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Based on Yii Framework
 * Installs in under 5 Minutes (Will Install Yii for you too!)
 * Beautiful Default Theme
-* Based in [Twitter Boostrap](http://yii-booster.clevertech.biz/) For Easy Development
+* Based in [Yii Booster](http://yii-booster.clevertech.biz/) (Twitter Bootstrap)For Easy Development
 * Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
 * SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
 * Password Protected Content
@@ -41,6 +41,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Themable
 * Social Integration (Social Signon, Social Sharing)
 * Extendable with custom modules/extensions
+* Beautiful _and_ functional dashboard for managing your content and settings.
 * _And a bunch of other things!_
 
 ------------------
