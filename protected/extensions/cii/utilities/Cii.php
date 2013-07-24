@@ -62,6 +62,26 @@ class Cii {
     }
 
     /**
+     * Gets a configuration value from user_metadata
+     * @param  string $key     The key we want to retrieve from Configuration
+     * @param  mixed  $default The default value to return if key is not found
+     * @return mixed           The value from Config, or default
+     */
+    public static function getUserConfig($key, $default=NULL)
+    {
+        $uid = Yii::app()->user->id;
+        $data = Yii::app()->db->createCommand('SELECT value FROM user_metadata AS t WHERE t.key = :key AND t.user_id = :id')
+                              ->bindParam(':id', $uid)
+                              ->bindParam(':key', $key)
+                              ->queryAll();
+
+        if (!isset($data[0]['value']))
+            return NULL;
+        
+        return $data[0]['value'];
+    }
+
+    /**
      * Consolodates the finding of retrievinv the bcrypt_Cost
      * @param  integer $default The default bcrypt cost
      * @return int              The bcrypt cost
@@ -91,6 +111,10 @@ class Cii {
 		return date($format, strtotime($date));
 	}
 	
+    /**
+     * Retrieves Analytics.js Providers
+     * @return array $providors
+     */
     public static function getAnalyticsProviders()
     {
         $providers = Yii::app()->cache->get('analyticsjs_providers');

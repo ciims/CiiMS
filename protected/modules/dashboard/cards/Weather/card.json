@@ -1,0 +1,16 @@
+{
+	"name" : {
+		"displayName" : "Weather Card",
+		"name" : "Weather"
+	},
+	"description" : "A simple weather and time widget, powered by Forecast.io",
+	"keywords" : [ "weather", "time", "forecast.io" ],
+	"author" : {
+		"name" : "Charles R. Portwood II",
+		"email" : "charlesportwoodii@ethreal.net"
+	},
+	"license" : "MIT",
+	"version" : "0.1",
+	"sizes" : [ "huge", "rectangle", "normal" ],
+	"defaultSize" : "normal"
+}

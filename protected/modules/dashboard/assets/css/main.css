@@ -17,6 +17,7 @@ input[type="color"],
 .uneditable-input {
     height: 30px;
 }
+
 label {
 	color: #999;
 	font-size: 13px !important;
@@ -1017,6 +1018,55 @@ main .preview .preview-metadata {
 main .alert {
 	margin: 0 5%;
 	margin-bottom: 20px;
+}
+
+/** Dashboard Cards **/
+
+main .widget-container div.card-rectangle {
+	width: 482px; 
+	height:  230px;
+}
+
+main .widget-container div.card-normal {
+
+}
+
+main .widget-container div.card-huge {
+	width: 482px; 
+	height: 482px;
+}
+
+main .widget-container div .footer {
+	height: 15%; 
+	border-top: 1px solid #eee;
+}
+
+main .widget-container div .footer:last-child {
+	padding-right: 5px;
+}
+
+main .widget-container div .body {
+	height:85%;
+}
+
+main .widget-container div .footer .icon-padding,
+main .widget-container div .footer .footer-text {
+	color: #999;
+	border-left: 1px solid #eee;
+	position: relative;
+	padding: 10px;
+	height: 100%;
+	width: 10px;
+}
+
+main .widget-container div .footer .footer-text {
+	border-left: none;
+	font-size: 10px;
+	letter-spacing: 1px;
+	font-family: 'Open Sans';
+	padding-top: 5px;
+	padding-left: 15px;
+	text-transform: uppercase;
 }
 
 .ui-tooltip {

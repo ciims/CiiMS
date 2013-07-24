@@ -1,0 +1,149 @@
+<?php
+
+/**
+ * Dashboard cards are nothing more than _extremely_ elaborate forms that by default render a specified viewfile
+ * Consequently, this class inherits _a lot_ of it's core behaviors and functionality from CiiSettingsModel
+ */
+class CiiCard extends CiiSettingsModel
+{
+
+	/**
+	 * Unless otherwise defined, Cards will render the viewfiles specified in their corresponding views/index.php file
+	 * @return string path
+	 */
+	public function getView()
+	{
+		return Yii::getPathOfAlias('application.dashboard.cards.' . str_replace('Card', '', get_class($this)) . '.views') . 'index.php';
+	}
+
+	/**
+	 * Retrieves the name of the card from card.json
+	 * @return string
+	 */
+	public function getName()
+	{
+		$data = json_decode($this->getJSON());
+
+		return $data['name']['displayName']
+	}
+
+	/**
+	 * Allows footer text information to be modified by the card (eg disclaimers instead of the card name...)
+	 * By default this will return the Card's name
+	 * 
+	 * @return string $name
+	 */
+	public function getFooterText()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Overload the __getter so that it checks for data in the following order
+	 * 1) Pull From db/cache (Cii::getConfig now does caching of elements for improved performance) for global/user config
+	 * 2) Check for __protected__ property, which we consider the default vlaue
+	 * 3) parent::__get()
+	 *
+	 * In order for this to work with __default__ values, the properties in classes that extend from this
+	 * MUST be protected. If they are public it will bypass this behavior.
+	 * 
+	 * @param  mixed $name The variable name we want to retrieve from the calling class
+	 * @return mixed
+	 */
+	public function __get($name)
+	{
+		if (strpos('global_', $name) !== false)
+			$data = Cii::getConfig(get_class($this).'_'.$name);
+		else
+			$data = Cii::getUserConfig(get_class($this).'_'.$name);
+
+		if ($data !== NULL && $data !== "" && !isset($this->attributes[$name]))
+			return $data;
+
+		if (property_exists($this, $name))
+			return $this->$name;
+
+		return parent::__get($name);
+	}
+
+	/**
+	 * Creates a new instance of the card
+	 * @return  bool
+	 */
+	public function create()
+	{
+		$class = get_class($this);
+
+		$rnd_id = crypt(uniqid(mt_rand(),1)); 
+		$rnd_id = strip_tags(stripslashes($rnd_id)); 
+		$rnd_id = str_replace(".","",$rnd_id); 
+		$rnd_id = strrev(str_replace("/","",$rnd_id)); 
+		$rnd_id = substr($rnd_id,0,20); 
+
+		$data = $this->getJSON();
+
+		return Yii::app()->db->createCommand("INSERT INTO `cards` VALUES (NULL, :name, :uid, :data, NOW()); ")
+				  ->bindParam(':name', $class)
+				  ->bindParam(':uid', $rnd_id)
+				  ->bindParam(':data', $data)
+				  ->execute();
+	}
+
+	/**
+	 * Retrieves the JSON data for a particular card
+	 * @return json encoded array
+	 */
+	public function getJSON()
+	{
+		$fileHelper = new CFileHelper;
+		$files = $fileHelper->findFiles(Yii::getPathOfAlias('application.modules.dashboard.cards.'. get_class($this)), array('fileTypes'=>array('json'), 'level'=>1));
+
+		return file_get_contents($files[0]);
+	}
+
+
+	/**
+	 * Save function for Configuration
+	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
+	 * and we should abort
+	 * @return bool      Whether or not the save succedded or not
+	 */
+	public function save($runValidation=true)
+	{
+		if ($this->beforeSave())
+		{
+			// If we want to run validation AND the validation failed, give up
+			if ($runValidation && !$this->validate())
+				return false;
+			
+			$connection  = Yii::app()->db;
+			$transaction = $connection->beginTransaction();
+
+			try {
+				foreach($this->attributes as $key=>$value)
+				{
+					$uid = Yii::app()->user->id;
+
+					if (strpos('global_', $name) !== false)
+						$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+					else
+						$command = $connection->createCommand('INSERT INTO `user_metadata` VALUES (:uid, :key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()')->bindParam(':uid', $uid);
+
+					$command->bindParam(':key', get_class($this).'_'.$key);
+					$command->bindParam(':value', $value);
+					$command->bindParam(':value2', $value);
+					$ret = $command->execute();
+				}
+			} catch (Exception $e) {
+				$transaciton->rollBack();
+				return false;
+			}
+
+			$transaction->commit();
+			$this->afterSave();
+
+			// Return the commit response
+			return true;
+		}
+	}
+}

@@ -11,6 +11,7 @@
 				                      ->registerCssFile('https://fonts.googleapis.com/css?family=Open+Sans:400,600,800')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
 				                      ->registerCssFile($this->asset .'/font-awesome/css/font-awesome.css')
+				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')
 				                      ->registerCssFile($this->asset .'/css/main.css')
 				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)

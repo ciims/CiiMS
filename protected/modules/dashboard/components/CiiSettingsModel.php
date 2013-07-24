@@ -177,6 +177,7 @@ class CiiSettingsModel extends CFormModel
 
 		return $v;
 	}
+	
 	/**
 	 * Save function for Configuration
 	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
