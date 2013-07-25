@@ -4,13 +4,26 @@ class CardController extends CiiDashboardController
 {
 	public function actionDelete($id)
 	{
-
+		if ($id == NULL)
+			throw new CHttpException(400, 'An ID must be specified');
 	}
 
-	public function actionAdd($name=NULL)
+	// TODO: Refactor to use card ids rather than direct class names
+	public function actionAdd($id)
 	{
-		Yii::import("application.modules.dashboard.cards.{$name}.*");
-		$card = new $name;
+		if ($id == NULL)
+			throw new CHttpException(400, 'An ID must be specified');
+
+		// TODO: Refactor to pickup the correct name rather than the card name
+		$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :id")->bindParam(':id', $id)->queryScalar();
+
+		if ($name == NULL)
+			throw new CHttpException(400, 'No card type exists with that ID');
+
+		$name = json_decode($name, true);
+		Yii::import($name['path'].'.*');
+
+		$card = new $name['name'];
 		$card->create();
 
 		$data = json_decode($card->getJSON(), true);
@@ -51,12 +64,14 @@ class CardController extends CiiDashboardController
 			if ($id == NULL)
 				throw new CHttpException(400, 'An ID must be specified');
 
-			$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE uid = :uid")->bindParam(':uid', $id)->queryScalar();
+			// TODO: Refactor to pickup the correct name rather than the card name
+			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
 
 			if ($name == NULL)
 				throw new CHttpException(400, 'No card with that ID exists');
 
-			Yii::import("application.modules.dashboard.cards.{$name}.*");
+			$name = json_decode($name, true);
+			Yii::import($name['path'].'.*');
 
 			$card = new $name($id);
 
