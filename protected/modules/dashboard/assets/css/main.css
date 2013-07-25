@@ -1036,6 +1036,10 @@ main .widget-container div.card-huge {
 	height: 482px;
 }
 
+main .widget-container div.card-huge .body {
+	height: 93%;
+}
+
 main .widget-container div .footer {
 	height: 15%; 
 	border-top: 1px solid #eee;

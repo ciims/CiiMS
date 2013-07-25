@@ -19,7 +19,7 @@
 	<div class="widget-container">
 
 		<!-- Rectangle -->
-	    <div class="card-rectangle" data-ss-colspan="2" id="widget-unique-id">
+	    <div id="K2Yy3R27eiuy3G0msnJx" class="card-rectangle" data-ss-colspan="2" id="widget-unique-id" data-attr-sizes="normal,rectangle,huge">
 	    	<?php echo CHtml::openTag('div', array('class' => 'body')); ?>
 	    		<!-- Body content goes here -->
 	    	<?php echo CHtml::closeTag('div'); ?>
@@ -49,5 +49,29 @@
 	        paddingY: 0
         });
     });
+
+	$(".icon-resize-full").click(function() {
+		var parent = $(this).parent().parent();
+		var sizes = $(parent).attr("data-attr-sizes").split(",");
+		var classEl = $(parent).attr("class").replace("card-", "").replace("ss-active-child", "").replace(/\s+/g, "");
+		
+		var i = sizes.indexOf(classEl);
+
+		if (sizes.length - 1 == i)
+			var newClass = "card-" + sizes[0];
+		else
+			var newClass = "card-" + sizes[i+1];
+
+		if (newClass == "card-normal")
+			$(parent).attr("data-ss-colspan", "1");
+		else
+			$(parent).attr("data-ss-colspan", "2");
+
+		$(parent).removeClass("card-" + classEl).addClass(newClass);
+
+		$(".widget-container").trigger("ss-rearrange");
+
+		$.post("' . $this->createUrl('/dashboard/card/resize/id/'). '/" + $(parent).attr("id"), { activeSize : newClass});
+	});
 
 '); ?>

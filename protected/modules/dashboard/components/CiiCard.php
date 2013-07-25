@@ -6,6 +6,26 @@
  */
 class CiiCard extends CiiSettingsModel
 {
+	/**
+	 * Each card has a unique ID which can be used to reference itself against the database
+	 * @var string $id
+	 */
+	public $id = NULL;
+
+	/**
+	 * Overload the construction so we can pull this items attributes
+	 * @param string $id 
+	 */
+	public function __construct($id = NULL)
+	{
+		$this->id = $id;
+		return parent::__construct();
+	}
+
+	public function getSize()
+	{
+		return 'normal';
+	}
 
 	/**
 	 * Unless otherwise defined, Cards will render the viewfiles specified in their corresponding views/index.php file
@@ -24,7 +44,7 @@ class CiiCard extends CiiSettingsModel
 	{
 		$data = json_decode($this->getJSON());
 
-		return $data['name']['displayName']
+		return $data['name']['displayName'];
 	}
 
 	/**
@@ -82,6 +102,9 @@ class CiiCard extends CiiSettingsModel
 
 		$data = $this->getJSON();
 
+		// Set the id of the new object
+		$this->id = $rnd_id;
+
 		return Yii::app()->db->createCommand("INSERT INTO `cards` VALUES (NULL, :name, :uid, :data, NOW()); ")
 				  ->bindParam(':name', $class)
 				  ->bindParam(':uid', $rnd_id)
@@ -95,10 +118,35 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function getJSON()
 	{
-		$fileHelper = new CFileHelper;
-		$files = $fileHelper->findFiles(Yii::getPathOfAlias('application.modules.dashboard.cards.'. get_class($this)), array('fileTypes'=>array('json'), 'level'=>1));
+		// Retrieve the data from the database
+		$data = Yii::app()->db->createCommand("SELECT data FROM `cards` WHERE uid = :uid")->bindParam('uid', $this->id)->queryScalar();
 
-		return file_get_contents($files[0]);
+		if ($data !== NULL && $this->id !== NULL)
+		{
+			return $data;
+		}
+		else
+		{
+			// If the data is empty, provide the options from the file config instead
+			$fileHelper = new CFileHelper;
+			$files = $fileHelper->findFiles(Yii::getPathOfAlias('application.modules.dashboard.cards.'. get_class($this)), array('fileTypes'=>array('json'), 'level'=>1));
+
+			return file_get_contents($files[0]);
+		}
+	}
+
+	/**
+	 * Allows data to be dynamically updated independently of the core data associated to the model settings
+	 * @param  array $data  JSON data to save
+	 * @return bool         If save was successful
+	 */
+	public function updateData($data)
+	{
+		$data = json_encode($data);
+		return Yii::app()->db->createCommand("UPDATE `cards` SET data = :data WHERE uid = :uid")
+						 ->bindParam(':data', $data)
+						 ->bindParam(':uid', $this->id)
+						 ->execute();
 	}
 
 
