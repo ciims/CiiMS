@@ -68,7 +68,7 @@ class SiteController extends CiiController
 	public function actionSitemap()
 	{		
 		$this->layout = false;
-		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1;')->queryAll();
+		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
 		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories));
 		Yii::app()->end();

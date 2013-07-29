@@ -66,11 +66,6 @@
 
 		<div class="settings">
 			<?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
-			<!-- Form Settings/Fields go here -->
-			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model, 'password', $htmlOptions); ?>
-			</div>
-
 			<div class="pure-control-group">
 				<?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), $htmlOptions); ?>
 			</div>
@@ -79,6 +74,9 @@
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
+			</div>
+			<div class="pure-control-group date form_datetime">
+					<?php echo $form->textFieldRow($model, 'published', $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'), $htmlOptions); ?>
@@ -117,7 +115,10 @@
 		 ->registerCssFile($this->asset.'/highlight.js/github.css')
 		 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
 		 ->registerCssFile($this->asset . '/css/jquery.tags.css')
+		 ->registerCssFile($this->asset.'/datepicker/css/datetimepicker.css')
 
+
+		 ->registerScriptFile($this->asset.'/datepicker/js/bootstrap-datetimepicker.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset . '/js/jquery.tags.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
@@ -139,6 +140,11 @@
 			    }
 			});
 		')
+		 ->registerScript('datepicker', '
+		 	$("#Content_published").datetimepicker({
+			    format: "yyyy-mm-dd hh:ii:ss"
+			});
+		 ')
 		 ->registerScript('flip-behavior', '
 		 	function bindFlipEvent()
 		 	{

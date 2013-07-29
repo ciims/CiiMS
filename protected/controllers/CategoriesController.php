@@ -118,6 +118,7 @@ class CategoriesController extends CiiController
 		$criteria->addCondition("category_id = " . $id);
 		$criteria->addCondition('password = ""');
 		$criteria->addCondition('status = 1');
+		$criteria->addCondition('published <= NOW()');
 		$criteria->limit = $pageSize;			
 		$criteria->order = 'created DESC';
 		

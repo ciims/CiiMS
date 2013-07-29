@@ -117,7 +117,6 @@ class Content extends CiiModel
 			'type_id' => 'Type',
 			'password' => 'Password',
 			'comment_count' => 'Comments',
-			'commentcount',
 			'like_count' => 'Likes',
 			'tags' => 'Tags',
 			'slug' => 'Slug',
