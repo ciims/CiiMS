@@ -4,6 +4,6 @@ class Weather extends CiiCard
 {
 	public function getFooterText()
 	{
-		return 'Forecast.io';
+		return 'Powered By Forecast.io';
 	}
 }

@@ -1070,7 +1070,21 @@ main .widget-container div .footer .footer-text {
 	font-family: 'Open Sans';
 	padding-top: 5px;
 	padding-left: 15px;
+	margin-top: 1px;
 	text-transform: uppercase;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 10px;
+}
+
+main .widget-container div.card-normal .footer .footer-text {
+	width: 90px;
+}
+
+main .widget-container div.card-huge .footer .footer-text,
+main .widget-container div.card-rectangle .footer .footer-text {
+	width: 340px;
 }
 
 .ui-tooltip {

@@ -188,7 +188,7 @@ class CiiCard extends CiiSettingsModel
 		else
 			$dataSSColspan = 2;
 
-		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . $json['activeSize'], 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
+		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	 echo CHtml::openTag('div', array('class' => 'body')); 
 	    		Yii::app()->controller->renderPartial($this->view);
 	    	 echo CHtml::closeTag('div'); 
