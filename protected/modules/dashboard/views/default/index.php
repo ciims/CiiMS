@@ -20,6 +20,7 @@
 </div>
 <?php $cs->registerScriptFile($this->asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END)
+		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
 		 ->registerScript('getCards', '
 		 	$.get("' . $this->createUrl('/dashboard/card/getCards'). '", function(data) {
 		 		$(".widget-container").html(data).shapeshift({
@@ -30,8 +31,9 @@
 			        paddingY: 0
 		        });
 
-				 bindResizeBehavior();
-				 bindDeleteBehavior();
+				bindResizeBehavior();
+				bindDeleteBehavior();
+				bindFlipEvent();
 		 	});
 		 ')
          ->registerScript('resizeBehavior', '
@@ -60,9 +62,7 @@
 
 					$.post("' . $this->createUrl('/dashboard/card/resize/id/'). '/" + $(parent).attr("id"), { activeSize : newClass});
 				});
-         	}
-
-         	bindResizeBehavior()')
+         	}')
         ->registerScript('deleteBehavior', '
          	function bindDeleteBehavior()
          	{
@@ -78,7 +78,40 @@
          				}
          			});
          		});
-         	}
+         	}')
+        ->registerScript('bindFlipEvent', '
+        	function bindFlipEvent()
+        	{
+	        	$(".icon-flip").click(function() {
+	        		var parent = $(this).parent().parent();
+	        		
+	        		var settings = $("." + $(parent).attr("id") + "-settings");
+	        		console.log($(parent).attr("id") + "-settings");
+	        		$(parent).flippy({
+				 		color_target : "#FFF",
+					    duration: "500",
+					    verso: $(settings),
+					    onFinish : function() {
+					    	$(settings).show();
+					    	bindResizeBehavior();
+							bindDeleteBehavior();
+							bindFlipEvent();
+					    },
+					    onReverseStart : function() {
+					    	$(parent).after($(settings));
+					    	$(settings).hide();
 
-         	bindDeleteBehavior();
-        '); ?>
+					    },
+					    onReverseFinish : function() {
+					    	bindResizeBehavior();
+							bindDeleteBehavior();
+							bindFlipEvent();
+					    }
+					 });
+	        	});
+
+		        $(".icon-reverse-flip").click(function() {
+		        	var parent = $(this).parent().parent().parent();
+		        	$(parent).flippyReverse();
+		        });
+	   		}'); ?>

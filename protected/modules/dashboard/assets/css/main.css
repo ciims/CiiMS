@@ -1022,6 +1022,10 @@ main .alert {
 
 /** Dashboard Cards **/
 
+main .widget-container .settings {
+	height: 100%;
+}
+
 main .widget-container div.card-rectangle {
 	width: 482px; 
 	height:  230px;
@@ -1040,21 +1044,21 @@ main .widget-container div.card-huge .body {
 	height: 93%;
 }
 
-main .widget-container div .footer {
+main .widget-container .footer {
 	height: 15%; 
 	border-top: 1px solid #eee;
 }
 
-main .widget-container div .footer:last-child {
+main .widget-container .footer:last-child {
 	padding-right: 5px;
 }
 
-main .widget-container div .body {
+main .widget-container .body {
 	height:85%;
 }
 
-main .widget-container div .footer .icon-padding,
-main .widget-container div .footer .footer-text {
+main .widget-container .footer .icon-padding,
+main .widget-container .footer .footer-text {
 	color: #999;
 	border-left: 1px solid #eee;
 	position: relative;
@@ -1063,7 +1067,7 @@ main .widget-container div .footer .footer-text {
 	width: 10px;
 }
 
-main .widget-container div .footer .footer-text {
+main .widget-container .footer .footer-text {
 	border-left: none;
 	font-size: 10px;
 	letter-spacing: 1px;

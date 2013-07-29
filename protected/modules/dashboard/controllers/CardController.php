@@ -117,6 +117,10 @@ class CardController extends CiiDashboardController
 		throw new CHttpException(400, 'Missing POST data');
 	}
 
+	/**
+	 * Retrieves cards for the dashboard
+	 * @return bool true
+	 */
 	public function actionGetCards()
 	{
 		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
@@ -133,5 +137,7 @@ class CardController extends CiiDashboardController
 			$card = new $name['class']($id);
 			$card->render();
 		}
+
+		return true;
 	}
 }
