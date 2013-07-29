@@ -123,7 +123,6 @@ class ContentController extends CiiDashboardController
             $model2->layoutFile = $_POST['Content']['layout'];
             $model2->created    = $_POST['Content']['created'];
             $model2->published  = $_POST['Content']['published'];
-            
             if($model2->save()) 
             {
                 Yii::app()->user->setFlash('success', 'Content has been updated');
