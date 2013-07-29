@@ -92,10 +92,20 @@
 					    duration: "500",
 					    verso: $(settings),
 					    onFinish : function() {
-					    	$(settings).show();
 					    	bindResizeBehavior();
 							bindDeleteBehavior();
 							bindFlipEvent();
+					    	$(settings).show();
+
+					    	$(".widget-container").trigger("ss-destroy").shapeshift({
+						        minColumns: 3,
+						        gutterX: 20,
+						        gutterY: 20,
+						        paddingX: 0,
+						        paddingY: 0,
+						        enableDrag : false
+					        });
+
 					    },
 					    onReverseStart : function() {
 					    	$(parent).after($(settings));
@@ -106,6 +116,15 @@
 					    	bindResizeBehavior();
 							bindDeleteBehavior();
 							bindFlipEvent();
+
+							$(".widget-container").trigger("ss-destroy").shapeshift({
+						        minColumns: 3,
+						        gutterX: 20,
+						        gutterY: 20,
+						        paddingX: 0,
+						        paddingY: 0,
+						        enableDrag : true
+					        });
 					    }
 					 });
 	        	});
