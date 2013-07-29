@@ -39,7 +39,6 @@ class Configuration extends CActiveRecord
         return array(
             array('key, value, created, updated', 'required'),
             array('key', 'length', 'max'=>64),
-            array('value', 'length', 'max'=>255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('key, value, created, updated', 'safe', 'on'=>'search'),

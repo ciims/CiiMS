@@ -12,6 +12,7 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public $id = NULL;
 
+
 	/**
 	 * Overload the construction so we can pull this items attributes
 	 * @param string $id 
@@ -22,10 +23,12 @@ class CiiCard extends CiiSettingsModel
 
 		if ($id !== NULL)
 		{
-			$exists = Yii::app()->db->createCommand("SELECT count(uid) FROM `cards` WHERE uid = :id")->bindParam(':uid', $id)->queryScalar();
+			$exists = Yii::app()->db->createCommand("SELECT uid FROM `cards` WHERE uid = :id")->bindParam(':id', $id)->queryScalar();
 
-			Cii::debug($exists);
+			if ($exists === false)
+				throw new CHttpException(400, 'No card with that ID exists');
 		}
+
 		return parent::__construct();
 	}
 
@@ -40,7 +43,15 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function getView()
 	{
-		return Yii::getPathOfAlias('application.dashboard.cards.' . str_replace('Card', '', get_class($this)) . '.views') . 'index.php';
+		$id = $this->id;
+		$data = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE uid = :id")->bindParam(':id', $id)->queryScalar();
+		
+		if ($data !== false)
+			$data = json_decode($data, true);
+		else
+			return false;
+
+		return $data['path'] . '.views.index';
 	}
 
 	/**
@@ -120,6 +131,15 @@ class CiiCard extends CiiSettingsModel
 	}
 
 	/**
+	 * Deletes the current card
+	 * @return bool   If deletion was successful
+	 */
+	public function delete()
+	{
+		return Yii::app()->db->createCommand("DELETE FROM `cards` WHERE uid = :id")->bindParam(':id', $this->id)->execute();
+	}
+
+	/**
 	 * Retrieves the JSON data for a particular card
 	 * @return json encoded array
 	 */
@@ -147,7 +167,7 @@ class CiiCard extends CiiSettingsModel
 	 * @param  array $data  JSON data to save
 	 * @return bool         If save was successful
 	 */
-	public function updateData($data)
+	public function update($data)
 	{
 		$data = json_encode($data);
 		return Yii::app()->db->createCommand("UPDATE `cards` SET data = :data WHERE uid = :uid")
@@ -156,6 +176,32 @@ class CiiCard extends CiiSettingsModel
 						 ->execute();
 	}
 
+	/**
+	 * Provides rendering functionality to display cards
+	 */
+	public function render()
+	{
+		$json = json_decode($this->getJSON(), true);
+
+		if ($json['activeSize'] == 'normal')
+			$dataSSColspan = 1;
+		else
+			$dataSSColspan = 2;
+
+		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . $json['activeSize'], 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
+	    	 echo CHtml::openTag('div', array('class' => 'body')); 
+	    		Yii::app()->controller->renderPartial($this->view);
+	    	 echo CHtml::closeTag('div'); 
+	    	 echo CHtml::openTag('div', array('class' => 'footer')); 
+	    		 echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
+	    		 echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
+	    		 echo CHtml::tag('span', array('class' => 'icon-gear pull-right icon-padding'), NULL);  
+	    		 echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
+	    	 echo CHtml::closeTag('div'); 
+	     echo CHtml::closeTag('div'); 
+
+	     return;
+	}
 
 	/**
 	 * Save function for Configuration

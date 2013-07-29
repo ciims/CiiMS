@@ -2,23 +2,11 @@
 
 class CardController extends CiiDashboardController
 {
-	public function actionDelete($id)
-	{
-		if ($id == NULL)
-			throw new CHttpException(400, 'An ID must be specified');
-
-		$name = Yii::app()->db->createCommand("SELECT name, value FROM `cards` LEFT JOIN `configuration` ON `cards`.`name` = `configuration`.`key` WHERE `uid` = :id")->bindParam(':id', $id)->query();
-
-		foreach ($name as $k)
-			$name = $k;
-
-		Cii::debug($name); die();
-		$name['value'] = json_decode($name['value'], true);
-		Yii::import($name['value']['path'].'.*');
-
-		$card = new $name['value']['class']($id);
-		return $card->delete();
-	}
+	/**
+	 * Disable layout rendering for this controller
+	 * @var string $layout
+	 */
+	public $layout = NULL;
 
 	/**
 	 * Creates a new Dashboard card with the $id dashboard_card_{ID_HERE}
@@ -52,6 +40,7 @@ class CardController extends CiiDashboardController
 
 		// Update the user's card information
 		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+
 		if ($meta == NULL)
 		{
 			$meta = new UserMetadata();
@@ -69,15 +58,37 @@ class CardController extends CiiDashboardController
 		$meta->value = json_encode($order);
 		$meta->save();
 
-		echo json_encode($data);
-		return true;
+		return $card->render();
+	}
+
+	/**
+	 * Provides callback for deleting a given instance of a card
+	 * @param  string $id The card UID
+	 */
+	public function actionDelete($id)
+	{
+		if ($id == NULL)
+			throw new CHttpException(400, 'An ID must be specified');
+
+		$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE `uid` = :id")->bindParam(':id', $id)->queryScalar();
+
+		if ($name === false)
+			throw new CHttpException(400, 'No card with that ID exists');
+		
+		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
+
+		Yii::import($json['path'].'.*');
+
+		$card = new $json['class']($id);
+
+		if(!$card->delete())
+			throw new CHttpException(400, 'There was an unknown error processing your request');
 	}
 
 	/**
 	 * Provides functionality for resizing any widget based upon it's ID
 	 * NOTE, that this widget DOES NOT perform any validation. Validation is done client side.
 	 * @param  string $id  The card ID
-	 * @return [type]     [description]
 	 */
 	public function actionResize($id)
 	{
@@ -86,7 +97,6 @@ class CardController extends CiiDashboardController
 			if ($id == NULL)
 				throw new CHttpException(400, 'An ID must be specified');
 
-			// TODO: Refactor to pickup the correct name rather than the card name
 			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
 
 			if ($name == NULL)
@@ -95,20 +105,33 @@ class CardController extends CiiDashboardController
 			$name = json_decode($name, true);
 			Yii::import($name['path'].'.*');
 
-			$card = new $name($id);
+			$card = new $name['class']($id);
 
 			$data = json_decode($card->getJSON(), true);
 			$data['activeSize'] = $_POST['activeSize'];
 
-			if ($card->updateData($data))
-				return;
+			if ($card->update($data))
+				return true;
 		}
 
 		throw new CHttpException(400, 'Missing POST data');
 	}
 
-	public function getCards()
+	public function actionGetCards()
 	{
+		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+		if ($meta == NULL)
+			return true;
 
+		$uids = json_decode($meta->value, true);
+
+		foreach ($uids as $id)
+		{
+			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
+			$name = json_decode($name, true);
+			Yii::import($name['path'].'.*');
+			$card = new $name['class']($id);
+			$card->render();
+		}
 	}
 }

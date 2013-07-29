@@ -11,6 +11,6 @@
 	},
 	"license" : "MIT",
 	"version" : "0.1",
-	"sizes" : [ "huge", "rectangle", "normal" ],
+	"sizes" : [ "normal", "rectangle", "huge" ],
 	"activeSize" : "normal"
 }

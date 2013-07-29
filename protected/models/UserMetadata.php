@@ -44,7 +44,7 @@ class UserMetadata extends CActiveRecord
 		return array(
 			array('user_id, key, value', 'required'),
 			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('key, value', 'length', 'max'=>50),
+			array('key', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, user_id, key, value, created, updated', 'safe', 'on'=>'search'),

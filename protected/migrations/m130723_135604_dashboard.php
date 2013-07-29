@@ -18,6 +18,8 @@ class m130723_135604_dashboard extends CDbMigration
 		// Create a relation between configuration which stores the dashboard id
 		$this->execute("ALTER TABLE  `cards` ADD FOREIGN KEY (  `name` ) REFERENCES  `configuration` (`key`) ON DELETE CASCADE ON UPDATE NO ACTION ;");
 
+		$this->execute("ALTER TABLE  `user_metadata` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
+		$this->execute("ALTER TABLE  `configuration` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
 		return true;
 	}
 
