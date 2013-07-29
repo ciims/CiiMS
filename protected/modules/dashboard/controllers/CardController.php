@@ -6,25 +6,46 @@ class CardController extends CiiDashboardController
 	{
 		if ($id == NULL)
 			throw new CHttpException(400, 'An ID must be specified');
+
+		$name = Yii::app()->db->createCommand("SELECT name, value FROM `cards` LEFT JOIN `configuration` ON `cards`.`name` = `configuration`.`key` WHERE `uid` = :id")->bindParam(':id', $id)->query();
+
+		foreach ($name as $k)
+			$name = $k;
+
+		Cii::debug($name); die();
+		$name['value'] = json_decode($name['value'], true);
+		Yii::import($name['value']['path'].'.*');
+
+		$card = new $name['value']['class']($id);
+		return $card->delete();
 	}
 
-	// TODO: Refactor to use card ids rather than direct class names
+	/**
+	 * Creates a new Dashboard card with the $id dashboard_card_{ID_HERE}
+	 * $id is a randomly generated hash based upon the unique data of the card.json + name, and contains 2 key pieces of information
+	 *     1) The class name
+	 *     2) The path in.dot.format
+	 *
+	 * Once created, the unique instance is added to the user's specific dashboard. This is an Ajax specific request
+	 * @param  string  $id  The unique id of the card as defined on creation of said card type
+	 * @return bool
+	 */
 	public function actionAdd($id)
 	{
 		if ($id == NULL)
 			throw new CHttpException(400, 'An ID must be specified');
 
-		// TODO: Refactor to pickup the correct name rather than the card name
 		$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :id")->bindParam(':id', $id)->queryScalar();
 
 		if ($name == NULL)
 			throw new CHttpException(400, 'No card type exists with that ID');
 
 		$name = json_decode($name, true);
+
 		Yii::import($name['path'].'.*');
 
-		$card = new $name['name'];
-		$card->create();
+		$card = new $name['class'];
+		$card->create($id);
 
 		$data = json_decode($card->getJSON(), true);
 		$data['id'] = $card->id;
@@ -48,7 +69,8 @@ class CardController extends CiiDashboardController
 		$meta->value = json_encode($order);
 		$meta->save();
 
-		return $data;
+		echo json_encode($data);
+		return true;
 	}
 
 	/**

@@ -16,7 +16,7 @@ class m130723_135604_dashboard extends CDbMigration
                     ) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 
 		// Create a relation between configuration which stores the dashboard id
-		$this->execute("ALTER TABLE  `cards` ADD FOREIGN KEY (  `name` ) REFERENCES  `ciims`.`configuration` (`key`) ON DELETE CASCADE ON UPDATE NO ACTION ;");
+		$this->execute("ALTER TABLE  `cards` ADD FOREIGN KEY (  `name` ) REFERENCES  `configuration` (`key`) ON DELETE CASCADE ON UPDATE NO ACTION ;");
 
 		return true;
 	}

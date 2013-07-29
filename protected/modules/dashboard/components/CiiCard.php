@@ -19,6 +19,13 @@ class CiiCard extends CiiSettingsModel
 	public function __construct($id = NULL)
 	{
 		$this->id = $id;
+
+		if ($id !== NULL)
+		{
+			$exists = Yii::app()->db->createCommand("SELECT count(uid) FROM `cards` WHERE uid = :id")->bindParam(':uid', $id)->queryScalar();
+
+			Cii::debug($exists);
+		}
 		return parent::__construct();
 	}
 
@@ -90,7 +97,7 @@ class CiiCard extends CiiSettingsModel
 	 * Creates a new instance of the card
 	 * @return  bool
 	 */
-	public function create()
+	public function create($id)
 	{
 		$class = get_class($this);
 
@@ -106,7 +113,7 @@ class CiiCard extends CiiSettingsModel
 		$this->id = $rnd_id;
 
 		return Yii::app()->db->createCommand("INSERT INTO `cards` VALUES (NULL, :name, :uid, :data, NOW()); ")
-				  ->bindParam(':name', $class)
+				  ->bindParam(':name', $id)
 				  ->bindParam(':uid', $rnd_id)
 				  ->bindParam(':data', $data)
 				  ->execute();
