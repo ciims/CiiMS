@@ -22,6 +22,7 @@
 		 ->registerScriptFile($this->asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
 		 ->registerScript('getCards', '
+
 		 	$.get("' . $this->createUrl('/dashboard/card/getCards'). '", function(data) {
 		 		$(".widget-container").html(data).shapeshift({
 			        minColumns: 3,
@@ -86,7 +87,7 @@
 	        		var parent = $(this).parent().parent();
 	        		
 	        		var settings = $("." + $(parent).attr("id") + "-settings");
-	        		console.log($(parent).attr("id") + "-settings");
+
 	        		$(parent).flippy({
 				 		color_target : "#FFF",
 					    duration: "500",
@@ -117,14 +118,25 @@
 							bindDeleteBehavior();
 							bindFlipEvent();
 
-							$(".widget-container").trigger("ss-destroy").shapeshift({
-						        minColumns: 3,
-						        gutterX: 20,
-						        gutterY: 20,
-						        paddingX: 0,
-						        paddingY: 0,
-						        enableDrag : true
-					        });
+							// Prevent dragging until all settings menus are hidden
+							var visible = false; 
+							$(".settings").each(function() { 
+								if (!visible && $(this).is(":visible"))
+									visible = true; 
+								
+							});
+
+							if (!visible)
+							{
+								$(".widget-container").trigger("ss-destroy").shapeshift({
+							        minColumns: 3,
+							        gutterX: 20,
+							        gutterY: 20,
+							        paddingX: 0,
+							        paddingY: 0,
+							        enableDrag : true
+						        });
+							}
 					    }
 					 });
 	        	});

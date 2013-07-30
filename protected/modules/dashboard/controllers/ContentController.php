@@ -108,7 +108,7 @@ class ContentController extends CiiDashboardController
             $version = Content::model()->countByAttributes(array('id' => $id));
         }
 
-        if(Cii::get($_POST, 'Content'))
+        if(Cii::get($_POST, 'Content') !== NULL)
         {
             $model2 = new Content;
             $model2->attributes = Cii::get($_POST, 'Content', array());

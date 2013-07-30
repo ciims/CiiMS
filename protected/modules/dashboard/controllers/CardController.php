@@ -83,6 +83,16 @@ class CardController extends CiiDashboardController
 
 		if(!$card->delete())
 			throw new CHttpException(400, 'There was an unknown error processing your request');
+		else
+		{
+			// Delete the user metadata object
+			$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+
+			$uids = json_decode($meta->value, true);
+			unset($uids[$id]);
+			$meta->value = json_encode($uids);
+			return $meta->save();
+		}
 	}
 
 	/**

@@ -37,21 +37,42 @@ class CiiCard extends CiiSettingsModel
 		return 'normal';
 	}
 
+	private function getViewPath()
+	{
+		$id = $this->id;
+		$data = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE uid = :id")->bindParam(':id', $id)->queryScalar();
+		
+		if ($data !== false)
+			return json_decode($data, true);
+		
+		return false;
+	}
 	/**
 	 * Unless otherwise defined, Cards will render the viewfiles specified in their corresponding views/index.php file
 	 * @return string path
 	 */
 	public function getView()
 	{
-		$id = $this->id;
-		$data = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE uid = :id")->bindParam(':id', $id)->queryScalar();
-		
-		if ($data !== false)
-			$data = json_decode($data, true);
-		else
-			return false;
+		$data = $this->getViewPath();
+
+		if ($data === false)
+			return NULL;
 
 		return $data['path'] . '.views.index';
+	}
+
+	/**
+	 * Retrieves the settings pane for a given card
+	 * @return string path
+	 */
+	public function getSettingsPane()
+	{
+		$data = $this->getViewPath();
+
+		if ($data === false)
+			return NULL;
+
+		return $data['path'] . '.views.pane';
 	}
 
 	/**
@@ -116,7 +137,7 @@ class CiiCard extends CiiSettingsModel
 		$rnd_id = strip_tags(stripslashes($rnd_id)); 
 		$rnd_id = str_replace(".","",$rnd_id); 
 		$rnd_id = strrev(str_replace("/","",$rnd_id)); 
-		$rnd_id = substr($rnd_id,0,20); 
+		$rnd_id = str_replace("$", '', substr($rnd_id,0,20)); 
 
 		$data = $this->getJSON();
 
@@ -188,26 +209,37 @@ class CiiCard extends CiiSettingsModel
 		else
 			$dataSSColspan = 2;
 
+		// Main Card View
 		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
+	    	
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
 	    		Yii::app()->controller->renderPartial($this->view);
 	    	echo CHtml::closeTag('div'); 
+
 	    	echo CHtml::openTag('div', array('class' => 'footer')); 
 	    		echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
-	    		echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
+
+	    		if (count($json['sizes']) > 1)
+	    			echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
+
 	    		echo CHtml::tag('span', array('class' => 'icon-flip icon-gear pull-right icon-padding'), NULL);  
 	    		echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
 	    	echo CHtml::closeTag('div');
+
 	    echo CHtml::closeTag('div'); 
 
+	    // Settings Pane
 	    echo CHtml::openTag('div', array('class' => $this->id.'-settings settings', 'style' => 'display:none'));
+
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		echo "SETTINGS";
+	    		Yii::app()->controller->renderPartial($this->settingspane);
 	    	echo CHtml::closeTag('div'); 
+
 		 	echo CHtml::openTag('div', array('class' => 'footer')); 
 				echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
 				echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-gear pull-right icon-padding'), NULL);  
 		 	echo CHtml::closeTag('div');
+
 		echo CHtml::closeTag('div');
 
 	    return;
