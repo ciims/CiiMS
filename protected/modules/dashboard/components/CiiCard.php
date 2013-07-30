@@ -125,10 +125,10 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function __get($name)
 	{
-		if (strpos('global_', $name) !== false)
-			$data = Cii::getConfig(get_class($this).'_'.$name);
+		if (strpos($name, 'global_') !== false)
+			$data = Cii::getConfig(get_class($this).'_global_'.$name);
 		else
-			$data = Cii::getUserConfig(get_class($this).'_'.$name);
+			$data = Cii::getUserConfig($this->id.'_'.$name);
 
 		if ($data !== NULL && $data !== "" && !isset($this->attributes[$name]))
 			return $data;
