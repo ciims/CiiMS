@@ -222,25 +222,30 @@ class CiiCard extends CiiSettingsModel
 	    		if (count($json['sizes']) > 1)
 	    			echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
 
-	    		echo CHtml::tag('span', array('class' => 'icon-flip icon-gear pull-right icon-padding'), NULL);  
+	    		if ($this->settingsPane !== false)
+	    			echo CHtml::tag('span', array('class' => 'icon-flip icon-gear pull-right icon-padding'), NULL);  
+	    		
 	    		echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
 	    	echo CHtml::closeTag('div');
 
 	    echo CHtml::closeTag('div'); 
 
 	    // Settings Pane
-	    echo CHtml::openTag('div', array('class' => $this->id.'-settings settings', 'style' => 'display:none'));
+	    if ($this->settingsPane !== false)
+	    {
+		    echo CHtml::openTag('div', array('class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
-	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		Yii::app()->controller->renderPartial($this->settingspane);
-	    	echo CHtml::closeTag('div'); 
+		    	echo CHtml::openTag('div', array('class' => 'body')); 
+		    		Yii::app()->controller->renderPartial($this->settingspane);
+		    	echo CHtml::closeTag('div'); 
 
-		 	echo CHtml::openTag('div', array('class' => 'footer')); 
-				echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
-				echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-gear pull-right icon-padding'), NULL);  
-		 	echo CHtml::closeTag('div');
+			 	echo CHtml::openTag('div', array('class' => 'footer')); 
+					echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
+					echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-gear pull-right icon-padding'), NULL);  
+			 	echo CHtml::closeTag('div');
 
-		echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
+		}
 
 	    return;
 	}
