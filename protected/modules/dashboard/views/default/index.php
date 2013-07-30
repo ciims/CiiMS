@@ -90,7 +90,6 @@
 				$(".settings").each(function() { 
 					if (!visible && $(this).is(":visible"))
 						visible = true; 
-					
 				});
 
 				if (!visible)

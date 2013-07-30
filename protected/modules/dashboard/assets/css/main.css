@@ -993,12 +993,14 @@ main .preview .preview-header {
 main .preview .preview-header .icon-edit, 
 main .preview .preview-header .icon-gear,
 main .preview .preview-header .icon-trash,
+main .preview .preview-header .icon-eye-open,
 main .content-container .icon-gear {
 	position: relative;
 	top: 5px;
 	color: #999;
 	text-decoration: none;
-	padding-left: 5px;
+	font-size: 13px;
+	padding-left: 10px;
 }
 
 main .preview .preview-image {
