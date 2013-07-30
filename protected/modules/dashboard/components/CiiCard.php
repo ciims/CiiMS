@@ -76,6 +76,20 @@ class CiiCard extends CiiSettingsModel
 	}
 
 	/**
+	 * Retrieves the asset path
+	 * @return string path
+	 */
+	public function getAssetPath()
+	{
+		$data = $this->getViewPath();
+
+		if ($data === false)
+			return NULL;
+
+		return $data['path'] . '.assets';
+	}
+
+	/**
 	 * Retrieves the name of the card from card.json
 	 * @return string
 	 */
@@ -213,7 +227,7 @@ class CiiCard extends CiiSettingsModel
 		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		Yii::app()->controller->renderPartial($this->view);
+	    		Yii::app()->controller->renderPartial($this->view, array('model' => $this));
 	    	echo CHtml::closeTag('div'); 
 
 	    	echo CHtml::openTag('div', array('class' => 'footer')); 
@@ -224,7 +238,7 @@ class CiiCard extends CiiSettingsModel
 
 	    		if ($this->settingsPane !== false)
 	    			echo CHtml::tag('span', array('class' => 'icon-flip icon-gear pull-right icon-padding'), NULL);  
-	    		
+
 	    		echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
 	    	echo CHtml::closeTag('div');
 
@@ -236,7 +250,7 @@ class CiiCard extends CiiSettingsModel
 		    echo CHtml::openTag('div', array('class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
 		    	echo CHtml::openTag('div', array('class' => 'body')); 
-		    		Yii::app()->controller->renderPartial($this->settingspane);
+		    		Yii::app()->controller->renderPartial($this->settingspane, array('model' => $this));
 		    	echo CHtml::closeTag('div'); 
 
 			 	echo CHtml::openTag('div', array('class' => 'footer')); 
@@ -267,7 +281,8 @@ class CiiCard extends CiiSettingsModel
 			$connection  = Yii::app()->db;
 			$transaction = $connection->beginTransaction();
 
-			try {
+			try 
+			{
 				foreach($this->attributes as $key=>$value)
 				{
 					$uid = Yii::app()->user->id;
