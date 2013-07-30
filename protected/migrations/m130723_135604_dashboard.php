@@ -5,6 +5,7 @@ class m130723_135604_dashboard extends CDbMigration
 	public function safeUp()
 	{
 		// Create the table
+		$this->execute("DROP TABLE IF EXISTS `cards`;");
 		$this->execute("CREATE TABLE IF NOT EXISTS `cards` (
                       `id` int(15) NOT NULL AUTO_INCREMENT,
                       `name` varchar(150) NOT NULL,
@@ -20,6 +21,7 @@ class m130723_135604_dashboard extends CDbMigration
 
 		$this->execute("ALTER TABLE  `user_metadata` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
 		$this->execute("ALTER TABLE  `configuration` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
+		$this->execute("DROP TABLE IF EXISTS `tags`;");
 		return true;
 	}
 

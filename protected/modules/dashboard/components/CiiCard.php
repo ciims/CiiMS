@@ -62,17 +62,17 @@ class CiiCard extends CiiSettingsModel
 	}
 
 	/**
-	 * Retrieves the settings pane for a given card
+	 * Retrieves the settings  for a given card
 	 * @return string path
 	 */
-	public function getSettingsPane()
+	public function getSettingsView()
 	{
 		$data = $this->getViewPath();
 
 		if ($data === false)
 			return NULL;
 
-		return $data['path'] . '.views.pane';
+		return $data['path'] . '.views.settings';
 	}
 
 	/**
@@ -236,30 +236,30 @@ class CiiCard extends CiiSettingsModel
 	    		if (count($json['sizes']) > 1)
 	    			echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
 
-	    		if ($this->settingsPane !== false)
-	    			echo CHtml::tag('span', array('class' => 'icon-flip icon-gear pull-right icon-padding'), NULL);  
+	    		if ($this->settingsView !== false)
+	    			echo CHtml::tag('span', array('class' => 'icon-gear pull-right icon-padding'), NULL);  
 
-	    		echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
+	    		echo CHtml::tag('span', array('class' => 'icon-flip icon-info-sign pull-right icon-padding'), NULL);
+
 	    	echo CHtml::closeTag('div');
-
 	    echo CHtml::closeTag('div'); 
 
-	    // Settings Pane
-	    if ($this->settingsPane !== false)
-	    {
-		    echo CHtml::openTag('div', array('class' => $this->id.'-settings settings', 'style' => 'display:none'));
+	    // Flip pane view
+	    // Versions, and functionality to delete card
+	    echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
-		    	echo CHtml::openTag('div', array('class' => 'body')); 
-		    		Yii::app()->controller->renderPartial($this->settingspane, array('model' => $this));
-		    	echo CHtml::closeTag('div'); 
+	    	echo CHtml::openTag('div', array('class' => 'body')); 
+	    		// Show version information, and card delete behavior
+	    	echo CHtml::closeTag('div'); 
 
-			 	echo CHtml::openTag('div', array('class' => 'footer')); 
-					echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
-					echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-gear pull-right icon-padding'), NULL);  
-			 	echo CHtml::closeTag('div');
+		 	echo CHtml::openTag('div', array('class' => 'footer')); 
+				echo CHtml::tag('span', array('class' => 'pull-left footer-text'), 'Card Info'); 
+				echo CHtml::tag('span', array('class' => 'icon-trash pull-right icon-padding'), NULL); 
+				echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-info-sign pull-right icon-padding'), NULL);  
+		 	echo CHtml::closeTag('div');
 
-			echo CHtml::closeTag('div');
-		}
+		echo CHtml::closeTag('div');
+
 
 	    return;
 	}

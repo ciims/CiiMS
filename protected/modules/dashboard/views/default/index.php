@@ -71,15 +71,41 @@
          		{
          			var parent = $(this).parent().parent();
 
-         			$.post("' . $this->createUrl('/dashboard/card/delete/id/'). '/" + $(parent).attr("id"), function(data, textStatus) {
+         			$.post("' . $this->createUrl('/dashboard/card/delete/id/'). '/" + $(parent).attr("data-attr-id"), function(data, textStatus) {
          				if (textStatus == "success")
          				{
-         					$(parent).remove();
+         					$(parent).fadeOut();
+         					setTimeout(function() { $(parent).remove(); $("#" + $(parent).attr("data-attr-id")).remove(); }, 500);
          					$(".widget-container").trigger("ss-rearrange");
+         					enableDragBehavior();
          				}
          			});
          		});
          	}')
+        ->registerScript('enableDragBehavior', '
+        	function enableDragBehavior()
+        	{
+        		// Prevent dragging until all settings menus are hidden
+				var visible = false; 
+				$(".settings").each(function() { 
+					if (!visible && $(this).is(":visible"))
+						visible = true; 
+					
+				});
+
+				if (!visible)
+				{
+					$(".widget-container").trigger("ss-destroy").shapeshift({
+				        minColumns: 3,
+				        gutterX: 20,
+				        gutterY: 20,
+				        paddingX: 0,
+				        paddingY: 0,
+				        enableDrag : true
+			        });
+				}
+			}
+        ')
         ->registerScript('bindFlipEvent', '
         	function bindFlipEvent()
         	{
@@ -118,25 +144,7 @@
 							bindDeleteBehavior();
 							bindFlipEvent();
 
-							// Prevent dragging until all settings menus are hidden
-							var visible = false; 
-							$(".settings").each(function() { 
-								if (!visible && $(this).is(":visible"))
-									visible = true; 
-								
-							});
-
-							if (!visible)
-							{
-								$(".widget-container").trigger("ss-destroy").shapeshift({
-							        minColumns: 3,
-							        gutterX: 20,
-							        gutterY: 20,
-							        paddingX: 0,
-							        paddingY: 0,
-							        enableDrag : true
-						        });
-							}
+							enableDragBehavior();
 					    }
 					 });
 	        	});

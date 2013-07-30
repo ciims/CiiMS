@@ -126,6 +126,17 @@ class CardController extends CiiDashboardController
 		{
 			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
 			$name = json_decode($name, true);
+
+			// This seems to happen more than often
+			// If for some reason we get a path that is blank, delete the card reference from the user
+			if ($name['path'] == '') 
+			{
+				unset($uids[$id]);
+				$meta->value = json_encode($uids);
+				$meta->save();
+				continue;
+			}
+
 			Yii::import($name['path'].'.*');
 			$card = new $name['class']($id);
 			$card->render();
