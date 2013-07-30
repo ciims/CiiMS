@@ -61,38 +61,32 @@ class CardController extends CiiDashboardController
 		return $card->render();
 	}
 
+	public function actionUpdate($id)
+	{
+		$card = $this->getCardById($id);
+
+		return $this->submitPost($card);
+	}
+
 	/**
 	 * Provides callback for deleting a given instance of a card
 	 * @param  string $id The card UID
 	 */
 	public function actionDelete($id)
 	{
-		if ($id == NULL)
-			throw new CHttpException(400, 'An ID must be specified');
-
-		$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE `uid` = :id")->bindParam(':id', $id)->queryScalar();
-
-		if ($name === false)
-			throw new CHttpException(400, 'No card with that ID exists');
-		
-		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
-
-		Yii::import($json['path'].'.*');
-
-		$card = new $json['class']($id);
+		$card = $this->getCardById($id);
 
 		if(!$card->delete())
 			throw new CHttpException(400, 'There was an unknown error processing your request');
-		else
-		{
-			// Delete the user metadata object
-			$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+		
+		// Delete the user metadata object if the delete was successful
+		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
 
-			$uids = json_decode($meta->value, true);
-			unset($uids[$id]);
-			$meta->value = json_encode($uids);
-			return $meta->save();
-		}
+		$uids = json_decode($meta->value, true);
+		unset($uids[$id]);
+		$meta->value = json_encode($uids);
+		return $meta->save();
+		
 	}
 
 	/**
@@ -104,18 +98,7 @@ class CardController extends CiiDashboardController
 	{
 		if (Cii::get($_POST, 'activeSize'))
 		{
-			if ($id == NULL)
-				throw new CHttpException(400, 'An ID must be specified');
-
-			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
-
-			if ($name == NULL)
-				throw new CHttpException(400, 'No card with that ID exists');
-
-			$name = json_decode($name, true);
-			Yii::import($name['path'].'.*');
-
-			$card = new $name['class']($id);
+			$card = $this->getCardById($id);
 
 			$data = json_decode($card->getJSON(), true);
 			$data['activeSize'] = $_POST['activeSize'];
@@ -149,5 +132,43 @@ class CardController extends CiiDashboardController
 		}
 
 		return true;
+	}
+
+	/**
+	 * Retrieves a card given a particular $id
+	 * @return string $id
+	 */
+	private function getCardById($id)
+	{
+		if ($id == NULL)
+			throw new CHttpException(400, 'An ID must be specified');
+
+		$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE `uid` = :id")->bindParam(':id', $id)->queryScalar();
+
+		if ($name === false)
+			throw new CHttpException(400, 'No card with that ID exists');
+		
+		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
+
+		Yii::import($json['path'].'.*');
+
+		return new $json['class']($id);
+	}
+
+	/**
+	 * Generic handler for sacing $model data since the model is completely generic.
+	 * @param  CiiSettingsModel $model The model we are working with
+	 */
+	private function submitPost(&$model)
+	{
+		if (Cii::get($_POST, get_class($model)) !== NULL)
+		{
+			$model->populate($_POST);
+
+			if ($model->save())
+				return true;
+		}
+
+		return false;
 	}
 }

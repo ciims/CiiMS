@@ -287,12 +287,13 @@ class CiiCard extends CiiSettingsModel
 				{
 					$uid = Yii::app()->user->id;
 
-					if (strpos('global_', $name) !== false)
+					if (strpos($key, 'global_') !== false)
 						$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
 					else
 						$command = $connection->createCommand('INSERT INTO `user_metadata` VALUES (:uid, :key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()')->bindParam(':uid', $uid);
 
-					$command->bindParam(':key', get_class($this).'_'.$key);
+					$PDOKey = get_class($this).'_'.$key;
+					$command->bindParam(':key', $PDOKey);
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);
 					$ret = $command->execute();
