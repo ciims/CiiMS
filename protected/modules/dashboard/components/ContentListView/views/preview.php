@@ -4,7 +4,9 @@
 		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), 'Drafted Post')); ?></span>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/delete/id/' . $model->id), array('class' => 'icon-trash pull-right')); ?>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-edit pull-right')); ?>
-		<?php echo CHtml::link(NULL, Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+		<?php if ($model->status == 1 && strtotime($model->published) <= time()): ?>
+			<?php echo CHtml::link(NULL, Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+		<?php endif; ?>
 		<div class="clearfix"></div>
 	</div>
 	<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
@@ -25,6 +27,9 @@
 			</span>
 		</div>
 		<?php $md = new CMarkdownParser(); ?>
-		<?php echo $md->safeTransform($model->content); ?>
+		<div id="markdown-content">
+			<?php echo $md->safeTransform($model->content); ?>
+		</div>
+		<input type="hidden" id="HiddenContentTransform" value="<?php echo $model->content; ?>" />
 	</div>
 <?php endif; ?>
