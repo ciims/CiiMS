@@ -6,10 +6,10 @@
 				<strong>Welcome Back, </strong> <?php echo Yii::app()->user->displayName; ?>
 			</div>
 			<div class="header-nav">
+				<?php echo CHtml::link('<span class="icon-plus"></span> Add Card', '#', array('id' => 'add-card')); ?>
 				<?php echo CHtml::link('<span class="icon-pencil"></span> New Post', $this->createUrl('/dashboard/content/save')); ?>
 				<?php echo CHtml::link('<span class="icon-search"></span> Search', '#'); ?>
 			</div>
-			<?php echo CHtml::tag('span', array('id' => 'add-card', 'class' => 'icon-plus pull-right'), NULL); ?>
 		</div>
 	</div>
 	<div class="clearfix push-header"></div>

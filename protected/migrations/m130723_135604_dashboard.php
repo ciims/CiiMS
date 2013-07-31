@@ -21,7 +21,11 @@ class m130723_135604_dashboard extends CDbMigration
 
 		$this->execute("ALTER TABLE  `user_metadata` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
 		$this->execute("ALTER TABLE  `configuration` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
+
+		// We're not using tags anymore (we never have) drop the table
 		$this->execute("DROP TABLE IF EXISTS `tags`;");
+
+		
 		return true;
 	}
 

@@ -24,8 +24,7 @@
 					'abbr',
 					array(
 						'data-original-title'=> Cii::formatDate($data->published),
-						'title'=> Cii::formatDate($data->published, 'c'),
-						'class' => 'timeago'
+						'title'=> Cii::formatDate($data->published, 'c')
 					),
 					Cii::formatDate($data->published)
 					); ?>
