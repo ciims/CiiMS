@@ -157,7 +157,7 @@ class ContentController extends CiiController
 				'id'=>$id, 
 				'data'=>$content, 
 				'meta'=>$meta,
-				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id)),
+				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
 				'model'=>Comments::model()
 			)
 		);

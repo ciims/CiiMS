@@ -48,6 +48,9 @@ class ThreadedComments
     {
         foreach ($comment as $c)
         {
+            if ($c['approved'] !== 1)
+                continue;
+
             $this->ouputComment($c, $depth);
 
             if (isset($this->children[$c['id']]))

@@ -30,7 +30,11 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $contentPaginationSize = 10;
 
-	protected $sphinx_enabled = false;
+	protected $autoApproveComments = 1;
+
+	protected $notifyAuthorOnComment = 1;
+
+	protected $sphinx_enabled = 0;
 
 	protected $sphinxHost = 'localhost';
 
@@ -43,7 +47,8 @@ class GeneralSettings extends CiiSettingsModel
 		return array(
 			'Site Settings' => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			'Display Settings' => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
-			'Sphinx' => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource')
+			'Sphinx' => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
+			'Comments' => array('notifyAuthorOnComment', 'autoApproveComments'),
 		);
 	}
 
@@ -57,7 +62,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
 			array('name, menu, subdomain', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments', 'boolean'),
 			array('sphinxHost, sphinxSource', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -89,7 +94,9 @@ class GeneralSettings extends CiiSettingsModel
 			'sphinx_enabled' => 'Enable Sphinx Search',
 			'sphinxHost' => 'Sphinx Hostname',
 			'sphinxPort' => 'Sphinx Port',
-			'sphinxSource' => 'Sphinx Source Name'
+			'sphinxSource' => 'Sphinx Source Name',
+			'notifyAuthorOnComment' => 'Notify Author on New Comment',
+			'autoApproveComments'	=> 'Auto Approve Comments',
 		);
 	}
 }
