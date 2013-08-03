@@ -20,6 +20,11 @@ class CiiController extends CController
             'active' => false),
     );
     
+    public function getAsset()
+    {
+        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'));
+    }
+
     /**
      * @var array the default params for any request
      * 

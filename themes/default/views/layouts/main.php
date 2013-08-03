@@ -53,7 +53,7 @@
 		        <div class="row-fluid">
 		            <div class="inner-container">
                         <div class="span3 well" id="eChrip">
-                            <?php $this->widget('ext.echirp.EChirp', array('options' => array('user' => Cii::getConfig('twitter_username')))); ?>
+                            <!-- Add js here for stuff -->
                         </div>
 		                <div class="span3">
                             <h5>Categories</h5>

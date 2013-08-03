@@ -59,9 +59,13 @@
 							$node->setAttribute('target', '_blank');
 						}
 					}
-
-					echo $dom->saveHtml();
 				?>
+
+				<div id="md-output"></div>
+				<div id="markdown" style="display:none;"><?php echo $content->content; ?></div>
+				<noscript>
+					<?php echo $md->safeTransform($dom->saveHtml()); ?>
+				</noscript>
 		</div>
 	    <div style="clear:both;"><br /></div>
 	</div>
@@ -122,8 +126,31 @@
 	</div>
 </div>
 
-
-<?php Yii::app()->clientScript->registerScript('comment-box', '
+<?php Yii::app()->getClientScript()
+                ->registerCssFile($this->asset.'/highlight.js/default.css')
+				->registerCssFile($this->asset.'/highlight.js/github.css')
+				->registerScriptFile($this->asset.'/js/marked.js')
+				->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js')
+				->registerScript('md', '
+	marked.setOptions({
+	    gfm: true,
+	    highlight: function (lang, code) {
+	        return hljs.highlightAuto(lang, code).value;
+	    },
+	    tables: true,
+	    breaks: true,
+	    pedantic: false,
+	    sanitize: false,
+	    smartLists: true,
+	    smartypants: true,
+	    langPrefix: "lang-"
+	});
+	$(document).ready(function() {
+		console.log("ready");
+		$("#md-output").html(marked($("#markdown").text()));
+	});
+')
+				->registerScript('comment-box', '
     $("#b").click( function () {
         $(this).html("");
         $("#a").slideDown("fast");

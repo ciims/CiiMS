@@ -27,6 +27,10 @@
 			</span>
 		</div>
 		<?php $md = new CMarkdownParser(); ?>
-		<?php echo $md->safeTransform($model->content); ?>
+		<div id="md-output"></div>
+		<div id="markdown" style="display:none"><?php echo $model->content; ?></div>
+		<noscript>
+			<?php echo $md->safeTransform($model->content); ?>
+		<noscript>
 	</div>
 <?php endif; ?>

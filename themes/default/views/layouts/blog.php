@@ -25,16 +25,6 @@
 				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->getContentTags())); ?>
 			</div>
 		<?php endif; ?>
-		<?php 
-			$addThisExtension = Configuration::model()->findByAttributes(array('key'=>'addThisExtension'));
-			if (isset($addThisExtension->value) && $addThisExtension->value == 1): ?>
-				<div class="well">
-					<h4>Share This</h4>
-				<?php $this->widget('ext.analytics.EAddThisWidget', 
-					array(
-						'account'=>Configuration::model()->findByAttributes(array('key'=>'addThisAccount'))->value,
-					)); ?>
-				</div>
-		<?php endif; ?>
+		
 	</div>
 <?php $this->endContent(); ?>

@@ -18,7 +18,6 @@
 	    'afterAjaxUpdate' => 'js:function() { 
 	    	// Change perspective
 			$("#perspective").click(function(e) {
-				console.log("BindClick");
 				$.post("' . $this->createUrl('/dashboard/content/index/perspective/2') . '", function() { 
 					window.location = "' .  $this->createUrl('/dashboard/content') .'";
 				});
@@ -57,6 +56,26 @@
 	<div class="clearfix"></div>
 </div>
 <?php Yii::app()->getClientScript()->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
+<?php Yii::app()->getClientScript()->registerCssFile($this->asset.'/highlight.js/default.css')
+					->registerCssFile($this->asset.'/highlight.js/github.css')
+					->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
+					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
+					->registerScript('md', '
+						marked.setOptions({
+						    gfm: true,
+						    highlight: function (lang, code) {
+						        return hljs.highlightAuto(lang, code).value;
+						    },
+						    tables: true,
+						    breaks: true,
+						    pedantic: false,
+						    sanitize: false,
+						    smartLists: true,
+						    smartypants: true,
+						    langPrefix: "lang-"
+						});
+'); ?>
+
 <?php Yii::app()->getClientScript()->registerScript('nano-scroller', '
 		$("#posts.nano").nanoScroller();
 '); ?>
@@ -88,6 +107,7 @@
 				$(".preview").remove();
 				$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 				$(".preview").html(contentPane).removeClass("has-scrollbar");
+				$("#md-output").html(marked($("#markdown").text()));
 				$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 			});
 		});
