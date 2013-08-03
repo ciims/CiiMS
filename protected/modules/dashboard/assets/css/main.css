@@ -277,6 +277,33 @@ main .dashboard .header .content a span {
 	margin-right: 5px;
 }
 
+main .dashboard .widget-selector {
+	max-height: 500px;
+	min-height: 500px;
+	height: 500px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .dashboard .widget-selector.hidden {
+	height: 0px;
+	min-height: 0px;
+	max-height: 0px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .dashboard .widget-selector #main {
+	max-height: 500px;
+	min-height: 500px;
+	height: 500px;
+}
 main .dashboard .widget-container {
 	position: relative;
     width: 90%;

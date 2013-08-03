@@ -14,14 +14,106 @@
 	</div>
 	<div class="clearfix push-header"></div>
 
-	<div class="widget-container">
-
+	<div class="widget-selector settings-container hidden">
+		<div class="sidebar">
+			<div id="main" class="nano">
+				<div class="content">
+					<?php $this->widget('zii.widgets.CMenu', array(
+						'htmlOptions' => array('class' => 'menu'),
+						'items' => $cards['available_cards']
+					)); ?>
+				</div>
+			</div>
+		</div>
+		<div class="body-content">
+			<div id="main" class="nano">
+				<div class="content">
+					<!-- Display Nothing Here by Default -->
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<div class="widget-container"></div>
+
 </div>
+<?php $asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG); ?>
 <?php $cs->registerScriptFile($this->asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
+		 ->registerCssFile($this->asset.'/css/image-picker.css')
+		 ->registerCssFile($asset.'/css/pure.css')
+		 ->registerScriptFile($this->asset.'/js/image-picker.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
+		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
+		 ->registerScript('nano', '$("#main.nano").nanoScroller();')
+		 ->registerScript('add-card', '
+		 	$("#add-card").click(function(e) {
+		 		e.preventDefault();
+		 			$(".widget-selector").toggleClass("hidden");
+
+		 			if (!$(".widget-selector").hasClass("hidden"))
+		 				$(this).html("<span class=\"icon-plus\"></span> Hide Card Menu");
+		 			else
+		 				$(this).html("<span class=\"icon-plus\"></span> Add Card");
+
+		 			$(".menu li:first-child").addClass("active");
+		 			window.location = $(".menu li:first-child").find("a").attr("href");
+
+		 			$.post("' . $this->createUrl('/dashboard/default/getCardsByCategory/') . '/id/" + $(".menu li:first-child").find("a").attr("href").replace("#", ""), function(data) {
+			 			$(".body-content #main .content").html(data);
+			 			$("select").imagepicker();
+			 			bindAddCardsButton();
+			 		});
+		 		return false;
+		 	});
+
+		 	function bindAddCardsButton()
+		 	{
+		 		$("#add-cards-button").click(function(e) {
+		 			e.preventDefault();
+
+		 			var items = $("select").val();
+		 			if (items === null)
+		 				return false;
+
+		 			$(items).each(function(key, value) {
+		 				$.post("' . $this->createUrl('/dashboard/card/add/') . '/id/" + value, function(data) {
+		 					$(".widget-container").append(data);
+         					enableDragBehavior();
+         					bindResizeBehavior();
+							bindDeleteBehavior();
+							bindFlipEvent();
+							rebuild(true);
+         					$("#add-card").click();
+		 				});
+		 			});
+		 		});
+		 	}
+		 ')
+		 ->registerScript('li-click', '
+			$(".menu li").click(function() { 
+				window.location = $(this).find("a").attr("href");
+
+				$(".menu li").each(function() {
+					$(this).removeClass("active");
+				});
+
+				$(this).addClass("active");
+			});
+		')
 		 ->registerScript('getCards', '
+
+		 	function rebuild(draggable)
+		 	{
+		 		$(".widget-container").trigger("ss-destroy").trigger("ss-rearrange").shapeshift({
+				        minColumns: 3,
+				        gutterX: 20,
+				        gutterY: 20,
+				        paddingX: 0,
+				        paddingY: 0,
+				        enableDrag : draggable
+			        });
+		 	}
 
 		 	$.get("' . $this->createUrl('/dashboard/card/getCards'). '", function(data) {
 		 		$(".widget-container").html(data).shapeshift({
@@ -75,9 +167,13 @@
          				if (textStatus == "success")
          				{
          					$(parent).fadeOut();
-         					setTimeout(function() { $(parent).remove(); $("#" + $(parent).attr("data-attr-id")).remove(); }, 500);
-         					$(".widget-container").trigger("ss-rearrange");
-         					enableDragBehavior();
+         					setTimeout(function() { 
+         						$(parent).remove(); 
+         						$("#" + $(parent).attr("data-attr-id")).remove(); 
+	         					enableDragBehavior();
+	         					$(".widget-container").trigger("ss-rearrange");
+         					}, 500);
+
          				}
          			});
          		});
@@ -93,16 +189,7 @@
 				});
 
 				if (!visible)
-				{
-					$(".widget-container").trigger("ss-destroy").shapeshift({
-				        minColumns: 3,
-				        gutterX: 20,
-				        gutterY: 20,
-				        paddingX: 0,
-				        paddingY: 0,
-				        enableDrag : true
-			        });
-				}
+					rebuild(true);
 			}
         ')
         ->registerScript('bindFlipEvent', '
@@ -123,14 +210,7 @@
 							bindFlipEvent();
 					    	$(settings).show();
 
-					    	$(".widget-container").trigger("ss-destroy").shapeshift({
-						        minColumns: 3,
-						        gutterX: 20,
-						        gutterY: 20,
-						        paddingX: 0,
-						        paddingY: 0,
-						        enableDrag : false
-					        });
+					    	rebuild(false)
 
 					    },
 					    onReverseStart : function() {

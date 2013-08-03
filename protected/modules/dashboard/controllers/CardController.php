@@ -61,6 +61,11 @@ class CardController extends CiiDashboardController
 		return $card->render();
 	}
 
+	/**
+	 * Generic method for updating a card
+	 * @param  string $id  The id of the card
+	 * @return boolean     If the card was updated or not
+	 */
 	public function actionUpdate($id)
 	{
 		$card = $this->getCardById($id);

@@ -9,6 +9,7 @@
 		"name" : "Charles R. Portwood II",
 		"email" : "charlesportwoodii@ethreal.net"
 	},
+	"category" : "General",
 	"license" : "MIT",
 	"version" : "0.1",
 	"sizes" : [ "normal" ],
