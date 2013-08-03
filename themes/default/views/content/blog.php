@@ -61,11 +61,10 @@
 					}
 				?>
 
-				<div id="md-output"></div>
+				<div id="md-output"><?php echo $md->safeTransform($dom->saveHtml()); ?></div>
 				<div id="markdown" style="display:none;"><?php echo $content->content; ?></div>
-				<noscript>
-					<?php echo $md->safeTransform($dom->saveHtml()); ?>
-				</noscript>
+				
+				
 		</div>
 	    <div style="clear:both;"><br /></div>
 	</div>
