@@ -146,8 +146,9 @@
 	    langPrefix: "lang-"
 	});
 	$(document).ready(function() {
-		console.log("ready");
-		$("#md-output").html(marked($("#markdown").text()));
+		var output = marked($("#markdown").text());
+		$("#md-output").html(output);
+		$("#md-output a").attr("rel", "nofollow").attr("target", "_blank")
 	});
 ')
 				->registerScript('comment-box', '
