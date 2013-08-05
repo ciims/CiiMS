@@ -312,6 +312,8 @@ class CiiCard extends CiiSettingsModel
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);
 					$ret = $command->execute();
+
+					Yii::app()->cache->delete('settings_'.$PDOKey);
 				}
 			} catch (Exception $e) {
 				$transaciton->rollBack();

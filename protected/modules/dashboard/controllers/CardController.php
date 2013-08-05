@@ -151,10 +151,29 @@ class CardController extends CiiDashboardController
 	}
 
 	/**
+	 * Retrieves a card by a given ID
+	 * @param  string $id
+	 * @return [type]     [description]
+	 */
+	public function actionCard($id=NULL)
+	{
+		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+		if ($meta == NULL)
+			return true;
+
+		$uids = json_decode($meta->value, true);
+
+		if (in_array($id, $uids))
+			return $this->getCardById($id)->render();
+
+		throw new CHttpException(400, 'You do not have permission to access this card');
+	}
+
+	/**
 	 * Retrieves a card given a particular $id
 	 * @return string $id
 	 */
-	private function getCardById($id)
+	private function getCardById($id=NULL)
 	{
 		if ($id == NULL)
 			throw new CHttpException(400, 'An ID must be specified');

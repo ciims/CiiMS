@@ -50,33 +50,6 @@
 <?php $cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); ?>
 
 <?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
-<?php $cs->registerScript('nano-scroller', '
-	$(document).ready(function() {
-		$("#main.nano").nanoScroller();
-	});
-'); ?>
+<?php $cs->registerScriptFile($this->asset.'/js/dashboard/users.js', CClientScript::POS_END); ?>
 
-<?php $cs->registerScript('search',
-    "var ajaxUpdateTimeout;
-    var ajaxRequest;
-    $('input#Users_displayName').keyup(function(){
-        ajaxRequest = $(this).serialize();
-        clearTimeout(ajaxUpdateTimeout);
-        ajaxUpdateTimeout = setTimeout(function () {
-            $.fn.yiiListView.update(
-                'ajaxListView',
-                {data: ajaxRequest}
-            )
-        },
-        300);
-    });"
-); ?>
-
-<script type="text/javascript">
- $(".rounded-img, .rounded-img2").load(function() {
-    $(this).wrap(function(){
-      return '<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
-    });
-    $(this).css("opacity","0");
-  });
-</script>
+<?php $cs->registerScript('index', 'CiiDashboardUsers.loadIndex()'); ?>

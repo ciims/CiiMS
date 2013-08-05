@@ -74,6 +74,7 @@
 <?php $this->endWidget(); ?>
 <?php $cs = Yii::app()->getClientScript(); ?>
 <?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
+<?php $cs->registerScriptFile($this->asset.'/js/dashboard/users.js', CClientScript::POS_END); ?>
 <?php $cs->registerScript('nano-scroller', '
 		$("#main.nano").nanoScroller();
 '); ?>
