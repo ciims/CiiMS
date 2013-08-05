@@ -139,7 +139,7 @@ class CategoriesController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name)) . ' | Categories');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Categories');
 		$this->setLayout('main');
 		$this->breadcrumbs = array('All Categories');
 		$criteria = new CDbCriteria();

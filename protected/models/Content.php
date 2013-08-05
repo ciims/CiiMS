@@ -38,7 +38,7 @@ class Content extends CiiModel
     public $viewFile = 'blog';
     
     public $layoutFile = 'blog';
-    
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -229,7 +229,13 @@ class Content extends CiiModel
         return $view;
     }
 
-    
+    protected function afterFind()
+    {
+    	parent::afterFind();
+
+    	$this->comment_count = $this->getCommentCount();
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -238,7 +244,7 @@ class Content extends CiiModel
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-
+		// 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

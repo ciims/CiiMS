@@ -2,7 +2,7 @@
 	<div class="post-metadata">
 		<div class="post-metadata-inner">
 			<span class="row comments">
-				<strong><?php echo $data->getCommentCount(); ?></strong> <span class="icon-comment"></span>
+				<strong><?php echo $data->comment_count; ?></strong> <span class="icon-comment"></span>
 			</span>
 			<span class="row likes">
 				<strong><?php echo $data->like_count; ?></strong> <span class="icon-heart"></span>

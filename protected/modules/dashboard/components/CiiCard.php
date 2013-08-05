@@ -249,7 +249,7 @@ class CiiCard extends CiiSettingsModel
 	    echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		// Show version information, and card delete behavior
+	    		echo CHtml::tag('em', array(), 'The information you seek is not here.');
 	    	echo CHtml::closeTag('div'); 
 
 		 	echo CHtml::openTag('div', array('class' => 'footer')); 
@@ -258,6 +258,10 @@ class CiiCard extends CiiSettingsModel
 				echo CHtml::tag('span', array('class' => 'icon-reverse-flip icon-info-sign pull-right icon-padding'), NULL);  
 		 	echo CHtml::closeTag('div');
 
+		echo CHtml::closeTag('div');
+
+		echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-modal modal', 'style' => 'display:none'));
+			echo "I'm a modal!";
 		echo CHtml::closeTag('div');
 
 

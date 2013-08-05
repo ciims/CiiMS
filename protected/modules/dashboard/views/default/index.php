@@ -35,6 +35,7 @@
 	</div>
 
 	<div class="widget-container"></div>
+	<div class="shader"></div>
 
 </div>
 <?php $asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG); ?>
@@ -82,6 +83,7 @@
          					enableDragBehavior();
          					bindResizeBehavior();
 							bindDeleteBehavior();
+							bindSettingsBehavior();
 							bindFlipEvent();
 							rebuild(true);
          					$("#add-card").click();
@@ -126,8 +128,30 @@
 
 				bindResizeBehavior();
 				bindDeleteBehavior();
+				bindSettingsBehavior();
 				bindFlipEvent();
 		 	});
+		 ')
+		 ->registerScript('settingsBehavior', '
+		 	function bindSettingsBehavior()
+		 	{
+		 		$(".shader").click(function() {
+		 			$(this).fadeOut();
+		 			$(".modal").fadeOut();
+		 		});
+
+		 		$(".icon-gear").click(function() {
+		 			var parent = $(this).parent().parent();
+
+		 			var id = $(parent).attr("id");
+		 			var modal = $("." + id + "-modal");
+
+		 			$(".widget-container").after(modal);
+
+		 			$(".shader").fadeIn();
+					$(modal).fadeIn();
+		 		});
+		 	}
 		 ')
          ->registerScript('resizeBehavior', '
          	function bindResizeBehavior()
@@ -207,6 +231,7 @@
 					    onFinish : function() {
 					    	bindResizeBehavior();
 							bindDeleteBehavior();
+							bindSettingsBehavior();
 							bindFlipEvent();
 					    	$(settings).show();
 
@@ -221,8 +246,8 @@
 					    onReverseFinish : function() {
 					    	bindResizeBehavior();
 							bindDeleteBehavior();
+							bindSettingsBehavior();
 							bindFlipEvent();
-
 							enableDragBehavior();
 					    }
 					 });

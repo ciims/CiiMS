@@ -316,7 +316,7 @@ main .dashboard .widget-container > .ss-placeholder-child {
     border: 1px dashed blue;
 }
 
-main .dashboard .widget-container > div {
+main .dashboard .widget-container > div:not(.modal) {
     background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
     position: absolute;
@@ -325,6 +325,23 @@ main .dashboard .widget-container > div {
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     height: 230px;
     width: 230px;
+}
+
+main .dashboard .shader {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 1;
+	background-color: rgba(0,0,0,0.5);
+	display:none;
+}
+main .dashboard .modal {
+	width: 500px;
+	max-width: 500px;
+	min-height: 250px;
+	z-index: 2;
 }
 
 /** Main Content **/
