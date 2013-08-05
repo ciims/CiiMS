@@ -6,6 +6,13 @@ Yii::import('application.extensions.cii.widgets.CiiActiveForm');
  */
 class CiiSettingsForm extends CWidget
 {
+
+	/**
+	 * The action to use for CActiveForm
+	 * @var CActiveForm::$action
+	 */
+	public $action = NULL;
+
 	/**
 	 * Model used for form builder
 	 * @var CFormModel $model
@@ -25,8 +32,14 @@ class CiiSettingsForm extends CWidget
 	);
 
 	/**
+	 * Whether or not the header should be displayed
+	 * @var bool
+	 */
+	public $displayHeader = true;
+
+	/**
 	 * Protected properties from Reflection
-	 * @var [type]
+	 * @var mixed
 	 */
 	private $properties = NULL;
 
@@ -61,13 +74,15 @@ class CiiSettingsForm extends CWidget
 		$form = $this->beginWidget('CiiActiveForm', array(
 		    'id'=>get_class($this->model),
 		    'enableAjaxValidation'=>true,
+		    'action' => $this->action,
 		    'htmlOptions' => array(
 		    	'class' => 'pure-form pure-form-aligned'
 		    )
 		));
 
 			// Header
-			$this->renderHeader($form);
+			if ($this->displayHeader)
+				$this->renderHeader($form);
 
 			// Before Content View
 			// CActiveForm elements should not be used so that they are not submitted

@@ -261,7 +261,13 @@ class CiiCard extends CiiSettingsModel
 		echo CHtml::closeTag('div');
 
 		echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-modal modal', 'style' => 'display:none'));
-			echo "I'm a modal!";
+			Yii::app()->controller->widget('application.modules.dashboard.components.CiiSettingsForm', 
+				array(
+					'action' => Yii::app()->createUrl('/dashboard/card/update', array('id' => $this->id)),
+					'model' => $this,
+					'displayHeader' => false
+				)
+			);
 		echo CHtml::closeTag('div');
 
 

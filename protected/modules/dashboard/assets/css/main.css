@@ -311,11 +311,6 @@ main .dashboard .widget-container {
     margin: 0 5%;
 }
 
-main .dashboard .widget-container > .ss-placeholder-child {
-    background: transparent;
-    border: 1px dashed blue;
-}
-
 main .dashboard .widget-container > div:not(.modal) {
     background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
@@ -325,6 +320,11 @@ main .dashboard .widget-container > div:not(.modal) {
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     height: 230px;
     width: 230px;
+}
+
+main .dashboard .widget-container .ss-placeholder-child {
+    background: transparent !important;
+    border: 1px dashed rgba(0,0,0,0.2) !important;
 }
 
 main .dashboard .shader {
@@ -337,11 +337,34 @@ main .dashboard .shader {
 	background-color: rgba(0,0,0,0.5);
 	display:none;
 }
+
 main .dashboard .modal {
 	width: 500px;
 	max-width: 500px;
 	min-height: 250px;
+	height:250px;
 	z-index: 2;
+	padding: 10px;
+	padding-top: 0px;
+	border-radius: 0px;
+	--webkit-border-radius: 0px;
+	--moz-border-radius: 0px;
+	--o-border-radius: 0px;
+}
+
+main .dashboard .modal label {
+	margin-left: -50px;
+}
+
+main .dashboard .modal input.pure-button {
+	position: absolute;
+	top: 7px;
+	right: 1px;
+}
+main .dashboard .modal form,
+main .dashboard .modal form #main,
+main .dashboard .modal form #main .content {
+	height: 100%;
 }
 
 /** Main Content **/
