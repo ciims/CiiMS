@@ -23,7 +23,20 @@ var CiiDashboardUsers = {
 	},
 
 	loadUpdate : function() {
+		$(".meta-icon-plus").click(function(e) {
+			$(".meta-container").append("<div class=\"pure-control-group\"><label contenteditable=true>Click to Change</label><input type=\"text\" class=\"pure-input-2-3\" value=\"\" /></div>");
 
+			$(".meta-container input").on("keyup change", function() {
+				$(this).attr("name", "UserMetadata[" + $(this).prev().text() + "__new]");
+			})
+
+		});
+
+		setInterval(function() {
+			$(".meta-container label[contenteditable]").each(function() {
+				$(this).next().attr("name", "UserMetadata[" + $(this).text() + "__new]");
+			});
+		}, 1000);
 	},
 
 	loadUserList : function() {

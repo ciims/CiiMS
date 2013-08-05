@@ -75,22 +75,6 @@
 <?php $cs = Yii::app()->getClientScript(); ?>
 <?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
 <?php $cs->registerScriptFile($this->asset.'/js/dashboard/users.js', CClientScript::POS_END); ?>
-<?php $cs->registerScript('nano-scroller', '
-		$("#main.nano").nanoScroller();
-'); ?>
-<?php $cs->registerScript('add-meta', '
-	$(".meta-icon-plus").click(function(e) {
-		$(".meta-container").append("<div class=\"pure-control-group\"><label contenteditable=true>Click to Change</label><input type=\"text\" class=\"pure-input-2-3\" value=\"\" /></div>");
+<?php $cs->registerScriptFile($this->asset.'/js/dashboard/users.js', CClientScript::POS_END); ?>
 
-		$(".meta-container input").on("keyup change", function() {
-			$(this).attr("name", "UserMetadata[" + $(this).prev().text() + "__new]");
-		})
-
-	});
-
-	setInterval(function() {
-		$(".meta-container label[contenteditable]").each(function() {
-			$(this).next().attr("name", "UserMetadata[" + $(this).text() + "__new]");
-		});
-	}, 1000)
-'); ?>
+<?php $cs->registerScript('update', 'CiiDashboardUsers.loadUpdate()'); ?>
