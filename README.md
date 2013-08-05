@@ -1,6 +1,5 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/charlesportwoodii/CiiMS/trend.png)](# "Bitdeli Badge")
 
 #### What is CiiMS?
 
