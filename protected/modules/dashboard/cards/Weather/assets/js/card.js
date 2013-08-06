@@ -1,11 +1,15 @@
 var FcAlexkTPM = {
 
+	// The string id of the card. This must be set by the loader
 	id : null,
 
+	// The card uuid. This is used to uniquely identify this particular piece of javascript
 	uuid : null,
 
+	// The target DOM node we want to manipulate
 	target : null,
 
+	// Forecast.io => climacons icon conversion
 	icons : {
 		"clear-day" : "sun", 
 		"clear-night" : "moon", 
@@ -22,104 +26,96 @@ var FcAlexkTPM = {
 		"tornado" : "tornado"
 	},
 
+	// Forecast.io APIKey
 	apiKey : null,
 
+	// Whether or not to use farenheit or centigrade
 	metric : false,
 
-	geoIp : {
-		"country_code" : null,
-		"country_name" : null,
-		"city" : null,
-		"region" : null,
-		"region_name" : null,
-		"latitude" : null,
-		"longitude" : null,
-		"postal_code" : null,
-		"area_code" : null,
-		"metro_code" : null
-	},
+	// Cache data loaded from GeoIP
+	geoIp : null,
 
+	position : null,
+
+	/**
+	 * Load function is the bootstrap method all cards inherit.
+	 * 
+	 * @param  string id  The unique ID of the card we want this card to manipulate
+	 */
 	load : function(id) {
-		FcAlexkTPM.id = $(id).attr("id");
-		FcAlexkTPM.uuid = "FcAlexkTPM-" + this.id;
-		FcAlexkTPM.target = $("#FcAlexkTPM[data-attr-id='" + FcAlexkTPM.id + "']");
-		FcAlexkTPM.apiKey = $("." + this.id + "-modal").find("input#Weather_apikey").val();
-		FcAlexkTPM.metric = $("." + this.id + "-modal").find("input#Weather_metric").is(":checked");
+		// Set some variables
+		this.id = id;
+		this.uuid = "FcAlexkTPM-" + this.id;
+		this.target = "#FcAlexkTPM[data-attr-id='" + this.id + "']";
+		this.apiKey = $("." + this.id + "-modal").find("input#Weather_apikey").val();
+		this.metric = $("." + this.id + "-modal").find("input#Weather_metric").is(":checked");
 
 		var canUseCard = true;
 
-		if (!FcAlexkTPM.getGeoIp())
+		if (!this.getGeoIp())
 			canUseCard = false;
 
-		if (FcAlexkTPM.apiKey == null || FcAlexkTPM.apiKey == undefined || FcAlexkTPM.apiKey == '' )
+		if (this.apiKey == null || this.apiKey == undefined || this.apiKey == '' )
 			canUseCard = false;
 
 		if (canUseCard)
-			FcAlexkTPM.getLocation();
+			this.getLocation();
 		else
-			FcAlexkTPM.showWarnings();
+			this.showWarnings();
 	},
 
 	getGeoIp : function() {
-		var key = FcAlexkTPM.uuid + "-geoip",
+		var key = this.uuid + "-geoip",
 			response = JSON.parse(localStorage.getItem(key));
 
 		if (response == undefined || response == null || response == '')
 		{
 			$.ajax({
-				url :'https://j.maxmind.com/js/geoip.js', 
+				url :'https://j.maxmind.com/js/apis/geoip2/v2.0/geoip2.js', 
 				async : false,
 				dataType : 'script',
 				success : function(script, textStatus) {
 
-					console.log(textStatus);
 					if (textStatus != "success")
 						return false;
 
-					var object = {
-						"country_code" : geoip_country_code(),
-						"country_name" : geoip_country_name(),
-						"city" : geoip_city(),
-						"region" : geoip_region(),
-						"region_name" : geoip_region_name(),
-						"latitude" : geoip_latitude(),
-						"longitude" : geoip_longitude(),
-						"postal_code" : geoip_postal_code(),
-						"area_code" : geoip_area_code(),
-						"metro_code" : geoip_metro_code()
-					};
+					geoip2.city(function(data) {
+						var object = data;
 
-					response = object;
-					localStorage.setItem(key, JSON.stringify(object));
+						response = object;
+						localStorage.setItem(key, JSON.stringify(object));
+					});					
 				}
 			});
 			
 		}
 
-		FcAlexkTPM.geoIp = response;
+		this.geoIp = response;
 
 		return true;
 	},
 
 	getLocation : function() {
+		var self = this;
 		if (navigator.geolocation)
-	    	navigator.geolocation.getCurrentPosition(FcAlexkTPM.showPosition);
+	    	navigator.geolocation.getCurrentPosition(function(position) { self.position = position; self.showPosition(position, self); });
+
 	},
 
 	getLocationString : function() {
-		FcAlexkTPM.getGeoIp();
+		this.getGeoIp();
 
-		if (FcAlexkTPM.geoIp.country_code == "US")
-			return FcAlexkTPM.geoIp.city + ", " + FcAlexkTPM.geoIp.region;
+		if (this.geoIp.country.iso_code == "US")
+			return this.geoIp.city.names.en + ", " + this.geoIp.subdivisions[0].iso_code;
 		else
-			return FcAlexkTPM.geoIp.city + "," + FcAlexkTPM.geoIp.region_name;
+			return this.geoIp.citynames.en + "," + this.geoIp.subdivisions[0].names.en;
 	},
 
-	showPosition : function(position) {
-
+	showPosition : function(position, self) {
+		
 		if (localStorage)
 		{
-			var key = FcAlexkTPM.uuid + "-last";
+			var key = self.uuid + "-last";
 			var response = localStorage.getItem(key);
 			var now = new Date().getTime().toString();
 
@@ -128,7 +124,7 @@ var FcAlexkTPM = {
 				// Syncronous request to laod data from Forecast.io
 				$.ajax({
 					type: 'POST',
-					url : CiiDashboard.endPoint + "/card/callmethod/id/" + FcAlexkTPM.id + "/method/getCurrentConditions", 
+					url : CiiDashboard.endPoint + "/card/callmethod/id/" + self.id + "/method/getCurrentConditions", 
 					data : { "latitude" : position.coords.latitude, "longitude" : position.coords.longitude },
 					async : false,
 					success : function(data) {
@@ -145,13 +141,13 @@ var FcAlexkTPM = {
 				response.value = JSON.parse(response.value);
 			}
 
-			$(FcAlexkTPM.target).find(".location").html(FcAlexkTPM.getLocationString());
-			$(FcAlexkTPM.target).find(".temperature .degrees").html(response.value.currently.temperature);
+			$(self.target).find(".location").html(self.getLocationString());
+			$(self.target).find(".temperature .degrees").html(response.value.currently.temperature);
 
-			if (FcAlexkTPM.metric)
-				FcAlexkTPM.toCentigrade(response.value.currently.temperature);
+			if (self.metric)
+				self.toCentigrade(response.value.currently.temperature);
 
-			console.log(response.value);
+			///console.log(response.value);
 		}
 		else
 			console.log("Local Storage is not supported on this device. This card requies localStorage to function");
@@ -159,8 +155,8 @@ var FcAlexkTPM = {
 
 	toCentigrade : function(farenheit) {
 		var celcius = Math.round((farenheit -32) * 5 / 9);
-		$(FcAlexkTPM.target).find(".farenheit").removeClass("farenheit").addClass("celcius");
-		$(FcAlexkTPM.target).find(".temperature .degrees").html(celcius);
+		$(this.target).find(".farenheit").removeClass("farenheit").addClass("celcius");
+		$(this.target).find(".temperature .degrees").html(celcius);
 	},
 
 	showWarnings : function() {

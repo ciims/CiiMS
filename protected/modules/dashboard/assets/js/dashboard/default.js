@@ -65,6 +65,10 @@ var CiiDashboard = {
 			});
 		},
 		
+		/**
+		 * Loads the scripts for a loaded cards
+		 * @param  DOM Html data Data to iterate through to find scripts to load
+		 */
 		loadScripts : function(data) {
 			$(data).each(function() {
 				if ($(this).hasClass("base-card"))
@@ -72,12 +76,19 @@ var CiiDashboard = {
 			});
 		},
 
+		/**
+		 * Loads a particular script for a given card.
+		 *
+		 * It's VERY important that this script have no syntax errors, as this will silently fail otherwise
+		 * @param  string script    The path to the script
+		 * @param  string name      The name of the method to be called. The Card should know what it's calling it's js file
+		 * @param  string id        The id of the card.
+		 */
 		loadScript : function(script, name, id) {
 
-			$.getScript(script, function() {
-				console.log(name)
+			$.getScript(script, function(scrpt, textStatus, jqXHR) {
 				window[name].load(id);
-			})
+			});
 		},
 
 		load : function() {},
@@ -139,6 +150,10 @@ var CiiDashboard = {
 
 	 		// When the gear icon is pressed, show the modal
 	 		$(".icon-gear").click(function() {
+
+	 			// Stupid dragging behavior screws up stuff at odd z-indexes
+	 			CiiDashboard.Default.rebuild(false);
+
 	 			var parent = $(this).parent().parent();
 
 	 			var id = $(parent).attr("id");
@@ -190,6 +205,9 @@ var CiiDashboard = {
 	 					// TODO: Handle errors better
 	 					console.log("Something has gone horribly wrong...");
 	 				}
+
+	 				// Always. Relase. The Modal
+	 				CiiDashboard.Default.rebuild(false);
 
 	 			});
 	 		});
