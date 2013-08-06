@@ -101,10 +101,7 @@ var CiiDashboard = {
 				});
 			}
 			else
-			{
-				// Delay the loading while we load the scripts
 				setTimeout(function() { window[name].load(id); }, 500);
-			}
 		},
 
 		load : function() {},
