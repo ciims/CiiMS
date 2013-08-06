@@ -2,52 +2,57 @@
 #FcAlexkTPM {
 	height: 100%;
 	width: 100%;
+	display: block;
+	letter-spacing: 1px;
+	font-family: 'Open Sans';
+	text-transform: uppercase;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #999;
 }
 
 #FcAlexkTPM .card-header {
+	display: block;
 	height: 35px;
 	border-bottom: 1px solid #eee;
 }
 
 #FcAlexkTPM .location {
-	color: #999;
-	position: relative;
+	display: inline-block;
 	padding-left: 10px;
+	padding-top: 1px;
+	margin-top: 6px;
 	height: 100%;
+	width: 90px;
 	max-width: 90px;
-	top: 5px;
 	font-size: 10px;
-	letter-spacing: 1px;
-	font-family: 'Open Sans';
-	margin-top: 1px;
-	text-transform: uppercase;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	float: left;
+	padding-top: 1px;
+}
+
+#FcAlexkTPM .temperature {
+	max-width: 60px;
+	display: block;
+	float: right;
+	padding-top: 1px;
+	margin-top: 6px;
 }
 
 #FcAlexkTPM .temperature .degrees {
 	font-size: 12px !important;
-	color: #999;
-	position:relative;
-	top: 7px;
-	font-size: 10px;
-	letter-spacing: 1px;
-	font-family: 'Open Sans';
-	text-transform: uppercase;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 40px;
-	float:right;
+	max-width: 60px;
+	display: inline-block;
 }
 
 #FcAlexkTPM .temperature .farenheit,
-#FcAlexkTPM .temperature .celcius
- {
-	float: right;
+#FcAlexkTPM .temperature .celcius {
+	display: inline-block;
 	padding-right: 10px;
+	margin-top: 3px;
 	font-size: 20px;
-	top: 4px;
-	position: relative;
+}
+
+#FcAlexkTPM .temperature .icon {
+	color: #999;
 }

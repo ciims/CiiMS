@@ -4,10 +4,11 @@
 <div id="FcAlexkTPM" data-attr-id="<?php echo $model->id; ?>">
 	<div class="card-header">
 		<span class="location"></span>
-		<span class="temperature">
-			<span class="icon climacon farenheit"></span>
+		<div class="temperature">
 			<span class="degrees"></span>
-		</span>
+			<span class="icon climacon farenheit"></span>
+		</div>
+		<div class="clearfix"></div>
 	</div>
 
 	<div class="card-body">

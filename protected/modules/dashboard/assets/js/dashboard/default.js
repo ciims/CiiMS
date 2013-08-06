@@ -101,7 +101,14 @@ var CiiDashboard = {
 				});
 			}
 			else
-				setTimeout(function() { window[name].load(id); }, 500);
+			{
+				var timerInterval = setInterval(function() {
+					try { 
+						window[name].load(id);
+						clearInterval(timerInterval);
+					} catch (e) {}
+				}, 500)
+			}
 		},
 
 		load : function() {},
