@@ -66,6 +66,13 @@ var CiiDashboard = {
 		},
 		
 		/**
+		 * Stores scripts that we have already loaded. Using this prevents unecessary HTTP Requests
+		 * to the server to pick up the script
+		 * @type {Array}
+		 */
+		loadedScripts : [],
+
+		/**
 		 * Loads the scripts for a loaded cards
 		 * @param  DOM Html data Data to iterate through to find scripts to load
 		 */
@@ -86,9 +93,18 @@ var CiiDashboard = {
 		 */
 		loadScript : function(script, name, id) {
 
-			$.getScript(script, function(scrpt, textStatus, jqXHR) {
-				window[name].load(id);
-			});
+			if (CiiDashboard.Default.loadedScripts.indexOf(script) == -1)
+			{
+				CiiDashboard.Default.loadedScripts.push(script);
+				$.getScript(script, function(scrpt, textStatus, jqXHR) {
+					window[name].load(id);
+				});
+			}
+			else
+			{
+				// Delay the loading while we load the scripts
+				setTimeout(function() { window[name].load(id); }, 500);
+			}
 		},
 
 		load : function() {},
