@@ -12,6 +12,24 @@ var CiiDashboard = {
 	Default : {
 
 		loadIndex : function() {
+			$.get(CiiDashboard.endPoint + "/card/getCards", function(data) {
+				var newData = $.parseHTML(data);
+
+		 		$(".widget-container").html(data).shapeshift({
+			        minColumns: 3,
+			        gutterX: 20,
+			        gutterY: 20,
+			        paddingX: 0,
+			        paddingY: 0
+		        });
+
+				CiiDashboard.Default.loadScripts(newData);
+				CiiDashboard.Default.enableDragBehavior();
+				CiiDashboard.Default.bindDeleteBehavior();
+				CiiDashboard.Default.bindSettingsBehavior();
+				CiiDashboard.Default.bindFlipEvent();
+		 	});
+
 
 			// Bind Add Card click functionality
 			$("#add-card").click(function(e) {
@@ -45,23 +63,23 @@ var CiiDashboard = {
 
 				$(this).addClass("active");
 			});
-
-			$.get(CiiDashboard.endPoint + "/card/getCards", function(data) {
-		 		$(".widget-container").html(data).shapeshift({
-			        minColumns: 3,
-			        gutterX: 20,
-			        gutterY: 20,
-			        paddingX: 0,
-			        paddingY: 0
-		        });
-
-				CiiDashboard.Default.enableDragBehavior();
-				CiiDashboard.Default.bindDeleteBehavior();
-				CiiDashboard.Default.bindSettingsBehavior();
-				CiiDashboard.Default.bindFlipEvent();
-		 	});
 		},
 		
+		loadScripts : function(data) {
+			$(data).each(function() {
+				if ($(this).hasClass("base-card"))
+					CiiDashboard.Default.loadScript($(this).attr("data-attr-js"), $(this).attr("data-attr-js-name"), $(this).attr("id"));
+			});
+		},
+
+		loadScript : function(script, name, id) {
+
+			$.getScript(script, function() {
+				console.log(name)
+				window[name].load(id);
+			})
+		},
+
 		load : function() {},
 
 		/**
@@ -151,7 +169,11 @@ var CiiDashboard = {
 	 					var card = null;
 
 	 					$.get(CiiDashboard.endPoint + "/card/card/id/" + id, function(data) {
-	 						card = data;
+	 						card = $.parseHTML(data);
+
+	 						// Determine a way to load scripts
+	 						CiiDashboard.Default.loadScripts(card);
+
 	 						$("." + id + "-settings").remove();
 	 						$("." + id + "-modal").remove();
 	 						$("#" + id).replaceWith(data);
@@ -298,7 +320,6 @@ var CiiDashboard = {
  * Handles all the Javacript for the Dashboard.
  */
 $(document).ready(function() {
-
 	// Bind nanoscrollers
 	$("#main.nano").nanoScroller();
 });

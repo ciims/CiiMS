@@ -226,7 +226,7 @@ class CiiCard extends CiiSettingsModel
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias($this->AssetPath), true, -1, YII_DEBUG);
 
 		// Main Card View
-		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
+		echo CHtml::openTag('div', array('id' => $this->id, 'data-attr-js-name' => $this->scriptName, 'data-attr-js' => Yii::app()->baseUrl.$asset. '/js/card.js', 'class' => 'base-card card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
 	    		Yii::app()->controller->renderPartial($this->view, array('model' => $this, 'asset' => $asset));

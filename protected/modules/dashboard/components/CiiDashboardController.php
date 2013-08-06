@@ -28,7 +28,7 @@ class CiiDashboardController extends CiiController
 	public function beforeAction($action)
 	{
 		Yii::app()->clientScript->registerScriptFile($this->asset.'/js/dashboard/' . $this->id. '.js', CClientScript::POS_END);
-		Yii::app()->getClientScript()->registerScript($this->id.'_'.$action->id, '$(document).ready(function() { CiiDashboard.'.Cii::titleize($this->id).'.load'.Cii::titleize($action->id).'(); });', CCLientScript::POS_END);
+		Yii::app()->clientScript->registerScript($this->id.'_'.$action->id, 'CiiDashboard.'.Cii::titleize($this->id).'.load'.Cii::titleize($action->id).'();', CCLientScript::POS_END);
 
 		return parent::beforeAction($action);
 	}

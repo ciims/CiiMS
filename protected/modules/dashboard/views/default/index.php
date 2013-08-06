@@ -43,5 +43,4 @@
 		 ->registerScriptFile($this->asset.'/js/image-picker.min.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/shapeshift/core/jquery.shapeshift.js', CClientScript::POS_END)
 		 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
-		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
-		 ->registerScriptFile($this->asset .'/js/dashboard/dashboard.js', CClientScript::POS_END); ?>
+		 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>

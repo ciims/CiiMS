@@ -3,6 +3,9 @@
 class Weather extends CiiCard
 {
 	private $api_endpoint = 'https://api.forecast.io/forecast/';
+
+	public $scriptName = 'FcAlexkTPM';
+	
 	/**
 	 * Replaces the footer text with obligitory text for forecast.io
 	 * @var string
