@@ -24,9 +24,4 @@
 			<?php echo $content; ?>
 		</div>
 	</div>
-	<?php Yii::app()->getClientScript()->registerScript('li-click', '
-		$(".menu li").click(function() { 
-			window.location = $(this).find("a").attr("href");
-		});
-	'); ?>
 <?php $this->endContent(); ?>

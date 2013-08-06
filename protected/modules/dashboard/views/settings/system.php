@@ -54,29 +54,3 @@
 		</div>
 	</div>
 <?php $this->endWidget(); ?>
-
-<?php Yii::app()->getClientScript()->registerScript('system-settings', '
-	$("#header-button").click(function() {
-		// Fire off an in progress behavior
-
-		$.post("flushcache", function(data, textStatus) {
-			if (textStatus == "success")
-			{
-				// Do something to indicate it was successful
-			}
-			else
-			{
-				// Do something to indicate it failed
-			}
-
-			// Stop the "in progress" behavior
-		});
-	
-	});
-
-	$(document).ready(function() {
-		$.get("getissues", function(data) {
-			$(".issues").html(data);
-		});
-	});
-'); ?>

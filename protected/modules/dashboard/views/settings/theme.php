@@ -42,6 +42,5 @@
 <?php
 	Yii::app()->getClientScript()->registerCssFile($this->asset.'/css/image-picker.css')
 								 ->registerScriptFile($this->asset.'/js/image-picker.min.js', CClientScript::POS_END)
-								 ->registerScript('image-picker', '$("select").imagepicker();')
 								 ->registerCss('no-labels', 'label { display: none; }');
 ?>

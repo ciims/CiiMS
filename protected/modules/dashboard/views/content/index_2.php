@@ -19,11 +19,7 @@ $this->widget('ext.bootstrap.widgets.TbExtendedGridView', array(
                 'size' => 'small',
                 'label' => 'Delete Selected',
                 'click' => 'js:function(values) {
-                    $.post("content/deleteMany", values, function(data) {
-                        values.each(function() {
-                            $(this).parent().parent().remove();
-                        });
-                    });
+                    CiiDashboard.Content.oldPerspective.bulkActionClick(values);
                     }'
                 )
             ),
@@ -57,11 +53,4 @@ $this->widget('ext.bootstrap.widgets.TbExtendedGridView', array(
 ?>
     </div>
 </div>
-
-<?php Yii::app()->getClientScript()->registerScript('listview-perspective', '
-        $("#perspective").click(function(e) {
-            $.post("' . $this->createUrl('/dashboard/content/index/perspective/1') . '", function() { 
-                window.location.reload();
-            });
-        });
-'); ?>
+<?php echo CHtml::tag('span', array('style' => 'display: none', 'id' => 'currentPerspective', 'value' => Yii::app()->session['admin_perspective']), NULL); ?>

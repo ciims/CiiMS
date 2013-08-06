@@ -8,12 +8,3 @@
 		</div>
 	</fieldset>
 </div>
-
-<?php Yii::app()->getClientScript()->registerScript('test-email', '
-	$("#test-email").click(function() {
-		var testaddress = $("#EmailSettings_Test").val();
-		$.post("' . $this->createUrl('/dashboard/settings/emailtest') . '", { email : testaddress }, function(data, textStatus, jqXHR) { 
-			console.log(data);
-		});
-	});
-'); ?>

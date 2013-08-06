@@ -15,6 +15,7 @@
 				                      ->registerCssFile($this->asset .'/css/main.css')
 				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)
+				                      ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
 				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });'); ?>
 	</head>
 	<body>

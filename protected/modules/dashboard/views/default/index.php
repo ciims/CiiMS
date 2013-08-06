@@ -8,7 +8,6 @@
 			<div class="header-nav">
 				<?php echo CHtml::link('<span class="icon-plus"></span> Add Card', '#', array('id' => 'add-card')); ?>
 				<?php echo CHtml::link('<span class="icon-pencil"></span> New Post', $this->createUrl('/dashboard/content/save')); ?>
-				<?php echo CHtml::link('<span class="icon-search"></span> Search', '#'); ?>
 			</div>
 		</div>
 	</div>

@@ -7,9 +7,9 @@
 			<span class="row likes">
 				<strong><?php echo $data->like_count; ?></strong> <span class="icon-heart"></span>
 			</span>
-			<span class="row views">
+			<!--<span class="row views">
 				<strong>0</strong> <span class="icon-bar-chart"></span>
-			</span>
+			</span> -->
 		</div>
 	</div>
 	<div class="post-data">

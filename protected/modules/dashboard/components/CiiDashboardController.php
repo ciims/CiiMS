@@ -15,6 +15,25 @@ class CiiDashboardController extends CiiController
 	}
 
 	/**
+	 * Automatically bind some Javascript black magic!
+	 * Since _nearly_ every page has a bunch of javascript, all javascript for a particular controller 
+	 * is now wrapped up in modules.dashboard.assets.js.dashboard.<controller>.js
+	 *
+	 * This makes management of the code _very_ friendly and easy to handle. Additionally, it separates
+	 * out the js and the php
+	 * 
+	 * @param  CAction $action The action we are dealing with
+	 * @see CiiController::beforeAction()
+	 */
+	public function beforeAction($action)
+	{
+		Yii::app()->clientScript->registerScriptFile($this->asset.'/js/dashboard/' . $this->id. '.js', CClientScript::POS_END);
+		Yii::app()->getClientScript()->registerScript($this->id.'_'.$action->id, '$(document).ready(function() { CiiDashboard.'.Cii::titleize($this->id).'.load'.Cii::titleize($action->id).'(); });', CCLientScript::POS_END);
+
+		return parent::beforeAction($action);
+	}
+
+	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -42,6 +61,10 @@ class CiiDashboardController extends CiiController
 		);
 	}
 	
+	/**
+	 * Params... for?
+	 * @var array
+	 */
 	public $params = array();
     
 	/**

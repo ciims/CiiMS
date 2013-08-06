@@ -47,27 +47,3 @@
 <?php $cs->registerCssFile($asset.'/css/pure.css');  ?>
 <?php $cs->registerCssFile($asset.'/prism/prism-light.css');  ?>
 <?php $cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); ?>
-
-<?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
-<?php $cs->registerScript('nano-scroller', '
-	$(document).ready(function() {
-		$("#main.nano").nanoScroller();
-	});
-'); ?>
-
-<?php
-Yii::app()->clientScript->registerScript('search',
-    "var ajaxUpdateTimeout;
-    var ajaxRequest;
-    $('input#Categories_name').keyup(function(){
-        ajaxRequest = $(this).serialize();
-        clearTimeout(ajaxUpdateTimeout);
-        ajaxUpdateTimeout = setTimeout(function () {
-            $.fn.yiiListView.update(
-                'ajaxListView',
-                {data: ajaxRequest}
-            )
-        },
-        300);
-    });"
-); ?>

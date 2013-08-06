@@ -48,8 +48,3 @@
 <?php $cs->registerCssFile($asset.'/css/pure.css');  ?>
 <?php $cs->registerCssFile($asset.'/prism/prism-light.css');  ?>
 <?php $cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); ?>
-
-<?php $cs->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
-<?php $cs->registerScriptFile($this->asset.'/js/dashboard/users.js', CClientScript::POS_END); ?>
-
-<?php $cs->registerScript('index', 'CiiDashboardUsers.loadIndex()'); ?>

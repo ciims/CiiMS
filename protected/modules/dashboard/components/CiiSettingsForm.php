@@ -165,6 +165,10 @@ class CiiSettingsForm extends CWidget
 		Yii::app()->getClientScript()->registerScript('change', '
 			$("input").on("input onpropertychange change", function() {
 
+				try {
+					clearTimeout(timeout);
+				} catch (e) {}
+				
 				timeout = setTimeout(function() {
 					var data = $("form").serialize();
 					$.post($("form").attr("action"), data, function(data, textStatus) {
@@ -176,6 +180,7 @@ class CiiSettingsForm extends CWidget
 					});
 
 				}, 1000);
+
 			});
 		');
 	}
