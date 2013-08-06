@@ -16,6 +16,12 @@ class Weather extends CiiCard
 	protected $apikey = NULL;
 
 	/**
+	 * Use metric measurements for the display or not
+	 * @var boolean false
+	 */
+	protected $metric = false;
+
+	/**
 	 * Validation rules for components of this model
 	 * @return array
 	 */
@@ -23,6 +29,7 @@ class Weather extends CiiCard
 	{
 		return array(
 			array('apikey', 'required'),
+			array('metric', 'boolean')
 		);
 	}
 

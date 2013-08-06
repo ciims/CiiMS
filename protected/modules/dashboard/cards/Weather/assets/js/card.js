@@ -24,6 +24,8 @@ var FcAlexkTPM = {
 
 	apiKey : null,
 
+	metric : false,
+
 	geoIp : {
 		"country_code" : null,
 		"country_name" : null,
@@ -42,6 +44,7 @@ var FcAlexkTPM = {
 		FcAlexkTPM.uuid = "FcAlexkTPM-" + this.id;
 		FcAlexkTPM.target = $("#FcAlexkTPM[data-attr-id='" + FcAlexkTPM.id + "']");
 		FcAlexkTPM.apiKey = $("." + this.id + "-modal").find("input#Weather_apikey").val();
+		FcAlexkTPM.metric = $("." + this.id + "-modal").find("input#Weather_metric").is(":checked");
 
 		var canUseCard = true;
 
@@ -144,11 +147,21 @@ var FcAlexkTPM = {
 
 			$(FcAlexkTPM.target).find(".location").html(FcAlexkTPM.getLocationString());
 			$(FcAlexkTPM.target).find(".temperature .degrees").html(response.value.currently.temperature);
+
+			if (FcAlexkTPM.metric)
+				FcAlexkTPM.toCentigrade(response.value.currently.temperature);
+
+			console.log(response.value);
 		}
 		else
 			console.log("Local Storage is not supported on this device. This card requies localStorage to function");
 	},
 
+	toCentigrade : function(farenheit) {
+		var celcius = Math.round((farenheit -32) * 5 / 9);
+		$(FcAlexkTPM.target).find(".farenheit").removeClass("farenheit").addClass("celcius");
+		$(FcAlexkTPM.target).find(".temperature .degrees").html(celcius);
+	},
 
 	showWarnings : function() {
 		console.log("There's an issue with your setup");
