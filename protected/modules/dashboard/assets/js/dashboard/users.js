@@ -1,16 +1,3 @@
-/**
- * Handles all the Javacript for User Management
- */
-$(document).ready(function() {
-
-	// Bind nanoscrollers
-	$("#main.nano").nanoScroller();
-
-	// Load the dashboard
-	CiiDashboard.Users.load();
-	
-});
-
 var CiiDashboard = {
 
 	endPoint : $("#dashboard-endpoint").attr("value"),
@@ -73,3 +60,16 @@ var CiiDashboard = {
 		},
 	}
 };
+
+/**
+ * Handles all the Javacript for User Management
+ */
+$(document).ready(function() {
+
+	// Bind nanoscrollers
+	$("#main.nano").nanoScroller();
+
+	// Load the dashboard
+	CiiDashboard.Users.load();
+	
+});

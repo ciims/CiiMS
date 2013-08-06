@@ -1,13 +1,4 @@
 /**
- * Handles all the Javacript for the Dashboard.
- */
-$(document).ready(function() {
-
-	// Bind nanoscrollers
-	$("#main.nano").nanoScroller();
-});
-
-/**
  * CiiDashboard
  * A utility class for managing all the behaviors and attributes for managing the dashboard.
  * This has been broken out into a separate file since it no longer requires PHP to operate.
@@ -302,3 +293,12 @@ var CiiDashboard = {
 		}
 	}
 };
+
+/**
+ * Handles all the Javacript for the Dashboard.
+ */
+$(document).ready(function() {
+
+	// Bind nanoscrollers
+	$("#main.nano").nanoScroller();
+});

@@ -1,12 +1,3 @@
-$(document).ready(function() {
-
-	// Bind nanoscrollers
-	$("#main.nano").nanoScroller();
-
-	// Load the dashboard
-	CiiDashboard.Categories.load();
-});
-
 var CiiDashboard = {
 	
 	endPoint : $("#dashboard-endpoint").attr("value"),
@@ -34,3 +25,12 @@ var CiiDashboard = {
 		loadSave : function() {}
 	}
 };
+
+$(document).ready(function() {
+
+	// Bind nanoscrollers
+	$("#main.nano").nanoScroller();
+
+	// Load the dashboard
+	CiiDashboard.Categories.load();
+});

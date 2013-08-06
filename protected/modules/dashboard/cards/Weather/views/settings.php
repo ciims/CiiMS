@@ -1,0 +1,3 @@
+<div style="padding: 10px; padding-bottom: 0px; font-size: 12px">
+	This website uses <a href="http://www.maxmind.com/en/javascript">GeoIP2 JavaScript from MaxMind</a>. To use this card, you need to signup for Maxmind's Javascript API <em>(<a href="http://www.maxmind.com/en/javascript">here</a>)</em> <strong>AND</strong> signup for a Forecast.io developer account <a href="https://developer.forecast.io/">here</a>. Both are totally free services. =)
+</div>

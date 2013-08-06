@@ -1,0 +1,53 @@
+/** Weather Card's Unique System Id **/
+#FcAlexkTPM {
+	height: 100%;
+	width: 100%;
+}
+
+#FcAlexkTPM .card-header {
+	height: 35px;
+	border-bottom: 1px solid #eee;
+}
+
+#FcAlexkTPM .location {
+	color: #999;
+	position: relative;
+	padding-left: 10px;
+	height: 100%;
+	max-width: 90px;
+	top: 5px;
+	font-size: 10px;
+	letter-spacing: 1px;
+	font-family: 'Open Sans';
+	margin-top: 1px;
+	text-transform: uppercase;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#FcAlexkTPM .temperature .degrees {
+	font-size: 12px !important;
+	color: #999;
+	position:relative;
+	top: 7px;
+	font-size: 10px;
+	letter-spacing: 1px;
+	font-family: 'Open Sans';
+	text-transform: uppercase;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 40px;
+	float:right;
+}
+
+#FcAlexkTPM .temperature .farenheit,
+#FcAlexkTPM .temperature .celcius
+ {
+	float: right;
+	padding-right: 10px;
+	font-size: 20px;
+	top: 4px;
+	position: relative;
+}

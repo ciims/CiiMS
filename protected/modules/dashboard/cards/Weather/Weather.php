@@ -2,6 +2,7 @@
 
 class Weather extends CiiCard
 {
+	private $api_endpoint = 'https://api.forecast.io/forecast/';
 	/**
 	 * Replaces the footer text with obligitory text for forecast.io
 	 * @var string
@@ -12,7 +13,7 @@ class Weather extends CiiCard
 	 * Global API that is applied to all cards of the same type as this
 	 * @var string Forecast.io API key
 	 */
-	protected $global_apikey = NULL;
+	protected $apikey = NULL;
 
 	/**
 	 * Validation rules for components of this model
@@ -21,7 +22,7 @@ class Weather extends CiiCard
 	public function rules()
 	{
 		return array(
-			array('global_apikey', 'required'),
+			array('apikey', 'required'),
 		);
 	}
 
@@ -32,7 +33,21 @@ class Weather extends CiiCard
 	public function attributeLabels()
 	{
 		return array(
-			'global_apikey' => 'API Key'
+			'apikey' => 'API Key'
 		);
+	}
+
+	public function getCurrentConditions($data)
+	{
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => $this->api_endpoint . $this->apiKey .'/' . $data['latitude'] . ',' . $data['longitude']
+		));
+
+		$resp = curl_exec($curl);
+		curl_close($curl);
+
+		return $resp;
 	}
 }

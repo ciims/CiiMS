@@ -223,11 +223,13 @@ class CiiCard extends CiiSettingsModel
 		else
 			$dataSSColspan = 2;
 
+		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias($this->AssetPath), true, -1, YII_DEBUG);
+
 		// Main Card View
 		echo CHtml::openTag('div', array('id' => $this->id, 'class' => 'card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		Yii::app()->controller->renderPartial($this->view, array('model' => $this));
+	    		Yii::app()->controller->renderPartial($this->view, array('model' => $this, 'asset' => $asset));
 	    	echo CHtml::closeTag('div'); 
 
 	    	echo CHtml::openTag('div', array('class' => 'footer')); 
@@ -249,7 +251,7 @@ class CiiCard extends CiiSettingsModel
 	    echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		echo CHtml::tag('em', array(), 'The information you seek is not here.');
+	    		Yii::app()->controller->renderPartial($this->settingsView, array('model' => $this, 'asset' => $asset));
 	    	echo CHtml::closeTag('div'); 
 
 		 	echo CHtml::openTag('div', array('class' => 'footer')); 

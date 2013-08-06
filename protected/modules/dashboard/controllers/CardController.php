@@ -73,6 +73,14 @@ class CardController extends CiiDashboardController
 		return $this->submitPost($card);
 	}
 
+	public function actionCallMethod($id, $method)
+	{
+		$card = $this->getCardById($id);
+
+		echo $card->$method($_POST);
+		return;
+	}
+
 	/**
 	 * Provides callback for deleting a given instance of a card
 	 * @param  string $id The card UID
