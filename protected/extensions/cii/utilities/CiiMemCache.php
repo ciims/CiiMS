@@ -85,21 +85,21 @@ class CiiMemCache extends CiiCache
          */
         public function init()
         {
-                parent::init();
-                $servers=$this->getServers();
-                $cache=$this->getMemCache();
-                if(count($servers))
+            parent::init();
+            $servers=$this->getServers();
+            $cache=$this->getMemCache();
+            if(count($servers))
+            {
+                foreach($servers as $server)
                 {
-                        foreach($servers as $server)
-                        {
-                                if($this->useMemcached)
-                                        $cache->addServer($server->host,$server->port,$server->weight);
-                                else
-                                        $cache->addServer($server->host,$server->port,$server->persistent,$server->weight,$server->timeout,$server->status);
-                        }
+                    if($this->useMemcached)
+                        $cache->addServer($server->host,$server->port,$server->weight);
+                    else
+                        $cache->addServer($server->host,$server->port,$server->persistent,$server->weight,$server->timeout,$server->status);
                 }
-                else
-                        $cache->addServer('localhost',11211);
+            }
+            else
+                $cache->addServer('localhost',11211);
         }
 
         /**
@@ -107,10 +107,10 @@ class CiiMemCache extends CiiCache
          */
         public function getMemCache()
         {
-                if($this->_cache!==null)
-                        return $this->_cache;
-                else
-                        return $this->_cache=$this->useMemcached ? new Memcached : new Memcache;
+            if($this->_cache!==null)
+                return $this->_cache;
+            else
+                return $this->_cache=$this->useMemcached ? new Memcached : new Memcache;
         }
 
         /**
@@ -118,7 +118,7 @@ class CiiMemCache extends CiiCache
          */
         public function getServers()
         {
-                return $this->_servers;
+            return $this->_servers;
         }
 
         /**
@@ -128,8 +128,8 @@ class CiiMemCache extends CiiCache
          */
         public function setServers($config)
         {
-                foreach($config as $c)
-                        $this->_servers[]=new CMemCacheServerConfiguration($c);
+            foreach($config as $c)
+                $this->_servers[]=new CMemCacheServerConfiguration($c);
         }
 
         /**
@@ -140,7 +140,7 @@ class CiiMemCache extends CiiCache
          */
         protected function getValue($key)
         {
-                return $this->_cache->get($key);
+            return $this->_cache->get($key);
         }
 
         /**
@@ -150,7 +150,7 @@ class CiiMemCache extends CiiCache
          */
         protected function getValues($keys)
         {
-                return $this->useMemcached ? $this->_cache->getMulti($keys) : $this->_cache->get($keys);
+            return $this->useMemcached ? $this->_cache->getMulti($keys) : $this->_cache->get($keys);
         }
 
         /**
@@ -164,12 +164,12 @@ class CiiMemCache extends CiiCache
          */
         protected function setValue($key,$value,$expire)
         {
-                if($expire>0)
-                        $expire+=time();
-                else
-                        $expire=0;
+            if($expire>0)
+                $expire+=time();
+            else
+                $expire=0;
 
-                return $this->useMemcached ? $this->_cache->set($key,$value,$expire) : $this->_cache->set($key,$value,0,$expire);
+            return $this->useMemcached ? $this->_cache->set($key,$value,$expire) : $this->_cache->set($key,$value,0,$expire);
         }
 
         /**
@@ -183,12 +183,12 @@ class CiiMemCache extends CiiCache
          */
         protected function addValue($key,$value,$expire)
         {
-                if($expire>0)
-                        $expire+=time();
-                else
-                        $expire=0;
+            if($expire>0)
+                $expire+=time();
+            else
+                $expire=0;
 
-                return $this->useMemcached ? $this->_cache->add($key,$value,$expire) : $this->_cache->add($key,$value,0,$expire);
+            return $this->useMemcached ? $this->_cache->add($key,$value,$expire) : $this->_cache->add($key,$value,0,$expire);
         }
 
         /**
@@ -199,7 +199,7 @@ class CiiMemCache extends CiiCache
          */
         protected function deleteValue($key)
         {
-                return $this->_cache->delete($key, 0);
+            return $this->_cache->delete($key, 0);
         }
 
         /**
@@ -210,7 +210,8 @@ class CiiMemCache extends CiiCache
          */
         protected function flushValues()
         {
-                return $this->_cache->flush();
+            // This class DOES NOT SUPPORT intelligent flushing
+            return $this->_cache->flush();
         }
 }
 class CMemCacheServerConfiguration extends CComponent
@@ -251,15 +252,15 @@ class CMemCacheServerConfiguration extends CComponent
          */
         public function __construct($config)
         {
-                if(is_array($config))
-                {
-                        foreach($config as $key=>$value)
-                                $this->$key=$value;
-                        if($this->host===null)
-                                throw new CException(Yii::t('yii','CMemCache server configuration must have "host" value.'));
-                }
-                else
-                        throw new CException(Yii::t('yii','CMemCache server configuration must be an array.'));
+            if(is_array($config))
+            {
+                foreach($config as $key=>$value)
+                    $this->$key=$value;
+                if($this->host===null)
+                    throw new CException(Yii::t('yii','CMemCache server configuration must have "host" value.'));
+            }
+            else
+                throw new CException(Yii::t('yii','CMemCache server configuration must be an array.'));
         }
 }
 ?>

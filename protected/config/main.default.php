@@ -103,6 +103,7 @@ return array(
         'yiiPath'       => NULL,
         'encryptionKey' => NULL,
         'debug'         => false,
-        'trace'         => 0
+        'trace'         => 0,
+        'user'          => null,
     ),
 );
