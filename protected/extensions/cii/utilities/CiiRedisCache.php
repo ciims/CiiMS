@@ -2,8 +2,8 @@
 /**
  * CiiRedisCache class file
  * @author Charles R. Portwood II <charlesportwoodii@etheal.net>
- * CiiRedisCache uses phpredis client{@link https://github.com/nicolasff/phpredis phpredis}.
- * On Ubuntu, you can download a precompiled .deb package from {@link http://deb.erianna.com/}
+ * 
+ * CiiRedisCache uses phpredis client {@link https://github.com/nicolasff/phpredis phpredis}.
  */
 class CiiRedisCache extends CiiCache
 {
