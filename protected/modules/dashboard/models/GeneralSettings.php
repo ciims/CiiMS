@@ -14,7 +14,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $url = NULL;
 
-	protected $subdomain = NULL;
+	//protected $subdomain = NULL;
 
 	protected $menu = 'admin|blog';
 
@@ -45,7 +45,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			'Site Settings' => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			'Site Settings' => array('name', 'url', /*'subdomain',*/ 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			'Display Settings' => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
 			'Sphinx' => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 			'Comments' => array('notifyAuthorOnComment', 'autoApproveComments'),
@@ -60,7 +60,7 @@ class GeneralSettings extends CiiSettingsModel
 	{
 		return array(
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
-			array('name, menu, subdomain', 'length', 'max' => 255),
+			array('name, menu', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
 			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments', 'boolean'),
 			array('sphinxHost, sphinxSource', 'length', 'max' => 255),
