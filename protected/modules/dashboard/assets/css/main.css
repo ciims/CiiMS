@@ -155,6 +155,11 @@ main .content-container .header {
 	margin-bottom: 10px;
 }
 
+main .settings-container .small-text {
+	font-size: 12px;
+	padding-bottom: 15px;
+}
+
 main .settings-container .header.secondary {
 	padding-left: 60px;
 	border-bottom: 0px;

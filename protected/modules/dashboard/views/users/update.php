@@ -51,16 +51,21 @@
 					<span class="meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
 				</legend>
 				<div class="meta-container">
+					<p class="small-text">This is metadata that has been retrieves from the user. Do not alter this data unless you know what you are doing. It can cause serious damage to the user</p>
 					<?php foreach ($model->metadata as $meta): ?>
 						<?php $options = array('class' => 'pure-input-2-3', 'type' => 'text', 'value' => $meta->value, 'name' => 'UserMetadata[' . $meta->key . ']'); ?>
 
 						<div class="pure-control-group">
+							<!-- TODO: Find a way to hide dashboard items as they cause the dashboard to explode... -->
 							<?php echo CHtml::tag('label', array(), Cii::titleize($meta->key)); ?>
+
 							<?php if (strpos($meta->key, 'Provider') !== false): ?>
 								<?php $options['disabled'] = true; ?>
 							<?php elseif ($meta->key == 'likes'): ?>
 								<?php $options['disabled'] = true; ?>
 								<?php $options['value'] = count(json_decode($meta->value, true)); ?>
+							<?php elseif ($meta->key == 'dashboard'): ?>
+								<?php $options['disabled'] = true; ?>
 							<?php endif; ?>
 							<?php echo CHtml::tag('input', $options, NULL); ?>
 						</div>

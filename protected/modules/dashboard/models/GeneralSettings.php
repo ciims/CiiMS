@@ -14,8 +14,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $url = NULL;
 
-	//protected $subdomain = NULL;
-
 	protected $menu = 'admin|blog';
 
 	protected $offline = 0;
@@ -42,10 +40,15 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $sphinxSource = NULL;
 
+	public function getSubdomain()
+	{
+		return Yii::app()->params['user'];
+	}
+
 	public function groups()
 	{
 		return array(
-			'Site Settings' => array('name', 'url', /*'subdomain',*/ 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			'Site Settings' => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			'Display Settings' => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
 			'Sphinx' => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 			'Comments' => array('notifyAuthorOnComment', 'autoApproveComments'),
@@ -84,6 +87,7 @@ class GeneralSettings extends CiiSettingsModel
 			'timezone' => 'Timezone',
 			'defaultLanguage' => 'Default Language',
 			'url' => 'Site URL',
+			'subdomain' => 'CiiMS Subdomain',
 			'menu' => 'Menu Navigation',
 			'offline' => 'Offline Mode',
 			'preferMarkdown' => 'Use Markdown',

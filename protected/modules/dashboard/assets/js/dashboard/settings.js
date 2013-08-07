@@ -10,7 +10,9 @@ var CiiDashboard = {
 			});
 		},
 
-		loadIndex : function() {},
+		loadIndex : function() {
+			$("#GeneralSettings_subdomain").attr("disabled", "disabled");
+		},
 
 		loadAppearance : function() {
 			$("select").imagepicker();

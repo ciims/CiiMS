@@ -178,6 +178,15 @@ class CiiSettingsModel extends CFormModel
 		return $v;
 	}
 	
+	public function beforeValidate()
+	{
+		return true;
+	}
+
+	public function afterValidate()
+	{
+		return true;
+	}
 	/**
 	 * Save function for Configuration
 	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
@@ -189,8 +198,16 @@ class CiiSettingsModel extends CFormModel
 		if ($this->beforeSave())
 		{
 			// If we want to run validation AND the validation failed, give up
-			if ($runValidation && !$this->validate())
+			
+			if ($this->beforeValidate())
+			{
+				if ($runValidation && !$this->validate())
+					return false;
+			}
+			else
 				return false;
+
+			$this->afterValidate();
 			
 			$connection = Yii::app()->db;
 			$transaction = $connection->beginTransaction();
