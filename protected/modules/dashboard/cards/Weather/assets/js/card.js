@@ -171,7 +171,7 @@ var FcAlexkTPM = {
 						// Cache the data in localstorage for 15 minutes
 						var object = JSON.stringify( { "value" : data, "timestamp": new Date().getTime() } );
 						localStorage.setItem(key, object);
-						response = JSON.parse(data);
+						response = JSON.parse(object),
 						response.value = JSON.parse(response.value);
 						self.displayWeather(self, response);
 					}
