@@ -125,7 +125,7 @@ var FcAlexkTPM = {
 	 * Set the location for the current objhect
 	 * @param this  self   The current object
 	 */
-	setLocationString : function(self) {
+	setLocationString : function(self, id, target) {
 		var response = null;
 
 		self.getGeoIp(function(data) {
@@ -134,7 +134,7 @@ var FcAlexkTPM = {
 			else
 				response = data.citynames.en + "," + data.subdivisions[0].names.en;
 
-			$(self.target).find(".location").text(response);
+			$(target).find(".location").text(response);
 		});
 	},
 
@@ -161,6 +161,7 @@ var FcAlexkTPM = {
 					// See Weather.php (Weather::getCurrentConditions()) for how this callback works. Forecast.io has Allow-Access-Origin disabled
 					url : CiiDashboard.endPoint + "/card/callmethod/id/" + self.id + "/method/getCurrentConditions", 
 					data : { "latitude" : position.coords.latitude, "longitude" : position.coords.longitude },
+					async : false, 
 					success : function(data) {
 
 						if (data.replace(/\s/g, "") == "Forbidden")
@@ -175,7 +176,7 @@ var FcAlexkTPM = {
 						localStorage.setItem(key, object);
 						response = JSON.parse(object),
 						response.value = JSON.parse(response.value);
-						self.displayWeather(self, response);
+						self.displayWeather(self, self.id, self.target, response);
 					}
 				});				
 			}
@@ -183,7 +184,7 @@ var FcAlexkTPM = {
 			{
 				response = JSON.parse(response);
 				response.value = JSON.parse(response.value);
-				self.displayWeather(self, response);
+				self.displayWeather(self, self.id, self.target, response);
 			}
 		}
 		else
@@ -195,8 +196,8 @@ var FcAlexkTPM = {
 	 * @param  this     self      The current object
 	 * @param  JSON     response  The response data
 	 */
-	displayWeather : function(self, response) {
-		self.setLocationString(self);
+	displayWeather : function(self, id, target, response) {
+		self.setLocationString(self, id, target);
 
 		if (response == false)
 			return false;
@@ -204,7 +205,7 @@ var FcAlexkTPM = {
 		response.value.currently.temperature = Math.round(response.value.currently.temperature);
 
 		// Update the card
-		$(self.target).find(".temperature .degrees").html(response.value.currently.temperature);
+		$(target).find(".temperature .degrees").html(response.value.currently.temperature);
 
 		// Show stuff in centigrade if the person is cool.
 		if (self.metric)
@@ -215,8 +216,8 @@ var FcAlexkTPM = {
 			display = icons[icon];
 
 		// Display the appropriate icons
-		$(self.target).find(".card-body .weather").addClass(display);
-		$(self.target).find(".card-body .details").text(response.value.currently.summary);
+		$(target).find(".card-body .weather").addClass(display);
+		$(target).find(".card-body .details").text(response.value.currently.summary);
 
 
 
