@@ -310,6 +310,7 @@ class CiiCard extends CiiSettingsModel
 						$PDOKey  = $this->id . '_' . $key;
 						$command = $connection->createCommand('INSERT INTO `user_metadata` VALUES (:uid, :key, :value, :entity_type, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, entity_type = :entity_type, updated = NOW()')->bindParam(':uid', $uid);
 					}
+					
 					$command->bindParam('entity_type', $entity_type);
 					$command->bindParam(':key', $PDOKey);
 					$command->bindParam(':value', $value);

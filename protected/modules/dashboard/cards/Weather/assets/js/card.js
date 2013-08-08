@@ -35,6 +35,7 @@ var FcAlexkTPM = {
 	// Cache data loaded from GeoIP
 	geoIp : null,
 
+	// Card position data
 	position : null,
 
 	/**
@@ -151,7 +152,8 @@ var FcAlexkTPM = {
 				now = new Date().getTime().toString();
 
 			// If we don't have any previous data from Forecast.io, or the previous data is older than 15 minutes, make another request
-			if (response == undefined || response == null || response == '' || (response.timestamp + 900000) <= now)
+			var tmpResponse = JSON.parse(response);
+			if (response == undefined || response == null || response == '' || (tmpResponse.timestamp + 900000) <= now)
 			{
 				// Syncronous request to laod data from Forecast.io
 				$.ajax({
