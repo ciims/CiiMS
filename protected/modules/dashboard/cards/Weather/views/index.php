@@ -12,5 +12,9 @@
 	</div>
 
 	<div class="card-body">
+		<div class="climacon weather"></div>
+		<div class="details-container">
+			<span class="details"></span>
+		</div>
 	</div>
 </div>

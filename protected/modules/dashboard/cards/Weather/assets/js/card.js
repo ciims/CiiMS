@@ -199,12 +199,23 @@ var FcAlexkTPM = {
 		if (response == false)
 			return false;
 
+		response.value.currently.temperature = Math.round(response.value.currently.temperature);
+
 		// Update the card
 		$(self.target).find(".temperature .degrees").html(response.value.currently.temperature);
 
 		// Show stuff in centigrade if the person is cool.
 		if (self.metric)
 			self.toCentigrade(response.value.currently.temperature);
+
+		var icon = response.value.currently.icon,
+			icons = self.icons,
+			display = icons[icon];
+
+		// Display the appropriate icons
+		$(self.target).find(".card-body .weather").addClass(display);
+		$(self.target).find(".card-body .details").text(response.value.currently.summary);
+
 
 
 	},

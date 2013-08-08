@@ -35,22 +35,33 @@
 	max-width: 60px;
 	display: block;
 	float: right;
-	padding-top: 1px;
-	margin-top: 6px;
 }
 
 #FcAlexkTPM .temperature .degrees {
 	font-size: 12px !important;
 	max-width: 60px;
+	min-width: 15px;
 	display: inline-block;
 }
 
 #FcAlexkTPM .temperature .farenheit,
 #FcAlexkTPM .temperature .celcius {
 	display: inline-block;
+	width: 10px;
 	padding-right: 10px;
 	margin-top: 3px;
 	font-size: 20px;
+}
+
+#FcAlexkTPM .card-body .weather {
+	font-size: 119px;
+	position: relative;
+	top: 10px;
+	left: -27px;
+}
+#FcAlexkTPM .card-body .details-container {
+	width: 100%;
+	text-align: center;
 }
 
 #FcAlexkTPM .temperature .icon {
