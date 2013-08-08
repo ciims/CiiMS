@@ -55,6 +55,8 @@ var FcAlexkTPM = {
 		if (!this.getGeoIp())
 			canUseCard = false;
 
+		this.setLocationString(this);
+
 		if (this.apiKey == null || this.apiKey == undefined || this.apiKey == '' )
 			canUseCard = false;
 
@@ -69,16 +71,16 @@ var FcAlexkTPM = {
 	 * 
 	 * @return boolean   If we can use GeoIP. This is used by canUseCard outlined above.
 	 */
-	getGeoIp : function() {
+	getGeoIp : function(callback) {
 		var key = this.uuid + "-geoip",
-			response = JSON.parse(localStorage.getItem(key));
+			response = JSON.parse(localStorage.getItem(key)),
+			self = this;
 
 		if (response == undefined || response == null || response == '')
 		{
 			// This request MUST be syncronous, otherwise if we hit an error the card breaks.
 			$.ajax({
 				url :'https://j.maxmind.com/js/apis/geoip2/v2.0/geoip2.js', 
-				async : false,
 				dataType : 'script',
 				success : function(script, textStatus) {
 
@@ -86,17 +88,23 @@ var FcAlexkTPM = {
 						return false;
 
 					geoip2.city(function(data) {
-						var object = data;
-
-						response = object;
-						localStorage.setItem(key, JSON.stringify(object));
+						self.geoIp = response = data;
+						localStorage.setItem(key, JSON.stringify(data));
+						
+						if (callback != undefined)
+							callback(self.geoIp);
 					});					
 				}
-			});
-			
-		}
+			});			
 
-		this.geoIp = response;
+			return true;
+		}
+		
+		self.geoIp = response;
+
+		if (callback != undefined)
+			callback(self.geoIp);
+
 		return true;
 	},
 
@@ -113,16 +121,20 @@ var FcAlexkTPM = {
 	},
 
 	/**
-	 * Retrieves the location string to display to the user
-	 * @return string    A pretty location string (eg Chicago, Il)
+	 * Set the location for the current objhect
+	 * @param this  self   The current object
 	 */
-	getLocationString : function() {
-		this.getGeoIp();
+	setLocationString : function(self) {
+		var response = null;
 
-		if (this.geoIp.country.iso_code == "US")
-			return this.geoIp.city.names.en + ", " + this.geoIp.subdivisions[0].iso_code;
-		else
-			return this.geoIp.citynames.en + "," + this.geoIp.subdivisions[0].names.en;
+		self.getGeoIp(function(data) {
+			if (data.country.iso_code == "US")
+				response = data.city.names.en + ", " + data.subdivisions[0].iso_code;
+			else
+				response = data.citynames.en + "," + data.subdivisions[0].names.en;
+
+			$(self.target).find(".location").text(response);
+		});
 	},
 
 	/**
@@ -147,13 +159,21 @@ var FcAlexkTPM = {
 					// See Weather.php (Weather::getCurrentConditions()) for how this callback works. Forecast.io has Allow-Access-Origin disabled
 					url : CiiDashboard.endPoint + "/card/callmethod/id/" + self.id + "/method/getCurrentConditions", 
 					data : { "latitude" : position.coords.latitude, "longitude" : position.coords.longitude },
-					async : false,
 					success : function(data) {
+
+						if (data.replace(/\s/g, "") == "Forbidden")
+						{
+							response = false;
+							self.showWarnings();
+							return false;
+						}
+
 						// Cache the data in localstorage for 15 minutes
 						var object = JSON.stringify( { "value" : data, "timestamp": new Date().getTime() } );
 						localStorage.setItem(key, object);
 						response = JSON.parse(data);
 						response.value = JSON.parse(response.value);
+						self.displayWeather(self, response);
 					}
 				});				
 			}
@@ -161,19 +181,32 @@ var FcAlexkTPM = {
 			{
 				response = JSON.parse(response);
 				response.value = JSON.parse(response.value);
+				self.displayWeather(self, response);
 			}
-
-			// Update the card
-			$(self.target).find(".location").html(self.getLocationString());
-			$(self.target).find(".temperature .degrees").html(response.value.currently.temperature);
-
-			// Show stuff in centigrade if the person is cool.
-			if (self.metric)
-				self.toCentigrade(response.value.currently.temperature);
-
 		}
 		else
 			console.log("Local Storage is not supported on this device. This card requies localStorage to function");
+	},
+
+	/**
+	 * Displays the weather for this card
+	 * @param  this     self      The current object
+	 * @param  JSON     response  The response data
+	 */
+	displayWeather : function(self, response) {
+		self.setLocationString(self);
+
+		if (response == false)
+			return false;
+
+		// Update the card
+		$(self.target).find(".temperature .degrees").html(response.value.currently.temperature);
+
+		// Show stuff in centigrade if the person is cool.
+		if (self.metric)
+			self.toCentigrade(response.value.currently.temperature);
+
+
 	},
 
 	/**
