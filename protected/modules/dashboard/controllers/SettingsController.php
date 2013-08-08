@@ -95,7 +95,22 @@ class SettingsController extends CiiSettingsController
 
 	public function actionCards()
 	{
+		$this->render('cards', array(
+			'header' => array(
+				'h3' => 'Manage Dashboard Cards',
+				'p' => 'Manage and add new dashboard cards'
+			)
+		));
+	}
 
+	public function actionPlugins()
+	{
+		$this->render('plugins', array(
+			'header' => array(
+				'h3' => 'Manage Site Plugins',
+				'p' => 'Manage and configure settings for various plugins'
+			)
+		));
 	}
 	
 	public function actionSystem()

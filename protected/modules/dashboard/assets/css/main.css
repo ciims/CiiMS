@@ -165,6 +165,9 @@ main .settings-container .header.secondary {
 	border-bottom: 0px;
 }
 
+main .settings-container .strikethrough {
+	
+}
 main .settings-container .list-view .items {
 	margin-top: -46px;
 }

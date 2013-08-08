@@ -79,6 +79,8 @@ var CiiDashboard = {
 			});
 		},
 
+		loadCards : function() {},
+
 		loadEmail : function() {
 			$("#test-email").click(function() {
 				var testaddress = $("#EmailSettings_Test").val();
@@ -88,6 +90,8 @@ var CiiDashboard = {
 			});
 		},
 
+		loadPlugins : function() {},
+		
 		loadSocial : function() {},
 
 		loadSystem: function() {
