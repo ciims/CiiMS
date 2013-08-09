@@ -160,6 +160,14 @@ main .settings-container .small-text {
 	padding-bottom: 15px;
 }
 
+main .settings-container .inline {
+	display:inline-block;
+}
+
+main .settings-container .meta-container .icon-remove {
+	top: -8px;
+}
+
 main .settings-container .header.secondary {
 	padding-left: 60px;
 	border-bottom: 0px;

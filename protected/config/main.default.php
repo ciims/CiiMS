@@ -40,7 +40,7 @@ return array(
         'dashboard',
         'hybridauth' => array(
             'providers' => array()
-        ),
+        )
     ),
     'behaviors' => array(
         'onBeginRequest' => array(

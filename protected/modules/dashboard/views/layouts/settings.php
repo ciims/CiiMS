@@ -16,7 +16,7 @@
 					array('url' => $this->createUrl('/dashboard/settings/email'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt'), 'active' => ($this->id == 'settings' && $this->action->id == 'email' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/social'), 'label' => 'Social', 'itemOptions' => array('class' => 'icon-twitter'), 'active' => ($this->id == 'settings' && $this->action->id == 'social' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/cards'), 'label' => 'Dashboard Cards', 'itemOptions' => array('class' => 'icon-th-large'), 'active' => ($this->id == 'settings' && $this->action->id == 'cards' ? true : false)),
-					array('url' => $this->createUrl('/dashboard/settings/plugins'), 'label' => 'Plugins', 'itemOptions' => array('class' => 'icon-puzzle-piece'), 'active' => ($this->id == 'settings' && $this->action->id == 'plugins' ? true : false)),
+					//array('url' => $this->createUrl('/dashboard/settings/plugins'), 'label' => 'Plugins', 'itemOptions' => array('class' => 'icon-puzzle-piece'), 'active' => ($this->id == 'settings' && $this->action->id == 'plugins' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/system'), 'label' => 'System', 'itemOptions' => array('class' => 'icon-cloud'), 'active' => ($this->id == 'settings' && $this->action->id == 'system' ? true : false))
 				)
 			)); ?>

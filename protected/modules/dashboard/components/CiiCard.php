@@ -32,21 +32,29 @@ class CiiCard extends CiiSettingsModel
 		return parent::__construct();
 	}
 
+	/**
+	 * Retrieves the appropriate sizes for a card
+	 * @return This is a default value
+	 */
 	public function getSize()
 	{
 		return 'normal';
 	}
 
+	/**
+	 * Retrieves the viewpath for a given card
+	 */
 	private function getViewPath()
 	{
 		$id = $this->id;
 		$data = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE uid = :id")->bindParam(':id', $id)->queryScalar();
 		
 		if ($data !== false)
-			return json_decode($data, true);
+			return CJSON::decode($data);
 		
 		return false;
 	}
+
 	/**
 	 * Unless otherwise defined, Cards will render the viewfiles specified in their corresponding views/index.php file
 	 * @return string path
@@ -95,7 +103,7 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function getName()
 	{
-		$data = json_decode($this->getJSON());
+		$data = CJSON::decode($this->getJSON());
 
 		return $data['name']['displayName'];
 	}
@@ -143,7 +151,7 @@ class CiiCard extends CiiSettingsModel
 	 * Creates a new instance of the card
 	 * @return  bool
 	 */
-	public function create($id)
+	public function create($id, $path)
 	{
 		$class = get_class($this);
 
@@ -153,7 +161,7 @@ class CiiCard extends CiiSettingsModel
 		$rnd_id = strrev(str_replace("/","",$rnd_id)); 
 		$rnd_id = str_replace("$", '', substr($rnd_id,0,20)); 
 
-		$data = $this->getJSON();
+		$data = $this->getJSON($path);
 
 		// Set the id of the new object
 		$this->id = $rnd_id;
@@ -178,23 +186,26 @@ class CiiCard extends CiiSettingsModel
 	 * Retrieves the JSON data for a particular card
 	 * @return json encoded array
 	 */
-	public function getJSON()
+	public function getJSON($path = NULL)
 	{
 		// Retrieve the data from the database
-		$data = Yii::app()->db->createCommand("SELECT data FROM `cards` WHERE uid = :uid")->bindParam('uid', $this->id)->queryScalar();
-
-		if ($data !== NULL && $this->id !== NULL)
+		
+		if ($path == NULL)
 		{
-			return $data;
+			$data = Yii::app()->db->createCommand("SELECT data FROM `cards` WHERE uid = :uid")->bindParam('uid', $this->id)->queryScalar();
+			if ($data !== NULL && $this->id !== NULL)
+				return $data;
 		}
 		else
 		{
 			// If the data is empty, provide the options from the file config instead
 			$fileHelper = new CFileHelper;
-			$files = $fileHelper->findFiles(Yii::getPathOfAlias('application.modules.dashboard.cards.'. get_class($this)), array('fileTypes'=>array('json'), 'level'=>1));
+			$files = $fileHelper->findFiles(Yii::getPathOfAlias($path), array('fileTypes'=>array('json'), 'level'=>1));
 
 			return file_get_contents($files[0]);
 		}
+
+		return array();
 	}
 
 	/**
@@ -204,7 +215,7 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function update($data)
 	{
-		$data = json_encode($data);
+		$data = CJSON::encode($data);
 		return Yii::app()->db->createCommand("UPDATE `cards` SET data = :data WHERE uid = :uid")
 						 ->bindParam(':data', $data)
 						 ->bindParam(':uid', $this->id)
@@ -216,7 +227,7 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function render()
 	{
-		$json = json_decode($this->getJSON(), true);
+		$json = CJSON::decode($this->getJSON());
 
 		if ($json['activeSize'] == 'normal')
 			$dataSSColspan = 1;

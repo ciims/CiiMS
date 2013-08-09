@@ -23,19 +23,20 @@ class CardController extends CiiDashboardController
 		if ($id == NULL)
 			throw new CHttpException(400, 'An ID must be specified');
 
-		$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :id")->bindParam(':id', $id)->queryScalar();
+		$config = Configuration::model()->findByAttributes(array('key' => $id));
 
-		if ($name == NULL)
+		if ($config == NULL)
 			throw new CHttpException(400, 'No card type exists with that ID');
 
-		$name = json_decode($name, true);
+		$name = CJSON::decode($config->value);
 
 		Yii::import($name['path'].'.*');
 
 		$card = new $name['class'];
-		$card->create($id);
+		$card->create($id, $name['path']);
 
-		$data = json_decode($card->getJSON(), true);
+		$data = CJSON::decode($card->getJSON($name['path']));
+
 		$data['id'] = $card->id;
 
 		// Update the user's card information
@@ -50,12 +51,12 @@ class CardController extends CiiDashboardController
 		}
 
 		if (!is_array($meta->value))
-			$order = json_decode($meta->value);
+			$order = CJSON::decode($meta->value);
 		else
 			$order = $meta->value;
 
 		$order[] = $card->id;
-		$meta->value = json_encode($order);
+		$meta->value = CJSON::encode($order);
 		$meta->save();
 
 		return $card->render();
@@ -73,6 +74,11 @@ class CardController extends CiiDashboardController
 		return $this->submitPost($card);
 	}
 
+	/**
+	 * Allows cards to have their own definable methods to be publicly called and to retrieve data from
+	 * @param  string $id     The id of the card to init
+	 * @param  string $id     The method name
+	 */
 	public function actionCallMethod($id, $method)
 	{
 		$card = $this->getCardById($id);
