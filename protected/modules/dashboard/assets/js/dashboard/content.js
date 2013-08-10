@@ -223,6 +223,8 @@ var CiiDashboard = {
 					if(typeof(Storage)!=="undefined")
 						localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
 					
+					CiiDashboard.Content.Save.marked();
+
 					var markdown = $("<div class=\"md-preview\">" + marked($(this).val()).replace(/{image}/g, "<div class=\"dropzone\"></div>") + "</div>");
 
 					var i = 0;
@@ -289,7 +291,6 @@ var CiiDashboard = {
 											md = CiiDashboard.Content.Save.splice(md, index, 7, "<img src=\"" + response.filepath +"\" />");
 											var index2 = CiiDashboard.Content.Save.GetSubstringIndex($(".redactor_editor").html(), "{image}", i + 1);
 											text = CiiDashboard.Content.Save.splice(text, index2, 7, "<img src=\"" + response.filepath +"\" />");
-											console.log(text);
 											$(".redactor_editor").html(text);
 										}
 
@@ -333,6 +334,7 @@ var CiiDashboard = {
 
 			// Binds the marked.js behavior
 			marked : function() {
+				console.log("load marked");
 				marked.setOptions({
 				    gfm: true,
 				    highlight: function (lang, code) {
