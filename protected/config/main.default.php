@@ -67,9 +67,9 @@ return array(
         ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles'    => false,
+            'combineScriptFiles'    => false,   // Script Combination Kills the Dashboard
             'combineCssFiles'       => true,
-            'optimizeCssFiles'      => true,
+            'optimizeCssFiles'      => false,   // CSS Combination kills the dashboard too...
             'optimizeScriptFiles'   => true,
             'compressHTML'          => false
         ),
