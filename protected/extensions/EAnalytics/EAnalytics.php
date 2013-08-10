@@ -25,7 +25,7 @@ class EAnalytics extends CApplicationComponent
         parent::init();
 
 		// Don't load up the analytics.js if we don't have any data
-		$providers = $this->getProviders()
+		$providers = $this->getProviders();
 		if (empty($providers))
 			return;
 
