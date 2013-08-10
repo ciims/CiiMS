@@ -67,9 +67,9 @@ return array(
         ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles'    => true,
+            'combineScriptFiles'    => false,
             'combineCssFiles'       => true,
-            'optimizeCssFiles'      => false,
+            'optimizeCssFiles'      => true,
             'optimizeScriptFiles'   => true,
             'compressHTML'          => false
         ),
