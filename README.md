@@ -2,16 +2,17 @@
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 
 #### What is CiiMS?
-
 CiiMS is a high performance CMS blogging platform designed to be easy to use, fun to work with, and easy to develop with. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
 
 #### Upgrading CiiMS?
+See the [Upgrading Guide](https://github.com/charlesportwoodii/CiiMS/wiki/Upgrading) for notes on how to upgrade from one version to another.
+
 #### The One Rule/Suggestion/Request
 Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) because I think it is awesome. If you use and love CiiMS create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site. If you want to a border color that's fine too.
 
-[![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](http://www.erianna.com)
+[![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
 
-#### Just Show Me the Demo
+#### Demo
 Sure thing boss: A demo of CiiMS can be found at:
 
     Site: http://demo.ciims.org
@@ -33,9 +34,9 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/) _and_ [Imperavi Redactor](http://imperavi.com/redactor/) (via Yii License)
 * SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
 * Password Protected Content
-* Sitewide and Category Specific RSS Feeds
+* Site wide and Category Specific RSS Feeds
 * Multiple Content Type Support
-* Interchangable Caching Systems (Redis, APC, Memcache, Files)
+* Interchangeable Caching Systems (Redis, APC, Memcache, Files)
 * Low Memory Footprint
 * Themable
 * Social Integration (Social Signon, Social Sharing)
@@ -48,15 +49,15 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Requirements
 
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
-* PHP 5.1+ (Strong recommend 5.3+)
-* MySQL 5.5+ (CiiMS can run on Postgres/SQLite, but you have to do a manual installation which isn't covered in this readme.
+* PHP 5.1+ (Strong recommend 5.3 or 5.5)
+* MySQL 5.5+
 * __mcrypt/crypt__ library. This is required for bcrpt hashing.
 
-#### Recomendations
+#### Recommendations
 The following extensions/applications are recommended to improve performance.
 
-* Memcache/Redis
-* APC Cache/ZendOpcache+
+* Redis/Memcache
+* ZendOpcache+/APCCAche
 * Sphinx Search Server
 
 ------------------
@@ -67,19 +68,13 @@ CiiMS comes with a built in installer which will walk you through the setup proc
 #### Support
 If you require support at any time, submit a Github issue and I'll look into it as soon as I can. 
 
-#### Project Management.
-I use a combination of tools to manage this project. I'll track most bugs through Github Issues. New features and testing require a some more testing, so I've been using [Trello](https://trello.com/board/ciims/501db2c1467ee918041c158e) to manage new items.
-Please only use Trello if you intend to participate in making CiiMS better I'd prefer to leave it open. If Trello starts to get abused, I'll lock it down.
-
-#### Extensions & Options
-CiiMS uses a key => value options system which is managed through the _settings_ tab of the admin panel. A details list of all available options is available at [OPTIONS.md](OPTIONS.md).
-
-#### What Still Needs to be Done?
-The current roadmap will be added to this soon. For now:
+#### How Can I Contribute?
 
 * Unit & Functional Testing (We're currently hooked into TravisCI, but we don't have a lot of tests running at the moment)
-* i18n Language Support (PHP Support. [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
-* Make the Dashboard Awesome
+* Help write i18n language files [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
+* Help provide translations in your native/favorite language
+* Create Dashboard Cards [See Instructions](https://github.com/charlesportwoodii/CiiMS/wiki/Creating-Cards)
+* Create Beautiful Themes [See Instructions](https://github.com/charlesportwoodii/CiiMS/wiki/Creating-Themes)
 
 #### License
 
@@ -94,3 +89,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ###### TL;DR
 Free to use, modify, and do whatever the heck you want it so long as maintain this notice and don't sue me. (Though if you make a lot of money off of it, _at least_ let me know.) =)
+ 
