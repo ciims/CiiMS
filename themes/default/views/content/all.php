@@ -19,5 +19,3 @@
 		<strong>Woah!</strong> It looks like there isn't any posts in this category yet. Why don't you check out some of our other pages or check back later?
 	</div>
 <?php endif; ?>
-
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>

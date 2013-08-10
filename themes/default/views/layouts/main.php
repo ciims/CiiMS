@@ -4,13 +4,12 @@
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	    <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
-                                      ->registerCssFile($asset .'/css/main.css')
+                                      ->registerCssFile($this->asset .'/css/main.css')
 		                              ->registerCoreScript('jquery')
-								      ->registerScriptFile($asset .'/js/script.js')
+								      ->registerScriptFile($this->asset .'/js/script.js')
 								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });'); ?>
 		<!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -36,7 +35,7 @@
 		<main class="main">
 		    <div class="container image-container">
 		    	<div class="row-fluid image-viewport">
-		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::getConfig('splash-logo', $asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_')); ?>
+		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::getConfig('splashLogo', $this->asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_')); ?>
 		    	</div>
 		   	</div>
 		   	<div class="container main-container">

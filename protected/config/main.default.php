@@ -58,6 +58,9 @@ return array(
             'lowerBounceRate' => true,
             'options' => array(),
         ),
+        'assetManager' => array(
+            'class' => 'ext.cii.components.CiiAssetManager',
+        ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
             'responsiveCss' => true
@@ -67,7 +70,7 @@ return array(
             'combineScriptFiles'    => true,
             'combineCssFiles'       => true,
             'optimizeCssFiles'      => false,
-            'optimizeScriptFiles'   => false,
+            'optimizeScriptFiles'   => true,
             'compressHTML'          => false
         ),
         'errorHandler' => array(
@@ -101,8 +104,8 @@ return array(
     'params' => array(
         'yiiPath'       => NULL,
         'encryptionKey' => NULL,
-        'debug'         => true,
-        'trace'         => 3,
+        'debug'         => false,
+        'trace'         => 0,
         'user'          => null,
     ),
 );

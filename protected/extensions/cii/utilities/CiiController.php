@@ -22,7 +22,7 @@ class CiiController extends CController
     
     public function getAsset()
     {
-        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'));
+        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'), false, -1, YII_DEBUG);
     }
 
     /**

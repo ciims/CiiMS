@@ -125,12 +125,11 @@
 	</div>
 </div>
 
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
 <?php Yii::app()->getClientScript()
-                ->registerCssFile($asset.'/highlight.js/default.css')
-				->registerCssFile($asset.'/highlight.js/github.css')
-				->registerScriptFile($asset.'/js/marked.js')
-				->registerScriptFile($asset.'/highlight.js/highlight.pack.js')
+                ->registerCssFile($this->asset.'/highlight.js/default.css')
+				->registerCssFile($this->asset.'/highlight.js/github.css')
+				->registerScriptFile($this->asset.'/js/marked.js')
+				->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js')
 				->registerScript('loadBlog', '$(document).ready(function() { DefaultTheme.loadBlog(' . $content->id . '); });');
 $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',

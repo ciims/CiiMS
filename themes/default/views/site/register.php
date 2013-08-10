@@ -82,6 +82,5 @@
 	</div>
 </div>
 
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
-<?php Yii::app()->clientScript->registerScriptFile($asset .'/js/zxcvbn.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($this->asset .'/js/zxcvbn.js'); ?>
 <?php Yii::app()->clientScript->registerScript('password_strength_meter', '$(document).ready(function() { DefaultTheme.loadRegister(); });', CClientScript::POS_END);
