@@ -2,6 +2,7 @@
 	<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 	<?php Yii::import('application.modules.dashboard.components.ContentListView.ContentListView'); ?>
 	<?php $this->widget('ContentListView', array(
+		'id' => 'ajaxListView',
 	    'dataProvider' => $model->search(),
 	    'preview' => isset($preview) ? $preview : NULL,
 	    'summaryText' => false,

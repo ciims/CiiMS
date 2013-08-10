@@ -49,10 +49,13 @@ var CiiDashboard = {
 		 */
 		futurePerspective : {
 
+			contentPane : null,
+
 			// BeforeAjaxUpdate for ContentListView::beforeAjaxUpdate
 			beforeAjaxUpdate : function() {
 				previewPane = $("#preview .content");
 	    		scrollTop = $("#preview .content").scrollTop();
+	    		CiiDashboard.Content.futurePerspective.contentPane = $(".preview").html();
 			},
 
 			/**
@@ -71,12 +74,14 @@ var CiiDashboard = {
 					var url = CiiDashboard.endPoint + "/content/index/id/" + id;
 
 					$.get(url, function(data, textStatus, jqXHR) {
-						contentPane = $($.parseHTML(data)).find(".preview").html();
+						CiiDashboard.Content.futurePerspective.contentPane = $($.parseHTML(data)).find(".preview").html();
 						$(".preview").remove();
 						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
-						$(".preview").html(contentPane).removeClass("has-scrollbar");
+						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
 						$("#md-output").html(marked($("#markdown").text()));
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
+
+						CiiDashboard.Content.futurePerspective.delete();
 					});
 				});
 			},
@@ -94,16 +99,30 @@ var CiiDashboard = {
 		    	$(".timeago").timeago(); 
 
 		    	// Post Click Behavior
-		    	bindPostClick(); 
+		    	CiiDashboard.Content.futurePerspective.bindPostClick(); 
 
 		    	// Reset Preview Pane
 		    	$(".preview").remove();
 				$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
-				$(".preview").html(contentPane).removeClass("has-scrollbar");
+				$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
 				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
 				$("#preview .content").animate({
 					scrollTop : scrollTop
 				}, 0);
+
+				CiiDashboard.Content.futurePerspective.delete();
+			},
+
+			// Allows content to be deleted without page refresh
+			delete : function() {
+				$(".icon-trash").click(function(e) {
+					e.preventDefault();
+					$.post($(this).attr("href"), function() {
+						CiiDashboard.Content.futurePerspective.contentPane = null;
+						$(".preview").html("<div class=\"content\"></div>");
+						$.fn.yiiListView.update('ajaxListView');
+					});
+				});
 			},
 
 			// Bind the marked.js behavior. This should be universal across the board, so see CiiDashboard.Content.Save.marked()
