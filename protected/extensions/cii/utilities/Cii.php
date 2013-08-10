@@ -40,9 +40,9 @@ class Cii {
      * @param  mixed  $default The default value to return if key is not found
      * @return mixed           The value from Config, or default
      */
-    public static function getConfig($key, $default=NULL)
+    public static function getConfig($key, $default=NULL, $prefix='settings_')
     {
-        $cache = Yii::app()->cache->get('settings_'.$key);
+        $cache = Yii::app()->cache->get($prefix.$key);
 
         if ($cache === false)
         {
@@ -55,7 +55,7 @@ class Cii {
             else
                 $cache = $data[0]['value'];
 
-            Yii::app()->cache->set('settings_'.$key, $cache);
+            Yii::app()->cache->set($prefix.$key, $cache);
         }
 
         return $cache;

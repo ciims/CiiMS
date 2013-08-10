@@ -42,8 +42,10 @@ class DefaultController extends CiiController
 			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 
 		$identity = new RemoteUserIdentity();
+
 		if ($identity->authenticate($provider))
 		{		
+
 			// If we found a user and authenticated them, bind this data to the user if it does not already exist
 			$user = UserMetadata::model()->findByAttributes(array('key'=>$provider.'Provider', 'value'=>$identity->userData['id']));
 			if ($user === NULL)
@@ -79,7 +81,7 @@ class DefaultController extends CiiController
 			// If the prevvious authentication failed, then the user has been upgraded, and we should attempt to use the bcrypt hash isntead of the md5 one
 			$model->attributes=array(
 				'username'=>isset($user->email) ? $user->email : $identity->userData['email'],
-				'password'=password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13)),
+				'password'=>password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13)),
 			);
 
 			// validate user input and redirect to the previous page if valid

@@ -54,6 +54,18 @@
 		            <div class="inner-container">
                         <div class="span3 well" id="eChrip">
                             <!-- Add js here for stuff -->
+                            <?php
+                            	Yii::import('ext.twitteroauth.*');
+                            	$connection = new TwitterOAuth(
+	                            		Cii::getConfig('ha_twitter_key', NULL, NULL), 
+	                            		Cii::getConfig('ha_twitter_secret', NULL, NULL),
+	                            		Cii::getConfig('ha_twitter_accessToken', NULL, NULL),
+	                            		Cii::getConfig('ha_twitter_accessTokenSecret', NULL, NULL)
+                            		);
+ 
+								$tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=charlesportwood&count=15");
+								Cii::debug($tweets);
+                            ?>
                         </div>
 		                <div class="span3">
                             <h5>Categories</h5>

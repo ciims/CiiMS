@@ -83,7 +83,11 @@ class CardController extends CiiDashboardController
 	{
 		$card = $this->getCardById($id);
 
-		echo $card->$method($_POST);
+		try {
+			echo $card->$method($_POST);
+		} catch (Exception $e) {
+			throw new CHttpException(500, 'Invalid Method');
+		}
 		return;
 	}
 
