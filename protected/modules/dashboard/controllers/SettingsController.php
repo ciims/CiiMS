@@ -8,6 +8,8 @@
  */
 class SettingsController extends CiiSettingsController
 {
+	public $themeType = 'desktop';
+
 	/**
 	 * Provides "general" settings control
 	 * @class GeneralSettings
@@ -109,6 +111,39 @@ class SettingsController extends CiiSettingsController
 			),
 			'cards' => $cards
 		));
+	}
+
+	public function actionTheme($type='desktop')
+	{
+		$theme = null;
+		if ($type == 'desktop')
+			$theme = Cii::getConfig('theme', 'default');
+		else if ($type == 'mobile')
+			$theme = Cii::getConfig('mobileTheme');
+		else if ($type == 'tablet')
+			$theme = Cii::getConfig('tabletTheme');
+		else
+			$theme = Cii::getConfig('theme', 'default');
+
+		$this->themeType = $type;
+
+		if (!file_exists(Yii::getPathOfAlias('webroot.themes.' . $theme) . DIRECTORY_SEPARATOR . 'Theme.php'))
+			throw new CHttpException(400, 'The requested theme type is not set. Please set a theme before attempting to change theme settings');
+
+		Yii::import('webroot.themes.' . $theme . '.Theme');
+		try {
+			$model = new Theme();
+		} catch(Exception $e) {
+			throw new CHttpException(400, 'The requested theme type is not set. Please set a theme before attempting to change theme settings');
+		}
+		
+		$this->submitPost($model);
+
+		$this->render('form', array('model' => $model, 'header' => array(
+			'h3' => 'Theme Settings', 
+			'p' => 'Change optional parameters for a given theme',
+			'save-text' => 'Save Changes'
+		)));
 	}
 
 	/**

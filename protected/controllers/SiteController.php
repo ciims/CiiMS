@@ -61,6 +61,23 @@ class SiteController extends CiiController
 			}
 		}
 	}
+
+	/**
+	 * Allows themes to have their own dedicated callback resources.
+	 *
+	 * This enables theme developers to not have to hack CiiMS Core in order to accomplish stuff
+	 * @param  string $method The method of the current theme they want to call
+	 * @return The output or action of the callback
+	 */
+	public function actionThemeCallback($method)
+	{
+		$currentTheme = Yii::app()->getTheme()->name;
+
+		Yii::import('webroot.themes.' . $currentTheme . '.Theme');
+		$theme = new Theme();
+
+		return $theme->$method($_POST);
+	}
 	
     /**
      * Provides basic sitemap functionality via XML

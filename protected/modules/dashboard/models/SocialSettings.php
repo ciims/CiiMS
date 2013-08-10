@@ -22,13 +22,16 @@ class SocialSettings extends CiiSettingsModel
 	protected $ha_linkedin_key = NULL;
 	protected $ha_linkedin_secret = NULL;
 	
+	protected $addThisPublisherID = null;
+
 	public function groups()
 	{
 		return array(
 			'Twitter'  => array('ha_twitter_enabled', 'ha_twitter_key', 'ha_twitter_secret', 'ha_twitter_accessToken', 'ha_twitter_accessTokenSecret'),
 			'Facebook' => array('ha_facebook_enabled', 'ha_facebook_id', 'ha_facebook_secret', 'ha_facebook_scope'),
 			'Google+'  => array('ha_google_enabled', 'ha_google_id', 'ha_google_secret', 'ha_google_scope'),
-			'LinkedIn' => array('ha_linkedin_enabled', 'ha_linkedin_key', 'ha_linkedin_secret')
+			'LinkedIn' => array('ha_linkedin_enabled', 'ha_linkedin_key', 'ha_linkedin_secret'),
+			'AddThis' => array('addThisPublisherID')
 		);
 	}
 
@@ -39,7 +42,8 @@ class SocialSettings extends CiiSettingsModel
 			array('ha_facebook_id, ha_facebook_secret', 'length', 'max' => 255),
 			array('ha_google_id, ha_google_secret', 'length', 'max' => 255),
 			array('ha_linkedin_key, ha_linkedin_secret', 'length', 'max' => 255),
-			array('ha_twitter_enabled, ha_facebook_enabled, ha_google_enabled, ha_linkedin_enabled', 'boolean')
+			array('ha_twitter_enabled, ha_facebook_enabled, ha_google_enabled, ha_linkedin_enabled', 'boolean'),
+			array('addThisPublisherID', 'length', 'max' => 255)
 		);
 	}
 
@@ -64,7 +68,9 @@ class SocialSettings extends CiiSettingsModel
 
 			'ha_linkedin_enabled' => 'Social Auth',
 			'ha_linkedin_key' => 'Consumer Key',
-			'ha_linkedin_secret' => 'Consumer Secret'
+			'ha_linkedin_secret' => 'Consumer Secret',
+
+			'addThisPublisherID' => 'AddThis Publisher ID'
 		);
 	}
 

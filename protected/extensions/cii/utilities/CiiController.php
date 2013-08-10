@@ -183,6 +183,8 @@ class CiiController extends CController
      */
 	public function beforeAction($action)
 	{
+        header('Content-type: text/html; charset=utf-8');
+
         // Attempt to contact NewRelic with Reporting Data
         try {
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
@@ -204,8 +206,6 @@ class CiiController extends CController
             else
                 throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
         }
-
-	    header('Content-type: text/html; charset=utf-8');
 
         $theme = Cii::getConfig('theme', 'default');
 

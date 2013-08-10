@@ -424,6 +424,10 @@ main .content-container .editor {
 	padding: 0px;
 }
 
+main .settings-container .sidebar #main {
+	height: 84%;
+	max-height: 84%;
+}
 main .content-container .editor #main,
 main .content-container .editor #main .content {
 	height: 98%;
