@@ -56,58 +56,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		// Timeago
-		$(".timeago").timeago();
-
-		// Comment Form
-		$("#b-<?php echo $comment->id; ?>").click( function () {
-	        $(this).html("");
-	        $("#a-<?php echo $comment->id; ?>").slideDown("fast");
-	        $("#submit-comment-<?php echo $comment->id; ?>").show();
-	        setTimeout(function() {
-	            $("#textbox-<?php echo $comment->id; ?>").focus();
-	        }, 100);
-	    });
-	    $("#textbox-<?php echo $comment->id; ?>").keydown( function() {
-	        if($(this).text() != "")
-	            $("#submit-comment-<?php echo $comment->id; ?>").css("background","#3b9000");
-	        else
-	            $("#submit-comment-<?php echo $comment->id; ?>").css("background","#9eca80");
-	        });
-	    $("#close-<?php echo $comment->id; ?>").click( function () {
-	        $("#b-<?php echo $comment->id; ?>").html("Comment on this post");
-	        $("#textbox-<?php echo $comment->id; ?>").html("");
-	        $("#a-<?php echo $comment->id; ?>").slideUp("fast");
-	        $("#submit-comment-<?php echo $comment->id; ?>").hide();
-	    });
-
-	    // Submit
-	    $("#submit-comment-<?php echo $comment->id; ?>").click(function(e) {
-	    	var elementId = $(this).attr('id').replace('submit-comment-', '');
-        	e.preventDefault();
-	        if ($("#textbox-<?php echo $comment->id; ?>").text() == "")
-	            return;
-
-	        $.post("/comment/comment", 
-	        	{ 
-	        		"Comments" : 
-	        		{ 
-	        			"comment" : $("#textbox-<?php echo $comment->id; ?>").text(), 
-	        			"content_id" : $(".content").attr("data-attr-id"),
-	        			"parent_id" : elementId
-	        		}
-	        	}, 
-	        	function(data, textStatus, jqXHR) { 
-	        		$("#textbox-<?php echo $comment->id; ?>").text("");  
-	        		// PREPEND DATA
-	        		var newElementId = jqXHR.getResponseHeader("X-Attribute-Id");
-	        		$(".comment-" + elementId).append(data);
-	        		$(".comment-" + newElementId).fadeIn();
-
-	        		$("#close-<?php echo $comment->id; ?>").click();
-	        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
-	        	}
-	        );
-	    });
+		DefaultTheme.loadComment(<?php echo $comment->id; ?>);
 	});
 </script>

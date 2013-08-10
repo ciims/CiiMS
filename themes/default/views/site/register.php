@@ -82,48 +82,6 @@
 	</div>
 </div>
 
-<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets')); ?>
+<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
 <?php Yii::app()->clientScript->registerScriptFile($asset .'/js/zxcvbn.js'); ?>
-<?php Yii::app()->clientScript->registerScript('password_strength_meter', '
-$(document).ready(function() {
-	if ($("#password").val().length > 0)
-		setTimeout(function() { $("#password, #password2").keyup(); }, 200);
-});
-
-$("#password, #password2").keyup(function() { 
-    var element = $(this).attr("id") == "password" ? "password_strength_1" : "password_strength_2";
-    var score = zxcvbn($(this).val()).score;
-
-    if (score <= 1 || $(this).val().length <= 8)
-    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").css("width", "25%");
-    if (score == 2)
-    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("poor").css("width", "50%");
-    else if (score == 3)
-    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("good").css("width", "75%");
-    else if (score == 4)
-    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").addClass("great").css("width", "100%");
-    else
-    	$("#" + element).find(".password_strength").removeClass("great").removeClass("good").removeClass("poor").css("width", "25%");
-});
-
-// Override the submit form to display password issues
-$("form").submit(function(e) { 
-	$("#jsAlert").hide();
-
-	if ($("#password").val().length < 8)
-	{
-		$("#jsAlertContent").text("Your password must be at least 8 characters.").parent().slideDown();
-		e.preventDefault();
-		return false;
-	}
-
-	if ($("#password2").val() != $("#password").val())
-	{
-		$("#jsAlertContent").text("Your passwords do not match!").parent().slideDown();
-		e.preventDefault();
-		return false;
-	}
-
-	return true;
-});
-', CClientScript::POS_END);
+<?php Yii::app()->clientScript->registerScript('password_strength_meter', '$(document).ready(function() { DefaultTheme.loadRegister(); });', CClientScript::POS_END);

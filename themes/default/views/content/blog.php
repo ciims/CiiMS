@@ -125,123 +125,13 @@
 	</div>
 </div>
 
+<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
 <?php Yii::app()->getClientScript()
-                ->registerCssFile($this->asset.'/highlight.js/default.css')
-				->registerCssFile($this->asset.'/highlight.js/github.css')
-				->registerScriptFile($this->asset.'/js/marked.js')
-				->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js')
-				->registerScript('md', '
-	marked.setOptions({
-	    gfm: true,
-	    highlight: function (lang, code) {
-	        return hljs.highlightAuto(lang, code).value;
-	    },
-	    tables: true,
-	    breaks: true,
-	    pedantic: false,
-	    sanitize: false,
-	    smartLists: true,
-	    smartypants: true,
-	    langPrefix: "lang-"
-	});
-	$(document).ready(function() {
-		var output = marked($("#markdown").text());
-		$("#md-output").html(output);
-		$("#md-output a").attr("rel", "nofollow").attr("target", "_blank")
-	});
-')
-				->registerScript('comment-box', '
-    $("#b").click( function () {
-        $(this).html("");
-        $("#a").slideDown("fast");
-        $("#submit-comment").show();
-        setTimeout(function() {
-            $("#textbox").focus();
-        }, 100);
-    });
-    $("#textbox").keydown( function() {
-        if($(this).text() != "")
-            $("#submit-comment").css("background","#3b9000");
-        else
-            $("#submit-comment").css("background","#9eca80");
-        });
-    $("#close").click( function () {
-        $("#b").html("Comment on this post");
-        $("#textbox").html("");
-        $("#a").slideUp("fast");
-        $("#submit-comment").hide();
-    });
-    
-    $("#submit-comment").click(function(e) {
-        e.preventDefault();
-        if ($("#textbox").text() == "")
-            return;
-        $.post("/comment/comment", 
-        	{ 
-        		"Comments" : 
-        		{ 
-        			"comment" : $("#textbox").text(), 
-        			"content_id" : $(".content").attr("data-attr-id") 
-        		}
-        	}, 
-        	function(data) { 
-        		$("#textbox").text("");  
-        		$("#comment-container").prepend(data);
-        		$("div#comment-container").children(":first").fadeIn();
-        		$("#close").click();
-        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
-        	}
-        );
-    });
-')->registerScript('likeButton', '
-	$("[id ^=\'upvote\']").click(function(e) {
-		e.preventDefault();
-
-		$.post("' . $this->createUrl('/content/like/id/' . $content->id) . '", function(data, textStatus, jqXHR) {
-			if (data.status == undefined)
-				window.location = "' . $this->createUrl('/login') . '"
-
-			if (data.status == "success")
-			{
-				var count = parseInt($("#like-count").text());
-				if (data.type == "inc")
-					$("[id ^=\'like-count\']").text(count + 1).parent().parent().parent().addClass("liked");
-				else
-					$("[id ^=\'like-count\']").text(count - 1).parent().parent().parent().removeClass("liked");
-			}
-		});
-		return false;
-	});
-')->registerScript('fetchComments', '
-	$.post("' . $this->createUrl('/comment/getComments/id/' . $content->id) . '", function(data) {
-		$("#comment-container").html(data);
-		$(".comment").show();
-		$("#comment-container").fadeIn();
-		$(".rounded-img").load(function() {
-		    $(this).wrap(function(){
-		      return \'<span class="\' + $(this).attr(\'class\') + \'" style="background:url(\' + $(this).attr(\'src\') + \') no-repeat center center; width: \' + $(this).width() + \'px; height: \' + $(this).height() + \'px;" />\';
-		    });
-		    $(this).css("opacity","0");
-		});
-
-		// Flag option
-		$("[class ^=\'flag\']").click(function() {
-			if ($(this).hasClass("flagged"))
-				return;
-
-			var element = $(this);
-			$.post("comment/flag/id/" + $(this).attr("data-attr-id"), function() {
-				$(element).addClass("flagged").text("flagged");
-			});
-		});
-
-		// Reply button
-		$("[class ^=\'reply\']").click(function() { 
-			$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
-		});
-	});
-');
-
+                ->registerCssFile($asset.'/highlight.js/default.css')
+				->registerCssFile($asset.'/highlight.js/github.css')
+				->registerScriptFile($asset.'/js/marked.js')
+				->registerScriptFile($asset.'/highlight.js/highlight.pack.js')
+				->registerScript('loadBlog', '$(document).ready(function() { DefaultTheme.loadBlog(' . $content->id . '); });');
 $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',
 ));

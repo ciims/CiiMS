@@ -17,7 +17,7 @@ class CiiSettingsModel extends CFormModel
 	 * 
 	 * @var array $attributes   Attributes
 	 */
-	private $attributes = array();
+	public $attributes = array();
 
 	/**
 	 * Provide the ability to supply a custom form. This should be in alias to be parsed by Yii::getPathOfAlias()
@@ -36,6 +36,24 @@ class CiiSettingsModel extends CFormModel
 	 * @var string alias
 	 */
 	public $preContentView = NULL;
+
+	/**
+	 * Constructor for CiiSettingsModel
+	 *
+	 * When this class is initialized, load up the appropriate properties using __get. This ensures that we can reference
+	 * protected properties inside the class while we're using it (see Themes)
+	 */
+	public function __construct()
+	{
+		// Protected properties s
+		$reflection = new ReflectionClass($this);
+		$properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+
+		foreach ($properties as $property)
+			$this->{$property->name} = $this->__get($property->name);
+
+		return parent::__construct();
+	}
 
 	/**
 	 * Overload the __getter so that it checks for data in the following order

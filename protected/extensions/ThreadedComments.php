@@ -37,7 +37,7 @@ class ThreadedComments
      */
     private function ouputComment($comment = NULL, $depth = 0)
     {
-        Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth, 'md' => $this->md));
+        echo Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth, 'md' => $this->md));
     }
 
     /**
@@ -48,7 +48,7 @@ class ThreadedComments
     {
         foreach ($comment as $c)
         {
-            if ($c['approved'] !== 1)
+            if ($c['approved'] != 1)
                 continue;
 
             $this->ouputComment($c, $depth);

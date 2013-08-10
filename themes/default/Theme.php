@@ -47,18 +47,19 @@ class Theme extends CiiSettingsModel
 	 */
 	public function getTweets($postData=NULL)
 	{
+
 		header("Content-Type: application/json");
 
 		Yii::import('ext.twitteroauth.*');
-    	$connection = new TwitterOAuth(
+
+    	try {
+    		$connection = new TwitterOAuth(
         		Cii::getConfig('ha_twitter_key', NULL, NULL), 
         		Cii::getConfig('ha_twitter_secret', NULL, NULL),
         		Cii::getConfig('ha_twitter_accessToken', NULL, NULL),
         		Cii::getConfig('ha_twitter_accessTokenSecret', NULL, NULL)
     		);
-
-    	try {
-
+    		
     		$tweets = Yii::app()->cache->get($this->theme . '_settings_tweets');
 
     		if ($tweets == false)
@@ -73,7 +74,7 @@ class Theme extends CiiSettingsModel
 			echo CJSON::encode($tweets);
 
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			echo CJSON::encode(array('errors' => array('message' => $e->getMessage())));
 		}
 	}
 }

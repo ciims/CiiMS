@@ -4,13 +4,14 @@
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	    <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets')); ?>
+	    <?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
                                       ->registerCssFile($asset .'/css/main.css')
 		                              ->registerCoreScript('jquery')
-								      ->registerScriptFile($asset .'/js/script.js'); ?>
+								      ->registerScriptFile($asset .'/js/script.js')
+								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });'); ?>
 		<!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -52,7 +53,7 @@
 		    <div class="footer-main-block">
 		        <div class="row-fluid">
 		            <div class="inner-container">
-                        <div class="span3 well" id="eChrip">
+                        <div class="span3 well" id="twitterFeed">
                         </div>
 		                <div class="span3">
                             <h5>Categories</h5>
@@ -85,26 +86,7 @@
 		        </div>
 		    </div>
 		</footer>
-		
-		<?php if (!YII_DEBUG):
-			if (Cii::getConfig('piwikId') !== NULL):
-				$this->widget('ext.analytics.EPiwikAnalyticsWidget', 
-					array(
-						'id' 		=> Cii::getConfig('piwikId'),
-						'baseUrl' 	=> Cii::getConfig('piwikBaseUrl')
-					)
-				); 
-			endif;
-			
-			if (Cii::getConfig('gaAccount') !== NULL):
-				$this->widget('ext.analytics.EGoogleAnalyticsWidget', 
-					array(
-						'account'=>Cii::getConfig('gaAccount'), 
-						'addThis'=>Cii::getConfig('gaAddThis'), 
-						'addThisSocial'=>Cii::getConfig('gaAddThisSocial'),
-					)
-				);
-			endif; 
-		endif; ?>
+
+		<span id="endpoint" data-attr-endpoint="<?php echo Yii::app()->getBaseUrl(true); ?>" style="display:none"></span>
 	</body>
 </html>
