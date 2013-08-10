@@ -120,9 +120,6 @@ header .header-middle-bar .navbar .nav > li:last-child {
 }
 
 /** Main **/
-
-
-
 main .image-container {
 	border-bottom: 1px solid #cacaca;
 	margin-bottom: 15px;
@@ -416,7 +413,7 @@ main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
 }
 
 main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
-    background: no-repeat url(../images/admin/bg.png) -33px -31px;
+    background: no-repeat url(../images/bg.png) -33px -31px;
     height: 9px;
     width: 9px;
     cursor: pointer;

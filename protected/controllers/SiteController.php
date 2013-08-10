@@ -56,10 +56,27 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				$this->setPageTitle(Yii::app()->name . ' | Error ' . $error['code']);
+				$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Error ' . $error['code']);
 				$this->render('error', array('error'=>$error));
 			}
 		}
+	}
+
+	/**
+	 * Allows themes to have their own dedicated callback resources.
+	 *
+	 * This enables theme developers to not have to hack CiiMS Core in order to accomplish stuff
+	 * @param  string $method The method of the current theme they want to call
+	 * @return The output or action of the callback
+	 */
+	public function actionThemeCallback($method)
+	{
+		$currentTheme = Yii::app()->getTheme()->name;
+
+		Yii::import('webroot.themes.' . $currentTheme . '.Theme');
+		$theme = new Theme();
+
+		return $theme->$method($_POST);
 	}
 	
     /**
@@ -68,7 +85,7 @@ class SiteController extends CiiController
 	public function actionSitemap()
 	{		
 		$this->layout = false;
-		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1;')->queryAll();
+		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
 		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories));
 		Yii::app()->end();
@@ -80,7 +97,7 @@ class SiteController extends CiiController
      */
 	public function actionSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -105,10 +122,10 @@ class SiteController extends CiiController
 				// Load the search data
 				Yii::import('ext.sphinx.SphinxClient');
 				$sphinx = new SphinxClient();
-				$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
+				$sphinx->setServer(Cii::getConfig('sphinxHost'), (int)Cii::getConfig('sphinxPort'));
 				$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
 				$sphinx->setMaxQueryTime(15);
-				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);	
+				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Cii::getConfig('sphinxSource'));	
 				$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
 				
     		}	
@@ -136,7 +153,7 @@ class SiteController extends CiiController
      */
 	public function actionMySQLSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -181,7 +198,7 @@ class SiteController extends CiiController
      */
 	public function actionLogin()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Login to your account');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Login to your account');
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
@@ -389,7 +406,7 @@ class SiteController extends CiiController
 	 **/
 	public function actionRegister()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Sign Up');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Sign Up');
 		$this->layout = '//layouts/main';
 		$model = new RegisterForm();
 		$user = new Users();
@@ -453,7 +470,7 @@ class SiteController extends CiiController
 	 */
 	public function actionRegistersuccess()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Registration Successful');
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Registration Successful');
 		$this->layout = '//layouts/main';
 		$this->render('register-success');
 	}

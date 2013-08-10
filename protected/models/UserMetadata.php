@@ -43,11 +43,11 @@ class UserMetadata extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, key, value', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('key, value', 'length', 'max'=>50),
+			array('user_id, entity_type', 'numerical', 'integerOnly'=>true),
+			array('key', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, key, value, created, updated', 'safe', 'on'=>'search'),
+			array('id, user_id, key, value, entity_type, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +73,7 @@ class UserMetadata extends CActiveRecord
 			'user_id' => 'User',
 			'key' => 'Key',
 			'value' => 'Value',
+			'entity_type' => 'Entity Type',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -93,6 +94,7 @@ class UserMetadata extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('key',$this->key,true);
 		$criteria->compare('value',$this->value,true);
+		$criteria->compare('entity_type',$this->entity_type,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 
@@ -103,9 +105,7 @@ class UserMetadata extends CActiveRecord
 	
 	public function beforeSave() {
     	if ($this->isNewRecord)
-    	{
 			$this->created = new CDbExpression('NOW()');
-		}
 		
 		$this->updated = new CDbExpression('NOW()');
 	    return parent::beforeSave();

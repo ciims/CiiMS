@@ -20,6 +20,11 @@ class CiiController extends CController
             'active' => false),
     );
     
+    public function getAsset()
+    {
+        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'));
+    }
+
     /**
      * @var array the default params for any request
      * 
@@ -91,7 +96,7 @@ class CiiController extends CController
      * @param  boolean $processOutput Whether the output should be processed. The default is TRUE since this output will be passed to MsgHTML
      * @return boolean                Whether or not the email sent sucessfully
      */
-    protected function sendEmail(Users $user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
+    protected function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
     {
         Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;
@@ -106,17 +111,23 @@ class CiiController extends CController
         $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
         $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
 
-        if ($smtpHost !== NULL)
-            $mail->Host       = $smtpHost->value; 
+        if ($smtpHost !== NULL && $smtpHost !== "")
+            $mail->Host       = $smtpHost; 
 
-        if ($smtpPort !== NULL)
-            $mail->Port       = $smtpPort->value;
+        if ($smtpPort !== NULL && $smtpPort !== "")
+            $mail->Port       = $smtpPort;
 
-        if ($smtpUser !== NULL)                    
-            $mail->Username   = $smtpUser->value; 
+        if ($smtpUser !== NULL && $smtpUser !== "")
+        {               
+            $mail->Username   = $smtpUser; 
+            $mail->SMTPAuth = true;
+        }
 
-        if ($smtpPass !== NULL)
-            $mail->Password   = $smtpPass->value;      
+        if ($smtpPass !== NULL && $smtpPass !== "")
+        {
+            $mail->Password   = Cii::decrypt($smtpPass);
+            $mail->SMTPAuth = true;
+        }
 
         if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
             $notifyUser = Users::model()->findByPk(1);
@@ -142,6 +153,11 @@ class CiiController extends CController
     private function setApplicationLanguage()
     {
         $app = Yii::app();
+        
+        // Set the default language to whatever we have in the dahsboard
+        $app->language = Cii::getConfig('defaultLanguage');
+
+        // If the language is set via POST, accept it
         if (Cii::get($_POST, '_lang', false))
             $app->language = $app->session['_lang'] = $_POST['_lang'];
         else if (Cii::get($app->session, '_lang', false))
@@ -149,6 +165,8 @@ class CiiController extends CController
         else
             $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
 
+        $app->session['_lang'] = $app->language;
+        
         return $app->language;
     }
 
@@ -165,6 +183,8 @@ class CiiController extends CController
      */
 	public function beforeAction($action)
 	{
+        header('Content-type: text/html; charset=utf-8');
+
         // Attempt to contact NewRelic with Reporting Data
         try {
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
@@ -181,27 +201,35 @@ class CiiController extends CController
                 if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
                     throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
             }
+            else if (isset($this->module) && $this->module->getName() == "dashboard")
+                $nop;
             else
                 throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
         }
-
-	    header('Content-type: text/html; charset=utf-8');
 
         $theme = Cii::getConfig('theme', 'default');
 
         Yii::import('ext.mobile_detect.*');
 
         // Allow for mobile devices to have a separate theme
-        if (MobileDetect::isMobileS())
+        if (MobileDetect::isMobileDevice())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
-            if ($mobileTheme !== NULL)
+            if ($mobileTheme != NULL)
                 $theme = $mobileTheme;
+        }
+
+        // Allow for tablet devices to have a separate theme from desktop and mobile
+        if (MobileDetect::isTabletDevice())
+        {
+            $tabletTheme = Cii::getConfig('tabletTheme');
+            if ($tabletTheme != NULL)
+                $theme = $tabletTheme;
         }
 
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
-        return parent::beforeAction($action);;
+        return parent::beforeAction($action);
 	}
 	
     /**
@@ -213,7 +241,7 @@ class CiiController extends CController
         if (Cii::get($keywords, 'value', false) != false)
             $keywords = implode(',', json_decode($keywords['value']));
             
-        return $keywords == "" ? Cii::get($this->params['data'], 'title', Yii::app()->name): $keywords;
+        return $keywords == "" ? Cii::get($this->params['data'], 'title', Cii::getConfig('name', Yii::app()->name)): $keywords;
     }
 		
 	/**

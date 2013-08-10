@@ -18,15 +18,18 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
+$preload = array('cii', 'analytics');
+if (isset($_SERVER['REQUEST_URI'])) {
+    if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
+        $preload[] = 'bootstrap';
+}
+
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
     'language' => 'en_US',
-    'preload' => array(
-        'cii',
-        'bootstrap',
-    ),
+    'preload' => $preload,
     'import' => array(
         'application.models.*',
         'application.components.*',
@@ -34,6 +37,10 @@ return array(
     ),
     'modules' => array(
         'admin',
+        'dashboard',
+        'hybridauth' => array(
+            'providers' => array()
+        )
     ),
     'behaviors' => array(
         'onBeginRequest' => array(
@@ -46,6 +53,11 @@ return array(
         ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
+        ),
+        'analytics' => array(
+            'class' => 'ext.cii.components.CiiAnalytics',
+            'lowerBounceRate' => true,
+            'options' => array(),
         ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
@@ -80,8 +92,8 @@ return array(
             'username'              => NULL,
             'password'              => NULL,
             'charset'               => 'utf8',
-            'schemaCachingDuration' => '3600',
-            'enableProfiling'       => true,
+            'schemaCachingDuration' => 3600,
+            'enableProfiling'       => false,
         ),
         'cache' => array(
             'class' => 'CFileCache',
@@ -91,6 +103,7 @@ return array(
         'yiiPath'       => NULL,
         'encryptionKey' => NULL,
         'debug'         => false,
-        'trace'         => 0
+        'trace'         => 0,
+        'user'          => null,
     ),
 );

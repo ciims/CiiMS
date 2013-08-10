@@ -19,12 +19,12 @@
  * @property integer $comment_count
  * @property integer $like_count
  * @property string $slug
+ * @property string $published
  * @property string $created
  * @property string $updated
  *
  * The followings are the available model relations:
  * @property Comments[] $comments
- * @property Comments[] $comments1
  * @property Users $author
  * @property Content $parent
  * @property Content[] $contents
@@ -38,7 +38,7 @@ class Content extends CiiModel
     public $viewFile = 'blog';
     
     public $layoutFile = 'blog';
-    
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -78,7 +78,7 @@ class Content extends CiiModel
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -104,8 +104,8 @@ class Content extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'vid' => 'Vid',
+			'id' => 'Id',
+			'vid' => 'Version',
 			'author_id' => 'Author',
 			'title' => 'Title',
 			'content' => 'Content',
@@ -120,14 +120,15 @@ class Content extends CiiModel
 			'like_count' => 'Likes',
 			'tags' => 'Tags',
 			'slug' => 'Slug',
+			'published' => 'Published',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
 	}
-	
+
 	public function getCommentCount()
 	{
-		return Comments::model()->countByAttributes(array('content_id' => $this->id));
+		return Comments::model()->countByAttributes(array('content_id' => $this->id, 'approved' => 1));
 	}
 
 	/**
@@ -228,7 +229,13 @@ class Content extends CiiModel
         return $view;
     }
 
-    
+    protected function afterFind()
+    {
+    	parent::afterFind();
+
+    	$this->comment_count = $this->getCommentCount();
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -237,7 +244,7 @@ class Content extends CiiModel
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-
+		// 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -246,8 +253,9 @@ class Content extends CiiModel
 		$criteria->compare('content',$this->slug,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('published',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-        
+
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(
@@ -298,6 +306,10 @@ class Content extends CiiModel
 			$this->comment_count = 0;
 		}
 	   	
+	   	// Allow publication times to be set automatically
+		if ($this->published == NULL)
+			$this->published = new CDbExpression('NOW()');
+
 	   	$this->updated = new CDbExpression('NOW()');
 		
 		if (strlen($this->extract) == 0)
@@ -306,6 +318,28 @@ class Content extends CiiModel
 	    return parent::beforeValidate();
 	}
 	
+	/**
+	 * Saves a prototype copy of the model so that we can get an id back to work with
+	 * @return $model->save(false) without any validation rules
+	 */
+	public function savePrototype()
+	{
+		$this->title = '';
+        $this->content = '';
+        $this->extract = '';
+        $this->commentable = 1;
+        $this->status = 0;
+        $this->parent_id = 1;
+        $this->category_id = 1;
+        $this->type_id = 0;
+        $this->password = '';
+        $this->created = new CDbExpression('NOW()');
+        $this->updated = new CDbExpression('NOW()');
+        $this->vid = 0;
+        $this->author_id = Yii::app()->user->id;
+        return $this->save(false);
+	}
+
     /**
      * BeforeSave
      * Clears caches for rebuilding, creates the end slug that we are going to use

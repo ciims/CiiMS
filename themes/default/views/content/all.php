@@ -9,27 +9,15 @@
 	    'url'=>isset($url) ? $url : 'blog',
 	    'contentSelector' => '#posts',
 	    'pages' => $pages,
-	    'defaultCallback' => "js:function(response, data) { 
-	    	var url = response.options.path.join(response.options.state.currPage);
-
-	    	// Try GA Tracking
-	    	try {
-			    _gaq.push(['_trackPageview', url]);
-			} catch (e) {
-				// Don't do anything if the tracking event failed
-			}
-
-			// Try Piwik Tracking
-			try {
-			    _paq.push(['trackPageView', url]);
-			} catch (e) {
-				// Don't do anything if the tracking event failed
-			}			    
+	    'defaultCallback' => "js:function(response, data) {
+	    	DefaultTheme.infScroll(response, data);			    
  		}"
 	)); ?>
-	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
+	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(document).ready(function() { DefaultTheme.loadAll(); });"); ?>
 <?php else: ?>
 	<div class="alert alert-info">
 		<strong>Woah!</strong> It looks like there isn't any posts in this category yet. Why don't you check out some of our other pages or check back later?
 	</div>
 <?php endif; ?>
+
+<?php $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.default.assets'), true, -1, YII_DEBUG); ?>

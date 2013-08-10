@@ -12,6 +12,26 @@
             <?php echo CHtml::endForm(); ?>
 		</div>
 		
+		<!-- AddThis -->
+		<div class="addthis">
+			<?php if( Cii::getConfig('addThisPublisherID') != ''): ?>
+				<!-- AddThis Smart Layers BEGIN -->
+				<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+				<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=<?php echo Cii::getConfig('addThisPublisherID'); ?>"></script>
+				<script type="text/javascript">
+				  addthis.layers({
+				    'theme' : 'dark',
+				    'share' : {
+				      'position' : 'right',
+				      'numPreferredServices' : 5,
+				      'services' : 'facebook,twitter,linkedin,google_plusone_share,more'
+				    },
+				    'visible' : 'smart'
+				  });
+				</script>
+				<!-- AddThis Smart Layers END -->
+			<?php endif; ?>
+		</div>
 		<!-- Related Posts -->
 		<div class="well">
 			<h4>Related Posts</h4>
@@ -25,16 +45,6 @@
 				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->getContentTags())); ?>
 			</div>
 		<?php endif; ?>
-		<?php 
-			$addThisExtension = Configuration::model()->findByAttributes(array('key'=>'addThisExtension'));
-			if (isset($addThisExtension->value) && $addThisExtension->value == 1): ?>
-				<div class="well">
-					<h4>Share This</h4>
-				<?php $this->widget('ext.analytics.EAddThisWidget', 
-					array(
-						'account'=>Configuration::model()->findByAttributes(array('key'=>'addThisAccount'))->value,
-					)); ?>
-				</div>
-		<?php endif; ?>
+		
 	</div>
 <?php $this->endContent(); ?>

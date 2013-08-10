@@ -2,8 +2,8 @@
 /**
  * CiiRedisCache class file
  * @author Charles R. Portwood II <charlesportwoodii@etheal.net>
- * CiiRedisCache uses phpredis client{@link https://github.com/nicolasff/phpredis phpredis}.
- * On Ubuntu, you can download a precompiled .deb package from {@link http://deb.erianna.com/}
+ * 
+ * CiiRedisCache uses phpredis client {@link https://github.com/nicolasff/phpredis phpredis}.
  */
 class CiiRedisCache extends CiiCache
 {
@@ -138,7 +138,12 @@ class CiiRedisCache extends CiiCache
 	 */
 	protected function flushValues()
 	{
-		return $this->_redis->flushAll();
+		// As part of CiiMS 1.8, we only delete keys related to CiiMS rather than everything in the system
+		$keys = $this->_redis->getKeys($this->generateUniqueIdentifier() . '*');
+		foreach ($keys as $k)
+			$this->deleteValue($k);
+
+		return true;
 	}
 	
     /**

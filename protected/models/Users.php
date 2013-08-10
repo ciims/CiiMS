@@ -25,6 +25,8 @@
  */
 class Users extends CiiModel
 {
+	public $pageSize = 15;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -81,7 +83,8 @@ class Users extends CiiModel
 			'comments' => array(self::HAS_MANY, 'Comments', 'user_id'),
 			'content' => array(self::HAS_MANY, 'Content', 'author_id'),
 			'tags' => array(self::HAS_MANY, 'Tags', 'user_id'),
-			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id'),
+			// Don't pull in dashboard junk...
+			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
 			'role' => array(self::BELONGS_TO, 'UserRoles', 'user_role'),
 		);
 	}
@@ -100,7 +103,7 @@ class Users extends CiiModel
 			'displayName' => 'Display Name',
 			'about'		=> 'About',
 			'user_role' => 'User Role',
-			'status' => 'Status',
+			'status' => 'Active',
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
@@ -136,10 +139,13 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->order = "id DESC";
+		$criteria->order = "user_role DESC, created DESC";
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $this->pageSize
+            )
 		));
 	}
 	

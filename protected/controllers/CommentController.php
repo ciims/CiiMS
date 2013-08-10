@@ -86,7 +86,7 @@ class CommentController extends CiiController
 	 */
 	public function actionComment()
 	{
-		if (Yii::app()->request->isAjaxRequest && isset($_POST))
+		if (Yii::app()->request->isAjaxRequest && Cii::get($_POST, 'Comments'))
 		{
 			$comment = new Comments();
 			$comment->attributes = array(
@@ -94,13 +94,13 @@ class CommentController extends CiiController
 				'content_id'=>	$_POST['Comments']['content_id'],
 				'comment'	=>	$_POST['Comments']['comment'],
 				'parent_id'	=>	Cii::get($_POST['Comments'], 'parent_id', 0),
-				'approved'	=>	1,
+				'approved'	=>	Cii::getConfig('autoApproveComments', 1),
 			);
 			
 			if ($comment->save())
 			{
 				$content = Content::model()->findByPk($_POST['Comments']['content_id']);
-				$content->comment_count++;
+				$content->comment_count = $content->getCommentCount();
 				$content->save();
 				
 				// Send an email to the author if someone makes a comment on their blog
@@ -142,6 +142,7 @@ class CommentController extends CiiController
 				throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 			
 			$comment->approved = '-1';
+			
 			if($comment->save())
 				return true;
 			else

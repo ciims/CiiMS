@@ -23,18 +23,20 @@ end
 # Fix Permissions
 task :fix_permissions do
     run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
+    run "#{try_sudo} chmod -R 755 #{deploy_to}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
 	run "#{try_sudo} cp '#{deploy_to}/persistent/config/main.php' '#{release_path}/protected/config/main.php'"
+	run "#{try_sudo} rm -rf '#{release_path}/protected/modules/admin/views/default/cards/001-server.php'"
 end
 
 task :migrate do
-	run "cd /#{webroot}/#{application}/#{stage}/deployments/current/protected/ && php yiic.php migrate --interactive=0"
+	run "cd #{release_path}/protected/ && php yiic.php migrate --interactive=0"
 end
 
-# After Actions
-before "deploy:create_symlink", :move_configs
 after "deploy:setup", :setup_directories
 after "deploy:setup", :fix_permissions
+
+before "deploy:create_symlink", :move_configs

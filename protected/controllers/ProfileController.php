@@ -86,7 +86,7 @@ class ProfileController extends CiiController
 		if ($id !== NULL && $displayName === NULL)
 		{
 			$model = Users::model()->findByPk($id);
-			if ($model === NULL)
+			if ($model === NULL || $model->status == 0)
 				throw new CHttpException(404, 'Oops! That user doesn\'t exist on our network!');
 			else
 				$this->redirect('/profile/' . $model->id . '/' . preg_replace('/[^\da-z]/i', '', $model->displayName));
@@ -94,7 +94,11 @@ class ProfileController extends CiiController
 
 		$model = Users::model()->findByPk($id);
 
-		$this->pageTitle = $model->displayName . ' | ' . Yii::app()->name;
+		// Don't allow null signings or invalidated users to pollute our site
+		if($model->status == 0)
+			throw new CHttpException(404, 'Oops! That user doesn\'t exist on our network!');
+
+		$this->pageTitle = $model->displayName . ' | ' . Cii::getConfig('name', Yii::app()->name);
 		$postsCriteria = new CDbCriteria;
 	    $postsCriteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 	    $postsCriteria->addCondition('type_id=2');

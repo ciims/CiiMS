@@ -1,15 +1,20 @@
 <?php
 
 class Cii {
-		
+	
+    public static function getVersion()
+    {
+        $data = json_decode(file_get_contents(Yii::getPathOfAlias('ext.cii').'/ciims.json'),true);
+        return $data['version'];
+    }
 	/**
 	 * Checks for the existance of an item at a given array index and returns that object if it exists
 	 * @param array $array 	 The array to check
 	 * @param mixed $item	 The indicie to check against
 	 * @param mixed $default The default return value
-	 * @return mixed array index or default]
+	 * @return mixed array index or default
 	 */
-	public static function get($array, $item=NULL, $default=NULL)
+	public static function get($array=NULL, $item=NULL, $default=NULL)
 	{
 		if ($array === NULL)
 			return isset($default) ? $default : $item;
@@ -35,14 +40,45 @@ class Cii {
      * @param  mixed  $default The default value to return if key is not found
      * @return mixed           The value from Config, or default
      */
-    public static function getConfig($key, $default=NULL)
+    public static function getConfig($key, $default=NULL, $prefix='settings_')
     {
-        $data = Configuration::model()->findByAttributes(array('key' => $key));
+        $cache = Yii::app()->cache->get($prefix.$key);
 
-        if ($data === NULL)
-            return $default;
+        if ($cache === false)
+        {
+            $data = Yii::app()->db->createCommand('SELECT value FROM configuration AS t WHERE t.key = :key')
+                                   ->bindParam(':key', $key)
+                                   ->queryAll();
 
-        return $data->value;
+            if (!isset($data[0]['value']))
+                $cache = $default;
+            else
+                $cache = $data[0]['value'];
+
+            Yii::app()->cache->set($prefix.$key, $cache);
+        }
+
+        return $cache;
+    }
+
+    /**
+     * Gets a configuration value from user_metadata
+     * @param  string $key     The key we want to retrieve from Configuration
+     * @param  mixed  $default The default value to return if key is not found
+     * @return mixed           The value from Config, or default
+     */
+    public static function getUserConfig($key, $default=NULL)
+    {
+        $uid = Yii::app()->user->id;
+        $data = Yii::app()->db->createCommand('SELECT value FROM user_metadata AS t WHERE t.key = :key AND t.user_id = :id')
+                              ->bindParam(':id', $uid)
+                              ->bindParam(':key', $key)
+                              ->queryAll();
+
+        if (!isset($data[0]['value']))
+            return NULL;
+        
+        return $data[0]['value'];
     }
 
     /**
@@ -52,25 +88,160 @@ class Cii {
      */
     public static function getBcryptCost($default = 13)
     {
-        $cost = Cii::getConfig('bcrypt_cost', $default);
-
-        if ($cost <= 12)
-            return 13;
-
-        return $cost;
+        return Cii::getConfig('bcrypt_cost', $default);
     }
 
 	/**
 	 * Provides methods to format a date throughout a model
-	 */
-	public static function formatDate($date, $format = 'F jS, Y @ H:i')
+     * By forcing all components through this method, we can provide a comprehensive
+     * and consistent date format for the entire site
+     * @param  mxied  $date   Likely a string in date format (of some kind)
+     * @param  string $format The format we want to FORCE the dts to be formatted to
+     *                        If this isn't supplied, we'll pull it from Cii::getConfig()
+     * @return Date
+     */
+	public static function formatDate($date, $format = NULL)
 	{
+        if ($format == NULL)
+            $format = Cii::getConfig('dateFormat') . ' @ ' . Cii::getConfig('timeFormat');
+
+        if ($format == ' @ ')
+            $format = 'F jS, Y @ H:i';
+
 		return date($format, strtotime($date));
 	}
 	
+    /**
+     * Retrieves Analytics.js Providers
+     * @return array $providors
+     */
+    public static function getAnalyticsProviders()
+    {
+        $providers = Yii::app()->cache->get('analyticsjs_providers');
+
+        if ($providers === false)
+        {
+            // Init the array
+            $providers = array();
+
+            // Retrieve all the providors that are enabled
+            $response = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_%_enabled" AND value = 1')->queryAll();
+            foreach ($response as $element)
+            {
+                $k = $element['key'];
+                $provider = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
+                $provider = reset($provider);
+
+                $sqlProvider = str_replace(" ", "__" ,str_replace(".", "___", $provider));
+                $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
+                
+                foreach ($data as $el)
+                {
+                    $k = $el['key'];
+                    $v = $el['value'];
+                    $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
+                    if ($v !== "")
+                        $providers[$provider][$p[1]] = $v;
+                }
+            }
+        
+            Yii::app()->cache->set('analyticsjs_providers', $providers);
+        }
+        
+        return $providers;
+    }
+
+    /**
+     * Returns an array of HybridAuth providers to be used by HybridAuth and other parts of CiiMS
+     * @return array of HA Providers prettily formatted
+     */
+    public static function getHybridAuthProviders()
+    {
+        $providers = Yii::app()->cache->get('hybridauth_providers');
+
+        if ($providers === false)
+        {
+            // Init the array
+            $providers = array();
+
+            // Query for the providors rather than using Cii::getConfig(). The SQL performance SHOULD be faster
+            $response = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "ha_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "ha_%"')->queryAll();
+            foreach ($response as $element)
+            {
+                $k = $element['key'];
+                $v = $element['value'];
+                $data = explode('_', $k);
+                $provider = $data[0];
+                $key = $data[1];
+                if ($provider == 'linkedin')
+                    $provider = 'LinkedIn';
+
+                $provider = ucwords($provider);
+
+                if (!in_array($key, array('id', 'key', 'secret')))
+                    $providers[$provider][$key] = $v;
+                else
+                    $providers[$provider]['keys'][$key] = $v;
+            }
+            
+            Yii::app()->cache->set('hybridauth_providers', $providers);
+        }
+        
+        return $providers;
+    }
+
+    /**
+     * Provides a _very_ simple encryption method that we can user to encrypt things like passwords.
+     * This way, if the database is exposed AND the encryptionKey is not exposed, important stuff like
+     * SMTP Passwords and what not aren't publicly exposed.
+     *
+     * Since often times these passwords are the same password used to access more critical seems, _I_
+     * think it is imnportant that they aren't stored in plain text, but with some form of reversible encryption
+     * so that the user doesn't have to decrypt it on their own.
+     *
+     * The purpose of this is to _assist_ in hardened security, and is in no means a substitude for a more comprehensive
+     * security strategy. This _WILL NOT_ help you if you encryptionKey is taken as well - but it might buy you some time.
+     * 
+     * @param  string $field The data we want to ecrnypt
+     * @return string        encrypted data
+     */
+    public static function encrypt($field)
+    {
+        return base64_encode(
+            mcrypt_encrypt(
+                MCRYPT_RIJNDAEL_256, 
+                md5(Yii::app()->params['encryptionKey']), 
+                $field,
+                MCRYPT_MODE_CBC, 
+                md5(md5(Yii::app()->params['encryptionKey']))
+                )
+            );
+    }
+
+    /**
+     * Acts are a counterpart to Cii::encrypt().
+     * @see  Cii::encrypt()
+     * @param  string $field encrypted text
+     * @return string        unencrypted text
+     */
+    public static function decrypt($field)
+    {
+        return rtrim(
+            mcrypt_decrypt(
+                MCRYPT_RIJNDAEL_256, 
+                md5(Yii::app()->params['encryptionKey']),
+                base64_decode($field), 
+                MCRYPT_MODE_CBC, 
+                md5(md5(Yii::app()->params['encryptionKey']))
+            ), 
+        "\0");
+    }
+
 	/**
-	 * CiiController debug method
-	 */
+	 * Beause doing this all over the place is stupid...
+     * @param  mixed $data     The data we want to debug
+     * @param  bool $full_dump Whether or not we want the data outputted with var_dump or not
+     */
 	public static function debug($data, $full_dump = false)
 	{
 		echo '<pre class="cii-debug">';
@@ -261,9 +432,13 @@ class Cii {
     public static function titleize($word, $uppercase = '')
     {
         $uppercase = $uppercase == 'first' ? 'ucfirst' : 'ucwords';
-        return $uppercase(Inflector::humanize(Inflector::underscore($word)));
+        return $uppercase(Cii::humanize(Cii::underscore($word)));
     }
 
+    public static function underscoretowords($word)
+    {
+        return ucwords(str_replace("_", " ", Cii::underscore($word)));
+    }
     // }}}
     // {{{ camelize()
 
@@ -304,8 +479,8 @@ class Cii {
    public static function underscore($word)
     {
         return  strtolower(preg_replace('/[^A-Z^a-z^0-9]+/','_',
-        preg_replace('/([a-zd])([A-Z])/','1_2',
-        preg_replace('/([A-Z]+)([A-Z][a-z])/','1_2',$word))));
+        preg_replace('/([a-zd])([A-Z])/','$1_$2',
+        preg_replace('/([A-Z]+)([A-Z][a-z])/','$1_$2',$word))));
     }
 
     // }}}
@@ -352,7 +527,7 @@ class Cii {
     */
     public static function variablize($word)
     {
-        $word = Inflector::camelize($word);
+        $word = Cii::camelize($word);
         return strtolower($word[0]).substr($word,1);
     }
 
@@ -373,7 +548,7 @@ class Cii {
      */
     public static function tableize($class_name)
     {
-        return Inflector::pluralize(Inflector::underscore($class_name));
+        return Cii::pluralize(Cii::underscore($class_name));
     }
 
     // }}}
@@ -393,7 +568,7 @@ class Cii {
      */
     public static function classify($table_name)
     {
-        return Inflector::camelize(Inflector::singularize($table_name));
+        return Cii::camelize(Cii::singularize($table_name));
     }
 
     // }}}

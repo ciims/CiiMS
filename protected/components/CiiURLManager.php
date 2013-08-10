@@ -77,7 +77,9 @@ class CiiURLManager extends CUrlManager
         '/profile/edit'						=> '/profile/edit',
         '/profile/<id:\w+>/<displayName:\w+>' => '/profile/index',
         '/profile/<id:\w+>' 				=> '/profile/index',
-        '/admin' 							=> '/admin'
+        '/admin' 							=> '/admin',
+        '/dashboard'						=> '/dashboard',
+        '/dashboard/content/<page:\d+>'		=> '/dashboard/content'
 	);
 
 	/**
@@ -90,12 +92,19 @@ class CiiURLManager extends CUrlManager
 		$this->addBasicRules();
 		$this->cacheRules('content', $this->contentUrlRulesId);
 		$this->cacheRules('categories', $this->categoriesUrlRulesId);
-		
+
+		// Allow Sphinx Search settings to be dynamically via CiiSettings
+		if (Cii::getConfig('sphinx_enabled') === true)
+		{
+			$this->rules['/search/<page:\d+>'] = '/site/search';
+			$this->rules['/search'] = '/site/search';
+		}
+
 		// Append our cache rules BEFORE we run the defaults
 		$this->rules['<controller:\w+>/<action:\w+>/<id:\d+>'] = '<controller>/<action>';
 		$this->rules['<controller:\w+>/<action:\w+>'] = '<controller>/<action>';
 
-		parent::processRules();
+		return parent::processRules();
 	}
 	
 	/**
@@ -112,17 +121,20 @@ class CiiURLManager extends CUrlManager
 	 * @param $item - Address of the caching rule
 	 * @does - Adds to the url rules and caches the result
 	 **/
-	private function cacheRules($fromString, &$item)
+	private function cacheRules($fromString, $item)
 	{
 		$urlRules = Yii::app()->cache->get($item);
-		if($urlRules===false)
+		if($urlRules===false || $urlRules === NULL)
 		{
-		    $urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString}")->queryAll();
+			if ($fromString == "content")
+				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")->queryAll();
+			else
+		   		$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString}")->queryAll();
 			
 			if ($this->cache)
 		    	Yii::app()->cache->set($item, $urlRules);
 		}
-		
+
 		$tmpRules = array();
 		foreach ($urlRules as $route)
 		{

@@ -30,7 +30,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 		{
 			$params = array();
 		}
-		
+	
 		$hybridauth = new Hybrid_Auth($this->_getConfig());
 		
 		$adapter = $hybridauth->authenticate($provider,$params);

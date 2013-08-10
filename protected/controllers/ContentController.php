@@ -39,7 +39,7 @@ class ContentController extends CiiController
         
         if ($id != NULL)
 		{
-			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
+			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id', $id)->queryScalar();
 			$theme = Cii::getConfig('theme', 'default');
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
@@ -61,6 +61,7 @@ class ContentController extends CiiController
                 ),
             );
 		}
+
 		return parent::filters();
     }
 	
@@ -131,8 +132,8 @@ class ContentController extends CiiController
         
 		// Retrieve the data
 		$content = Content::model()->with('category')->findByPk($id);
-        
-		if ($content->status != 1)
+
+		if ($content->status != 1 || strtotime($content->published) > time())
 			throw new CHttpException('404', 'The article you specified does not exist. If you bookmarked this page, please delete it.');
         
 		$this->breadcrumbs = array_merge(Categories::model()->getParentCategories($content['category_id']), array($content['title']));
@@ -150,13 +151,13 @@ class ContentController extends CiiController
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
 		$this->setLayout($content->layout);
-		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
+		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | ' . $content->title);
 	
 		$this->render($content->view, array(
 				'id'=>$id, 
 				'data'=>$content, 
 				'meta'=>$meta,
-				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id)),
+				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
 				'model'=>Comments::model()
 			)
 		);
@@ -302,7 +303,8 @@ class ContentController extends CiiController
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
 		         ->addCondition('type_id >= 2')
 		         ->addCondition('password = ""')
-		         ->addCondition('status = 1');
+		         ->addCondition('status = 1')
+		         ->addCondition('published <= NOW()');
 		
 		$itemCount = Content::model()->count($criteria);
 		$pages=new CPagination($itemCount);
@@ -325,7 +327,8 @@ class ContentController extends CiiController
 		$criteria=new CDbCriteria;
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
 		         ->addCondition('type_id >= 2')
-		         ->addCondition('status = 1');
+		         ->addCondition('status = 1')
+		         ->addCondition('published <= NOW()');
                  
 		if ($id != NULL)
 			$criteria->addCondition("category_id = " . $id);
