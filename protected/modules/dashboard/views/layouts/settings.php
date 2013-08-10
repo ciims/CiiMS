@@ -11,7 +11,7 @@
 					array('url' => $this->createUrl('/dashboard/settings'), 'label' => 'General', 'itemOptions' => array('class' => 'icon-gears'), 'active' => ($this->id == 'settings' && $this->action->id == 'index' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/users'), 'label' => 'Users', 'itemOptions' => array('class' => 'icon-group'), 'active' => ($this->id == 'users' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/categories'), 'label' => 'Categories', 'itemOptions' => array('class' => 'icon-list'), 'active' => ($this->id == 'categories' ? true : false)),
-					array('url' => $this->createUrl('/dashboard/settings/analytics'), 'label' => 'Analytics', 'itemOptions' => array('class' => 'icon-bar-chart'), 'active' => ($this->id == 'analytics' ? true : false)),
+					array('url' => $this->createUrl('/dashboard/settings/analytics'), 'label' => 'Analytics', 'itemOptions' => array('class' => 'icon-bar-chart'), 'active' => ($this->id == 'analytics' || ($this->id == 'settings' && $this->action->id == 'analytics') ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/appearance'), 'label' => 'Appearance', 'itemOptions' => array('class' => 'icon-eye-open'), 'active' => ($this->id == 'settings' && $this->action->id == 'appearance' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/email'), 'label' => 'Email', 'itemOptions' => array('class' => 'icon-envelope-alt'), 'active' => ($this->id == 'settings' && $this->action->id == 'email' ? true : false)),
 					array('url' => $this->createUrl('/dashboard/settings/social'), 'label' => 'Social', 'itemOptions' => array('class' => 'icon-twitter'), 'active' => ($this->id == 'settings' && $this->action->id == 'social' ? true : false)),

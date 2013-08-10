@@ -71,7 +71,7 @@ class SettingsController extends CiiSettingsController
 
 		$this->render('form', array('model' => $model, 'header' => array(
 			'h3' => 'Analytics Settings', 
-			'p' => 'Enable and configure various Analytics providers',
+			'p' => 'Enable and configure various Analytics providers (more coming soon!)',
 			'save-text' => 'Save Changes'
 		)));
 	}
