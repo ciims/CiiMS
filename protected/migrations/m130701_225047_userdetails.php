@@ -10,7 +10,7 @@ class m130701_225047_userdetails extends CDbMigration
 	{
 		// Refactor for EXECUTE style queries
 		$this->execute('ALTER TABLE users MODIFY firstName VARCHAR(255) NULL');
-		$this->execute('ALTER TABLE users MODIFY lastName VARCHAR(255) NULL')-;
+		$this->execute('ALTER TABLE users MODIFY lastName VARCHAR(255) NULL');
 
 		return true;
   
