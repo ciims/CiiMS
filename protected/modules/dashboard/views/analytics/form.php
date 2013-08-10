@@ -21,7 +21,10 @@
 		<legend>Attributes for <?php echo $group; ?></legend>
 		<?php foreach ($keys as $key): ?>
 			<div class="pure-control-group">
-				<?php if (strpos($key, 'enabled') === false): ?>
+				<?php $validators = $model->getValidators($key); ?>
+				<?php if (get_class($validators[0]) == "CBooleanValidator"): ?>
+					<?php echo $form->toggleButtonRowFix($model, $key, $htmlOptions); ?>
+				<?php else: ?>
 					<?php echo $form->textFieldRowLabelFix($model, $key, $htmlOptions); ?>
 				<?php endif; ?>
 			</div>
