@@ -3,7 +3,7 @@
 $stage = max((isset($ciimsConfig['params']['stage']) ? $ciimsConfig['params']['stage'] : 0), isset($_GET['stage']) ? $_GET['stage'] : 0);
 $stage = isset($e) && !empty($e) ? 10 : $stage;
 if ($stage == 10)
-    header("HTTP/1.0 409 Conflic");
+    header("HTTP/1.0 409 Conflict");
 
 $breadCrumbs = array(
     0 => 'Lets Get Started',
@@ -75,7 +75,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <p></p>
                     <p>You can modify the permissions via FTP or from terminal. On Linux, you can run the following command to correct the permissions.</p>
                     
-                    <pre>chmod -R <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?> 777</pre>
+                    <pre>chmod -R 777 <?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?></pre>
                     
                     <a href="?stage=3" class="btn btn-small btn-inverse pull-right" type="button">Begin Download</a>
                 <?php elseif ($stage == 3): // Handles the download of Yii
@@ -146,7 +146,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
             // If the user has elected to download Yii to runtime, then execute this
             <?php if ($stage == 3): ?>
                 $(document).ready(function() {
-                   var progress = 0;
+                   progress = 0;
                    // Initiate the download
                    $.post('', 
                         { 
@@ -157,36 +157,24 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                                 remote : "<?php echo $ciimsConfig['params']['yiiDownloadPath']; ?>",
                                 version: "<?php echo $ciimsConfig['params']['yiiVersionPath']; ?>"
                             }
-                       },
-                       function(data) {
-                           if (!data.completed)
-                               progress = 200;
+                        },
+                        function(data) {
+                            progress = 100;
+                            $("#progressBar").css('width', progress + '%');
+                            if (!data.completed)
+                                $(".alert-error").slideDown();
+                            else 
+                                $("#continueButton").show().removeClass('btn-inverse').addClass('btn-success');
+                            
+                            window.clearInterval(interval);
                    });
                    
                    interval = setInterval(function() {
-                       $.post('', 
-                            { 
-                            	_ajax : true, 
-                                _method : 'checkDownloadProgress', 
-                                data : { 
-                                    runtime : "<?php echo str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/'); ?>",
-                                    remote : "<?php echo $ciimsConfig['params']['yiiDownloadPath']; ?>"
-                                }
-                           },
-                           function(data) {
-                                progress = data.progress;
-                                $("#progressBar").css('width', progress + '%');
-                                if (progress >= 100)
-                                {
-                                    window.clearInterval(interval);
-                                    if (progress == 100)
-                                        $("#continueButton").show().removeClass('btn-inverse').addClass('btn-success');
-                                    else
-                                        $(".alert").slideDown();
-                                }
-                                
-                       });
-                   }, 100);
+                      progress++;
+                      if (progress >= 98)
+                        progress = 98;
+                      $("#progressBar").css('width', progress + '%');
+                   }, 200);
                    
                 });
             <?php endif; ?>

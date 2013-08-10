@@ -36,7 +36,6 @@ return array(
         'application.modules.*',
     ),
     'modules' => array(
-        'admin',
         'dashboard',
         'hybridauth' => array(
             'providers' => array()
@@ -67,9 +66,9 @@ return array(
             'class' => 'ext.minify.EClientScript',
             'combineScriptFiles'    => true,
             'combineCssFiles'       => true,
-            'optimizeCssFiles'      => true,
-            'optimizeScriptFiles'   => true,
-            'compressHTML'          => true
+            'optimizeCssFiles'      => false,
+            'optimizeScriptFiles'   => false,
+            'compressHTML'          => false
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',
@@ -102,8 +101,8 @@ return array(
     'params' => array(
         'yiiPath'       => NULL,
         'encryptionKey' => NULL,
-        'debug'         => false,
-        'trace'         => 0,
+        'debug'         => true,
+        'trace'         => 3,
         'user'          => null,
     ),
 );

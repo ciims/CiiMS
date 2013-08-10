@@ -9,9 +9,6 @@ class m130712_220749_settings extends CDbMigration
 		$this->generalSettings($connection);
 		$this->emailSettings($connection);
 		$this->socialSettings($connection);
-
-		// Because we're dealing with EVERY config value, we should flush the cache so that new values get loaded in
-		Yii::app()->cache->flush();
 		return true;
 	}
 

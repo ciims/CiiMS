@@ -55,7 +55,6 @@ class InstallHelper
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt( $ch, CURLOPT_NOPROGRESS, false );
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt( $ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback' );
             curl_setopt( $ch, CURLOPT_FILE, $targetFile );
             curl_exec( $ch );
             
@@ -122,26 +121,5 @@ class InstallHelper
         header('Content-type: application/json');
         echo json_encode($response);
         exit();
-    }
-}
-
-/**
- * CurlOPT progress callback
- */
-function progressCallback( $download_size, $downloaded_size, $upload_size, $uploaded_size )
-{
-    static $previousProgress = 0;
-    
-    if ( $download_size == 0 )
-        $status = 0;
-    else
-        $status = round( $downloaded_size * 100 / $download_size );
-    
-    if ( $status > $previousProgress)
-    {
-        $previousProgress = $status;
-        $fp = fopen( $GLOBALS['progress'], 'w' );
-        fputs( $fp, "$status" );
-        fclose( $fp );
     }
 }

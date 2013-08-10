@@ -77,7 +77,6 @@ class CiiURLManager extends CUrlManager
         '/profile/edit'						=> '/profile/edit',
         '/profile/<id:\w+>/<displayName:\w+>' => '/profile/index',
         '/profile/<id:\w+>' 				=> '/profile/index',
-        '/admin' 							=> '/admin',
         '/dashboard'						=> '/dashboard',
         '/dashboard/content/<page:\d+>'		=> '/dashboard/content'
 	);

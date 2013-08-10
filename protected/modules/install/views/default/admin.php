@@ -7,6 +7,6 @@
         'label' => 'Login Now',
         'type' => 'success',
         'size' => 'large',
-        'url' => $this->createUrl('/admin')
+        'url' => $this->createUrl('/dashboard')
     )); ?>
 </center>
