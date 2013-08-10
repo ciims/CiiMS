@@ -162,7 +162,7 @@ var CiiDashboard = {
 					    	$(".show-preview").show();
 					    	$(".settings").show();
 					    	$(".nano").nanoScroller({ flash : true});
-					    	bindFlipEvent();
+					    	CiiDashboard.Content.Save.bindFlipEvent();
 					    },
 					    onReverseStart : function() {
 					    	$(".body-content").after($(".settings"));
@@ -174,7 +174,7 @@ var CiiDashboard = {
 					    	$(".show-preview").hide();
 					    	$(".show-settings").show();
 					    	$(".nano").nanoScroller({ flash : true});
-					    	bindFlipEvent();
+					    	CiiDashboard.Content.Save.bindFlipEvent();
 					    }
 					 });
 				 });
@@ -295,7 +295,8 @@ var CiiDashboard = {
 			// Binds the datePicker effect
 			datePicker : function() {
 				$("#Content_published").datetimepicker({
-				    format: "yyyy-mm-dd hh:ii:ss"
+				    format: "yyyy-mm-dd hh:ii:ss",
+				    showMeridian: true,
 				});
 			},
 

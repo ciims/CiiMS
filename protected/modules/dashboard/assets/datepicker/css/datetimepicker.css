@@ -267,6 +267,14 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+
+.datetimepicker table tr td span.day,
+.datetimepicker table tr td span.dow {
+  width: 12% !important;
+  height: 23px !important;
+  line-height: 23px !important;
+}
+
 .datetimepicker .datetimepicker-hours span {
   height: 26px;
   line-height: 26px;
