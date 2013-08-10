@@ -65,6 +65,8 @@ The following extensions/applications are recommended to improve performance.
 #### Setup Notes and Installation
 CiiMS comes with a built in installer which will walk you through the setup process and provide you with information in the event it can't do something. The installer should be fairly straightforward. If you run into issues during the installation, it's most likely a permission issues with /assets, /protected/runtime, or /protected/config. The installer has built in error support, and by default will recommend you make a few directories writable. Any others are most likely a _setup_ issue rather than an issue with the installer.
 
+Please see the [installation guide](https://github.com/charlesportwoodii/CiiMS/wiki/Installation-Guide) for a full guide on how to install CiiMS.
+
 #### Support
 If you require support at any time, submit a Github issue and I'll look into it as soon as I can. 
 
