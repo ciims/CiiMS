@@ -334,7 +334,6 @@ var CiiDashboard = {
 
 			// Binds the marked.js behavior
 			marked : function() {
-				console.log("load marked");
 				marked.setOptions({
 				    gfm: true,
 				    highlight: function (lang, code) {
