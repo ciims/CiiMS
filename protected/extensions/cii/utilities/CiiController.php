@@ -215,7 +215,7 @@ class CiiController extends CController
         if (MobileDetect::isMobileDevice())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
-            if ($mobileTheme !== NULL)
+            if ($mobileTheme != NULL)
                 $theme = $mobileTheme;
         }
 
@@ -223,7 +223,7 @@ class CiiController extends CController
         if (MobileDetect::isTabletDevice())
         {
             $tabletTheme = Cii::getConfig('tabletTheme');
-            if ($tabletTheme !== NULL)
+            if ($tabletTheme != NULL)
                 $theme = $tabletTheme;
         }
 
