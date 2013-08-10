@@ -39,6 +39,7 @@ class Theme extends CiiSettingsModel
 	{
 		// Bust the cache
 		Yii::app()->cache->delete($this->theme . '_settings_tweets');
+		Yii::app()->cache->delete($this->theme . '_settings_splashLogo');
 	}
 
 	/**
