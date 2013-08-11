@@ -79,7 +79,7 @@ class Theme extends CiiSettingsModel
 			echo CJSON::encode($tweets);
 
 		} catch (Exception $e) {
-			echo CJSON::encode(array('errors' => array('message' => $e->getMessage())));
+			echo CJSON::encode(array('errors' => array(array('message' => $e->getMessage()))));
 		}
 	}
 

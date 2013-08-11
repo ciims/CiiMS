@@ -150,17 +150,24 @@ var DefaultTheme = {
 		DefaultTheme.endPoint = $("#endpoint").attr("data-attr-endpoint");
 
 		$.get(DefaultTheme.endPoint + "/site/themeCallback/method/getTweets", function(data) {
+			
+
 			var dom = $("<ul id=\"tweet-list\"></ul>");
+			if (!data.errors)
+			{
+				$(data).each(function() {
+					var tweet = $("<li></li>"),
+						date = new Date($(this)[0].created_at),
+						message = $(this)[0].text;
 
-			$(data).each(function() {
-				var tweet = $("<li></li>"),
-					date = new Date($(this)[0].created_at),
-					message = $(this)[0].text;
-
-				$(tweet).append($('<p></p>').addClass("date").html(date.toDateString()));
-                $(tweet).append($('<p></p>').html(message));
-				$(dom).append(tweet);
-			});
+					$(tweet).append($('<p></p>').addClass("date").html(date.toDateString()));
+	                $(tweet).append($('<p></p>').html(message));
+					$(dom).append(tweet);
+				});
+			}
+			else {
+				$(dom).append($("<li></li>").html(data.errors[0].message));
+			}
 
 			$("#twitterFeed").append(dom);
 		});
