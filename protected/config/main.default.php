@@ -67,9 +67,9 @@ return array(
         ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles'    => false,   // Script Combination Kills the Dashboard
+            'combineScriptFiles'    => true,   // Script Combination Kills the Dashboard
             'combineCssFiles'       => true,
-            'optimizeCssFiles'      => false,   // CSS Combination kills the dashboard too...
+            'optimizeCssFiles'      => true,   // CSS Combination kills the dashboard too...
             'optimizeScriptFiles'   => true,
             'compressHTML'          => false    // And this kills Google Adsense...
         ),
