@@ -22,7 +22,7 @@ class DashboardModule extends CWebModule
             // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
                 'class' => 'ext.minify.EClientScript',
-                'combineScriptFiles'    => false,
+                'combineScriptFiles'    => true,
                 'combineCssFiles'       => true,
                 'optimizeCssFiles'      => false,
                 'optimizeScriptFiles'   => true,
