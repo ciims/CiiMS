@@ -71,7 +71,7 @@ return array(
             'combineCssFiles'       => true,
             'optimizeCssFiles'      => false,   // CSS Combination kills the dashboard too...
             'optimizeScriptFiles'   => true,
-            'compressHTML'          => false
+            'compressHTML'          => false    // And this kills Google Adsense...
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',
