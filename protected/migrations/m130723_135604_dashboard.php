@@ -22,6 +22,7 @@ class m130723_135604_dashboard extends CDbMigration
                     ) ENGINE=InnoDB  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci AUTO_INCREMENT=1 ;");
 
 		$this->execute("ALTER TABLE  `user_metadata` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
+		$this->execute("ALTER TABLE  `user_metadata` ADD  `entity_type` INT( 15 ) NULL DEFAULT  '0' AFTER  `value` ;");
 		$this->execute("ALTER TABLE  `configuration` CHANGE  `value`  `value` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;");
 
 		// We're not using tags anymore (we never have) drop the table
