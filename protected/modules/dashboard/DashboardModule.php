@@ -19,11 +19,12 @@ class DashboardModule extends CWebModule
             'errorHandler' => array(
             	'errorAction'  => 'dashboard/default/error',
         	),
+            // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
                 'class' => 'ext.minify.EClientScript',
-                'combineScriptFiles'    => false,   // Script Combination Kills the Dashboard
+                'combineScriptFiles'    => true,
                 'combineCssFiles'       => true,
-                'optimizeCssFiles'      => false,   // CSS Combination kills the dashboard too...
+                'optimizeCssFiles'      => true,
                 'optimizeScriptFiles'   => true,
                 'compressHTML'          => true,
                 'packages'=>array(

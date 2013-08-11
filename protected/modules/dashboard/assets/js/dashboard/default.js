@@ -42,7 +42,6 @@ var CiiDashboard = {
 					$(this).html("<span class=\"icon-plus\"></span> Add Card");
 
 				$(".menu li:first-child").addClass("active");
-				window.location = $(".menu li:first-child").find("a").attr("href");
 
 				$.post(CiiDashboard.endPoint + "/default/getCardsByCategory/id/" + $(".menu li:first-child").find("a").attr("href").replace("#", ""), function(data) {
 					$(".body-content #main .content").html(data);
