@@ -7,8 +7,6 @@
 	    <title>CiiMS Dashboard | <?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php $bootstrap=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.bootstrap.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
-					    			  ->registerCssFile('https://fonts.googleapis.com/css?family=PT+Sans:400,700')
-				                      ->registerCssFile('https://fonts.googleapis.com/css?family=Open+Sans:400,600,800')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
 				                      ->registerCssFile($this->asset .'/font-awesome/css/font-awesome.css')
 				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')
