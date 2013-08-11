@@ -20,7 +20,7 @@ class DashboardModule extends CWebModule
             	'errorAction'  => 'dashboard/default/error',
         	),
             'clientScript'=>array(
-                 'class' => 'ext.minify.EClientScript',
+                'class' => 'ext.minify.EClientScript',
                 'combineScriptFiles'    => false,   // Script Combination Kills the Dashboard
                 'combineCssFiles'       => true,
                 'optimizeCssFiles'      => false,   // CSS Combination kills the dashboard too...
