@@ -14,7 +14,7 @@
 		<div class="well">
 			<h4>Recent Posts</h4>
 			<?php $this->widget('cii.widgets.CiiMenu', array(
-                'items' => $this->getRecentPosts()
+                'items' => $this->params['theme']->getRecentPosts()
             )); ?>
 		</div>
 	</div>

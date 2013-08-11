@@ -25,7 +25,7 @@
 						'items' => array(
 							array(
 								'class' => 'bootstrap.widgets.TbMenu',
-								'items' => $this->getCiiMenu()
+								'items' => $this->params['theme']->getMenu()
 							)
 						)
 					)); ?>
@@ -35,7 +35,9 @@
 		<main class="main">
 		    <div class="container image-container">
 		    	<div class="row-fluid image-viewport">
-		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . Cii::getConfig('splashLogo', $this->asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_')); ?>
+		    		<?php $logo = Cii::getConfig('splashLogo', $this->asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_'); ?>
+		    		<?php $logo = $logo != '' ?: $this->asset.'/images/splash-logo.jpg'; ?>
+		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . $logo); ?>
 		    	</div>
 		   	</div>
 		   	<div class="container main-container">
@@ -57,13 +59,13 @@
 		                <div class="span3">
                             <h5>Categories</h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
-                                'items' => $this->getCategories()
+                                'items' => $this->params['theme']->getCategories()
                             )); ?>
                         </div>
                         <div class="span3">
                             <h5>Recent Posts</h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
-                                'items' => $this->getRecentPosts()
+                                'items' => $this->params['theme']->getRecentPosts()
                             )); ?>
                         </div>
                         <div class="span3">
@@ -81,7 +83,7 @@
 		    <div class="footer-bottom-block">
 		        <div class="container">
                         <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Cii::getConfig('name', Yii::app()->name); ?></div>
-                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getCiiMenu(), 'htmlOptions' => array('class' => 'footer-nav'))); ?></div>
+                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->params['theme']->getMenu(), 'htmlOptions' => array('class' => 'footer-nav'))); ?></div>
 		        </div>
 		    </div>
 		</footer>

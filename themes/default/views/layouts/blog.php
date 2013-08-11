@@ -35,14 +35,14 @@
 		<!-- Related Posts -->
 		<div class="well">
 			<h4>Related Posts</h4>
-			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getRelatedPosts())); ?>
+			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->params['theme']->getRelatedPosts($this->params['data']['id'], $this->params['data']['category_id']))); ?>
 		</div>
 		
 		<!-- Tag Cloud -->
 		<?php if ($this->getContentTags()): ?>
 			<div class="well tags">
 				<h4>Tags</h4>
-				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->getContentTags())); ?>
+				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->params['theme']->getContentTags())); ?>
 			</div>
 		<?php endif; ?>
 		

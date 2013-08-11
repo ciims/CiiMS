@@ -4,22 +4,7 @@
  * All controller classes for this application should extend from this base class.
  */
 class CiiController extends CController
-{
-    /**
-     * @var array
-     * Default items to populate CiiMenu With
-     */
-    public $defaultItems = array(
-        array(
-            'label' => 'Blog', 
-            'url' => array('/blog'), 
-            'active' => false),
-        array(
-            'label' => 'Admin', 
-            'url' => array('/admin'),
-            'active' => false),
-    );
-    
+{    
     public function getAsset()
     {
         return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'), false, -1, YII_DEBUG);
@@ -260,7 +245,13 @@ class CiiController extends CController
 
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
-	    	
+
+            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DIRECTORY_SEPARATOR . Yii::app()->theme->name . '/Theme.php'))
+            {
+                Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
+                $data['theme'] = $this->params['theme'] = new Theme();
+	    	}
+
     		$output=$this->renderPartial($view,$data,true);
             
     		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
@@ -284,61 +275,6 @@ class CiiController extends CController
     		    echo $output;
 	    }
 	}
-
-    /**
-     * Retrieves all categories to display int he footer
-     * @return array $items     The CMenu Items we are going to return
-     */
-    public function getCategories()
-    {
-        $items = array(array('label' => 'All Posts', 'url' => $this->createUrl('/blog')));
-        $categories = Yii::app()->cache->get('categories-listing');
-        if ($categories == false)
-        {
-            $categories = Yii::app()->db->createCommand('SELECT categories.id AS id, categories.name AS name, categories.slug AS slug, COUNT(DISTINCT(content.id)) AS content_count FROM categories LEFT JOIN content ON categories.id = content.category_id WHERE content.type_id = 2 AND content.status = 1 GROUP BY categories.id')->queryAll();
-            Yii::app()->cache->set('categories-listing', $categories);                          
-        }
-        
-        foreach ($categories as $k=>$v)
-        {
-            if ($v['name'] != 'Uncategorized')
-                $items[] = array('label' => $v['name'], 'url' => $this->createUrl('/' . $v['slug']));
-        }
-        
-        return $items;
-    }
-    
-    /**
-     * Retrieves the recent post items so that the view is cleaned up
-     * @return array $items     The CMenu items we are going to return
-     */
-    public function getRecentPosts()
-    {
-        $items = array();
-        $content = Yii::app()->cache->get('content-listing');
-        if ($content == false)
-        {
-            $content = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS content_slug, 
-            												 categories.slug AS category_slug, 
-            												 categories.name AS category_name, 
-            												 comment_count, content.created 
-            										  FROM content LEFT JOIN categories ON content.category_id = categories.id 
-            										  WHERE vid = (
-            										  	SELECT MAX(vid) 
-            										  	FROM content AS content2 
-            										  	WHERE content2.id = content.id
-													  ) 
-													  AND type_id = 2 AND status = 1 
-                                                      AND password=""
-            										  ORDER BY content.created DESC LIMIT 5')->queryAll();
-            Yii::app()->cache->set('content-listing', $content);                            
-        }
-        
-        foreach ($content as $k=>$v)
-			$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
-        
-        return $items;
-    }
     
 	/**
 	 * Gets tags for a content for CMenu
@@ -353,91 +289,4 @@ class CiiController extends CController
 		
 		return $items;
 	}
-	
-	/**
-	 * Retrieves related posts to a given post
-	 */
-	public function getRelatedPosts()
-	{
-		$items = array();
-		$related = Yii::app()->db->createCommand('SELECT content.id, title, slug, content.created
-												  FROM content  WHERE status = 1 AND category_id = :category_id 
-												  AND id != :id AND vid = (
-												  	SELECT MAX(vid) 
-												  	FROM content AS content2 
-												  	WHERE content2.id = content.id) 
-												  AND password="" 
-												  ORDER BY updated DESC LIMIT 5')
-								 ->bindParam(':category_id', $this->params['data']['category_id'])
-								 ->bindParam(':id', $this->params['data']['id'])
-		 						 ->queryAll();
-			
-		 foreach ($related as $v)
-		 	$items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
-        
-        return $items;
-	}
-	
-    /**
-     * Retrieves the posts authored by a given user
-     * @param  integer $id the id of the user
-     * @return array of items
-     */
-    public function getPostsByAuthor($id=1)
-    {
-        $items = array();
-        $related = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS slug, 
-                                                             categories.slug AS category_slug, 
-                                                             categories.name AS category_name, 
-                                                             comment_count, content.created 
-                                                      FROM content LEFT JOIN categories ON content.category_id = categories.id 
-                                                      WHERE vid = (
-                                                        SELECT MAX(vid) 
-                                                        FROM content AS content2 
-                                                        WHERE content2.id = content.id
-                                                      ) 
-                                                      AND type_id = 2 AND status = 1 
-                                                      AND password=""
-                                                      AND content.author_id = :author_id
-                                                      ORDER BY content.created DESC LIMIT 5')
-                                 ->bindParam(':author_id', $id)
-                                 ->queryAll();
-            
-         foreach ($related as $v)
-            $items[] = array('label' => $v['title'], 'url' => $this->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
-        
-        return $items;
-    }
-
-    /**
-     * Retrieves the CiiMenuItems from the configuration. If the items are not populated, then it 
-     * builds them out from CiiMenu::$defaultItems
-     */
-    public function getCiiMenu()
-    {
-        // Retrieve the item from cache since we're going to have to build this out manually
-        $items = Yii::app()->cache->get('CiiMenuItems');
-        if ($items === false)
-        {
-            // Get the menu items from Configuration
-            $menuRoutes = Cii::getConfig('menu', '');
-            
-            // If the configuration is not provided, then set this to our defualt items
-            if ($menuRoutes == NULL)
-                $items = $this->defaultItems;
-            else
-            {
-                $fullRoutes = explode('|', $menuRoutes);
-                foreach ($fullRoutes as $route)
-                {
-                    if ($route == "")
-                        continue;
-                    $items[] = array('label' => ucwords(str_replace('-', ' ', $route)), 'url' => Yii::app()->createUrl('/' . $route), 'active' => false);
-                }
-            }
-            Yii::app()->cache->set('CiiMenuItems', $items, 3600);
-        }
-        
-        return $items;
-    }
 }
