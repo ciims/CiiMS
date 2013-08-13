@@ -26,8 +26,8 @@
 				<span class="separator">⋅</span>
 				<span class="blog-author minor-meta">
 					<?php
-						echo Yii::t('main', '{{by}} {{author}}', array(
-							'{{by}}' => CHtml::tag('strong', array(), Yii::t('main', 'by'))
+						echo Yii::t('DefaultTheme', '{{by}} {{author}}', array(
+							'{{by}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'by')),
 							'{{author}}' => CHtml::tag('span', array(), CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")))
 						)); ?>
 					<span class="separator">⋅</span> 
@@ -40,7 +40,7 @@
 					<span class="separator">⋅</span> 
 				</span> 					
 				<span class="comment-container">
-					<?php echo Yii::t('main', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
+					<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
 				</span>
 			</div>
 			<div class="clearfix"></div>
@@ -78,7 +78,7 @@
 	<div class="post">
 		<div class="post-inner">
 			<div class="post-header post-header-comments">
-				<h3 class="comment-count pull-left left-header"><<?php echo Yii::t('main', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
+				<h3 class="comment-count pull-left left-header"><?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
 				
 				<div class="likes-container pull-right">
 					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
@@ -101,11 +101,11 @@
     	                        <div id="close"></div>
     	                        <div style="clear:both"></div>
     	                    </div>
-    	                    <div id="b" style="color:#999"><?php echo Yii::t('main', 'Comment on this post'); ?></div> 
+    	                    <div id="b" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
     	                </div>
     	                <?php $this->widget('bootstrap.widgets.TbButton', array(
     	                    'type' => 'success',
-    	                    'label' => Yii::t('main', 'Submit'),
+    	                    'label' => Yii::t('DefaultTheme', 'Submit'),
     	                    'url' => '#',
     	                    'htmlOptions' => array(
     	                        'id' => 'submit-comment',
@@ -117,10 +117,10 @@
             <?php else: ?>
 				<div class="alert">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<?php echo Yii::t('main', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
-						'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('main', 'Hey there!')),
-						'{{signup}}' => CHtml::link(Yii::t('main', 'login'), $this->createUrl('/login')),
-						'{{register}}' => CHtml::link(Yii::t('main', 'signup'), $this->createUrl('/register'))
+					<?php echo Yii::t('DefaultTheme', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
+						'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Hey there!')),
+						'{{signup}}' => CHtml::link(Yii::t('DefaultTheme', 'login'), $this->createUrl('/login')),
+						'{{register}}' => CHtml::link(Yii::t('DefaultTheme', 'signup'), $this->createUrl('/register'))
 					)); ?>
 				</div>
         	<?php endif; ?>
