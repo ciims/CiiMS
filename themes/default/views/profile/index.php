@@ -1,7 +1,7 @@
 <h4 class="pull-left"><?php echo CHtml::encode($model->name); ?></h4>
 <?php if (!Yii::app()->user->isGuest && $model->id == Yii::app()->user->id): ?>
 	<span class="pull-right">
-		<?php echo CHtml::link(Yii::t('main', 'edit'), '/profile/edit'); ?>
+		<?php echo CHtml::link(Yii::t('DefaultTheme', 'edit'), '/profile/edit'); ?>
 	</span>
 <?php endif; ?>
 <div class="clearfix"></div>
@@ -25,7 +25,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 	                    	<?php echo CHtml::image($model->gravatarImage(50)); ?>
 	                    </td>
 	                    <td style="padding-left: 10px;">
-	                    	<?php echo Yii::t('main', '{{count}} Post(s)', array(
+	                    	<?php echo Yii::t('DefaultTheme', '{{count}} Post(s)', array(
 	                    		'{{count}}' => CHtml::tag('strong', array(), $contentCount)
 	                    	)); ?>
 	                    </td>
@@ -41,11 +41,11 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 	                </tr>
 	                <tr>
 	                    <td style="padding-left: 10px;">
-	                    	<?php echo Yii::t('main', '{{count}} Comments', array(
+	                    	<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array(
 	                    		'{{count}}' => CHtml::tag('strong', array(), Comments::model()->countByAttributes(array('user_id' => $model->id)))
 	                    	)); ?>
 	                    <th></th>
-	                    <td><?php echo Yii::t('main', 'Member since'); ?></td>
+	                    <td><?php echo Yii::t('DefaultTheme', 'Member since'); ?></td>
 	                    <td>
 	                    	<time datetime="<?php echo date(DATE_ISO8601, strtotime($model->created)); ?>">
 								<?php echo date('M Y', strtotime($model->created)); ?>
@@ -61,27 +61,27 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 <div class="clearfix"></div>
 <div class="sidebar">
 	<div class="well-span span6">
-		<h4><?php echo Yii::t('main', 'Posts By This User'); ?></h4>
+		<h4><?php echo Yii::t('DefaultTheme', 'Posts By This User'); ?></h4>
 		<div class="posts-by-author">
 			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getPostsByAuthor($model->id))); ?>
-			<?php echo CHtml::link(Yii::t('main', 'more'), $this->createUrl('/search') . '?q=user_id:' . $model->id, array('class' => 'login-form-links pull-right')); ?>
+			<?php echo CHtml::link(Yii::t('DefaultTheme', 'more'), $this->createUrl('/search') . '?q=user_id:' . $model->id, array('class' => 'login-form-links pull-right')); ?>
 		</div>
 	</div>
 	<div class="well-span span6" style="margin-right: 0px;">
-		<h4><?php echo Yii::t('main', 'About'); ?></h4>
+		<h4><?php echo Yii::t('DefaultTheme', 'About'); ?></h4>
 		<?php $about = $model->about; ?>
 		<?php if ($about == NULL): ?>
 			<?php if (Yii::app()->user->id == $model->id): ?>
 				<div class="alert alert-info">
-					<?php echo Yii::t('main', "{{oops}} It looks like you haven't provided any information about yourself yet. Why don't you {{edityourprofile}} and add some information about yourself?", array(
-						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('main', 'Oops!'),
-						'{{edityourprofile}}' => CHtml::link(Yii::t('main', 'edit your profile'), $this->createUrl('/profile/edit'))
+					<?php echo Yii::t('DefaultTheme', "{{oops}} It looks like you haven't provided any information about yourself yet. Why don't you {{edityourprofile}} and add some information about yourself?", array(
+						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!'),
+						'{{edityourprofile}}' => CHtml::link(Yii::t('DefaultTheme', 'edit your profile'), $this->createUrl('/profile/edit'))
 					)); ?>
 				</div>
 			<?php else: ?>
 				<div class="alert alert-info">
-					<?php echo Yii::t('main', "{{oops}} This user hasn't added any information about themself yet.", array(
-						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('main', 'Oops!')
+					<?php echo Yii::t('DefaultTheme', "{{oops}} This user hasn't added any information about themself yet.", array(
+						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!')
 					)); ?>
 				</div>
 			<?php endif; ?>

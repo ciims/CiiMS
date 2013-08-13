@@ -14,7 +14,7 @@
 		</div>
 		<div class="comment-body">
 		    <?php if ($comment->approved == -2): ?>
-		        <em class="flagged"><?php echo Yii::t('main', 'Comment has been redacted'); ?></em>
+		        <em class="flagged"><?php echo Yii::t('DefaultTheme', 'Comment has been redacted'); ?></em>
 		    <?php else: ?>
 			    <?php echo $md->safeTransform($comment->comment); ?>
 			<?php endif; ?>
@@ -40,7 +40,7 @@
                     <div id="close-<?php echo $comment->id; ?>"></div>
                     <div style="clearfix"></div>
                 </div>
-                <div id="b-<?php echo $comment->id; ?>" style="color:#999"><?php echo Yii::t('main', 'Comment on this post'); ?></div> 
+                <div id="b-<?php echo $comment->id; ?>" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
             </div>
 			<?php $this->widget('bootstrap.widgets.TbButton', array(
                 'type' => 'success',

@@ -1,7 +1,7 @@
 <div class="login-container">
 	<div class="sidebar">
 		<div class="well-span">
-			<h4><?php echo Yii::t('main', 'Forgot Your Password?'); ?></h4>
+			<h4><?php echo Yii::t('DefaultTheme', 'Forgot Your Password?'); ?></h4>
 			<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 						'id'					=> 'login-form',
 						'focus'					=> 'input[type="text"]:first',
@@ -16,25 +16,25 @@
 				<?php endif; ?>
 
 				<?php if ($id == NULL): ?>		
-					<?php echo CHtml::textField('email', isset($_POST['email']) ? $_POST['email'] : '', array('placeholder'=>Yii::t('main', 'Your email address (you@example.com)'))); ?>
+					<?php echo CHtml::textField('email', isset($_POST['email']) ? $_POST['email'] : '', array('placeholder'=>Yii::t('DefaultTheme', 'Your email address (you@example.com)'))); ?>
 
 				<?php else: ?>
 					<?php if ($badHash): ?>
 						<br />
-					    <div class="red-box"><?php echo Yii::t('main', 'The password reset key you provided is either invalid or has expired.'); ?></div>
+					    <div class="red-box"><?php echo Yii::t('DefaultTheme', 'The password reset key you provided is either invalid or has expired.'); ?></div>
 					<?php else: ?>
 						
-						<?php echo CHtml::passwordField('password',  isset($_POST['password']) ? $_POST['password'] : '', array('placeholder'=>Yii::t('main', 'Your new password'))); ?>
+						<?php echo CHtml::passwordField('password',  isset($_POST['password']) ? $_POST['password'] : '', array('placeholder'=>Yii::t('DefaultTheme', 'Your new password'))); ?>
 						<br />
 						<br />
-						<?php echo CHtml::passwordField('password2',  isset($_POST['password2']) ? $_POST['password2'] : '', array('placeholder'=>Yii::t('main', 'Once more with feeling!'))); ?>
+						<?php echo CHtml::passwordField('password2',  isset($_POST['password2']) ? $_POST['password2'] : '', array('placeholder'=>Yii::t('DefaultTheme', 'Once more with feeling!'))); ?>
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 			<div class="login-form-footer">
-				<?php echo CHtml::link(Yii::t('main', 'register'), Yii::app()->createUrl('/register'), array('class' => 'login-form-links')); ?>
+				<?php echo CHtml::link(Yii::t('DefaultTheme', 'register'), Yii::app()->createUrl('/register'), array('class' => 'login-form-links')); ?>
 				<span class="login-form-links"> | </span>
-				<?php echo CHtml::link(Yii::t('main', 'login'), Yii::app()->createUrl('/login'), array('class' => 'login-form-links')); ?>
+				<?php echo CHtml::link(Yii::t('DefaultTheme', 'login'), Yii::app()->createUrl('/login'), array('class' => 'login-form-links')); ?>
 				<?php $this->widget('bootstrap.widgets.TbButton', array(
 								'buttonType' => 'submit',
 	    	                    'type' => 'success',

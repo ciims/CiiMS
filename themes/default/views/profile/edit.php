@@ -1,14 +1,14 @@
 <div class="login-container">
 	<div class="sidebar" >
 		<div class="well-span span10">
-			<h4><?php echo Yii::t('main', 'Update Your Profile'); ?></h4>
+			<h4><?php echo Yii::t('DefaultTheme', 'Update Your Profile'); ?></h4>
 			<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			'id'=>'profile-form',
 			)); ?>
 			<?php echo $form->errorSummary($model); ?>
 			    
 			<?php echo $form->textFieldRow($model,'email',array('class'=>'span12','maxlength'=>255)); ?>        
-			<?php echo $form->passwordFieldRow($model,'password',array('value'=>'', 'class'=>'span12','maxlength'=>64, 'placeholder' => Yii::t('main', 'Set a password here to change. Leave blank to keep existing password.'))); ?>    
+			<?php echo $form->passwordFieldRow($model,'password',array('value'=>'', 'class'=>'span12','maxlength'=>64, 'placeholder' => Yii::t('DefaultTheme', 'Set a password here to change. Leave blank to keep existing password.'))); ?>    
 			<?php echo $form->textFieldRow($model,'displayName',array('class'=>'span12','maxlength'=>255)); ?>    
 			<?php echo $form->textFieldRow($model,'firstName',array('class'=>'span12','maxlength'=>255)); ?>        
 			<?php echo $form->textFieldRow($model,'lastName',array('class'=>'span12','maxlength'=>255)); ?>

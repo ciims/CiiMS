@@ -11,9 +11,9 @@
 			));
 			?>
             <?php echo CHtml::beginForm(); ?>
-				<?php echo CHtml::PasswordField('password', '', array('id'=>'password', 'placeholder'=>Yii::t('main', 'Password'),  'style'=>'width: 60%;')); ?>
+				<?php echo CHtml::PasswordField('password', '', array('id'=>'password', 'placeholder'=>Yii::t('DefaultTheme', 'Password'),  'style'=>'width: 60%;')); ?>
 				<?php echo CHtml::hiddenField('id', $id); ?>
-				<?php echo CHtml::submitButton(Yii::t('main', 'Authenticate'), array('id' => 'checkYiiPathButton', 'class'=>'btn btn-primary', 'escape'=>false, 'style'=>'margin-top: -9px; margin-left: 10px;')); ?>
+				<?php echo CHtml::submitButton(Yii::t('DefaultTheme', 'Authenticate'), array('id' => 'checkYiiPathButton', 'class'=>'btn btn-primary', 'escape'=>false, 'style'=>'margin-top: -9px; margin-left: 10px;')); ?>
 			<?php echo CHtml::endForm(); ?>
         </div>
     </div>

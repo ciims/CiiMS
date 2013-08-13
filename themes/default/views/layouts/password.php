@@ -10,11 +10,11 @@
         <div class="well well-container">
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
-                    <a class="brand" href="#"><?php echo Yii::t('main', 'Password Required!'); ?></a>
+                    <a class="brand" href="#"><?php echo Yii::t('DefaultTheme', 'Password Required!'); ?></a>
                 </div>
             </div>
             <ul class="breadcrumb">
-                <li class ="active"><?php echo Yii::t('main', 'This Post Requires a Password to View'); ?><span class="divider">></span></li>
+                <li class ="active"><?php echo Yii::t('DefaultTheme', 'This Post Requires a Password to View'); ?><span class="divider">></span></li>
             </ul>
             <div class="content">
                 <hr />

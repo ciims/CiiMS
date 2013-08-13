@@ -24,18 +24,18 @@ class Theme extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('main', 'Twitter Settings') => array('twitterHandle', 'twitterTweetsToFetch'),
-			Yii::t('main', 'Appearance')       =>  array('splashLogo', 'menu')
+			Yii::t('DefaultTheme', 'Twitter Settings') => array('twitterHandle', 'twitterTweetsToFetch'),
+			Yii::t('DefaultTheme', 'Appearance')       =>  array('splashLogo', 'menu')
 		);
 	}
 
 	public function attributeLabels()
 	{
 		return array(
-			'twitterHandle'        => Yii::t('main', 'Twitter Handle'),
-			'twitterTweetsToFetch' => Yii::t('main', 'Number of Tweets to Fetch'),
-			'menu'                 => Yii::t('main', 'Menu Items'),
-			'splashLogo'           => Yii::t('main', 'Front Page Image')
+			'twitterHandle'        => Yii::t('DefaultTheme', 'Twitter Handle'),
+			'twitterTweetsToFetch' => Yii::t('DefaultTheme', 'Number of Tweets to Fetch'),
+			'menu'                 => Yii::t('DefaultTheme', 'Menu Items'),
+			'splashLogo'           => Yii::t('DefaultTheme', 'Front Page Image')
 		);
 	}
 
@@ -89,7 +89,7 @@ class Theme extends CiiSettingsModel
      */
     public function getCategories()
     {
-        $items = array(array('label' =>Yii::t('main',  'All Posts'), 'url' => Yii::app()->createUrl('/blog')));
+        $items = array(array('label' =>Yii::t('DefaultTheme',  'All Posts'), 'url' => Yii::app()->createUrl('/blog')));
         $categories = Yii::app()->cache->get('categories-listing');
         if ($categories == false)
         {

@@ -3,10 +3,10 @@
 		<div class="post">
 			<div class="post-inner">
 				<div class="post-header">
-					<h2 style="text-align: center;"><?php echo Yii::t('main', "No Results Found"); ?></h2>
+					<h2 style="text-align: center;"><?php echo Yii::t('DefaultTheme', "No Results Found"); ?></h2>
 				</div>
 			
-			<p style="text-align:center;"><?php echo Yii::t('main', "Sorry, we tried looking but we didn't find a match for the specified criteria. Try refining your search."); ?></p>
+			<p style="text-align:center;"><?php echo Yii::t('DefaultTheme', "Sorry, we tried looking but we didn't find a match for the specified criteria. Try refining your search."); ?></p>
 			</div>
 		</div>
 	<?php endif; ?>

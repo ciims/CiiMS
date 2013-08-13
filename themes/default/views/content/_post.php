@@ -25,11 +25,11 @@
 				<span class="separator">⋅</span> 
 			</span> 					
 			<span class="comment-container">
-				<?php echo Yii::t('main', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
+				<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
 			</span>
 		</div>
 		<a class="read-more-icon" href="<?php echo $this->createUrl('/' . $content->slug); ?>" rel="bookmark">
-			<strong style="width: 93px;"><?php echo Yii::t('main', 'Read more'); ?></strong>
+			<strong style="width: 93px;"><?php echo Yii::t('DefaultTheme', 'Read more'); ?></strong>
 			<span></span>
 		</a>
 	</div>
