@@ -77,7 +77,6 @@ class Content extends CiiModel
 			array('vid, author_id, status, commentable, parent_id, category_id, type_id, comment_count, like_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -104,28 +103,32 @@ class Content extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
-			'vid' => 'Version',
-			'author_id' => 'Author',
-			'title' => 'Title',
-			'content' => 'Content',
-			'extract' => 'Extract',
-			'status' => 'Status',
-			'commentable' => 'Commentable',
-			'parent_id' => 'Parent',
-			'category_id' => 'Category',
-			'type_id' => 'Type',
-			'password' => 'Password',
-			'comment_count' => 'Comments',
-			'like_count' => 'Likes',
-			'tags' => 'Tags',
-			'slug' => 'Slug',
-			'published' => 'Published',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 			=> Yii::t('ciims.models.Content', 'ID'),
+			'vid' 			=> Yii::t('ciims.models.Content', 'Version'),
+			'author_id' 	=> Yii::t('ciims.models.Content', 'Author'),
+			'title' 		=> Yii::t('ciims.models.Content', 'Title'),
+			'content' 		=> Yii::t('ciims.models.Content', 'Content'),
+			'extract' 		=> Yii::t('ciims.models.Content', 'Extract'),
+			'status' 		=> Yii::t('ciims.models.Content', 'Status'),
+			'commentable' 	=> Yii::t('ciims.models.Content', 'Commentable'),
+			'parent_id' 	=> Yii::t('ciims.models.Content', 'Parent'),
+			'category_id' 	=> Yii::t('ciims.models.Content', 'Category'),
+			'type_id' 		=> Yii::t('ciims.models.Content', 'Type'),
+			'password' 		=> Yii::t('ciims.models.Content', 'Password'),
+			'comment_count' => Yii::t('ciims.models.Content', 'Comments'),
+			'like_count' 	=> Yii::t('ciims.models.Content', 'Likes'),
+			'tags' 			=> Yii::t('ciims.models.Content', 'Tags'),
+			'slug' 			=> Yii::t('ciims.models.Content', 'Slug'),
+			'published' 	=> Yii::t('ciims.models.Content', 'Published'),
+			'created' 		=> Yii::t('ciims.models.Content', 'Created'),
+			'updated' 		=> Yii::t('ciims.models.Content', 'Updated'),
 		);
 	}
 
+	/**
+	 * Retrievers the comment count for this article, as comment_count has been broken since 1.1
+	 * @return int   The number of articles for this content piece
+	 */
 	public function getCommentCount()
 	{
 		return Comments::model()->countByAttributes(array('content_id' => $this->id, 'approved' => 1));
@@ -229,6 +232,9 @@ class Content extends CiiModel
         return $view;
     }
 
+    /**
+     * Updates the comment_count after finding new data
+     */
     protected function afterFind()
     {
     	parent::afterFind();
@@ -242,9 +248,6 @@ class Content extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-		// 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -256,6 +259,7 @@ class Content extends CiiModel
 		$criteria->compare('published',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 
+		// TODO: Figure out how to restore CActiveDataProvidor by getCommentCount
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(

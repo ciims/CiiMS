@@ -58,7 +58,6 @@ class Comments extends CiiModel
 			array('content_id, user_id, parent_id, comment, approved', 'required'),
 			array('content_id, user_id, parent_id, approved', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, content_id, user_id, parent_id, comment, approved, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -84,14 +83,14 @@ class Comments extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'content_id' => 'Content',
-			'user_id' => 'User',
-			'parent_id' => 'Parent',
-			'comment' => 'Comment',
-			'approved' => 'Approved',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id'		 => Yii::t('ciims.models.Comments', 'ID'),
+			'content_id' => Yii::t('ciims.models.Comments', 'Content'),
+			'user_id' 	 => Yii::t('ciims.models.Comments', 'User'),
+			'parent_id'  => Yii::t('ciims.models.Comments', 'Parent'),
+			'comment' 	 => Yii::t('ciims.models.Comments', 'Comment'),
+			'approved' 	 => Yii::t('ciims.models.Comments', 'Approved'),
+			'created' 	 => Yii::t('ciims.models.Comments', 'Created'),
+			'updated' 	 => Yii::t('ciims.models.Comments', 'Updated'),
 		);
 	}
 
@@ -112,9 +111,6 @@ class Comments extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -131,15 +127,15 @@ class Comments extends CiiModel
 		));
 	}
 	
+	/**
+	 * Set the created and updated records
+	 */
 	public function beforeSave() 
 	{
     	if ($this->isNewRecord)
-    	{
 			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
+
+		$this->updated = new CDbExpression('NOW()');
 	 
 	 	if (Content::model()->findByPk($this->content_id)->commentable)
 	    	return parent::beforeSave();
@@ -149,6 +145,7 @@ class Comments extends CiiModel
     
     /**
      * After Save, incriments the comment count of the parent content
+     * @return  bool
      */
     public function afterSave()
     {
@@ -164,6 +161,7 @@ class Comments extends CiiModel
     
     /**
      * After Delete method, decriments the comment count of the parent content
+     * @return  bool
      */
     public function afterDelete()
     {

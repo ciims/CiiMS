@@ -67,7 +67,6 @@ class Users extends CiiModel
 			array('email, firstName, lastName, displayName', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, email, password, firstName, lastName, displayName, about, user_role, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -95,17 +94,17 @@ class Users extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'email' => 'Email',
-			'password' => 'Password',
-			'firstName' => 'First Name',
-			'lastName' => 'Last Name',
-			'displayName' => 'Display Name',
-			'about'		=> 'About',
-			'user_role' => 'User Role',
-			'status' => 'Active',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 		  => Yii::t('ciims.models.Users', 'ID'),
+			'email' 	  => Yii::t('ciims.models.Users', 'Email'),
+			'password' 	  => Yii::t('ciims.models.Users', 'Password'),
+			'firstName'   => Yii::t('ciims.models.Users', 'First Name'),
+			'lastName' 	  => Yii::t('ciims.models.Users', 'Last Name'),
+			'displayName' => Yii::t('ciims.models.Users', 'Display Name'),
+			'about'		  => Yii::t('ciims.models.Users', 'About'),
+			'user_role'   => Yii::t('ciims.models.Users', 'User Role'),
+			'status'	  => Yii::t('ciims.models.Users', 'Active'),
+			'created' 	  => Yii::t('ciims.models.Users', 'Created'),
+			'updated' 	  => Yii::t('ciims.models.Users', 'Updated'),
 		);
 	}
 
@@ -123,9 +122,6 @@ class Users extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -147,19 +143,6 @@ class Users extends CiiModel
                 'pageSize' => $this->pageSize
             )
 		));
-	}
-	
-	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
-    	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    return parent::beforeSave();
 	}
 	
 	/**

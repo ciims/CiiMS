@@ -46,7 +46,6 @@ class UserMetadata extends CActiveRecord
 			array('user_id, entity_type', 'numerical', 'integerOnly'=>true),
 			array('key', 'length', 'max'=>50),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, user_id, key, value, entity_type, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -69,13 +68,13 @@ class UserMetadata extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'key' => 'Key',
-			'value' => 'Value',
-			'entity_type' => 'Entity Type',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 		  => Yii::t('ciims.models.UserMetadata', 'ID'),
+			'user_id' 	  => Yii::t('ciims.models.UserMetadata', 'User'),
+			'key' 		  => Yii::t('ciims.models.UserMetadata', 'Key'),
+			'value' 	  => Yii::t('ciims.models.UserMetadata', 'Value'),
+			'entity_type' => Yii::t('ciims.models.UserMetadata', 'Entity Type'),
+			'created' 	  => Yii::t('ciims.models.UserMetadata', 'Created'),
+			'updated'     => Yii::t('ciims.models.UserMetadata', 'Updated'),
 		);
 	}
 
@@ -85,9 +84,6 @@ class UserMetadata extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -103,11 +99,16 @@ class UserMetadata extends CActiveRecord
 		));
 	}
 	
-	public function beforeSave() {
+	/**
+	 * Sets the created and updated attributes
+	 */
+	public function beforeSave()
+	{
     	if ($this->isNewRecord)
 			$this->created = new CDbExpression('NOW()');
 		
 		$this->updated = new CDbExpression('NOW()');
+
 	    return parent::beforeSave();
 	}
 }

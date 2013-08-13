@@ -40,7 +40,6 @@ class Configuration extends CActiveRecord
             array('key, value, created, updated', 'required'),
             array('key', 'length', 'max'=>64),
             // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('key, value, created, updated', 'safe', 'on'=>'search'),
         );
     }
@@ -62,10 +61,10 @@ class Configuration extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'key' => 'Key',
-            'value' => 'Value',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'key'     => Yii::t('ciims.models.Configuration', 'Key'),
+            'value'   => Yii::t('ciims.models.Configuration', 'Value'),
+            'created' => Yii::t('ciims.models.Configuration', 'Created'),
+            'updated' => Yii::t('ciims.models.Configuration', 'Updated'),
         );
     }
 
@@ -75,9 +74,6 @@ class Configuration extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria=new CDbCriteria;
 
         $criteria->compare('t.key',$this->key,true);
@@ -91,16 +87,15 @@ class Configuration extends CActiveRecord
         ));
     }
     
+    /**
+     * Sets the created and updates records
+     */
 	public function beforeValidate()
 	{
 		if ($this->isNewRecord)
-		{
-			// Implicit flush to delete the URL rules
 			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-		else
-			$this->updated = new CDbExpression('NOW()');
+
+		$this->updated = new CDbExpression('NOW()');
 
 		return parent::beforeValidate();
 	}
@@ -129,7 +124,6 @@ class Configuration extends CActiveRecord
     {
         $path = Yii::getPathOfAlias('application.runtime.cards.' . $name);
         try {
-
             if ($this->removeDirectory($path))
                 $this->delete();
 

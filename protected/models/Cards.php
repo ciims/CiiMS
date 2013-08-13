@@ -32,8 +32,6 @@ class Cards extends CiiModel
 			array('name', 'length', 'max'=>150),
 			array('uid', 'length', 'max'=>20),
 			array('data', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
 			array('id, name, uid, data, created', 'safe', 'on'=>'search'),
 		);
 	}
@@ -55,11 +53,11 @@ class Cards extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'uid' => 'Uid',
-			'data' => 'Data',
-			'created' => 'Created',
+			'id' 	  => Yii::t('ciims.models.Cards', 'ID'),
+			'name' 	  => Yii::t('ciims.models.Cards', 'Name'),
+			'uid' 	  => Yii::t('ciims.models.Cards', 'Uid'),
+			'data' 	  => Yii::t('ciims.models.Cards', 'Data'),
+			'created' => Yii::t('ciims.models.Cards', 'Created'),
 		);
 	}
 
@@ -77,8 +75,6 @@ class Cards extends CiiModel
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -103,16 +99,15 @@ class Cards extends CiiModel
 		return parent::model($className);
 	}
 
+	/**
+	 * Automatically sets the created and updated dates on validation
+	 */
     public function beforeValidate()
     {
         if ($this->isNewRecord)
-        {
-            // Implicit flush to delete the URL rules
-            $this->created = new CDbExpression('NOW()');
-            $this->updated = new CDbExpression('NOW()');
-        }
-        else
-            $this->updated = new CDbExpression('NOW()');
+        	$this->created = new CDbExpression('NOW()');
+        
+        $this->updated = new CDbExpression('NOW()');
 
         return parent::beforeValidate();
     }

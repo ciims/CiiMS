@@ -43,21 +43,8 @@ class UserRoles extends CActiveRecord
 			array('name, created, updated', 'required'),
 			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, name, created, updated', 'safe', 'on'=>'search'),
 		);
-	}
-	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
 	}
 
 	/**
@@ -78,10 +65,10 @@ class UserRoles extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 	  => Yii::t('ciims.models.UserRoles', 'ID'),
+			'name' 	  => Yii::t('ciims.models.UserRoles', 'Name'),
+			'created' => Yii::t('ciims.models.UserRoles', 'Created'),
+			'updated' => Yii::t('ciims.models.UserRoles', 'Updated'),
 		);
 	}
 
@@ -104,5 +91,18 @@ class UserRoles extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Sets the created and updated attributes
+	 */
+	public function beforeSave()
+	{
+	    if ($this->isNewRecord)
+			$this->created = new CDbExpression('NOW()');
+
+		$this->updated = new CDbExpression('NOW()');
+	 
+	    return parent::beforeSave();
 	}
 }

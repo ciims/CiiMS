@@ -45,7 +45,6 @@ class CommentMetadata extends CActiveRecord
 			array('comment_id', 'numerical', 'integerOnly'=>true),
 			array('key, value', 'length', 'max'=>50),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('comment_id, key, value, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -68,11 +67,11 @@ class CommentMetadata extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'comment_id' => 'Comment',
-			'key' => 'Key',
-			'value' => 'Value',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'comment_id' => Yii::t('ciims.models.CommentMetadata', 'Comment ID'),
+			'key' 		 => Yii::t('ciims.models.CommentMetadata', 'Key'),
+			'value' 	 => Yii::t('ciims.models.CommentMetadata', 'Value'),
+			'created' 	 => Yii::t('ciims.models.CommentMetadata', 'Created'),
+			'updated' 	 => Yii::t('ciims.models.CommentMetadata', 'Updated'),
 		);
 	}
 
@@ -82,9 +81,6 @@ class CommentMetadata extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('comment_id',$this->comment_id);
@@ -98,15 +94,16 @@ class CommentMetadata extends CActiveRecord
 		));
 	}
 	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
+	/**
+	 * Set the created and updated attributes
+	 * @return [type]
+	 */
+	public function beforeSave()
+	{
+    	if ($this->isNewRecord)
 			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
+		$this->updated = new CDbExpression('NOW()');
+ 
+    	return parent::beforeSave();
 	}
 }

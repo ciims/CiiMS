@@ -69,11 +69,11 @@ class CategoriesMetadata extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'category_id' => 'Category',
-			'key' => 'Key',
-			'value' => 'Value',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'category_id' => Yii::t('ciims.models.CategoriesMetadata', 'Category ID'),
+			'key' 	      => Yii::t('ciims.models.CategoriesMetadata', 'Key'),
+			'value'       => Yii::t('ciims.models.CategoriesMetadata', 'Value'),
+			'created'	  => Yii::t('ciims.models.CategoriesMetadata', 'Created'),
+			'updated' 	  => Yii::t('ciims.models.CategoriesMetadata', 'Updated'),
 		);
 	}
 
@@ -83,9 +83,6 @@ class CategoriesMetadata extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('category_id',$this->category_id);
@@ -99,15 +96,16 @@ class CategoriesMetadata extends CActiveRecord
 		));
 	}
 	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
+	/**
+	 * Set created and updated attributes
+	 */
+	public function beforeSave()
+	{
+    	if ($this->isNewRecord)
 			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
+
+		$this->updated = new CDbExpression('NOW()');
+ 
+    	return parent::beforeSave();
 	}
 }
