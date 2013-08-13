@@ -110,10 +110,9 @@ class CiiMessageCommand extends MessageCommand
 					$dir=$messagePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$category.DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language;
 					$dirPath = implode(DIRECTORY_SEPARATOR, explode('.', $category));
 
-					$writeDir = $originalCategory . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR.$originalCategory.'.php' . "\n";
 
-					mkdir($originalCategory . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR, 0777, true);
-					$this->generateMessageFile($msgs,$writeDir,$overwrite,$removeOld,$sort);
+					@mkdir($dir.DIRECTORY_SEPARATOR, 0777, true);
+					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$originalCategory.'.php',$overwrite,$removeOld,$sort);
 
 				}
 				else
@@ -121,7 +120,7 @@ class CiiMessageCommand extends MessageCommand
 					$dirPath = implode(DIRECTORY_SEPARATOR, explode('.', $category));
 
 					// Attempt to make the directories
-					mkdir($dir . DIRECTORY_SEPARATOR . $dirPath, 0777, true);
+					@mkdir($dir . DIRECTORY_SEPARATOR . $dirPath, 0777, true);
 					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$dirPath.'.php',$overwrite,$removeOld,$sort);
 				}
 			}
