@@ -184,12 +184,12 @@ class CiiController extends CController
             if ($this->id == "site")
             {
                 if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
-                    throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
+                    throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
             }
             else if (isset($this->module) && $this->module->getName() == "dashboard")
                 $nop;
             else
-                throw new CHttpException(403, 'This site is currently disabled. Please check back later.');
+                throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
         }
 
         $theme = Cii::getConfig('theme', 'default');

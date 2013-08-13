@@ -54,7 +54,10 @@ class CiiFileUploader {
 
         if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit){
             $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
-            die("{'error':'increase post_max_size and upload_max_filesize to $size'}");
+            $json = CJSON::encode(array(
+                'error' => Yii::t('ciims.misc', 'increase post_max_size and upload_max_filesize to {{size}}', array('{{size}}' => $size))
+            ));
+            die($json);
         }
     }
 
@@ -77,23 +80,19 @@ class CiiFileUploader {
     public function handleUpload($uploadDirectory, $replaceOldFile = FALSE)
     {
         if (!is_writable($uploadDirectory))
-            return array('error' => "{$uploadDirectory} Server error. Upload directory isn't writable.");
+            return array('error' => Yii::t('ciims.misc', "{{dir}} Server error. Upload directory isn't writable.", array('{{dir}}' => $uploadDirectory)));
         
-
         if (!$this->file)
-            return array('error' => 'No files were uploaded.');
+            return array('error' => Yii::t('ciims.misc', 'No files were uploaded.'));
         
-
         $size = $this->file->size;
 
         if ($size == 0) 
-            return array('error' => 'File is empty');
+            return array('error' => Yii::t('ciims.misc', 'File is empty'));
         
-
         if ($size > $this->sizeLimit) 
-            return array('error' => 'File is too large');
+            return array('error' => Yii::t('ciims.misc', 'File is too large'));
         
-
         $pathinfo = pathinfo($this->file->name);
         $filename = $pathinfo['filename'];
 
@@ -103,7 +102,7 @@ class CiiFileUploader {
         if(!in_array(strtolower($ext), $this->allowedExtensions))
         {
             $these = implode(', ', $this->allowedExtensions);
-            return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');
+            return array('error' => Yii::t('ciims.misc', "File has an invalid extension, it should be one of {{these}}.", array('{{these}}' => $these)));
         }
 
         $filename = 'upload-'.md5($filename);
@@ -120,7 +119,7 @@ class CiiFileUploader {
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext))
             return array('success'=>true,'filename'=>$filename.'.'.$ext);
         else 
-            return array('error'=> 'Could not save uploaded file. The upload was cancelled, or server error encountered');
+            return array('error'=> Yii::t('ciims.misc', 'Could not save uploaded file. The upload was cancelled, or server error encountered'));
         
     }
 }

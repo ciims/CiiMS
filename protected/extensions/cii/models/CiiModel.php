@@ -125,4 +125,3 @@ class CiiModel extends CActiveRecord
             return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
     }
 }
-?>
