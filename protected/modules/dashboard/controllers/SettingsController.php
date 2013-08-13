@@ -131,6 +131,7 @@ class SettingsController extends CiiSettingsController
 			throw new CHttpException(400, 'The requested theme type is not set. Please set a theme before attempting to change theme settings');
 
 		Yii::import('webroot.themes.' . $theme . '.Theme');
+
 		try {
 			$model = new Theme();
 		} catch(Exception $e) {

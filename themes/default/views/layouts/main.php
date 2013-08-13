@@ -10,7 +10,7 @@
                                       ->registerCssFile($this->asset .'/css/main.css')
 		                              ->registerCoreScript('jquery')
 								      ->registerScriptFile($this->asset .'/js/script.js')
-								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });'); ?>
+								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });', CClientScript::POS_END); ?>
 		<!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -57,23 +57,23 @@
                         <div class="span3 well" id="twitterFeed">
                         </div>
 		                <div class="span3">
-                            <h5>Categories</h5>
+                            <h5><?php echo Yii::t('main', 'Categories'); ?></h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->params['theme']->getCategories()
                             )); ?>
                         </div>
                         <div class="span3">
-                            <h5>Recent Posts</h5>
+                            <h5><?php echo Yii::t('main', 'Recent Posts'); ?></h5>
                             <?php $this->widget('bootstrap.widgets.TbMenu', array(
                                 'items' => $this->params['theme']->getRecentPosts()
                             )); ?>
                         </div>
                         <div class="span3">
-                            <h5>Search</h5>
-                            <p>Looking for something on the blog?</p>
+                            <h5><?php echo Yii::t('main', 'Search'); ?></h5>
+                            <p><?php echo Yii::t('main', 'Looking for something on the blog?'); ?></p>
                             <?php echo CHtml::beginForm($this->createUrl('/search'), 'get', array('id' => 'search')); ?>
                                 <div class="input-append">
-                                    <?php echo CHtml::textField('q', Cii::get($_GET, 'q', ''), array('type' => 'text', 'style' => 'width: 75%', 'placeholder' => 'Search...')); ?>
+                                    <?php echo CHtml::textField('q', Cii::get($_GET, 'q', ''), array('type' => 'text', 'style' => 'width: 75%', 'placeholder' => Yii::t('main', 'Search...'))); ?>
                                 </div>
                             <?php echo CHtml::endForm(); ?>
                         </div>

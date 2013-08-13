@@ -1,6 +1,13 @@
 <?php echo $content->author->displayName; ?>,<br /><br />
-<p>This is a notification informing you a new comment has been posted on your post: <em><?php echo $content->title; ?></em>.</p>
 <p>
-	<strong>From: </strong> <?php echo $comment->author->displayName; ?><br />
+	<?php echo Yii::t('main', 'This is a notification informing you a new comment has been add on your post: {{title}}.', array(
+		'{{title}}' => $content->title
+	)); ?>
+</p>
+<p>
+	<?php echo Yii::t('main', '{{from}} {{user}}', array(
+		'{{from}}' => CHtml::tag('strong', array(), Yii::t('main', 'From:')),
+		'{{user}}' => $comment->author->displayName
+	)); ?><br />
 	<?php echo $comment->comment; ?>
 </p>

@@ -8,8 +8,10 @@
 <div class="login-container" style="width: 70%;">
 	<div class="sidebar">
 		<div class="well-span">
-			<h4>Thanks for Registering!</h4>
-			<p>Before you can login to your account we need you to verify your email address. Be on the lookout for an email from: <?php echo $notifyUser->email; ?> containing activating instructions.</p>
+			<h4><?php echo Yii::t('main', 'Thanks for Registering!'); ?></h4>
+			<p><?php echo Yii::t('main', "Before you can login to your account we need you to verify your email address. Be on the lookout for an email from {{email}} containing activating instructions.", array(
+				'{{email}}' => CHtml::tag('strong', array(), $notifyUser->email)
+			)); ?></p>
 		</div>
 	</div>
 </div>

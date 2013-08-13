@@ -2,16 +2,25 @@
 
 class CiiPHPMessageSource extends CPhpMessageSource
 {
+	/**
+	 * An array of files
+	 * @var array
+	 */
 	private $_files = array();
 
-	protected $extensionPaths;
+	/**
+	 * Where the extension path is located at
+	 * @var array
+	 */
+	protected $extensionPaths = array();
 
+	/**
+	 * Constructor
+	 * Sets the default basePath to webroot.themes.{{themename}}
+	 */
 	public function __construct()
 	{
-		if (Yii::app()->controller->module != NULL && Yii::app()->controller->module->name != NULL)
-			$this->basePath = Yii::getPathOfAlias('application.modules.' . Yii::app()->controller->module->name . '.messages');
-		else
-			$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
+		$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
 	}
 
 	/**
@@ -47,7 +56,7 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	        }
 	        else
 	        {
-	        	if (strpos($category,'ciims') !== false)
+	        	if (strpos($category,'ciims.') !== false)
 	        	{
 	        		$this->basePath = Yii::getPathOfAlias('application.messages.');
 	        		$this->_files[$category][$language]=$this->basePath.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.str_replace('.', '/', str_replace('ciims.', '', $category)).'.php';
@@ -59,4 +68,21 @@ class CiiPHPMessageSource extends CPhpMessageSource
 
 	    return $this->_files[$category][$language];
 	}
+
+	/**
+	 * It's easier just to uncomment this for testing functionality
+	 * 
+	 * public function translate($category,$message,$language=null)
+	 * {
+	 *     if($language===null)
+	 *         $language=Yii::app()->getLanguage();
+	 *
+	 *     return $this->translateMessage($category,$message,$language);
+	 * 
+	 *     if($this->forceTranslation || $language!==$this->getLanguage())
+	 *         return $this->translateMessage($category,$message,$language);
+	 *     else
+	 *         return $message;
+	 * }
+	**/
 }

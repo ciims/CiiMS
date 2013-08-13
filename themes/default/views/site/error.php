@@ -1,8 +1,8 @@
 <div class="login-container">
 	<div class="sidebar">
 		<div class="well-span">
-			<h4>Error <?php echo $error['code']; ?></h4>
-			<p><?php echo $error['message']; ?></p>
+			<h1><?php echo Yii::t('main', 'Error {{code}}', array('{{code}}' => $error['code'])); ?></h1>
+		<p><?php echo $error['message']; ?></p>
 		</div>
 	</div>
 </div>
