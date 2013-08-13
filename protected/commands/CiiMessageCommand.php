@@ -110,18 +110,19 @@ class CiiMessageCommand extends MessageCommand
 					$dir=$messagePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$category.DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language;
 					$dirPath = implode(DIRECTORY_SEPARATOR, explode('.', $category));
 
-					@mkdir($dir . DIRECTORY_SEPARATOR . $dirPath, '777', true);
-					echo $originalCategory . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR.$originalCategory.'.php' . "\n";
+					$writeDir = $originalCategory . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR.$originalCategory.'.php' . "\n";
+
+					mkdir($originalCategory . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR, 0777, true);
+					$this->generateMessageFile($msgs,$writeDir,$overwrite,$removeOld,$sort);
 
 				}
 				else
 				{
 					$dirPath = implode(DIRECTORY_SEPARATOR, explode('.', $category));
-					echo $category . ' ' . $dir.DIRECTORY_SEPARATOR.$dirPath.'.php' . "\n";
 
 					// Attempt to make the directories
-					@mkdir($dir . DIRECTORY_SEPARATOR . $dirPath, '777', true);
-					//$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$dirPath.DIRECTORY_SEPARATOR.'.php',$overwrite,$removeOld,$sort);
+					mkdir($dir . DIRECTORY_SEPARATOR . $dirPath, 0777, true);
+					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$dirPath.'.php',$overwrite,$removeOld,$sort);
 				}
 			}
 		}
