@@ -27,6 +27,7 @@
 					)
 				)); ?>
 			</div>
+			<?php echo Yii::t('Dashboard.Views', 'test'); ?>
 			<div class="pull-right user">
 				<!-- TODO: Proper Link to... ??? -->
 				<?php echo CHtml::link(Yii::app()->user->displayName); ?>
