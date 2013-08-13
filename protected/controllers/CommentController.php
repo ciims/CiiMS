@@ -74,7 +74,7 @@ class CommentController extends CiiController
 		$this->layout = false;
 
 		if ($id == NULL)
-			throw new CHttpException(400, 'Unable to retrieve comments for that post');
+			throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Unable to retrieve comments for the requested post.'));
 
 		$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
         
@@ -106,7 +106,7 @@ class CommentController extends CiiController
 				// Send an email to the author if someone makes a comment on their blog
 				if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1) 
 				{
-					$this->sendEmail($user, 'New Comment Notification From CiiMS Blog', '//email/comments', array('content'=>$content, 'comment'=>$comment));
+					$this->sendEmail($user, Yii::t('ciims.email', 'New Comment Notification From CiiMS Blog'), '//email/comments', array('content'=>$content, 'comment'=>$comment));
 				}
 
 				// Pass the values as "now" for the comment view"
@@ -122,9 +122,7 @@ class CommentController extends CiiController
 				));
 			}
 			else
-			{
-				throw new CHttpException(400, 'Missing or malformed request');
-			}
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error saving your comment'));
 		}
 	}
 	
@@ -139,16 +137,16 @@ class CommentController extends CiiController
 		{
 			$comment = Comments::model()->findByPk($id);
 			if ($comment == NULL)
-				throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Invalid request. Please do not repeat this request again.'));
 			
 			$comment->approved = '-1';
 			
 			if($comment->save())
 				return true;
 			else
-				throw new CHttpException(400, 'Something went wrong');
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error flagging this comment.'));
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Invalid request. Please do not repeat this request again.'));
 	}
 }

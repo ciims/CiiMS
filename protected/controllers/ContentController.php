@@ -97,7 +97,7 @@ class ContentController extends CiiController
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
-			throw new CHttpException(404,'The specified post cannot be found.');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The specified post cannot be found.'));
 		
 		// Retrieve the HTTP Request
 		$r = new CHttpRequest();
@@ -111,7 +111,7 @@ class ContentController extends CiiController
 		
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
-			throw new CHttpException(404, 'The requested post cannot be found.');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The requested post cannot be found.'));
         
         return str_replace($r->baseUrl, '', $r->requestUri);;
 	}
@@ -134,7 +134,7 @@ class ContentController extends CiiController
 		$content = Content::model()->with('category')->findByPk($id);
 
 		if ($content->status != 1 || strtotime($content->published) > time())
-			throw new CHttpException('404', 'The article you specified does not exist. If you bookmarked this page, please delete it.');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The article you specified does not exist. If you bookmarked this page, please delete it.'));
         
 		$this->breadcrumbs = array_merge(Categories::model()->getParentCategories($content['category_id']), array($content['title']));
 		
@@ -151,7 +151,11 @@ class ContentController extends CiiController
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
 		$this->setLayout($content->layout);
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | ' . $content->title);
+		
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => $content->title
+		)));
 	
 		$this->render($content->view, array(
 				'id'=>$id, 
@@ -176,12 +180,13 @@ class ContentController extends CiiController
 		$content = Content::model()->findByPk($id);
 		if ($id === NULL || $content === NULL)
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to access post'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to access post')));
 			return Yii::app()->end();
 		}
 		
 		// Load the user likes, create one if it does not exist
 		$user = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'likes'));
+
 		if ($user === NULL)
 		{
 			$user = new UserMetadata;
@@ -208,19 +213,20 @@ class ContentController extends CiiController
 		}
 		
 		$user->value = json_encode($likes);
+
 		if (!$user->save())
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save user like'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save user like')));
 			return Yii::app()->end();
 		}
 
 		if (!$content->save())
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save like'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save like')));
 			return Yii::app()->end();
 		}
 		
-		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => 'Liked saved'));
+		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => Yii::t('ciims.controllers.Content', 'Liked saved')));
 		return Yii::app()->end();
 	}
 	
@@ -230,7 +236,10 @@ class ContentController extends CiiController
 	 **/
 	public function actionPassword($id=NULL)
 	{	
-		$this->setPageTitle(Yii::app()->name . ' | Password Requires');
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Content', 'Password Required')
+		)));
 		
 		if ($id == NULL)
 			$this->redirect(Yii::app()->user->returnUrl);
@@ -250,7 +259,7 @@ class ContentController extends CiiController
 			else
 			{
 				// Otherwise prevent access to it
-				Yii::app()->user->setFlash('error', 'Too many password attempts. Please try again in 5 minutes');
+				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Content', 'Too many password attempts. Please try again in 5 minutes'));
 				unset($_POST['password']);
 				$_SESSION['password'][$id]['expires'] 	= time() + 300;
 			}
@@ -260,7 +269,7 @@ class ContentController extends CiiController
 		{
 			$content = Content::model()->findByPk($id);
 
-			$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), $_POST['password'], MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))));
+			$encrypted = Cii::encrypt(Cii::get($_POST, 'password'));
 
 			if ($encrypted == $content->attributes['password'])
 			{
@@ -270,7 +279,7 @@ class ContentController extends CiiController
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', 'Incorrect password');
+				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Content', 'Incorrect password'));
 				$_SESSION['password'][$id]['tries'] 	= $_SESSION['password'][$id]['tries'] + 1;
 				$_SESSION['password'][$id]['expires'] 	= time() + 300;
 			}
@@ -287,10 +296,10 @@ class ContentController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle('All Content');
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', 'All Content'));
 		$this->setLayout('default');
 		
-		$this->breadcrumbs = array('Blogroll');
+		$this->breadcrumbs = array(Yii::t('ciims.controllers.Content', 'Blogroll'));
 		
 		$data = array();
 		$pages = array();
@@ -320,6 +329,7 @@ class ContentController extends CiiController
 	/**
 	 * Displays either all posts or all posts for a particular category_id if an $id is set in RSS Format
 	 * So that RSS Readers can access the website
+	 * @param  int $id
 	 */
 	public function actionRss($id=NULL)
 	{

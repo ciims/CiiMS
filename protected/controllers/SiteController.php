@@ -56,7 +56,12 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Error ' . $error['code']);
+				$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}} {{code}}', array(
+					'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+					'{{label}}'    => Yii::t('ciims.controllers.Site', 'Error'),
+					'{{code}}'     => $error['code']
+				)));
+
 				$this->render('error', array('error'=>$error));
 			}
 		}
@@ -97,7 +102,11 @@ class SiteController extends CiiController
      */
 	public function actionSearch($id=1)
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Search')
+		)));
+
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -153,7 +162,11 @@ class SiteController extends CiiController
      */
 	public function actionMySQLSearch($id=1)
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Search');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Search')
+		)));
+
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -198,7 +211,11 @@ class SiteController extends CiiController
      */
 	public function actionLogin()
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Login to your account');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Login to your account')
+		)));
+
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
@@ -237,7 +254,7 @@ class SiteController extends CiiController
 				$validator=new CEmailValidator;
 				if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
 				{
-					Yii::app()->user->setFlash('reset-error', 'The email your provided is not a valid email address.');
+					Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The email your provided is not a valid email address.'));
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}
@@ -269,14 +286,19 @@ class SiteController extends CiiController
 					$meta->save();
 					
 
-					$this->sendEmail($user, 'Your Password Reset Information', '//email/forgot', array('user' => $user, 'hash' => $hash), true, true);
+					$this->sendEmail($user, Yii::t('ciims.email', 'Your Password Reset Information'), '//email/forgot', array('user' => $user, 'hash' => $hash), true, true);
 					
 					// Set success flash
-					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
+					Yii::app()->user->setFlash('reset-sent', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
+						'{{email}}' => Cii::get($_POST, 'email', NULL)
+					)));
 				}
 				else
 				{
-					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
+					Yii::app()->user->setFlash('reset-sent', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
+						'{{email}}' => Cii::get($_POST, 'email', NULL)
+					)));
+					
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}

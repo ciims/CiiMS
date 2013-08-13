@@ -80,14 +80,14 @@ class ProfileController extends CiiController
 	{
 		// If an ID isn't provided, throw an error
 		if ($id === NULL)
-			throw new CHttpException(404, 'Oops! That user doesn\'t exist on our network!');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
 		// For SEO, if the display name isn't in the url, reroute it
 		if ($id !== NULL && $displayName === NULL)
 		{
 			$model = Users::model()->findByPk($id);
 			if ($model === NULL || $model->status == 0)
-				throw new CHttpException(404, 'Oops! That user doesn\'t exist on our network!');
+				throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 			else
 				$this->redirect('/profile/' . $model->id . '/' . preg_replace('/[^\da-z]/i', '', $model->displayName));
 		}
@@ -96,7 +96,7 @@ class ProfileController extends CiiController
 
 		// Don't allow null signings or invalidated users to pollute our site
 		if($model->status == 0)
-			throw new CHttpException(404, 'Oops! That user doesn\'t exist on our network!');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
 		$this->pageTitle = $model->displayName . ' | ' . Cii::getConfig('name', Yii::app()->name);
 		$postsCriteria = new CDbCriteria;
@@ -141,13 +141,11 @@ class ProfileController extends CiiController
 
 			if ($model->save())
 			{
-				Yii::app()->user->setFlash('success', 'Your profile has been updated!');
+				Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'Your profile has been updated!'));
 				$this->redirect($this->createUrl('/profile/'. $model->id));
 			}
 			else
-			{
-				Yii::app()->user->setFlash('warning', 'There were errors saving your profile. Please correct them before trying to save again.');
-			}
+				Yii::app()->user->setFlash('warning', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
 		}
 
 		$this->render('edit', array('model' => $model));

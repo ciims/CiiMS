@@ -48,6 +48,7 @@ class CategoriesController extends CiiController
                 ),
             );
 		}
+
 		return parent::filters();
     }
 
@@ -60,9 +61,7 @@ class CategoriesController extends CiiController
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
-		{
-			throw new CHttpException(404,'The specified category cannot be found.');
-		}
+			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
 		
 		// Retrieve the HTTP Request
 		$r= new CHttpRequest();
@@ -77,9 +76,7 @@ class CategoriesController extends CiiController
 		
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
-		{
-			throw new CHttpException(404,'The specified category cannot be found.');
-		}
+			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
 	}
 	
 	/**
@@ -101,7 +98,11 @@ class CategoriesController extends CiiController
 		// Parse Metadata
 		$meta = Categories::model()->parseMeta($category->metadata);		
 		
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | ' . $category->name);
+		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => $category->name
+		)));
+
 		$layout = isset($meta['layout']) ? $meta['layout']['value'] : 'default';		
 
 		// Set the layout
@@ -139,9 +140,13 @@ class CategoriesController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Categories');
+		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Categories', 'Categories')
+		)));
+
 		$this->setLayout('main');
-		$this->breadcrumbs = array('All Categories');
+		$this->breadcrumbs = array(Yii::t('ciims.controllers.Categories', 'All Categories'));
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('id != 1');
 		$categories = Categories::model()->findAll($criteria);
