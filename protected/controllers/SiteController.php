@@ -298,7 +298,7 @@ class SiteController extends CiiController
 					Yii::app()->user->setFlash('reset-sent', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
 						'{{email}}' => Cii::get($_POST, 'email', NULL)
 					)));
-					
+
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}
@@ -334,23 +334,23 @@ class SiteController extends CiiController
 							$expires->delete();
 							
 							// Set a success flash message
-							Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
+							Yii::app()->user->setFlash('reset', Yii::t('ciims.controllers.Site', 'Your password has been reset, and you may now login with your new password'));
 							
 							// Redirect to the login page
 							$this->redirect('/login');
 						}
 	
-						Yii::app()->user->setFlash('reset-error', 'The password you provided must be at least 8 characters.');
+						Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The password you provided must be at least 8 characters.'));
 						$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 						return;
 					}
 					
-					Yii::app()->user->setFlash('reset-error', 'The passwords you provided do not match');
+					Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The passwords you provided do not match.'));
 					$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 					return;
 				}
 				
-				Yii::app()->user->setFlash('reset-error', 'You must provide your password twice for us to reset your password.');
+				Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'You must provide your password twice for us to reset your password.'));
 				$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 				return;
 			}
@@ -393,30 +393,31 @@ class SiteController extends CiiController
 							
 							// Delete the activationKey
 							$meta->delete();
-							Yii::app()->user->setFlash('activation-success', 'Activation was successful! You may now ' . CHtml::link('login', $this->createUrl('/login')));
+							Yii::app()->user->setFlash('activation-success', Yii::t('ciims.controllers.Site', 'Activation was successful! You may now {{login}}', array(
+								'{{link}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'login'), $this->createUrl('/login')))));
 							return $this->render('activation');
 						}
 						else
 						{
-							Yii::app()->user->setFlash('activation-error', 'Please provide the password you used during the signup process.');
+							Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'Please provide the password you used during the signup process.'));
 						}
 					}
 
-					Yii::app()->user->setFlash('activation-info', 'Enter the password you used to register your account to verify your email address.');
+					Yii::app()->user->setFlash('activation-info', Yii::t('ciims.controllers.Site', 'Enter the password you used to register your account to verify your email address.'));
 				}
 				else
 				{
-					Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
+					Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'The activation key your provided was invalid.'));
 				}
 			}
 			else
 			{
-				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
+				Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'Unable to activate user using the provided details.'));
 			}
 		}
 		else
 		{
-			Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
+			Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'The activation key your provided was invalid.'));
 		}
 		
 		$this->render('activation');
@@ -428,7 +429,11 @@ class SiteController extends CiiController
 	 **/
 	public function actionRegister()
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Sign Up');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Sign Up')
+		)));
+
 		$this->layout = '//layouts/main';
 		$model = new RegisterForm();
 		$user = new Users();
@@ -471,7 +476,7 @@ class SiteController extends CiiController
 						$meta->save();
 						
 						// Send the registration email
-						$this->sendEmail($user, 'Activate Your Account', '//email/register', array('user' => $user, 'hash' => $hash), true, true);
+						$this->sendEmail($user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $user, 'hash' => $hash), true, true);
 					
 						$this->redirect('/register-success');
 						return;
@@ -479,7 +484,7 @@ class SiteController extends CiiController
 				}
 				catch(CDbException $e) 
 				{
-					$model->addError(null, 'The email address has already been associated to an account. Do you want to login instead?');
+					$model->addError(null, Yii::t('ciims.controllers.Site','The email address has already been associated to an account. Do you want to login instead?'));
 				}
 			}
 		}
@@ -492,7 +497,11 @@ class SiteController extends CiiController
 	 */
 	public function actionRegistersuccess()
 	{
-		$this->setPageTitle(Cii::getConfig('name', Yii::app()->name) . ' | Registration Successful');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Registration Successful')
+		)));
+
 		$this->layout = '//layouts/main';
 		$this->render('register-success');
 	}
