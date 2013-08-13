@@ -8,9 +8,12 @@ class CiiBase extends CApplicationComponent
         if (Yii::getPathOfAlias('cii') === false)
             Yii::setPathOfAlias('cii', realpath(dirname(__FILE__) . '/..'));
         
-        // Register the CiiUtilities
+        // Register all of Cii
         Yii::import('ext.cii.utilities.*');
-        
+        Yii::import('ext.cii.cache.*');
+        Yii::import('ext.cii.controllers.*');
+        Yii::import('ext.cii.models.*');
+
         parent::init();
     }
 }

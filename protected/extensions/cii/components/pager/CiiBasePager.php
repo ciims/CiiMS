@@ -2,7 +2,6 @@
 
 class CiiBasePager extends CBasePager 
 {
-	
 	/**
      * Creates the default pagination.
      * This is called by {@link getPages} when the pagination is not set before.
@@ -10,7 +9,7 @@ class CiiBasePager extends CBasePager
      */
     protected function createPages()
     {
-            return new CiiPagination;
+        return new CiiPagination;
     }
 }
 

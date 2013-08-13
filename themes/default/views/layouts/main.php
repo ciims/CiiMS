@@ -29,6 +29,7 @@
 							)
 						)
 					)); ?>
+					<?php Yii::t('ciims.models.User', 'test'); ?>
 		    </div>		    
 		</header>
 		

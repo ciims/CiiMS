@@ -47,6 +47,9 @@ return array(
         ),
     ),
     'components' => array(
+        'messages' => array(
+            'class' => 'ext.cii.components.CiiPHPMessageSource'
+        ),
         'newRelic' => array(
             'class' => 'ext.yii-newrelic.YiiNewRelic',
         ),
