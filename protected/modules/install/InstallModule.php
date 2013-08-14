@@ -13,6 +13,13 @@ class InstallModule extends CWebModule
             'install.models.*',
             'install.components.*',
         ));
+
+        Yii::app()->setComponents(array(
+            'messages' => array(
+                'class' => 'ext.cii.components.CiiPHPMessageSource',
+                'basePath' => Yii::getPathOfAlias('application.modules.install')
+            )
+        ));
     }
 
     public function beforeControllerAction($controller, $action)

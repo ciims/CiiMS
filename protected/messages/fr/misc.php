@@ -15,8 +15,6 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
   'Could not save uploaded file. The upload was cancelled, or server error encountered' => '',

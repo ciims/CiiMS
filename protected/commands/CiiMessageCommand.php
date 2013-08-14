@@ -84,6 +84,7 @@ class CiiMessageCommand extends MessageCommand
 			if (strpos($file, 'extensions') !== false && strpos($file, 'extensions/cii') === false)
 				unset($files[$k]);
 		}
+
 		reset($files);
 
 		$messages=array();
@@ -113,7 +114,19 @@ class CiiMessageCommand extends MessageCommand
 
 					@mkdir($dir.DIRECTORY_SEPARATOR, 0777, true);
 					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$originalCategory.'.php',$overwrite,$removeOld,$sort);
+				}
+				else if (strpos($category, 'module.') !== false)
+				{
+					$category = str_replace('module.', '', $category);
+					$path = explode('.', $category);
+					$dir = Yii::getPathOfAlias('application.modules') . DIRECTORY_SEPARATOR . strtolower($path[0]) . DIRECTORY_SEPARATOR . 'messages';
+					@mkdir($dir.DIRECTORY_SEPARATOR, 0777, true);
+					@mkdir($dir.DIRECTORY_SEPARATOR . $language.DIRECTORY_SEPARATOR, 0777, true);
+					unset($path[0]);
+					reset($path);
+					$path = implode('/', $path);
 
+					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$path.'.php',$overwrite,$removeOld,$sort);
 				}
 				else
 				{
@@ -126,4 +139,37 @@ class CiiMessageCommand extends MessageCommand
 			}
 		}
 	}
+
+	protected function extractMessages($fileName,$translator)
+    {
+        echo "Extracting messages from $fileName...\n";
+        $subject=file_get_contents($fileName);
+        $messages=array();
+        if(!is_array($translator))
+            $translator=array($translator);
+
+        foreach ($translator as $currentTranslator)
+        {
+            $n=preg_match_all('/\b'.$currentTranslator.'\s*\(\s*(\'[\w.\/]*?(?<!\.)\'|"[\w.]*?(?<!\.)")\s*,\s*(\'.*?(?<!\\\\)\'|".*?(?<!\\\\)")\s*[,\)]/s',$subject,$matches,PREG_SET_ORDER);
+
+            for($i=0;$i<$n;++$i)
+            {
+                if(($pos=strpos($matches[$i][1],'.'))!==false)
+                {
+                	if (strpos($matches[$i][1],'Dashboard')!==false || strpos($matches[$i][1],'Hybridauth')!==false || strpos($matches[$i][1],'Install')!==false)
+						$category='module.'.substr($matches[$i][1],1,-1);
+					else
+                   		$category=substr($matches[$i][1],$pos+1,-1);
+                }                   
+                else 
+                    $category=substr($matches[$i][1],1,-1);
+                   
+
+                $message=$matches[$i][2];
+
+                $messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
+            }
+        }
+        return $messages;
+    }
 }

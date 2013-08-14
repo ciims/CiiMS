@@ -19,6 +19,10 @@ class DashboardModule extends CWebModule
             'errorHandler' => array(
             	'errorAction'  => 'dashboard/default/error',
         	),
+            'messages' => array(
+                'class' => 'ext.cii.components.CiiPHPMessageSource',
+                'basePath' => Yii::getPathOfAlias('application.modules.dashboard')
+            ),
             // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
                 'class' => 'ext.minify.EClientScript',
