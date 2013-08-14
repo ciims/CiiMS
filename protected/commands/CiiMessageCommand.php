@@ -42,7 +42,20 @@ class CiiMessageCommand extends MessageCommand
 		$config = $this->getArgs();
 
 		if (isset($args[0]) && $args[0] == 'themes')
+		{
 			$config['sourcePath'] .= 'themes' . DIRECTORY_SEPARATOR;
+
+			if (isset($args[1]))
+				$config['sourcePath'] .= $args[1] . DIRECTORY_SEPARATOR;
+		}
+
+		if (isset($args[0]) && $args[0] == 'modules')
+		{
+			$config['sourcePath'] = Yii::getPathOfAlias('application.modules');
+
+			if (isset($args[1]))
+				$config['sourcePath'] .= DIRECTORY_SEPARATOR . $args[1] . DIRECTORY_SEPARATOR;
+		}
 
 		$translator='Yii::t';
 		extract($config);
