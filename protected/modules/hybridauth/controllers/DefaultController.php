@@ -21,7 +21,7 @@ class DefaultController extends CiiController
 		}
 		catch (Exception $e)
 		{
-			throw new CHttpException('400', 'Oh Snap! Something went wrong. Please try again later.');
+			throw new CHttpException(400, Yii::t('Hybridauth.main', 'Oh Snap! Something went wrong. Please try again later.'));
 		}
 		return;
 	}
@@ -36,7 +36,7 @@ class DefaultController extends CiiController
 	private function hybridAuth($provider=NULL)
 	{
 		if ($provider==NULL)
-			throw new CException("You haven't supplied a provider");
+			throw new CException(Yii::t('Hybridauth.main', "You haven't supplied a provider"));
 		
 		if (!function_exists('password_hash'))
 			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
@@ -90,7 +90,7 @@ class DefaultController extends CiiController
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 
-			throw new CException('Unable to bind to local user');
+			throw new CException(Yii::t('Hybridauth.main', 'Unable to bind to local user'));
 		}
 		else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID)
 		{
@@ -131,12 +131,12 @@ class DefaultController extends CiiController
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 
-			throw new CException('Unable to bind new user locally');
+			throw new CException(Yii::t('Hybridauth.main', 'Unable to bind new user locally'));
 		}
 		else 
 		{
 			// Panic?	
-			throw new CException('We were able to authenticate you against the remote network, but could not sign you in locally.');
+			throw new CException(Yii::t('Hybridauth.main', 'We were able to authenticate you against the remote network, but could not sign you in locally.'));
 		}
 	}
 

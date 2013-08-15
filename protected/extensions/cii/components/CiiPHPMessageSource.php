@@ -12,7 +12,7 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	 * Where the extension path is located at
 	 * @var array
 	 */
-	protected $extensionPaths = array();
+	public $extensionPaths = array();
 
 	/**
 	 * Constructor
@@ -20,7 +20,10 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	 */
 	public function __construct()
 	{
-		$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
+		if (isset(Yii::app()->theme->name))
+			$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
+		else
+			$this->basePath = Yii::getPathOfAlias('application.modules.install');
 	}
 
 	/**

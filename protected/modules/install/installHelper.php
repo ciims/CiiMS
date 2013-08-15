@@ -82,23 +82,6 @@ class InstallHelper
             $this->exitwithResponse(array('completed' => false, 'status' => 2));
         }
     }
-
-    public function checkDownloadProgress(array $data = array())
-    {
-         // Replace pathspec
-        $data['runtime'] = str_replace('\\', '/', $data['runtime']);
-        if ($data['runtime'][strlen($data['runtime'])-1] != '/')
-            $data['runtime'] .= '/';
-        
-        // Get the status from the file
-        $status = file_get_contents($data['runtime'] . 'progress.txt');
-        
-        // Clean up after oursevles
-        if ($status == 100)
-            unlink ($data['runtime'] . 'progress.txt');
-        
-        $this->exitWithResponse(array('progress' => $status));
-    }
     
     /**
      * Sets the YiiPath in Session so the bootstrapper can take over
@@ -110,6 +93,22 @@ class InstallHelper
         $_SESSION['config']['params']['yiiPath'] = $path;
         session_write_close();
         return;
+    }
+
+    private function setLanguage()
+    {
+        $language = 'en_US';
+        session_start();
+        // If the language is set via POST, accept it
+        if (isset($_POST['_lang']))
+            $language = $_SESSION['_lang'] = $_POST['_lang'];
+        else if (isset($_SESSION['_lang']))
+            $language = $_SESSION['_lang'];
+        else
+            $language = $_SESSION['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
+
+        $_SESSION['_lang'] = $language;
+        session_write_close();
     }
     
     /**

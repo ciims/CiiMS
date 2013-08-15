@@ -73,11 +73,11 @@ class DatabaseForm extends CFormModel
                 $this->addError('dbname', '');
                 $this->addError('host', '');
                 
-                $this->addError('dsn', 'Unable to connect to database using the provided credentials.');
+                $this->addError('dsn',Yii::t('Install.main', 'Unable to connect to database using the provided credentials.'));
                 return false;
             }
         }
-        $this->addError('dsn', 'Unable to connect to database using the provided credentials.');
+        $this->addError('dsn',Yii::t('Install.main', 'Unable to connect to database using the provided credentials.'));
         return false;
     }
     
@@ -98,10 +98,10 @@ class DatabaseForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'username' => 'Username',
-            'password' => 'Password',
-            'dbname'   => 'Database Name',
-            'host'     => 'Database Host',
+            'username' => Yii::t('Install.main','Username'),
+            'password' => Yii::t('Install.main','Password'),
+            'dbname'   => Yii::t('Install.main','Database Name'),
+            'host'     => Yii::t('Install.main','Database Host'),
         );
     }
 }

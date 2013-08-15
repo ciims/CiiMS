@@ -80,12 +80,12 @@ class UserForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'email' => 'Email Address',
-            'password' => 'Password',
-            'firstName' => 'First Name',
-            'lastName' => 'Last Name',
-            'displayName' => 'Display Name',
-            'siteName' => 'Site Name'
+            'email' => Yii::t('Install.main','Email Address'),
+            'password' => Yii::t('Install.main','Password'),
+            'firstName' => Yii::t('Install.main','First Name'),
+            'lastName' => Yii::t('Install.main','Last Name'),
+            'displayName' => Yii::t('Install.main','Display Name'),
+            'siteName' => Yii::t('Install.main','Site Name')
         );
     }
     
@@ -136,7 +136,7 @@ class UserForm extends CFormModel
         }
         catch (CDbException $e)
         {
-            $this->addError('password', 'There was an error saving your details to the database.');
+            $this->addError('password', Yii::t('Install.main','There was an error saving your details to the database.'));
             return false;
         }
         
@@ -151,7 +151,7 @@ class UserForm extends CFormModel
         if (is_writable(dirname(__FILE__) . '/../../../config'))
             return true;
         
-        $this->addError('isConfigDirWritable', 'Configuration directory is not writable. This must be corrected before your settings can be applied.');
+        $this->addError('isConfigDirWritable', Yii::t('Install.main','Configuration directory is not writable. This must be corrected before your settings can be applied.'));
         return false;
     }
     
