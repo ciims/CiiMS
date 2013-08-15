@@ -48,10 +48,10 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models.general', 'Site Settings') => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
-			Yii::t('Dashboard.models.general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
-			Yii::t('Dashboard.models.general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
-			Yii::t('Dashboard.models.general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
+			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
+			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 		);
 	}
 
@@ -81,26 +81,26 @@ class GeneralSettings extends CiiSettingsModel
 	public function attributeLabels()
 	{
 		return array(
-			'name' => Yii::t('Dashboard.models.general', 'Site Name'),
-			'dateFormat' => Yii::t('Dashboard.models.general', 'Date Format'),
-			'timeFormat' => Yii::t('Dashboard.models.general', 'Time Format'),
-			'timezone' => Yii::t('Dashboard.models.general', 'Timezone'),
-			'defaultLanguage' => Yii::t('Dashboard.models.general', 'Default Language'),
-			'url' => Yii::t('Dashboard.models.general', 'Site URL'),
-			'subdomain' => Yii::t('Dashboard.models.general', 'CiiMS Subdomain'),
-			'menu' => Yii::t('Dashboard.models.general', 'Menu Navigation'),
-			'offline' => Yii::t('Dashboard.models.general', 'Offline Mode'),
-			'preferMarkdown' => Yii::t('Dashboard.models.general', 'Use Markdown'),
-			'bcrypt_cost' => Yii::t('Dashboard.models.general', 'Password Strength Settings'),
-			'searchPaginationSize' => Yii::t('Dashboard.models.general', 'Search Post Count'),
-			'categoryPaginationSize' => Yii::t('Dashboard.models.general', 'Category Post Count'),
-			'contentPaginationSize' => Yii::t('Dashboard.models.general', 'Content Post Cost'),
-			'sphinx_enabled' => Yii::t('Dashboard.models.general', 'Enable Sphinx Search'),
-			'sphinxHost' => Yii::t('Dashboard.models.general', 'Sphinx Hostname'),
-			'sphinxPort' => Yii::t('Dashboard.models.general', 'Sphinx Port'),
-			'sphinxSource' => Yii::t('Dashboard.models.general', 'Sphinx Source Name'),
-			'notifyAuthorOnComment' => Yii::t('Dashboard.models.general', 'Notify Author on New Comment'),
-			'autoApproveComments'	=> Yii::t('Dashboard.models.general', 'Auto Approve Comments'),
+			'name' => Yii::t('Dashboard.models-general', 'Site Name'),
+			'dateFormat' => Yii::t('Dashboard.models-general', 'Date Format'),
+			'timeFormat' => Yii::t('Dashboard.models-general', 'Time Format'),
+			'timezone' => Yii::t('Dashboard.models-general', 'Timezone'),
+			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
+			'url' => Yii::t('Dashboard.models-general', 'Site URL'),
+			'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
+			'menu' => Yii::t('Dashboard.models-general', 'Menu Navigation'),
+			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
+			'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),
+			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
+			'searchPaginationSize' => Yii::t('Dashboard.models-general', 'Search Post Count'),
+			'categoryPaginationSize' => Yii::t('Dashboard.models-general', 'Category Post Count'),
+			'contentPaginationSize' => Yii::t('Dashboard.models-general', 'Content Post Cost'),
+			'sphinx_enabled' => Yii::t('Dashboard.models-general', 'Enable Sphinx Search'),
+			'sphinxHost' => Yii::t('Dashboard.models-general', 'Sphinx Hostname'),
+			'sphinxPort' => Yii::t('Dashboard.models-general', 'Sphinx Port'),
+			'sphinxSource' => Yii::t('Dashboard.models-general', 'Sphinx Source Name'),
+			'notifyAuthorOnComment' => Yii::t('Dashboard.models-general', 'Notify Author on New Comment'),
+			'autoApproveComments'	=> Yii::t('Dashboard.models-general', 'Auto Approve Comments'),
 		);
 	}
 }

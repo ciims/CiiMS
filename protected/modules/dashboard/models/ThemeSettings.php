@@ -21,9 +21,9 @@ class ThemeSettings extends CiiSettingsModel
 	public function attributeLabels()
 	{
 		return array(
-			'theme' => Yii::t('Dashboard.models.theme', 'Theme'),
-			'mobileTheme' => Yii::t('Dashboard.models.theme', 'Mobile Theme'),
-			'tabletTheme' => Yii::t('Dashboard.models.theme', 'Tablet Theme'),
+			'theme' => Yii::t('Dashboard.models-theme', 'Theme'),
+			'mobileTheme' => Yii::t('Dashboard.models-theme', 'Mobile Theme'),
+			'tabletTheme' => Yii::t('Dashboard.models-theme', 'Tablet Theme'),
 		);
 	}
 
