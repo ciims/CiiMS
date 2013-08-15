@@ -11,7 +11,41 @@ var CiiDashboard = {
 
 	Default : {
 
+		/**
+		 * Because there is a time and a place for silliness
+		 * Sets a cheeky greeting for the user
+		 */
+		loadGreeting : function() {
+			var now = new Date();
+			var hrs = now.getHours();
+			
+			if (hrs >=  0 && hrs < 4)
+				$(".welcome").html($("#midnight-greeting").html());
+
+			if (hrs >= 4 && hrs < 6)
+				$(".welcome").html($("#early-greeting").html());
+
+			if (hrs >= 6)
+				$(".welcome").html($("#morning-greeting").html());
+
+			if (hrs >= 12)
+				$(".welcome").html($("#afternoon-greeting").html());
+
+			if (hrs >= 17)
+				$(".welcome").html($("#evening-greeting").html());
+
+			if (hrs >= 22)
+				$(".welcome").html($("#late-greeting").html());
+		},
+
+		/**
+		 * Loads everything necessary to bootstrap ShapeShift
+		 */
 		loadIndex : function() {
+			// Sets the cheeky greeting
+			CiiDashboard.Default.loadGreeting();
+
+			// Init ShapeShift
 			$.get(CiiDashboard.endPoint + "/card/getCards", function(data) {
 				var newData = $.parseHTML(data);
 
@@ -35,11 +69,6 @@ var CiiDashboard = {
 			$("#add-card").click(function(e) {
 				e.preventDefault();
 				$(".widget-selector").toggleClass("hidden");
-
-				if (!$(".widget-selector").hasClass("hidden"))
-					$(this).html("<span class=\"icon-plus\"></span> Hide Card Menu");
-				else
-					$(this).html("<span class=\"icon-plus\"></span> Add Card");
 
 				$(".menu li:first-child").addClass("active");
 

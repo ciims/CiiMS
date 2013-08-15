@@ -3,7 +3,10 @@
 	<div class="header">
 		<div class="content">
 			<div class="welcome">
-				<strong>Hi, </strong> <?php echo Yii::app()->user->displayName; ?>
+				<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
+					'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', 'Welcome back')),
+					'{{user}}' => Yii::app()->user->displayName
+				)); ?>
 			</div>
 			<div class="header-nav">
 				<?php echo CHtml::link('<span class="icon-plus"></span> Add Card', '#', array('id' => 'add-card')); ?>
@@ -36,6 +39,42 @@
 	<div class="widget-container"></div>
 	<div class="shader"></div>
 </div>
+
+<span id="early-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Mornin' Sunshine!"))
+	)); ?>
+</span>
+<span id="morning-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good morning")),
+		'{{user}}' => Yii::app()->user->displayName
+	)); ?>
+</span>
+<span id="afternoon-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good afternoon")),
+		'{{user}}' => Yii::app()->user->displayName
+	)); ?>
+</span>
+<span id="evening-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good evening")),
+		'{{user}}' => Yii::app()->user->displayName
+	)); ?>
+</span>
+<span id="late-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}} {{user}}?', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Working late tonght")),
+		'{{user}}' => Yii::app()->user->displayName
+	)); ?>
+</span>
+<span id="midnight-greeting" style="display:none">
+	<?php echo Yii::t('Dashboard.main', '{{welcome}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Burnin' the midnight oil huh?"))
+	)); ?>
+</span>
+
 <?php $asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG); ?>
 <?php $cs->registerScriptFile($this->asset.'/shapeshift/core/vendor/jquery.touch-punch.min.js', CClientScript::POS_END)
 		 ->registerCssFile($this->asset.'/css/image-picker.css')
