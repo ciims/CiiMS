@@ -20,10 +20,9 @@ class CiiDashboardController extends CiiController
 	 * is now wrapped up in modules.dashboard.assets.js.dashboard.<controller>.js
 	 *
 	 * This makes management of the code _very_ friendly and easy to handle. Additionally, it separates
-	 * out the js and the php
-	 * 
-	 * @param  CAction $action The action we are dealing with
-	 * @see CiiController::beforeAction()
+	 * out the js and the php code
+	 *
+	 * This deliberately occurs afterRender because script order does matter for the dashboard. This really needs to be dead last
 	 */
 	protected function afterRender($view, &$output)
 	{
