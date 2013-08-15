@@ -42,6 +42,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Social Integration (Social Signon, Social Sharing)
 * Extendable with custom modules/extensions
 * Beautiful _and_ functional dashboard for managing your content and settings.
+* i18n files provided for translations
 * _And a bunch of other things!_
 
 ------------------
