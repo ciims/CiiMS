@@ -20,10 +20,10 @@ class CategoriesController extends CiiSettingsController
             $model->id = Cii::get($_POST['Categories'], 'id', NULL);
 			if($model->save())
 			{
-				Yii::app()->user->setFlash('success', 'Category has been updated');
+				Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been updated'));
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 			}
-			Yii::app()->user->setFlash('error', 'There was an error in your submission, please verify you data before trying again.');
+			Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error in your submission, please verify you data before trying again.'));
 		}
 		
 		$this->render('save',array('model'=>$model));
@@ -37,11 +37,11 @@ class CategoriesController extends CiiSettingsController
 	public function actionDelete($id)
 	{
 	    if ($id === 1)
-            throw new CHttpException(400, 'Cannot delete parent category');
+            throw new CHttpException(400,  Yii::t('Dashboard.main', 'Cannot delete parent category'));
 		// we only allow deletion via POST request
 		$this->loadModel($id)->delete();
 
-		Yii::app()->user->setFlash('success', 'Category has been deleted.');
+		Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been deleted.'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -73,7 +73,7 @@ class CategoriesController extends CiiSettingsController
 	{
 		$model=Categories::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,  Yii::t('Dashboard.main', 'The requested page does not exist.'));
 		return $model;
 	}
 }

@@ -18,6 +18,7 @@ class ContentListView extends CListView
 			$ajaxUpdate=array();
 		else
 			$ajaxUpdate=array_unique(preg_split('/\s*,\s*/',$this->ajaxUpdate.','.$id,-1,PREG_SPLIT_NO_EMPTY));
+
 		$options=array(
 			'ajaxUpdate'=>$ajaxUpdate,
 			'ajaxVar'=>$this->ajaxVar,
@@ -26,11 +27,14 @@ class ContentListView extends CListView
 			'sorterClass'=>$this->sorterCssClass,
 			'enableHistory'=>$this->enableHistory
 		);
+
 		if($this->ajaxUrl!==null)
 			$options['url']=CHtml::normalizeUrl($this->ajaxUrl);
+
 		if($this->updateSelector!==null)
 			$options['updateSelector']=$this->updateSelector;
 		foreach(array('beforeAjaxUpdate', 'afterAjaxUpdate', 'ajaxUpdateError') as $event)
+
 		{
 			if($this->$event!==null)
 			{
@@ -64,7 +68,9 @@ class ContentListView extends CListView
 						echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
 					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 				echo CHtml::closeTag('div');
+				
 			$data=$this->dataProvider->getData();
+
 			if(($n=count($data))>0)
 			{
 				$owner=$this->getOwner();

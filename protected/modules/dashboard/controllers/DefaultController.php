@@ -21,7 +21,7 @@ class DefaultController extends CiiDashboardController
     public function actionGetCardsByCategory($id=NULL)
     {
     	if ($id === NULL)
-    		throw new CHttpException(400, 'Missing category id');
+    		throw new CHttpException(400,  Yii::t('Dashboard.main', 'Missing category id'));
 
     	$categories = Yii::app()->cache->get('cards_in_category');
 
@@ -52,7 +52,7 @@ class DefaultController extends CiiDashboardController
 				)
 	    	));
 	    	echo CHtml::openTag('div', array('class' => 'pure-form-group', 'style' => 'padding-bottom: 20px'));
-	    	echo CHtml::link('Add to Dashboard', '#', array('id' => 'add-cards-button', 'class' => 'pure-button pure-button-link pure-button-primary pull-right pure-button-small', 'style' => 'position: absolute; top: 15px; right: 3%;'));
+	    	echo CHtml::link( Yii::t('Dashboard.main', 'Add to Dashboard'), '#', array('id' => 'add-cards-button', 'class' => 'pure-button pure-button-link pure-button-primary pull-right pure-button-small', 'style' => 'position: absolute; top: 15px; right: 3%;'));
 			echo CHtml::tag('legend', array(), $id);
 				echo CHtml::dropDownList('card', NULL, $elements, $elementOptions);
 			echo CHtml::closeTag('div');

@@ -30,12 +30,12 @@ class EmailSettings extends CiiSettingsModel
 	public function attributeLabels()
 	{
 		return array(
-			'SMTPHost' => 'SMTP Hostname',
-			'SMTPPort' => 'SMTP Port Number',
-			'SMTPUser' => 'SMTP Username',
-			'SMTPPass' => 'SMTP Password',
-			'notifyName' => 'System From Name',
-			'notifyEmail' => 'System Email Address'
+			'SMTPHost' => Yii::t('Dashboard.models.email', 'SMTP Hostname'),
+			'SMTPPort' => Yii::t('Dashboard.models.email', 'SMTP Port Number'),
+			'SMTPUser' => Yii::t('Dashboard.models.email', 'SMTP Username'),
+			'SMTPPass' => Yii::t('Dashboard.models.email', 'SMTP Password'),
+			'notifyName' => Yii::t('Dashboard.models.email', 'System From Name'),
+			'notifyEmail' => Yii::t('Dashboard.models.email', 'System Email Address')
 		);
 	}
 }

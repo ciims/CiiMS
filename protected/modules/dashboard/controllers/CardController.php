@@ -21,12 +21,12 @@ class CardController extends CiiDashboardController
 	public function actionAdd($id)
 	{
 		if ($id == NULL)
-			throw new CHttpException(400, 'An ID must be specified');
+			throw new CHttpException(400, Yii::t('Dashboard.main', 'An ID must be specified'));
 
 		$config = Configuration::model()->findByAttributes(array('key' => $id));
 
 		if ($config == NULL)
-			throw new CHttpException(400, 'No card type exists with that ID');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card type exists with that ID'));
 
 		$name = CJSON::decode($config->value);
 
@@ -86,7 +86,7 @@ class CardController extends CiiDashboardController
 		try {
 			echo $card->$method($_POST);
 		} catch (Exception $e) {
-			throw new CHttpException(500, 'Invalid Method');
+			throw new CHttpException(500,  Yii::t('Dashboard.main', 'Invalid Method'));
 		}
 		return;
 	}
@@ -100,7 +100,7 @@ class CardController extends CiiDashboardController
 		$card = $this->getCardById($id);
 
 		if(!$card->delete())
-			throw new CHttpException(400, 'There was an unknown error processing your request');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'There was an unknown error processing your request'));
 		
 		// Delete the user metadata object if the delete was successful
 		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
@@ -130,7 +130,7 @@ class CardController extends CiiDashboardController
 				return true;
 		}
 
-		throw new CHttpException(400, 'Missing POST data');
+		throw new CHttpException(400, Yii::t('Dashboard.main',  'Missing POST data'));
 	}
 
 	/**
@@ -184,7 +184,7 @@ class CardController extends CiiDashboardController
 		if (in_array($id, $uids))
 			return $this->getCardById($id)->render();
 
-		throw new CHttpException(400, 'You do not have permission to access this card');
+		throw new CHttpException(400,  Yii::t('Dashboard.main', 'You do not have permission to access this card'));
 	}
 
 	/**
@@ -194,12 +194,12 @@ class CardController extends CiiDashboardController
 	private function getCardById($id=NULL)
 	{
 		if ($id == NULL)
-			throw new CHttpException(400, 'An ID must be specified');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'An ID must be specified'));
 
 		$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE `uid` = :id")->bindParam(':id', $id)->queryScalar();
 
 		if ($name === false)
-			throw new CHttpException(400, 'No card with that ID exists');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
 		
 		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
 

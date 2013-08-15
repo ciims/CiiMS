@@ -101,7 +101,7 @@ class ContentController extends CiiDashboardController
             $model = Content::model()->findByPk($id);
               
             if ($model == NULL)
-                throw new CHttpException(400,'We were unable to retrieve a post with that id. Please do not repeat this request again.');
+                throw new CHttpException(400,  Yii::t('Dashboard.main', 'We were unable to retrieve a post with that id. Please do not repeat this request again.'));
               
             // Determine the version number based upon the count of existing rows
             // We do this manually to make sure we have the correct data
@@ -125,7 +125,7 @@ class ContentController extends CiiDashboardController
             $model2->published  = $_POST['Content']['published'];
             if($model2->save()) 
             {
-                Yii::app()->user->setFlash('success', 'Content has been updated');
+                Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Content has been updated.'));
                 $this->redirect(array('save','id'=>$model2->id));
             }
             else
@@ -136,7 +136,7 @@ class ContentController extends CiiDashboardController
                 $model->vid = $model2->vid-1;
                 $model->addErrors($model2->getErrors());
 
-                Yii::app()->user->setFlash('error', 'There was an error saving your content. Please try again');
+                Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error saving your content. Please try again.'));
             }
         }
 
@@ -191,7 +191,7 @@ class ContentController extends CiiDashboardController
                 }
                 else
                 {
-                    throw new CHttpException(400, 'Unable to save uploaded image.');
+                    throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
                 }
             }
             else
@@ -214,7 +214,7 @@ class ContentController extends CiiDashboardController
         $id = Cii::get($_POST, 'id', NULL);
         $model = Content::model()->findByPk($id);
         if ($model == NULL)
-            throw new CHttpException(400, 'Your request is invalid');
+            throw new CHttpException(400,  Yii::t('Dashboard.main', 'Your request is invalid'));
         
         return $model->addTag(Cii::get($_POST, 'keyword'));
     }
@@ -228,7 +228,7 @@ class ContentController extends CiiDashboardController
         $id = Cii::get($_POST, 'id', NULL);
         $model = Content::model()->findByPk($id);
         if ($model == NULL)
-            throw new CHttpException(400, 'Your request is invalid');
+            throw new CHttpException(400,  Yii::t('Dashboard.main', 'Your request is invalid'));
         
         return $model->removeTag(Cii::get($_POST, 'keyword'));
     }
@@ -243,11 +243,11 @@ class ContentController extends CiiDashboardController
         
         // Only proceed if we have valid date
         if ($id == NULL || $key == NULL)
-            throw new CHttpException(403, 'Insufficient data provided. Invalid request');
+            throw new CHttpException(403,  Yii::t('Dashboard.main', 'Insufficient data provided. Invalid request'));
         
         $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
         if ($model === NULL)
-            throw new CHttpException(403, 'Cannot delete attribute that does not exist');
+            throw new CHttpException(403,  Yii::t('Dashboard.main', 'Cannot delete attribute that does not exist'));
         
         return $model->delete();
     }
@@ -304,7 +304,7 @@ class ContentController extends CiiDashboardController
                       ->bindParam(":id", $id, PDO::PARAM_STR)
                       ->execute();
 
-        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if(!isset($_GET['ajax']))
@@ -319,7 +319,7 @@ class ContentController extends CiiDashboardController
     {
         $key = key($_POST);
         if (count($_POST[$key]) == 0)
-            throw new CHttpException(500, 'No records were supplied to delete');
+            throw new CHttpException(500,  Yii::t('Dashboard.main', 'No records were supplied to delete'));
         
         foreach ($_POST[$key] as $id)
         {
@@ -329,7 +329,7 @@ class ContentController extends CiiDashboardController
                       ->execute();
         }
         
-        Yii::app()->user->setFlash('success', 'Post has been deleted');
+        Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if(!isset($_GET['ajax']))

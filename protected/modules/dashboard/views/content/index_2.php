@@ -10,14 +10,14 @@ $this->widget('ext.bootstrap.widgets.TbExtendedGridView', array(
         'filter' => $model,
         'responsiveTable' => true,
         'summaryCssClass' => 'sorter',
-        'summaryText' => '<div class="content"><strong>Manage Content</strong> <span class="icon-exchange pull-right" id="perspective"></span>' . $plus .'<div class="summary-text">Showing {start} through {end} of {count}</div></div>',
+        'summaryText' => '<div class="content">' . CHtml::tag('strong', array(), Yii::t('Dashboard.views', 'Manage Content')) . '<span class="icon-exchange pull-right" id="perspective"></span>' . $plus .  CHtml::tag('div', array('class'=>'summary-text'), Yii::t('Dashboard.views', 'Showing {start} through {end} of {count}')) . '</div>',
         'bulkActions' => array(
         'actionButtons' => array(
             array(
                 'buttonType' => 'button',
                 'type' => 'danger',
                 'size' => 'small',
-                'label' => 'Delete Selected',
+                'label' => Yii::t('Dashboard.views', 'Delete Selected'),
                 'click' => 'js:function(values) {
                     CiiDashboard.Content.oldPerspective.bulkActionClick(values);
                     }'

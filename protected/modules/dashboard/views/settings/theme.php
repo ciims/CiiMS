@@ -32,7 +32,7 @@
 			echo $form->dropDownListRow($model, $attribute, $elements, $elementOptions);
 
 			if (count($options) == 0)
-				echo CHtml::tag('div', array('class' => 'row noItemsMessage'), CHtml::tag('span', array(), 'There are no themes installed for this category.'));
+				echo CHtml::tag('div', array('class' => 'row noItemsMessage'), CHtml::tag('span', array(), Yii::t('Dashboard.views', 'There are no themes installed for this category.')));
 
 		echo CHtml::closeTag('div');		
 	}

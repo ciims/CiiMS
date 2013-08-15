@@ -7,7 +7,7 @@
 	    'preview' => isset($preview) ? $preview : NULL,
 	    'summaryText' => false,
 	    'itemView' => 'post',
-	    'sorterHeader' => '<div class="content"><strong>Manage Content</strong>',
+	    'sorterHeader' => '<div class="content">' . CHtml::tag('strong', array(), Yii::t('Dashboard.views', 'Manage Content')),
 	    'itemsCssClass' => 'posts nano',
 	    'pagerCssClass' => 'pagination',
 	    'pager' => array('class'=>'bootstrap.widgets.TbPager'),

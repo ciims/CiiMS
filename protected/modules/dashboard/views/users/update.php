@@ -7,11 +7,11 @@
 )); ?>
 <div class="header">
 	<div class="pull-left">
-		<h3>Change User Information</h3>
-		<p>Change information for <?php echo $model->name; ?></p>
+		<h3><?php echo Yii::t('Dashboard.views', 'Change User Information'); ?></h3>
+		<p><?php echo Yii::t('Dashboard.views', 'Change information for {{user}}', array('{{user}}' => $model->name)); ?></p>
 	</div>
 	<div class="pull-right">
-		<?php echo CHtml::submitButton('Save Changes', array('id' => 'header-button', 'class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
+		<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('id' => 'header-button', 'class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
 	</div>
 	<div class="clearfix"></div>
 </div>
@@ -45,13 +45,13 @@
 
 				<legend>Password</legend>
 				<div class="pure-control-group">
-					<?php echo $form->passwordFieldRow($model, 'password', array('class' => 'pure-input-2-3', 'placeholder' => 'Set or change a user\'s password. Otherwise leave blank')); ?>
+					<?php echo $form->passwordFieldRow($model, 'password', array('class' => 'pure-input-2-3', 'placeholder' => Yii::t('Dashboard.views', "Set or change a user's password. Otherwise leave blank"))); ?>
 				</div>
 				<legend>Metadata
 					<span class="meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
 				</legend>
 				<div class="meta-container">
-					<p class="small-text">This is metadata that has been retrieves from the user. Do not alter this data unless you know what you are doing. It can cause serious damage to the user</p>
+					<p class="small-text"><?php echo Yii::t('Dashboard.views', 'This is metadata that has been retrieves from the user. Do not alter this data unless you know what you are doing. It can cause serious damage to the user'); ?></p>
 					<?php foreach ($model->metadata as $meta): ?>
 						<?php $options = array('class' => 'pure-input-2-3', 'type' => 'text', 'value' => $meta->value, 'name' => 'UserMetadata[' . $meta->key . ']'); ?>
 
@@ -72,7 +72,7 @@
 					<?php endforeach; ?>
 				</div>
 
-			<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
+			<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
 		<fieldset>
 	</div>
 </div>

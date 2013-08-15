@@ -13,15 +13,15 @@
 
 	<div id="main" class="nano">
 		<div class="content">
-			<legend>Add a New Card</legend>
+			<legend><?php echo Yii::t('Dashboard.views', 'Add a New Card'); ?></legend>
 			<div class="pure-control-group pure-input-3-4">
-				<p class="small-text">Enter the user/repo of where the widget you want to upload is located at.</p>
-				<label>Repository</label>
+				<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Enter the user/repo of where the widget you want to upload is located at.'); ?></p>
+				<label><?php echo Yii::t('Dashboard.views', 'Repository'); ?></label>
 				<input type="text" name="Card[new]" id="Card_new" class="pure-input-2-3" />
-				<input type="submit" class="pure-button pure-button-primary pure-button-small pull-right" value="Add Card" />
+				<input type="submit" class="pure-button pure-button-primary pure-button-small pull-right" value="<?php echo Yii::t('Dashboard.views', 'Add Card'); ?>" />
 			</div>
 
-			<legend>Active Cards</legend>
+			<legend><?php echo Yii::t('Dashboard.views', 'Active Cards'); ?></legend>
 
 			<div class="meta-container">
 				<?php foreach($cards as $card): ?>

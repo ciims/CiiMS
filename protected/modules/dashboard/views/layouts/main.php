@@ -4,7 +4,7 @@
 	<head>
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
-	    <title>CiiMS Dashboard | <?php echo CHtml::encode($this->pageTitle); ?></title>
+	    <title><?php echo Yii::t('Dashboard.views', 'CiiMS Dashboard | {{pagetitle}}', array('{{pagetitle}}' => CHtml::encode($this->pageTitle))); ?></title>
 	    <?php $bootstrap=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.bootstrap.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
@@ -21,9 +21,9 @@
 			<div class="pull-left navigation">
 				<?php $this->widget('zii.widgets.CMenu', array(
 					'items' => array(
-						array('label' => 'Dashboard', 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
-						array('label' => 'Content', 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
-						array('label' => 'Settings', 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
+						array('label' => Yii::t('Dashboard.views', 'Dashboard'), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
+						array('label' => Yii::t('Dashboard.views', 'Content'), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
+						array('label' => Yii::t('Dashboard.views', 'Settings'), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
 					)
 				)); ?>
 			</div>

@@ -1,4 +1,4 @@
-<?php
+=<?php
 
 class UsersController extends CiiSettingsController
 {
@@ -69,7 +69,7 @@ class UsersController extends CiiSettingsController
 
 			if($model->save()) 
 			{
-				Yii::app()->user->setFlash('success', 'User has been updated.');
+				Yii::app()->user->setFlash('success', Yii::t('Dashboard.main', 'User has been updated.'));
 				$this->redirect(array('update','id'=>$model->id));
 			}
 			else 
@@ -106,7 +106,7 @@ class UsersController extends CiiSettingsController
 	{
 		$model=Users::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404, Yii::t('Dashboard.main', 'The requested page does not exist.'));
 		return $model;
 	}
 }

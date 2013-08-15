@@ -8,7 +8,7 @@
 				</span>
 				<?php $first = reset($keys); ?>
 				<?php echo $form->toggleButtonRow($model, $first, $htmlOptions); ?>
-				<span class="help">Click to view options</span>
+				<span class="help"><?php echo Yii::t('Dashboard.views', 'Click to view options'); ?></span>
 			</div>
 		</li>
 	<?php endforeach; ?>
@@ -18,7 +18,7 @@
 
 <?php foreach ($model->groups() as $group=>$keys): ?>
 	<div class="options-panel <?php echo str_replace(".", "_", str_replace(" ", "_", $group)); ?>">
-		<legend>Attributes for <?php echo $group; ?></legend>
+		<legend><?php echo Yii::t('Dashboard.views', 'Attributes for {{group}}', array('{{group}}' => $group))); ?></legend>
 		<?php foreach ($keys as $key): ?>
 			<div class="pure-control-group">
 				<?php $validators = $model->getValidators($key); ?>

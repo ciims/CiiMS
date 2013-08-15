@@ -14,20 +14,20 @@
 	</div>
 	<div class="post-data">
 		<h6><?php echo ($data->title !== '' ? $data->title : CHtml::tag('em', array(), 'Drafted Post')); ?></h6>
-		<span class="author">By: <?php echo $data->author->displayName; ?></span>
+		<span class="author"><?php echo Yii::t('Dashboard.views', 'By: {{user}}', array('{{user}}' => $data->author->displayName)); ?></span>
 
 		<?php if ($data->status == 0): ?>
-			<span class="status draft">Draft</span>
+			<span class="status draft"><?php echo Yii::t('Dashboard.views', 'Draft'); ?></span>
 		<?php elseif ($data->status == 1 && strtotime($data->published) > time()): ?>
-			<span class="status scheduled">Scheduled for 
-				<?php echo CHtml::tag(
-					'abbr',
-					array(
-						'data-original-title'=> Cii::formatDate($data->published),
-						'title'=> Cii::formatDate($data->published, 'c')
-					),
-					Cii::formatDate($data->published)
-					); ?>
+			<span class="status scheduled">
+				<?php echo Yii::t('Dashboard.views', 'Scheduled for {{date}}', array
+					'{{date}}' => CHtml::tag('abbr',array(
+									'data-original-title'=> Cii::formatDate($data->published),
+									'title'=> Cii::formatDate($data->published, 'c')
+								),
+								Cii::formatDate($data->published)
+								)
+					)); ?>
 			</span>
 		<?php else: ?>
 			<span class="status published">

@@ -3,8 +3,8 @@
 	<div class="header">
 		<div class="content">
 			<div class="welcome">
-				<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
-					'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', 'Welcome back')),
+				<?php echo Yii::t('Dashboard.views', '{{welcome}}, {{user}}', array(
+					'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', 'Welcome back')),
 					'{{user}}' => Yii::app()->user->displayName
 				)); ?>
 			</div>
@@ -41,37 +41,37 @@
 </div>
 
 <span id="early-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}}', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Mornin' Sunshine!"))
+	<?php echo Yii::t('Dashboard.views', '{{welcome}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Mornin' Sunshine!"))
 	)); ?>
 </span>
 <span id="morning-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good morning")),
+	<?php echo Yii::t('Dashboard.views', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Good morning")),
 		'{{user}}' => Yii::app()->user->displayName
 	)); ?>
 </span>
 <span id="afternoon-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good afternoon")),
+	<?php echo Yii::t('Dashboard.views', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Good afternoon")),
 		'{{user}}' => Yii::app()->user->displayName
 	)); ?>
 </span>
 <span id="evening-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}}, {{user}}', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Good evening")),
+	<?php echo Yii::t('Dashboard.views', '{{welcome}}, {{user}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Good evening")),
 		'{{user}}' => Yii::app()->user->displayName
 	)); ?>
 </span>
 <span id="late-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}} {{user}}?', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Working late tonght")),
+	<?php echo Yii::t('Dashboard.views', '{{welcome}} {{user}}?', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Working late tonght")),
 		'{{user}}' => Yii::app()->user->displayName
 	)); ?>
 </span>
 <span id="midnight-greeting" style="display:none">
-	<?php echo Yii::t('Dashboard.main', '{{welcome}}', array(
-		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.main', "Burnin' the midnight oil huh?"))
+	<?php echo Yii::t('Dashboard.views', '{{welcome}}', array(
+		'{{welcome}}' => CHtml::tag('strong', array('class' => 'greeting'), Yii::t('Dashboard.views', "Burnin' the midnight oil huh?"))
 	)); ?>
 </span>
 

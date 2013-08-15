@@ -21,9 +21,9 @@ class SettingsController extends CiiSettingsController
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'General Settings', 
-			'p' => 'Set basic information about your site and change global settings.',
-			'save-text' => 'Save Changes'
+			'h3' =>  Yii::t('Dashboard.main', 'General Settings'), 
+			'p' =>  Yii::t('Dashboard.main', 'Set basic information about your site and change global settings.'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Changes')
 		)));
 	}
 
@@ -38,9 +38,9 @@ class SettingsController extends CiiSettingsController
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'Email Settings', 
-			'p' => 'Configure and verify how CiiMS sends emails',
-			'save-text' => 'Save Changes'
+			'h3' =>  Yii::t('Dashboard.main', 'Email Settings'), 
+			'p' =>  Yii::t('Dashboard.main', 'Configure and verify how CiiMS sends emails.'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Changes')
 		)));
 	}
 
@@ -55,9 +55,9 @@ class SettingsController extends CiiSettingsController
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'Social Settings', 
-			'p' => 'Provide Credentials for accessing and submitting data to various third party social media sites.',
-			'save-text' => 'Save Changes'
+			'h3' =>  Yii::t('Dashboard.main', 'Social Settings'), 
+			'p' =>  Yii::t('Dashboard.main', 'Provide Credentials for accessing and submitting data to various third party social media sites.'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Changes')
 		)));
 	}
 
@@ -72,9 +72,9 @@ class SettingsController extends CiiSettingsController
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'Analytics Settings', 
-			'p' => 'Enable and configure various Analytics providers (more coming soon!)',
-			'save-text' => 'Save Changes'
+			'h3' =>  Yii::t('Dashboard.main', 'Analytics Settings'), 
+			'p' =>  Yii::t('Dashboard.main', 'Enable and configure various Analytics providers (more coming soon!).'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Changes')
 		)));
 	}
 
@@ -89,9 +89,9 @@ class SettingsController extends CiiSettingsController
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'Appearance', 
-			'p' => 'Change the site theme for desktop, tablet, and mobile',
-			'save-text' => 'Save Theme'
+			'h3' =>  Yii::t('Dashboard.main', 'Appearance'),
+			'p' => Yii::t('Dashboard.main',  'Change the site theme for desktop, tablet, and mobile.'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Theme')
 		)));
 	}
 
@@ -106,8 +106,8 @@ class SettingsController extends CiiSettingsController
 
 		$this->render('cards', array(
 			'header' => array(
-				'h3' => 'Manage Dashboard Cards',
-				'p' => 'Manage and add new dashboard cards'
+				'h3' =>  Yii::t('Dashboard.main', 'Manage Dashboard Cards'),
+				'p' =>  Yii::t('Dashboard.main', 'Manage and add new dashboard cards.')
 			),
 			'cards' => $cards
 		));
@@ -128,22 +128,22 @@ class SettingsController extends CiiSettingsController
 		$this->themeType = $type;
 
 		if (!file_exists(Yii::getPathOfAlias('webroot.themes.' . $theme) . DIRECTORY_SEPARATOR . 'Theme.php'))
-			throw new CHttpException(400, 'The requested theme type is not set. Please set a theme before attempting to change theme settings');
+			throw new CHttpException(400, Yii::t('Dashboard.main',  'The requested theme type is not set. Please set a theme before attempting to change theme settings'));
 
 		Yii::import('webroot.themes.' . $theme . '.Theme');
 
 		try {
 			$model = new Theme();
 		} catch(Exception $e) {
-			throw new CHttpException(400, 'The requested theme type is not set. Please set a theme before attempting to change theme settings');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'The requested theme type is not set. Please set a theme before attempting to change theme settings'));
 		}
 		
 		$this->submitPost($model);
 
 		$this->render('form', array('model' => $model, 'header' => array(
-			'h3' => 'Theme Settings', 
-			'p' => 'Change optional parameters for a given theme',
-			'save-text' => 'Save Changes'
+			'h3' =>  Yii::t('Dashboard.main', 'Theme Settings'), 
+			'p' =>  Yii::t('Dashboard.main', 'Change optional parameters for a given theme.'),
+			'save-text' =>  Yii::t('Dashboard.main', 'Save Changes')
 		)));
 	}
 
@@ -176,7 +176,7 @@ class SettingsController extends CiiSettingsController
 
 			// If we have an invalid repo - abort
 			if ($json == NULL)
-				throw new CHttpException(400, 'Unable to find valid card at that location');
+				throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to find valid card at that location.'));
 
 			$config = new Configuration;
 
@@ -194,7 +194,7 @@ class SettingsController extends CiiSettingsController
 			$runtimeDirectory = Yii::getPathOfAlias('application.runtime');
 			$downloadPath = $runtimeDirectory . DIRECTORY_SEPARATOR . 'cards' . DIRECTORY_SEPARATOR . $uuid . '.zip';
 			if (!is_writable($runtimeDirectory))
-				throw new CHttpException(500, 'Runtime directory is not writable');
+				throw new CHttpException(500,  Yii::t('Dashboard.main', 'Runtime directory is not writable'));
 
 			$targetFile = fopen($downloadPath, 'w' );
 
@@ -250,12 +250,12 @@ class SettingsController extends CiiSettingsController
 	public function actionDeleteCard($id=NULL)
 	{
 		if ($id == NULL)
-			throw new CHttpException(400, 'You must specify a card to delete');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'You must specify a card to delete'));
 
 		$card = Configuration::model()->findByAttributes(array('key' => $id));
 
 		if ($card == NULL)
-			throw new CHttpException(400, 'There are no dashboard cards with that id');
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'There are no dashboard cards with that id'));
 
 		$card->value = CJSON::decode($card->value);
 		
@@ -267,7 +267,7 @@ class SettingsController extends CiiSettingsController
 	 */
 	public function actionPlugins()
 	{
-		throw new CHttpException(400, 'Plugins are not yet supported');
+		throw new CHttpException(400,  Yii::t('Dashboard.main', 'Plugins are not yet supported'));
 	}
 	
 	/**
@@ -276,8 +276,8 @@ class SettingsController extends CiiSettingsController
 	public function actionSystem()
 	{
 		$this->render('system', array('header' => array(
-			'h3' => 'System Information',
-			'p' => 'View system and diagnostic information'
+			'h3' =>  Yii::t('Dashboard.main', 'System Information'),
+			'p' =>  Yii::t('Dashboard.main', 'View system and diagnostic information.')
 		)));
 	}
 
@@ -302,7 +302,7 @@ class SettingsController extends CiiSettingsController
 
 		$json = CJSON::decode(curl_exec($curl));
 		if ($json['version'] >= Cii::getVersion())
-			$issues[] = array('issue' => 'version', 'message' => 'CiiMS is out of date. Please update to the latest version (' . CHtml::link($json['version'], 'https://github.com/charlesportwoodii/CiiMS/tree/latest-version/', array('target' => '_blank')) . ')');
+			$issues[] = array('issue' => 'version', 'message' =>  Yii::t('Dashboard.main', 'CiiMS is out of date. Please update to the latest version ({{version}})', array('{{version}}' => CHtml::link($json['version'], 'https://github.com/charlesportwoodii/CiiMS/tree/latest-version/', array('target' => '_blank')))));
 
 		// Check if migrations have been run
 		$migrations = Yii::app()->db->createCommand('SELECT COUNT(*) as count FROM tbl_migration')->queryScalar();
@@ -310,19 +310,19 @@ class SettingsController extends CiiSettingsController
 		$files = count($fileHelper->findFiles(Yii::getPathOfAlias('application.migrations'), array('fileTypes'=>array('php'), 'level'=>1)));
 
 		if ($migrations < $files)
-			$issues[] = array('issue' => 'migrations', 'message' => 'CiiMS\' database is out of date. Please run yiic migrate up to migrate your database to the latest version.');
+			$issues[] = array('issue' => 'migrations', 'message' =>  Yii::t('Dashboard.main', "CiiMS' database is out of date. Please run yiic migrate up to migrate your database to the latest version."));
 
 		// Check common permission problems
 		if (!is_writable(Yii::getPathOfAlias('webroot.uploads')))
-			$issues[] = array('issue' => 'permssions', 'message' => 'Your uploads folder (' . Yii::getPathOfAlias('webroot.uploads') . ') is not writable. Please change the permissions on the folder to be writable');
+			$issues[] = array('issue' => 'permssions', 'message' =>  Yii::t('Dashboard.main', 'Your uploads folder ({{folder}}) is not writable. Please change the permissions on the folder to be writable', array('{{folder}}' => Yii::getPathOfAlias('webroot.uploads'))));
 
 		if (!is_writable(Yii::getPathOfAlias('application.runtime')))
-			$issues[] = array('issue' => 'permssions', 'message' => 'Your runtime folder (' . Yii::getPathOfAlias('application.runtime') . ') is not writable. Please change the permissions on the folder to be writable');
+			$issues[] = array('issue' => 'permssions', 'message' =>  Yii::t('Dashboard.main', 'Your runtime folder ({{folder}}) is not writable. Please change the permissions on the folder to be writable', array('{{folder}}' => Yii::getPathOfAlias('application.runtime'))));
 
 		if (count($issues) == 0)
-			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-success'), 'There are no issues with your system. =)');
+			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-success'),  Yii::t('Dashboard.main', 'There are no issues with your system. =)'));
 		else
-			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-error'), 'Please address the following issues.');
+			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-error'),  Yii::t('Dashboard.main', 'Please address the following issues.'));
 
 		foreach ($issues as $issue)
 		{
@@ -360,7 +360,7 @@ class SettingsController extends CiiSettingsController
 				$user->email = Cii::get($_POST, 'email');
 
 				// Send the test email
-				$response = $this->sendEmail($user, 'CiiMS Test Email', 'application.modules.dashboard.views.email.test');
+				$response = $this->sendEmail($user,  Yii::t('Dashboard.email', 'CiiMS Test Email'), 'application.modules.dashboard.views.email.test');
 
 				echo $response;
 				Yii::app()->end();
@@ -381,9 +381,9 @@ class SettingsController extends CiiSettingsController
 			$model->populate($_POST);
 
 			if ($model->save())
-				Yii::app()->user->setFlash('success', 'Your settings have been updated.');
+				Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Your settings have been updated.'));
 			else
-				Yii::app()->user->setFlash('error', 'There was an error saving your settings.');
+				Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error saving your settings.'));
 		}
 	}
 }

@@ -12,10 +12,10 @@
 		<div class="header">
 			<div class="content">
 				<div class="pull-left" style="width: 48%;">
-					<?php echo $form->textField($model, 'title', array('placeholder' => 'Enter your post title here', 'class' => 'title')); ?>
+					<?php echo $form->textField($model, 'title', array('placeholder' => Yii::t('Dashboard.views', 'Enter your post title here'), 'class' => 'title')); ?>
 				</div>
 				<div class="pull-right">
-					<?php echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-error pure-button-link')); ?>
+					<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('class' => 'pure-button pure-button-error pure-button-link')); ?>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -24,9 +24,9 @@
 		<div class="editor">
 			<div class="top-header">
 				<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
-					<span>Markdown</span>
+					<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
 				<?php else: ?>
-					<span>Rich Text</span>
+					<span><?php echo Yii::t('Dashboard.views', 'Rich Text'); ?></span>
 				<?php endif; ?>
 			</div>
 			<div id="main">
@@ -52,8 +52,8 @@
 
 		<div class="body-content">
 			<div class="top-header">
-				<span class="show-settings">Preview</span>
-				<span class="show-preview" style="display:none">Content Settings</span>
+				<span class="show-settings"><?php echo Yii::t('Dashboard.views', 'Preview'); ?></span>
+				<span class="show-preview" style="display:none"><?php echo Yii::t('Dashboard.views', 'Content Settings'); ?></span>
 				<span class="pull-right icon-gear show-settings"></span>
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
 			</div>
@@ -79,7 +79,7 @@
 					<?php echo $form->textFieldRow($model, 'published', $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'type_id', array(2=>'Blog Post', 1=>'Page'), $htmlOptions); ?>
+				<?php echo $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
@@ -88,17 +88,17 @@
 	            <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' => 'Password (Optional)', 'value' => Cii::decrypt($model->password))); ?>
+				<?php echo $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Password (Optional)'), 'value' => Cii::decrypt($model->password))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' => 'Slug')); ?>
+				<?php echo $form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Slug'))); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php $htmlOptions['style'] = 'width: 100%; height: 250px;'; ?>
-				<?php $htmlOptions['placeholder'] = 'Add a content extract here'; ?>
+				<?php $htmlOptions['placeholder'] =  Yii::t('Dashboard.views', 'Add a content extract here'); ?>
 				<?php echo $form->textArea($model, 'extract', $htmlOptions); ?>
 			</div>
 		</div>

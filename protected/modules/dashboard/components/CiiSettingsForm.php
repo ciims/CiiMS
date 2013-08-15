@@ -98,6 +98,7 @@ class CiiSettingsForm extends CWidget
 
 	/**
 	 * Renders the header
+	 * @param  CActiveForm $form The Form we're working with
 	 */
 	private function renderHeader($form)
 	{
@@ -118,6 +119,7 @@ class CiiSettingsForm extends CWidget
 
 	/**
 	 * Renders the main body content
+	 * @param  CActiveForm $Form  The Form we're working with
 	 */
 	private function renderMain($form)
 	{
@@ -125,6 +127,7 @@ class CiiSettingsForm extends CWidget
 		echo CHtml::openTag('div', array('id' => 'main', 'class' => 'nano'));
 			echo CHtml::openTag('div', array('class' => 'content'));
 				echo CHtml::openTag('fieldset');
+
 					// If we want a custom form view, render that view instead of the default behavior
 					if ($this->model->form !== NULL)
 						$this->controller->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
@@ -155,7 +158,7 @@ class CiiSettingsForm extends CWidget
 							}
 						}
 						
-						echo CHtml::submitButton('Save Changes', array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
+						echo CHtml::submitButton(Yii::t('Dashboard.main', 'Save Changes'), array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
 					}
 
 				echo CHtml::closeTag('div');
@@ -185,6 +188,11 @@ class CiiSettingsForm extends CWidget
 		');
 	}
 
+	/**
+	 * Renders form properties utilizing the appropriate
+	 * @param  CActiveForm   $form     The form we're working with
+	 * @param  Property Name $property The property name from Reflection
+	 */
 	private function renderProperties(&$form, $property)
 	{
 		$htmlOptions = array(
@@ -199,17 +207,16 @@ class CiiSettingsForm extends CWidget
 
 		echo CHtml::openTag('div', array('class' => 'pure-control-group'));
 
-		// TODO: Number (not range), password
-		if (in_array('boolean', $stringValidators))
-			$form->toggleButtonRow($this->model, $property->name, $htmlOptions, $validators);
-		else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
-			$form->rangeFieldRow($this->model, $property->name, $htmlOptions, $validators);
-		else if (in_array('number', $stringValidators) && (isset($validators[0]->max) || isset($validators[0]->min)))
-			$form->numberFieldRow($this->model, $property->name, $htmlOptions, $validators);
-		else if (in_array('password', $stringValidators))
-			echo $form->passwordFieldRow($this->model, $property->name, $htmlOptions, $validators);
-		else
-			echo $form->textFieldRow($this->model, $property->name, $htmlOptions, $validators);
+			if (in_array('boolean', $stringValidators))
+				$form->toggleButtonRow($this->model, $property->name, $htmlOptions, $validators);
+			else if (in_array('number', $stringValidators) && isset($validators[0]->max) && isset($validators[0]->min))
+				$form->rangeFieldRow($this->model, $property->name, $htmlOptions, $validators);
+			else if (in_array('number', $stringValidators) && (isset($validators[0]->max) || isset($validators[0]->min)))
+				$form->numberFieldRow($this->model, $property->name, $htmlOptions, $validators);
+			else if (in_array('password', $stringValidators))
+				echo $form->passwordFieldRow($this->model, $property->name, $htmlOptions, $validators);
+			else
+				echo $form->textFieldRow($this->model, $property->name, $htmlOptions, $validators);
 
 		echo CHtml::closeTag('div');
 	}

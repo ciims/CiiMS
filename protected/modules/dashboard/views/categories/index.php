@@ -1,8 +1,8 @@
 <?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <div class="header">
 	<div class="pull-left">
-		<h3>Manage Categories</h3>
-		<p>Manage users, user metadata, and permissions</p>
+		<h3><?php echo Yii::t('Dashboard.views', 'Manage Categories'); ?></h3>
+		<p><?php echo Yii::t('Dashboard.views', 'Manage users, user metadata, and permissions.'); ?></p>
 	</div>
 	<div class="pull-right">
 		<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/categories/save'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
@@ -25,7 +25,7 @@
 			    			'id' => 'Categories_name', 
 			    			'name' => 'Categories[name]',
 			    			'class' => 'pull-right pure-input pure-search',
-			    			'placeholder' => 'Filter by Name'
+			    			'placeholder' => Yii::t('Dashboard.views', 'Filter by Name')
 						)
 			    	); ?>
 			    </form>

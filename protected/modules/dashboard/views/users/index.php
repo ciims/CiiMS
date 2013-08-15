@@ -1,12 +1,12 @@
 <?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <div class="header">
 	<div class="pull-left">
-		<h3>Manage Users</h3>
-		<p>Manage users, user metadata, and permissions</p>
+		<h3><?php echo Yii::t('Dashboard.views', 'Manage Users'); ?></h3>
+		<p><?php echo Yii::t('Dashboard.views', 'Manage users, user metadata, and permissions'); ?></p>
 	</div>
 	<!--<div class="pull-right">
 		<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
-		<?php echo CHtml::link('Invite Users', $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'pure-button pure-button-link pure-button-primary pure-button-small')); ?>
+		<?php echo CHtml::link(Yii::t('Dashboard.views', 'Invite Users'), $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'pure-button pure-button-link pure-button-primary pure-button-small')); ?>
 	</div>
 -->
 	<div class="clearfix"></div>
@@ -26,7 +26,7 @@
 			    			'id' => 'Users_displayName', 
 			    			'name' => 'Users[displayName]',
 			    			'class' => 'pull-right pure-input pure-search',
-			    			'placeholder' => 'Filter by Name'
+			    			'placeholder' => Yii::t('Dashboard.views', 'Filter by Name')
 						)
 			    	); ?>
 			    </form>
