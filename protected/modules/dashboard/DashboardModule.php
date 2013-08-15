@@ -26,10 +26,10 @@ class DashboardModule extends CWebModule
             // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
                 'class' => 'ext.minify.EClientScript',
-                'combineScriptFiles'    => true,
+                'combineScriptFiles'    => false,
                 'combineCssFiles'       => true,
                 'optimizeCssFiles'      => false,
-                'optimizeScriptFiles'   => true,
+                'optimizeScriptFiles'   => false,
                 'compressHTML'          => true,
                 'packages'=>array(
                     'jquery'=>array(
