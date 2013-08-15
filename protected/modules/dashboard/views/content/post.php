@@ -20,7 +20,7 @@
 			<span class="status draft"><?php echo Yii::t('Dashboard.views', 'Draft'); ?></span>
 		<?php elseif ($data->status == 1 && strtotime($data->published) > time()): ?>
 			<span class="status scheduled">
-				<?php echo Yii::t('Dashboard.views', 'Scheduled for {{date}}', array
+				<?php echo Yii::t('Dashboard.views', 'Scheduled for {{date}}', array(
 					'{{date}}' => CHtml::tag('abbr',array(
 									'data-original-title'=> Cii::formatDate($data->published),
 									'title'=> Cii::formatDate($data->published, 'c')

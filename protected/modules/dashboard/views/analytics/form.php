@@ -18,7 +18,7 @@
 
 <?php foreach ($model->groups() as $group=>$keys): ?>
 	<div class="options-panel <?php echo str_replace(".", "_", str_replace(" ", "_", $group)); ?>">
-		<legend><?php echo Yii::t('Dashboard.views', 'Attributes for {{group}}', array('{{group}}' => $group))); ?></legend>
+		<legend><?php echo Yii::t('Dashboard.views', 'Attributes for {{group}}', array('{{group}}' => $group)); ?></legend>
 		<?php foreach ($keys as $key): ?>
 			<div class="pure-control-group">
 				<?php $validators = $model->getValidators($key); ?>

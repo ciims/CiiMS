@@ -1,4 +1,4 @@
-Dashboard.models.email<?php
+<?php
 
 class SocialSettings extends CiiSettingsModel
 {
