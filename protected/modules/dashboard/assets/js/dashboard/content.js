@@ -1,3 +1,8 @@
+
+/**
+ * [CiiDashboard description]
+ * @type {Object}
+ */
 var CiiDashboard = {
 
 	// The javascript endpoint
@@ -373,15 +378,12 @@ var CiiDashboard = {
 	}
 };
 
+
 /**
- * Handles all the Javacript for User Management
+ * Handles all the Javacript for the Dashboard.
  */
 $(document).ready(function() {
 
-	// Bind nanoscrollers
-	$("#main.nano").nanoScroller();
-
-	// Load the dashboard
 	CiiDashboard.Content.load();
 	
 });

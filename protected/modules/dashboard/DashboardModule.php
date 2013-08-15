@@ -14,8 +14,8 @@ class DashboardModule extends CWebModule
 			'dashboard.components.*',
 		));
 
-		 $asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets'), true, -1, YII_DEBUG);
-		 Yii::app()->setComponents(array(
+		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets.js'), true, -1, YII_DEBUG);
+		Yii::app()->setComponents(array(
             'errorHandler' => array(
             	'errorAction'  => 'dashboard/default/error',
         	),
@@ -26,14 +26,14 @@ class DashboardModule extends CWebModule
             // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
                 'class' => 'ext.minify.EClientScript',
-                'combineScriptFiles'    => false,
+                'combineScriptFiles'    => true,
                 'combineCssFiles'       => true,
                 'optimizeCssFiles'      => false,
-                'optimizeScriptFiles'   => false,
+                'optimizeScriptFiles'   => true,
                 'compressHTML'          => true,
                 'packages'=>array(
                     'jquery'=>array(
-                        'baseUrl'=>$asset . '/js/',
+                        'baseUrl'=>$asset,
                         'js'=>array('jquery-2.0.0.min.js')
                     )
                 )

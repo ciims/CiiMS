@@ -107,6 +107,10 @@ var CiiDashboard = {
 
 		loadPlugins : function() {},
 		
+		loadTheme : function() {},
+		loadMobileTheme : function() {},
+		loadTabletTheme : function() {},
+		
 		loadSocial : function() {},
 
 		loadSystem: function() {

@@ -25,17 +25,10 @@ class CiiDashboardController extends CiiController
 	 * @param  CAction $action The action we are dealing with
 	 * @see CiiController::beforeAction()
 	 */
-	public function beforeAction($action)
+	protected function afterRender($view, &$output)
 	{
-		return parent::beforeAction($action);
-	}
-
-	public function afterAction($action)
-	{
-
 		Yii::app()->clientScript->registerScriptFile($this->asset.'/js/dashboard/' . $this->id. '.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScript($this->id.'_'.$action->id, 'CiiDashboard.'.Cii::titleize($this->id).'.load'.Cii::titleize($action->id).'();', CCLientScript::POS_END);
-
+		Yii::app()->clientScript->registerScript($this->id.'_'.$this->action->id, '$(document).ready(function() { CiiDashboard.'.Cii::titleize($this->id).'.load'.Cii::titleize($this->action->id).'(); });', CCLientScript::POS_END);
 	}
 
 	/**

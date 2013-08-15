@@ -33,7 +33,7 @@
 	<div class="clearfix"></div>
 </div>
 <?php echo CHtml::tag('span', array('style' => 'display: none', 'id' => 'currentPerspective', 'value' => Yii::app()->session['admin_perspective']), NULL); ?>
-<?php Yii::app()->getClientScript()->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
+
 <?php Yii::app()->getClientScript()->registerCssFile($this->asset.'/highlight.js/default.css')
 					->registerCssFile($this->asset.'/highlight.js/github.css')
 					->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)

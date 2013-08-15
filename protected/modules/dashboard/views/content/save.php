@@ -114,10 +114,10 @@
 				 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
 				 ->registerCssFile($this->asset . '/css/jquery.tags.css')
 				 ->registerCssFile($this->asset.'/datepicker/css/datetimepicker.css')
-				 ->registerScriptFile($this->asset.'/datepicker/js/bootstrap-datetimepicker.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
-				 ->registerScriptFile($this->asset . '/js/jquery.tags.min.js', CClientScript::POS_END)
+				 ->registerScriptFile($this->asset .'/js/jquery.tags.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
-				 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END); ?>
+				 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
+				 ->registerScriptFile($this->asset.'/datepicker/js/bootstrap-datetimepicker.min.js', CClientScript::POS_END); ?>
