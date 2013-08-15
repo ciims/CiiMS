@@ -6,12 +6,20 @@
  */
 class Yii
 {
+    /**
+     * Emulation of YiiBase::getPreferredLanguage
+     * @return string
+     */
     public static function getPreferredLanguage()
     {
         $preferredLanguages = Yii::getPreferredLanguages();
-        return isset($preferredLanguages[0]) ? yII::getCanonicalID($preferredLanguages[0]) : 'en_US';
+        return isset($preferredLanguages[0]) ? Yii::getCanonicalID($preferredLanguages[0]) : 'en_US';
     }
     
+    /**
+     * Emulation of YiiBase::getPreferredLanguages
+     * @return array
+     */
     public static function getPreferredLanguages()
     {
         $sortedLanguages=array();
@@ -57,21 +65,37 @@ class Yii
         return Yii::translateMessage($message, $params);
     }
 
-    public static function translateMessage($message, $params)
+    /**
+     * Translates a particular message as an actualy translations
+     * @param  string $message
+     * @param  array $params
+     * @return string
+     */
+    public static function translateMessage($message, $param = array())
     {
         foreach ($params as $k=>$v)
-        {
             $message = str_replace($k, $v, $message);
-        }
 
         return $message;
     }
 
+    /**
+     * Emulation of YiiBase::getCanonicalID($id)
+     * @param  string $id
+     * @return string CanonicalId
+     */
     public static function getCanonicalID($id)
     {
         return strtolower(str_replace('-','_',$id));
     }
 
+    /**
+     * Emulation of CHtml::tag() for the non yii installer
+     * @param  string $tag
+     * @param  array $params
+     * @param  string $text
+     * @return DOM node
+     */
     public static function tag($tag, $params, $text)
     {
         $attributes = '';

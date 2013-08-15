@@ -1,6 +1,4 @@
 <?php
-error_reporting(-1);
-ini_set('display_errors', true);
 require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'YiiUtilityHelper.php');
 
 $stage = max((isset($ciimsConfig['params']['stage']) ? $ciimsConfig['params']['stage'] : 0), isset($_GET['stage']) ? $_GET['stage'] : 0);
