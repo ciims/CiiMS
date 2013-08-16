@@ -1353,6 +1353,16 @@ input[type="range"]::-ms-fill-lower {
 	top: -4px;
 }
 
+#spinner {
+	display:none;
+}
+.icon-spacer {
+	padding-right:5px;
+}
+
+.icon-spinner-form {
+	margin-left: -7px;
+}
 /* ------------------------------------------
 CSS TOGGLE SWITCHES (Ionuț Colceriu)
 Licensed under Unlicense 

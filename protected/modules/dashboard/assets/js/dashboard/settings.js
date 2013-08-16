@@ -80,11 +80,14 @@ var CiiDashboard = {
 		},
 
 		loadCards : function() {
-			$("form").submit(function(e) {
+			$("#submit-form").click(function(e) {
+				$("#spinner").fadeIn();
 				e.preventDefault();
 
 				$.post(CiiDashboard.endPoint + '/settings/addCard', $("form").serialize(), function(data) {
 					$(".meta-container").append('<div class="pure-control-group"><label class="inline">' +  data.class + '</label><p class="text-small inline" style="top: -8px;">' + data.name + '</p><span class="pure-button pure-button-warning pure-button-small pure-button-link pull-right" style="top: -13px;">0</span><span class="icon-remove inline pull-right" id="' + data.folderName + '"></span></div>');
+
+					$("#spinner").fadeOut();add()
 				})
 			});
 
@@ -115,17 +118,9 @@ var CiiDashboard = {
 
 		loadSystem: function() {
 			$("#header-button").click(function() {
+				$("#spinner").fadeIn();
 				$.post("flushcache", function(data, textStatus) {
-					if (textStatus == "success")
-					{
-						// Do something to indicate it was successful
-					}
-					else
-					{
-						// Do something to indicate it failed
-					}
-
-					// Stop the "in progress" behavior
+					$("#spinner").fadeOut();
 				});
 			
 			});

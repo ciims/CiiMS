@@ -5,7 +5,7 @@
 				<h3><?php echo Yii::t('Dashboard.views', 'Settings'); ?></h3>
 				<p><?php echo Yii::t('Dashboard.views', 'Configure various features and behaviors for your site.'); ?></p>
 			</div>
-			<div id="main" class="">
+			<div id="main" class="nano">
 				<div class="content">
 					<?php 
 

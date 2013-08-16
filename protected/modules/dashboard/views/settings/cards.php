@@ -18,7 +18,13 @@
 				<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Enter the user/repo of where the widget you want to upload is located at.'); ?></p>
 				<label><?php echo Yii::t('Dashboard.views', 'Repository'); ?></label>
 				<input type="text" name="Card[new]" id="Card_new" class="pure-input-2-3" />
-				<input type="submit" class="pure-button pure-button-primary pure-button-small pull-right" value="<?php echo Yii::t('Dashboard.views', 'Add Card'); ?>" />
+				<a id="submit-form" class="pure-button pure-button-primary pure-button-small pull-right">
+					<span id="spinner">
+						<span class="icon-spinner icon-spin icon-spinner-form"></span>
+						<span class="icon-spacer"></span>
+					</span>
+					<?php echo Yii::t('Dashboard.views', 'Add Card'); ?>
+				</a>
 			</div>
 
 			<legend><?php echo Yii::t('Dashboard.views', 'Active Cards'); ?></legend>

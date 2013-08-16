@@ -5,7 +5,12 @@
 			<p><?php echo $header['p']; ?></p>
 		</div>
 		<div class="pull-right">
-			<span id="header-button" class="pure-button pure-button-error pure-button-link pure-button-small"><?php echo Yii::t('Dashboard.views', 'Flush CiiMS Cache'); ?></span>
+			<span id="header-button" class="pure-button pure-button-error pure-button-link pure-button-small">
+				<span id="spinner">
+					<span class="icon-spinner icon-spin icon-spinner-form"></span>
+					<span class="icon-spacer"></span>
+				</span>
+				<?php echo Yii::t('Dashboard.views', 'Flush CiiMS Cache'); ?></span>
 		</div>
 		<div class="clearfix"></div>
 	</div>
