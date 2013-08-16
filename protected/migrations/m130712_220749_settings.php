@@ -101,7 +101,7 @@ class m130712_220749_settings extends CDbMigration
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
 		$key = 'menu';
-		$v = 'admin|blog';
+		$v = 'dashboard|blog';
 		$connection->createCommand('INSERT IGNORE INTO `configuration` (`key`, value, created, updated) VALUES (:key, :value, NOW(), NOW())')
 				 ->bindParam(':key', $key)->bindParam(':value', $v)->execute();
 
