@@ -11,7 +11,7 @@ class CiiAssetManager extends CAssetManager
 
 	protected function hash($path)
 	{
-	    return md5($path);
+	    return substr(md5($path), 0, 6);
 	}
 
 	public function publish($path,$hashByName=false,$level=-1,$forceCopy=null)
