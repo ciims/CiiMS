@@ -40,5 +40,10 @@
 		<div class="body-content">
 			<?php echo $content; ?>
 		</div>
+		<style>
+			.icon-twitter {
+				display: block !important;
+			}
+		</style>
 	</div>
 <?php $this->endContent(); ?>
