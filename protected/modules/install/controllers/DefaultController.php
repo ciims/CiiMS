@@ -98,6 +98,9 @@ class DefaultController extends CController
      */
     public function actionMigrate()
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
+        
         // Don't let the user get to this action if they haven't setup a DSN yet.
         if (Yii::app()->session['dsn'] == "")
             $this->redirect($this->createUrl('/'));

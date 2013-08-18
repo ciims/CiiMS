@@ -96,10 +96,10 @@ class Yii
      * @param  string $text
      * @return DOM node
      */
-    public static function tag($tag, $params, $text)
+    public static function tag($tag, $params = array(), $text)
     {
         $attributes = '';
-        foreach ($parms as $k=>$v)
+        foreach ($params as $k=>$v)
             $attributes .= ' ' . $k .'=' . $v;
 
         return "<" . $tag . ' ' . $attributes . ">" . $text . "</" . $tag . ">";

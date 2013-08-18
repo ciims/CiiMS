@@ -37,7 +37,7 @@
 		    	<div class="row-fluid image-viewport">
 		    		<?php $logo = Cii::getConfig('splashLogo', $this->asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_'); ?>
 		    		<?php $logo = $logo == '' ? $this->asset.'/images/splash-logo.jpg' : $logo; ?>
-		    		<?php echo CHtml::image(Yii::app()->getBaseUrl(true) . $logo); ?>
+		    		<?php echo CHtml::image($logo); ?>
 		    	</div>
 		   	</div>
 		   	<div class="container main-container">

@@ -34,6 +34,10 @@ class InstallHelper
      */
     public function initYiiDownload(array $data = array())
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
+        ini_set('max_execution_time', 0);
+        
         try {
             // Replace pathspec
             $data['runtime'] = str_replace('\\', '/', $data['runtime']);
