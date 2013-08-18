@@ -99,7 +99,7 @@ class Yii
     public static function tag($tag, $params, $text)
     {
         $attributes = '';
-        foreach ($parms as $k=>$v)
+        foreach ($params as $k=>$v)
             $attributes .= ' ' . $k .'=' . $v;
 
         return "<" . $tag . ' ' . $attributes . ">" . $text . "</" . $tag . ">";

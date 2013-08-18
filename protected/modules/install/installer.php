@@ -87,7 +87,7 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
                     <a href="?stage=3" class="btn btn-small btn-inverse pull-right" type="button"> <?php echo Yii::t('Install.main', 'Begin Download'); ?></a>
                 <?php elseif ($stage == 3): // Handles the download of Yii
                         if (!is_writeable(str_replace('/modules/install', '', dirname(__FILE__) . '/runtime/')))
-                            header('Location: ' . 'http://' . $_SERVER['SERVER_NAME'] . '?stage=2&error=1');
+                            header('Location: ' . '?stage=2&error=1');
                 ?>
                     <div class="alert alert-error" style="display:none;">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
