@@ -71,7 +71,7 @@ class Yii
      * @param  array $params
      * @return string
      */
-    public static function translateMessage($message, $param = array())
+    public static function translateMessage($message, $params = array())
     {
         foreach ($params as $k=>$v)
             $message = str_replace($k, $v, $message);
