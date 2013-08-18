@@ -23,7 +23,8 @@
 			// This image SHOULD be publicly accessible at this location assuming you have a half sane setup
 			$elementOptions['options'][] = array(
 				'value' => $themeFolder, 
-				'data-img-src' => Yii::app()->getBaseUrl(true) . '/themes/'.$themeFolder.'/default.png'
+				'data-img-src' => Yii::app()->getBaseUrl(true) . '/themes/'.$themeFolder.'/default.png',
+				'selected' => Cii::getConfig($attribute) == $themeFolder ? 'selected' : null
 			);
 		}		
 
