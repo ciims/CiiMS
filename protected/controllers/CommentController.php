@@ -94,7 +94,7 @@ class CommentController extends CiiController
 				'content_id'=>	$_POST['Comments']['content_id'],
 				'comment'	=>	$_POST['Comments']['comment'],
 				'parent_id'	=>	Cii::get($_POST['Comments'], 'parent_id', 0),
-				'approved'	=>	Cii::getConfig('autoApproveComments', 1),
+				'approved'	=>	Cii::getConfig('autoApproveComments', 1) == null ? 1 : Cii::getConfig('autoApproveComments', 1),
 			);
 			
 			if ($comment->save())
