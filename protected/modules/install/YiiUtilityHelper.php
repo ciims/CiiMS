@@ -96,7 +96,7 @@ class Yii
      * @param  string $text
      * @return DOM node
      */
-    public static function tag($tag, $params, $text)
+    public static function tag($tag, $params = array(), $text)
     {
         $attributes = '';
         foreach ($params as $k=>$v)
