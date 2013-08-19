@@ -83,7 +83,7 @@ var CiiDashboard = {
 						$(".preview").remove();
 						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
-						$("#md-output").html(marked($("#markdown").text()));
+						$("#md-output").html(marked($("#markdown").html()));
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 
 						CiiDashboard.Content.futurePerspective.delete();
