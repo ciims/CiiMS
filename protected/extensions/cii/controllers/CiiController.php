@@ -7,7 +7,8 @@ class CiiController extends CController
 {    
     public function getAsset()
     {
-        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . Cii::getConfig('theme')  . '.assets'), false, -1, YII_DEBUG);
+        $theme = $this->getTheme();
+        return Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('webroot.themes.' . $theme  . '.assets'), false, -1, YII_DEBUG);
     }
 
     /**
@@ -192,6 +193,19 @@ class CiiController extends CController
                 throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
         }
 
+        $theme = $this->getTheme();
+
+		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
+
+        return parent::beforeAction($action);
+	}
+	
+    /**
+     * Retrieves the appropriate theme
+     * @return string $theme
+     */
+    public function getTheme()
+    {
         $theme = Cii::getConfig('theme', 'default');
 
         Yii::import('ext.mobile_detect.*');
@@ -200,7 +214,7 @@ class CiiController extends CController
         if (MobileDetect::isMobileDevice())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
-            if ($mobileTheme != NULL)
+            if ($mobileTheme != NULL && $mobileTheme != "")
                 $theme = $mobileTheme;
         }
 
@@ -208,15 +222,13 @@ class CiiController extends CController
         if (MobileDetect::isTabletDevice())
         {
             $tabletTheme = Cii::getConfig('tabletTheme');
-            if ($tabletTheme != NULL)
+            if ($tabletTheme != NULL && $tabletTheme != "")
                 $theme = $tabletTheme;
         }
 
-		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
+        return $theme;
+    }
 
-        return parent::beforeAction($action);
-	}
-	
     /**
      * Retrieves keywords for use in the viewfile
      */
