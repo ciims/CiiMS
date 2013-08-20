@@ -18,6 +18,10 @@ class DefaultController extends CiiDashboardController
 	    }
     }
 
+    /**
+     * Retrieves all cards in a particular category
+     * @param  string $id The category id
+     */
     public function actionGetCardsByCategory($id=NULL)
     {
     	if ($id === NULL)
@@ -65,7 +69,7 @@ class DefaultController extends CiiDashboardController
      */
     private function getCards()
     {
-    	$retCards = Yii::app()->cache->get('dashboard_cards_available');
+    	$retCards = false;//Yii::app()->cache->get('dashboard_cards_available');
 
     	if ($retCards === false)
     	{
@@ -79,9 +83,9 @@ class DefaultController extends CiiDashboardController
 	    		$card = json_decode($card['value'], true);
 	    		$data = json_decode(file_get_contents(Yii::getPathOfAlias($card['path']) . DIRECTORY_SEPARATOR . 'card.json'), true);
 	    		$cardsInCategory[$data['category']][$oldCard['key']] = CMap::mergeArray($card, $data);
-	    		$retCards[] = array('url' => '#' . $data['category'], 'label' => Yii::t('dashboard', $data['category']), 'itemOptions' => array('class' => $this->getCategoryIcon($data['category'])));
+	    		$retCards[$data['category']] = array('url' => '#' . $data['category'], 'label' => $data['category'], 'itemOptions' => array('class' => $this->getCategoryIcon($data['category'])));
 	    	}
-
+            
 	    	Yii::app()->cache->set('dashboard_cards_available', $retCards);
 	    	Yii::app()->cache->set('cards_in_category', $cardsInCategory);
 	    }
