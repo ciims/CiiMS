@@ -134,6 +134,24 @@ class CardController extends CiiDashboardController
 	}
 
 	/**
+	 * Persists the user's dashboard re-arrangement and acts like a cleanup script 
+	 * for cards
+	 */
+	public function actionRearrange()
+	{
+		if (Cii::get($_POST, 'cards') != NULL)
+		{
+			$data =json_encode($_POST['cards']);
+			$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
+			$meta->value = $data;
+			if ($meta->save())
+				return;
+		}
+
+		throw new CHttpException(400, Yii::t('Dashboard.main', 'Missing POST data'));
+	}
+
+	/**
 	 * Retrieves cards for the dashboard
 	 * @return bool true
 	 */

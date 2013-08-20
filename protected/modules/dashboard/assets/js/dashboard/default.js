@@ -155,6 +155,17 @@ var CiiDashboard = {
 		        paddingY: 0,
 		        enableDrag : draggable
 	        });
+
+	        $(".widget-container").on("ss-rearranged", function() {
+	        	var cards = [];
+	        	$(".widget-container > div.base-card").each(function() {
+	        		cards.push($(this).attr("id"));
+	        	});
+
+	        	$.post(CiiDashboard.endPoint + "/card/rearrange", { "cards" : cards }, function(data) {
+	        		console.log(data);
+	        	});
+	        })
 	 	},
 
 	 	/**
