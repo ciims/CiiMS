@@ -403,7 +403,8 @@ main .dashboard .modal {
 }
 
 main .dashboard .modal label {
-	margin-left: -50px;
+	padding-left: -50px;
+	width: 141px;
 }
 
 main .dashboard .modal input.pure-button {

@@ -236,6 +236,9 @@ class CiiCard extends CiiSettingsModel
 
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias($this->AssetPath), true, -1, YII_DEBUG);
 
+		$reflection = new ReflectionClass($this);
+		$properties = $reflection->getProperties(ReflectionProperty::IS_PROTECTED);
+		
 		// Main Card View
 		echo CHtml::openTag('div', array('id' => $this->id, 'data-attr-js-name' => $this->scriptName, 'data-attr-js' => Yii::app()->baseUrl.$asset. '/js/card.js', 'class' => 'base-card card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	
@@ -249,7 +252,7 @@ class CiiCard extends CiiSettingsModel
 	    		if (count($json['sizes']) > 1)
 	    			echo CHtml::tag('span', array('class' => 'icon-resize-full pull-right icon-padding'), NULL);
 
-	    		if ($this->settingsView !== false)
+	    		if ($this->settingsView !== false || count($properties) > 0)
 	    			echo CHtml::tag('span', array('class' => 'icon-gear pull-right icon-padding'), NULL);  
 
 	    		echo CHtml::tag('span', array('class' => 'icon-flip icon-info-sign pull-right icon-padding'), NULL);
@@ -262,7 +265,8 @@ class CiiCard extends CiiSettingsModel
 	    echo CHtml::openTag('div', array('data-attr-id' => $this->id, 'class' => $this->id.'-settings settings', 'style' => 'display:none'));
 
 	    	echo CHtml::openTag('div', array('class' => 'body')); 
-	    		Yii::app()->controller->renderPartial($this->settingsView, array('model' => $this, 'asset' => $asset));
+	    		if ($this->settingsView !== false)
+	    			Yii::app()->controller->renderPartial($this->settingsView, array('model' => $this, 'asset' => $asset));
 	    	echo CHtml::closeTag('div'); 
 
 		 	echo CHtml::openTag('div', array('class' => 'footer')); 
