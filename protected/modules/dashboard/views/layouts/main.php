@@ -8,9 +8,9 @@
 	    <?php $bootstrap=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.bootstrap.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
 				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
+				                      ->registerCssFile($this->asset .'/css/main.css')
 				                      ->registerCssFile($this->asset .'/font-awesome/css/font-awesome.css')
 				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')
-				                      ->registerCssFile($this->asset .'/css/main.css')
 				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)
 				                      ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
