@@ -280,6 +280,8 @@ var CiiDashboard = {
 										});
 
 										var index = CiiDashboard.Content.Save.GetSubstringIndex($("#Content_content").val(), "{image}", i + 1);
+										if (index == '-1')
+											index = 0;
 
 										// Remove the uploader
 										$("." + classEl).remove();
@@ -295,6 +297,8 @@ var CiiDashboard = {
 											var text = $(".redactor_editor").html();
 											md = CiiDashboard.Content.Save.splice(md, index, 7, "<img src=\"" + response.filepath +"\" />");
 											var index2 = CiiDashboard.Content.Save.GetSubstringIndex($(".redactor_editor").html(), "{image}", i + 1);
+											if (index2 == -1)
+												index2 = CiiDashboard.Content.Save.GetSubstringIndex($(".redactor_editor").html(), "{image}", i);
 											text = CiiDashboard.Content.Save.splice(text, index2, 7, "<img src=\"" + response.filepath +"\" />");
 											$(".redactor_editor").html(text);
 										}
