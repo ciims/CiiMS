@@ -34,7 +34,7 @@
 		</div>
 		<?php $md = new CMarkdownParser(); ?>
 		<div id="md-output"></div>
-		<textarea id="markdown" style="display:none"><?php echo $model->content; ?></textarea>
+		<div id="markdown" style="display:none"><?php echo $model->content; ?></div>
 		<noscript>
 			<?php echo $md->safeTransform($model->content); ?>
 		<noscript>

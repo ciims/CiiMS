@@ -373,7 +373,7 @@ var CiiDashboard = {
 				marked.setOptions({
 				    gfm: true,
 				    highlight: function (lang, code) {
-				      return hljs.highlightAuto(lang, code).value;
+				        return hljs.highlightAuto(lang, code).value;
 				    },
 				    tables: true,
 				    breaks: true,
