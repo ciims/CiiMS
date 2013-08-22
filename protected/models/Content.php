@@ -339,6 +339,7 @@ class Content extends CiiModel
         $this->password = '';
         $this->created = new CDbExpression('NOW()');
         $this->updated = new CDbExpression('NOW()');
+        $this->published = new CDbExpression('NOW()');
         $this->vid = 0;
         $this->author_id = Yii::app()->user->id;
         return $this->save(false);

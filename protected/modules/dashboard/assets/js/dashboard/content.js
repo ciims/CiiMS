@@ -83,7 +83,7 @@ var CiiDashboard = {
 						$(".preview").remove();
 						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
-						$("#md-output").html(marked($("#markdown").html()));
+						$("#md-output").html(marked($("#markdown").text()));
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 
 						CiiDashboard.Content.futurePerspective.delete();
@@ -122,11 +122,17 @@ var CiiDashboard = {
 			delete : function() {
 				$(".icon-trash").click(function(e) {
 					e.preventDefault();
-					$.post($(this).attr("href"), function() {
-						CiiDashboard.Content.futurePerspective.contentPane = null;
-						$(".preview").html("<div class=\"content\"></div>");
-						$.fn.yiiListView.update('ajaxListView');
-					});
+					confirm = confirm("Are you sure you want to delete this item?");
+					if (confirm==true)
+					{
+						$.post($(this).attr("href"), function() {
+							CiiDashboard.Content.futurePerspective.contentPane = null;
+							$(".preview").html("<div class=\"content\"></div>");
+							$.fn.yiiListView.update('ajaxListView');
+						});
+					}
+					delete confirm;
+					return false;
 				});
 			},
 
@@ -170,6 +176,9 @@ var CiiDashboard = {
 		 */
 		Save : {
 
+			/**
+			 * Binds promoted Dropzone functionality for promoted images
+			 */
 			bindPromotedDz : function() {
 				$(".icon-camera").click(function() {
 					$("#promotedDz").toggle();
@@ -191,7 +200,19 @@ var CiiDashboard = {
 							});
 						}
 					});
+			},
 
+			/**
+			 * Provides a delete confirmation box for content
+			 */
+			bindDelete : function() {
+				$(".icon-trash").click(function() {
+					confirm = confirm("Are you sure you want to delete this item?");
+					if (confirm==true)
+						window.location = CiiDashboard.endPoint + "/content/delete/id/" + $("#Content_id").val();
+
+					delete confirm;
+				})
 			},
 
 			// Binds the flip event for the preview => settings pane
@@ -249,6 +270,7 @@ var CiiDashboard = {
 			bindPreviewEditor : function() {
 
 				CiiDashboard.Content.Save.bindPromotedDz();
+				CiiDashboard.Content.Save.bindDelete();
 
 				$("#Content_content").bind("input propertychange change", function(event) {
 

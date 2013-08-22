@@ -56,6 +56,7 @@
 			<div class="top-header">
 				<span class="show-settings"><?php echo Yii::t('Dashboard.views', 'Preview'); ?></span>
 				<span class="show-preview" style="display:none"><?php echo Yii::t('Dashboard.views', 'Content Settings'); ?></span>
+				<span class="pull-right icon-trash"></span>
 				<span class="pull-right icon-gear show-settings"></span>
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
 			</div>
