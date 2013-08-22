@@ -170,6 +170,30 @@ var CiiDashboard = {
 		 */
 		Save : {
 
+			bindPromotedDz : function() {
+				$(".icon-camera").click(function() {
+					$("#promotedDz").toggle();
+				});
+
+				var dz = new Dropzone("#promotedDz", {
+						url : CiiDashboard.endPoint + "/content/upload/id/" + $("#Content_id").val() + "/promote/1",
+						dictDefaultMessage : "Drop files here to upload promoted image - or click",
+						success : function(data) {
+							var json = $.parseJSON(data.xhr.response);
+							$(".preview-image").attr("src", json.filepath);
+							$(".icon-camera").click();
+							$("#promotedDz").remove();
+							$(".editor .content").prepend($("<div id='promotedDz' class='dropzone'></div>").hide());
+							CiiDashboard.Content.Save.bindPromotedDz();
+
+							$(".icon-camera").unbind("click").click(function() {
+								$("#promotedDz").toggle();
+							});
+						}
+					});
+
+			},
+
 			// Binds the flip event for the preview => settings pane
 			bindFlipEvent : function() {
 			 	$(".show-settings").click(function() {
@@ -223,6 +247,9 @@ var CiiDashboard = {
 			 * There's a WHOLE bunch of complex logix nested into this, that probably could be optimized. It's pretty ugly, but it works magnificently
 			 */
 			bindPreviewEditor : function() {
+
+				CiiDashboard.Content.Save.bindPromotedDz();
+
 				$("#Content_content").bind("input propertychange change", function(event) {
 
 					if(typeof(Storage)!=="undefined")

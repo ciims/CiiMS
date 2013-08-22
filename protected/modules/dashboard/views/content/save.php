@@ -28,9 +28,11 @@
 				<?php else: ?>
 					<span><?php echo Yii::t('Dashboard.views', 'Rich Text'); ?></span>
 				<?php endif; ?>
+				<span class="pull-right icon-camera"></span>
 			</div>
 			<div id="main">
 				<div class="content">
+					<div id="promotedDz" class="dropzone" style="display:none;"></div>
 					<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
 						<?php echo $form->textArea($model, 'content'); ?>
 					<?php else: ?>
@@ -58,7 +60,30 @@
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
 			</div>
 			<div id="main" class="nano">				
-				<div class="content flipbox">					
+				<div class="content flipbox">
+					<?php $meta = Content::model()->parseMeta($model->metadata); ?>
+					<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
+						<p style="text-align:center;"><?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?></p>
+					<?php endif; ?>	
+					<div class="preview-metadata">
+						<span class="blog-author minor-meta">
+							<?php echo Yii::t('Dashboard.main', 'By {{user}}', array(
+								'{{user}}' => CHtml::link(CHtml::encode($model->author->displayName), Yii::app()->createUrl("/profile/{$model->author->id}/"))
+							)); ?>
+							<span class="separator">⋅</span> 
+						</span>
+						<span class="date"><?php echo Cii::formatDate($model->published) ?>
+							<span class="separator">⋅</span> 
+						</span>
+						<span class="separator">⋅</span>
+						<span class="minor-meta-wrap">
+							<span class="blog-categories minor-meta">
+								<?php echo Yii::t('Dashboard.main', 'In {{category}}', array(
+								'{{category}}' => CHtml::link(CHtml::encode($model->category->name), Yii::app()->createUrl($model->category->slug))
+							)); ?>
+							</span>
+						</span>
+					</div>	
 					<div class="preview"></div>
 				</div>
 			</div>

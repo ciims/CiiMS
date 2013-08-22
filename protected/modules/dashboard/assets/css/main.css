@@ -1116,6 +1116,7 @@ main .preview .preview-header .icon-edit,
 main .preview .preview-header .icon-gear,
 main .preview .preview-header .icon-trash,
 main .preview .preview-header .icon-eye-open,
+main .editor .icon-camera,
 main .content-container .icon-gear {
 	position: relative;
 	top: 5px;
@@ -1125,6 +1126,9 @@ main .content-container .icon-gear {
 	padding-left: 10px;
 }
 
+main .editor #promotedDz {
+	margin: 0 20px;
+}
 main .preview .preview-image {
 	width: 100%;
 }
@@ -1137,6 +1141,16 @@ main .preview .preview-metadata {
 	font-size: 12px;
 	margin-top: -10px;
 	margin-bottom: 15px;
+}
+
+main .body-content .preview-metadata {
+	font-size: 12px;
+	margin: 0 20px;
+	margin-bottom: 10x;
+}
+
+main .body-content .preview-image {
+	border-bottom: 1px solid #eee;
 }
 
 main .alert {
