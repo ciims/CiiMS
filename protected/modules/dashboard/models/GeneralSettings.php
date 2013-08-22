@@ -14,8 +14,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $url = NULL;
 
-	protected $menu = 'admin|blog';
-
 	protected $offline = 0;
 
 	protected $preferMarkdown = 1;
@@ -48,7 +46,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'url', 'subdomain', 'menu', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'url', 'subdomain', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
@@ -63,7 +61,7 @@ class GeneralSettings extends CiiSettingsModel
 	{
 		return array(
 			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
-			array('name, menu', 'length', 'max' => 255),
+			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
 			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments', 'boolean'),
 			array('sphinxHost, sphinxSource', 'length', 'max' => 255),
@@ -88,7 +86,6 @@ class GeneralSettings extends CiiSettingsModel
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
 			'url' => Yii::t('Dashboard.models-general', 'Site URL'),
 			'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
-			'menu' => Yii::t('Dashboard.models-general', 'Menu Navigation'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
 			'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),
 			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
