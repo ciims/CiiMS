@@ -38,7 +38,8 @@ class DefaultController extends CiiDashboardController
     	$cards = $categories[$id];
     	$elements = $elementOptions = array();
 
-    	$elementOptions['multiple'] = 'multiple';
+        // TODO: Fix multiple select
+    	//$elementOptions['multiple'] = 'multiple';
     	foreach ($cards as $k=>$card)
     	{
     		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias($card['path']), true, -1, YII_DEBUG);

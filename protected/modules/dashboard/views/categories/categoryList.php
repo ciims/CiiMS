@@ -2,6 +2,8 @@
 		<?php echo CHtml::link($data->name, $this->createUrl('/dashboard/categories/save/id/' . $data->id), array('class' => 'name pull-left', 'style' => 'margin-top: 10px;')); ?>
 
 		<?php echo CHtml::link('', $this->createUrl('/dashboard/categories/delete/id/' . $data->id), array('class' => 'icon-trash pure-button pure-button-link pure-button-xsmall pull-right pure-button-error', 'style' => 'margin-top: 10px;
+			top: -5px !important;
+			color: #fff;
 font-size: 12px !important;
 padding: 6px 13px;
 font-weight: normal !important;')); ?>

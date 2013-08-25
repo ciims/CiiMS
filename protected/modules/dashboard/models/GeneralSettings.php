@@ -12,7 +12,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $defaultLanguage = 'en_US';
 
-	protected $url = NULL;
+	//protected $url = NULL;
 
 	protected $offline = 0;
 
@@ -46,7 +46,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'url', 'subdomain', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'subdomain', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
@@ -68,7 +68,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
-			array('url', 'url')
+			//array('url', 'url')
 		);
 	}
 
@@ -84,7 +84,7 @@ class GeneralSettings extends CiiSettingsModel
 			'timeFormat' => Yii::t('Dashboard.models-general', 'Time Format'),
 			'timezone' => Yii::t('Dashboard.models-general', 'Timezone'),
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
-			'url' => Yii::t('Dashboard.models-general', 'Site URL'),
+			//'url' => Yii::t('Dashboard.models-general', 'Site URL'),
 			'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
 			'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),

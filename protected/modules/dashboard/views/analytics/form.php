@@ -33,6 +33,7 @@
 			</div>
 		<?php endforeach; ?>
 	</div>
+</div>
 <?php endforeach; ?>
 
 <?php Yii::app()->getClientScript()->registerCss('analytics-form', 'main .settings-container .body-content #main .content { padding: 0px; }'); ?>
