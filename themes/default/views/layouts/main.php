@@ -3,6 +3,8 @@
 	<head>
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
+	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
