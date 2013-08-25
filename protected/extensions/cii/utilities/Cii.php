@@ -135,9 +135,12 @@ class Cii {
                 $sqlProvider = str_replace(" ", "__" ,str_replace(".", "___", $provider));
                 $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
                 
+                $provider = str_replace('pwk', 'Piwik', $provider);
                 foreach ($data as $el)
                 {
                     $k = $el['key'];
+                    $k = str_replace("pwk_", "Piwik_", $k);
+
                     $v = $el['value'];
                     $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
                     if ($v !== "")
