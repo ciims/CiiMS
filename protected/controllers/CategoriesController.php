@@ -113,13 +113,11 @@ class CategoriesController extends CiiController
 		$itemCount = 0;
 		$pageSize = Cii::getConfig('categoryPaginationSize', 10);	
 		
-		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-		$criteria->addCondition('type_id >= 2');
-		$criteria->addCondition("category_id = " . $id);
-		$criteria->addCondition('password = ""');
-		$criteria->addCondition('status = 1');
-		$criteria->addCondition('published <= NOW()');
+		$criteria = Content::model()->getBaseCriteria()
+									->addCondition('type_id >= 2')
+									->addCondition("category_id = " . $id)
+									->addCondition('password = ""');
+									
 		$criteria->limit = $pageSize;			
 		$criteria->order = 'created DESC';
 		

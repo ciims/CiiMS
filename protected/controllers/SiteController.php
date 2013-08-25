@@ -115,8 +115,7 @@ class SiteController extends CiiController
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
-			$criteria=new CDbCriteria;
-			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+			$criteria = Content::model()->getBaseCriteria();
 
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
@@ -140,7 +139,6 @@ class SiteController extends CiiController
     		}	
 
 			$criteria->addCondition('password = ""');
-			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);
@@ -175,7 +173,7 @@ class SiteController extends CiiController
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
-			$criteria=new CDbCriteria;
+			$criteria = Content::model()->getBaseCriteria();
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
 				$criteria->addCondition('author_id = :author_id');
@@ -189,9 +187,7 @@ class SiteController extends CiiController
 				$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
     		}	
 
-    		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
-			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);

@@ -306,14 +306,12 @@ class ContentController extends CiiController
 		$itemCount = 0;
 		$pageSize = Cii::getConfig('contentPaginationSize', 10);	
 		
-		$criteria=new CDbCriteria;
+		$criteria = Content::model()->getBaseCriteria()
+								    ->addCondition('type_id >= 2')
+		         				    ->addCondition('password = ""');
+
         $criteria->order = 'created DESC';
         $criteria->limit = $pageSize;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         ->addCondition('type_id >= 2')
-		         ->addCondition('password = ""')
-		         ->addCondition('status = 1')
-		         ->addCondition('published <= NOW()');
 		
 		$itemCount = Content::model()->count($criteria);
 		$pages=new CPagination($itemCount);
@@ -334,11 +332,8 @@ class ContentController extends CiiController
 	public function actionRss($id=NULL)
 	{
 		$this->layout=false;
-		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         ->addCondition('type_id >= 2')
-		         ->addCondition('status = 1')
-		         ->addCondition('published <= NOW()');
+		$criteria = Content::model()->getBaseCriteria()
+								   ->addCondition('type_id >= 2');
                  
 		if ($id != NULL)
 			$criteria->addCondition("category_id = " . $id);

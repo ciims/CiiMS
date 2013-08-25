@@ -99,12 +99,10 @@ class ProfileController extends CiiController
 			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
 		$this->pageTitle = $model->displayName . ' | ' . Cii::getConfig('name', Yii::app()->name);
-		$postsCriteria = new CDbCriteria;
-	    $postsCriteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-	    $postsCriteria->addCondition('type_id=2');
-	    $postsCriteria->addCondition('status=1');
-	    $postsCriteria->addCondition('password=""');
-	    $postsCriteria->addCondition('author_id=:id');
+		$postsCriteria = Content::model()->getBaseCriteria()
+									     ->addCondition('type_id=2')
+									     ->addCondition('password=""')
+									     ->addCondition('author_id=:id');
 	    $postsCriteria->params = array(
 	    	':id' => $id
 	    );

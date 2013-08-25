@@ -190,6 +190,18 @@ class Content extends CiiModel
 	}
 	
 	/**
+	 * Provides a base criteria for status, uniqueness, and published states
+	 * @return CDBCriteria
+	 */
+	public function getBaseCriteria()
+	{
+		$criteria = new CDbCriteria();
+		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
+		         		->addCondition('status = 1')
+		         		->addCondition('published <= NOW()');
+	}
+
+	/**
 	 * Gets a flattened list of keyword tags for jQuery.tag.js
 	 * @return string
 	 */
