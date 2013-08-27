@@ -331,7 +331,10 @@ class ContentController extends CiiController
 	 */
 	public function actionRss($id=NULL)
 	{
-		$this->layout=false;
+		ob_end_clean();
+		header('Content-type: text/xml; charset=utf-8');
+		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$this->setLayout(null);
 		$criteria = Content::model()->getBaseCriteria()
 								   ->addCondition('type_id >= 2');
                  
@@ -341,7 +344,7 @@ class ContentController extends CiiController
 		$criteria->order = 'created DESC';
 		$data = Content::model()->findAll($criteria);
 		
-		$this->renderPartial('application.views.site/rss', array('data'=>$data));
+		$this->renderPartial('application.views.site/rss', array('data'=>$data, 'url'=> $url));
 		return;
 	}
 }

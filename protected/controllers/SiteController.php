@@ -88,12 +88,15 @@ class SiteController extends CiiController
      * Provides basic sitemap functionality via XML
      */
 	public function actionSitemap()
-	{		
-		$this->layout = false;
+	{
+		ob_end_clean();
+		header('Content-type: text/xml; charset=utf-8');
+		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$this->setLayout(null);
 		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
-		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories));
-		Yii::app()->end();
+		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories, 'url' => $url));
+		//Yii::app()->end();
 	}
 	
     /**

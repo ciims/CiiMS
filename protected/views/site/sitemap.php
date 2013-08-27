@@ -1,7 +1,4 @@
-<?php header('Content-type: text/xml; charset=utf-8'); ?>
-<?php $url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl; ?>
 <?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<?php foreach ($content as $v): ?>
 		<?php if ($v['password'] != '') { continue; } ?>
