@@ -99,18 +99,8 @@ class CommentController extends CiiController
 			
 			if ($comment->save())
 			{
-				$content = Content::model()->findByPk($_POST['Comments']['content_id']);
-				$content->comment_count = $content->getCommentCount();
-				$content->save();
-				
-				// Send an email to the author if someone makes a comment on their blog
-				if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1) 
-				{
-					$this->sendEmail($user, Yii::t('ciims.email', 'New Comment Notification From CiiMS Blog'), '//email/comments', array('content'=>$content, 'comment'=>$comment));
-				}
-
 				// Pass the values as "now" for the comment view"
-				$comment->created = $comment->updated = "now";
+				$comment->created = $comment->updated = Yii::t('ciims.controllers.Comments', "now");
 
 				// Set the attributed id to make life easier...
 				header("X-Attribute-Id: {$comment->id}");
@@ -122,7 +112,7 @@ class CommentController extends CiiController
 				));
 			}
 			else
-				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error saving your comment'));
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error saving your comment.'));
 		}
 	}
 	

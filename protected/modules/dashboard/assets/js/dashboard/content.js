@@ -112,7 +112,7 @@ var CiiDashboard = {
 							return;
 						}
 
-						$.post(CiiDashboard.endPoint + "/content/getComments/id/" + $("#item-id").text(), function(data) {
+						$.post(CiiDashboard.endPoint + "/comment/getComments/id/" + $("#item-id").text(), function(data) {
 							$(".preview-data").after("<div id='comments'></div>");
 							$("#comments").html(data).fadeIn(function() {
 								setTimeout(function() {
@@ -143,6 +143,58 @@ var CiiDashboard = {
 				$(".reply-" + id).click(function() {
 					$(".comment-form-" + id).slideToggle(200);
 				});
+
+				$("#b-" + id).click( function () {
+			        $(this).html("");
+			        $("#a-" + id).slideDown("fast");
+			        $("#submit-comment-" + id).show();
+			        setTimeout(function() {
+			            $("#textbox-" + id).focus();
+			        }, 100);
+			    });
+
+			    $("#textbox-" + id).keydown( function() {
+			        if($(this).text() != "")
+			            $("#submit-comment-" + id).css("background","#3b9000");
+			        else
+			            $("#submit-comment-" + id).css("background","#9eca80");
+			        });
+			    $("#close-" + id).click( function () {
+			        $("#b-" + id).html("Comment on this post");
+			        $("#textbox-" + id).html("");
+			        $("#a-" + id).slideUp("fast");
+			        $("#submit-comment-" + id).hide();
+			    });
+
+			    // Submit
+			    $("#submit-comment-" + id).click(function(e) {
+			    	var elementId = $(this).attr('id').replace('submit-comment-', '');
+		        	e.preventDefault();
+			        if ($("#textbox-" + id).text() == "")
+			            return;
+
+			        $.post(CiiDashboard.endPoint + "/comment/comment", 
+			        	{ 
+			        		"Comments" : 
+			        		{ 
+			        			"comment" : $("#textbox-" + id).html(), 
+			        			"content_id" : $("#item-id").text(),
+			        			"parent_id" : elementId
+			        		}
+			        	}, 
+			        	function(data, textStatus, jqXHR) { 
+			        		$("#textbox-" + id).text("");  
+			        		// PREPEND DATA
+			        		var newElementId = jqXHR.getResponseHeader("X-Attribute-Id");
+			        		$(".comment-" + elementId).append(data);
+			        		$(".comment-" + newElementId).fadeIn();
+
+			        		$("#close-" + id).click();
+			        		$(".reply-" + id).click();
+			        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
+			        	}
+			        );
+			    });
 			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate

@@ -151,23 +151,6 @@ class ContentController extends CiiDashboardController
     }
 
     /**
-     * Retrieves a renderPartial view of all comments for a particular post
-     * @param  int $id      The id of the content
-     * @return viewfile     Returns a renderPartial view for ThreadedComments
-     */
-    public function actionGetComments($id = NULL)
-    {
-        $this->layout = false;
-
-        if ($id == NULL)
-            throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Unable to retrieve comments for the requested post.'));
-
-        $comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
-        
-        return Comments::model()->thread(array_reverse($comments), true);
-    }
-
-    /**
      * Handles file uploading for the controller
      *
      * If successful, this will throw a 200 HTTP status code, otherwise it will throw a 400 http status code indicating the error to DropZone

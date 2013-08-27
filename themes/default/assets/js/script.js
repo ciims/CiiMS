@@ -258,7 +258,7 @@ var DefaultTheme = {
 	        	{ 
 	        		"Comments" : 
 	        		{ 
-	        			"comment" : $("#textbox-" + id).text(), 
+	        			"comment" : $("#textbox-" + id).html(), 
 	        			"content_id" : $(".content").attr("data-attr-id"),
 	        			"parent_id" : elementId
 	        		}

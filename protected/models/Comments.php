@@ -153,9 +153,17 @@ class Comments extends CiiModel
         if ($content === NULL)
             return true;
         
-        $content->comment_count = $content->comment_count = max($content->comment_count + 1, 0);
-        
+        $content->comment_count = $content->getCommentCount();
         $content->save();
+	
+		// TODO: Notify the user this comment was in response to
+		
+		// Send an email to the author if someone makes a comment on their blog
+		if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1) 
+		{
+			$this->sendEmail($user, Yii::t('ciims.email', 'New Comment Notification From CiiMS Blog'), '//email/comments', array('content'=>$content, 'comment'=>$comment));
+		}
+
         return parent::afterSave();
     }
     
