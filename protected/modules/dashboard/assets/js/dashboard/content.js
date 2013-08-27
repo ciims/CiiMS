@@ -243,7 +243,7 @@ var CiiDashboard = {
 						dictDefaultMessage : "Drop files here to upload promoted image - or click",
 						success : function(data) {
 							var json = $.parseJSON(data.xhr.response);
-							$(".preview-image").attr("src", json.filepath);
+							$(".preview-image").attr("src", CiiDashboard.endPoint.replace("/dashboard", "") + json.filepath);
 							$(".icon-camera").click();
 							$("#promotedDz").remove();
 							$(".editor .content").prepend($("<div id='promotedDz' class='dropzone'></div>").hide());
@@ -394,15 +394,15 @@ var CiiDashboard = {
 
 										// Insert either Markdown or an image tag depending upon the user preference
 										if ($(".preferMarkdown").val() == 1)
-											md = CiiDashboard.Content.Save.splice(md, index, 7, "![" + response.filename + "](" + response.filepath +")");
+											md = CiiDashboard.Content.Save.splice(md, index, 7, "![" + response.filename + "](" + CiiDashboard.endPoint.replace("/dashboard", "") + response.filepath +")");
 										else
 										{
 											var text = $(".redactor_editor").html();
-											md = CiiDashboard.Content.Save.splice(md, index, 7, "<img src=\"" + response.filepath +"\" />");
+											md = CiiDashboard.Content.Save.splice(md, index, 7, "<img src=\"" + CiiDashboard.endPoint.replace("/dashboard", "") + response.filepath +"\" />");
 											var index2 = CiiDashboard.Content.Save.GetSubstringIndex($(".redactor_editor").html(), "{image}", i + 1);
 											if (index2 == -1)
 												index2 = CiiDashboard.Content.Save.GetSubstringIndex($(".redactor_editor").html(), "{image}", i);
-											text = CiiDashboard.Content.Save.splice(text, index2, 7, "<img src=\"" + response.filepath +"\" />");
+											text = CiiDashboard.Content.Save.splice(text, index2, 7, "<img src=\"" + CiiDashboard.endPoint.replace("/dashboard", "") + response.filepath +"\" />");
 											$(".redactor_editor").html(text);
 										}
 
