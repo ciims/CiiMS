@@ -93,12 +93,15 @@ var CiiDashboard = {
 				});
 			},
 
+			/**
+			 * Binds the ability to view and manage comments for a particular post
+			 */
 			bindCommentBehavior : function() {
 				$(".preview-header .icon-comment").click(function() {
 					$(".preview-data").slideToggle(function() {
-						$(".preview-image").fadeToggle();
+						$(".preview-image").slideToggle();
 						var display = true;
-						$("#comments").fadeToggle();
+						$("#comments").slideToggle();
 						
 						if ($("#comments").is(":visible")) {
 							$("#comments").remove();
