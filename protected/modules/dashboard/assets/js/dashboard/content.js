@@ -101,6 +101,7 @@ var CiiDashboard = {
 						$("#comments").fadeToggle();
 						
 						if ($("#comments").is(":visible")) {
+							$("#comments").remove();
 							setTimeout(function() {
 									$("#preview.nano").nanoScroller({ destroy: true });
 									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
@@ -123,11 +124,6 @@ var CiiDashboard = {
 								}, 500);
 							});
 
-							// Reply Button Behavior
-							$("[class ^='reply']").click(function() { 
-								$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
-							});
-
 							// Rounded Image 
 							$(".rounded-img").load(function() {
 							    $(this).wrap(function(){
@@ -144,7 +140,9 @@ var CiiDashboard = {
 			 * Loads appropriate comment data
 			 **/
 			loadComment : function(id) {
-				console.log(id);
+				$(".reply-" + id).click(function() {
+					$(".comment-form-" + id).slideToggle(200);
+				});
 			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate

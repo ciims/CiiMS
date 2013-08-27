@@ -43,7 +43,7 @@ var DefaultTheme = {
 		        	{ 
 		        		"Comments" : 
 		        		{ 
-		        			"comment" : $("#textbox").text(), 
+		        			"comment" : $("#textbox").html(), 
 		        			"content_id" : $(".content").attr("data-attr-id") 
 		        		}
 		        	}, 

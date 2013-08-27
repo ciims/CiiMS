@@ -164,7 +164,7 @@ class ContentController extends CiiDashboardController
 
         $comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
         
-        return Comments::model()->thread(array_reverse($comments));
+        return Comments::model()->thread(array_reverse($comments), true);
     }
 
     /**

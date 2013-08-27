@@ -28,8 +28,6 @@
 			<?php endif; ?>
 		</div>
 	</div>
-		<?php $model = new Comments(); ?>
-		<?php $comment->parent_id = $comment->parent_id; ?>
 		<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		    'id'=>'comment-form',
 		    'htmlOptions' => array('class' => 'comment-form')

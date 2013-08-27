@@ -99,10 +99,10 @@ class Comments extends CiiModel
 	 * You should only call this instance on array instance
 	 * @return ThreadedComments
 	 */
-	public function thread($comments)
+	public function thread($comments, $thread = false)
 	{
 		Yii::import('ext.ThreadedComments');
-		return new ThreadedComments($comments, true);
+		return new ThreadedComments($comments, $thread);
 	}
 	
 	/**
