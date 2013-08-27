@@ -8,14 +8,19 @@ class ThreadedComments
 {
 
     public  $parents  = array();
+
+    public  $dashboard= false;
     public  $children = array();
+
     private $md       = array();
 
     /**
      * @param array $comments
      */
-    function __construct($comments)
+    function __construct($comments, $dashboard = false)
     {
+        $this->dashboard = $dashboard;
+
         foreach ($comments as $comment)
         {
             if ($comment['parent_id'] == 0)
@@ -37,7 +42,15 @@ class ThreadedComments
      */
     private function ouputComment($comment = NULL, $depth = 0)
     {
-        echo Yii::app()->controller->renderPartial('webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment', array('comment' => $comment, 'depth' => $depth, 'md' => $this->md));
+        if ($this->dashboard)
+        {
+            $path = 'application.modules.dashboard.views.content.comments';
+            $depth = 0;
+        }
+        else
+            $path = 'webroot.themes.'.Yii::app()->theme->name.'.views.comment.comment';
+
+        echo Yii::app()->controller->renderPartial($path, array('comment' => $comment, 'depth' => $depth, 'md' => $this->md));
     }
 
     /**

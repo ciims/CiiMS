@@ -102,7 +102,7 @@ class Comments extends CiiModel
 	public function thread($comments)
 	{
 		Yii::import('ext.ThreadedComments');
-		return new ThreadedComments($comments);
+		return new ThreadedComments($comments, true);
 	}
 	
 	/**

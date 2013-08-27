@@ -1116,6 +1116,7 @@ main .preview .preview-header .icon-edit,
 main .preview .preview-header .icon-gear,
 main .preview .preview-header .icon-trash,
 main .preview .preview-header .icon-eye-open,
+main .preview .preview-header .icon-comment,
 main .body-content .icon-trash,
 main .editor .icon-camera,
 main .content-container .icon-gear {
@@ -1125,6 +1126,11 @@ main .content-container .icon-gear {
 	text-decoration: none;
 	font-size: 13px;
 	padding-left: 10px;
+}
+
+main .preview .preview-header .icon-comment {
+	top: 4px;
+	padding-right: 2px;
 }
 
 main .editor #promotedDz {
@@ -1228,6 +1234,11 @@ main .widget-container div.card-normal .footer .footer-text {
 main .widget-container div.card-huge .footer .footer-text,
 main .widget-container div.card-rectangle .footer .footer-text {
 	width: 340px;
+}
+
+main #comments {
+	height: 100%;
+	padding: 10px;
 }
 
 .ui-tooltip {

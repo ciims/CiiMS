@@ -13,6 +13,7 @@ var DefaultTheme = {
 		 * Loads functionality to allow the comment box to work
 		 */
 		commentBox : function() {
+			DefaultTheme.endPoint = $("#endpoint").attr("data-attr-endpoint") + "/";
 			$("#b").click( function () {
 		        $(this).html("");
 		        $("#a").slideDown("fast");
@@ -38,7 +39,7 @@ var DefaultTheme = {
 		        e.preventDefault();
 		        if ($("#textbox").text() == "")
 		            return;
-		        $.post("/comment/comment", 
+		        $.post(DefaultTheme.endPoint + "/comment/comment", 
 		        	{ 
 		        		"Comments" : 
 		        		{ 
@@ -89,6 +90,7 @@ var DefaultTheme = {
 				$("[class ^='reply']").click(function() { 
 					$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
 				});
+				
 			});
 		},
 

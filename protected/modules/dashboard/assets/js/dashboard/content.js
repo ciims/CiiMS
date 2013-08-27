@@ -46,6 +46,7 @@ var CiiDashboard = {
 		loadFuturePerspetive : function() {
 			CiiDashboard.Content.futurePerspective.marked();
 			CiiDashboard.Content.futurePerspective.bindPostClick();
+			$(".nano").nanoScroller()
 		},
 
 		/**
@@ -77,7 +78,7 @@ var CiiDashboard = {
 					var id = $(this).attr("data-attr-id");
 
 					var url = CiiDashboard.endPoint + "/content/index/id/" + id;
-
+					
 					$.get(url, function(data, textStatus, jqXHR) {
 						CiiDashboard.Content.futurePerspective.contentPane = $($.parseHTML(data)).find(".preview").html();
 						$(".preview").remove();
@@ -87,8 +88,63 @@ var CiiDashboard = {
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 
 						CiiDashboard.Content.futurePerspective.delete();
+						CiiDashboard.Content.futurePerspective.bindCommentBehavior();
 					});
 				});
+			},
+
+			bindCommentBehavior : function() {
+				$(".preview-header .icon-comment").click(function() {
+					$(".preview-data").slideToggle(function() {
+						$(".preview-image").fadeToggle();
+						var display = true;
+						$("#comments").fadeToggle();
+						
+						if ($("#comments").is(":visible")) {
+							setTimeout(function() {
+									$("#preview.nano").nanoScroller({ destroy: true });
+									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
+									$("#preview .content").animate({
+										scrollTop : 0
+									}, 0);
+								}, 500);
+							return;
+						}
+
+						$.post(CiiDashboard.endPoint + "/content/getComments/id/" + $("#item-id").text(), function(data) {
+							$(".preview-data").after("<div id='comments'></div>");
+							$("#comments").html(data).fadeIn(function() {
+								setTimeout(function() {
+									$("#preview.nano").nanoScroller({ destroy: true });
+									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
+									$("#preview .content").animate({
+										scrollTop : 0
+									}, 0);
+								}, 500);
+							});
+
+							// Reply Button Behavior
+							$("[class ^='reply']").click(function() { 
+								$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
+							});
+
+							// Rounded Image 
+							$(".rounded-img").load(function() {
+							    $(this).wrap(function(){
+							      return '<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
+							    });
+							    $(this).css("opacity","0");
+							});
+						});
+					});
+				})
+			},
+
+			/**
+			 * Loads appropriate comment data
+			 **/
+			loadComment : function(id) {
+				console.log(id);
 			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate

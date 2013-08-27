@@ -1,9 +1,10 @@
 <?php if ($model !== null): ?>
 	<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 	<div class="preview-header">
-		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), 'Drafted Post')); ?></span>
+		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), YiiL::t('Dashboard.main', 'Drafted Post'))); ?></span>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/delete/id/' . $model->id), array('class' => 'icon-trash pull-right')); ?>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-edit pull-right')); ?>
+		<span class="icon-comment pull-right"></span>
 		<?php if ($model->status == 1 && strtotime($model->published) <= time()): ?>
 			<?php echo CHtml::link(NULL, Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
 		<?php endif; ?>
@@ -35,6 +36,7 @@
 		<?php $md = new CMarkdownParser(); ?>
 		<div id="md-output"></div>
 		<textarea id="markdown" style="display:none"><?php echo $model->content; ?></textarea>
+		<span id="item-id" style="display:none;"><?php echo $model->id; ?></span>
 		<noscript>
 			<?php echo $md->safeTransform($model->content); ?>
 		<noscript>
