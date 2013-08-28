@@ -28,7 +28,7 @@ class ACiiController extends CiiController
 		return array(
 			array('allow',  // allow authenticated admins to perform any action
 				'users'=>array('@'),
-				'expression'=>'Yii::app()->user->role==5'
+				'expression'=>'Yii::app()->user->role>=5'
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

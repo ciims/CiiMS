@@ -98,7 +98,8 @@
 							               'onComplete' => "js:function(id, fileName, response) {
 							               		if (response.success)
 							               		{
-							               			$('#new-attachment').before('<span class=\"thumb-container thumb-center\"><span class=\"thumb-inner\"><span class=\"thumb-img\"><img class=\"thumb\" href=\"'+ response.filepath +'\" src=\"'+ response.filepath +'\" style=\"left: 0px; top: 0px;\"></span><span class=\"thumb-strip\"></span><span class=\"thumb-icon\"></span></span></span>').after('<li id=\"new-attachment\" style=\"display:none;\">');
+							               			var baseUrl = '" . Yii::app()->baseUrl . "';
+							               			$('#new-attachment').before('<span class=\"thumb-container thumb-center\"><span class=\"thumb-inner\"><span class=\"thumb-img\"><img class=\"thumb\" href=\"'+ baseUrl + response.filepath +'\" src=\"'+ baseUrl + response.filepath +'\" style=\"left: 0px; top: 0px;\"></span><span class=\"thumb-strip\"></span><span class=\"thumb-icon\"></span></span></span>').after('<li id=\"new-attachment\" style=\"display:none;\">');
 							               			$('.thumb').thumbs();
 													$('.thumb').colorbox({rel:'thumb'});
 													$('#new-attachment-img').show().attr('id', 'thumb');
@@ -110,7 +111,7 @@
 						<div class="image-holder ">
 							<?php foreach ($attachments as $attachment): ?>
 							    <div class="image-ctrl" id="<?php echo $attachment->key; ?>">
-    								<?php echo CHtml::image($attachment->value, NULL, array('class'=> 'thumb', 'href' => $attachment->value, 'title' => $attachment->value)); ?>
+    								<?php echo CHtml::image(Yii::app()->baseUrl . $attachment->value, NULL, array('class'=> 'thumb', 'href' => Yii::app()->baseUrl.$attachment->value, 'title' => $attachment->value)); ?>
                                     <span class="delete-button icon icon-remove" id="<?php echo $attachment->key; ?>"></span>
                                      <span class="star-button icon icon-star-empty" id="<?php echo $attachment->key; ?>"></span>
                                 </div>
