@@ -18,6 +18,9 @@ class EAnalytics extends CApplicationComponent
 	 */
 	public function init()
 	{
+		if (php_sapi_name() === 'cli')
+			return;
+		
 		// Set the alias path
 		if (Yii::getPathOfAlias('analytics') === false)
             Yii::setPathOfAlias('analytics', realpath(dirname(__FILE__) . '/..'));

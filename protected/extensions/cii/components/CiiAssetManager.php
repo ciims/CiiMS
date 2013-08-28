@@ -4,6 +4,14 @@ class CiiAssetManager extends CAssetManager
 {
 	protected $_published;
 
+	public function getBasePath()
+	{
+		 if (php_sapi_name() === 'cli')
+		 	return Yii::getPathOfAlias('webroot.assets');
+
+		 return parent::getBasePath();
+	}
+
 	protected function generatePath($file, $hashByName=false)
 	{
     	return $this->hash($file);
