@@ -211,7 +211,7 @@ class CiiController extends CController
         Yii::import('ext.mobile_detect.*');
 
         // Allow for mobile devices to have a separate theme
-        if (MobileDetect::isMobileDevice())
+        if (MobileDetect::isMobileDevice() && !Mobiledetect::isTabletDevice())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
             if ($mobileTheme != NULL && $mobileTheme != "")
