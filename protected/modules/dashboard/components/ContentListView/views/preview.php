@@ -37,8 +37,24 @@
 		<div id="md-output"></div>
 		<textarea id="markdown" style="display:none"><?php echo $model->content; ?></textarea>
 		<span id="item-id" style="display:none;"><?php echo $model->id; ?></span>
+		<div id="main-comment" style="display:none;">
+            <div id="sharebox" class="comment-box">
+                <div id="a">
+                    <div id="textbox" contenteditable="true"></div>
+                    <div id="close"></div>
+                    <div style="clear:both"></div>
+                </div>
+                <div id="b" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
+            </div>
+            <?php echo CHtml::tag('button', array(
+                    'id' => 'submit-comment',
+                    'class' => 'btn btn-success sharebox-submit',
+                    'style' => 'display:none; margin-bottom: 5px;'
+                ), Yii::t('DefaultTheme', 'Submit')); ?>
+        </div>
 		<noscript>
 			<?php echo $md->safeTransform($model->content); ?>
 		<noscript>
+
 	</div>
 <?php endif; ?>

@@ -254,7 +254,7 @@ var DefaultTheme = {
 	        if ($("#textbox-" + id).text() == "")
 	            return;
 
-	        $.post("/comment/comment", 
+	        $.post(DefaultTheme.endPoint + "/comment/comment", 
 	        	{ 
 	        		"Comments" : 
 	        		{ 

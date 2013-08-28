@@ -117,6 +117,13 @@ var CiiDashboard = {
 
 						$.post(CiiDashboard.endPoint + "/comment/getComments/id/" + $("#item-id").text(), function(data) {
 							$(".preview-data").after("<div id='comments'></div>");
+							var mainComments = $("#main-comment");
+							$("#main-comment").remove();
+
+							$("#comments").append(mainComments);
+
+							CiiDashboard.Content.futurePerspective.loadMainCommentBox();
+
 							$("#comments").html(data).fadeIn(function() {
 								setTimeout(function() {
 									$("#preview.nano").nanoScroller({ destroy: true });
@@ -137,6 +144,52 @@ var CiiDashboard = {
 						});
 					});
 				})
+			},
+
+			loadMainCommentBox : function() {
+				$("#b").click( function () {
+			        $(this).html("");
+			        $("#a").slideDown("fast");
+			        $("#submit-comment").show();
+			        setTimeout(function() {
+			            $("#textbox").focus();
+			        }, 100);
+			    });
+
+			    $("#textbox").keydown( function() {
+			        if($(this).text() != "")
+			            $("#submit-comment").css("background","#3b9000");
+			        else
+			            $("#submit-comment").css("background","#9eca80");
+			        });
+			    $("#close").click( function () {
+			        $("#b").html("Comment on this post");
+			        $("#textbox").html("");
+			        $("#a").slideUp("fast");
+			        $("#submit-comment").hide();
+			    });
+			    
+			    $("#submit-comment").click(function(e) {
+			        e.preventDefault();
+			        if ($("#textbox").text() == "")
+			            return;
+			        $.post(CiiDashboard.endPoint + "/comment/comment", 
+			        	{ 
+			        		"Comments" : 
+			        		{ 
+			        			"comment" : $("#textbox").html(), 
+			        			"content_id" : $("#item-id").text() 
+			        		}
+			        	}, 
+			        	function(data) { 
+			        		$("#textbox").text("");  
+			        		$("#comment-container").prepend(data);
+			        		$("div#comment-container").children(":first").fadeIn();
+			        		$("#close").click();
+			        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
+			        	}
+			        );
+			    });
 			},
 
 			/**
