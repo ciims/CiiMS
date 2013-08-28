@@ -117,20 +117,29 @@ var CiiDashboard = {
 
 						$.post(CiiDashboard.endPoint + "/comment/getComments/id/" + $("#item-id").text(), function(data) {
 							$(".preview-data").after("<div id='comments'></div>");
-							var mainComments = $("#main-comment");
+							var mainComments = $("#main-comment").clone();
+
 							$("#main-comment").remove();
 
-							$("#comments").append(mainComments);
+
+							console.log(mainComments);
+
 
 							CiiDashboard.Content.futurePerspective.loadMainCommentBox();
 
-							$("#comments").html(data).fadeIn(function() {
+							$("#comments").html(data).fadeIn(function() {// Show the main comment box
+								$("#comments").prepend($(mainComments));
+								$("#main-comment").show();
+								CiiDashboard.Content.futurePerspective.loadMainCommentBox();
+
 								setTimeout(function() {
 									$("#preview.nano").nanoScroller({ destroy: true });
 									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
 									$("#preview .content").animate({
 										scrollTop : 0
 									}, 0);
+
+
 								}, 500);
 							});
 
@@ -146,6 +155,10 @@ var CiiDashboard = {
 				})
 			},
 
+			/**
+			 * Loads a main comment box that isn't bound to any particular comment
+			 * @return {[type]} [description]
+			 */
 			loadMainCommentBox : function() {
 				$("#b").click( function () {
 			        $(this).html("");
@@ -178,15 +191,15 @@ var CiiDashboard = {
 			        		"Comments" : 
 			        		{ 
 			        			"comment" : $("#textbox").html(), 
-			        			"content_id" : $("#item-id").text() 
+			        			"content_id" : $("#item-id").text()
 			        		}
 			        	}, 
 			        	function(data) { 
-			        		$("#textbox").text("");  
-			        		$("#comment-container").prepend(data);
-			        		$("div#comment-container").children(":first").fadeIn();
+			        		$("#textbox").text("");
 			        		$("#close").click();
-			        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
+			        		$("#main-comment").after(data);
+			        		var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
+			        		$(".post.active").find(".comments strong").text(count);
 			        	}
 			        );
 			    });
@@ -196,10 +209,23 @@ var CiiDashboard = {
 			 * Loads appropriate comment data
 			 **/
 			loadComment : function(id) {
+				// Reply
 				$(".reply-" + id).click(function() {
 					$(".comment-form-" + id).slideToggle(200);
 				});
 
+				// Delete
+				$(".delete-" + id).click(function() {
+					$.post(CiiDashboard.endPoint + "/comment/delete/id/" + id, function() {
+						$(".comment-" + id).fadeOut(function() {
+							$(this).remove();
+							var count = (parseInt($(".post.active").find(".comments strong").text()) + -1);
+			        		$(".post.active").find(".comments strong").text(count);
+						});
+					})
+				});
+
+				// Comment form
 				$("#b-" + id).click( function () {
 			        $(this).html("");
 			        $("#a-" + id).slideDown("fast");
@@ -247,7 +273,8 @@ var CiiDashboard = {
 
 			        		$("#close-" + id).click();
 			        		$(".reply-" + id).click();
-			        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
+			        		var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
+			        		$(".post.active").find(".comments strong").text(count);
 			        	}
 			        );
 			    });

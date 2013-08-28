@@ -27,9 +27,9 @@
 
 	<div class="comment-body comment-byline comment-byline-footer pull-left">
 		<?php if ($comment->approved != 1): ?>
-			<span class="approve"><?php echo Yii::t('Dashboard.main', 'approve'); ?></span> •
+			<span class="approve-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'approve'); ?></span> •
 		<?php endif; ?>
-		<span class="delete"><?php echo Yii::t('Dashboard.main', 'delete'); ?></span> •
+		<span class="delete-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'delete'); ?></span> •
 		<span class="reply-<?php echo $comment->id; ?>" data-attr-id="<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'reply'); ?></span>
 	</div>
 	<div class="clearfix"></div>
