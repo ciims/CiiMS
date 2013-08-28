@@ -121,6 +121,14 @@ class Cii {
 
         if ($providers === false)
         {
+            // Import Analytics Settings so that we can appropriately determine the type of objects
+            Yii::import('application.modules.dashboard.components.CiiSettingsModel');
+            Yii::import('application.modules.dashboard.models.AnalyticsSettings');
+
+            $analytics = new AnalyticsSettings;
+            $rules = $analytics->rules();
+            unset($analytics);
+
             // Init the array
             $providers = array();
 
@@ -136,6 +144,7 @@ class Cii {
                 $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
 
                 $provider = str_replace('pwk', 'Piwik', $provider);
+
                 foreach ($data as $el)
                 {
                     $k = $el['key'];
@@ -145,12 +154,29 @@ class Cii {
                     $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
                     if ($v !== "")
                     {
-                        if ($v === "0")
-                            $providers[$provider][$p[1]] = 'false';
-                        else if ($v === "1")          
-                            $providers[$provider][$p[1]] = 'true';
+                        $thisRule = 'string';
+                        foreach ($rules as $rule)
+                        {
+                            if (strpos($rule[0], 'analyticsjs_' . $k) !== false)
+                                $thisRule = $rule[1];
+                        }
+
+                        if ($thisRule == 'boolean')
+                        {
+                            if ($v == "0")
+                                $providers[$provider][$p[1]] = 'false';
+                            else if ($v == "1")          
+                                $providers[$provider][$p[1]] = 'true';
+                            else
+                                $providers[$provider][$p[1]] = 'null';
+                        }
                         else
-                            $providers[$provider][$p[1]] = $v;
+                        {
+                            if ($v == "" || $v == null)
+                                $providers[$provider][$p[1]] = 'null';
+                            else
+                                $providers[$provider][$p[1]] = $v;
+                        }
 
                     }
                 }
