@@ -72,9 +72,14 @@ class DefaultController extends CiiController
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 			{
+				
 				// Upgradee the user's password to bcrypt so they don't stick out in database dumps
-				$user->password = password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13));
-				$user->save();
+				if ($user->password == md5('PUBUSER'))
+				{
+					$user->password = password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13));
+					$user->save();
+				}
+
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 
