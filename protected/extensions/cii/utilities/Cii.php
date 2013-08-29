@@ -164,9 +164,9 @@ class Cii {
                         if ($thisRule == 'boolean')
                         {
                             if ($v == "0")
-                                $providers[$provider][$p[1]] = 'false';
+                                $providers[$provider][$p[1]] = (bool)false;
                             else if ($v == "1")          
-                                $providers[$provider][$p[1]] = 'true';
+                                $providers[$provider][$p[1]] = (bool)true;
                             else
                                 $providers[$provider][$p[1]] = 'null';
                         }
