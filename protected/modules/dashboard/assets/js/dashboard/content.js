@@ -80,7 +80,14 @@ var CiiDashboard = {
 					var url = CiiDashboard.endPoint + "/content/index/id/" + id;
 					
 					$.get(url, function(data, textStatus, jqXHR) {
-						CiiDashboard.Content.futurePerspective.contentPane = $(data).find(".preview").html();
+
+						// Sometimes one of these works, sometimes the other does. Possible OS/Browser issue
+						try {
+							CiiDashboard.Content.futurePerspective.contentPane = $($.parseHTML(data)).find(".preview").html();
+						} catch (Exception) {
+							CiiDashboard.Content.futurePerspective.contentPane = $(data).find(".preview").html();
+						}
+
 						$(".preview").remove();
 						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
