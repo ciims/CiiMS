@@ -80,7 +80,7 @@ var CiiDashboard = {
 					var url = CiiDashboard.endPoint + "/content/index/id/" + id;
 					
 					$.get(url, function(data, textStatus, jqXHR) {
-						CiiDashboard.Content.futurePerspective.contentPane = $($.parseHTML(data)).find(".preview").html();
+						CiiDashboard.Content.futurePerspective.contentPane = $(data).find(".preview").html();
 						$(".preview").remove();
 						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
 						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");

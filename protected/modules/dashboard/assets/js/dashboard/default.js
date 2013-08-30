@@ -180,18 +180,16 @@ var CiiDashboard = {
 	 			if (items === null)
 	 				return false;
 
-	 			$(items).each(function(key, value) {
-	 				$.post(CiiDashboard.endPoint + "/card/add/id/" + value, function(data) {
-	 					$(".widget-container").append(data);
-	 					CiiDashboard.Default.enableDragBehavior();
-	 					CiiDashboard.Default.bindResizeBehavior();
-						CiiDashboard.Default.bindDeleteBehavior();
-						CiiDashboard.Default.bindSettingsBehavior();
-						CiiDashboard.Default.bindFlipEvent();
-						CiiDashboard.Default.rebuild(true);
-	 					$("#add-card").click();
-	 				});
-	 			});
+ 				$.post(CiiDashboard.endPoint + "/card/add/id/" + items, function(data) {
+ 					$(".widget-container").append(data);
+ 					CiiDashboard.Default.enableDragBehavior();
+ 					CiiDashboard.Default.bindResizeBehavior();
+					CiiDashboard.Default.bindDeleteBehavior();
+					CiiDashboard.Default.bindSettingsBehavior();
+					CiiDashboard.Default.bindFlipEvent();
+					CiiDashboard.Default.rebuild(true);
+ 					$("#add-card").click();
+ 				});
 	 		});
 	 	},
 

@@ -1,7 +1,7 @@
 <?php if ($model !== null): ?>
 	<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 	<div class="preview-header">
-		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), YiiL::t('Dashboard.main', 'Drafted Post'))); ?></span>
+		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), Yii::t('Dashboard.main', 'Drafted Post'))); ?></span>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/delete/id/' . $model->id), array('class' => 'icon-trash pull-right')); ?>
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-edit pull-right')); ?>
 		<span class="icon-comment pull-right"></span>
