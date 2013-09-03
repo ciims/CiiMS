@@ -25,7 +25,7 @@
 				<?php if( strpos($key, 'enabled') !== false): ?>
 					<?php continue; ?>
 				<?php endif; ?>
-				<?php if (get_class($validators[0]) == "CBooleanValidator"): ?>
+				<?php if (isset($validators[0]) && get_class($validators[0]) == "CBooleanValidator"): ?>
 					<?php echo $form->toggleButtonRowFix($model, $key, $htmlOptions); ?>
 				<?php else: ?>
 					<?php echo $form->textFieldRowLabelFix($model, $key, $htmlOptions); ?>
