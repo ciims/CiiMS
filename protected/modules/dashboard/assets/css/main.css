@@ -66,7 +66,7 @@ body, html {
 }
 
 body {
-	background: #eee;
+	background: #f3f5f9;
 	margin: 0;
 	font-family: "PT Sans Bold", Arial, sans-serif;
 	font-size: 14px;
@@ -135,7 +135,7 @@ header .navigation a:hover:after, header .navigation ul li.active a:after {
 	border-style: solid;
 	border-width: 0 7.5px 7.5px 7.5px;
 	border-color: transparent transparent #007bff transparent;
-    border-bottom-color: #fff;
+    border-bottom-color: #f3f5f9;
     position: absolute;
     bottom: -10px;
     left: 43%;

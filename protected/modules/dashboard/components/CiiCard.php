@@ -242,11 +242,11 @@ class CiiCard extends CiiSettingsModel
 		// Main Card View
 		echo CHtml::openTag('div', array('id' => $this->id, 'data-attr-js-name' => $this->scriptName, 'data-attr-js' => Yii::app()->baseUrl.$asset. '/js/card.js', 'class' => 'base-card card-' . str_replace('card-', '', $json['activeSize']), 'data-ss-colspan' => $dataSSColspan, 'data-attr-sizes' => implode(',', $json['sizes'])));
 	    	
-	    	echo CHtml::openTag('div', array('class' => 'body')); 
+	    	echo CHtml::openTag('div', array('class' => 'body', 'id' => $this->scriptName . '-body')); 
 	    		Yii::app()->controller->renderPartial($this->view, array('model' => $this, 'asset' => $asset));
 	    	echo CHtml::closeTag('div'); 
 
-	    	echo CHtml::openTag('div', array('class' => 'footer')); 
+	    	echo CHtml::openTag('div', array('class' => 'footer', 'id' => $this->scriptName . '-footer')); 
 	    		echo CHtml::tag('span', array('class' => 'pull-left footer-text'), $this->footerText); 
 
 	    		if (count($json['sizes']) > 1)
