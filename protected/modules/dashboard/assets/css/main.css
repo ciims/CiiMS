@@ -178,6 +178,7 @@ main .content-container .header {
 	height: 30px;
 	background: #fff;
 	margin: 0 5%;
+	border: 1px solid #ebeff6;
 	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -455,7 +456,7 @@ main .content-container .editor {
 	max-height: 93%;
 	overflow: hidden;
 	background: #fff;
-    border: 1px solid rgba(0,0,0, 0.1);
+    border: 1px solid #ebeff6;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -596,7 +597,7 @@ main .settings-container .body-content #main .content {
 main .settings-container .body-content #main .content .output {
 	display: inline-block;
 	margin-left: 10px;
-	border: 1px solid rgba(0,0,0, 0.1);
+	border: 1px solid #ebeff6;
 	padding: .5em .6em;
 	display: inline-block;
 	border: 1px solid #ccc;
@@ -780,7 +781,7 @@ main .posts-container .list-view .sorter {
 	height: 30px;
 	max-height: 30px;
 	background: #fff;
-    border: 1px solid rgba(0,0,0, 0.1);
+    border: 1px solid #ebeff6;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
