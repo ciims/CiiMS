@@ -154,7 +154,7 @@ class SiteController extends CiiController
 			
 		}		
 		
-		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+		$this->render('search', array('url' => 'search', 'id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 
     /**
@@ -176,18 +176,26 @@ class SiteController extends CiiController
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
-			$criteria = Content::model()->getBaseCriteria();
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('status = 1')
+		         	 ->addCondition('published <= NOW()');
+
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
-				$criteria->addCondition('author_id = :author_id');
+				$criteria->addCondition('author_id = :author_id')
+						 ->addCondition("vid=(SELECT MAX(vid) FROM content AS v WHERE v.id=t.id)");
 				$criteria->params = array(
-					':author_id' => str_replace('user_id:', '', $_GET['q'])
+					':author_id' => str_replace('user_id:', '', Cii::get($_GET, 'q', 0))
 				);
 			}
 			else
 			{
-				$criteria->addSearchCondition('content', Cii::get($_GET, 'q', NULL), true, 'OR');
-				$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
+				$param = Cii::get($_GET, 'q', 0);
+				$criteria->addCondition("vid=(SELECT MAX(vid) FROM content AS v WHERE v.id=t.id) AND ((t.content LIKE :param) OR (t.title LIKE :param2))");
+				$criteria->params = array(
+					':param' => '%' . $param . '%',
+					':param2' =>'%' . $param . '%'
+				);
     		}	
 
 			$criteria->addCondition('password = ""');
@@ -202,7 +210,7 @@ class SiteController extends CiiController
     		$pages->applyLimit($criteria);	
 		}		
 		
-		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+		$this->render('search', array('url' => 'search', 'id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 	
     /**
