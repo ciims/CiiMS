@@ -19,33 +19,34 @@
 				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });'); ?>
 	</head>
 	<body>
-		<header>
-			<div class="pull-left navigation">
-				<?php $this->widget('zii.widgets.CMenu', array(
-					'items' => array(
-						array('label' => Yii::t('Dashboard.views', 'Dashboard'), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
-						array('label' => Yii::t('Dashboard.views', 'Content'), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
-						array('label' => Yii::t('Dashboard.views', 'Settings'), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
-					)
-				)); ?>
-			</div>
-			<div class="pull-right user">
-				<!-- TODO: Proper Link to... ??? -->
-				<?php echo CHtml::link(Yii::app()->user->displayName); ?>
-				<?php echo CHtml::image(Users::model()->findByPk(Yii::app()->user->id)->gravatarImage(), NULL, array('class' => 'user-image')); ?>
-				<?php echo CHtml::tag('span', array('class' => 'options')); ?>
-			</div>
-			<div class="clearfix"></div>
-		</header>
-		<div class="clearfix"></div>
-		<main>
-			<?php $this->widget('bootstrap.widgets.TbAlert', array(
-                  'block'=>true,
-                  'fade'=>true,
-                  'closeText'=>'×',
-              ));?>
-			<?php echo $content; ?>
-		</main>
+		<div class="main-container">
+			<header>
+				<div class="navigation">
+					<?php $this->widget('zii.widgets.CMenu', array(
+						'items' => array(
+							array('label' => Yii::t('Dashboard.views', 'Dashboard'), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
+							array('label' => Yii::t('Dashboard.views', 'Content'), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
+							array('label' => Yii::t('Dashboard.views', 'Settings'), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
+						)
+					)); ?>
+				</div>
+				<div class="user">
+					<!-- TODO: Proper Link to... ??? -->
+					<?php echo CHtml::link(Yii::app()->user->displayName); ?>
+					<?php echo CHtml::image(Users::model()->findByPk(Yii::app()->user->id)->gravatarImage(), NULL, array('class' => 'user-image')); ?>
+					<?php echo CHtml::tag('span', array('class' => 'options')); ?>
+				</div>
+				<div class="clearfix"></div>
+			</header>
+			<main>
+				<?php $this->widget('bootstrap.widgets.TbAlert', array(
+	                  'block'=>true,
+	                  'fade'=>true,
+	                  'closeText'=>'×',
+	              ));?>
+				<?php echo $content; ?>
+			</main>
+		</div>
 		<footer>
 		</footer>
 		<?php echo CHtml::tag('span', array('style' => 'display:none', 'value' => $this->createUrl('/dashboard'), 'id' => 'dashboard-endpoint'), NULL); ?>
