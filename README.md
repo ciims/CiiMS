@@ -15,8 +15,8 @@ Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) becaus
 #### Just Show Me the Demo
 Sure thing boss: A demo of CiiMS can be found at:
 
-    Site: http://ciims.erianna.com
-    Admin Panel: http://ciims.erianna.com/admin
+    Site: http://demo.ciims.org
+    Admin Panel: http://demo.ciims.org/dashboard
     
 You may use the following credentials to login and manage the site.
 
@@ -48,7 +48,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Requirements
 
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
-* PHP 5.1+ (Strong recommend 5.3+)
+* PHP 5.3.7+ (Strong recommend 5.3.27+, or PHP 5.5)
 * MySQL 5.5+ (CiiMS can run on Postgres/SQLite, but you have to do a manual installation which isn't covered in this readme.
 * __mcrypt/crypt__ library. This is required for bcrpt hashing.
 
