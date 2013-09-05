@@ -127,11 +127,27 @@ class Content extends CiiModel
 
 	/**
 	 * Retrievers the comment count for this article, as comment_count has been broken since 1.1
-	 * @return int   The number of articles for this content piece
+	 * @return int   The number of comments for this content piece
 	 */
 	public function getCommentCount()
 	{
 		return Comments::model()->countByAttributes(array('content_id' => $this->id, 'approved' => 1));
+	}
+
+	/**
+	 * Correctly retrieves the number of likes for a particular post.
+	 *
+	 * This was added to address an issue with the like count changing if an article was updated
+	 * @return int    The number of likes for this post
+	 */
+
+	public function getLikeCount()
+	{
+		$meta = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'likes'));
+		if ($meta === NULL)
+			return 0;
+
+		return $meta->value;
 	}
 
 	/**
@@ -252,6 +268,7 @@ class Content extends CiiModel
     	parent::afterFind();
 
     	$this->comment_count = $this->getCommentCount();
+    	$this->like_count = $this->getLikeCount();
     }
 
 	/**
