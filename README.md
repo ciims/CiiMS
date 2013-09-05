@@ -50,7 +50,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Requirements
 
 * Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
-* PHP 5.1+ (Strong recommend 5.3 or 5.5)
+* PHP 5.3.7+ (Strong recommend 5.3.27+, or PHP 5.5)
 * MySQL 5.5+
 * __mcrypt/crypt__ library. This is required for bcrpt hashing.
 
