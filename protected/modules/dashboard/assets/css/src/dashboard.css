@@ -1,0 +1,57 @@
+section.hbox {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+/** Navigation Sidebar **/
+
+section.hbox .tc-container {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
+    padding: 0;
+    float: none;
+}
+
+aside.navigation {
+    z-index: 1000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: #2D2D2D;
+    color: #dbd8e9;
+    overflow: none;
+    position: fixed;
+    width: 50px;
+}
+
+aside.navigation header {
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+aside.navigation img {
+    width: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside.navigation.active {
+    width: 150px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
