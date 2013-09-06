@@ -16,13 +16,14 @@
 				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)
 				                      ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
-				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });'); ?>
+				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });')
+				                      ->registerScript('align', '$(".icon-align-justify").click(function() { $("aside.navigation").toggleClass("active"); });'); ?>
 	</head>
 	<body>
 		<section class="hbox">
 			<aside class="navigation tc-container">
 				<header>
-					<?php echo CHtml::image($this->asset .'/images/ciims.png'); ?>
+					<?php echo CHtml::link(CHtml::image($this->asset .'/images/ciims.png') . CHtml::tag('span', array(), 'ciims'), Yii::app()->getBaseUrl(true)); ?>
 					<?php echo CHtml::image(Users::model()->findByPk(Yii::app()->user->id)->gravatarImage(60), NULL, array('class' => 'user-image')); ?>
 				</header>
 				<nav>
@@ -34,7 +35,10 @@
 						)
 					)); ?>
 				</nav>
-				<footer></footer>
+				<footer>
+					<span class="icon-align-justify"></span>
+					<?php echo CHtml::link(CHtml::tag('span', array('class' => 'icon-power-off'), NULL), $this->createUrl('/logout')); ?>
+				</footer>
 			</aside>
 				
 			<main class="tc-container">

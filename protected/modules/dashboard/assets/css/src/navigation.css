@@ -1,0 +1,132 @@
+section.hbox {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+/** Navigation Sidebar **/
+section.hbox .tc-container {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
+    padding: 0;
+    float: none;
+}
+
+aside.navigation {
+    font-family: "Open Sans", Helvetica, Arial;
+    z-index: 1000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: #2D2D2D;
+    color: #dbd8e9;
+    overflow: hidden;
+    position: fixed;
+    width: 50px;
+}
+
+aside.navigation header {
+    margin-top: 15px;
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-bottom: 1px solid #999;
+    padding-bottom: 15px;
+}
+
+aside.navigation header a {
+    display: block;
+    margin-bottom: 15px;
+}
+
+aside.navigation header a span {
+    display: none;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+aside.navigation a {
+    color: #eee;
+    text-decoration: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation a:hover {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: #fff;
+}
+
+aside.navigation img {
+    width: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside.navigation img.user-image {
+    padding: 1px;
+    border: 1px solid #999;
+    background-color: #eee;
+}
+
+aside.navigation nav {
+    height: 82%;
+    min-height: 82%;
+}
+
+aside.navigation footer {
+    width: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside.navigation footer span {
+    font-size: 18px;
+    margin-top: 10px;
+    display: block;
+}
+
+/** Dashboard Active State **/
+aside.navigation.active {
+    width: 120px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation.active header {
+    width: 120px;
+}
+
+aside.navigation.active header a img {
+    display: none;
+}
+
+aside.navigation.active header a span {
+    display: block;
+}
+
+aside.navigation.active header img {
+    display: block;
+    width: 50px;
+}
