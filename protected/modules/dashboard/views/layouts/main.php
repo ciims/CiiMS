@@ -28,10 +28,11 @@
 				</header>
 				<nav>
 					<?php $this->widget('zii.widgets.CMenu', array(
+						'encodeLabel' => false,
 						'items' => array(
-							array('label' => Yii::t('Dashboard.views', 'Dashboard'), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
-							array('label' => Yii::t('Dashboard.views', 'Content'), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
-							array('label' => Yii::t('Dashboard.views', 'Settings'), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
+							array('label' => CHtml::tag('i', array('class' => 'icon-th-large'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Dashboard')), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
+							array('label' => CHtml::tag('i', array('class' => 'icon-pencil'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Content')), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
+							array('label' => CHtml::tag('i', array('class' => 'icon-cogs'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Settings')), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
 						)
 					)); ?>
 				</nav>

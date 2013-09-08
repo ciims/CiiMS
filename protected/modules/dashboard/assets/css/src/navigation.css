@@ -4,6 +4,8 @@ section.hbox {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
+    height: 100%;
+    min-height: 100%;
 }
 
 /** Navigation Sidebar **/
@@ -11,6 +13,7 @@ section.hbox .tc-container {
     display: table-cell;
     vertical-align: top;
     height: 100%;
+    min-height: 100%;
     padding: 0;
     float: none;
 }
@@ -29,7 +32,8 @@ aside.navigation {
     background-color: #2D2D2D;
     color: #dbd8e9;
     overflow: hidden;
-    position: fixed;
+    height: 100%;
+    min-height: 100%;
     width: 50px;
 }
 
@@ -87,8 +91,33 @@ aside.navigation img.user-image {
 }
 
 aside.navigation nav {
-    height: 82%;
-    min-height: 82%;
+    height: 81%;
+    min-height: 81%;
+}
+
+aside.navigation nav ul {
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-bottom: 1px solid #999;
+}
+
+aside.navigation nav ul li {
+    margin: 10px 0px;
+}
+
+aside.navigation nav ul li a i {
+    font-size: 15px;
+}
+
+aside.navigation nav ul li span {
+    display: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 aside.navigation footer {
@@ -102,6 +131,11 @@ aside.navigation footer span {
     font-size: 18px;
     margin-top: 10px;
     display: block;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 /** Dashboard Active State **/
@@ -129,4 +163,42 @@ aside.navigation.active header a span {
 aside.navigation.active header img {
     display: block;
     width: 50px;
+}
+
+aside.navigation.active nav {
+    height: 84%;
+    min-height: 84%;
+}
+
+aside.navigation.active nav ul {
+    text-align: left;
+}
+
+aside.navigation.active nav ul li {
+    margin-left: 10px;
+}
+
+aside.navigation.active nav ul li span {
+    display: inline-block;
+    padding-left: 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation.active footer {
+    width: 100%;
+}
+
+aside.navigation.active footer span,
+aside.navigation.active footer a {
+    display: inline-block;
+    margin: 0 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }

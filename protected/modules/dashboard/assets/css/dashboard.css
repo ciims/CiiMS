@@ -1,3 +1,71 @@
+main {
+    width: 100%;
+    min-width: 100%;
+}
+
+main .dashboard {
+    margin: 0 20px;
+    margin-top: 20px;
+}
+
+main .dashboard .header {
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ebeff6;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    padding: 5px;
+}
+
+main .dashboard .header .content .welcome,
+main .dashboard .header .content .header-nav {
+    display: inline-block;
+}
+
+main .dashboard .header .content .header-nav {
+    display: inline-block;
+    margin-left: 5%;
+}
+
+main .dashboard .header .content {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-family: 'Open Sans';
+    font-size: 12px;
+    color: #2D2D29;
+}
+
+main .dashboard .header .content a {
+    color: #999;
+    font-size: 11px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .dashboard .header .content a:hover {
+    text-decoration: none;
+    color: #000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .dashboard .header .content a span {
+    margin-right: 5px;
+}
+
 main .dashboard .widget-selector {
     max-height: 500px;
     min-height: 500px;
@@ -10,6 +78,7 @@ main .dashboard .widget-selector {
 }
 
 main .dashboard .widget-selector.hidden {
+    display: none;
     height: 0px;
     min-height: 0px;
     max-height: 0px;
@@ -28,9 +97,9 @@ main .dashboard .widget-selector #main {
 
 main .dashboard .widget-container {
     position: relative;
-    width: 90%;
     max-width: 100%;
     margin: 0 5%;
+    margin-top: 10px;
 }
 
 main .dashboard .widget-container > div:not(.modal) {
@@ -158,6 +227,120 @@ main .widget-container div.card-normal .footer .footer-text {
 main .widget-container div.card-huge .footer .footer-text,
 main .widget-container div.card-rectangle .footer .footer-text {
     width: 340px;
+}
+
+main .settings-container {
+    margin-top: 5px;
+    overflow: hidden;
+    height: 100%;
+    min-height: 100%;
+}
+
+main .settings-container .sidebar {
+    float: left;
+    margin-right: 5px;
+    width: 450px;
+    height: 93%;
+    max-height: 93%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ebeff6;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    padding: 10px;
+    padding: 0px;
+}
+
+main .settings-container .body-content #main .content {
+    padding: 10px 20px;
+    padding-left: 60px;
+}
+
+main .settings-container .body-content #main .content .output {
+    display: inline-block;
+    margin-left: 10px;
+    border: 1px solid #ebeff6;
+    padding: .5em .6em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    font-size: .8em;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content #main .content .output:hover {
+    border-color: #129FEA;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content #main .content .group-header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+main .settings-container .body-content {
+    overflow:hidden;
+    height: 93%;
+    max-height: 93%;
+    background: #fff;
+    border: 1px solid rgba(0,0,0, 0.1);
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+main .settings-container .sidebar ul.menu {
+    margin: 0px;
+}
+
+main .settings-container .sidebar .menu li {
+    cursor: pointer;
+    color: #999;
+    display: block;
+    width: 100%;
+    padding: 20px;
+    margin: 0px;
+    border-bottom: 1px solid rgba(0,0,0, 0.1);
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li:hover,
+main .settings-container .sidebar .menu li:hover a,
+main .settings-container .sidebar .menu li.active,
+main .settings-container .sidebar .menu li.active a {
+    color: #2D2D29;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li a {
+    color: #999;
+    font-size: 11px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-left: 20px;
+    text-decoration: none;
 }
 main #comments {
   height: 100%;
@@ -790,6 +973,8 @@ section.hbox {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
+    height: 100%;
+    min-height: 100%;
 }
 
 /** Navigation Sidebar **/
@@ -797,6 +982,7 @@ section.hbox .tc-container {
     display: table-cell;
     vertical-align: top;
     height: 100%;
+    min-height: 100%;
     padding: 0;
     float: none;
 }
@@ -815,7 +1001,8 @@ aside.navigation {
     background-color: #2D2D2D;
     color: #dbd8e9;
     overflow: hidden;
-    position: fixed;
+    height: 100%;
+    min-height: 100%;
     width: 50px;
 }
 
@@ -873,8 +1060,33 @@ aside.navigation img.user-image {
 }
 
 aside.navigation nav {
-    height: 82%;
-    min-height: 82%;
+    height: 81%;
+    min-height: 81%;
+}
+
+aside.navigation nav ul {
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-bottom: 1px solid #999;
+}
+
+aside.navigation nav ul li {
+    margin: 10px 0px;
+}
+
+aside.navigation nav ul li a i {
+    font-size: 15px;
+}
+
+aside.navigation nav ul li span {
+    display: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 aside.navigation footer {
@@ -888,6 +1100,11 @@ aside.navigation footer span {
     font-size: 18px;
     margin-top: 10px;
     display: block;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 /** Dashboard Active State **/
@@ -915,4 +1132,42 @@ aside.navigation.active header a span {
 aside.navigation.active header img {
     display: block;
     width: 50px;
+}
+
+aside.navigation.active nav {
+    height: 84%;
+    min-height: 84%;
+}
+
+aside.navigation.active nav ul {
+    text-align: left;
+}
+
+aside.navigation.active nav ul li {
+    margin-left: 10px;
+}
+
+aside.navigation.active nav ul li span {
+    display: inline-block;
+    padding-left: 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation.active footer {
+    width: 100%;
+}
+
+aside.navigation.active footer span,
+aside.navigation.active footer a {
+    display: inline-block;
+    margin: 0 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
