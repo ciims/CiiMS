@@ -7,8 +7,7 @@
 )); ?>
 <div class="header">
 	<div class="pull-left">
-		<h3><?php echo $model->isNewRecord ? Yii::t('Dashboard.views', 'Create a New Category') : Yii::t('Dashboard.views', 'Makes Changes to {{group}}', array('{{group}}' => $model->na,e)); ?></h3>
-		<p><?php echo Yii::t('Dashboard.views', 'Create or modify information for this category'); ?></p>
+		<p><?php echo $model->isNewRecord ? Yii::t('Dashboard.views', 'Create a New Category') : Yii::t('Dashboard.views', 'Makes Changes to {{group}}', array('{{group}}' => $model->name)); ?></p>
 	</div>
 	<div class="pull-right">
 		<?php echo CHtml::submitButton('Save Changes', array('id' => 'header-button', 'class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>

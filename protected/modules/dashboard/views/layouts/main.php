@@ -43,11 +43,6 @@
 			</aside>
 				
 			<main class="tc-container">
-				<?php $this->widget('bootstrap.widgets.TbAlert', array(
-	                  'block'=>true,
-	                  'fade'=>true,
-	                  'closeText'=>'×',
-	              ));?>
 				<?php echo $content; ?>
 			</main>
 

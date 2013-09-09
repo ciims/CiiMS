@@ -4,7 +4,19 @@ var CiiDashboard = {
 
 	Categories : {
 
-		load : function() {},
+		load : function() {
+			$(".menu li").click(function() {
+				window.location = $(this).find("a").attr("href");
+			});
+
+			if ($(".alert").is(":visible")) {
+				$("main .settings-container #main .content").css("height", "91%").css("min-height", "91%");
+			}
+
+			$("a.close").click(function() {
+				$("main .settings-container #main .content").css("height", "98%").css("min-height", "98%")
+			})
+		},
 
 		loadIndex : function() {
 			var ajaxUpdateTimeout;

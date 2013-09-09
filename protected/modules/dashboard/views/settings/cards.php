@@ -5,8 +5,7 @@
 )); ?>
 	<div class="header">
 		<div class="pull-left">
-			<h3><?php echo $header['h3']; ?></h3>
-			<p><?php echo $header['p']; ?></p>
+			<p><?php echo $header['h3']; ?></p>
 		</div>
 		<div class="clearfix"></div>
 	</div>

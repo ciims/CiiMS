@@ -101,12 +101,11 @@ class CiiSettingsForm extends CWidget
 	 * @param  CActiveForm $form The Form we're working with
 	 */
 	private function renderHeader($form)
-	{
+	{		
 		// Render out the header
 		echo CHtml::openTag('div', array('class'=>'header'));
 			echo CHtml::openTag('div', array('class'=>'pull-left'));
-				echo CHtml::tag('h3', array(), $this->header['h3']);
-				echo CHtml::tag('p', array(), $this->header['p']);
+				echo CHtml::tag('p', array(), $this->header['h3']);
 			echo CHtml::closeTag('div');
 
 			echo CHtml::openTag('div', array('class'=>'pull-right'));
@@ -115,6 +114,12 @@ class CiiSettingsForm extends CWidget
 
 			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 		echo CHtml::closeTag('div');
+
+		$this->widget('bootstrap.widgets.TbAlert', array(
+	              'block'=>true,
+	              'fade'=>true,
+	              'closeText'=>'×',
+	         ));
 	}
 
 	/**
@@ -126,6 +131,7 @@ class CiiSettingsForm extends CWidget
 		// #main .content
 		echo CHtml::openTag('div', array('id' => 'main', 'class' => 'nano'));
 			echo CHtml::openTag('div', array('class' => 'content'));
+
 				echo CHtml::openTag('fieldset');
 
 					// If we want a custom form view, render that view instead of the default behavior

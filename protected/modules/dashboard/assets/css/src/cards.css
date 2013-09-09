@@ -229,14 +229,14 @@ main .widget-container div.card-rectangle .footer .footer-text {
     width: 340px;
 }
 
-main .settings-container {
+main .dh-settings-container {
     margin-top: 5px;
     overflow: hidden;
     height: 100%;
     min-height: 100%;
 }
 
-main .settings-container .sidebar {
+main .dh-settings-container .sidebar {
     float: left;
     margin-right: 5px;
     width: 450px;
@@ -252,12 +252,12 @@ main .settings-container .sidebar {
     padding: 0px;
 }
 
-main .settings-container .body-content #main .content {
+main .dh-settings-container .body-content #main .content {
     padding: 10px 20px;
     padding-left: 60px;
 }
 
-main .settings-container .body-content #main .content .output {
+main .dh-settings-container .body-content #main .content .output {
     display: inline-block;
     margin-left: 10px;
     border: 1px solid #ebeff6;
@@ -274,7 +274,7 @@ main .settings-container .body-content #main .content .output {
     transition: all .2s ease-in-out;
 }
 
-main .settings-container .body-content #main .content .output:hover {
+main .dh-settings-container .body-content #main .content .output:hover {
     border-color: #129FEA;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
     -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
@@ -286,12 +286,12 @@ main .settings-container .body-content #main .content .output:hover {
     transition: all .2s ease-in-out;
 }
 
-main .settings-container .body-content #main .content .group-header {
+main .dh-settings-container .body-content #main .content .group-header {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-main .settings-container .body-content {
+main .dh-settings-container .body-content {
     overflow:hidden;
     height: 93%;
     max-height: 93%;
@@ -302,11 +302,11 @@ main .settings-container .body-content {
     -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 }
 
-main .settings-container .sidebar ul.menu {
+main .dh-settings-container .sidebar ul.menu {
     margin: 0px;
 }
 
-main .settings-container .sidebar .menu li {
+main .dh-settings-container .sidebar .menu li {
     cursor: pointer;
     color: #999;
     display: block;
@@ -321,10 +321,10 @@ main .settings-container .sidebar .menu li {
     transition: all .2s ease-in-out;
 }
 
-main .settings-container .sidebar .menu li:hover,
-main .settings-container .sidebar .menu li:hover a,
-main .settings-container .sidebar .menu li.active,
-main .settings-container .sidebar .menu li.active a {
+main .dh-settings-container .sidebar .menu li:hover,
+main .dh-settings-container .sidebar .menu li:hover a,
+main .dh-settings-container .sidebar .menu li.active,
+main .dh-settings-container .sidebar .menu li.active a {
     color: #2D2D29;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
@@ -333,7 +333,7 @@ main .settings-container .sidebar .menu li.active a {
     transition: all .2s ease-in-out;
 }
 
-main .settings-container .sidebar .menu li a {
+main .dh-settings-container .sidebar .menu li a {
     color: #999;
     font-size: 11px;
     font-family: 'Open Sans';

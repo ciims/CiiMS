@@ -38,7 +38,6 @@ aside.navigation {
 }
 
 aside.navigation header {
-    margin-top: 15px;
     width: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -49,7 +48,9 @@ aside.navigation header {
 
 aside.navigation header a {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 aside.navigation header a span {
@@ -93,6 +94,8 @@ aside.navigation img.user-image {
 aside.navigation nav {
     height: 81%;
     min-height: 81%;
+    border-bottom: 1px solid #999;
+    padding-bottom: 5px;
 }
 
 aside.navigation nav ul {
@@ -129,7 +132,7 @@ aside.navigation footer {
 
 aside.navigation footer span {
     font-size: 18px;
-    margin-top: 10px;
+    margin-top: 13px;
     display: block;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
@@ -166,8 +169,10 @@ aside.navigation.active header img {
 }
 
 aside.navigation.active nav {
-    height: 84%;
-    min-height: 84%;
+    height: 83%;
+    min-height: 83%;
+    border-bottom: 1px solid #999;
+    margin-bottom: 13px;
 }
 
 aside.navigation.active nav ul {
