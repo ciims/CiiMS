@@ -59,46 +59,54 @@ class ContentListView extends CListView
 	 */
 	public function renderItems()
 	{
-		echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass, 'id' => 'posts'))."\n";
-			echo CHtml::openTag('div', array('class' => 'content'));
+		echo CHtml::openTag('div', array('class' => 'sidebar'));
+			echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass, 'id' => 'main'))."\n";
+				echo CHtml::openTag('div', array('class' => 'content'));
 
-				echo CHtml::openTag('div', array('class' => 'post post-header'));
-					echo CHtml::tag('h6', array('class' => 'pull-left'), 'Posts');
-					if (Yii::app()->user->role !== 7)
-						echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
-					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-				echo CHtml::closeTag('div');
-				
-			$data=$this->dataProvider->getData();
+					echo CHtml::openTag('div', array('class' => 'post post-header'));
+						echo CHtml::tag('h6', array('class' => 'pull-left'), 'Posts');
+						if (Yii::app()->user->role !== 7)
+							echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
+						echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+					echo CHtml::closeTag('div');
+					
+				$data=$this->dataProvider->getData();
 
-			if(($n=count($data))>0)
-			{
-				$owner=$this->getOwner();
-				$viewFile=$owner->getViewFile($this->itemView);
-				$j=0;
-				foreach($data as $i=>$item)
+				if(($n=count($data))>0)
 				{
-					$data=$this->viewData;
-					$data['index']=$i;
-					$data['data']=$item;
-					$data['widget']=$this;
-					$owner->renderFile($viewFile,$data);
-					if($j++ < $n-1)
-						echo $this->separator;
+					$owner=$this->getOwner();
+					$viewFile=$owner->getViewFile($this->itemView);
+					$j=0;
+					foreach($data as $i=>$item)
+					{
+						$data=$this->viewData;
+						$data['index']=$i;
+						$data['data']=$item;
+						$data['widget']=$this;
+						$owner->renderFile($viewFile,$data);
+						if($j++ < $n-1)
+							echo $this->separator;
+					}
 				}
-			}
-			else
-				$this->renderEmptyText();
+				else
+					$this->renderEmptyText();
 
-			echo CHtml::closeTag('div');
-		echo CHtml::closeTag($this->itemsTagName);
-		
-		echo CHtml::openTag('div', array('class' => 'preview nano', 'id' => 'preview'));
-			echo CHtml::openTag('div', array('class' => 'content'));
-				$this->render('preview', array('model' => $this->preview));
-			echo CHtml::closeTag('div');
+				echo CHtml::closeTag('div');
+			echo CHtml::closeTag($this->itemsTagName);
+			
+
+		$this->renderPager();
 		echo CHtml::closeTag('div');
-		echo CHtml::openTag('div', array('class' => 'clearfix'));
+
+		echo CHtml::openTag('div', array('class' => 'body-content preview-container'));
+			$this->renderSorter();
+
+			echo CHtml::openTag('div', array('class' => 'preview nano', 'id' => 'preview'));
+				echo CHtml::openTag('div', array('class' => 'content'));
+					$this->render('preview', array('model' => $this->preview));
+				echo CHtml::closeTag('div');
+			echo CHtml::closeTag('div');
+			
 		echo CHtml::closeTag('div');
 
 	}
@@ -127,8 +135,6 @@ class ContentListView extends CListView
 		echo "</ul>";
 
 		echo $this->sorterFooter;
-
-		echo CHtml::closeTag('div');
 
 		echo CHtml::closeTag('div');
 	}

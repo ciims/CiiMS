@@ -89,202 +89,15 @@ var CiiDashboard = {
 						}
 
 						$(".preview").remove();
-						$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
-						$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
+						$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
+						$("#preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
+
 						$("#md-output").html(marked($("#markdown").val()));
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 
 						CiiDashboard.Content.futurePerspective.delete();
-						CiiDashboard.Content.futurePerspective.bindCommentBehavior();
 					});
 				});
-			},
-
-			/**
-			 * Binds the ability to view and manage comments for a particular post
-			 */
-			bindCommentBehavior : function() {
-				$(".preview-header .icon-comment").click(function() {
-					$(".preview-data").slideToggle(function() {
-						$(".preview-image").slideToggle();
-						var display = true;
-						$("#comments").slideToggle();
-						
-						if ($("#comments").is(":visible")) {
-							$("#comments").remove();
-							setTimeout(function() {
-									$("#preview.nano").nanoScroller({ destroy: true });
-									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
-									$("#preview .content").animate({
-										scrollTop : 0
-									}, 0);
-								}, 500);
-							return;
-						}
-
-						$.post(CiiDashboard.endPoint + "/comment/getComments/id/" + $("#item-id").text(), function(data) {
-							$(".preview-data").after("<div id='comments'></div>");
-							var mainComments = $("#main-comment").clone();
-
-							$("#main-comment").remove();
-
-
-							console.log(mainComments);
-
-
-							CiiDashboard.Content.futurePerspective.loadMainCommentBox();
-
-							$("#comments").html(data).fadeIn(function() {// Show the main comment box
-								$("#comments").prepend($(mainComments));
-								$("#main-comment").show();
-								CiiDashboard.Content.futurePerspective.loadMainCommentBox();
-
-								setTimeout(function() {
-									$("#preview.nano").nanoScroller({ destroy: true });
-									$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
-									$("#preview .content").animate({
-										scrollTop : 0
-									}, 0);
-
-
-								}, 500);
-							});
-
-							// Rounded Image 
-							$(".rounded-img").load(function() {
-							    $(this).wrap(function(){
-							      return '<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
-							    });
-							    $(this).css("opacity","0");
-							});
-						});
-					});
-				})
-			},
-
-			/**
-			 * Loads a main comment box that isn't bound to any particular comment
-			 * @return {[type]} [description]
-			 */
-			loadMainCommentBox : function() {
-				$("#b").click( function () {
-			        $(this).html("");
-			        $("#a").slideDown("fast");
-			        $("#submit-comment").show();
-			        setTimeout(function() {
-			            $("#textbox").focus();
-			        }, 100);
-			    });
-
-			    $("#textbox").keydown( function() {
-			        if($(this).text() != "")
-			            $("#submit-comment").css("background","#3b9000");
-			        else
-			            $("#submit-comment").css("background","#9eca80");
-			        });
-			    $("#close").click( function () {
-			        $("#b").html("Comment on this post");
-			        $("#textbox").html("");
-			        $("#a").slideUp("fast");
-			        $("#submit-comment").hide();
-			    });
-			    
-			    $("#submit-comment").click(function(e) {
-			        e.preventDefault();
-			        if ($("#textbox").text() == "")
-			            return;
-			        $.post(CiiDashboard.endPoint + "/comment/comment", 
-			        	{ 
-			        		"Comments" : 
-			        		{ 
-			        			"comment" : $("#textbox").html(), 
-			        			"content_id" : $("#item-id").text()
-			        		}
-			        	}, 
-			        	function(data) { 
-			        		$("#textbox").text("");
-			        		$("#close").click();
-			        		$("#main-comment").after(data);
-			        		var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
-			        		$(".post.active").find(".comments strong").text(count);
-			        	}
-			        );
-			    });
-			},
-
-			/**
-			 * Loads appropriate comment data
-			 **/
-			loadComment : function(id) {
-				// Reply
-				$(".reply-" + id).click(function() {
-					$(".comment-form-" + id).slideToggle(200);
-				});
-
-				// Delete
-				$(".delete-" + id).click(function() {
-					$.post(CiiDashboard.endPoint + "/comment/delete/id/" + id, function() {
-						$(".comment-" + id).fadeOut(function() {
-							$(this).remove();
-							var count = (parseInt($(".post.active").find(".comments strong").text()) + -1);
-			        		$(".post.active").find(".comments strong").text(count);
-						});
-					})
-				});
-
-				// Comment form
-				$("#b-" + id).click( function () {
-			        $(this).html("");
-			        $("#a-" + id).slideDown("fast");
-			        $("#submit-comment-" + id).show();
-			        setTimeout(function() {
-			            $("#textbox-" + id).focus();
-			        }, 100);
-			    });
-
-			    $("#textbox-" + id).keydown( function() {
-			        if($(this).text() != "")
-			            $("#submit-comment-" + id).css("background","#3b9000");
-			        else
-			            $("#submit-comment-" + id).css("background","#9eca80");
-			        });
-			    $("#close-" + id).click( function () {
-			        $("#b-" + id).html("Comment on this post");
-			        $("#textbox-" + id).html("");
-			        $("#a-" + id).slideUp("fast");
-			        $("#submit-comment-" + id).hide();
-			    });
-
-			    // Submit
-			    $("#submit-comment-" + id).click(function(e) {
-			    	var elementId = $(this).attr('id').replace('submit-comment-', '');
-		        	e.preventDefault();
-			        if ($("#textbox-" + id).text() == "")
-			            return;
-
-			        $.post(CiiDashboard.endPoint + "/comment/comment", 
-			        	{ 
-			        		"Comments" : 
-			        		{ 
-			        			"comment" : $("#textbox-" + id).html(), 
-			        			"content_id" : $("#item-id").text(),
-			        			"parent_id" : elementId
-			        		}
-			        	}, 
-			        	function(data, textStatus, jqXHR) { 
-			        		$("#textbox-" + id).text("");  
-			        		// PREPEND DATA
-			        		var newElementId = jqXHR.getResponseHeader("X-Attribute-Id");
-			        		$(".comment-" + elementId).append(data);
-			        		$(".comment-" + newElementId).fadeIn();
-
-			        		$("#close-" + id).click();
-			        		$(".reply-" + id).click();
-			        		var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
-			        		$(".post.active").find(".comments strong").text(count);
-			        	}
-			        );
-			    });
 			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
@@ -304,7 +117,7 @@ var CiiDashboard = {
 
 		    	// Reset Preview Pane
 		    	$(".preview").remove();
-				$(".posts").after("<div class=\"preview nano\" id=\"preview\"></div>");
+				$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
 				$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
 				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
 				$("#preview .content").animate({

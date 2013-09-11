@@ -92,10 +92,8 @@ aside.navigation img.user-image {
 }
 
 aside.navigation nav {
-    height: 81%;
-    min-height: 81%;
-    border-bottom: 1px solid #999;
     padding-bottom: 5px;
+    border-bottom: 1px solid #999;
 }
 
 aside.navigation nav ul {
@@ -103,7 +101,6 @@ aside.navigation nav ul {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    border-bottom: 1px solid #999;
 }
 
 aside.navigation nav ul li {
@@ -125,9 +122,16 @@ aside.navigation nav ul li span {
 
 aside.navigation footer {
     width: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+aside.navigation footer section {
+    width:30px;
 }
 
 aside.navigation footer span {
@@ -169,8 +173,6 @@ aside.navigation.active header img {
 }
 
 aside.navigation.active nav {
-    height: 83%;
-    min-height: 83%;
     border-bottom: 1px solid #999;
     margin-bottom: 13px;
 }
@@ -194,7 +196,12 @@ aside.navigation.active nav ul li span {
 }
 
 aside.navigation.active footer {
-    width: 100%;
+    left: 0px;
+}
+
+aside.navigation.active footer,
+aside.navigation.active footer section {
+    width: 120px;
 }
 
 aside.navigation.active footer span,

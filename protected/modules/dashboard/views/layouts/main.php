@@ -37,8 +37,10 @@
 					)); ?>
 				</nav>
 				<footer>
-					<span class="icon-align-justify"></span>
-					<?php echo CHtml::link(CHtml::tag('span', array('class' => 'icon-power-off'), NULL), $this->createUrl('/logout')); ?>
+					<section>
+						<span class="icon-align-justify"></span>
+						<?php echo CHtml::link(CHtml::tag('span', array('class' => 'icon-power-off'), NULL), $this->createUrl('/logout')); ?>
+					</section>
 				</footer>
 			</aside>
 				

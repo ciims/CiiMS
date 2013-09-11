@@ -1,36 +1,39 @@
-<div class="posts-container">
-	<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
-	<?php Yii::import('application.modules.dashboard.components.ContentListView.ContentListView'); ?>
-	<?php $this->widget('ContentListView', array(
-		'id' => 'ajaxListView',
-	    'dataProvider' => $model->search(),
-	    'preview' => isset($preview) ? $preview : NULL,
-	    'summaryText' => false,
-	    'itemView' => 'post',
-	    'sorterHeader' => '<div class="content">' . CHtml::tag('strong', array(), Yii::t('Dashboard.views', 'Manage Content')),
-	    'itemsCssClass' => 'posts nano',
-	    'pagerCssClass' => 'pagination',
-	    'pager' => array('class'=>'bootstrap.widgets.TbPager'),
-	    'sorterCssClass' => 'sorter',
-	    'beforeAjaxUpdate' => 'js:function() {
-	    	CiiDashboard.Content.futurePerspective.beforeAjaxUpdate();
-	    }',
-	    'afterAjaxUpdate' => 'js:function() { 
-	    	CiiDashboard.Content.futurePerspective.afterAjaxUpdate();
-		}',
-	    'sortableAttributes' => array(
-	        'title',
-	        'author_id',
-	        'like_count',
-	        //'comment_count', // Until I can re-order CActiveDataProvidor on the fly, we can't order byu this correctly
-	        'category_id',
-	        'status',
-	        'created',
-	        'updated',
-	    )    
-	));
-	?>
-	<div class="clearfix"></div>
+<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
+<?php Yii::import('application.modules.dashboard.components.ContentListView.ContentListView'); ?>
+<?php $this->widget('ContentListView', array(
+	'htmlOptions' => array(
+		'class' => 'settings-container', 
+	),
+    'dataProvider' => $model->search(),
+    'template' => '{items}',
+    'preview' => isset($preview) ? $preview : NULL,
+    'summaryText' => false,
+    'itemView' => 'post',
+    'sorterHeader' => '',
+    'itemsCssClass' => 'posts nano',
+    'pagerCssClass' => 'pagination',
+    'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+    'sorterCssClass' => 'sorter',
+    'beforeAjaxUpdate' => 'js:function() {
+    	CiiDashboard.Content.futurePerspective.beforeAjaxUpdate();
+    }',
+    'afterAjaxUpdate' => 'js:function() { 
+    	CiiDashboard.Content.futurePerspective.afterAjaxUpdate();
+	}',
+    'sortableAttributes' => array(
+        'title',
+        'author_id',
+        'like_count',
+        //'comment_count', // Until I can re-order CActiveDataProvidor on the fly, we can't order byu this correctly
+        'category_id',
+        'status',
+        'created',
+        'updated',
+    )    
+));
+?>
+<div class="body-content preview">
+
 </div>
 <?php echo CHtml::tag('span', array('style' => 'display: none', 'id' => 'currentPerspective', 'value' => Yii::app()->session['admin_perspective']), NULL); ?>
 
