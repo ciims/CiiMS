@@ -281,6 +281,7 @@ main .preview .preview-metadata {
 main .settings-container .posts {
 	border-bottom: 1px solid #eee;;
 }
+
 main .settings-container .posts .content {
 	height: 100% !important;
 	min-height: 100% !important;

@@ -106,6 +106,8 @@ class ContentListView extends CListView
 					$this->render('preview', array('model' => $this->preview));
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
+
+			echo CHtml::tag('div', array('class' => 'content-sidebar'), NULL);
 			
 		echo CHtml::closeTag('div');
 

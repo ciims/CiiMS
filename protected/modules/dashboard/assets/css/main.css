@@ -948,14 +948,7 @@ main .posts-container .list-view .pager {
 main .posts-container .list-view .preview,
 main .settings-container .body-content,
 main .content-container .body-content {
-	overflow:hidden;
-	height: 93%;
-	max-height: 93%;
-	background: #fff;
-    border: 1px solid rgba(0,0,0, 0.1);
-    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
-	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
-	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	
 }
 
 main .content-container .top-header {

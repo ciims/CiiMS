@@ -246,9 +246,9 @@ var CiiDashboard = {
 					    	$(".body-content").after($(".settings"));
 					    	$(".nano").nanoScroller({ destroy: true });
 					    	$(".nano").removeClass("has-scrollbar");
+					    	$(".settings").hide();
 					    },
 					    onReverseFinish : function() {
-					    	$(".settings").hide();
 					    	$(".show-preview").hide();
 					    	$(".show-settings").show();
 					    	$(".nano").nanoScroller({ flash : true});
