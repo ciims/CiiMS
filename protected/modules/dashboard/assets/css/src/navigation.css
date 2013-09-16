@@ -1,0 +1,216 @@
+section.hbox {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+/** Navigation Sidebar **/
+section.hbox .tc-container {
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
+    float: none;
+}
+
+aside.navigation {
+    font-family: "Open Sans", Helvetica, Arial;
+    z-index: 1000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: #2D2D2D;
+    color: #dbd8e9;
+    overflow: hidden;
+    height: 100%;
+    min-height: 100%;
+    width: 50px;
+}
+
+aside.navigation header {
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-bottom: 1px solid #999;
+    padding-bottom: 15px;
+}
+
+aside.navigation header a {
+    display: block;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+aside.navigation header a span {
+    display: none;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+aside.navigation a {
+    color: #eee;
+    text-decoration: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation a:hover {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    color: #fff;
+}
+
+aside.navigation img {
+    width: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside.navigation img.user-image {
+    padding: 1px;
+    border: 1px solid #999;
+    background-color: #eee;
+}
+
+aside.navigation nav {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #999;
+}
+
+aside.navigation nav ul {
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+aside.navigation nav ul li {
+    margin: 10px 0px;
+}
+
+aside.navigation nav ul li a i {
+    font-size: 15px;
+}
+
+aside.navigation nav ul li span {
+    display: none;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation footer {
+    width: 30px;
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+aside.navigation footer section {
+    width:30px;
+}
+
+aside.navigation footer span {
+    font-size: 18px;
+    margin-top: 13px;
+    display: block;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+/** Dashboard Active State **/
+aside.navigation.active {
+    width: 120px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation.active header {
+    width: 120px;
+}
+
+aside.navigation.active header a img {
+    display: none;
+}
+
+aside.navigation.active header a span {
+    display: block;
+}
+
+aside.navigation.active header img {
+    display: block;
+    width: 50px;
+}
+
+aside.navigation.active nav {
+    border-bottom: 1px solid #999;
+    margin-bottom: 13px;
+}
+
+aside.navigation.active nav ul {
+    text-align: left;
+}
+
+aside.navigation.active nav ul li {
+    margin-left: 10px;
+}
+
+aside.navigation.active nav ul li span {
+    display: inline-block;
+    padding-left: 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+aside.navigation.active footer {
+    left: 0px;
+}
+
+aside.navigation.active footer,
+aside.navigation.active footer section {
+    width: 120px;
+}
+
+aside.navigation.active footer span,
+aside.navigation.active footer a {
+    display: inline-block;
+    margin: 0 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}

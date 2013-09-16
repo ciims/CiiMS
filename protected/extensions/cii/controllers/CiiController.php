@@ -87,6 +87,7 @@ class CiiController extends CController
         Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;
         $mail->IsSMTP();
+        $mail->SMTPAuth = false;
 
         $smtpHost    = Cii::getConfig('SMTPHost',    NULL);
         $smtpPort    = Cii::getConfig('SMTPPort',    NULL);
@@ -109,7 +110,7 @@ class CiiController extends CController
             $mail->SMTPAuth = true;
         }
 
-        if ($smtpPass !== NULL && $smtpPass !== "")
+        if ($smtpPass !== NULL && ($smtpPass !== "" || Cii::decrypt($smtpPass) != ""))
         {
             $mail->Password   = Cii::decrypt($smtpPass);
             $mail->SMTPAuth = true;

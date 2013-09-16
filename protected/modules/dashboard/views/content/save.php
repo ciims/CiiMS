@@ -11,11 +11,11 @@
 	<div class="content-container">
 		<div class="header">
 			<div class="content">
-				<div class="pull-left" style="width: 48%;">
+				<div class="pull-left" >
 					<?php echo $form->textField($model, 'title', array('placeholder' => Yii::t('Dashboard.views', 'Enter your post title here'), 'class' => 'title')); ?>
 				</div>
 				<div class="pull-right">
-					<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('class' => 'pure-button pure-button-error pure-button-link')); ?>
+					<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('class' => 'pure-button-small pure-button pure-button-error pure-button-link')); ?>
 				</div>
 				<div class="clearfix"></div>
 			</div>

@@ -1,11 +1,10 @@
 <?php $form = $this->beginWidget('cii.widgets.CiiActiveForm'); ?>
 	<div class="header">
 		<div class="pull-left">
-			<h3><?php echo $header['h3']; ?></h3>
-			<p><?php echo $header['p']; ?></p>
+			<p><?php echo $header['h3']; ?></p>
 		</div>
 		<div class="pull-right">
-			<span id="header-button" class="pure-button pure-button-error pure-button-link pure-button-small">
+			<span id="header-button" class="pure-button pure-button-error pure-button-link pure-button-small header-button-flush">
 				<span id="spinner">
 					<span class="icon-spinner icon-spin icon-spinner-form"></span>
 					<span class="icon-spacer"></span>

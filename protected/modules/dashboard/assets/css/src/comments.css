@@ -1,0 +1,106 @@
+main #comments {
+  height: 100%;
+  padding: 10px;
+}
+
+/**
+ * Comment Boxes
+ */
+main #sharebox, main [id*='sharebox-'] {
+    border:1px solid #ddd;
+}
+
+main [id*='sharebox-'] {
+  width: 81%;
+  float: left;
+}
+
+main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
+    display:none;
+    padding: 10px;
+    color:#000;
+    position:relative;
+}
+
+main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
+    padding:10px;
+    min-height:15px;
+    cursor:text;
+}
+ 
+main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
+    float:left;
+}
+
+main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
+    width:99%;
+    min-height:20px;
+    outline:none;
+    min-height:50px;
+}
+
+main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
+    background: no-repeat url(../images/bg.png) -33px -31px;
+    height: 9px;
+    width: 9px;
+    cursor: pointer;
+    right: 11px;
+    margin: 1px;
+    position: absolute;
+    top: 11px;
+}
+
+main .comment .user-avatar {
+  min-height: 100px;
+  display:inline-block;
+}
+
+main .comment .main-content {
+  display:inline-block;
+  width: 90%;
+}
+
+main .comment .comment-form {
+  display:none;
+  min-height:40px;
+}
+
+main .comment .comment-byline {
+  margin-left: 10px;
+  font-weight: 400;
+  font-size: 85%;
+  color: #999;
+}
+
+main .comment .comment-byline-footer {
+  cursor: pointer;
+}
+
+main .comment .comment-byline-footer span {
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+main .comment .comment-byline-footer span:hover {
+  color: #666;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+main .sharebox-submit  {
+    background:#9eca80;
+    border-radius:2px;
+    float:right;
+    margin-top: 5px;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    font-size:80%;
+    font-weight:bold;
+}

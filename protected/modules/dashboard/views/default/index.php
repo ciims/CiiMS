@@ -16,7 +16,7 @@
 	</div>
 	<div class="clearfix push-header"></div>
 
-	<div class="widget-selector settings-container hidden">
+	<div class="widget-selector dh-settings-container hidden">
 		<div class="sidebar">
 			<div id="main" class="nano">
 				<div class="content">
