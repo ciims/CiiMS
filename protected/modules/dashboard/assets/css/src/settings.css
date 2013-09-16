@@ -47,11 +47,20 @@ main .settings-container .body-content form.header-form {
 	margin-top: -10px;
 }
 
+main .settings-container .body-content form.header-form-content {
+	margin-top: -14px;
+	margin-left: 15px;
+}
+
 main .settings-container .body-content form.header-form span {
 	color: #999;
 	font-size: 11px;
 	padding: 0 10px;
 	margin-top: 20px;
+}
+
+main .settings-container .body-content form.header-form-content span {
+	margin-top: 25px;
 }
 
 main .settings-container .body-content form .header,

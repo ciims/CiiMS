@@ -118,11 +118,29 @@ class ContentListView extends CListView
 	 */
 	public function renderSorter()
 	{
-		if($this->dataProvider->getItemCount()<=0 || !$this->enableSorting || empty($this->sortableAttributes))
-			return;
 		echo CHtml::openTag('div',array('class'=>$this->sorterCssClass))."\n";
+
+		echo CHtml::openTag('form', array('class' => 'pure-form pull-left header-form header-form-content'));
+			echo CHtml::tag('span', array('class' => 'icon-search pull-right icon-legend'), NULL);
+			echo CHtml::textField(
+	    		'Content[title]', 
+	    		Cii::get(Cii::get($_GET, 'Content', array()), 'title'), 
+	    		array(
+	    			'id' => 'Content_title', 
+	    			'name' => 'Content[title]',
+	    			'class' => 'pull-right pure-input pure-search',
+	    			'placeholder' => Yii::t('Dashboard.views', 'Search by title')
+				)
+	    	); 
+	    echo CHtml::closeTag('form');
+
+
+		if($this->dataProvider->getItemCount()<=0 || !$this->enableSorting || empty($this->sortableAttributes)) {
+			echo CHtml::closeTag('div');
+			return;
+		}
+
 		echo $this->sorterHeader===null ? Yii::t('zii','Sort by: ') : $this->sorterHeader;
-		echo CHtml::tag('span', array('class' => 'icon-exchange pull-right', 'id' => 'perspective'), NULL);
 		echo "<ul>\n";
 			$sort=$this->dataProvider->getSort();
 			foreach($this->sortableAttributes as $name=>$label)

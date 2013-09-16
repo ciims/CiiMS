@@ -50,20 +50,7 @@ class ContentController extends CiiDashboardController
 
         $model->pageSize = 20;
 
-        if (!isset(Yii::app()->session['admin_perspective']))
-            Yii::app()->session['admin_perspective'] = 1;
-        
-        if (Cii::get($_GET, 'perspective') !== NULL)
-        {
-            if (in_array((int)Cii::get($_GET, 'perspective'), array(1, 2)))
-                Yii::app()->session['admin_perspective'] = Cii::get($_GET, 'perspective');
-        }
-
-        if (Yii::app()->session['admin_perspective'] == 2)
-            $model->pageSize = 15;
-
-        $viewFile = 'index_' . Yii::app()->session['admin_perspective'];
-        $this->render($viewFile, array(
+        $this->render('index', array(
             'model' => $model,
             'preview' => $preview
         ));

@@ -10,36 +10,42 @@ var CiiDashboard = {
 
 	Content : {
 
-		// Function for handling perspective changes
-		bindPerspectiveChange : function() {
-			$("#perspective").click(function(e) {
-	            $.post(CiiDashboard.endPoint + "/content/index/perspective/" + CiiDashboard.Content.nextPerspective(), function() { 
-	                window.location.reload();
-	            });
-	        });
-		},
-
-		// The current perspective
-		currentPerspective : $("#currentPerspective").attr("value"),
-
-		// What the next perspective should be
-		nextPerspective : function() {
-			return CiiDashboard.Content.currentPerspective == 1 ? 2 : 1
-		},
-
 		load : function() {},
 
 		// Loaded on /content/index
 		loadIndex: function() {
+			CiiDashboard.Content.loadFuturePerspetive();
+			CiiDashboard.Content.bindSearch();
+		},
 
-			// Bind the perspective
-			CiiDashboard.Content.bindPerspectiveChange();
+		bindSearch : function() {
 
-			// And apply the appropriate data for that perspective
-			if (CiiDashboard.Content.currentPerspective == 1)
-				CiiDashboard.Content.loadFuturePerspetive();
-			else
-				CiiDashboard.Content.loadOldPerspective();
+			var ajaxUpdateTimeout;
+		    var ajaxRequest;
+
+			$("form").submit(function(e) { 
+				e.preventDefault();
+		        ajaxRequest = $(this).serialize();
+		        ajaxUpdateTimeout = setTimeout(function () {
+		            $.fn.yiiListView.update(
+		                'ajaxListView',
+		                {data: ajaxRequest}
+		            );
+		        },
+		        5);
+
+			});
+		    $('input#Content_title').keyup(function(){
+		        ajaxRequest = $(this).serialize();
+		        clearTimeout(ajaxUpdateTimeout);
+		        ajaxUpdateTimeout = setTimeout(function () {
+		            $.fn.yiiListView.update(
+		                'ajaxListView',
+		                {data: ajaxRequest}
+		            );
+		        },
+		        300);
+		    });
 		},
 
 		// Loads content necessary for the Future Dashboard Perspective
@@ -103,8 +109,8 @@ var CiiDashboard = {
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
 			afterAjaxUpdate : function() {
 
-				// Change perspective
-				CiiDashboard.Content.bindPerspectiveChange();
+				CiiDashboard.Content.bindSearch();
+				$("input").focus();
 
 				// NanoScroller for main div
 		    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 

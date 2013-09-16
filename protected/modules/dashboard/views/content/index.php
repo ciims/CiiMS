@@ -4,6 +4,7 @@
 	'htmlOptions' => array(
 		'class' => 'settings-container', 
 	),
+    'id' => 'ajaxListView',
     'dataProvider' => $model->search(),
     'template' => '{items}',
     'preview' => isset($preview) ? $preview : NULL,
@@ -35,7 +36,6 @@
 <div class="body-content preview">
 
 </div>
-<?php echo CHtml::tag('span', array('style' => 'display: none', 'id' => 'currentPerspective', 'value' => Yii::app()->session['admin_perspective']), NULL); ?>
 
 <?php Yii::app()->getClientScript()->registerCssFile($this->asset.'/highlight.js/default.css')
 					->registerCssFile($this->asset.'/highlight.js/github.css')
