@@ -461,9 +461,10 @@ main .content-container {
 main .content-container .editor {
 	float: left;
 	margin-right: 5px;
-	width: 450px;
-	height: 93%;
-	max-height: 93%;
+	width: 48%;
+	padding: 0px;
+	height: 90%;
+	max-height: 90%;
 	overflow: hidden;
 	background: #fff;
     border: 1px solid #ebeff6;
@@ -471,13 +472,6 @@ main .content-container .editor {
 	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
 	padding: 10px;
-	padding: 0px;
-}
-
-main .content-container .editor {
-	height: 93%;
-	max-height: 93%;
-	width: 48%;
 	padding: 0px;
 }
 
@@ -489,8 +483,8 @@ main .content-container .editor #main .content {
 
 main .content-container .body-content {
 	overflow: hidden;
-	height: 93%;
-	max-height: 93%;
+	height: 90%;
+	max-height: 90%;
 	background: #fff;
 	border: 1px solid rgba(0,0,0, 0.1);
 	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -526,10 +520,10 @@ main .content-container .editor textarea {
 
 main .content-container {
     margin: 0 20px;
-    margin-top: 20px;
 }
 
 main .content-container .header {
+    margin-top: 20px;
 	margin-bottom: 10px;
     height: 30px;
     background: #fff;
