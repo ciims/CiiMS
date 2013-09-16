@@ -1,0 +1,250 @@
+main .content-container {
+	height: 100%;
+	min-height: 100%;
+	padding: 0px;
+  	width: 100%;
+  	min-width: 100%;
+  	display: table;
+}
+
+
+main .content-container .editor {
+	float: left;
+	margin-right: 5px;
+	width: 48%;
+	padding: 0px;
+	height: 90%;
+	max-height: 90%;
+	overflow: hidden;
+	background: #fff;
+    border: 1px solid #ebeff6;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	padding: 10px;
+	padding: 0px;
+}
+
+main .content-container .editor #main,
+main .content-container .editor #main .content {
+	height: 98%;
+	max-height: 98%;
+}
+
+main .content-container .body-content {
+	overflow: hidden;
+	height: 90%;
+	max-height: 90%;
+	background: #fff;
+	border: 1px solid rgba(0,0,0, 0.1);
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+main .body-content .preview-metadata {
+	font-size: 12px;
+	margin: 0 20px;
+	margin-bottom: 10x;
+}
+
+main .body-content .preview-image {
+	border-bottom: 1px solid #eee;
+}
+
+
+main .content-container .editor textarea {
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-mox-box-shadow: none;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+}
+
+main .content-container {
+    margin: 0 20px;
+}
+
+main .content-container .header {
+    margin-top: 20px;
+	margin-bottom: 10px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #ebeff6;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    padding: 5px;
+}
+
+main .content-container .header .content .welcome,
+main .content-container .header .content .header-nav {
+    display: inline-block;
+}
+
+main .content-container .header .content .header-nav {
+    display: inline-block;
+    margin-left: 5%;
+}
+
+main .content-container .header .content {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 10px;
+    font-family: 'Open Sans';
+    font-size: 12px;
+    color: #2D2D29;
+}
+main .content-container .header .content .pull-right {
+	margin-right: 13px;
+	margin-top: 3px;
+}
+
+main .content-container .header .content a {
+    color: #999;
+    font-size: 11px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 10px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .content-container .header .content a:hover {
+    text-decoration: none;
+    color: #000;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+main .content-container .header .content a span {
+    margin-right: 5px;
+}
+
+main form.content-container-form {
+	width: 98%;
+	margin: 0;
+	height:100%;
+}
+
+main .content-container #main {
+	height: 96%;
+	max-height: 96%;
+}
+
+
+main .content-container .top-header {
+	border-bottom: 1px solid #eee;
+	padding: 7px 10px;
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+main .content-container .preview,
+main .content-container .settings-content {
+	padding: 20px;
+}
+
+main .content-container input.title {
+	position: relative;
+	left: -13px;
+	top: -6px;
+	border: none;
+	box-shadow: none;
+	font-family: 'Open Sans';
+	color: #2D2D29;
+	font-weight: bold;
+	font-size: 14px;
+	width: 100%;
+}
+
+main .content-container input.title::-webkit-input-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title::-moz-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title:-moz-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container input.title:-ms-input-placeholder {
+	font-style: italic;
+	font-weight: normal;
+}
+
+main .content-container .flipbox {
+	background-color: #fff !important;
+}
+
+main .content-container .settings {
+	display: none;
+	padding: 20px;
+}
+
+main .body-content .icon-trash,
+main .editor .icon-camera,
+main .content-container .icon-gear {
+	position: relative;
+	top: 5px;
+	color: #999;
+	text-decoration: none;
+	font-size: 13px;
+	padding-left: 10px;
+}
+
+
+main .preview .preview-header .icon-comment {
+	top: 4px;
+	padding-right: 2px;
+}
+
+main .editor #promotedDz {
+	margin: 0 20px;
+}
+main .preview .preview-image {
+	width: 100%;
+}
+
+main .preview .preview-data {
+	margin: 20px;
+}
+
+main .preview .preview-metadata {
+	font-size: 12px;
+	margin-top: -10px;
+	margin-bottom: 15px;
+}
+
+main .body-content .preview-metadata {
+	font-size: 12px;
+	margin: 0 20px;
+	margin-bottom: 10x;
+}
+
+main .body-content .preview-image {
+	border-bottom: 1px solid #eee;
+}

@@ -7,8 +7,10 @@
 /protected/modules/*
 /themes/*
 !/themes/default
+/protected/modulles/*
 !/protected/modules/admin
 !/protected/modules/hybridauth
+!/protected/modules/dashboard
 .htaccess
 /uploads/*
 /install.php

@@ -177,7 +177,16 @@ class ContentController extends CiiController
 		header('Content-type: application/json');
 		
 		// Load the content
-		$content = Content::model()->findByPk($id);
+		$content = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => 'likes'));
+
+		if ($content === NULL)
+		{
+			$content = new ContentMetadata;
+			$content->content_id = $id;
+			$content->key = 'likes';
+			$content->value = 0;
+		}
+
 		if ($id === NULL || $content === NULL)
 		{
 			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to access post')));
@@ -200,15 +209,15 @@ class ContentController extends CiiController
 		if (in_array($id, array_values($likes)))
 		{
 			$type = "dec";
-			$content->like_count -= 1;
-			if ($content->like_count <= 0)
-				$content->like_count = 0;
+			$content->value -= 1;
+			if ($content->value <= 0)
+				$content->value = 0;
 			$element = array_search($id, $likes);
 			unset($likes[$element]);
 		}
 		else
 		{
-			$content->like_count += 1;
+			$content->value += 1;
 			array_push($likes, $id);
 		}
 		

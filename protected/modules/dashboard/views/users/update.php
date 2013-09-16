@@ -7,8 +7,7 @@
 )); ?>
 <div class="header">
 	<div class="pull-left">
-		<h3><?php echo Yii::t('Dashboard.views', 'Change User Information'); ?></h3>
-		<p><?php echo Yii::t('Dashboard.views', 'Change information for {{user}}', array('{{user}}' => $model->name)); ?></p>
+		<p><?php echo Yii::t('Dashboard.views', 'Change User Information'); ?></p>
 	</div>
 	<div class="pull-right">
 		<?php echo CHtml::submitButton(Yii::t('Dashboard.views', 'Save Changes'), array('id' => 'header-button', 'class' => 'pure-button pure-button-primary pure-button-small pull-right')); ?>
@@ -51,7 +50,8 @@
 					<span class="meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
 				</legend>
 				<div class="meta-container">
-					<p class="small-text"><?php echo Yii::t('Dashboard.views', 'This is metadata that has been retrieves from the user. Do not alter this data unless you know what you are doing. It can cause serious damage to the user'); ?></p>
+					<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Do not alter this data unless you know what you are doing.'); ?></p>
+					<div class="clearfix"></div>
 					<?php foreach ($model->metadata as $meta): ?>
 						<?php $options = array('class' => 'pure-input-2-3', 'type' => 'text', 'value' => $meta->value, 'name' => 'UserMetadata[' . $meta->key . ']'); ?>
 
