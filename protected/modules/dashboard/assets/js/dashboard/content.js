@@ -158,26 +158,6 @@ var CiiDashboard = {
 
 		},
 
-		// Loads the necessary scripts for the old perspective
-		loadOldPerspective : function() {},
-
-		/**
-		 * All functionality related to the older perspective is held here
-		 * all objects and methods
-		 */
-		oldPerspective : {
-
-			// Bulk action control binding
-			bulkActionClick : function() {
-				 $.post(CiiDashboard.endPoint + "/content/deleteMany", values, function(data) {
-                    values.each(function() {
-                        $(this).parent().parent().remove();
-                    });
-                });
-			}
-
-		},
-
 		// The scripts that are loaded on /content/save
 		loadSave : function() {
 			CiiDashboard.Content.Save.tags();
@@ -287,10 +267,20 @@ var CiiDashboard = {
 				CiiDashboard.Content.Save.bindPromotedDz();
 				CiiDashboard.Content.Save.bindDelete();
 
+				var autosaveTimeout;
 				$("#Content_content").bind("input propertychange change", function(event) {
 
-					if(typeof(Storage)!=="undefined")
-						localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
+					//if(typeof(Storage)!=="undefined")
+					//	localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
+
+					// Attemp
+					clearTimeout(autosaveTimeout);
+					autosaveTimeout = setTimeout(function() {
+						$.post('', $("form").serialize(), function(data) {
+							$("#Content_vid").val(data.vid);
+						})
+					}, 3000);
+
 					
 					CiiDashboard.Content.Save.marked();
 
@@ -373,8 +363,8 @@ var CiiDashboard = {
 										// Then change the redactor view if it exists
 										
 
-										if(typeof(Storage)!=="undefined")
-											localStorage.setItem("content-" + $("#Content_id").val(), md);
+										//if(typeof(Storage)!=="undefined")
+										//	localStorage.setItem("content-" + $("#Content_id").val(), md);
 									}
 								}
 							});

@@ -113,6 +113,14 @@ class ContentController extends CiiDashboardController
             if($model2->save()) 
             {
                 Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Content has been updated.'));
+
+                // TODO: This should eventually be an Ajax Request as part of an APIController rather than being baked into this.
+                if (Yii::app()->request->isAjaxRequest)
+                {
+                    echo CJSON::encode($model2->attributes);
+                    return true;
+                }
+
                 $this->redirect(array('save','id'=>$model2->id));
             }
             else
