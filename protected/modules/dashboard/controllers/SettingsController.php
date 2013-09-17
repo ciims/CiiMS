@@ -362,7 +362,10 @@ class SettingsController extends CiiSettingsController
 				// Send the test email
 				$response = $this->sendEmail($user,  Yii::t('Dashboard.email', 'CiiMS Test Email'), 'application.modules.dashboard.views.email.test');
 
-				echo $response;
+				// Send an appropriate status code if sending the email fails
+				if (!$response)
+					header('HTTP/1.1 500 Unable to Send Email');
+
 				Yii::app()->end();
 			}
 		}
