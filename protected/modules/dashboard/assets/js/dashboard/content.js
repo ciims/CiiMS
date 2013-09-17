@@ -273,7 +273,7 @@ var CiiDashboard = {
 					//if(typeof(Storage)!=="undefined")
 					//	localStorage.setItem("content-" + $("#Content_id").val(), $(this).val());
 
-					// Attemp
+					// Attempt to save the document via Ajax
 					clearTimeout(autosaveTimeout);
 					autosaveTimeout = setTimeout(function() {
 						$.post('', $("form").serialize(), function(data) {
