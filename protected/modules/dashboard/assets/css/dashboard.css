@@ -1694,7 +1694,7 @@ main .preview-container .content-sidebar {
 	float: right;
 	position:relative;
 	height:90%;
-	min-height:100%;
+	min-height:90%;
 	background: #fff;
     border: 1px solid #ebeff6;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
