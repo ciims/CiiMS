@@ -111,7 +111,6 @@ main .post-metadata-inner .row.views {
 
 
 main .settings-container  .sorter {
-	margin-right: 20px;
 	clear: both;
 	margin-bottom: 10px;
 	margin-top: 20px;
@@ -216,7 +215,6 @@ main .settings-container #preview {
 	height: 90%;
 	min-height: 90%;
 	overflow:hidden;
-	margin-right: 20px;
 	background: #fff;
     border: 1px solid rgba(0,0,0, 0.1);
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
@@ -228,6 +226,76 @@ main .settings-container #preview {
 main .settings-container #preview .content {
 	height: 100%;
 	min-height: 100%;
+}
+
+main .settings-container .body-content.preview-container {
+	padding-right: 20px;
+	width:100%;
+}
+
+main .preview-container .preview {
+	float:left;
+	width:100%;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .preview-container.active .preview {
+	width: 70%;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .preview-container .content-sidebar {
+	display: none;
+	width: 50px;
+	float: right;
+	position:relative;
+	height:90%;
+	min-height:100%;
+	background: #fff;
+    border: 1px solid #ebeff6;
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+    padding: 5px;
+    -webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .preview-container.active .content-sidebar {
+	display: block;
+	width: 28%;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+
+@media (min-width: 1550px) {
+	main .preview-container .preview {
+		width: 70%;
+	}
+
+	main .preview-container .preview .icon-comment {
+		display: none;
+	}
+	
+	main .preview-container .content-sidebar {
+		display: block;
+		width: 28%;
+	}
 }
 
 main .preview .preview-header {

@@ -50,8 +50,8 @@ var CiiDashboard = {
 
 		// Loads content necessary for the Future Dashboard Perspective
 		loadFuturePerspetive : function() {
-			CiiDashboard.Content.futurePerspective.marked();
-			CiiDashboard.Content.futurePerspective.bindPostClick();
+			CiiDashboard.Content.Preview.marked();
+			CiiDashboard.Content.Preview.bindPostClick();
 			$(".nano").nanoScroller()
 		},
 
@@ -59,15 +59,43 @@ var CiiDashboard = {
 		 * All functionallity related to the _future_ perspective is held here
 		 * All methods and objects
 		 */
-		futurePerspective : {
+		Preview : {
 
 			contentPane : null,
+
+			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
+			afterAjaxUpdate : function() {
+
+				CiiDashboard.Content.bindSearch();
+				CiiDashboard.Content.Preview.bindComment();
+				$("input").focus();
+
+				// NanoScroller for main div
+		    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+
+		    	// Timeago
+		    	$(".timeago").timeago(); 
+
+		    	// Post Click Behavior
+		    	CiiDashboard.Content.Preview.bindPostClick(); 
+
+		    	// Reset Preview Pane
+		    	$(".preview").remove();
+				$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
+				$(".preview").html(CiiDashboard.Content.Preview.contentPane).removeClass("has-scrollbar");
+				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
+				$("#preview .content").animate({
+					scrollTop : scrollTop
+				}, 0);
+
+				CiiDashboard.Content.Preview.delete();
+			},
 
 			// BeforeAjaxUpdate for ContentListView::beforeAjaxUpdate
 			beforeAjaxUpdate : function() {
 				previewPane = $("#preview .content");
 	    		scrollTop = $("#preview .content").scrollTop();
-	    		CiiDashboard.Content.futurePerspective.contentPane = $(".preview").html();
+	    		CiiDashboard.Content.Preview.contentPane = $(".preview").html();
 			},
 
 			/**
@@ -89,48 +117,50 @@ var CiiDashboard = {
 
 						// Sometimes one of these works, sometimes the other does. Possible OS/Browser issue
 						try {
-							CiiDashboard.Content.futurePerspective.contentPane = $($.parseHTML(data)).find(".preview").html();
+							CiiDashboard.Content.Preview.contentPane = $($.parseHTML(data)).find(".preview").html();
 						} catch (Exception) {
-							CiiDashboard.Content.futurePerspective.contentPane = $(data).find(".preview").html();
+							CiiDashboard.Content.Preview.contentPane = $(data).find(".preview").html();
 						}
 
 						$(".preview").remove();
 						$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
-						$("#preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
+						$("#preview").html(CiiDashboard.Content.Preview.contentPane).removeClass("has-scrollbar");
 
 						$("#md-output").html(marked($("#markdown").val()));
 						$("#preview.nano").nanoScroller({ OSNativeScrolling: true});
 
-						CiiDashboard.Content.futurePerspective.delete();
+						CiiDashboard.Content.Preview.delete();
+						CiiDashboard.Content.Preview.bindComment();
 					});
 				});
 			},
 
-			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
-			afterAjaxUpdate : function() {
+			// Allows comments to be displayed
+			bindComment : function() {
+				$(".content-sidebar").html(null);
+				if ($(".content-sidebar").is(":visible")) {
+					var id = $(".preview-container").find("#item-id").text();
+					CiiDashboard.Content.Preview.Comments.loadComments(id);
+				}
 
-				CiiDashboard.Content.bindSearch();
-				$("input").focus();
+				$(".icon-comment").click(function() {
+					$(".preview-container").toggleClass("active", function() {
+						if ($(this).hasClass("active")) {
+							var id = $(".preview-container").find("#item-id").text();
+							CiiDashboard.Content.Preview.Comments.loadComments(id);
+						}
+					});
+				})
+			},
 
-				// NanoScroller for main div
-		    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+			// Behaviors for handling comments
+			Comments : {
 
-		    	// Timeago
-		    	$(".timeago").timeago(); 
+				// Loads comments to be displayed
+				loadComments : function(id) {
+					$(".content-sidebar").html("<span>HelloWorld!</span>");
+				},
 
-		    	// Post Click Behavior
-		    	CiiDashboard.Content.futurePerspective.bindPostClick(); 
-
-		    	// Reset Preview Pane
-		    	$(".preview").remove();
-				$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
-				$(".preview").html(CiiDashboard.Content.futurePerspective.contentPane).removeClass("has-scrollbar");
-				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
-				$("#preview .content").animate({
-					scrollTop : scrollTop
-				}, 0);
-
-				CiiDashboard.Content.futurePerspective.delete();
 			},
 
 			// Allows content to be deleted without page refresh
@@ -141,7 +171,7 @@ var CiiDashboard = {
 					if (confirm==true)
 					{
 						$.post($(this).attr("href"), function() {
-							CiiDashboard.Content.futurePerspective.contentPane = null;
+							CiiDashboard.Content.Preview.contentPane = null;
 							$(".preview").html("<div class=\"content\"></div>");
 							$.fn.yiiListView.update('ajaxListView');
 						});
