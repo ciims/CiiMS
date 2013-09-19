@@ -8,16 +8,37 @@ var CiiDashboard = {
 	// The javascript endpoint
 	endPoint : $("#dashboard-endpoint").attr("value"),
 
-	Content : {
+	/**
+	 * Neat little function that lets us know if a given element is on screen or not
+	 * @see https://github.com/benpickles/onScreen
+	 * @see http://stackoverflow.com/questions/14986738/when-a-div-comes-into-view-add-class
+	 * @author Ben Pickles <https://github.com/benpickles> 
+	 * @license MIT License <https://github.com/benpickles/onScreen/blob/master/LICENCE>
+	 */
+	isOnScreen : function(elem) {
+		var $window = $(window);
+		var viewport_top = $window.scrollTop();
+		var viewport_height = $window.height();
+		var viewport_bottom = viewport_top + viewport_height;
+		var $elem = $(elem);
+		var top = $elem.offset().top;
+		var height = $elem.height();
+		var bottom = top + height;
 
-		load : function() {},
+		return (top >= viewport_top && top < viewport_bottom) ||
+			   (bottom > viewport_top && bottom <= viewport_bottom) ||
+			   (height > viewport_height && top <= viewport_top && bottom >= viewport_bottom);
+	},
+
+	Content : {
 
 		// Loaded on /content/index
 		loadIndex: function() {
-			CiiDashboard.Content.loadFuturePerspetive();
+			CiiDashboard.Content.Preview.load();
 			CiiDashboard.Content.bindSearch();
 		},
 
+		// Adds functionality for Ajax powered searching
 		bindSearch : function() {
 
 			var ajaxUpdateTimeout;
@@ -48,26 +69,86 @@ var CiiDashboard = {
 		    });
 		},
 
-		// Loads content necessary for the Future Dashboard Perspective
-		loadFuturePerspetive : function() {
-			CiiDashboard.Content.Preview.marked();
-			CiiDashboard.Content.Preview.bindPostClick();
-			$(".nano").nanoScroller()
-		},
-
 		/**
 		 * All functionallity related to the _future_ perspective is held here
 		 * All methods and objects
 		 */
 		Preview : {
-
+			
+			// The content pane variable stores data about the preview window so Ajax events aren't visually disturbing to the user
+			// eg, you can change to a new page without screwing up the preview window
 			contentPane : null,
+
+			// The current page of infScroll
+			currentPage : 1,
+
+			// Whether or not the last page has been loaded or not
+			isLastPageLoaded : false,
+
+			// Allows pagination to occur
+			allowPagination : true,
+
+			// Stores the last md5 hash from inf pagination
+			lastMD5 : null,
+
+			// Consolodating Preview base functions that should be loaded
+			load : function() {
+				CiiDashboard.Content.Preview.marked();
+				CiiDashboard.Content.Preview.bindPostClick();
+				CiiDashboard.Content.Preview.bindScrollEvent();
+				$(".nano").nanoScroller()
+			},
+
+			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination
+			bindScrollEvent : function() {
+			
+				// This event should only fire if we haven't loaded the last page	
+				if (!CiiDashboard.Content.Preview.isLastPageLoaded) {
+					// When the user is scrolling the list of articles
+					$(".posts .content").scroll(function() {
+						if(CiiDashboard.isOnScreen($(".post").last())) {
+
+							// Disable pagination updates while we load the next page
+							CiiDashboard.Content.Preview.allowPagination = false;
+
+							$.get(CiiDashboard.endPoint + "/content/index/Content_page/" + (CiiDashboard.Content.Preview.currentPage + 1), function(data) { 
+								var response;
+								try {
+									response = $(data);
+								} catch (e) {
+									response = $.parseHTML(data);
+								}
+
+								var hash = md5($(response).find(".posts .content").html())
+								if (hash == CiiDashboard.Content.Preview.lastMD5) {
+									CiiDashboard.Content.Preview.isLastPageLoaded = true;
+									CiiDashboard.Content.Preview.allowPagination = true;
+									return;
+								}
+
+								CiiDashboard.Content.Preview.lastMD5 = hash;
+
+								$(".posts").nanoScroller({ destroy: true });
+								var posts = $(response).find(".posts .content");
+								$(posts).find(".post-header").remove();
+								$(".posts .content").append($(posts).html());
+								$(".posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+								CiiDashboard.Content.Preview.currentPage++;
+								
+								CiiDashboard.Content.Preview.afterAjaxUpdate();
+								CiiDashboard.Content.Preview.allowPagination = true;
+							});
+						}
+					});
+				}
+			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
 			afterAjaxUpdate : function() {
 
 				CiiDashboard.Content.bindSearch();
 				CiiDashboard.Content.Preview.bindComment();
+				CiiDashboard.Content.Preview.bindScrollEvent();
 				$("input").focus();
 
 				// NanoScroller for main div
@@ -465,13 +546,3 @@ var CiiDashboard = {
 		}
 	}
 };
-
-
-/**
- * Handles all the Javacript for the Dashboard.
- */
-$(document).ready(function() {
-
-	CiiDashboard.Content.load();
-	
-});

@@ -1783,7 +1783,9 @@ main .preview .preview-metadata {
 }
 
 main .settings-container .posts {
-	border-bottom: 1px solid #eee;;
+	border-bottom: 1px solid #eee;
+	height: 99% !important;
+	min-height: 99% !important;
 }
 
 main .settings-container .posts .content {

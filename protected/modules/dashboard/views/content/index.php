@@ -16,15 +16,15 @@
     'pager' => array('class'=>'bootstrap.widgets.TbPager'),
     'sorterCssClass' => 'sorter',
     'beforeAjaxUpdate' => 'js:function() {
-    	CiiDashboard.Content.futurePerspective.beforeAjaxUpdate();
+    	CiiDashboard.Content.Preview.beforeAjaxUpdate();
     }',
     'afterAjaxUpdate' => 'js:function() { 
-    	CiiDashboard.Content.futurePerspective.afterAjaxUpdate();
+    	CiiDashboard.Content.Preview.afterAjaxUpdate();
 	}',
     'sortableAttributes' => array(
         'title',
         'author_id',
-        'like_count',
+        //'like_count',    // Same issue as comment_count
         //'comment_count', // Until I can re-order CActiveDataProvidor on the fly, we can't order byu this correctly
         'category_id',
         'status',
@@ -40,7 +40,8 @@
 <?php Yii::app()->getClientScript()->registerCssFile($this->asset.'/highlight.js/default.css')
 					->registerCssFile($this->asset.'/highlight.js/github.css')
 					->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
-					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END); ?>
+					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
+                    ->registerScriptFile($this->asset.'/js/md5.js', CClientScript::POS_END); ?>
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',
 )); ?>

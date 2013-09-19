@@ -113,6 +113,10 @@ class ContentListView extends CListView
 
 	}
 
+	public function renderPager() {
+		return false;
+	}
+	
 	/**
 	 * Renders the sorter
 	 */
