@@ -347,20 +347,74 @@ main #comments {
   padding: 10px;
 }
 
-/**
- * Comment Boxes
- */
+main .comment-container .settings-row,
+main .comment-container .settings-row .comment-byline {
+        border-bottom: 1px solid #eee;
+        padding: 10px 20px;
+        color: #999;
+        font-size: 11px;
+        font-family: 'Open Sans';
+        font-weight: 600;
+        text-transform: uppercase;
+}
+
+main .comment-container .settings-row .user-avatar {
+        display: table-cell;
+        float: none;
+        min-width: 35px;
+        vertical-align: top;
+}
+
+main .comment-container .settings-row .main-comment {
+        display: table-cell;
+        float: none;
+}
+
+main .comment-container .settings-row .comment-byline {
+        border: none;
+        padding: 0px;
+}
+
+main .comment-container .settings-row .user-info {
+        margin-left: 15px;
+}
+
+main .comment-container .settings-row .body {
+        text-transform: none;
+        font-weight: 400;
+        margin-left: 15px;
+        color: #2D2D2D;
+}
+
+
+/** Sharebox **/
+
+main .comment-container .comment-box-main {
+        min-height: 50px;
+}
+
+main .sharebox-submit  {
+    background:#9eca80;
+    border-radius:2px;
+    float:right;
+    margin-top: 5px;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    font-size:80%;
+    font-weight:bold;
+}
+
 main #sharebox, main [id*='sharebox-'] {
     border:1px solid #ddd;
 }
 
 main [id*='sharebox-'] {
-  width: 81%;
-  float: left;
+        width: 81%;
+        float: left;
 }
 
 main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
-    display:none;
     padding: 10px;
     color:#000;
     position:relative;
@@ -371,7 +425,7 @@ main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
     min-height:15px;
     cursor:text;
 }
- 
+
 main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
     float:left;
 }
@@ -394,60 +448,7 @@ main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
     top: 11px;
 }
 
-main .comment .user-avatar {
-  min-height: 100px;
-  display:inline-block;
-}
 
-main .comment .main-content {
-  display:inline-block;
-  width: 90%;
-}
-
-main .comment .comment-form {
-  display:none;
-  min-height:40px;
-}
-
-main .comment .comment-byline {
-  margin-left: 10px;
-  font-weight: 400;
-  font-size: 85%;
-  color: #999;
-}
-
-main .comment .comment-byline-footer {
-  cursor: pointer;
-}
-
-main .comment .comment-byline-footer span {
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -ms-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-}
-
-main .comment .comment-byline-footer span:hover {
-  color: #666;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -ms-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-}
-
-main .sharebox-submit  {
-    background:#9eca80;
-    border-radius:2px;
-    float:right;
-    margin-top: 5px;
-    color:#fff;
-    cursor:pointer;
-    text-align:center;
-    font-size:80%;
-    font-weight:bold;
-}
 main .content-container {
 	height: 100%;
 	min-height: 100%;

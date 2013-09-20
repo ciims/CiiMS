@@ -237,8 +237,58 @@ var CiiDashboard = {
 			// Behaviors for handling comments
 			Comments : {
 
+				/**
+				 * Loads a main comment box that isn't bound to any particular comment
+				 * @return {[type]} [description]
+				 */
+				loadMainCommentBox : function() {
+				     $(".comment-box-main").show();
+				     $("#b").click( function () {
+				         $(this).html("");
+					 $("#a").slideDown("fast");
+					 $("#submit-comment").show();
+					 setTimeout(function() {
+					     $("#textbox").focus();
+					 }, 100);
+				    });
+
+				    $("#textbox").keydown( function() {
+					if($(this).text() != "")
+					    $("#submit-comment").css("background","#3b9000");
+					else
+					    $("#submit-comment").css("background","#9eca80");
+				    });
+
+				    $("#close").click( function () {
+					$("#b").html("Comment on this post");
+					$("#textbox").html("");
+					$("#a").slideUp("fast");
+					$("#submit-comment").hide();
+				    });
+
+				    $("#submit-comment").click(function(e) {
+					e.preventDefault();
+					if ($("#textbox").text() == "")
+					    return;
+
+					$.post(CiiDashboard.endPoint + "/comment/comment", { 
+					    "Comments" : { 
+					        "comment" : $("#textbox").html(), 
+						"content_id" : $("#item-id").text()
+					    }
+					}, function(data) { 
+					        $("#textbox").text("");
+						$("#close").click();
+						$("#main-comment").after(data);
+						var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
+						$(".post.active").find(".comments strong").text(count);
+					});
+				    });
+				},
+
 				// Loads comments to be displayed
 				loadComments : function(id) {
+					CiiDashboard.Content.Preview.Comments.loadMainCommentBox();
 					$.get(CiiDashboard.endPoint + "/comment/getComments/id/" + id, function(data) {
 						$(".comment-container").html(data);
 					});

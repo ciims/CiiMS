@@ -28,7 +28,7 @@ class DashboardModule extends CWebModule
                 'class' => 'ext.minify.EClientScript',
                 'combineScriptFiles'    => true,
                 'combineCssFiles'       => true,
-                'optimizeCssFiles'      => false,
+                'optimizeCssFiles'      => true,
                 'optimizeScriptFiles'   => true,
                 'compressHTML'          => true,
                 'packages'=>array(

@@ -108,17 +108,35 @@ class ContentListView extends CListView
 			echo CHtml::closeTag('div');
 
 			echo CHtml::openTag('div', array('class' => 'content-sidebar'));
+
+				// Header
 				echo CHtml::openTag("div", array('class' => 'comments-header'));
 					echo CHtml::tag('span', array('class' => 'title pull-left'), Yii::t('Dashboard.main', 'Comments'));
 					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 				echo CHtml::closeTag('div');
+				
+				// Sharebox
+				echo CHtml::openTag('div', array('class' => 'comment-box-main', 'style' => 'display: none'));
+					echo CHtml::openTag('div', array('id' => 'sharebox', 'class' => 'comment-box'));
+						echo CHtml::openTag('div', array('id' => 'a'));
+							echo CHtml::tag('div', array('id' => 'textbox', 'contenteditable' => 'true'), NULL);
+							echo CHtml::tag('div', array('id' => 'close'), NULL);
+							echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+						echo CHtml::closeTag('div');
+						
+						echo CHtml::tag('button', array(
+							'id' => 'submit-comment',
+							'class' => 'btn btn-success sharebox-submit',
+						    ), Yii::t('DefaultTheme', 'Submit'));
+					echo CHtml::closeTag('div');
+				echo CHtml::closeTag('div');
 				echo CHtml::tag('div', array('class' => 'comment-container'));
 			echo CHtml::closeTag('div');
-			
 		echo CHtml::closeTag('div');
 
 	}
 
+	// Disable pagination in favor of infinite scrolling
 	public function renderPager() {
 		return false;
 	}
