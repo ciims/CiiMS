@@ -1,10 +1,10 @@
 <?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <div class="settings-row comment comment-<?php echo $comment->id; ?>" data-attr-id="<?php echo $comment->id; ?>" style="margin-left: <?php echo $depth*4 * 10; ?>px;">
 	<div class="container-bundle">
-		<div class="user-avatar pull-left">
+		<div class="user-avatar">
 			<?php echo CHtml::image($comment->author->gravatarImage(35), NULL, array('class' => 'rounded-img pull-left')); ?>
 		</div>
-		<div class="pull-left main-content">
+		<div class="main-comment">
 			<div class="user-info pull-left">
 				<?php echo CHtml::encode($comment->author->name); ?>
 				<?php if ($comment->parent_id != 0): ?>

@@ -1805,6 +1805,18 @@ main .comment-container .settings-row .comment-byline {
 	text-transform: uppercase;
 }
 
+main .comment-container .settings-row .user-avatar {
+	display: table-cell;
+	float: none;
+	min-width: 35px;
+	vertical-align: top;
+}
+
+main .comment-container .settings-row .main-comment {
+	display: table-cell;
+	float: none;
+}
+
 main .comment-container .settings-row .comment-byline {
 	border: none;
 	padding: 0px;
@@ -1820,6 +1832,7 @@ main .comment-container .settings-row .body {
 	margin-left: 15px;
 	color: #2D2D2D;
 }
+
 main .settings-container {
 	height: 100%;
 	min-height: 100%;
