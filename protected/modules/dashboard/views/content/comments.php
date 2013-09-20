@@ -25,41 +25,18 @@
 
 	<div class="clearfix"></div>
 
-	<div class="comment-body comment-byline comment-byline-footer pull-left">
-		<?php if ($comment->approved != 1): ?>
-			<span class="approve-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'approve'); ?></span> •
-		<?php endif; ?>
-		<span class="delete-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'delete'); ?></span> •
-		<span class="reply-<?php echo $comment->id; ?>" data-attr-id="<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'reply'); ?></span>
+	<div class="comment-body comment-byline comment-byline-footer pull-right">
+		<span style="<?php echo $comment->approved != 1 ? NULL : 'display: none'; ?>" class="approve-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'approve'); ?></span>
+		<span style="<?php echo $comment->approved != 1 ? 'display: none' : NULL; ?>" class="block-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'block'); ?></span>
+		 •
+		<span class="delete-<?php echo $comment->id; ?>"><?php echo Yii::t('Dashboard.main', 'delete'); ?></span>
 	</div>
-	<div class="clearfix"></div>
-	<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		    'id'=>'comment-form',
-		    'htmlOptions' => array('class' => 'comment-form comment-form-' . $comment->id)
-		)); ?>
-			<div id="sharebox-<?php echo $comment->id; ?>" class="comment-box">
-                <div id="a-<?php echo $comment->id; ?>">
-                    <div id="textbox-<?php echo $comment->id; ?>" contenteditable="true"></div>
-                    <div id="close-<?php echo $comment->id; ?>"></div>
-                    <div style="clearfix"></div>
-                </div>
-                <div id="b-<?php echo $comment->id; ?>" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
-            </div>
-			<?php $this->widget('bootstrap.widgets.TbButton', array(
-                'type' => 'success',
-                'label' => 'Submit',
-                'url' => '#',
-                'htmlOptions' => array(
-                    'id' => 'submit-comment-' . $comment->id,
-                    'class' => 'sharebox-submit',
-            ))); ?>
-		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
 </div>
 
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		CiiDashboard.Content.futurePerspective.loadComment(<?php echo $comment->id; ?>);
+		CiiDashboard.Content.Preview.Comments.loadComment(<?php echo $comment->id; ?>);
 	});
 </script>

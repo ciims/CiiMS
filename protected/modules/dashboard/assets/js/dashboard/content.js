@@ -128,13 +128,13 @@ var CiiDashboard = {
 
 								CiiDashboard.Content.Preview.lastMD5 = hash;
 
-								$(".posts").nanoScroller({ destroy: true });
+								$(".posts.nano").nanoScroller({ destroy: true });
 								var posts = $(response).find(".posts .content");
 								$(posts).find(".post-header").remove();
 								$(".posts .content").append($(posts).html());
 								$(".posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
 								CiiDashboard.Content.Preview.currentPage++;
-								
+
 								CiiDashboard.Content.Preview.afterAjaxUpdate();
 								CiiDashboard.Content.Preview.allowPagination = true;
 							});
@@ -218,7 +218,7 @@ var CiiDashboard = {
 
 			// Allows comments to be displayed
 			bindComment : function() {
-				$(".content-sidebar").html(null);
+				$(".content-sidebar").find(".comment-container").html(null);
 				if ($(".content-sidebar").is(":visible")) {
 					var id = $(".preview-container").find("#item-id").text();
 					CiiDashboard.Content.Preview.Comments.loadComments(id);
@@ -239,7 +239,34 @@ var CiiDashboard = {
 
 				// Loads comments to be displayed
 				loadComments : function(id) {
-					$(".content-sidebar").html("<span>HelloWorld!</span>");
+					$.get(CiiDashboard.endPoint + "/comment/getComments/id/" + id, function(data) {
+						$(".comment-container").html(data);
+					});
+				},
+
+				// Loads comment related functionality
+				loadComment : function(id) {
+					$(".delete-" + id).click(function() {
+						$.post(CiiDashboard.endPoint + "/comment/delete/id/" + id, function() {
+							$(".comment-" + id).slideUp()
+						});
+					});
+
+					$(".block-" + id).click(function() {
+						$.post(CiiDashboard.endPoint + "/comment/approve/id/" + id, function() {
+							$(".block-" + id).hide();
+							$(".approve-" + id).show();
+						});
+					});
+
+					$(".approve-" + id).click(function() {
+						$.post(CiiDashboard.endPoint + "/comment/approve/id/" + id, function() {
+							$(".approve-" + id).hide();
+							$(".block-" + id).show();
+						});
+					});
+
+
 				},
 
 			},

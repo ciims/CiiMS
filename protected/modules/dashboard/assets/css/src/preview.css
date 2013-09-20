@@ -264,7 +264,7 @@ main .preview-container .content-sidebar {
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
-    padding: 5px;
+    padding-left: 5px;
     -webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-ms-transition: all .2s ease-in-out;
@@ -298,7 +298,8 @@ main .preview-container.active .content-sidebar {
 	}
 }
 
-main .preview .preview-header {
+main .preview .preview-header,
+main .content-sidebar .comments-header {
 	border-bottom: 1px solid #eee;
 	padding: 10px 20px;
 	color: #999;
@@ -355,4 +356,31 @@ main .settings-container .posts {
 main .settings-container .posts .content {
 	height: 100% !important;
 	min-height: 100% !important;
+}
+
+main .comment-container .settings-row,
+main .comment-container .settings-row .comment-byline {
+	border-bottom: 1px solid #eee;
+	padding: 10px 20px;
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+main .comment-container .settings-row .comment-byline {
+	border: none;
+	padding: 0px;
+}
+
+main .comment-container .settings-row .user-info {
+	margin-left: 15px;
+}
+
+main .comment-container .settings-row .body {
+	text-transform: none;
+	font-weight: 400;
+	margin-left: 15px;
+	color: #2D2D2D;
 }

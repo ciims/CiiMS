@@ -107,7 +107,13 @@ class ContentListView extends CListView
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 
-			echo CHtml::tag('div', array('class' => 'content-sidebar'), NULL);
+			echo CHtml::openTag('div', array('class' => 'content-sidebar'));
+				echo CHtml::openTag("div", array('class' => 'comments-header'));
+					echo CHtml::tag('span', array('class' => 'title pull-left'), Yii::t('Dashboard.main', 'Comments'));
+					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+				echo CHtml::closeTag('div');
+				echo CHtml::tag('div', array('class' => 'comment-container'));
+			echo CHtml::closeTag('div');
 			
 		echo CHtml::closeTag('div');
 
@@ -116,7 +122,7 @@ class ContentListView extends CListView
 	public function renderPager() {
 		return false;
 	}
-	
+
 	/**
 	 * Renders the sorter
 	 */
