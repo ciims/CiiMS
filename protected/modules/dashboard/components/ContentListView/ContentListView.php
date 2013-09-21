@@ -123,6 +123,7 @@ class ContentListView extends CListView
 							echo CHtml::tag('div', array('id' => 'close'), NULL);
 							echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 						echo CHtml::closeTag('div');
+						echo CHtml::tag('div', array('id' => 'b'), NULL);
 						
 						echo CHtml::tag('button', array(
 							'id' => 'submit-comment',
@@ -130,6 +131,9 @@ class ContentListView extends CListView
 						    ), Yii::t('DefaultTheme', 'Submit'));
 					echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');
+
+				echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+				
 				echo CHtml::tag('div', array('class' => 'comment-container'));
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');

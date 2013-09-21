@@ -5,50 +5,46 @@ main #comments {
 
 main .comment-container .settings-row,
 main .comment-container .settings-row .comment-byline {
-        border-bottom: 1px solid #eee;
-        padding: 10px 20px;
-        color: #999;
-        font-size: 11px;
-        font-family: 'Open Sans';
-        font-weight: 600;
-        text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding: 10px 20px;
+    color: #999;
+    font-size: 11px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 main .comment-container .settings-row .user-avatar {
-        display: table-cell;
-        float: none;
-        min-width: 35px;
-        vertical-align: top;
+    display: table-cell;
+    float: none;
+    min-width: 35px;
+    vertical-align: top;
 }
 
 main .comment-container .settings-row .main-comment {
-        display: table-cell;
-        float: none;
+    display: table-cell;
+    float: none;
 }
 
 main .comment-container .settings-row .comment-byline {
-        border: none;
-        padding: 0px;
+    border: none;
+    padding: 0px;
+    cursor : pointer;
 }
 
 main .comment-container .settings-row .user-info {
-        margin-left: 15px;
+    margin-left: 15px;
 }
 
 main .comment-container .settings-row .body {
-        text-transform: none;
-        font-weight: 400;
-        margin-left: 15px;
-        color: #2D2D2D;
+    text-transform: none;
+    font-weight: 400;
+    margin-left: 15px;
+    color: #2D2D2D;
 }
 
 
 /** Sharebox **/
-
-main .comment-container .comment-box-main {
-        min-height: 50px;
-}
-
 main .sharebox-submit  {
     background:#9eca80;
     border-radius:2px;
@@ -63,14 +59,16 @@ main .sharebox-submit  {
 
 main #sharebox, main [id*='sharebox-'] {
     border:1px solid #ddd;
+    margin: 10px;
 }
 
 main [id*='sharebox-'] {
-        width: 81%;
-        float: left;
+    width: 81%;
+    float: left;
 }
 
 main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
+    display:none;
     padding: 10px;
     color:#000;
     position:relative;
@@ -81,7 +79,7 @@ main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
     min-height:15px;
     cursor:text;
 }
-
+ 
 main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
     float:left;
 }
