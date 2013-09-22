@@ -214,3 +214,7 @@ aside.navigation.active footer a {
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
+
+aside.navigation footer span.icon-align-justify {
+    display: none !important;
+}
