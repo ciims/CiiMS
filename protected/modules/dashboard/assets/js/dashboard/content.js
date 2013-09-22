@@ -32,6 +32,10 @@ var CiiDashboard = {
 
 	Content : {
 
+		ajaxUpdateTimeout : null,
+
+		ajaxRequest : null,
+
 		// Loaded on /content/index
 		loadIndex: function() {
 			CiiDashboard.Content.Preview.load();
@@ -41,24 +45,21 @@ var CiiDashboard = {
 		// Adds functionality for Ajax powered searching
 		bindSearch : function() {
 
-			var ajaxUpdateTimeout;
-		    var ajaxRequest;
-
 			$("form").submit(function(e) { 
 				e.preventDefault();
-		         $('input#Content_title').keyup();
+		        $('input#Content_title').keyup();
 			});
 
 		    $('input#Content_title').keyup(function(){
-		        ajaxRequest = $(this).serialize();
-		        clearTimeout(ajaxUpdateTimeout);
-		        ajaxUpdateTimeout = setTimeout(function () {
+		        CiiDashboard.Content.ajaxRequest = $(this).serialize();
+		        clearTimeout(CiiDashboard.Content.ajaxUpdateTimeout);
+		        CiiDashboard.Content.ajaxUpdateTimeout = setTimeout(function () {
 		            $.fn.yiiListView.update('ajaxListView', { 
 			       		data: $('input#Content_title').serialize(),
 			       		url : CiiDashboard.endPoint + '/content/index',
 			       	});
 		        },
-		        100);
+		        300);
 		    });
 		},
 
