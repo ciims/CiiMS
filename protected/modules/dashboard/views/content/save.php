@@ -137,7 +137,7 @@
 <?php  Yii::app()->getClientScript()
 				 ->registerCssFile($this->asset.'/highlight.js/default.css')
 				 ->registerCssFile($this->asset.'/highlight.js/github.css')
-				 ->registerCssFile($this->asset.'/dropzone/css/dropzone.css')
+				 ->registerCssFile($this->asset.'/css/dropzone.css')
 				 ->registerCssFile($this->asset . '/css/jquery.tags.css')
 				 ->registerCssFile($this->asset.'/datepicker/css/datetimepicker.css')
 				 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
