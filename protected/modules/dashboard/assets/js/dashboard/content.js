@@ -46,26 +46,19 @@ var CiiDashboard = {
 
 			$("form").submit(function(e) { 
 				e.preventDefault();
-		        ajaxRequest = $(this).serialize();
-		        ajaxUpdateTimeout = setTimeout(function () {
-		            $.fn.yiiListView.update(
-		                'ajaxListView',
-		                {data: ajaxRequest}
-		            );
-		        },
-		        5);
-
+		         $('input#Content_title').keyup();
 			});
+
 		    $('input#Content_title').keyup(function(){
 		        ajaxRequest = $(this).serialize();
 		        clearTimeout(ajaxUpdateTimeout);
 		        ajaxUpdateTimeout = setTimeout(function () {
-		            $.fn.yiiListView.update(
-		                'ajaxListView',
-		                {data: ajaxRequest}
-		            );
+		            $.fn.yiiListView.update('ajaxListView', { 
+			       		data: $('input#Content_title').serialize(),
+			       		url : CiiDashboard.endPoint + '/content/index',
+			       	});
 		        },
-		        300);
+		        100);
 		    });
 		},
 

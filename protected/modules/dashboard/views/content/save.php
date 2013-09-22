@@ -11,7 +11,7 @@
 	<div class="content-container">
 		<div class="header">
 			<div class="content">
-				<div class="pull-left" >
+				<div class="pull-left" style="width: 80%;">
 					<?php echo $form->textField($model, 'title', array('placeholder' => Yii::t('Dashboard.views', 'Enter your post title here'), 'class' => 'title')); ?>
 				</div>
 				<div class="pull-right">
