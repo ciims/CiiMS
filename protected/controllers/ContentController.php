@@ -123,7 +123,7 @@ class ContentController extends CiiController
 	 * @return $this->render() - Render of page that we want to display
 	 **/
 	public function actionIndex($id=NULL)
-	{
+    {
 		// Run a pre check of our data
 		$requestUri = $this->beforeCiiAction($id);
 		

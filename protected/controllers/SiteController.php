@@ -401,7 +401,7 @@ class SiteController extends CiiController
 							// Delete the activationKey
 							$meta->delete();
 							Yii::app()->user->setFlash('activation-success', Yii::t('ciims.controllers.Site', 'Activation was successful! You may now {{login}}', array(
-								'{{link}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'login'), $this->createUrl('/login')))));
+								'{{login}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'login'), $this->createUrl('/login')))));
 							return $this->render('activation');
 						}
 						else
