@@ -146,6 +146,25 @@ class Users extends CiiModel
 	}
 	
 	/**
+	 * Sets some default values for the user record.
+	 * TODO: This should have been moved to CiiModel
+	 * @see CActiveRecord::beforeValidate()
+	 **/
+	public function beforeValidate()
+    {
+        if ($this->about == NULL || $this->about == '')
+            $this->about = ' ';
+
+        if ($this->isNewRecord)
+            $this->created = new CDbExpression('NOW()');
+
+        $this->updated = new CDbExpression('NOW()');
+
+        return parent::beforeValidate();
+    }
+
+
+	/**
 	 * Lets us know if the user likes a given content post or not
 	 * @param  int $id The id of the content we want to know about
 	 * @return bool    Whether or not the user likes the post
