@@ -509,8 +509,15 @@ class SiteController extends CiiController
 			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Registration Successful')
 		)));
 
+		$notifyUser  = new stdClass;
+        $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
+        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+
+        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
+            $notifyUser = Users::model()->findByPk(1);
+
 		$this->layout = '//layouts/main';
-		$this->render('register-success');
+		$this->render('register-success', array('notifyUser' => $notifyUser));
 	}
 
     /**

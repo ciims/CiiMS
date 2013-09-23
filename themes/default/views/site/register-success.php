@@ -1,10 +1,3 @@
-<?php
-	$notifyUser  = new stdClass;
-	$notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
-	$notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
-	if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
-	    $notifyUser = Users::model()->findByPk(1);
-?>
 <div class="login-container" style="width: 70%;">
 	<div class="sidebar">
 		<div class="well-span">
