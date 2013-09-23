@@ -3,6 +3,15 @@ main #comments {
   padding: 10px;
 }
 
+main .comment-box-main {
+    height: 94%;
+    min-height: 94%;
+}
+
+main .comment-box-main .content {
+    height: 100%;
+    min-height: 100%;
+}
 main .comment-container .settings-row,
 main .comment-container .settings-row .comment-byline {
     border-bottom: 1px solid #eee;

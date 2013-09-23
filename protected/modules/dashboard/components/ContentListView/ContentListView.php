@@ -116,25 +116,31 @@ class ContentListView extends CListView
 				echo CHtml::closeTag('div');
 				
 				// Sharebox
-				echo CHtml::openTag('div', array('class' => 'comment-box-main', 'style' => 'display: none'));
-					echo CHtml::openTag('div', array('id' => 'sharebox', 'class' => 'comment-box'));
-						echo CHtml::openTag('div', array('id' => 'a'));
-							echo CHtml::tag('div', array('id' => 'textbox', 'contenteditable' => 'true'), NULL);
-							echo CHtml::tag('div', array('id' => 'close'), NULL);
-							echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+				echo CHtml::openTag('div', array('class' => 'comment-box-main nano', 'style' => 'display: none'));
+					echo CHtml::openTag('div', array('class' => 'content'));
+
+						echo CHtml::openTag('div', array('id' => 'sharebox', 'class' => 'comment-box'));
+							echo CHtml::openTag('div', array('id' => 'a'));
+								echo CHtml::tag('div', array('id' => 'textbox', 'contenteditable' => 'true'), NULL);
+								echo CHtml::tag('div', array('id' => 'close'), NULL);
+								echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+							echo CHtml::closeTag('div');
+
+							echo CHtml::tag('div', array('id' => 'b'), NULL);
+							
+							echo CHtml::tag('button', array(
+								'id' => 'submit-comment',
+								'class' => 'btn btn-success sharebox-submit',
+							    ), Yii::t('DefaultTheme', 'Submit'));
 						echo CHtml::closeTag('div');
-						echo CHtml::tag('div', array('id' => 'b'), NULL);
 						
-						echo CHtml::tag('button', array(
-							'id' => 'submit-comment',
-							'class' => 'btn btn-success sharebox-submit',
-						    ), Yii::t('DefaultTheme', 'Submit'));
+
+					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
+					
+					echo CHtml::tag('div', array('class' => 'comment-container'));
+					
 					echo CHtml::closeTag('div');
 				echo CHtml::closeTag('div');
-
-				echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-				
-				echo CHtml::tag('div', array('class' => 'comment-container'));
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 

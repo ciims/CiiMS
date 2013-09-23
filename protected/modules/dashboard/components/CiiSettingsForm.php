@@ -172,7 +172,7 @@ class CiiSettingsForm extends CWidget
 		echo CHtml::closeTag('div');
 
 		Yii::app()->getClientScript()->registerScript('change', '
-			$("input").on("input onpropertychange change", function() {
+			$("input:not([no-field-change=\'true\']").on("input onpropertychange change", function() {
 
 				try {
 					clearTimeout(timeout);

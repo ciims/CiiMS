@@ -231,19 +231,26 @@ var CiiDashboard = {
 			// Behaviors for handling comments
 			Comments : {
 
+				mainCommentBoxLoaded : false,
+
 				/**
 				 * Loads a main comment box that isn't bound to any particular comment
 				 * @return {[type]} [description]
 				 */
 				loadMainCommentBox : function() {
-				     $(".comment-box-main").show();
-					 $("#b").click(function() {
-					     $(this).html("");
-						 $("#a").slideDown("fast").show();
-						 $("#submit-comment").show();
-						 setTimeout(function() {
-						     $("#textbox").focus();
-						 }, 100);
+					if (CiiDashboard.Content.Preview.Comments.mainCommentBoxLoaded)
+						return;
+
+					CiiDashboard.Content.Preview.Comments.mainCommentBoxLoaded = true;
+
+				    $(".comment-box-main").show();
+					$("#b").click(function() {
+					    $(this).html("");
+						$("#a").slideDown("fast").show();
+						$("#submit-comment").show();
+						setTimeout(function() {
+						    $("#textbox").focus();
+						}, 100);
 				    });
 
 				    $("#textbox").keydown( function() {
@@ -253,7 +260,7 @@ var CiiDashboard = {
 						    $("#submit-comment").css("background","#9eca80");
 				    });
 
-				    $("#close").click( function () {
+				    $("#close").click(function () {
 						$("#b").html("Comment on this post");
 						$("#textbox").html("");
 						$("#a").slideUp("fast");
@@ -261,6 +268,7 @@ var CiiDashboard = {
 				    });
 
 				    $("#submit-comment").click(function(e) {
+				    	console.log("Submitting comment");
 						e.preventDefault();
 						if ($("#textbox").text() == "")
 						    return;
@@ -268,14 +276,14 @@ var CiiDashboard = {
 						$.post(CiiDashboard.endPoint + "/comment/comment", { 
 						    "Comments" : { 
 						        "comment" : $("#textbox").html(), 
-							"content_id" : $("#item-id").text()
-						    }
-						}, function(data) { 
-						        $("#textbox").text("");
-							$("#close").click();
-							$(".comment-container").prepend(data);
-							var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
-							$(".post.active").find(".comments strong").text(count);
+								"content_id" : $("#item-id").text()
+							    }
+							}, function(data) { 
+							    $("#textbox").text("");
+								$("#close").click();
+								$(".comment-container").prepend(data);
+								var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
+								$(".post.active").find(".comments strong").text(count);
 						});
 				    });
 				},
