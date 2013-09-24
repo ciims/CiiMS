@@ -407,6 +407,19 @@ class SiteController extends CiiController
 		if ($meta == NULL || $meta->value != $key)
 			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
 
+		$threeDays = 259200;
+		if ((strtotime($meta->created) + $threeDays) > time())
+		{
+			try {
+				// Delete the associated metadata when this error is thrown
+				$meta2 = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+				$meta2->delete();
+				$meta->delete();
+			} catch (Exception $e) {}
+
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'The request to change your email has expired.'));
+		}
+
 		$user = Users::model()->findByPk($meta->user_id);
 
 		if ($user->id != Yii::app()->user->id)
