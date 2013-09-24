@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property Users $user
  */
-class UserMetadata extends CActiveRecord
+class UserMetadata extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

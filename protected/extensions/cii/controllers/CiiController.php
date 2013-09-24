@@ -82,7 +82,7 @@ class CiiController extends CController
      * @param  boolean $processOutput Whether the output should be processed. The default is TRUE since this output will be passed to MsgHTML
      * @return boolean                Whether or not the email sent sucessfully
      */
-    protected function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
+    public function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
     {
         Yii::import('application.extensions.phpmailer.JPhpMailer');
         $mail = new JPhpMailer;

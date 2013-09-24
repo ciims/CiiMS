@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Comments $comment
  */
-class CommentMetadata extends CActiveRecord
+class CommentMetadata extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

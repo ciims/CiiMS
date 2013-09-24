@@ -68,6 +68,8 @@ class CiiURLManager extends CUrlManager
         '/blog' 							=> '/content/list',
         '/activation/<email:\w+>/<id:\w+>' 	=> '/site/activation',
         '/activation' 						=> '/site/activation',
+        '/emailchange/<key:\w+>'			=> '/site/emailchange',
+        '/emailchange'						=> '/site/emailchange',
         '/forgot/<id:\w+>' 					=> '/site/forgot',
         '/forgot' 							=> '/site/forgot',
         '/register' 						=> '/site/register',

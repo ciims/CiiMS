@@ -366,6 +366,77 @@ class SiteController extends CiiController
 	}
 	
 	/**
+	 * Allows the user to securely change their email address
+	 * @param  string $key the user's secure key
+	 */
+	public function actionEmailChange($key=null)
+	{
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Change Your Email Address')
+		)));
+
+		$success = false;
+
+		$this->layout = '//layouts/main';
+
+		if ($key == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
+		$meta = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key));
+
+		if ($meta == NULL || $meta->value != $key)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
+		if (Cii::get($_POST, 'password') !== NULL)
+		{
+			// Retrieve the user's NEW email address
+			$meta = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+
+			$identity = new UserIdentity(Users::model()->findByPk($meta->user_id)->email, $_POST['password']);
+
+			// If we can authenticate that the user wants to change their email address
+			if ($identity->authenticate())
+			{
+				// Generate a new hash for the user
+				$email = $meta->value;
+				$id = $meta->user_id;
+				$password = $identity->updatePassword($email, $_POST['password']);
+
+				// Manually update the db via CActiveDataProvider, since Users::beforeSave() will block the request
+				try {
+					$ret = Yii::app()->db->createCommand('UPDATE users SET email = :email, password = :password WHERE id = :id')
+								  ->bindParam(':id', $id)
+								  ->bindParam(':password', $password)
+								  ->bindParam(':email', $email)
+								  ->execute();
+					
+					$success = Yii::t('ciims.controllers.Site', 'Your email address has been sucessfully changes. Please {{login}} again for the changes to take effect.', array('{{login}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'Login'), Yii::app()->createUrl('/login'))));
+
+					// Kill the users session and force them to re-authenticate with their new credentials.
+					Yii::app()->user->logout();
+				} catch (Exception $e) {
+					// This error indicates
+					Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'The requested email address has already been taken. Please re-submit your request with a new email address.'));
+				}
+
+				// Delete the metadata and ignore any errors as they aren't really
+				try {
+					$meta->delete();
+					UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key))->delete();
+					UserMetadata::model()->findByAttributes(array('user_id' => $id, 'key' => 'newEmailAddressChangeKeyTime'))->delete();
+				} catch (Exception $e) {}
+			}
+			else
+				Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'We were unable to verify your current password. Please verify your password and try again.'));
+		}
+
+
+		$this->render('emailchange', array('key' => $key, 'success' => $success));
+
+	}
+
+	/**
 	 * Activation handler
 	 * @param string $email 	The user's email
 	 * @param int $id 			The activation key
@@ -373,6 +444,12 @@ class SiteController extends CiiController
 	public function actionActivation($email=NULL, $id=NULL) 
 	{
 		$this->layout = '//layouts/main';
+
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Activate Your Account')
+		)));
+
 		if ($id != NULL || $email = NULL)
 		{
 			$record = $user = Users::model()->findByPk($email);

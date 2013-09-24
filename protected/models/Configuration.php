@@ -9,7 +9,7 @@
  * @property string $created
  * @property string $updated
  */
-class Configuration extends CActiveRecord
+class Configuration extends CiiModel
 {	
     /**
      * Returns the static model of the specified AR class.

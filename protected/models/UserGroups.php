@@ -10,7 +10,7 @@
  * @property string $created
  * @property string $updated
  */
-class UserGroups extends CActiveRecord
+class UserGroups extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

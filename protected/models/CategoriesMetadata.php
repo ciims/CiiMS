@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property Categories $category
  */
-class CategoriesMetadata extends CActiveRecord
+class CategoriesMetadata extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

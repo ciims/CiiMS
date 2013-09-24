@@ -12,7 +12,7 @@
  * The followings are the available model relations:
  * @property Users[] $users
  */
-class UserRoles extends CActiveRecord
+class UserRoles extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.

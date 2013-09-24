@@ -158,6 +158,60 @@ class Users extends CiiModel
         return parent::beforeValidate();
     }
 
+    /**
+     * Bind behaviors for changing the user's email, and allow them to make the appropriate changes on their end.
+     * The intention behind this, is that the user has to first, verify that they requested the change, and second
+     * verify that they own both email addresses.
+     *
+     * The intention behind this is to protect the user from changes to their account, either by an administrator or a malicious user.
+     * This doesn't protect from database attacks, it only protects from malicious attacks from within CiiMS.
+     * 
+     * @return parent::afterSave();
+     */
+    public function beforeSave()
+    {
+    	// If the user's email address is about to change
+    	if (isset($this->_oldAttributes['email']) && $this->_oldAttributes['email'] != $this->email)
+    	{
+    		// Store the new email address
+    		$newEmail = $this->email;
+
+    		// Reset the email addres and block the change internally
+    		$this->email = $this->_oldAttributes['email'];
+
+    		// Save the NEW email address in the database as a metadata record
+    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddress'));
+    		if ($meta === NULL)
+    			$meta = new UserMetadata;
+    		$meta->user_id = $this->id;
+    		$meta->key = 'newEmailAddress';
+    		$meta->value = $newEmail;
+    		$meta->save();
+
+    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddressChangeKey'));
+    		if ($meta === NULL)
+    			$meta = new UserMetadata;
+
+    		$meta->user_id = $this->id;
+    		$meta->key = 'newEmailAddressChangeKey';
+    		$key = $meta->value = md5(md5($newEmail . time()) . Yii::app()->params['encryptionKey']);
+    		$meta->save();
+
+    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddressChangeKeyTime'));
+    		if ($meta === NULL)
+    			$meta = new UserMetadata;
+
+    		$meta->user_id = $this->id;
+    		$meta->key = 'newEmailAddressChangeKeyTime';
+    		$meta->value = time();
+    		$meta->save();
+
+    		// Fire off an email to the OLD email address asking them VERIFY the change
+    		$response = Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
+    	}
+
+    	return parent::beforeSave();
+    }
 
 	/**
 	 * Lets us know if the user likes a given content post or not

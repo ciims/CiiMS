@@ -175,6 +175,18 @@ class UserIdentity extends CUserIdentity
 	}
 
 	/**
+	 * Public access method to generate a new password
+	 * @param  string $email    The email we want to change
+	 * @param  string $password The password we want to set to
+	 * @return string           bcrypt hash
+	 */
+	public function updatePassword($email, $password)
+	{
+		$hash = Users::model()->encryptHash($email, $password, Yii::app()->params['encryptionKey']);
+		return password_hash($hash, PASSWORD_BCRYPT, array('cost' => $this->cost));
+	}
+
+	/**
 	 * Gets the id for Yii::app()->user->id
 	 * @return int 	the user id
 	 */
