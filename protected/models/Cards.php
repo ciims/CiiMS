@@ -98,17 +98,4 @@ class Cards extends CiiModel
 	{
 		return parent::model($className);
 	}
-
-	/**
-	 * Automatically sets the created and updated dates on validation
-	 */
-    public function beforeValidate()
-    {
-        if ($this->isNewRecord)
-        	$this->created = new CDbExpression('NOW()');
-        
-        $this->updated = new CDbExpression('NOW()');
-
-        return parent::beforeValidate();
-    }
 }

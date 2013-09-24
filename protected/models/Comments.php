@@ -131,12 +131,7 @@ class Comments extends CiiModel
 	 * Set the created and updated records
 	 */
 	public function beforeSave() 
-	{
-    	if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-
-		$this->updated = new CDbExpression('NOW()');
-	 
+	{	 
 	 	if (Content::model()->findByPk($this->content_id)->commentable)
 	    	return parent::beforeSave();
 		else 

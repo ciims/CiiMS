@@ -93,17 +93,4 @@ class CommentMetadata extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
-	/**
-	 * Set the created and updated attributes
-	 * @return [type]
-	 */
-	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-		$this->updated = new CDbExpression('NOW()');
- 
-    	return parent::beforeSave();
-	}
 }

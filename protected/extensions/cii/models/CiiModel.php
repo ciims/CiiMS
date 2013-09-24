@@ -5,6 +5,9 @@
  */
 class CiiModel extends CActiveRecord
 {
+	// Attributes before they had changes
+	public $_oldAttributes = array();
+
 	/**
 	 * @var array $forbiddenRoutes - an array or routes that the user should not be able to set the slug to
 	 */
@@ -47,7 +50,35 @@ class CiiModel extends CActiveRecord
 					);
 			}
 		}
+
 		return $items;
+	}
+
+	/**
+	 * Enables us to cache old attributes for comparison
+	 */
+	protected function afterFind()
+	{
+	    $this->_oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
+	/**
+	 * Consolodates $this->creatd, and $this->updated attributes to our base model, rather than defining it in every Model
+	 * @return [type] [description]
+	 */
+	public function beforeValidate()
+	{
+		if ($this->hasAttribute('created'))
+		{
+	        if ($this->isNewRecord)
+	            $this->created = new CDbExpression('NOW()');
+		}
+
+		if ($this->hasAttribute('updated'))
+       		$this->updated = new CDbExpression('NOW()');
+
+       	return parent::beforeValidate();
 	}
 	
 	/**

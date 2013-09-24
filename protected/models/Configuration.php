@@ -86,19 +86,6 @@ class Configuration extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
-    
-    /**
-     * Sets the created and updates records
-     */
-	public function beforeValidate()
-	{
-		if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-
-		$this->updated = new CDbExpression('NOW()');
-
-		return parent::beforeValidate();
-	}
 
     /**
      * Generates a unique id

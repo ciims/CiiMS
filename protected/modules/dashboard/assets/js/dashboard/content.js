@@ -85,6 +85,9 @@ var CiiDashboard = {
 			// Stores the last md5 hash from inf pagination
 			lastMD5 : null,
 
+			// ScrollTop
+			scrollTop : null,
+
 			// Consolodating Preview base functions that should be loaded
 			load : function() {
 				CiiDashboard.Content.Preview.marked();
@@ -129,6 +132,7 @@ var CiiDashboard = {
 								$(".posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
 								CiiDashboard.Content.Preview.currentPage++;
 
+								CiiDashboard.Content.Preview.beforeAjaxUpdate();
 								CiiDashboard.Content.Preview.afterAjaxUpdate();
 								CiiDashboard.Content.Preview.allowPagination = true;
 							});
@@ -160,7 +164,7 @@ var CiiDashboard = {
 				$(".preview").html(CiiDashboard.Content.Preview.contentPane).removeClass("has-scrollbar");
 				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
 				$("#preview .content").animate({
-					scrollTop : scrollTop
+					scrollTop : CiiDashboard.Content.Preview.scrollTop
 				}, 0);
 
 				CiiDashboard.Content.Preview.delete();
@@ -169,7 +173,7 @@ var CiiDashboard = {
 			// BeforeAjaxUpdate for ContentListView::beforeAjaxUpdate
 			beforeAjaxUpdate : function() {
 				previewPane = $("#preview .content");
-	    		scrollTop = $("#preview .content").scrollTop();
+	    		CiiDashboard.Content.Preview.scrollTop = $("#preview .content").scrollTop();
 	    		CiiDashboard.Content.Preview.contentPane = $(".preview").html();
 			},
 

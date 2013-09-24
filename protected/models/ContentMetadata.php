@@ -95,18 +95,4 @@ class ContentMetadata extends CiiModel
 			'criteria'=>$criteria,
 		));
 	}
-	
-	/**
-	 * Sets the created an updated records
-	 * @return [type]
-	 */
-	public function beforeSave()
-	{
-	    if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-
-		$this->updated = new CDbExpression('NOW()');
- 
-    	return parent::beforeSave();
-	}
 }

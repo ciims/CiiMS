@@ -131,12 +131,7 @@ class Categories extends CiiModel
      * Flushes URL data from the cache before the model is updated
      */
 	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-	   	
-	   	$this->updated = new CDbExpression('NOW()');
-		
+	{		
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('categories');
 		Yii::app()->cache->delete('WFF-categories-url-rules');

@@ -88,18 +88,4 @@ class UserGroups extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
-	/**
-	 * Sets the created and updated attributes
-	 * @return [type]
-	 */
-	public function beforeSave()
-	{
-	    if ($this->isNewRecord)
-	    	$this->created = new CDbExpression('NOW()');
-
-	    $this->updated = new CDbExpression('NOW()');
-	 
-	    return parent::beforeSave();
-	}
 }

@@ -155,11 +155,6 @@ class Users extends CiiModel
         if ($this->about == NULL || $this->about == '')
             $this->about = ' ';
 
-        if ($this->isNewRecord)
-            $this->created = new CDbExpression('NOW()');
-
-        $this->updated = new CDbExpression('NOW()');
-
         return parent::beforeValidate();
     }
 

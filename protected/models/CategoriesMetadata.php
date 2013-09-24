@@ -95,17 +95,4 @@ class CategoriesMetadata extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
-	/**
-	 * Set created and updated attributes
-	 */
-	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-
-		$this->updated = new CDbExpression('NOW()');
- 
-    	return parent::beforeSave();
-	}
 }
