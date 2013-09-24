@@ -29,6 +29,25 @@
  */
 class SiteController extends CiiController
 {
+	public function filters()
+	{
+		return CMap::mergeArray(parent::filters(), array('accessControl'));
+	}
+
+	/**
+	 * Setup access controls to prevent guests from changing their emaila ddress
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('deny',  // allow authenticated admins to perform any action
+				'users'=>array('*'),
+				'expression'=>'Yii::app()->user->isGuest==true',
+				'actions' => array('emailchange')
+			),
+		);
+	}
+
 	/**
 	 * beforeAction method, performs operations before an action is presented
 	 * @param $action, the action being called
@@ -388,12 +407,17 @@ class SiteController extends CiiController
 		if ($meta == NULL || $meta->value != $key)
 			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
 
+		$user = Users::model()->findByPk($meta->user_id);
+
+		if ($user->id != Yii::app()->user->id)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
 		if (Cii::get($_POST, 'password') !== NULL)
 		{
 			// Retrieve the user's NEW email address
 			$meta = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
 
-			$identity = new UserIdentity(Users::model()->findByPk($meta->user_id)->email, $_POST['password']);
+			$identity = new UserIdentity($user->email, $_POST['password']);
 
 			// If we can authenticate that the user wants to change their email address
 			if ($identity->authenticate())

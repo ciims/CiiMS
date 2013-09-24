@@ -197,15 +197,6 @@ class Users extends CiiModel
     		$key = $meta->value = md5(md5($newEmail . time()) . Yii::app()->params['encryptionKey']);
     		$meta->save();
 
-    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddressChangeKeyTime'));
-    		if ($meta === NULL)
-    			$meta = new UserMetadata;
-
-    		$meta->user_id = $this->id;
-    		$meta->key = 'newEmailAddressChangeKeyTime';
-    		$meta->value = time();
-    		$meta->save();
-
     		// Fire off an email to the OLD email address asking them VERIFY the change
     		$response = Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
     	}
