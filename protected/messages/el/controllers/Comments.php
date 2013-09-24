@@ -19,6 +19,8 @@
 return array (
   'Invalid request. Please do not repeat this request again.' => '',
   'There was an error flagging this comment.' => '',
-  'There was an error saving your comment' => '',
+  'There was an error saving your comment.' => '',
   'Unable to retrieve comments for the requested post.' => '',
+  'now' => '',
+  'There was an error saving your comment' => '@@@@',
 );

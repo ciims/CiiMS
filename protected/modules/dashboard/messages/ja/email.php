@@ -15,11 +15,13 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
+  'CiiMS Email Change Notification' => '',
   'CiiMS Test Email' => '',
   'Hello {{user}},' => '',
+  'If you did NOT request this change, you may safely ignore this email. This request will automatically expired in three (3) days.' => '',
   'If you have recieved this email then your CiiMS instance is capable of sending out emails. No further action or changes is required on your part.' => '',
+  'If you requested this change, please visit {{link}} to verify your new email address. Your email address will not be changed until you complete the verification process.' => '',
+  'This a security notification from CiiMS. A request has been made on your behalf to change the email address associated to your account.' => '',
 );

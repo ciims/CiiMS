@@ -15,12 +15,11 @@
  * of the guide for details.
  *
  * NOTE, this file must be saved in UTF-8 encoding.
- *
- * @version $Id: $
  */
 return array (
   'Add to Dashboard' => '',
   'An ID must be specified' => '',
+  'An error occured while trying to delete a comment.' => '',
   'Analytics Settings' => '',
   'Appearance' => '',
   'By {{user}}' => '',
@@ -32,8 +31,10 @@ return array (
   'Change the site theme for desktop, tablet, and mobile.' => '',
   'CiiMS is out of date. Please update to the latest version ({{version}})' => '',
   'CiiMS\' database is out of date. Please run yiic migrate up to migrate your database to the latest version.' => '',
+  'Comments' => '',
   'Configure and verify how CiiMS sends emails.' => '',
   'Content has been updated.' => '',
+  'Drafted Post' => '',
   'Email Settings' => '',
   'Enable and configure various Analytics providers (more coming soon!).' => '',
   'General Settings' => '',
@@ -46,6 +47,7 @@ return array (
   'Missing category id' => '',
   'No card type exists with that ID' => '',
   'No card with that ID exists' => '',
+  'No comment with that id exists.' => '',
   'No records were supplied to delete' => '',
   'Please address the following issues.' => '',
   'Plugins are not yet supported' => '',
@@ -63,6 +65,7 @@ return array (
   'There are no dashboard cards with that id' => '',
   'There are no issues with your system. =)' => '',
   'There was an error in your submission, please verify you data before trying again.' => '',
+  'There was an error saving your comment.' => '',
   'There was an error saving your content. Please try again.' => '',
   'There was an error saving your settings.' => '',
   'There was an unknown error processing your request' => '',
@@ -77,4 +80,8 @@ return array (
   'Your runtime folder ({{folder}}) is not writable. Please change the permissions on the folder to be writable' => '',
   'Your settings have been updated.' => '',
   'Your uploads folder ({{folder}}) is not writable. Please change the permissions on the folder to be writable' => '',
+  'approve' => '',
+  'block' => '',
+  'delete' => '',
+  'now' => '',
 );
