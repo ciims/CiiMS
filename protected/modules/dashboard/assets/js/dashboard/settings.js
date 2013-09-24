@@ -111,8 +111,11 @@ var CiiDashboard = {
 			$("#test-email").click(function() {
 				var testaddress = $("#EmailSettings_Test").val();
 				$.post(CiiDashboard.endPoint + "/settings/emailtest", { email : testaddress }, function(data, textStatus, jqXHR) { 
-					console.log(data);
+					$(".alert-secondary").removeClass("alert-error").addClass("alert-success").find("a").after("Email Sent!");
+				}).fail(function(data) {
+					$(".alert-secondary").removeClass("alert-success").addClass("alert-error").find("a").after(data.responseText);
 				});
+				$(".alert-secondary").fadeIn(200);
 			});
 		},
 

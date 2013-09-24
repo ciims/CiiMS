@@ -1,5 +1,8 @@
 <div class="header secondary">
 	<fieldset>
+		<div class="alert-secondary alert in alert-block fade alert-error" style="display:none">
+			<a class="close" data-dismiss="alert">×</a>
+		</div>
 		<legend><?php echo Yii::t('Dashboard.views', 'Send a Test Email'); ?></legend>
 		<div class="pure-control-group">
 			<label for="EmailSettings_Test"><?php echo Yii::t('Dashboard.views', 'Email To Test'); ?></label>

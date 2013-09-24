@@ -364,7 +364,7 @@ class SettingsController extends CiiSettingsController
 
 				// Send an appropriate status code if sending the email fails
 				if (!$response)
-					header('HTTP/1.1 500 Unable to Send Email');
+					header('HTTP/1.1 502 Failed to connect to SMTP Server.');
 
 				Yii::app()->end();
 			}

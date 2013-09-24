@@ -184,8 +184,8 @@ class CiiSettingsForm extends CWidget
 						var d = $("#yw2", $.parseHTML(data));
 
 						$("#yw2").html($(d).html());						
-						$(".alert").fadeIn(1000);
-						setTimeout(function() { $(".alert").fadeOut(1000); }, 5000);
+						$(".alert").not(".alert-secondary").fadeIn(1000);
+						setTimeout(function() { $(".alert").not(".alert-secondary").fadeOut(1000); }, 5000);
 					});
 
 				}, 1000);
