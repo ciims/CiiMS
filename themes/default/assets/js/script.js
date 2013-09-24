@@ -137,7 +137,7 @@ var DefaultTheme = {
 			    langPrefix: "lang-"
 			});
 
-			var output = marked($("#markdown").html());
+			var output = marked($("#markdown").val());
 			$("#md-output").html(output);
 			$("#md-output a").attr("rel", "nofollow").attr("target", "_blank")
 		}

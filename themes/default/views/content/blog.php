@@ -64,7 +64,7 @@
 				?>
 
 				<div id="md-output"><?php echo $md->safeTransform($dom->saveHtml()); ?></div>
-				<div id="markdown" style="display:none;"><?php echo $content->content; ?></div>
+				<textarea id="markdown" style="display:none;"><?php echo $content->content; ?></textarea>
 				
 				
 		</div>
