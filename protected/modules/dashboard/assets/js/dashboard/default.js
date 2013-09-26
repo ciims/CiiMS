@@ -50,12 +50,12 @@ var CiiDashboard = {
 				var newData = $.parseHTML(data);
 
 		 		$(".widget-container").html(data).shapeshift({
-			        minColumns: 3,
-			        gutterX: 20,
-			        gutterY: 20,
-			        paddingX: 0,
-			        paddingY: 0
-		        });
+					minColumns: 3,
+					gutterX: 20,
+					gutterY: 20,
+					paddingX: 0,
+					paddingY: 0
+				});
 
 				CiiDashboard.Default.loadScripts(newData);
 				CiiDashboard.Default.enableDragBehavior();
@@ -90,6 +90,12 @@ var CiiDashboard = {
 				});
 
 				$(this).addClass("active");
+
+				$.post(CiiDashboard.endPoint + "/default/getCardsByCategory/id/" + $(this).find("a").attr("href").replace("#", ""), function(data) {
+                                        $(".body-content #main .content").html(data);
+                                        $("select").imagepicker();
+                                        CiiDashboard.Default.bindAddCardsButton();
+                                });
 			});
 		},
 		
