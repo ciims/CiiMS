@@ -23,7 +23,6 @@ notifications:
   email:
     on_success: change
     on_failure: never
-
                                                     # Install the necessary scripts for running the unit tests
 before_script:
   - pear channel-discover pear.phpunit.de | cat     # Selinium/PHPUnit Channel
@@ -34,7 +33,6 @@ before_script:
   - cd ../
   - php yiic-test.php migrate up --interactive=0    # Run Migrations
   - cd tests                                        # Navigate to the Tests Directory to run the tests
-
                                                     # Automate the deployment process for develop/master
 after_success:
   - echo "Host erianna" >> ~/.ssh/config            # Add necessary SSH credentials
