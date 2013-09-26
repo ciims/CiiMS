@@ -165,8 +165,8 @@ main .widget-container .settings {
 }
 
 main .widget-container div.card-rectangle {
-    width: 482px; 
-    height:  230px;
+    width: 482px !important; 
+    height:  230px !important;
 }
 
 main .widget-container div.card-normal {
@@ -174,8 +174,8 @@ main .widget-container div.card-normal {
 }
 
 main .widget-container div.card-huge {
-    width: 482px; 
-    height: 482px;
+    width: 482px !important; 
+    height: 482px !important;
 }
 
 main .widget-container div.card-huge .body {
@@ -342,6 +342,7 @@ main .dh-settings-container .sidebar .menu li a {
     padding-left: 20px;
     text-decoration: none;
 }
+
 main #comments {
   height: 100%;
   padding: 10px;
