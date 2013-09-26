@@ -131,14 +131,14 @@ var CiiDashboard = {
 			{
 				CiiDashboard.Default.loadedScripts.push(script);
 				$.getScript(script, function(scrpt, textStatus, jqXHR) {
-					window[name].load(id);
+					window[name].load(id, name);
 				});
 			}
 			else
 			{
 				var timerInterval = setInterval(function() {
 					try { 
-						window[name].load(id);
+						window[name].load(id, name);
 						clearInterval(timerInterval);
 					} catch (e) {}
 				}, 500)
