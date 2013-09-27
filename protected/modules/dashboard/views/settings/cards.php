@@ -13,6 +13,9 @@
 	<div id="main" class="nano">
 		<div class="content">
 			<legend><?php echo Yii::t('Dashboard.views', 'Add a New Card'); ?></legend>
+			<div class="alert-secondary alert in alert-block fade alert-error" style="display:none">
+				<a class="close" data-dismiss="alert">×</a>
+			</div>
 			<div class="pure-control-group pure-input-3-4">
 				<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Enter the user/repo of where the widget you want to upload is located at.'); ?></p>
 				<label><?php echo Yii::t('Dashboard.views', 'Repository'); ?></label>
