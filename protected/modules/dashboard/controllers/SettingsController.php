@@ -158,6 +158,8 @@ class SettingsController extends CiiSettingsController
 		// Only proceed on POST
 		if (Cii::get($_POST, 'Theme') !== NULL)
 		{
+			Yii::app()->cache->delete('settings_themes');
+
 			$repository = Cii::get($_POST['Theme'], 'new');
 			$repo = explode('/', $repository);
 
@@ -223,7 +225,7 @@ class SettingsController extends CiiSettingsController
 
             		header('Content-Type: application/json');
 
-            		Yii::app()->cache->delete('settings_themes');
+            		echo CJSON::encode(array('theme' => str_replace('webroot.themes.', '', $json['folder']), 'type' => $json['type']));
 
 	            	// And return true
 	            	return true;

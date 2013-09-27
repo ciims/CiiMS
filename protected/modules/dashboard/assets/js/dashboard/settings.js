@@ -29,10 +29,23 @@ var CiiDashboard = {
 				$("#spinner").fadeIn();
 				e.preventDefault();
 
+				$(".alert-secondary").hide();
+
 				$.post(CiiDashboard.endPoint + '/settings/addTheme', { "Theme" : { "new" : $("#Theme_new").val() } }, function(data) {
 					$("#spinner").fadeOut();
-				}).fail(function(data, textStatus, jqXHR) {
+					var selector = "#ThemeSettings_theme";
+					if (data.type == "mobile")
+						selector = "#ThemeSettings_mobileTheme";
+					else if (data.type == "tablet")
+						selector = "#ThemeSettings_tabletTheme";
+					else
+						selector = "#ThemeSettings_theme";
+					$(selector).append("<option value=\"" + data.theme + "\" data-img-src=\"" + "/themes/" + data.theme + "/default.png" + "\">" + data.theme + "</option>");
+					$(selector).imagepicker();
+				}).fail(function(data) {
 					$("#spinner").fadeOut();
+					$("#info").remove();
+					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
 				});
 			});
 		},
@@ -103,13 +116,12 @@ var CiiDashboard = {
 				$("#spinner").fadeIn();
 				e.preventDefault();
 
-
 				$(".alert-secondary").hide();
 
 				$.post(CiiDashboard.endPoint + '/settings/addCard', $("form").serialize(), function(data) {
 					$(".meta-container").append('<div class="pure-control-group"><label class="inline">' +  data.class + '</label><p class="text-small inline" style="top: -8px;">' + data.name + '</p><span class="pure-button pure-button-warning pure-button-small pure-button-link pull-right" style="top: -13px;">0</span><span class="icon-remove inline pull-right" id="' + data.folderName + '"></span></div>');
 					$("#spinner").fadeOut();
-				}).fail(function(data, textStatus, jqXHR) {
+				}).fail(function(data) {
 					$("#spinner").fadeOut();
 					$("#info").remove();
 					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
