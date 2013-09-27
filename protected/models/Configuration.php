@@ -110,10 +110,17 @@ class Configuration extends CiiModel
     public function fullDelete($name)
     {
         $path = Yii::getPathOfAlias('application.runtime.cards.' . $name);
-        try {
-            if ($this->removeDirectory($path))
-                $this->delete();
 
+        try {
+            // Delete the directory path
+            $this->removeDirectory($path);
+
+            // Delete the cache
+            Yii::app()->cache->delete('dashboard_cards_available');
+            Yii::app()->cache->delete('cards_in_category');
+
+            // Delete the record
+            return $this->delete();
         } catch (Exception $e) {
             return false;
         }
@@ -122,55 +129,21 @@ class Configuration extends CiiModel
     }
 
     /**
-     * This is a beyond terrifying function that recursivly removes everything in a directory
+     * Terrifying function that recursively deletes a directory
      *
-     * Permanently.
-     *
-     * Do not call this function directory. ALWAYS sanatize the user's input before attempting to run this. Running this WITHOUT proper santization
-     * can result in rm -rf /*. Don't do that.
-     * 
-     * @param  string  $directory The directory we want to recursively delete
-     * @return boolean            If this was successful for not
+     * @url http://php.net/manual/en/function.rmdir.php
+     * @param string $dir     The directory that we want to delete
+     * @return boolean
      */
-    protected function removeDirectory($directory)
+    public function removeDirectory($dir = '')
     {
-        $fileHelper = new CFileHelper;
-        $files = $fileHelper->findFiles($directory);
+        if ($dir == '' || $dir == NULL || $dir == '/')
+            return false;
 
-        // Delete all the files only in that directory
+        $files = array_diff(scandir($dir), array('.','..')); 
         foreach ($files as $file)
-            unlink($file);
+            (is_dir("$dir/$file")) ? $this->removeDirectory("$dir/$file") : unlink("$dir/$file"); 
 
-        // Remove all directories in that folder
-        $this->removeDirectoryRecursively($directory);
-
-        // If we can delete the root directory, delete the card
-        if (rmdir($directory . "/"))
-            return $this->delete();
-
-        // Otherwise, hard fail
-        return false;
-    }
-
-    /**
-     * This is a less terrifying function that can only delete directories. Fortunatly, PHP can't do recursive deletes if a file still exists in the folder
-     * So this isn't nearly as terrifying.
-     * 
-     * @param  string $directory The directory that we want to delete
-     */
-    protected function removeDirectoryRecursively($directory)
-    {
-        $mainDir = glob($directory . '/*' , GLOB_ONLYDIR);
- 
-        if (count($mainDir) != 0)
-        {
-            foreach ($mainDir as $dir)
-            {
-                $this->removeDirectoryRecursively($dir);
-                rmdir($dir);
-            }
-        }
-
-        return;
-    }
+        return rmdir($dir); 
+  } 
 }

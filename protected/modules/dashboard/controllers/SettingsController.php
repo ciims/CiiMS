@@ -258,7 +258,7 @@ class SettingsController extends CiiSettingsController
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'There are no dashboard cards with that id'));
 
 		$card->value = CJSON::decode($card->value);
-		
+				
 		return $card->fullDelete($card->value['folderName']);
 	}
 

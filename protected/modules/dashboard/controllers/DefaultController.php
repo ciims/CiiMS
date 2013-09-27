@@ -70,7 +70,7 @@ class DefaultController extends CiiDashboardController
      */
     private function getCards()
     {
-    	$retCards = false;//Yii::app()->cache->get('dashboard_cards_available');
+    	$retCards = Yii::app()->cache->get('dashboard_cards_available');
 
     	if ($retCards === false)
     	{
