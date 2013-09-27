@@ -105,9 +105,11 @@ class DefaultController extends CiiDashboardController
     	switch ($category)
     	{
     		case "Default":
+                return "icon-gears";
+            case "Social":
+                return "icon-twitter";
     		default:
     			return "icon-gears";
-
     	}
     }
 
