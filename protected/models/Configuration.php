@@ -113,7 +113,7 @@ class Configuration extends CiiModel
 
         try {
             // Delete the directory path
-            $this->removeDirectory($path);
+            CiiFileDeleter::removeDirectory($path);
 
             // Delete the cache
             Yii::app()->cache->delete('dashboard_cards_available');
@@ -127,23 +127,4 @@ class Configuration extends CiiModel
 
         return false;
     }
-
-    /**
-     * Terrifying function that recursively deletes a directory
-     *
-     * @url http://php.net/manual/en/function.rmdir.php
-     * @param string $dir     The directory that we want to delete
-     * @return boolean
-     */
-    public function removeDirectory($dir = '')
-    {
-        if ($dir == '' || $dir == NULL || $dir == '/')
-            return false;
-
-        $files = array_diff(scandir($dir), array('.','..')); 
-        foreach ($files as $file)
-            (is_dir("$dir/$file")) ? $this->removeDirectory("$dir/$file") : unlink("$dir/$file"); 
-
-        return rmdir($dir); 
-  } 
 }

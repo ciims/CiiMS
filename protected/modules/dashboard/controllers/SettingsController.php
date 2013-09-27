@@ -153,6 +153,93 @@ class SettingsController extends CiiSettingsController
 	 * Once CiiMS.org is setup, this functionality will be deprecated in favor of a download from CiiMS.org
 	 * @return boolean   If the download, extraction, and install was successful
 	 */
+	public function actionAddTheme()
+	{
+		// Only proceed on POST
+		if (Cii::get($_POST, 'Theme') !== NULL)
+		{
+			$repository = Cii::get($_POST['Theme'], 'new');
+			$repo = explode('/', $repository);
+
+			if ($repository == NULL)
+				return false;
+
+			$repoInfo = explode('/', $repository);
+
+			// Download the Card information from Github via cURL
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_URL => 'https://raw.github.com/' . $repository . '/master/theme.json',
+			));
+
+			$json = CJSON::decode(curl_exec($curl));
+
+			// If we have an invalid repo - abort
+			if ($json == NULL)
+				throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to find valid theme at that location.'));
+
+
+			if (file_exists(Yii::getPathOfAlias($json['folder'])))
+				throw new CHttpException(400, Yii::t('Dashboard.main', 'A theme with that name already exist. Unable to install theme.'));
+
+			// Determine the runtime directory
+			$themesDirectory = Yii::getPathOfAlias('webroot.themes');
+			$downloadPath = $themesDirectory . DIRECTORY_SEPARATOR . str_replace('webroot.themes.', '', $json['folder']) . "-tmp.zip";
+			if (!is_writable($themesDirectory))
+				throw new CHttpException(500,  Yii::t('Dashboard.main', 'Themes directory is not writable'));
+
+			$targetFile = fopen($downloadPath, 'w' );
+
+            // Initiate the CURL request
+            $ch = curl_init('https://github.com/' . $repository . '/archive/master.zip');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_FILE, $targetFile);
+            curl_exec($ch);
+            
+            // Extract the file
+            $zip = new ZipArchive;
+            $res = $zip->open($downloadPath);
+
+            // If we can open the file
+            if ($res === true)
+            {
+            	// Extract it to the appropriate location
+            	$extractedDir = str_replace('.zip', '', $downloadPath);
+            	$extraction = $zip->extractTo($extractedDir);
+
+            	// If we can extract it
+            	if ($extraction)
+            	{
+            		$finalDir = Yii::getPathOfAlias('webroot.themes') . DIRECTORY_SEPARATOR . str_replace('webroot.themes.', '', $json['folder']);
+            		$tempDir  = $extractedDir . DIRECTORY_SEPARATOR . $repo[1] . '-master';
+            		rename($tempDir, $finalDir);
+            		
+            		CiiFileDeleter::removeDirectory($extractedDir);
+
+            		// Delete the zip file
+            		unlink($downloadPath);
+
+            		header('Content-Type: application/json');
+
+            		Yii::app()->cache->delete('settings_themes');
+
+	            	// And return true
+	            	return true;
+	            }
+            }
+		}
+
+		return false;
+	}
+
+	/**
+	 * This is a temporary way to add and install new cards via Github.
+	 *
+	 * Once CiiMS.org is setup, this functionality will be deprecated in favor of a download from CiiMS.org
+	 * @return boolean   If the download, extraction, and install was successful
+	 */
 	public function actionAddCard()
 	{
 		// Only proceed on POST

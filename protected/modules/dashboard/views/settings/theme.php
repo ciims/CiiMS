@@ -1,3 +1,17 @@
+<legend><?php echo Yii::t('Dashboard.views', 'Install a Theme'); ?></legend>
+<div class="pure-control-group pure-input-3-4">
+	<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Enter the user/repo of where the theme you want to download is located at.'); ?></p>
+	<label><?php echo Yii::t('Dashboard.views', 'Repository'); ?></label>
+	<input type="text" name="Theme[new]" id="Theme_new" class="pure-input-2-3" />
+	<a id="submit-form" class="pure-button pure-button-primary pure-button-small pull-right">
+		<span id="spinner">
+			<span class="icon-spinner icon-spin icon-spinner-form"></span>
+			<span class="icon-spacer"></span>
+		</span>
+		<?php echo Yii::t('Dashboard.views', 'Install Theme'); ?>
+	</a>
+</div>
+
 <fieldset>
 <?php
 	foreach ($model->getThemes() as $theme=>$options)

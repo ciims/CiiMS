@@ -24,6 +24,17 @@ var CiiDashboard = {
 
 		loadAppearance : function() {
 			$("select").imagepicker();
+
+			$("#submit-form").click(function(e) {
+				$("#spinner").fadeIn();
+				e.preventDefault();
+
+				$.post(CiiDashboard.endPoint + '/settings/addTheme', { "Theme" : { "new" : $("#Theme_new").val() } }, function(data) {
+					$("#spinner").fadeOut();
+				}).fail(function(data, textStatus, jqXHR) {
+					$("#spinner").fadeOut();
+				});
+			});
 		},
 
 		loadAnalytics: function() {
