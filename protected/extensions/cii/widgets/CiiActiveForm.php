@@ -284,11 +284,22 @@ class CiiActiveForm extends TbActiveForm
 	{
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::openTag('div', array('class' => 'pure-input-2-3', 'style' => 'display: inline-block'));
-			echo CHtml::openTag('label', array('class' => 'switch-light checkbox toggle candy blue', 'onclick' => null));
-				echo $this->checkBox($model, $property, $htmlOptions);
+			echo CHtml::openTag('label', array('class' => 'switch-light toggle candy blue'));
+				$checked = array();
+				if($model->$property == 1)
+					$checked = array('checked' => 'checked');
+
+				echo CHtml::openTag('input', CMap::mergeArray(array(
+					'type' => 'checkbox',
+					'id' => get_class($model) . '_' . $property,
+					'name' => get_class($model) . '[' . $property . ']',
+					'class' => Cii::get($htmlOptions, 'class', NULL),
+					'value' => '1'
+				), $checked));
+
 				echo CHtml::openTag('span');
-					echo CHtml::tag('span', array(), 'On');
 					echo CHtml::tag('span', array(), 'Off');
+					echo CHtml::tag('span', array(), 'On');
 				echo CHtml::closeTag('span');
 
 				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);

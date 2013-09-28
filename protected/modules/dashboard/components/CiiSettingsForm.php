@@ -180,8 +180,18 @@ class CiiSettingsForm extends CWidget
 				} catch (e) {}
 				
 				timeout = setTimeout(function() {
-					var data = $("form").serialize();
-					$.post($("form").attr("action"), data, function(data, textStatus) {
+
+					var values = $("form").serializeArray();
+
+				    $("form input[type=checkbox]:not(:checked)").each(function() {
+				    	values.push({ "name" : this.name, "value" : 0 })
+				    });
+
+					$(values).each(function() {
+						console.log(this);
+					});
+
+					$.post($("form").attr("action"), values, function(data, textStatus) {
 						var d = $("#yw2", $.parseHTML(data));
 
 						$("#yw2").html($(d).html());						
