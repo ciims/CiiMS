@@ -1,5 +1,5 @@
 <?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
-<!DOCTYPE html>
+<?php if(strpos('MSIE', $_SERVER['HTTP_USER_AGENT']) !== false) echo "<!DOCTYPE html>"; ?>
 <html lang="<?php echo Yii::app()->language; ?>">
 	<head>
 		<meta name="viewport" content="initial-scale=1.0">
