@@ -109,7 +109,7 @@ class CiiSettingsForm extends CWidget
 			echo CHtml::closeTag('div');
 
 			echo CHtml::openTag('div', array('class'=>'pull-right'));
-				echo CHtml::submitButton($this->header['save-text'], array('id' =>'header-button', 'class' => 'pure-button pure-button-primary pure-button-small'));
+				echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small'), CHtml::tag('i', array('class' => 'icon-spinner icon-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
 			echo CHtml::closeTag('div');
 
 			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
@@ -164,7 +164,7 @@ class CiiSettingsForm extends CWidget
 							}
 						}
 						
-						echo CHtml::submitButton(Yii::t('Dashboard.main', 'Save Changes'), array('class' => 'pure-button pure-button-primary pure-button-small pull-right'));
+						echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small pull-right'), CHtml::tag('i', array('class' => 'icon-spinner icon-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
 					}
 
 				echo CHtml::closeTag('div');
@@ -175,6 +175,7 @@ class CiiSettingsForm extends CWidget
 			$("input:not([no-field-change=\'true\']").on("input onpropertychange change", function() {
 
 				try {
+					$(".icon-spinner-form2").fadeIn();
 					clearTimeout(timeout);
 				} catch (e) {}
 				
@@ -185,6 +186,7 @@ class CiiSettingsForm extends CWidget
 
 						$("#yw2").html($(d).html());						
 						$(".alert").not(".alert-secondary").fadeIn(1000);
+						$(".icon-spinner-form2").fadeOut();
 						setTimeout(function() { $(".alert").not(".alert-secondary").fadeOut(1000); }, 5000);
 					});
 
