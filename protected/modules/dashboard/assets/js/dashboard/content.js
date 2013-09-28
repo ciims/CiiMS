@@ -360,6 +360,8 @@ var CiiDashboard = {
 			CiiDashboard.Content.Save.datePicker();
 			CiiDashboard.Content.Save.bindFlipEvent();
 			CiiDashboard.Content.Save.bindPreviewEditor();
+
+			setTimeout(function() { $(".redactor_box").height($(window).height() - 250); }, 200);
 		},
 
 		/**

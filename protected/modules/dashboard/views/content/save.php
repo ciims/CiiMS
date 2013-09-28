@@ -8,7 +8,7 @@
 	<?php echo $form->hiddenField($model, 'created'); ?>
 	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
 	<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id)); ?>
-	<div class="content-container">
+	<div class="content-container <?php echo (bool)Cii::getConfig('preferMarkdown', false) ? null : 'content-container-editor'; ?>">
 		<div class="header">
 			<div class="content">
 				<div class="pull-left" style="width: 80%;">
@@ -30,26 +30,26 @@
 				<?php endif; ?>
 				<span class="pull-right icon-camera"></span>
 			</div>
-			<div id="main">
-				<div class="content">
-					<div id="promotedDz" class="dropzone" style="display:none;"></div>
-					<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
-						<?php echo $form->textArea($model, 'content'); ?>
-					<?php else: ?>
-						<?php $this->widget('ext.redactor.ImperaviRedactorWidget', array(
-	    	                    'model' => $model,
-	    	                    'attribute' => 'content',
-	    	                    'options' => array(
-	    	                        'focus' => false,
-	    	                        'autoresize' => false,
-	    	                        'minHeight' =>'100%',
-	    	                        'changeCallback' => 'js:function() { $("#Content_content").change(); }'
-	    	                    )
-	    	                ));
-	    	            ?>
-					<?php endif; ?>
-				</div>
-			</div>
+				<div id="promotedDz" class="dropzone" style="display:none;"></div>
+				<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
+					<div id="main">
+						<div class="content">
+							<?php echo $form->textArea($model, 'content'); ?>
+						</div>
+					</div>
+				<?php else: ?>
+					<?php $this->widget('ext.redactor.ImperaviRedactorWidget', array(
+    	                    'model' => $model,
+    	                    'attribute' => 'content',
+    	                    'options' => array(
+    	                        'focus' => true,
+    	                        'minheight' => '100%',
+    	                        'autoresize' => true,
+    	                        'changeCallback' => 'js:function() { $("#Content_content").change(); }'
+    	                    )
+    	                ));
+    	            ?>
+				<?php endif; ?>
 		</div>
 
 		<div class="body-content">

@@ -7,6 +7,10 @@ main .content-container {
   	display: table;
 }
 
+main .content-container.content-container-editor {
+	height: 98%;
+	min-height: 98%;
+}
 
 main .content-container .editor {
 	float: left;
