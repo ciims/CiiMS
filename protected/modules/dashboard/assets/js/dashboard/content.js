@@ -363,7 +363,15 @@ var CiiDashboard = {
 
 			setTimeout(function() { 
 				$(".redactor_box").height($(window).height() - 250); 
-				$(".redactor_editor").height($(".editor").height()-80)
+				$(".redactor_editor").height($(".editor").height()-80);
+				var isChrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()); 
+
+				if(!isChrome) {
+					$(".redactor_editor").height($(".editor").height()+30);
+					$(".editor").height($(".content-container").height()-80);
+					$(".body-content").height($(".content-container").height()-80);
+				}
+
 			}, 200);
 		},
 
