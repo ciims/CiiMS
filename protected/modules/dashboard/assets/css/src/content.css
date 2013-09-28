@@ -35,6 +35,10 @@ main .content-container .editor #main .content {
 	max-height: 98%;
 }
 
+main .content-container .editor .redactor_box {
+	min-height: 500px;
+}
+
 main .content-container .body-content {
 	overflow: hidden;
 	height: 90%;

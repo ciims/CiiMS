@@ -361,7 +361,10 @@ var CiiDashboard = {
 			CiiDashboard.Content.Save.bindFlipEvent();
 			CiiDashboard.Content.Save.bindPreviewEditor();
 
-			setTimeout(function() { $(".redactor_box").height($(window).height() - 250); }, 200);
+			setTimeout(function() { 
+				$(".redactor_box").height($(window).height() - 250); 
+				$(".redactor_editor").height($(".editor").height()-80)
+			}, 200);
 		},
 
 		/**
