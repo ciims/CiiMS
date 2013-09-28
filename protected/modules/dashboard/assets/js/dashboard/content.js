@@ -339,7 +339,10 @@ var CiiDashboard = {
 						$.post($(this).attr("href"), function() {
 							CiiDashboard.Content.Preview.contentPane = null;
 							$(".preview").html("<div class=\"content\"></div>");
-							$.fn.yiiListView.update('ajaxListView');
+							$.fn.yiiListView.update('ajaxListView', { 
+					       		data: $('input#Content_title').serialize(),
+					       		url : CiiDashboard.endPoint + '/content/index',
+					       	});
 						});
 					}
 					delete confirm;
