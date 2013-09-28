@@ -98,51 +98,61 @@ var CiiDashboard = {
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination
 			bindScrollEvent : function() {
-			
+
 				// This event should only fire if we haven't loaded the last page	
 				if (!CiiDashboard.Content.Preview.isLastPageLoaded) {
 					// When the user is scrolling the list of articles
 					$(".posts .content").scroll(function() {
+						if (CiiDashboard.Content.Preview.isLastPageLoaded)
+							return;
+
 						if(CiiDashboard.isOnScreen($(".post").last())) {
 
 							// Disable pagination updates while we load the next page
 							CiiDashboard.Content.Preview.allowPagination = false;
 
-							$.get(CiiDashboard.endPoint + "/content/index/Content_page/" + (CiiDashboard.Content.Preview.currentPage + 1), function(data) { 
-								var response;
-								try {
-									response = $(data);
-								} catch (e) {
-									response = $.parseHTML(data);
-								}
-
-								var hash = md5($(response).find(".posts .content").html())
-								if (hash == CiiDashboard.Content.Preview.lastMD5) {
-									CiiDashboard.Content.Preview.isLastPageLoaded = true;
-									CiiDashboard.Content.Preview.allowPagination = true;
-									return;
-								}
-
-								CiiDashboard.Content.Preview.lastMD5 = hash;
-
-								$(".posts.nano").nanoScroller({ destroy: true });
-								var posts = $(response).find(".posts .content");
-								$(posts).find(".post-header").remove();
-								$(".posts .content").append($(posts).html());
-								$(".posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
-								CiiDashboard.Content.Preview.currentPage++;
-
-								CiiDashboard.Content.Preview.beforeAjaxUpdate();
-								CiiDashboard.Content.Preview.afterAjaxUpdate();
-								CiiDashboard.Content.Preview.allowPagination = true;
-							});
+							CiiDashboard.Content.Preview.getPages(CiiDashboard.Content.Preview.currentPage + 1);
 						}
 					});
 				}
 			},
 
+			getPages : function(page) {
+				$.get(CiiDashboard.endPoint + "/content/index/Content_page/" + (page), function(data) { 
+					var response;
+					try {
+						response = $(data);
+					} catch (e) {
+						response = $.parseHTML(data);
+					}
+
+					var hash = md5($(response).find(".posts .content").html())
+					if (hash == CiiDashboard.Content.Preview.lastMD5) {
+						CiiDashboard.Content.Preview.isLastPageLoaded = true;
+						CiiDashboard.Content.Preview.allowPagination = false;
+						return;
+					}
+
+					CiiDashboard.Content.Preview.lastMD5 = hash;
+
+					$(".posts.nano").nanoScroller({ destroy: true });
+					var posts = $(response).find(".posts .content");
+					$(posts).find(".post-header").remove();
+					$(".posts .content").append($(posts).html());
+					$(".posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+					CiiDashboard.Content.Preview.currentPage++;
+
+					CiiDashboard.Content.Preview.beforeAjaxUpdate();
+					CiiDashboard.Content.Preview.afterAjaxUpdate();
+					CiiDashboard.Content.Preview.allowPagination = true;
+				});
+
+			},
+
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
 			afterAjaxUpdate : function() {
+
+				console.log("afterAjaxUpdate");
 
 				CiiDashboard.Content.bindSearch();
 				CiiDashboard.Content.Preview.bindComment();
@@ -150,7 +160,7 @@ var CiiDashboard = {
 				$("input").focus();
 
 				// NanoScroller for main div
-		    	$("#posts.nano").nanoScroller({ iOSNativeScrolling: true }); 
+		    	$(".posts.nano").nanoScroller({ iOSNativeScrolling: true, flash : true }); 
 
 		    	// Timeago
 		    	$(".timeago").timeago(); 
@@ -162,7 +172,7 @@ var CiiDashboard = {
 		    	$(".preview").remove();
 				$(".sorter").after("<div class=\"preview nano\" id=\"preview\"></div>");
 				$(".preview").html(CiiDashboard.Content.Preview.contentPane).removeClass("has-scrollbar");
-				$("#preview.nano").nanoScroller({ OSNativeScrolling: true}); 
+				$("#preview.nano").nanoScroller({ OSNativeScrolling: true, flash : true}); 
 				$("#preview .content").animate({
 					scrollTop : CiiDashboard.Content.Preview.scrollTop
 				}, 0);
@@ -272,7 +282,6 @@ var CiiDashboard = {
 				    });
 
 				    $("#submit-comment").click(function(e) {
-				    	console.log("Submitting comment");
 						e.preventDefault();
 						if ($("#textbox").text() == "")
 						    return;
@@ -336,13 +345,21 @@ var CiiDashboard = {
 					confirm = confirm("Are you sure you want to delete this item?");
 					if (confirm==true)
 					{
+						var self = this;
 						$.post($(this).attr("href"), function() {
 							CiiDashboard.Content.Preview.contentPane = null;
 							$(".preview").html("<div class=\"content\"></div>");
+
+							var scrollPosition = $(".posts.nano .content").scrollTop();
+							console.log(scrollPosition);
+							
 							$.fn.yiiListView.update('ajaxListView', { 
-					       		data: $('input#Content_title').serialize(),
-					       		url : CiiDashboard.endPoint + '/content/index',
+					       		data: null,
+					       		url : CiiDashboard.endPoint + '/content/index'
 					       	});
+
+					       
+
 						});
 					}
 					delete confirm;
