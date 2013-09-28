@@ -27,7 +27,7 @@ class CiiSettingsForm extends CWidget
 		'h3' => NULL,
 		'p' => NULL,
 		'show-save' => true,
-		'save-text' => NULL,
+		'save-text' => 'Save',
 		'save-icon' => NULL
 	);
 
