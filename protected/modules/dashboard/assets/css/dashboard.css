@@ -748,6 +748,9 @@ main .body-content .preview-image {
   font-weight: 800;
   src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(../fonts/opensans/EInbV5DfGHOiMmvb1Xr-hnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
+.ie #categoryListView {
+  margin-top: 24px;
+}
 select, 
 textarea, 
 input[type="text"], 
@@ -938,6 +941,10 @@ input[type="range"]::-ms-fill-lower {
 
 .icon-spinner-form {
   margin-left: -7px;
+}
+
+.pure-plus {
+  top: 10px;
 }
 
 section.hbox {
@@ -1922,6 +1929,9 @@ main .settings-container .list-view .settings-row {
 	transition: all .2s ease-in-out;
 }
 
+main .settings-container .list-view .settings-row:first-child {
+	border-top: none;
+}
 
 main .settings-container .list-view .settings-row:hover {
 	background: #eee;

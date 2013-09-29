@@ -117,33 +117,6 @@ class CiiActiveForm extends TbActiveForm
 	}
 
 	/**
-	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
-	 * @param  CActiveForm      $form        The CActiveForm element
-	 * @param  CiiSettingsModel $model       The model that we are operating on
-	 * @param  string           $property    The name of the property we are working with
-	 * @param  array            $htmlOptions An array of HTML Options
-	 * @param  CValidator       $validators  The Validator(s) for this property
-	 *                                       Since we already have it, it's worth passing through
-	 */
-	public function toggleButtonRowFix($model, $property, $htmlOptions=array(), $validators=NULL)
-	{
-		echo CHtml::tag('label', array(), Cii::titleize($model->getAttributeLabel($property)));
-		echo CHtml::openTag('div', array('class' => 'pure-input-2-3', 'style' => 'display: inline-block'));
-			echo CHtml::openTag('label', array('class' => 'checkbox toggle candy blue'));
-				echo $this->checkBox($model, $property, $htmlOptions);
-				echo CHtml::openTag('p');
-					echo CHtml::tag('span', array(), 'On');
-					echo CHtml::tag('span', array(), 'Off');
-				echo CHtml::closeTag('p');
-
-				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
-			echo CHtml::closeTag('label');
-		echo CHtml::closeTag('div');
-	}
-
-
-
-	/**
 	 * TbActiveForm::textFieldRow() with min/max character length support.
 	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
@@ -298,12 +271,26 @@ class CiiActiveForm extends TbActiveForm
 				), $checked));
 
 				echo CHtml::openTag('span');
-					echo CHtml::tag('span', array(), 'Off');
-					echo CHtml::tag('span', array(), 'On');
+					echo CHtml::tag('span', array(), Yii::t('Dashboard.widgets', 'Off'));
+					echo CHtml::tag('span', array(), Yii::t('Dashboard.widgets', 'On'));
 				echo CHtml::closeTag('span');
 
 				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
 			echo CHtml::closeTag('label');
 		echo CHtml::closeTag('div');
+	}
+
+	/**
+	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
+	 * @param  CActiveForm      $form        The CActiveForm element
+	 * @param  CiiSettingsModel $model       The model that we are operating on
+	 * @param  string           $property    The name of the property we are working with
+	 * @param  array            $htmlOptions An array of HTML Options
+	 * @param  CValidator       $validators  The Validator(s) for this property
+	 *                                       Since we already have it, it's worth passing through
+	 */
+	public function toggleButtonRowFix($model, $property, $htmlOptions=array(), $validators=NULL)
+	{
+		return $this->toggleButtonRow($model, $property, $htmlOptions, $validators);
 	}
 }

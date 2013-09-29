@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'A theme with that name already exist. Unable to install theme.' => '',
   'Add to Dashboard' => '',
   'An ID must be specified' => '',
   'An error occured while trying to delete a comment.' => '',
@@ -25,6 +26,7 @@ return array (
   'By {{user}}' => '',
   'Cannot delete attribute that does not exist' => '',
   'Cannot delete parent category' => '',
+  'Categories' => '',
   'Category has been deleted.' => '',
   'Category has been updated' => '',
   'Change optional parameters for a given theme.' => '',
@@ -62,6 +64,7 @@ return array (
   'The requested page does not exist.' => '',
   'The requested theme type is not set. Please set a theme before attempting to change theme settings' => '',
   'Theme Settings' => '',
+  'Themes directory is not writable' => '',
   'There are no dashboard cards with that id' => '',
   'There are no issues with your system. =)' => '',
   'There was an error in your submission, please verify you data before trying again.' => '',
@@ -70,8 +73,10 @@ return array (
   'There was an error saving your settings.' => '',
   'There was an unknown error processing your request' => '',
   'Unable to find valid card at that location.' => '',
+  'Unable to find valid theme at that location.' => '',
   'Unable to save uploaded image.' => '',
   'User has been updated.' => '',
+  'Users' => '',
   'View system and diagnostic information.' => '',
   'We were unable to retrieve a post with that id. Please do not repeat this request again.' => '',
   'You do not have permission to access this card' => '',

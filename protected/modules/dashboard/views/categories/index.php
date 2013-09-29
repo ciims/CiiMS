@@ -24,16 +24,18 @@
 			<fieldset>
 				<!-- <legend>Pending Invitations</legend> -->
 				<span style="padding:10px"></span>
-				<legend>Categories
+				<legend>
+					<?php echo Yii::t('Dashboard.main', 'Categories'); ?>
 
-				<div class="pull-right">
-					<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/categories/save'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
-				</div>
+					<div class="pull-right">
+						<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/categories/save'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
+					</div>
 				</legend>
+				<div class="clearfix"></div>
 				<?php $this->widget('zii.widgets.CListView', array(
 				    'dataProvider'=>$model->search(),
 				    'itemView'=>'categoryList',
-				    'id' => 'ajaxListView',
+				    'id' => 'categoryListView',
 				    'summaryText' => false,
 				    'pagerCssClass' => 'pagination',
 		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),

@@ -29,11 +29,12 @@
 			<fieldset>
 				<!-- <legend>Pending Invitations</legend> -->
 				<span style="padding:10px"></span>
-				<legend>Users</legend>
+				<legend><?php echo Yii::t('Dashboard.main', 'Users'); ?></legend>
+				<div class="clearfix"></div>
 				<?php $this->widget('zii.widgets.CListView', array(
 				    'dataProvider'=>$model->search(),
 				    'itemView'=>'userList',
-				    'id' => 'ajaxListView',
+				    'id' => 'categoryListView',
 				    'summaryText' => false,
 				    'pagerCssClass' => 'pagination',
 		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),

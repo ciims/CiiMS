@@ -361,6 +361,9 @@ main .settings-container .list-view .settings-row {
 	transition: all .2s ease-in-out;
 }
 
+main .settings-container .list-view .settings-row:first-child {
+	border-top: none;
+}
 
 main .settings-container .list-view .settings-row:hover {
 	background: #eee;

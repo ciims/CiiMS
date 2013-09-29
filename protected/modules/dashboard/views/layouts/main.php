@@ -1,6 +1,7 @@
 <?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
-<?php if(strpos('MSIE', $_SERVER['HTTP_USER_AGENT']) !== false) echo "<!DOCTYPE html>"; ?>
-<html lang="<?php echo Yii::app()->language; ?>">
+<?php $isIE = preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT']); ?>
+<?php if(!$isIE) echo "<!DOCTYPE html>"; ?>
+<html lang="<?php echo Yii::app()->language; ?>" class="<?php echo $isIE ? 'ie' : NULL ?>">
 	<head>
 		<meta name="viewport" content="initial-scale=1.0">
 	    <meta charset="UTF-8" />
