@@ -751,6 +751,10 @@ main .body-content .preview-image {
 .ie #categoryListView {
   margin-top: 24px;
 }
+
+.ie .pure-plus {
+  top: 10px;
+}
 select, 
 textarea, 
 input[type="text"], 
@@ -941,10 +945,6 @@ input[type="range"]::-ms-fill-lower {
 
 .icon-spinner-form {
   margin-left: -7px;
-}
-
-.pure-plus {
-  top: 10px;
 }
 
 section.hbox {
