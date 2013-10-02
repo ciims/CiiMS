@@ -16,7 +16,7 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $offline = 0;
 
-	protected $preferMarkdown = 1;
+	//protected $preferMarkdown = 1;
 
 	protected $bcrypt_cost = 13;
 
@@ -46,7 +46,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'subdomain', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'subdomain', 'offline', /* 'preferMarkdown', */ 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
@@ -85,9 +85,9 @@ class GeneralSettings extends CiiSettingsModel
 			'timezone' => Yii::t('Dashboard.models-general', 'Timezone'),
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
 			//'url' => Yii::t('Dashboard.models-general', 'Site URL'),
-			'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
+			//'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
-			'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),
+			//'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),
 			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
 			'searchPaginationSize' => Yii::t('Dashboard.models-general', 'Search Post Count'),
 			'categoryPaginationSize' => Yii::t('Dashboard.models-general', 'Category Post Count'),
