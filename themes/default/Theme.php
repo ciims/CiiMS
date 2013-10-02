@@ -11,12 +11,17 @@ class Theme extends CiiSettingsModel
 
 	protected $splashLogo = NULL;
 
+	protected $useDisqusComments = false;
+
+	protected $disqus_shortname = NULL;
+
 	protected $menu = 'dashboard|blog';
 
 	public function rules()
 	{
 		return array(
-			array('twitterHandle, menu, splashLogo', 'length', 'max' => 255),
+			array('twitterHandle, menu, splashLogo, disqus_shortname', 'length', 'max' => 255),
+			array('useDisqusComments', 'boolean'),
 			array('twitterTweetsToFetch', 'numerical', 'integerOnly' => true, 'min' => 0),
 		);
 	}
@@ -25,7 +30,8 @@ class Theme extends CiiSettingsModel
 	{
 		return array(
 			Yii::t('DefaultTheme', 'Twitter Settings') => array('twitterHandle', 'twitterTweetsToFetch'),
-			Yii::t('DefaultTheme', 'Appearance')       =>  array('splashLogo', 'menu')
+			Yii::t('DefaultTheme', 'Appearance')       => array('splashLogo', 'menu'),
+			Yii::t('DefaultTheme', 'Comments')	   => array('useDisqusComments', 'disqus_shortname')
 		);
 	}
 
@@ -35,7 +41,9 @@ class Theme extends CiiSettingsModel
 			'twitterHandle'        => Yii::t('DefaultTheme', 'Twitter Handle'),
 			'twitterTweetsToFetch' => Yii::t('DefaultTheme', 'Number of Tweets to Fetch'),
 			'menu'                 => Yii::t('DefaultTheme', 'Menu Items'),
-			'splashLogo'           => Yii::t('DefaultTheme', 'Front Page Image')
+			'splashLogo'           => Yii::t('DefaultTheme', 'Front Page Image'),
+			'useDisqusComments'    => Yii::t('DefaultTheme', 'Use Disqus Comments'),
+			'disqus_shortname'     => Yii::t('DefaultTheme', 'Disqus Shortcode')
 		);
 	}
 
@@ -44,6 +52,7 @@ class Theme extends CiiSettingsModel
 		// Bust the cache
 		Yii::app()->cache->delete($this->theme . '_settings_tweets');
 		Yii::app()->cache->delete($this->theme . '_settings_splashLogo');
+		return parent::afterSave();
 	}
 
 	/**

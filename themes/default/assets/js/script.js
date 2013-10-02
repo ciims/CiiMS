@@ -9,6 +9,19 @@ var DefaultTheme = {
 	 */
 	Blog : {
 
+		loadDisqus : function(shortname, id, title, slug) {
+			var disqus_shortname = shortname;
+                        var disqus_identifier = id;
+                        var disqus_title = title;
+                        var disqus_url = slug;
+
+                        (function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            })();
+		},
+		
 		/**
 		 * Loads functionality to allow the comment box to work
 		 */
@@ -72,6 +85,7 @@ var DefaultTheme = {
 		 * @param  int id    The id of the blog
 		 */
 		getComments : function(id) {
+		
 			$.post(DefaultTheme.endPoint + "/comment/getComments/id/" + id, function(data) {
 
 				$("#comment-container").html(data);
@@ -220,7 +234,9 @@ var DefaultTheme = {
 	 */
 	loadBlog : function(id) {
 		DefaultTheme.endPoint = $("#endpoint").attr("data-attr-endpoint");
-		DefaultTheme.Blog.getComments(id);
+	
+		if (!$(".comments").hasClass("disqus"))	
+			DefaultTheme.Blog.getComments(id);
 		DefaultTheme.Blog.marked();
 		DefaultTheme.Blog.commentBox();
 		DefaultTheme.Blog.likeBox(id);
