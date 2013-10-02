@@ -10,6 +10,7 @@
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                                       ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
                                       ->registerCssFile($this->asset .'/css/main.css')
+                                      ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
 		                              ->registerCoreScript('jquery')
 								      ->registerScriptFile($this->asset .'/js/script.js')
 								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });', CClientScript::POS_END); ?>

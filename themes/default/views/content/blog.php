@@ -103,16 +103,12 @@
     	                    </div>
     	                    <div id="b" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
     	                </div>
-    	                <?php $this->widget('bootstrap.widgets.TbButton', array(
-    	                    'type' => 'success',
-    	                    'label' => Yii::t('DefaultTheme', 'Submit'),
-    	                    'url' => '#',
-    	                    'htmlOptions' => array(
-    	                        'id' => 'submit-comment',
-    	                        'class' => 'sharebox-submit',
-    	                        'style' => 'display:none; margin-bottom: 5px;'
-    	                    )
-    	                )); ?>
+
+    	                <a id="submit-comment" class="sharebox-submit btn btn-success" style="margin-bottom: 5px;" href="#">
+    	                	<i class="icon-spin icon-spinner" style="display:none;"></i>
+    	                	<?php echo Yii::t('DefaultTheme', 'Submit'); ?>
+    	                </a>
+
     	        <?php endif; ?>
             <?php else: ?>
 				<div class="alert">

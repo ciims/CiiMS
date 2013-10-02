@@ -39,6 +39,11 @@ var DefaultTheme = {
 		        e.preventDefault();
 		        if ($("#textbox").text() == "")
 		            return;
+
+		        // Disable the button to prevent double submits
+		        $("#submit-comment").attr("disabled", "disabled");
+		        $("#submit-comment i").show();
+
 		        $.post(DefaultTheme.endPoint + "/comment/comment", 
 		        	{ 
 		        		"Comments" : 
@@ -48,10 +53,14 @@ var DefaultTheme = {
 		        		}
 		        	}, 
 		        	function(data) { 
+		        		$("#submit-comment i").hide();
 		        		$("#textbox").text("");  
 		        		$("#comment-container").prepend(data);
 		        		$("div#comment-container").children(":first").fadeIn();
 		        		$("#close").click();
+
+				        // Disable the button to prevent double submits
+				        $("#submit-comment").removeAttr("disabled");
 		        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
 		        	}
 		        );
@@ -254,8 +263,8 @@ var DefaultTheme = {
 	        if ($("#textbox-" + id).text() == "")
 	            return;
 
-	        // Disable the button to prevent double submits
-	        $("#submit-comment").attr("disabled", "disabled")
+	        $("#submit-comment-" + id).attr("disabled", "disabled");
+	        $("#submit-comment-" + id + " i").show();
 
 	        $.post(DefaultTheme.endPoint + "/comment/comment", 
 	        	{ 
@@ -267,6 +276,7 @@ var DefaultTheme = {
 	        		}
 	        	}, 
 	        	function(data, textStatus, jqXHR) { 
+	        		$("#submit-comment-" + id + " i").hide();
 	        		$("#textbox-" + id).text("");  
 	        		// PREPEND DATA
 	        		var newElementId = jqXHR.getResponseHeader("X-Attribute-Id");
@@ -274,7 +284,8 @@ var DefaultTheme = {
 	        		$(".comment-" + newElementId).fadeIn();
 
 	        		$("#close-" + id).click();
-	        		$("#submit-comment").removeAttr("disabled");
+
+	        		$("#submit-comment-" + id).removeAttr("disabled");
 	        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
 	        	}
 	        );
