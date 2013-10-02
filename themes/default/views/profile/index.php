@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 	<div class="well-span span6">
 		<h4><?php echo Yii::t('DefaultTheme', 'Posts By This User'); ?></h4>
 		<div class="posts-by-author">
-			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->getPostsByAuthor($model->id))); ?>
+			<?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->params['theme']->getPostsByAuthor($model->id))); ?>
 			<?php echo CHtml::link(Yii::t('DefaultTheme', 'more'), $this->createUrl('/search') . '?q=user_id:' . $model->id, array('class' => 'login-form-links pull-right')); ?>
 		</div>
 	</div>
@@ -74,14 +74,14 @@ $this->widget('bootstrap.widgets.TbAlert', array(
 			<?php if (Yii::app()->user->id == $model->id): ?>
 				<div class="alert alert-info">
 					<?php echo Yii::t('DefaultTheme', "{{oops}} It looks like you haven't provided any information about yourself yet. Why don't you {{edityourprofile}} and add some information about yourself?", array(
-						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!'),
+						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!')),
 						'{{edityourprofile}}' => CHtml::link(Yii::t('DefaultTheme', 'edit your profile'), $this->createUrl('/profile/edit'))
 					)); ?>
 				</div>
 			<?php else: ?>
 				<div class="alert alert-info">
 					<?php echo Yii::t('DefaultTheme', "{{oops}} This user hasn't added any information about themself yet.", array(
-						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!')
+						'{{oops}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Oops!'))
 					)); ?>
 				</div>
 			<?php endif; ?>

@@ -80,34 +80,6 @@ class CiiModel extends CActiveRecord
 
        	return parent::beforeValidate();
 	}
-	
-	/**
-	 * @return formatted date
-	 */
-    private function formatDate($date)
-    {
-        return Cii::formatDate($date);
-    }
-    
-	/**
-	 * @return formatted date
-	 */
-    public function getCreatedFormatted()
-    {
-        if ($this->hasAttribute('created'))
-            return $this->formatDate($this->created);
-        return false;
-    }
-    
-	/**
-	 * @return formatted date
-	 */
-    public function getUpdatedFormatted()
-    {
-        if ($this->hasAttribute('updated'))
-            return $this->formatDate($this->updated);
-        return false;        
-    }
     
 	/**
 	 * verifySlug - Verifies that the provided slug is able to be used and does not conflict with an existing route

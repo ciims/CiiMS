@@ -16,7 +16,7 @@
 			<?php $this->widget('bootstrap.widgets.TbButton', array(
 								'buttonType' => 'submit',
 	    	                    'type' => 'success',
-	    	                    'label' => Uii::t('main', 'Submit'),
+	    	                    'label' => Yii::t('main', 'Submit'),
 	    	                    'htmlOptions' => array(
 	    	                        'id' => 'submit-comment',
 	    	                        'class' => 'sharebox-submit pull-right',
