@@ -254,6 +254,9 @@ var DefaultTheme = {
 	        if ($("#textbox-" + id).text() == "")
 	            return;
 
+	        // Disable the button to prevent double submits
+	        $("#submit-comment").attr("disabled", "disabled")
+
 	        $.post(DefaultTheme.endPoint + "/comment/comment", 
 	        	{ 
 	        		"Comments" : 
@@ -271,6 +274,7 @@ var DefaultTheme = {
 	        		$(".comment-" + newElementId).fadeIn();
 
 	        		$("#close-" + id).click();
+	        		$("#submit-comment").removeAttr("disabled");
 	        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
 	        	}
 	        );

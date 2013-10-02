@@ -217,4 +217,14 @@ class Theme extends CiiSettingsModel
         
         return $items;
     }
+
+    public function getContentTags($id)
+    {
+        $items = array();
+        $tags = Content::model()->findByPk($id)->getTags();
+        foreach ($tags as $item)
+            $items[] = array('label' => $item, 'url' => $this->createUrl('/search?q=' . $item));
+
+        return $items;
+    }
 }

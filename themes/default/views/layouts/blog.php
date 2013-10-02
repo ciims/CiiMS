@@ -39,10 +39,10 @@
 		</div>
 		
 		<!-- Tag Cloud -->
-		<?php if ($this->getContentTags()): ?>
+		<?php if ($items = $this->getContentTags($this->params['data']['id'])): ?>
 			<div class="well tags">
 				<h4><?php echo Yii::t('DefaultTheme', 'Tags'); ?></h4>
-				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $this->params['theme']->getContentTags())); ?>
+				<?php $this->widget('bootstrap.widgets.TbMenu', array('items' => $items)); ?>
 			</div>
 		<?php endif; ?>
 		
