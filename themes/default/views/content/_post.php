@@ -9,7 +9,7 @@
 			<?php $md = new CMarkdownParser; echo strip_tags($md->safeTransform($content->extract), '<h1><h2><h3><h4><h5><6h><p><b><strong><i>'); ?>
 		</div>
 		<div class="blog-meta">
-			<span class="date"><?php echo $content->getCreatedFormatted() ?></span>
+			<span class="date"><?php echo Cii::formatDate($content->published); ?></span>
 			<span class="separator">⋅</span>
 			<span class="blog-author minor-meta"><strong>by </strong>
 				<span>

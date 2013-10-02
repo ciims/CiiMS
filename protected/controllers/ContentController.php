@@ -318,8 +318,8 @@ class ContentController extends CiiController
 		$criteria = Content::model()->getBaseCriteria()
 								    ->addCondition('type_id >= 2')
 		         				    ->addCondition('password = ""');
+		$criteria->order = 'published DESC';
 
-        $criteria->order = 'created DESC';
         $criteria->limit = $pageSize;
 		
 		$itemCount = Content::model()->count($criteria);
