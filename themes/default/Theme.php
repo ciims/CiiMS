@@ -5,13 +5,13 @@ class Theme extends CiiSettingsModel
 {
 	private $theme = 'default';
 
-	protected $twitterHandle = null;
+	protected $twitterHandle = NULL;
 
 	protected $twitterTweetsToFetch = 1;
 
 	protected $splashLogo = NULL;
 
-	protected $useDisqusComments = false;
+	protected $useDisqusComments = 0;
 
 	protected $disqus_shortname = NULL;
 

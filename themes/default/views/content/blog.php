@@ -40,7 +40,11 @@
 					<span class="separator">⋅</span> 
 				</span> 					
 				<span class="comment-container">
-					<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
+					<?php if (Cii::get($this->params['theme']->useDisqusComments, false)): ?>
+						<?php echo CHtml::link(Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => null)), Yii::app()->createUrl($content->slug) . '#disqus_thread'); ?>
+					<?php else: ?>
+						<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
+					<?php endif; ?>			
 				</span>
 			</div>
 			<div class="clearfix"></div>
