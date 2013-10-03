@@ -144,7 +144,8 @@ class ContentListView extends CListView
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 
-		echo CHtml::tag('span', array('id' => 'disqus_shortname', 'style' => 'display: none'), Cii::getConfig('disqus_shortname'));
+		if (Cii::getConfig('useDisqusComments'))
+			echo CHtml::tag('span', array('id' => 'disqus_shortname', 'style' => 'display: none'), Cii::getConfig('disqus_shortname'));
 
 	}
 

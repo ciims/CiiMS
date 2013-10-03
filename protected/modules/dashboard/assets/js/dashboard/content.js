@@ -94,7 +94,10 @@ var CiiDashboard = {
 				CiiDashboard.Content.Preview.bindPostClick();
 				CiiDashboard.Content.Preview.bindScrollEvent();
 				$(".nano").nanoScroller();
-				CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+				
+				if ($("#disqus_shortname").text() != "")
+					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+
 			},
 
 			loadDisqusCommentCount : function(shortname) {
@@ -116,7 +119,7 @@ var CiiDashboard = {
 				if (!CiiDashboard.Content.Preview.isLastPageLoaded) {
 					// When the user is scrolling the list of articles
 					$(".posts .content").scroll(function() {
-						if (CiiDashboard.Content.Preview.isLastPageLoaded)
+						if (CiiDashboard.Content.Preview.isLastPageLoaded || !CiiDashboard.Content.Preview.allowPagination)
 							return;
 
 						if(CiiDashboard.isOnScreen($(".post").last())) {
@@ -125,6 +128,8 @@ var CiiDashboard = {
 							CiiDashboard.Content.Preview.allowPagination = false;
 
 							CiiDashboard.Content.Preview.getPages(CiiDashboard.Content.Preview.currentPage + 1);
+
+							CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
 						}
 					});
 				}
@@ -157,9 +162,8 @@ var CiiDashboard = {
 
 					CiiDashboard.Content.Preview.beforeAjaxUpdate();
 					CiiDashboard.Content.Preview.afterAjaxUpdate();
-					CiiDashboard.Content.Preview.allowPagination = true;
 
-					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+					CiiDashboard.Content.Preview.allowPagination = true;
 				});
 
 			},
@@ -168,7 +172,12 @@ var CiiDashboard = {
 			afterAjaxUpdate : function() {
 
 				CiiDashboard.Content.bindSearch();
-				CiiDashboard.Content.Preview.bindComment();
+
+				if ($("#disqus_shortname").text() != "")
+					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+				else
+					CiiDashboard.Content.Preview.bindComment();
+
 				CiiDashboard.Content.Preview.bindScrollEvent();
 				$("input").focus();
 
