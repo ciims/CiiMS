@@ -99,7 +99,6 @@ var CiiDashboard = {
 
 			loadDisqusCommentCount : function(shortname) {
 				disqus_shortname = shortname;
-				console.log(shortname);
 				
 			    (function () {
 			        var s = document.createElement('script'); s.async = true;
@@ -159,14 +158,14 @@ var CiiDashboard = {
 					CiiDashboard.Content.Preview.beforeAjaxUpdate();
 					CiiDashboard.Content.Preview.afterAjaxUpdate();
 					CiiDashboard.Content.Preview.allowPagination = true;
+
+					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
 				});
 
 			},
 
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
 			afterAjaxUpdate : function() {
-
-				console.log("afterAjaxUpdate");
 
 				CiiDashboard.Content.bindSearch();
 				CiiDashboard.Content.Preview.bindComment();
@@ -365,7 +364,6 @@ var CiiDashboard = {
 							$(".preview").html("<div class=\"content\"></div>");
 
 							var scrollPosition = $(".posts.nano .content").scrollTop();
-							console.log(scrollPosition);
 							
 							$.fn.yiiListView.update('ajaxListView', { 
 					       		data: null,
