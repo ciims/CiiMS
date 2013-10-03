@@ -11,8 +11,7 @@ var DefaultTheme = {
 
 		loadDisqusCommentCount : function(shortname) {
 			disqus_shortname = shortname;
-
-			console.log(disqus_shortname);
+			
 		    (function () {
 		        var s = document.createElement('script'); s.async = true;
 		        s.type = 'text/javascript';
