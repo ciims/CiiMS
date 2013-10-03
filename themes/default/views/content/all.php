@@ -17,8 +17,9 @@
  		}"
 	)); ?>
 	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "DefaultTheme.loadAll();"); ?>
-	<?php if (Cii::get($this->params['theme']->useDisqusComments, false)): ?>
-		<?php Yii::app()->clientScript->registerScript('loadComments', "DefaultTheme.Blog.loadDisqusCommentCount(\"{$this->params['theme']->disqus_shortname}\");"); ?>
+	<?php if (Cii::getConfig('useDisqusComments')): ?>
+		<?php $shortname = Cii::getConfig('disqus_shortname'); ?>
+		<?php Yii::app()->clientScript->registerScript('loadComments', "DefaultTheme.Blog.loadDisqusCommentCount(\"{$shortname}\");"); ?>
 	<?php endif; ?>
 <?php else: ?>
 	<div class="alert alert-info">

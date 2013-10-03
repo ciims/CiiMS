@@ -93,7 +93,21 @@ var CiiDashboard = {
 				CiiDashboard.Content.Preview.marked();
 				CiiDashboard.Content.Preview.bindPostClick();
 				CiiDashboard.Content.Preview.bindScrollEvent();
-				$(".nano").nanoScroller()
+				$(".nano").nanoScroller();
+				CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+			},
+
+			loadDisqusCommentCount : function(shortname) {
+				disqus_shortname = shortname;
+				console.log(shortname);
+				
+			    (function () {
+			        var s = document.createElement('script'); s.async = true;
+			        s.type = 'text/javascript';
+			        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+			        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+			    }());
+
 			},
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination

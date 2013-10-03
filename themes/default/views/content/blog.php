@@ -76,10 +76,11 @@
 	</div>
 </div>
 
-<div class="comments <?php echo Cii::get($this->params['theme']->useDisqusComments, false) ? 'disqus' : NULL; ?>">
-	<?php if (Cii::get($this->params['theme']->useDisqusComments, false)): ?>
+<div class="comments <?php echo Cii::getConfig('useDisqusComments') ? 'disqus' : NULL; ?>">
+	<?php if (Cii::getConfig('useDisqusComments')): ?>
+		<?php $shortname = Cii::getConfig('disqus_shortname'); ?>
 		<div class="post"><div class="post-inner" style="margin-top: 20px;"><div id="disqus_thread"></div></div></div>
-                <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "DefaultTheme.Blog.loadDisqus(\"{$this->params['theme']->disqus_shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
+                <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "DefaultTheme.Blog.loadDisqus(\"{$shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
         <?php else: ?>
 		<?php $count = 0;?>
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
