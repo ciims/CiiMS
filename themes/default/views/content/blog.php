@@ -41,7 +41,7 @@
 				</span> 					
 				<span class="comment-container">
 					<?php if (Cii::get($this->params['theme']->useDisqusComments, false)): ?>
-						<?php echo CHtml::link(Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => null)), Yii::app()->createUrl($content->slug) . '#disqus_thread'); ?>
+						<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread') . ' ' . Yii::t('DefaultTheme', 'Comments'); ?>
 					<?php else: ?>
 						<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
 					<?php endif; ?>			
