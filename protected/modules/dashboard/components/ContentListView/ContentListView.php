@@ -144,6 +144,9 @@ class ContentListView extends CListView
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
 
+		if (Cii::getConfig('useDisqusComments'))
+			echo CHtml::tag('span', array('id' => 'disqus_shortname', 'style' => 'display: none'), Cii::getConfig('disqus_shortname'));
+
 	}
 
 	// Disable pagination in favor of infinite scrolling

@@ -25,7 +25,11 @@
 				<span class="separator">⋅</span> 
 			</span> 					
 			<span class="comment-container">
-				<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>			
+				<?php if (Cii::getConfig('useDisqusComments')): ?>
+					<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread') . ' ' . Yii::t('DefaultTheme', 'Comments'); ?>
+				<?php else: ?>
+					<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
+				<?php endif; ?>				
 			</span>
 		</div>
 		<a class="read-more-icon" href="<?php echo $this->createUrl('/' . $content->slug); ?>" rel="bookmark">

@@ -5,7 +5,7 @@ class Theme extends CiiSettingsModel
 {
 	private $theme = 'default';
 
-	protected $twitterHandle = null;
+	protected $twitterHandle = NULL;
 
 	protected $twitterTweetsToFetch = 1;
 
@@ -16,7 +16,7 @@ class Theme extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('twitterHandle, menu, splashLogo', 'length', 'max' => 255),
+			array('twitterHandle, menu, splashLogo, disqus_shortname', 'length', 'max' => 255),
 			array('twitterTweetsToFetch', 'numerical', 'integerOnly' => true, 'min' => 0),
 		);
 	}
@@ -25,7 +25,7 @@ class Theme extends CiiSettingsModel
 	{
 		return array(
 			Yii::t('DefaultTheme', 'Twitter Settings') => array('twitterHandle', 'twitterTweetsToFetch'),
-			Yii::t('DefaultTheme', 'Appearance')       =>  array('splashLogo', 'menu')
+			Yii::t('DefaultTheme', 'Appearance')       => array('splashLogo', 'menu'),
 		);
 	}
 
@@ -35,7 +35,7 @@ class Theme extends CiiSettingsModel
 			'twitterHandle'        => Yii::t('DefaultTheme', 'Twitter Handle'),
 			'twitterTweetsToFetch' => Yii::t('DefaultTheme', 'Number of Tweets to Fetch'),
 			'menu'                 => Yii::t('DefaultTheme', 'Menu Items'),
-			'splashLogo'           => Yii::t('DefaultTheme', 'Front Page Image')
+			'splashLogo'           => Yii::t('DefaultTheme', 'Front Page Image'),
 		);
 	}
 
@@ -44,6 +44,7 @@ class Theme extends CiiSettingsModel
 		// Bust the cache
 		Yii::app()->cache->delete($this->theme . '_settings_tweets');
 		Yii::app()->cache->delete($this->theme . '_settings_splashLogo');
+		return parent::afterSave();
 	}
 
 	/**
