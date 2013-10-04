@@ -8,7 +8,7 @@
 	<?php echo $form->hiddenField($model, 'created'); ?>
 	<?php echo $form->hiddenField($model,'parent_id',array('value'=>1)); ?>
 	<?php echo $form->hiddenField($model,'author_id',array('value'=>Yii::app()->user->id)); ?>
-	<div class="content-container <?php echo (bool)Cii::getConfig('preferMarkdown', false) ? null : 'content-container-editor'; ?>">
+	<div class="content-container">
 		<div class="header">
 			<div class="content">
 				<div class="pull-left" style="width: 80%;">
@@ -23,33 +23,14 @@
 
 		<div class="editor">
 			<div class="top-header">
-				<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
-					<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
-				<?php else: ?>
-					<span><?php echo Yii::t('Dashboard.views', 'Rich Text'); ?></span>
-				<?php endif; ?>
-				<span class="pull-right icon-camera"></span>
+				<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
 			</div>
 				<div id="promotedDz" class="dropzone" style="display:none;"></div>
-				<?php if ((bool)Cii::getConfig('preferMarkdown', false) == true): ?>
-					<div id="main">
-						<div class="content">
-							<?php echo $form->textArea($model, 'content'); ?>
-						</div>
+				<div id="main">
+					<div class="content">
+						<?php echo $form->textArea($model, 'content'); ?>
 					</div>
-				<?php else: ?>
-					<?php $this->widget('ext.redactor.ImperaviRedactorWidget', array(
-    	                    'model' => $model,
-    	                    'attribute' => 'content',
-    	                    'options' => array(
-    	                        'focus' => true,
-    	                        'minheight' => '100%',
-    	                        'autoresize' => true,
-    	                        'changeCallback' => 'js:function() { $("#Content_content").change(); }'
-    	                    )
-    	                ));
-    	            ?>
-				<?php endif; ?>
+				</div>
 		</div>
 
 		<div class="body-content">
