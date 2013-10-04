@@ -98,7 +98,7 @@ return array(
             'password'              => NULL,
             'charset'               => 'utf8',
             'schemaCachingDuration' => 3600,
-            'enableProfiling'       => false,
+            'enableProfiling'       => YII_DEBUG,
         ),
         'cache' => array(
             'class' => 'CFileCache',

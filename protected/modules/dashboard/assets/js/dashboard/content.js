@@ -93,7 +93,23 @@ var CiiDashboard = {
 				CiiDashboard.Content.Preview.marked();
 				CiiDashboard.Content.Preview.bindPostClick();
 				CiiDashboard.Content.Preview.bindScrollEvent();
-				$(".nano").nanoScroller()
+				$(".nano").nanoScroller();
+				
+				if ($("#disqus_shortname").text() != "")
+					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+
+			},
+
+			loadDisqusCommentCount : function(shortname) {
+				disqus_shortname = shortname;
+				
+			    (function () {
+			        var s = document.createElement('script'); s.async = true;
+			        s.type = 'text/javascript';
+			        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+			        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+			    }());
+
 			},
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination
@@ -103,7 +119,7 @@ var CiiDashboard = {
 				if (!CiiDashboard.Content.Preview.isLastPageLoaded) {
 					// When the user is scrolling the list of articles
 					$(".posts .content").scroll(function() {
-						if (CiiDashboard.Content.Preview.isLastPageLoaded)
+						if (CiiDashboard.Content.Preview.isLastPageLoaded || !CiiDashboard.Content.Preview.allowPagination)
 							return;
 
 						if(CiiDashboard.isOnScreen($(".post").last())) {
@@ -112,6 +128,8 @@ var CiiDashboard = {
 							CiiDashboard.Content.Preview.allowPagination = false;
 
 							CiiDashboard.Content.Preview.getPages(CiiDashboard.Content.Preview.currentPage + 1);
+
+							CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
 						}
 					});
 				}
@@ -144,6 +162,7 @@ var CiiDashboard = {
 
 					CiiDashboard.Content.Preview.beforeAjaxUpdate();
 					CiiDashboard.Content.Preview.afterAjaxUpdate();
+
 					CiiDashboard.Content.Preview.allowPagination = true;
 				});
 
@@ -152,10 +171,13 @@ var CiiDashboard = {
 			// AfterAjaxUpdate for ContentL:istview::afterAjaxUpdate
 			afterAjaxUpdate : function() {
 
-				console.log("afterAjaxUpdate");
-
 				CiiDashboard.Content.bindSearch();
-				CiiDashboard.Content.Preview.bindComment();
+
+				if ($("#disqus_shortname").text() != "")
+					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
+				else
+					CiiDashboard.Content.Preview.bindComment();
+
 				CiiDashboard.Content.Preview.bindScrollEvent();
 				$("input").focus();
 
@@ -351,7 +373,6 @@ var CiiDashboard = {
 							$(".preview").html("<div class=\"content\"></div>");
 
 							var scrollPosition = $(".posts.nano .content").scrollTop();
-							console.log(scrollPosition);
 							
 							$.fn.yiiListView.update('ajaxListView', { 
 					       		data: null,

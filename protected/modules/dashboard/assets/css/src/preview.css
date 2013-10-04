@@ -101,6 +101,13 @@ main .post-metadata-inner .row.comments {
 	color: #A7CE44;
 }
 
+main .post-metadata-inner .comment-count-sp {
+	color: #A7CE44 !important;
+	cursor: default !important;;
+	text-decoration: none !important;;
+	font-weight: bold !important;;
+}
+
 main .post-metadata-inner .row.likes {
 	color: #CE4444;
 }
