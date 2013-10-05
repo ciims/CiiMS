@@ -123,10 +123,10 @@ class Theme extends CiiSettingsModel
         $content = Yii::app()->cache->get('content-listing');
         if ($content == false)
         {
-            $content = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS content_slug, 
+            $content = Yii::app()->db->createCommand('SELECT content.id, title, content.published,  content.slug AS content_slug, 
             												 categories.slug AS category_slug, 
             												 categories.name AS category_name, 
-            												 comment_count, content.created 
+            												 comment_count, content.published 
             										  FROM content LEFT JOIN categories ON content.category_id = categories.id 
             										  WHERE vid = (
             										  	SELECT MAX(vid) 
@@ -135,12 +135,12 @@ class Theme extends CiiSettingsModel
 													  ) 
 													  AND type_id = 2 AND status = 1 
                                                       AND password=""
-            										  ORDER BY content.created DESC LIMIT 5')->queryAll();
+            										  ORDER BY content.published DESC LIMIT 5')->queryAll();
             Yii::app()->cache->set('content-listing', $content);                            
         }
         
         foreach ($content as $k=>$v)
-			$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
+			$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
         
         return $items;
     }
@@ -151,7 +151,7 @@ class Theme extends CiiSettingsModel
 	public function getRelatedPosts($id, $category_id)
 	{
 		$items = array();
-		$related = Yii::app()->db->createCommand('SELECT content.id, title, slug, content.created
+		$related = Yii::app()->db->createCommand('SELECT content.id, title, slug, content.published
 												  FROM content  WHERE status = 1 AND category_id = :category_id 
 												  AND id != :id AND vid = (
 												  	SELECT MAX(vid) 
@@ -164,7 +164,7 @@ class Theme extends CiiSettingsModel
 		 						 ->queryAll();
 			
 		 foreach ($related as $v)
-		 	$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
+		 	$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
         
         return $items;
 	}
@@ -177,10 +177,10 @@ class Theme extends CiiSettingsModel
     public function getPostsByAuthor($id=1)
     {
         $items = array();
-        $related = Yii::app()->db->createCommand('SELECT content.id, title, content.created,  content.slug AS slug, 
+        $related = Yii::app()->db->createCommand('SELECT content.id, title, content.published,  content.slug AS slug, 
                                                              categories.slug AS category_slug, 
                                                              categories.name AS category_name, 
-                                                             comment_count, content.created 
+                                                             comment_count, content.published 
                                                       FROM content LEFT JOIN categories ON content.category_id = categories.id 
                                                       WHERE vid = (
                                                         SELECT MAX(vid) 
@@ -190,12 +190,12 @@ class Theme extends CiiSettingsModel
                                                       AND type_id = 2 AND status = 1 
                                                       AND password=""
                                                       AND content.author_id = :author_id
-                                                      ORDER BY content.created DESC LIMIT 5')
+                                                      ORDER BY content.published DESC LIMIT 5')
                                  ->bindParam(':author_id', $id)
                                  ->queryAll();
             
          foreach ($related as $v)
-            $items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'created' => $v['created']));
+            $items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
         
         return $items;
     }
