@@ -348,6 +348,10 @@ main #comments {
   padding: 10px;
 }
 
+main #disqus_thread {
+    padding: 10px;
+}
+
 main .comment-box-main {
     height: 94%;
     min-height: 94%;
