@@ -118,10 +118,6 @@ var CiiDashboard = {
 	            disqus_title = $(".title").first().text();
 	            disqus_url = window.location.origin + $(".icon-eye-open").attr("href");
 
-	            
-
-	            console.log(disqus_shortname + " " + disqus_identifier + " " + disqus_title + " " + disqus_url);
-
 	            (function() {
 	                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
