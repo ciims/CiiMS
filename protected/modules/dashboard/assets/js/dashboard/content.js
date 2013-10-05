@@ -224,6 +224,7 @@ var CiiDashboard = {
 			 * and that post should be loaded in the preview pane
 			 */
 			bindPostClick : function() {
+				$(".post").unbind("click");
 				$(".post").click(function() { 
 					if ($(this).hasClass("post-header"))
 						return;
