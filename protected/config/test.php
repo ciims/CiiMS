@@ -12,13 +12,10 @@ return array(
                 'charset' => 'utf8',
                 'schemaCachingDuration' => '3600',
                 'enableProfiling' => true,
+                'enableParamLogging' => true
         ),
         'cache' => array(
             'class' => 'CFileCache',
-            /*'servers' => array(
-                'host' => '127.0.0.1',
-                'port' => 6379
-            )*/
         ),
     ),
     'params' => array(

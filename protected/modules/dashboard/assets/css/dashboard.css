@@ -951,6 +951,13 @@ input[type="range"]::-ms-fill-lower {
   margin-left: -7px;
 }
 
+.yiiLog {
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+
 section.hbox {
     display: table;
     table-layout: fixed;

@@ -22,8 +22,8 @@ end
 
 # Fix Permissions
 task :fix_permissions do
-    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
-    run "#{try_sudo} chmod -R 755 #{deploy_to}"
+    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{site_root}"
+    run "#{try_sudo} chmod -R 755 #{site_root}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
@@ -37,7 +37,7 @@ task :migrate do
 end
 
 after "deploy:setup", :setup_directories
-after "deploy:setup", :fix_permissions
+before "deploy", :fix_permissions
 
 before "deploy:create_symlink", :move_configs
 before "deploy:create_symlink", :migrate

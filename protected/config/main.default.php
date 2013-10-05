@@ -98,7 +98,18 @@ return array(
             'password'              => NULL,
             'charset'               => 'utf8',
             'schemaCachingDuration' => 3600,
-            'enableProfiling'       => YII_DEBUG,
+            'enableProfiling'       => false,
+            'enableParamLogging'    => false
+        ),
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CWebLogRoute',
+                    'levels' => 'error, warning, trace, info',
+                    'enabled' => false
+                )
+            )
         ),
         'cache' => array(
             'class' => 'CFileCache',

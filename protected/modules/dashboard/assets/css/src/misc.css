@@ -189,3 +189,10 @@ input[type="range"]::-ms-fill-lower {
 .icon-spinner-form {
   margin-left: -7px;
 }
+
+.yiiLog {
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
