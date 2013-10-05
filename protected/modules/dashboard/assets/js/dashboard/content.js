@@ -102,8 +102,6 @@ var CiiDashboard = {
 
 			loadDisqusCommentCount : function(shortname) {
 
-				return false;
-				
 				disqus_shortname = shortname;
 				
 			    (function () {

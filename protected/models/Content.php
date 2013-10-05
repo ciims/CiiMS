@@ -292,7 +292,7 @@ class Content extends CiiModel
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(
-                'defaultOrder' => 'created DESC'
+                'defaultOrder' => 'published DESC'
             ),
             'pagination' => array(
                 'pageSize' => $this->pageSize
