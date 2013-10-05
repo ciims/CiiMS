@@ -2,8 +2,8 @@
 	<div class="post-metadata">
 		<div class="post-metadata-inner">
 			<span class="row comments">
-				<?php if (Cii::get('useDisqusComments')): ?>
-					<strong><?php echo CHtml::link(0, Yii::app()->createUrl($data->slug) . '#disqus_thread', array('class' => 'comment-count-sp')); ?></strong> <span class="icon-comment"></span>
+				<?php if (Cii::getConfig('useDisqusComments')): ?>
+					<!-- <strong><?php echo CHtml::link(0, Yii::app()->createUrl($data->slug) . '#disqus_thread', array('class' => 'comment-count-sp')); ?></strong> <span class="icon-comment"></span> -->
 				<?php else: ?>
 					<strong><?php echo $data->comment_count; ?></strong> <span class="icon-comment"></span>
 				<?php endif; ?>

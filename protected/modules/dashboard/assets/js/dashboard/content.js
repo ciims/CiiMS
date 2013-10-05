@@ -101,6 +101,9 @@ var CiiDashboard = {
 			},
 
 			loadDisqusCommentCount : function(shortname) {
+
+				return false;
+				
 				disqus_shortname = shortname;
 				
 			    (function () {
@@ -109,7 +112,10 @@ var CiiDashboard = {
 			        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
 			        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 			    }());
+			},
 
+			loadDisqus : function() {
+				console.log("Load disqus comment");
 			},
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination
@@ -173,10 +179,7 @@ var CiiDashboard = {
 
 				CiiDashboard.Content.bindSearch();
 
-				if ($("#disqus_shortname").text() != "")
-					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
-				else
-					CiiDashboard.Content.Preview.bindComment();
+				CiiDashboard.Content.Preview.bindComment();
 
 				CiiDashboard.Content.Preview.bindScrollEvent();
 				$("input").focus();
@@ -251,14 +254,26 @@ var CiiDashboard = {
 				$(".content-sidebar").find(".comment-container").html(null);
 				if ($(".content-sidebar").is(":visible")) {
 					var id = $(".preview-container").find("#item-id").text();
-					CiiDashboard.Content.Preview.Comments.loadComments(id);
+
+					if ($("#disqus_shortname").text() != "") {
+						CiiDashboard.Content.Preview.loadDisqus();
+						$(".comment-box-main").show();
+					}
+					else
+						CiiDashboard.Content.Preview.Comments.loadComments(id);
 				}
 
 				$(".icon-comment").click(function() {
 					$(".preview-container").toggleClass("active", function() {
 						if ($(this).hasClass("active")) {
 							var id = $(".preview-container").find("#item-id").text();
-							CiiDashboard.Content.Preview.Comments.loadComments(id);
+
+							if ($("#disqus_shortname").text() != "") {
+								CiiDashboard.Content.Preview.loadDisqus();
+								$(".comment-box-main").show();
+							}
+							else
+								CiiDashboard.Content.Preview.Comments.loadComments(id);
 						}
 					});
 				})

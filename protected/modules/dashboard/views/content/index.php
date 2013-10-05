@@ -33,15 +33,17 @@
     )    
 ));
 ?>
-<div class="body-content preview">
 
-</div>
+<div class="body-content preview"></div>
 
 <?php Yii::app()->getClientScript()->registerCssFile($this->asset.'/highlight.js/default.css')
 					->registerCssFile($this->asset.'/highlight.js/github.css')
 					->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
                     ->registerScriptFile($this->asset.'/js/md5.js', CClientScript::POS_END); ?>
+
+<?php if (Cii::getConfig('useDisqusComments'))
+    Yii::app()->getClientScript()->registerCss('disqus_comments', ' main .preview { width: 100% !important; } main .preview-container .content-sidebar { display: none !important; })'); ?>
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',
 )); ?>
