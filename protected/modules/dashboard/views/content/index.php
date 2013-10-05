@@ -42,8 +42,6 @@
 					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
                     ->registerScriptFile($this->asset.'/js/md5.js', CClientScript::POS_END); ?>
 
-<?php if (Cii::getConfig('useDisqusComments'))
-    Yii::app()->getClientScript()->registerCss('disqus_comments', ' main .preview { width: 100% !important; } main .preview-container .content-sidebar { display: none !important; })'); ?>
 <?php $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',
 )); ?>

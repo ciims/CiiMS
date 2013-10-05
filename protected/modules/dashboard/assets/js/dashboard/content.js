@@ -113,7 +113,20 @@ var CiiDashboard = {
 			},
 
 			loadDisqus : function() {
-				console.log("Load disqus comment");
+				$("#disqus_thread").html(null);
+	            disqus_identifier = parseInt($(".preview-container").find("#item-id").text());
+	            disqus_title = $(".title").first().text();
+	            disqus_url = window.location.origin + $(".icon-eye-open").attr("href");
+
+	            
+
+	            console.log(disqus_shortname + " " + disqus_identifier + " " + disqus_title + " " + disqus_url);
+
+	            (function() {
+	                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	            })();
 			},
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination

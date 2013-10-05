@@ -80,7 +80,7 @@
 	<?php if (Cii::getConfig('useDisqusComments')): ?>
 		<?php $shortname = Cii::getConfig('disqus_shortname'); ?>
 		<div class="post"><div class="post-inner" style="margin-top: 20px;"><div id="disqus_thread"></div></div></div>
-                <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "DefaultTheme.Blog.loadDisqus(\"{$shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
+        <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "DefaultTheme.Blog.loadDisqus(\"{$shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
     <?php else: ?>
 		<?php $count = 0;?>
 		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>

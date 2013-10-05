@@ -23,9 +23,11 @@ var DefaultTheme = {
 
 		loadDisqus : function(shortname, id, title, slug) {
 			disqus_shortname = shortname;
-            var disqus_identifier = id;
-            var disqus_title = title;
-            var disqus_url = slug;
+            disqus_identifier = id;
+            disqus_title = title;
+            disqus_url = window.location.origin + "/" + slug;
+
+            console.log(disqus_shortname + " " + disqus_identifier + " " + disqus_title + " " + disqus_url);
 
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
