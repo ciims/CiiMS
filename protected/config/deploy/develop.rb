@@ -24,7 +24,6 @@ end
 task :fix_permissions do
     run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
     run "#{try_sudo} chmod -R 755 #{deploy_to}"
-    run "#{try_sudo} chmod -R 775 #{deploy_to}/assets"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
