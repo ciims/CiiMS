@@ -252,6 +252,12 @@ var CiiDashboard = {
 
 						CiiDashboard.Content.Preview.delete();
 						CiiDashboard.Content.Preview.bindComment();
+
+						if ($("#disqus_shortname").text() != "") {
+							CiiDashboard.Content.Preview.loadDisqus();
+							$(".comment-box-main").show();
+						}
+						
 					});
 				});
 			},
@@ -262,11 +268,7 @@ var CiiDashboard = {
 				if ($(".content-sidebar").is(":visible")) {
 					var id = $(".preview-container").find("#item-id").text();
 
-					if ($("#disqus_shortname").text() != "") {
-						CiiDashboard.Content.Preview.loadDisqus();
-						$(".comment-box-main").show();
-					}
-					else
+					if (!$("#disqus_shortname").text() != "")
 						CiiDashboard.Content.Preview.Comments.loadComments(id);
 				}
 
