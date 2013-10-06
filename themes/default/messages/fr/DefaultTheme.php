@@ -27,6 +27,7 @@ return array (
   'Change Your Email Address' => '',
   'Comment has been redacted' => '',
   'Comment on this post' => '',
+  'Comments' => '',
   'Email Address' => '',
   'Error {{code}}' => '',
   'Forgot Your Password?' => '',

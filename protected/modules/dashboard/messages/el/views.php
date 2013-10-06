@@ -68,7 +68,6 @@ return array (
   'Plugins' => '',
   'Preview' => '',
   'Repository' => '',
-  'Rich Text' => '',
   'Save Changes' => '',
   'Scheduled for {{date}}' => '',
   'Search by title' => '',
@@ -98,6 +97,7 @@ return array (
   'Manage Content' => '@@@@',
   'Manage users, user metadata, and permissions' => '@@@@',
   'Manage users, user metadata, and permissions.' => '@@@@',
+  'Rich Text' => '@@@@',
   'Showing {start} through {end} of {count}' => '@@@@',
   'This is metadata that has been retrieves from the user. Do not alter this data unless you know what you are doing. It can cause serious damage to the user' => '@@@@',
 );
