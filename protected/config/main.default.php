@@ -121,5 +121,6 @@ return array(
         'debug'         => false,
         'trace'         => 0,
         'user'          => null,
+	'demo' 		=> 0
     ),
 );
