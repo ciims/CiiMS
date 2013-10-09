@@ -50,7 +50,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'subdomain', 'offline', 'preferMarkdown', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'subdomain', 'offline', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
