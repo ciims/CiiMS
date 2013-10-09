@@ -10,4 +10,8 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 $config = require($config);
 require((string)$config['params']['yiiPath'].'yii.php');
 $config = CMap::mergeArray(require(dirname(__FILE__).'/protected/config/main.default.php'), $config);
+
+$config['preload'][] = 'log';
+$config['components']['log']['routes'][0]['enabled'] = true;
+
 Yii::createWebApplication($config)->run();

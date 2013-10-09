@@ -22,12 +22,14 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="blog-meta inline">
-				<span class="date"><?php echo $content->getCreatedFormatted() ?></span>
+				<span class="date"><?php echo Cii::formatDate($content->published); ?></span>
 				<span class="separator">⋅</span>
-				<span class="blog-author minor-meta"><strong>by </strong>
-					<span>
-						<?php echo CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?>
-					</span>
+				<span class="blog-author minor-meta">
+					<?php
+						echo Yii::t('DefaultTheme', '{{by}} {{author}}', array(
+							'{{by}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'by')),
+							'{{author}}' => CHtml::tag('span', array(), CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")))
+						)); ?>
 					<span class="separator">⋅</span> 
 				</span> 
 				<span class="minor-meta-wrap">
@@ -38,7 +40,11 @@
 					<span class="separator">⋅</span> 
 				</span> 					
 				<span class="comment-container">
-					<?php echo $content->getCommentCount(); ?> Comments</a>					
+					<?php if (Cii::get($this->params['theme']->useDisqusComments, false)): ?>
+						<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread') . ' ' . Yii::t('DefaultTheme', 'Comments'); ?>
+					<?php else: ?>
+						<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
+					<?php endif; ?>			
 				</span>
 			</div>
 			<div class="clearfix"></div>
@@ -59,162 +65,84 @@
 							$node->setAttribute('target', '_blank');
 						}
 					}
-
-					echo $dom->saveHtml();
 				?>
+
+				<div id="md-output"><?php echo $md->safeTransform($dom->saveHtml()); ?></div>
+				<textarea id="markdown" style="display:none;"><?php echo $content->content; ?></textarea>
+				
+				
 		</div>
 	    <div style="clear:both;"><br /></div>
 	</div>
 </div>
 
-<div class="comments">
-	<?php $count = 0;?>
-	<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
-	<div class="post">
-		<div class="post-inner">
-			<div class="post-header post-header-comments">
-				<h3 class="comment-count pull-left left-header"><?php echo Yii::t('comments', 'n==0#No Comments|n==1#{n} Comment|n>1#{n} Comments', $comments); ?></h3>
-				
-				<div class="likes-container pull-right">
-					<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
-					    <a href="#" id="upvote" title="Like this post and discussion">
-					    	<span class="icon-heart icon-red"></span>
-					        <span class="counter">
-					            <span id="like-count"><?php echo $content->like_count; ?></span>
-					        </span>      
-					    </a>
+<div class="comments <?php echo Cii::getConfig('useDisqusComments') ? 'disqus' : NULL; ?>">
+	<?php if (Cii::getConfig('useDisqusComments')): ?>
+		<?php $shortname = Cii::getConfig('disqus_shortname'); ?>
+		<div class="post"><div class="post-inner" style="margin-top: 20px;"><div id="disqus_thread"></div></div></div>
+        <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "DefaultTheme.Blog.loadDisqus(\"{$shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
+    <?php else: ?>
+		<?php $count = 0;?>
+		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
+		<div class="post">
+			<div class="post-inner">
+				<div class="post-header post-header-comments">
+					<h3 class="comment-count pull-left left-header"><?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
+					
+					<div class="likes-container pull-right">
+						<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
+						    <a href="#" id="upvote">
+							<span class="icon-heart icon-red"></span>
+							<span class="counter">
+							    <span id="like-count"><?php echo $content->like_count; ?></span>
+							</span>      
+						    </a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="clearfix"></div>
-			<?php if (!Yii::app()->user->isGuest): ?>
-				<?php if ($data->commentable): ?>
-    				<a id="comment-box"></a>
-    	                <div id="sharebox" class="comment-box">
-    	                    <div id="a">
-    	                        <div id="textbox" contenteditable="true"></div>
-    	                        <div id="close"></div>
-    	                        <div style="clear:both"></div>
-    	                    </div>
-    	                    <div id="b" style="color:#999">Comment on this post</div> 
-    	                </div>
-    	                <?php $this->widget('bootstrap.widgets.TbButton', array(
-    	                    'type' => 'success',
-    	                    'label' => 'Submit',
-    	                    'url' => '#',
-    	                    'htmlOptions' => array(
-    	                        'id' => 'submit-comment',
-    	                        'class' => 'sharebox-submit',
-    	                        'style' => 'display:none; margin-bottom: 5px;'
-    	                    )
-    	                )); ?>
-    	        <?php endif; ?>
-            <?php else: ?>
-				<div class="alert">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Hey there!</strong> Before leaving a comment, you must <?php echo CHtml::link('login', $this->createUrl('/login')); ?> or <?php echo CHtml::link('signup', $this->createUrl('/register')); ?>
+				<div class="clearfix"></div>
+				<?php if (!Yii::app()->user->isGuest): ?>
+					<?php if ($data->commentable): ?>
+					<a id="comment-box"></a>
+				<div id="sharebox" class="comment-box">
+				    <div id="a">
+					<div id="textbox" contenteditable="true"></div>
+					<div id="close"></div>
+					<div style="clear:both"></div>
+				    </div>
+				    <div id="b" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
 				</div>
-        	<?php endif; ?>
-            <div id="comment-container" style="display:none; margin-top: -1px;"></div>
-            <div class="comment"></div>
-            <div class="clearfix"></div>
+
+				<a id="submit-comment" class="sharebox-submit btn btn-success" style="margin-bottom: 5px;" href="#">
+					<i class="icon-spin icon-spinner" style="display:none;"></i>
+					<?php echo Yii::t('DefaultTheme', 'Submit'); ?>
+				</a>
+
+			<?php endif; ?>
+		    <?php else: ?>
+					<div class="alert">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<?php echo Yii::t('DefaultTheme', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
+							'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Hey there!')),
+							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme', 'login'), $this->createUrl('/login')),
+							'{{register}}' => CHtml::link(Yii::t('DefaultTheme', 'signup'), $this->createUrl('/register'))
+						)); ?>
+					</div>
+			<?php endif; ?>
+		    <div id="comment-container" style="display:none; margin-top: -1px;"></div>
+		    <div class="comment"></div>
+		    <div class="clearfix"></div>
 		</div>
 	</div>
+	<?php endif; ?>
 </div>
 
-
-<?php Yii::app()->clientScript->registerScript('comment-box', '
-    $("#b").click( function () {
-        $(this).html("");
-        $("#a").slideDown("fast");
-        $("#submit-comment").show();
-        setTimeout(function() {
-            $("#textbox").focus();
-        }, 100);
-    });
-    $("#textbox").keydown( function() {
-        if($(this).text() != "")
-            $("#submit-comment").css("background","#3b9000");
-        else
-            $("#submit-comment").css("background","#9eca80");
-        });
-    $("#close").click( function () {
-        $("#b").html("Comment on this post");
-        $("#textbox").html("");
-        $("#a").slideUp("fast");
-        $("#submit-comment").hide();
-    });
-    
-    $("#submit-comment").click(function(e) {
-        e.preventDefault();
-        if ($("#textbox").text() == "")
-            return;
-        $.post("/comment/comment", 
-        	{ 
-        		"Comments" : 
-        		{ 
-        			"comment" : $("#textbox").text(), 
-        			"content_id" : $(".content").attr("data-attr-id") 
-        		}
-        	}, 
-        	function(data) { 
-        		$("#textbox").text("");  
-        		$("#comment-container").prepend(data);
-        		$("div#comment-container").children(":first").fadeIn();
-        		$("#close").click();
-        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
-        	}
-        );
-    });
-')->registerScript('likeButton', '
-	$("[id ^=\'upvote\']").click(function(e) {
-		e.preventDefault();
-
-		$.post("' . $this->createUrl('/content/like/id/' . $content->id) . '", function(data, textStatus, jqXHR) {
-			if (data.status == undefined)
-				window.location = "' . $this->createUrl('/login') . '"
-
-			if (data.status == "success")
-			{
-				var count = parseInt($("#like-count").text());
-				if (data.type == "inc")
-					$("[id ^=\'like-count\']").text(count + 1).parent().parent().parent().addClass("liked");
-				else
-					$("[id ^=\'like-count\']").text(count - 1).parent().parent().parent().removeClass("liked");
-			}
-		});
-		return false;
-	});
-')->registerScript('fetchComments', '
-	$.post("' . $this->createUrl('/comment/getComments/id/' . $content->id) . '", function(data) {
-		$("#comment-container").html(data);
-		$(".comment").show();
-		$("#comment-container").fadeIn();
-		$(".rounded-img").load(function() {
-		    $(this).wrap(function(){
-		      return \'<span class="\' + $(this).attr(\'class\') + \'" style="background:url(\' + $(this).attr(\'src\') + \') no-repeat center center; width: \' + $(this).width() + \'px; height: \' + $(this).height() + \'px;" />\';
-		    });
-		    $(this).css("opacity","0");
-		});
-
-		// Flag option
-		$("[class ^=\'flag\']").click(function() {
-			if ($(this).hasClass("flagged"))
-				return;
-
-			var element = $(this);
-			$.post("comment/flag/id/" + $(this).attr("data-attr-id"), function() {
-				$(element).addClass("flagged").text("flagged");
-			});
-		});
-
-		// Reply button
-		$("[class ^=\'reply\']").click(function() { 
-			$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
-		});
-	});
-');
-
+<?php Yii::app()->getClientScript()
+                ->registerCssFile($this->asset.'/highlight.js/default.css')
+				->registerCssFile($this->asset.'/highlight.js/github.css')
+				->registerScriptFile($this->asset.'/js/marked.js')
+				->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js')
+				->registerScript('loadBlog', '$(document).ready(function() { DefaultTheme.loadBlog(' . $content->id . '); });');
 $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => ' .timeago',
 ));

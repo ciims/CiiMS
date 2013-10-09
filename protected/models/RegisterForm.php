@@ -4,11 +4,40 @@
  */
 class RegisterForm extends CFormModel
 {
+	/**
+	 * The submitted email address
+	 * @var string|email
+	 */
 	public $email;
+
+	/**
+	 * The submitted password
+	 * @var string
+	 */
 	public $password;
+
+	/**
+	 * The password verification
+	 * @var string
+	 */
 	public $password2;
+
+	/**
+	 * The submitted first name if it was supplied
+	 * @var string
+	 */
 	public $firstName;
+
+	/**
+	 * The submitted last name if it was supplied
+	 * @var string
+	 */
 	public $lastName;
+
+	/**
+	 * The display name as we will show it on the site
+	 * @var string
+	 */
 	public $displayName;
 
 	/**
@@ -28,6 +57,18 @@ class RegisterForm extends CFormModel
 		);
 	}
 
+	public function attributeLabels()
+	{
+		return array(
+			'email'       => Yii::t('ciims.models.RegisterForm', 'Email Address'),
+			'password'    => Yii::t('ciims.models.RegisterForm', 'Password'),
+			'password2'   => Yii::t('ciims.models.RegisterForm', 'Password (again)'),
+			'displayName' => Yii::t('ciims.models.RegisterForm', 'Display Name'),
+			'firstName'   => Yii::t('ciims.models.RegisterForm', 'First Name'),
+			'lastName'    => Yii::t('ciims.models.RegisterForm', 'Last Name')
+		);
+	}
+
 	/**
 	 * Authenticates the password.
 	 * This is the 'authenticate' validator as declared in rules().
@@ -38,7 +79,7 @@ class RegisterForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrectly filled out details');
+				$this->addError('password',Yii::t('ciims.models.RegisterForm', 'Incorrectly filled out details.'));
 		}
 	}
 }

@@ -14,7 +14,7 @@
  * The followings are the available model relations:
  * @property Users $user
  */
-class UserMetadata extends CActiveRecord
+class UserMetadata extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -43,11 +43,10 @@ class UserMetadata extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, key, value', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('key, value', 'length', 'max'=>50),
+			array('user_id, entity_type', 'numerical', 'integerOnly'=>true),
+			array('key', 'length', 'max'=>50),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, user_id, key, value, created, updated', 'safe', 'on'=>'search'),
+			array('id, user_id, key, value, entity_type, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,12 +68,13 @@ class UserMetadata extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'key' => 'Key',
-			'value' => 'Value',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 		  => Yii::t('ciims.models.UserMetadata', 'ID'),
+			'user_id' 	  => Yii::t('ciims.models.UserMetadata', 'User'),
+			'key' 		  => Yii::t('ciims.models.UserMetadata', 'Key'),
+			'value' 	  => Yii::t('ciims.models.UserMetadata', 'Value'),
+			'entity_type' => Yii::t('ciims.models.UserMetadata', 'Entity Type'),
+			'created' 	  => Yii::t('ciims.models.UserMetadata', 'Created'),
+			'updated'     => Yii::t('ciims.models.UserMetadata', 'Updated'),
 		);
 	}
 
@@ -84,30 +84,18 @@ class UserMetadata extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('key',$this->key,true);
 		$criteria->compare('value',$this->value,true);
+		$criteria->compare('entity_type',$this->entity_type,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function beforeSave() {
-    	if ($this->isNewRecord)
-    	{
-			$this->created = new CDbExpression('NOW()');
-		}
-		
-		$this->updated = new CDbExpression('NOW()');
-	    return parent::beforeSave();
 	}
 }

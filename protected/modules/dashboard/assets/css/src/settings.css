@@ -1,0 +1,427 @@
+main .settings-container {
+	height: 100%;
+	min-height: 100%;
+	padding: 0px;
+  	width: 100%;
+  	min-width: 100%;
+  	display: table;
+}
+
+main .settings-container .sidebar,
+main .settings-container .body-content {
+	display: table-cell;
+	vertical-align: top;
+	height: 100%;
+	min-height: 100%;
+	padding: 0;
+	float: left;
+	background: #fff;
+}
+
+main .settings-container #main {
+	height: 92%;
+	min-height: 92%;
+}
+
+main .settings-container #main .content {
+	height: 98%;
+	min-height: 98%;
+}
+
+main .settings-container .body-content form,
+main .settings-container .body-content .form {
+	background: none;
+	margin: 20px;
+	overflow: hidden;
+	height: 96%;
+	min-height: 96%;
+}
+
+main .settings-container .body-content form.header-form {
+	background: none;
+	margin: 0px;
+	height: auto;
+	min-height: auto;
+	overflow: visible;
+	height: 30px;
+	margin-top: -10px;
+}
+
+main .settings-container .body-content form.header-form-content {
+	margin-top: -14px;
+	margin-left: 15px;
+}
+
+main .settings-container .body-content form.header-form span {
+	color: #999;
+	font-size: 11px;
+	padding: 0 10px;
+	margin-top: 20px;
+}
+
+main .settings-container .body-content form.header-form-content span {
+	margin-top: 25px;
+}
+
+main .settings-container .body-content form .header,
+main .settings-container .body-content .form .header {
+	height: 30px;
+	background: #fff;
+	border: 1px solid #ebeff6;
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+
+main .settings-container .body-content form .header p,
+main .settings-container .body-content .form .header p,
+main .settings-container .body-content .form p {
+	float: left;
+	margin-top: 4px;
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+main .settings-container .body-content form .header #header-button,
+main .settings-container .body-content .form .header #header-button {
+	margin-top: 2px !important;
+	font-size: 77% !important;
+	margin-right: 10px;
+}
+
+main .settings-container .body-content form .header #header-button.header-button-flush,
+main .settings-container .body-content .form .header #header-button.header-button-flush {
+	margin-top: 7px !important;
+}
+
+main .settings-container .body-content form #main,
+main .settings-container .body-content .form #main {
+	background: #fff;
+	border: 1px solid #ebeff6;
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+main .settings-container .body-content form .header.secondary {
+	margin-bottom: 0px;
+	height: auto;
+	border: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	padding: 0px;
+}
+
+main .settings-container .body-content form .header.secondary fieldset {
+	padding: 10px 20px;
+	padding-left: 40px;
+}
+
+main .settings-container .sidebar {
+	margin-right: 10px;
+	width: 300px;
+	white-space: nowrap;
+	border-right: 1px solid rgba(0,0,0, 0.1);
+}
+
+main .settings-container .body-content {
+	float: none;
+	width: 100%;
+	background: none;	
+}
+
+main .settings-container .header {
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
+	padding: 10px;
+	padding-left: 20px;
+}
+
+main .settings-container .header h3 {
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 13px;
+}
+
+main .settings-container .header p {
+	font-size: 13px;
+}
+
+main .settings-container .sidebar ul.menu {
+	margin: 0px;
+}
+
+main .settings-container .sidebar .menu li {
+	cursor: pointer;
+	color: #999;
+	display: block;
+	width: 100%;
+	padding: 20px;
+	margin: 0px;
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li:hover,
+main .settings-container .sidebar .menu li:hover a,
+main .settings-container .sidebar .menu li.active,
+main .settings-container .sidebar .menu li.active a {
+	color: #2D2D29;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .sidebar .menu li a {
+	color: #999;
+	font-size: 11px;
+	font-family: 'Open Sans';
+	font-weight: 600;
+	text-transform: uppercase;
+	padding-left: 20px;
+	text-decoration: none;
+}
+
+main .settings-container .body-content #main .content {
+	padding: 10px 20px;
+	padding-left: 40px;
+}
+
+main .settings-container .body-content #main .content .output {
+	display: inline-block;
+	margin-left: 10px;
+	border: 1px solid #ebeff6;
+	padding: .5em .6em;
+	display: inline-block;
+	border: 1px solid #ccc;
+	font-size: .8em;
+	box-shadow: inset 0 1px 3px #ddd;
+	border-radius: 4px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content #main .content .output:hover {
+	border-color: #129FEA;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content #main .content .group-header {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+main .settings-container .body-content ul.providers {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: relative;
+	margin-right: -1px;
+	overflow: visible !important;
+	width: 100%;
+	top: -6px;
+}
+
+main .settings-container .body-content ul.providers li {
+	width: 33%;
+	float: left;
+	border: 1px solid #eee;
+	max-height: 170px;
+	min-height: 170px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content ul.providers li:hover {
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	border: 1px solid rgba(82,168,236,0.6);
+	background-color: #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content ul.providers li:hover .tile {
+	background-color: #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content ul.providers li .tile {
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	position: relative;
+	padding: 2.4em;
+	padding-bottom: 10px;
+	background-color: white;
+	text-align: center;
+}
+
+main .settings-container .body-content ul.providers li .tile .help {
+	display: none;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .body-content ul.providers li:hover .tile .help {
+	padding-top:10px;
+	display: inline-block;
+	text-align: center;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	cursor: pointer;
+}
+
+main .settings-container .body-content ul.providers li .tile > label {
+	display: none;
+	margin: .5em 0 .2em;
+	width: 100px;
+}
+
+main .settings-container .body-content ul.providers li .tile .pure-input-2-3 {
+	display:block !important;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+main .settings-container .body-content ul.providers li .tile .title img {
+	max-height: 40px;
+}
+
+main .settings-container .body-content .options-panel {
+	position: absolute;
+	top: 0;
+	right: -100%;
+	z-index: 10;
+	width: 80%;
+	background: #fff;
+	height: 100%;
+	padding: 20px;
+	border-left: 1px solid rgba(82,168,236,0.6);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
+
+main .settings-container .list-view .items {
+	margin-top: -46px;
+}
+
+main .settings-container .list-view .settings-row {
+	font-family: 'Open Sans';
+	color: #2D2D29;
+	padding: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+	border-top: 1px solid #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .list-view .settings-row:first-child {
+	border-top: none;
+}
+
+main .settings-container .list-view .settings-row:hover {
+	background: #eee;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+main .settings-container .list-view .settings-row .user-info {
+	left: 15px;
+	position: relative;
+}
+
+main .settings-container .list-view .settings-row .name,
+main .settings-container .list-view .settings-row .email {
+	display: block;
+	font-family: 'Open Sans';
+	font-size: 12px;
+	color: #2D2D29;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+main .settings-container .list-view .settings-row .email {
+	font-size: 11px;
+	font-style: italic;
+	font-weight: normal;
+	color: #999;
+}
+
+main .settings-container .list-view .settings-row .element {
+	position: relative;
+	top: 9px;
+	margin-left: 15px;
+}
+
+main .settings-container .meta-icon-plus {
+	top: 15px;
+	position: relative;
+	background: #A7CE44;
+	border-radius: 4px;
+	padding: 5px;
+	color: #fff;
+	font-size: 10px;
+	text-decoration: none;
+	margin-right: 5px;
+}
+
+main .empty {
+	position: relative;
+	top: 20px;
+	left: 20px;
+}
+
+
+.icon-spinner-form2 {
+  margin-right: 7px !important;
+  margin-left: -7px !important;
+}

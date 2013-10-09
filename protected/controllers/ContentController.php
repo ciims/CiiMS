@@ -1,32 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**
- * This controller provides functionality to view content
- *
- * PHP version 5
- *
- * MIT LICENSE Copyright (c) 2012-2013 Charles R. Portwood II
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to 
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom 
- * the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * @category   CategoryName
- * @package    CiiMS Content Management System
- * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
- * @license    http://opensource.org/licenses/MIT  MIT LICENSE
- * @link       https://github.com/charlesportwoodii/CiiMS
- */
 class ContentController extends CiiController
 {
 	/**
@@ -39,7 +12,7 @@ class ContentController extends CiiController
         
         if ($id != NULL)
 		{
-			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = {$id})))")->queryScalar();
+			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id', $id)->queryScalar();
 			$theme = Cii::getConfig('theme', 'default');
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
@@ -61,6 +34,7 @@ class ContentController extends CiiController
                 ),
             );
 		}
+
 		return parent::filters();
     }
 	
@@ -96,7 +70,7 @@ class ContentController extends CiiController
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
-			throw new CHttpException(404,'The specified post cannot be found.');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The specified post cannot be found.'));
 		
 		// Retrieve the HTTP Request
 		$r = new CHttpRequest();
@@ -110,7 +84,7 @@ class ContentController extends CiiController
 		
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
-			throw new CHttpException(404, 'The requested post cannot be found.');
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The requested post cannot be found.'));
         
         return str_replace($r->baseUrl, '', $r->requestUri);;
 	}
@@ -122,7 +96,7 @@ class ContentController extends CiiController
 	 * @return $this->render() - Render of page that we want to display
 	 **/
 	public function actionIndex($id=NULL)
-	{
+    {
 		// Run a pre check of our data
 		$requestUri = $this->beforeCiiAction($id);
 		
@@ -131,9 +105,9 @@ class ContentController extends CiiController
         
 		// Retrieve the data
 		$content = Content::model()->with('category')->findByPk($id);
-        
-		if ($content->status != 1)
-			throw new CHttpException('404', 'The article you specified does not exist. If you bookmarked this page, please delete it.');
+
+		if ($content->status != 1 || strtotime($content->published) > time())
+			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The article you specified does not exist. If you bookmarked this page, please delete it.'));
         
 		$this->breadcrumbs = array_merge(Categories::model()->getParentCategories($content['category_id']), array($content['title']));
 		
@@ -150,13 +124,17 @@ class ContentController extends CiiController
 		// Parse Metadata
 		$meta = Content::model()->parseMeta($content->metadata);
 		$this->setLayout($content->layout);
-		$this->setPageTitle(Yii::app()->name . ' | ' . $content->title);
+		
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => $content->title
+		)));
 	
 		$this->render($content->view, array(
 				'id'=>$id, 
 				'data'=>$content, 
 				'meta'=>$meta,
-				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id)),
+				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
 				'model'=>Comments::model()
 			)
 		);
@@ -172,15 +150,25 @@ class ContentController extends CiiController
 		header('Content-type: application/json');
 		
 		// Load the content
-		$content = Content::model()->findByPk($id);
+		$content = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => 'likes'));
+
+		if ($content === NULL)
+		{
+			$content = new ContentMetadata;
+			$content->content_id = $id;
+			$content->key = 'likes';
+			$content->value = 0;
+		}
+
 		if ($id === NULL || $content === NULL)
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to access post'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to access post')));
 			return Yii::app()->end();
 		}
 		
 		// Load the user likes, create one if it does not exist
 		$user = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'likes'));
+
 		if ($user === NULL)
 		{
 			$user = new UserMetadata;
@@ -194,32 +182,33 @@ class ContentController extends CiiController
 		if (in_array($id, array_values($likes)))
 		{
 			$type = "dec";
-			$content->like_count -= 1;
-			if ($content->like_count <= 0)
-				$content->like_count = 0;
+			$content->value -= 1;
+			if ($content->value <= 0)
+				$content->value = 0;
 			$element = array_search($id, $likes);
 			unset($likes[$element]);
 		}
 		else
 		{
-			$content->like_count += 1;
+			$content->value += 1;
 			array_push($likes, $id);
 		}
 		
 		$user->value = json_encode($likes);
+
 		if (!$user->save())
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save user like'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save user like')));
 			return Yii::app()->end();
 		}
 
 		if (!$content->save())
 		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => 'Unable to save like'));
+			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save like')));
 			return Yii::app()->end();
 		}
 		
-		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => 'Liked saved'));
+		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => Yii::t('ciims.controllers.Content', 'Liked saved')));
 		return Yii::app()->end();
 	}
 	
@@ -229,7 +218,10 @@ class ContentController extends CiiController
 	 **/
 	public function actionPassword($id=NULL)
 	{	
-		$this->setPageTitle(Yii::app()->name . ' | Password Requires');
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Content', 'Password Required')
+		)));
 		
 		if ($id == NULL)
 			$this->redirect(Yii::app()->user->returnUrl);
@@ -249,7 +241,7 @@ class ContentController extends CiiController
 			else
 			{
 				// Otherwise prevent access to it
-				Yii::app()->user->setFlash('error', 'Too many password attempts. Please try again in 5 minutes');
+				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Content', 'Too many password attempts. Please try again in 5 minutes'));
 				unset($_POST['password']);
 				$_SESSION['password'][$id]['expires'] 	= time() + 300;
 			}
@@ -259,7 +251,7 @@ class ContentController extends CiiController
 		{
 			$content = Content::model()->findByPk($id);
 
-			$encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5(Yii::app()->params['encryptionKey']), $_POST['password'], MCRYPT_MODE_CBC, md5(md5(Yii::app()->params['encryptionKey']))));
+			$encrypted = Cii::encrypt(Cii::get($_POST, 'password'));
 
 			if ($encrypted == $content->attributes['password'])
 			{
@@ -269,7 +261,7 @@ class ContentController extends CiiController
 			}
 			else
 			{
-				Yii::app()->user->setFlash('error', 'Incorrect password');
+				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Content', 'Incorrect password'));
 				$_SESSION['password'][$id]['tries'] 	= $_SESSION['password'][$id]['tries'] + 1;
 				$_SESSION['password'][$id]['expires'] 	= time() + 300;
 			}
@@ -286,23 +278,22 @@ class ContentController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle('All Content');
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', 'All Content'));
 		$this->setLayout('default');
 		
-		$this->breadcrumbs = array('Blogroll');
+		$this->breadcrumbs = array(Yii::t('ciims.controllers.Content', 'Blogroll'));
 		
 		$data = array();
 		$pages = array();
 		$itemCount = 0;
 		$pageSize = Cii::getConfig('contentPaginationSize', 10);	
 		
-		$criteria=new CDbCriteria;
-        $criteria->order = 'created DESC';
+		$criteria = Content::model()->getBaseCriteria()
+								    ->addCondition('type_id >= 2')
+		         				    ->addCondition('password = ""');
+		$criteria->order = 'published DESC';
+
         $criteria->limit = $pageSize;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         ->addCondition('type_id >= 2')
-		         ->addCondition('password = ""')
-		         ->addCondition('status = 1');
 		
 		$itemCount = Content::model()->count($criteria);
 		$pages=new CPagination($itemCount);
@@ -318,14 +309,16 @@ class ContentController extends CiiController
 	/**
 	 * Displays either all posts or all posts for a particular category_id if an $id is set in RSS Format
 	 * So that RSS Readers can access the website
+	 * @param  int $id
 	 */
 	public function actionRss($id=NULL)
 	{
-		$this->layout=false;
-		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         ->addCondition('type_id >= 2')
-		         ->addCondition('status = 1');
+		ob_end_clean();
+		header('Content-type: text/xml; charset=utf-8');
+		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$this->setLayout(null);
+		$criteria = Content::model()->getBaseCriteria()
+								   ->addCondition('type_id >= 2');
                  
 		if ($id != NULL)
 			$criteria->addCondition("category_id = " . $id);
@@ -333,7 +326,7 @@ class ContentController extends CiiController
 		$criteria->order = 'created DESC';
 		$data = Content::model()->findAll($criteria);
 		
-		$this->renderPartial('application.views.site/rss', array('data'=>$data));
+		$this->renderPartial('application.views.site/rss', array('data'=>$data, 'url'=> $url));
 		return;
 	}
 }

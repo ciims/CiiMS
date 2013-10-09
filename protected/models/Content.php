@@ -19,12 +19,12 @@
  * @property integer $comment_count
  * @property integer $like_count
  * @property string $slug
+ * @property string $published
  * @property string $created
  * @property string $updated
  *
  * The followings are the available model relations:
  * @property Comments[] $comments
- * @property Comments[] $comments1
  * @property Users $author
  * @property Content $parent
  * @property Content[] $contents
@@ -38,7 +38,7 @@ class Content extends CiiModel
     public $viewFile = 'blog';
     
     public $layoutFile = 'blog';
-    
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -77,8 +77,7 @@ class Content extends CiiModel
 			array('vid, author_id, status, commentable, parent_id, category_id, type_id, comment_count, like_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -104,30 +103,51 @@ class Content extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'vid' => 'Vid',
-			'author_id' => 'Author',
-			'title' => 'Title',
-			'content' => 'Content',
-			'extract' => 'Extract',
-			'status' => 'Status',
-			'commentable' => 'Commentable',
-			'parent_id' => 'Parent',
-			'category_id' => 'Category',
-			'type_id' => 'Type',
-			'password' => 'Password',
-			'comment_count' => 'Comments',
-			'like_count' => 'Likes',
-			'tags' => 'Tags',
-			'slug' => 'Slug',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 			=> Yii::t('ciims.models.Content', 'ID'),
+			'vid' 			=> Yii::t('ciims.models.Content', 'Version'),
+			'author_id' 	=> Yii::t('ciims.models.Content', 'Author'),
+			'title' 		=> Yii::t('ciims.models.Content', 'Title'),
+			'content' 		=> Yii::t('ciims.models.Content', 'Content'),
+			'extract' 		=> Yii::t('ciims.models.Content', 'Extract'),
+			'status' 		=> Yii::t('ciims.models.Content', 'Status'),
+			'commentable' 	=> Yii::t('ciims.models.Content', 'Commentable'),
+			'parent_id' 	=> Yii::t('ciims.models.Content', 'Parent'),
+			'category_id' 	=> Yii::t('ciims.models.Content', 'Category'),
+			'type_id' 		=> Yii::t('ciims.models.Content', 'Type'),
+			'password' 		=> Yii::t('ciims.models.Content', 'Password'),
+			'comment_count' => Yii::t('ciims.models.Content', 'Comments'),
+			'like_count' 	=> Yii::t('ciims.models.Content', 'Likes'),
+			'tags' 			=> Yii::t('ciims.models.Content', 'Tags'),
+			'slug' 			=> Yii::t('ciims.models.Content', 'Slug'),
+			'published' 	=> Yii::t('ciims.models.Content', 'Published'),
+			'created' 		=> Yii::t('ciims.models.Content', 'Created'),
+			'updated' 		=> Yii::t('ciims.models.Content', 'Updated'),
 		);
 	}
-	
+
+	/**
+	 * Retrievers the comment count for this article, as comment_count has been broken since 1.1
+	 * @return int   The number of comments for this content piece
+	 */
 	public function getCommentCount()
 	{
-		return Comments::model()->countByAttributes(array('content_id' => $this->id));
+		return Comments::model()->countByAttributes(array('content_id' => $this->id, 'approved' => 1));
+	}
+
+	/**
+	 * Correctly retrieves the number of likes for a particular post.
+	 *
+	 * This was added to address an issue with the like count changing if an article was updated
+	 * @return int    The number of likes for this post
+	 */
+
+	public function getLikeCount()
+	{
+		$meta = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'likes'));
+		if ($meta === NULL)
+			return 0;
+
+		return $meta->value;
 	}
 
 	/**
@@ -186,6 +206,18 @@ class Content extends CiiModel
 	}
 	
 	/**
+	 * Provides a base criteria for status, uniqueness, and published states
+	 * @return CDBCriteria
+	 */
+	public function getBaseCriteria()
+	{
+		$criteria = new CDbCriteria();
+		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
+		         		->addCondition('status = 1')
+		         		->addCondition('published <= NOW()');
+	}
+
+	/**
 	 * Gets a flattened list of keyword tags for jQuery.tag.js
 	 * @return string
 	 */
@@ -228,16 +260,23 @@ class Content extends CiiModel
         return $view;
     }
 
-    
+    /**
+     * Updates the comment_count after finding new data
+     */
+    protected function afterFind()
+    {
+    	parent::afterFind();
+
+    	$this->comment_count = $this->getCommentCount();
+    	$this->like_count = $this->getLikeCount();
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -246,12 +285,14 @@ class Content extends CiiModel
 		$criteria->compare('content',$this->slug,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('published',$this->updated,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-        
+
+		// TODO: Figure out how to restore CActiveDataProvidor by getCommentCount
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(
-                'defaultOrder' => 'created DESC'
+                'defaultOrder' => 'published DESC'
             ),
             'pagination' => array(
                 'pageSize' => $this->pageSize
@@ -292,13 +333,11 @@ class Content extends CiiModel
 		// If this is a new record and we don't have a created data pre-populated
 		// Failing to check the $this->created results in posts losing their original creation date
     	if ($this->isNewRecord && $this->created == NULL)
-    	{
-    		// Implicit flush to delete the URL rules
-			$this->created = new CDbExpression('NOW()');
 			$this->comment_count = 0;
-		}
 	   	
-	   	$this->updated = new CDbExpression('NOW()');
+	   	// Allow publication times to be set automatically
+		if ($this->published == NULL)
+			$this->published = new CDbExpression('NOW()');
 		
 		if (strlen($this->extract) == 0)
     		$this->extract = $this->myTruncate($this->content, 250, '.', '');
@@ -306,6 +345,29 @@ class Content extends CiiModel
 	    return parent::beforeValidate();
 	}
 	
+	/**
+	 * Saves a prototype copy of the model so that we can get an id back to work with
+	 * @return $model->save(false) without any validation rules
+	 */
+	public function savePrototype()
+	{
+		$this->title = '';
+        $this->content = '';
+        $this->extract = '';
+        $this->commentable = 1;
+        $this->status = 0;
+        $this->parent_id = 1;
+        $this->category_id = 1;
+        $this->type_id = 0;
+        $this->password = '';
+        $this->created = new CDbExpression('NOW()');
+        $this->updated = new CDbExpression('NOW()');
+        $this->published = new CDbExpression('NOW()');
+        $this->vid = 0;
+        $this->author_id = Yii::app()->user->id;
+        return $this->save(false);
+	}
+
     /**
      * BeforeSave
      * Clears caches for rebuilding, creates the end slug that we are going to use

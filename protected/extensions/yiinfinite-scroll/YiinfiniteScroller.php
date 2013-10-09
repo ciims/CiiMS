@@ -20,7 +20,7 @@ class YiinfiniteScroller extends CBasePager {
         'url'           => null,
         'debug'         => false,
         'defaultCallback'   => 'js:function(text, data) { }',
-        'errorCallback'     => 'js:function() { $(".infinite_navigation").fadeOut(); }',     
+        'errorCallback'     => 'js:function(data) { $(".infinite_navigation").fadeOut(); }',     
         'loading' => array(
             'img'           => 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
             'finishedMsg'   => null,
@@ -80,7 +80,7 @@ class YiinfiniteScroller extends CBasePager {
 
     public function registerClientScript() {
         $url = CHtml::asset(Yii::getPathOfAlias('ext.yiinfinite-scroll.assets').'/jquery.infinitescroll.min.js');
-        Yii::app()->clientScript->registerScriptFile($url);
+        Yii::app()->clientScript->registerScriptFile($url, CCLientScript::POS_END);
     }
 
     private function createInfiniteScrollScript()

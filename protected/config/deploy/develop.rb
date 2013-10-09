@@ -10,6 +10,7 @@ set :site_root, "/#{webroot}/#{application}/#{stage}"
 set :sudo_user, "deployment"
 set :user, "deployment"
 set :sshgroup, 'www-data'
+set :ues_sudo, true
 
 # What is the directory path used to store your project on the remote server?
 set :deploy_to, "#{site_root}/deployments"
@@ -22,8 +23,8 @@ end
 
 # Fix Permissions
 task :fix_permissions do
-    run "#{try_sudo} chown -R #{sudo_user}:#{sshgroup} #{deploy_to}"
-    run "#{try_sudo} chmod -R 755 #{deploy_to}"
+    run "sudo chown -R #{sudo_user}:#{sshgroup} #{site_root}"
+    run "sudo chmod -R 755 #{site_root}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
@@ -37,6 +38,7 @@ task :migrate do
 end
 
 after "deploy:setup", :setup_directories
-after "deploy:setup", :fix_permissions
+before "deploy", :fix_permissions
 
 before "deploy:create_symlink", :move_configs
+before "deploy:create_symlink", :migrate

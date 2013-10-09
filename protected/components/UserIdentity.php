@@ -91,7 +91,7 @@ class UserIdentity extends CUserIdentity
 		    // Return early if the record is NULL. Bad things seem to happen with the $meta if we don't =(
 		    return !$this->errorCode;
 		}
-		else if ($this->password == md5("PUBUSER") && !$this->force)
+		else if ($this->password == password_hash($record->email, PASSWORD_BCRYPT, array('cost' => 13)) && !$this->force)
 		{
 			// This is a socially authenticated user who hasn't set a password. Do not allow them to login using the wildcard password
 			// If we can't find the user's email, return identity failure
@@ -172,6 +172,18 @@ class UserIdentity extends CUserIdentity
 
 		// Allow the user to proceed
 		$this->force = true;
+	}
+
+	/**
+	 * Public access method to generate a new password
+	 * @param  string $email    The email we want to change
+	 * @param  string $password The password we want to set to
+	 * @return string           bcrypt hash
+	 */
+	public function updatePassword($email, $password)
+	{
+		$hash = Users::model()->encryptHash($email, $password, Yii::app()->params['encryptionKey']);
+		return password_hash($hash, PASSWORD_BCRYPT, array('cost' => $this->cost));
 	}
 
 	/**

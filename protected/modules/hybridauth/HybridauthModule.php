@@ -15,6 +15,13 @@ class HybridauthModule extends CWebModule {
 			'hybridauth.models.*',
 			'hybridauth.components.*',
 		));
+
+		Yii::app()->setComponents(array(
+            'messages' => array(
+                'class' => 'ext.cii.components.CiiPHPMessageSource',
+                'basePath' => Yii::getPathOfAlias('application.modules.hybridauth')
+            )
+        ));
 	}
 
 	public function beforeControllerAction($controller, $action) {
@@ -32,14 +39,13 @@ class HybridauthModule extends CWebModule {
 	 * @return array
 	 */
 	public function getConfig() {
-		
 		return array(
 			'baseUrl' => Yii::app()->getBaseUrl(true),
 			'base_url' => Yii::app()->getBaseUrl(true) . '/hybridauth/callback', // URL for Hybrid_Auth callback
-			'providers' => $this->providers,
+			'providers' => CMap::mergeArray($this->providers, Cii::getHybridAuthProviders()),
 		);
 	}
-	
+
 	/**
 	 * Get the Hybrid_Auth adapter that is supplied once someone has authenticated.
 	 * @return Hybrid_Provider_Adapter adapter or null if they are not logged in, or are logged in locally.

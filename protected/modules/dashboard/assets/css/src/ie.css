@@ -1,0 +1,7 @@
+.ie #categoryListView {
+  margin-top: 24px;
+}
+
+.ie .pure-plus {
+  top: 10px;
+}

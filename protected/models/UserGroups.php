@@ -10,7 +10,7 @@
  * @property string $created
  * @property string $updated
  */
-class UserGroups extends CActiveRecord
+class UserGroups extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -41,7 +41,6 @@ class UserGroups extends CActiveRecord
 			array('group_id, user_id, created, updated', 'required'),
 			array('group_id, user_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, group_id, user_id, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -63,11 +62,11 @@ class UserGroups extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'group_id' => 'Group',
-			'user_id' => 'User',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 	   => Yii::t('ciims.models.UserGroups', 'ID'),
+			'group_id' => Yii::t('ciims.models.UserGroups', 'Group'),
+			'user_id'  => Yii::t('ciims.models.UserGroups', 'User'),
+			'created'  => Yii::t('ciims.models.UserGroups', 'Created'),
+			'updated'  => Yii::t('ciims.models.UserGroups', 'Updated'),
 		);
 	}
 
@@ -77,9 +76,6 @@ class UserGroups extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -91,17 +87,5 @@ class UserGroups extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
 	}
 }

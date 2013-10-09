@@ -1,0 +1,198 @@
+select, 
+textarea, 
+input[type="text"], 
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"], 
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"], 
+.uneditable-input {
+    height: 30px;
+}
+
+label {
+	color: #999;
+	font-size: 13px !important;
+	font-family: 'Open Sans';
+	font-weight: 600;
+}
+
+html, body {
+	height: 100%;
+	min-height: 100%;
+	max-height: 100%;
+}
+
+body {
+	background: #f3f5f9;
+	margin: 0;
+	font-family: "PT Sans Bold", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.ui-tooltip {
+  width:50px;
+  text-align: center;
+}
+
+/** initial setup **/
+.nano {
+  position : relative;
+  overflow : hidden;
+}
+
+.nano .content {
+  position      : absolute;
+  overflow      : scroll;
+  overflow-x    : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+}
+
+.nano .content:focus {
+  outline: thin dotted;
+}
+
+.nano .content::-webkit-scrollbar {
+  visibility: hidden;
+}
+
+.has-scrollbar .content::-webkit-scrollbar {
+  visibility: visible;
+}
+
+.nano > .pane, .nano > .pane2 {
+  background : rgba(0,0,0,.25);
+  position   : absolute;
+  width      : 7px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01; 
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;  
+  border-radius         : 5px;
+}
+
+.nano > .pane > .slider,.nano > .pane2 > .slider2 {
+  background: #444;
+  background: rgba(0,0,0,.5);
+  position              : relative;
+  margin                : 0 1px;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;  
+  border-radius         : 3px;
+}
+
+.nano:hover > .pane, .pane.active, .pane.flashed, .nano:hover > .pane2, .pane2.active, .pane2.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
+}
+
+.pure-form .pure-search {
+    border: none !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+    margin-top: 11px;
+    font-size: 12px !important;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-style: italic;
+    box-shadow: none !important;
+    -webkit-box-shadow:none !important;
+    -mox-box-shadow: none !important;
+    -o-box-shadow: none !important;
+}
+
+.icon-legend {
+  margin-top: 18px;
+  margin-right: 5px;
+}
+
+.rounded-img {
+    display: inline-block;
+    border: solid 1px #DCDCDC;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/** Webkit Specific hacks for the preview */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  input[type='range'] {  
+      -webkit-appearance: none;  
+      background-color: #999;  
+      height: 4px;
+  }  
+    
+  input[type='range']::-webkit-slider-thumb {  
+    -webkit-appearance: none;
+      background-color: #333;  
+      width: 10px;  
+      height: 7px; 
+  }
+}
+
+input[type="range"]::-ms-fill-lower {
+  background-color: #0078e7;
+}
+
+.transparent {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  background-color: transparent;
+  top: -6px;
+}
+
+.row.noItemsMessage {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+}
+
+.inline {
+  display: inline-block;
+  position: relative;
+  font-size: 12px;
+  color: #2d2d2d;
+  line-height: 20px;
+  top: -4px;
+}
+
+#spinner {
+  display:none;
+}
+
+.icon-spacer {
+  padding-right:5px;
+}
+
+.icon-spinner-form {
+  margin-left: -7px;
+}
+
+.yiiLog {
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}

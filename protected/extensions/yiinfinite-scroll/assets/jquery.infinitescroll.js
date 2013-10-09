@@ -204,7 +204,8 @@
             {
             	data = path.match(/^(.*?)\b\d\b(.*?$)/).slice(1);
             	this.options.state.currPage = path.split('/').slice(2);
-            	this.options.state.currPage = this.options.state.currPage[0] -1;
+            	this.options.state.currPage = this.options.state.currPage[this.options.state.currPage.length -1] -1;
+
             	return data;
             }
 
@@ -349,6 +350,11 @@
             callback(this,data);
             this.options.defaultCallback(this, data);
             var newUrl = this.options.path.join(this.options.state.currPage);
+            var getVars = (RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.href)||[,null])[1];
+
+            if (newUrl.indexOf('search') >= 0)
+                newUrl += "?q=" + getVars;
+                
             window.history.replaceState(null,null, newUrl);
 
         },
@@ -555,6 +561,11 @@
                 box = $(opts.contentSelector).is('table') ? $('<tbody/>') : $('<div/>');
 
                 desturl = path.join(opts.state.currPage);
+
+                var getVars = (RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.href)||[,null])[1];
+
+                if (desturl.indexOf('search') >= 0)
+                    desturl += "?q=" + getVars;
 
                 method = (opts.dataType == 'html' || opts.dataType == 'json' ) ? opts.dataType : 'html+callback';
                 if (opts.appendCallback && opts.dataType == 'html') method += '+callback'

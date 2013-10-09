@@ -3,10 +3,10 @@
 		<div class="post">
 			<div class="post-inner">
 				<div class="post-header">
-					<h2 style="text-align: center;">No Results Found</h2>
+					<h2 style="text-align: center;"><?php echo Yii::t('DefaultTheme', "No Results Found"); ?></h2>
 				</div>
 			
-			<p style="text-align:center;">Sorry, we tried looking but we didn't find a match for the specified criteria. Try refining your search.</p>
+			<p style="text-align:center;"><?php echo Yii::t('DefaultTheme', "Sorry, we tried looking but we didn't find a match for the specified criteria. Try refining your search."); ?></p>
 			</div>
 		</div>
 	<?php endif; ?>
@@ -28,24 +28,10 @@
 		    'param'     => Cii::get($_GET, 'q', '')
 		),
 	    'defaultCallback' => "js:function(response, data) { 
-	    	var url = response.options.path.join(response.options.state.currPage);
-
-	    	// Try GA Tracking
-	    	try {
-			    _gaq.push(['_trackPageview', url]);
-			} catch (e) {
-				// Don't do anything if the tracking event failed
-			}
-
-			// Try Piwik Tracking
-			try {
-			    _paq.push(['trackPageView', url]);
-			} catch (e) {
-				// Don't do anything if the tracking event failed
-			}			    
+	    	DefaultTheme.infoScroll(response, data);		    
  		}"
 	)); ?>
-	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(window).unbind('.infscr');"); ?>
+	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "$(document).ready(function() { DefaultTheme.loadAll(); });"); ?>
 
 <?php endif; ?>
 <META NAME="robots" CONTENT="noindex,nofollow">

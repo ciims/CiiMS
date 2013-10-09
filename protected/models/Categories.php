@@ -19,6 +19,8 @@
  */
 class Categories extends CiiModel
 {
+	public $pageSize = 15;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -82,12 +84,12 @@ class Categories extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'parent_id' => 'Parent',
-			'name' => 'Name',
-			'slug' => 'Slug',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 		=> Yii::t('ciims.models.Categories', 'ID'),
+			'parent_id' => Yii::t('ciims.models.Categories', 'Parent'),
+			'name'      => Yii::t('ciims.models.Categories', 'Name'),
+			'slug'      => Yii::t('ciims.models.Categories', 'Slug'),
+			'created'   => Yii::t('ciims.models.Categories', 'Created'),
+			'updated'   => Yii::t('ciims.models.Categories', 'Updated'),
 		);
 	}
 
@@ -97,9 +99,6 @@ class Categories extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -111,40 +110,84 @@ class Categories extends CiiModel
 		$criteria->order = "id DESC";
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $this->pageSize
+            )
 		));
 	}
 	
+	/**
+	 * Verifies the slug before validating the model
+	 */
 	public function beforeValidate()
 	{
 		$this->slug = $this->verifySlug($this->slug, $this->name);
-			
+
 		return parent::beforeValidate();
 	}
-        
-	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
-			$this->created = new CDbExpression('NOW()');
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-		
+     
+    /**
+     * Flushes URL data from the cache before the model is updated
+     */
+	public function afterSave()
+	{		
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('categories');
 		Yii::app()->cache->delete('WFF-categories-url-rules');
 		Yii::app()->cache->delete('categories-pid');
-	    return parent::beforeSave();
+
+	    return parent::afterSave();
 	}
 	
+	/**
+	 * Automatically corrects parent tree issues that arise when a parent category node
+	 * is deleted.
+	 * @return [type]
+	 */
 	public function beforeDelete()
-	{			
+	{
+		// Prevents the main "uncategorized category from being deleted"
+		if ($this->id == 1)
+		{
+			Yii::app()->user->setFlash('error', Yii::t('ciims.models.Categories', 'This category cannot be deleted'));
+			return false;
+		}
+		
 		Yii::app()->cache->delete('categories');
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('WFF-categories-url-rules');
 		Yii::app()->cache->delete('categories-pid');
+		
+		$parent = $this->parent_id;
+		$id = $this->id;
+
+		// Reassign all posts to the parent category
+		Yii::app()->db->createCommand('UPDATE content SET category_id = :parent_id WHERE category_id = :id')
+					  ->bindParam(':parent_id', $parent)
+					  ->bindParam(':id', $id)
+					  ->execute();
+
+		// Reassign all child categories to the parent category
+		$data = $this->findAllByAttributes(array('parent_id' => $id));
+		
+		foreach ($data as $row)
+		{
+			$id = $row->id;
+			Yii::app()->db->createCommand('UPDATE categories SET parent_id = :parent_id WHERE id = :id')
+					  ->bindParam(':parent_id', $parent)
+					  ->bindParam(':id', $id)
+					  ->execute();
+		}
+
 		return parent::beforeDelete();
 	}
-	
+
+	/**
+	 * Retrieves the parent categories for a given category_id
+	 * @param  int $id
+	 * @return [type]
+	 */
 	public function getParentCategories($id)
 	{
 		// Retrieve the data from cache if necessary
@@ -155,22 +198,27 @@ class Categories extends CiiModel
 			Yii::app()->cache->set('categories-pid', $response);
 		}
 		
-		return $this->__getParentCategories($response, $id);
+		return $this->_getParentCategories($response, $id);
 	}
 	
-	private function __getParentCategories($all_categories, $id, array $stack = array())
+	/**
+	 * Recursive callback for retrieving parent categories
+	 * @param  array $all    An array of all categories currently in the system
+	 * @param  int  $id      The category we're seeking
+	 * @param  array  $stack A stack to hold the entire tree
+	 * @return Stack
+	 */
+	private function _getParentCategories($all_categories, $id, array $stack = array())
 	{
 		if ($id == 1)
-		{
 			return array_reverse($stack);
-		}
 		
 		foreach ($all_categories as $k=>$v)
 		{
 			if ($v['id'] == $id)
 			{
 				$stack[$v['name']] = array(str_replace(Yii::app()->baseUrl, NULL, Yii::app()->createUrl($v['slug'])));
-				return $this->__getParentCategories($all_categories, $v['parent_id'], $stack);
+				return $this->_getParentCategories($all_categories, $v['parent_id'], $stack);
 			}
 		}
 	}

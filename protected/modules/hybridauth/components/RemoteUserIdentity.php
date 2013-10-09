@@ -19,7 +19,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 		{
 			if (!isset($_GET['openid-identity']))
 			{
-				throw new CException('You chose OpenID but didn\'t provide an OpenID identifier');
+				throw new CException(Yii::t('Hybridauth.main', "You chose OpenID but didn't provide an OpenID identifier"));
 			} 
 			else
 			{
@@ -30,7 +30,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 		{
 			$params = array();
 		}
-		
+	
 		$hybridauth = new Hybrid_Auth($this->_getConfig());
 		
 		$adapter = $hybridauth->authenticate($provider,$params);

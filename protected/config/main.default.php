@@ -18,22 +18,28 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
+$preload = array('cii', 'analytics');
+if (isset($_SERVER['REQUEST_URI'])) {
+    if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
+        $preload[] = 'bootstrap';
+}
+
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
     'language' => 'en_US',
-    'preload' => array(
-        'cii',
-        'bootstrap',
-    ),
+    'preload' => $preload,
     'import' => array(
         'application.models.*',
         'application.components.*',
         'application.modules.*',
     ),
     'modules' => array(
-        'admin',
+        'dashboard',
+        'hybridauth' => array(
+            'providers' => array()
+        )
     ),
     'behaviors' => array(
         'onBeginRequest' => array(
@@ -41,11 +47,22 @@ return array(
         ),
     ),
     'components' => array(
+        'messages' => array(
+            'class' => 'ext.cii.components.CiiPHPMessageSource'
+        ),
         'newRelic' => array(
             'class' => 'ext.yii-newrelic.YiiNewRelic',
         ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
+        ),
+        'analytics' => array(
+            'class' => 'ext.cii.components.CiiAnalytics',
+            'lowerBounceRate' => true,
+            'options' => array(),
+        ),
+        'assetManager' => array(
+            'class' => 'ext.cii.components.CiiAssetManager',
         ),
         'bootstrap' => array(
             'class' => 'ext.bootstrap.components.Bootstrap',
@@ -53,11 +70,11 @@ return array(
         ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles'    => true,
+            'combineScriptFiles'    => true,   // Script Combination Kills the Dashboard
             'combineCssFiles'       => true,
-            'optimizeCssFiles'      => true,
+            'optimizeCssFiles'      => true,   // CSS Combination kills the dashboard too...
             'optimizeScriptFiles'   => true,
-            'compressHTML'          => true
+            'compressHTML'          => false    // And this kills Google Adsense...
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',
@@ -80,8 +97,19 @@ return array(
             'username'              => NULL,
             'password'              => NULL,
             'charset'               => 'utf8',
-            'schemaCachingDuration' => '3600',
-            'enableProfiling'       => true,
+            'schemaCachingDuration' => 3600,
+            'enableProfiling'       => false,
+            'enableParamLogging'    => false
+        ),
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CWebLogRoute',
+                    'levels' => 'error, warning, trace, info',
+                    'enabled' => false
+                )
+            )
         ),
         'cache' => array(
             'class' => 'CFileCache',
@@ -91,6 +119,8 @@ return array(
         'yiiPath'       => NULL,
         'encryptionKey' => NULL,
         'debug'         => false,
-        'trace'         => 0
+        'trace'         => 0,
+        'user'          => null,
+	'demo' 		=> 0
     ),
 );

@@ -9,7 +9,7 @@
  * @property string $created
  * @property string $updated
  */
-class Configuration extends CActiveRecord
+class Configuration extends CiiModel
 {	
     /**
      * Returns the static model of the specified AR class.
@@ -39,9 +39,7 @@ class Configuration extends CActiveRecord
         return array(
             array('key, value, created, updated', 'required'),
             array('key', 'length', 'max'=>64),
-            array('value', 'length', 'max'=>255),
             // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('key, value, created, updated', 'safe', 'on'=>'search'),
         );
     }
@@ -63,10 +61,10 @@ class Configuration extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'key' => 'Key',
-            'value' => 'Value',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'key'     => Yii::t('ciims.models.Configuration', 'Key'),
+            'value'   => Yii::t('ciims.models.Configuration', 'Value'),
+            'created' => Yii::t('ciims.models.Configuration', 'Created'),
+            'updated' => Yii::t('ciims.models.Configuration', 'Updated'),
         );
     }
 
@@ -76,9 +74,6 @@ class Configuration extends CActiveRecord
      */
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria=new CDbCriteria;
 
         $criteria->compare('t.key',$this->key,true);
@@ -91,18 +86,45 @@ class Configuration extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
-    
-	public function beforeValidate()
-	{
-		if ($this->isNewRecord)
-		{
-			// Implicit flush to delete the URL rules
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-		else
-			$this->updated = new CDbExpression('NOW()');
 
-		return parent::beforeValidate();
-	}
+    /**
+     * Generates a unique id
+     * @return string
+     */
+    public function generateUniqueId()
+    {
+        $rnd_id = crypt(uniqid(mt_rand(),1)); 
+        $rnd_id = strip_tags(stripslashes($rnd_id)); 
+        $rnd_id = str_replace(".","",$rnd_id); 
+        $rnd_id = strrev(str_replace("/","",$rnd_id)); 
+        $rnd_id = str_replace("$", '', substr($rnd_id,0,20));
+
+        return $rnd_id;
+    }
+
+    /**
+     * This will do a full recursive deletion of a card from bothe the filesystem and from
+     * @param  string $name The folder name in runtiome
+     * @return boolean      If the recursive delete was successful or not
+     */
+    public function fullDelete($name)
+    {
+        $path = Yii::getPathOfAlias('application.runtime.cards.' . $name);
+
+        try {
+            // Delete the directory path
+            CiiFileDeleter::removeDirectory($path);
+
+            // Delete the cache
+            Yii::app()->cache->delete('dashboard_cards_available');
+            Yii::app()->cache->delete('cards_in_category');
+
+            // Delete the record
+            return $this->delete();
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return false;
+    }
 }

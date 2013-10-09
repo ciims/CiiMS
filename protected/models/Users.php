@@ -25,6 +25,8 @@
  */
 class Users extends CiiModel
 {
+	public $pageSize = 15;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -65,7 +67,6 @@ class Users extends CiiModel
 			array('email, firstName, lastName, displayName', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, email, password, firstName, lastName, displayName, about, user_role, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -81,7 +82,8 @@ class Users extends CiiModel
 			'comments' => array(self::HAS_MANY, 'Comments', 'user_id'),
 			'content' => array(self::HAS_MANY, 'Content', 'author_id'),
 			'tags' => array(self::HAS_MANY, 'Tags', 'user_id'),
-			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id'),
+			// Don't pull in dashboard junk...
+			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
 			'role' => array(self::BELONGS_TO, 'UserRoles', 'user_role'),
 		);
 	}
@@ -92,17 +94,17 @@ class Users extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'email' => 'Email',
-			'password' => 'Password',
-			'firstName' => 'First Name',
-			'lastName' => 'Last Name',
-			'displayName' => 'Display Name',
-			'about'		=> 'About',
-			'user_role' => 'User Role',
-			'status' => 'Status',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 		  => Yii::t('ciims.models.Users', 'ID'),
+			'email' 	  => Yii::t('ciims.models.Users', 'Email'),
+			'password' 	  => Yii::t('ciims.models.Users', 'Password'),
+			'firstName'   => Yii::t('ciims.models.Users', 'First Name'),
+			'lastName' 	  => Yii::t('ciims.models.Users', 'Last Name'),
+			'displayName' => Yii::t('ciims.models.Users', 'Display Name'),
+			'about'		  => Yii::t('ciims.models.Users', 'About'),
+			'user_role'   => Yii::t('ciims.models.Users', 'User Role'),
+			'status'	  => Yii::t('ciims.models.Users', 'Active'),
+			'created' 	  => Yii::t('ciims.models.Users', 'Created'),
+			'updated' 	  => Yii::t('ciims.models.Users', 'Updated'),
 		);
 	}
 
@@ -120,9 +122,6 @@ class Users extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -136,26 +135,75 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->order = "id DESC";
+		$criteria->order = "user_role DESC, created DESC";
 		
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => $this->pageSize
+            )
 		));
 	}
 	
-	public function beforeSave()
-	{
-    	if ($this->isNewRecord)
+	/**
+	 * Sets some default values for the user record.
+	 * TODO: This should have been moved to CiiModel
+	 * @see CActiveRecord::beforeValidate()
+	 **/
+	public function beforeValidate()
+    {
+        if ($this->about == NULL || $this->about == '')
+            $this->about = ' ';
+
+        return parent::beforeValidate();
+    }
+
+    /**
+     * Bind behaviors for changing the user's email, and allow them to make the appropriate changes on their end.
+     * The intention behind this, is that the user has to first, verify that they requested the change, and second
+     * verify that they own both email addresses.
+     *
+     * The intention behind this is to protect the user from changes to their account, either by an administrator or a malicious user.
+     * This doesn't protect from database attacks, it only protects from malicious attacks from within CiiMS.
+     * 
+     * @return parent::afterSave();
+     */
+    public function beforeSave()
+    {
+    	// If the user's email address is about to change
+    	if (isset($this->_oldAttributes['email']) && $this->_oldAttributes['email'] != $this->email)
     	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    return parent::beforeSave();
-	}
-	
+    		// Store the new email address
+    		$newEmail = $this->email;
+
+    		// Reset the email addres and block the change internally
+    		$this->email = $this->_oldAttributes['email'];
+
+    		// Save the NEW email address in the database as a metadata record
+    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddress'));
+    		if ($meta === NULL)
+    			$meta = new UserMetadata;
+    		$meta->user_id = $this->id;
+    		$meta->key = 'newEmailAddress';
+    		$meta->value = $newEmail;
+    		$meta->save();
+
+    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddressChangeKey'));
+    		if ($meta === NULL)
+    			$meta = new UserMetadata;
+
+    		$meta->user_id = $this->id;
+    		$meta->key = 'newEmailAddressChangeKey';
+    		$key = $meta->value = md5(md5($newEmail . time()) . Yii::app()->params['encryptionKey']);
+    		$meta->save();
+
+    		// Fire off an email to the OLD email address asking them VERIFY the change
+    		$response = Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
+    	}
+
+    	return parent::beforeSave();
+    }
+
 	/**
 	 * Lets us know if the user likes a given content post or not
 	 * @param  int $id The id of the content we want to know about

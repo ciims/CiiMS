@@ -7,17 +7,47 @@
  */
 class LoginForm extends CFormModel
 {
+	/**
+	 * The submitted username(email)
+	 * @var string
+	 */
 	public $username;
+
+	/**
+	 * The submitted password
+	 * @var string
+	 */
 	public $password;
+
+	/**
+	 * Whether or not we should remember the user.
+	 * This isn't uses as of CiiMS 1.1
+	 * @var boolean ?
+	 */
 	public $rememberMe;
 
+	/**
+	 * Whether or not we should perform a forced authentication. By default we aren't going to do this
+	 * @var boolean
+	 */
 	private $force = false;
+
+	/**
+	 * The identity of the user
+	 * @var CUserIdentity
+	 */
 	private $_identity;
 
+	/**
+	 * Determines whether or not we should do a forced authentication and bypass the user's actual password
+	 * @see  application.modules.HybridAuth for more details
+	 * @param boolean $force
+	 */
 	public function __construct($force=false)
 	{
 		$this->force = $force;
 	}
+
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
@@ -41,7 +71,7 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'rememberMe'=> Yii::t('ciims.models.LoginForm', 'Remember me next time'),
 		);
 	}
 
@@ -55,7 +85,7 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate($this->force))
-				$this->addError('password','Incorrect username or password.');
+				$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
 		}
 	}
 

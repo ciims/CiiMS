@@ -10,7 +10,7 @@
         <div class="well well-container">
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
-                    <a class="brand" href="#">CiiMS Installer</a>
+                    <a class="brand" href="#"><?php echo Yii::t('Install.main', 'CiiMS Installer'); ?></a>
                 </div>
             </div>
             <ul class="breadcrumb">

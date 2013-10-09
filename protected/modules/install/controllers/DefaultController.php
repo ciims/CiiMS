@@ -18,13 +18,16 @@ class DefaultController extends CController
      * @var array $breadcrumbs
      * An array of breadcrumbs that we can index against
      */
-    public $breadcrumbs = array(
-        4 => 'Connect to Database',
-        5 => 'Migrate Database',
-        6 => 'Create Admin User',
-        7 => 'Finalize Configuration',
-        10 => 'Error',
-    );
+    public function getBreadcrumbs()
+    {
+        return array(
+            4 => Yii::t('Install.main', 'Connect to Database'),
+            5 => Yii::t('Install.main', 'Migrate Database'),
+            6 => Yii::t('Install.main', 'Create Admin User'),
+            7 => Yii::t('Install.main', 'Finalize Configuration'),
+            10 => Yii::t('Install.main', 'Error'),
+        );
+    }
 
     /**
      * BeforeAction, sets the stage 
@@ -79,7 +82,10 @@ class DefaultController extends CController
             }
             else
             {
-                Yii::app()->user->setFlash('error', '<strong>Warning!</strong> ' . $model->getError('dsn'));
+                Yii::app()->user->setFlash('error', Yii::t('Install.main', '{{warning}} {{error}}', array(
+                    '{{warning}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Warning!')),
+                    '{{error}}' => $model->getError('dsn')
+                )));
             }
         }
         $this->render('index', array('model'=>$model));
@@ -92,6 +98,9 @@ class DefaultController extends CController
      */
     public function actionMigrate()
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
+        
         // Don't let the user get to this action if they haven't setup a DSN yet.
         if (Yii::app()->session['dsn'] == "")
             $this->redirect($this->createUrl('/'));
@@ -119,7 +128,10 @@ class DefaultController extends CController
             
             $errors = $model->getErrors();
             $firstError = array_values($errors);
-            Yii::app()->user->setFlash('error', '<strong>Warning!</strong> ' . $firstError[0][0]);
+            Yii::app()->user->setFlash('error',  Yii::t('Install.main', '{{warning}} {{error}}', array(
+                '{{warning}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Warning!')),
+                '{{error}}' => $firstError[0][0]
+            )));
         }
         
         $this->render('createadmin', array('model' => $model));

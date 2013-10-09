@@ -34,6 +34,10 @@ class InstallHelper
      */
     public function initYiiDownload(array $data = array())
     {
+        ignore_user_abort(true);
+        set_time_limit(0);
+        ini_set('max_execution_time', 0);
+        
         try {
             // Replace pathspec
             $data['runtime'] = str_replace('\\', '/', $data['runtime']);
@@ -55,7 +59,6 @@ class InstallHelper
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt( $ch, CURLOPT_NOPROGRESS, false );
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt( $ch, CURLOPT_PROGRESSFUNCTION, 'progressCallback' );
             curl_setopt( $ch, CURLOPT_FILE, $targetFile );
             curl_exec( $ch );
             
@@ -83,23 +86,6 @@ class InstallHelper
             $this->exitwithResponse(array('completed' => false, 'status' => 2));
         }
     }
-
-    public function checkDownloadProgress(array $data = array())
-    {
-         // Replace pathspec
-        $data['runtime'] = str_replace('\\', '/', $data['runtime']);
-        if ($data['runtime'][strlen($data['runtime'])-1] != '/')
-            $data['runtime'] .= '/';
-        
-        // Get the status from the file
-        $status = file_get_contents($data['runtime'] . 'progress.txt');
-        
-        // Clean up after oursevles
-        if ($status == 100)
-            unlink ($data['runtime'] . 'progress.txt');
-        
-        $this->exitWithResponse(array('progress' => $status));
-    }
     
     /**
      * Sets the YiiPath in Session so the bootstrapper can take over
@@ -112,6 +98,22 @@ class InstallHelper
         session_write_close();
         return;
     }
+
+    private function setLanguage()
+    {
+        $language = 'en_US';
+        session_start();
+        // If the language is set via POST, accept it
+        if (isset($_POST['_lang']))
+            $language = $_SESSION['_lang'] = $_POST['_lang'];
+        else if (isset($_SESSION['_lang']))
+            $language = $_SESSION['_lang'];
+        else
+            $language = $_SESSION['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
+
+        $_SESSION['_lang'] = $language;
+        session_write_close();
+    }
     
     /**
      * Returns a json_encoded response then exits the script
@@ -122,26 +124,5 @@ class InstallHelper
         header('Content-type: application/json');
         echo json_encode($response);
         exit();
-    }
-}
-
-/**
- * CurlOPT progress callback
- */
-function progressCallback( $download_size, $downloaded_size, $upload_size, $uploaded_size )
-{
-    static $previousProgress = 0;
-    
-    if ( $download_size == 0 )
-        $status = 0;
-    else
-        $status = round( $downloaded_size * 100 / $download_size );
-    
-    if ( $status > $previousProgress)
-    {
-        $previousProgress = $status;
-        $fp = fopen( $GLOBALS['progress'], 'w' );
-        fputs( $fp, "$status" );
-        fclose( $fp );
     }
 }

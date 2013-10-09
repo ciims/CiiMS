@@ -1,32 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**
- * This controller provides functionality to display content within a specific category
- *
- * PHP version 5
- *
- * MIT LICENSE Copyright (c) 2012-2013 Charles R. Portwood II
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to 
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom 
- * the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * @category   CategoryName
- * @package    CiiMS Content Management System
- * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
- * @license    http://opensource.org/licenses/MIT  MIT LICENSE
- * @link       https://github.com/charlesportwoodii/CiiMS
- */
 class CategoriesController extends CiiController
 {
 	/**
@@ -48,6 +21,7 @@ class CategoriesController extends CiiController
                 ),
             );
 		}
+
 		return parent::filters();
     }
 
@@ -60,9 +34,7 @@ class CategoriesController extends CiiController
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
-		{
-			throw new CHttpException(404,'The specified category cannot be found.');
-		}
+			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
 		
 		// Retrieve the HTTP Request
 		$r= new CHttpRequest();
@@ -77,9 +49,7 @@ class CategoriesController extends CiiController
 		
 		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
 		if ($requestUri == $route)
-		{
-			throw new CHttpException(404,'The specified category cannot be found.');
-		}
+			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
 	}
 	
 	/**
@@ -101,7 +71,11 @@ class CategoriesController extends CiiController
 		// Parse Metadata
 		$meta = Categories::model()->parseMeta($category->metadata);		
 		
-		$this->setPageTitle(Yii::app()->name . ' | ' . $category->name);
+		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => $category->name
+		)));
+
 		$layout = isset($meta['layout']) ? $meta['layout']['value'] : 'default';		
 
 		// Set the layout
@@ -112,12 +86,11 @@ class CategoriesController extends CiiController
 		$itemCount = 0;
 		$pageSize = Cii::getConfig('categoryPaginationSize', 10);	
 		
-		$criteria=new CDbCriteria;
-		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
-		$criteria->addCondition('type_id >= 2');
-		$criteria->addCondition("category_id = " . $id);
-		$criteria->addCondition('password = ""');
-		$criteria->addCondition('status = 1');
+		$criteria = Content::model()->getBaseCriteria()
+									->addCondition('type_id >= 2')
+									->addCondition("category_id = " . $id)
+									->addCondition('password = ""');
+									
 		$criteria->limit = $pageSize;			
 		$criteria->order = 'created DESC';
 		
@@ -138,9 +111,13 @@ class CategoriesController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Categories');
+		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Categories', 'Categories')
+		)));
+
 		$this->setLayout('main');
-		$this->breadcrumbs = array('All Categories');
+		$this->breadcrumbs = array(Yii::t('ciims.controllers.Categories', 'All Categories'));
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('id != 1');
 		$categories = Categories::model()->findAll($criteria);

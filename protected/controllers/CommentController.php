@@ -1,32 +1,5 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**
- * This controller provides functionality to view and add comment
- *
- * PHP version 5
- *
- * MIT LICENSE Copyright (c) 2012-2013 Charles R. Portwood II
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to 
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom 
- * the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * @category   CategoryName
- * @package    CiiMS Content Management System
- * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
- * @license    http://opensource.org/licenses/MIT  MIT LICENSE
- * @link       https://github.com/charlesportwoodii/CiiMS
- */
 class CommentController extends CiiController
 {
 	/**
@@ -74,7 +47,7 @@ class CommentController extends CiiController
 		$this->layout = false;
 
 		if ($id == NULL)
-			throw new CHttpException(400, 'Unable to retrieve comments for that post');
+			throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Unable to retrieve comments for the requested post.'));
 
 		$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
         
@@ -86,7 +59,7 @@ class CommentController extends CiiController
 	 */
 	public function actionComment()
 	{
-		if (Yii::app()->request->isAjaxRequest && isset($_POST))
+		if (Yii::app()->request->isAjaxRequest && Cii::get($_POST, 'Comments'))
 		{
 			$comment = new Comments();
 			$comment->attributes = array(
@@ -94,23 +67,14 @@ class CommentController extends CiiController
 				'content_id'=>	$_POST['Comments']['content_id'],
 				'comment'	=>	$_POST['Comments']['comment'],
 				'parent_id'	=>	Cii::get($_POST['Comments'], 'parent_id', 0),
-				'approved'	=>	1,
+				'approved'	=>	Cii::getConfig('autoApproveComments', 1) == null ? 1 : Cii::getConfig('autoApproveComments', 1),
 			);
 			
 			if ($comment->save())
 			{
-				$content = Content::model()->findByPk($_POST['Comments']['content_id']);
-				$content->comment_count++;
-				$content->save();
-				
-				// Send an email to the author if someone makes a comment on their blog
-				if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1) 
-				{
-					$this->sendEmail($user, 'New Comment Notification From CiiMS Blog', '//email/comments', array('content'=>$content, 'comment'=>$comment));
-				}
-
+				$content = Content::model()->findByPk($comment->content_id);
 				// Pass the values as "now" for the comment view"
-				$comment->created = $comment->updated = "now";
+				$comment->created = $comment->updated = Yii::t('ciims.controllers.Comments', "now");
 
 				// Set the attributed id to make life easier...
 				header("X-Attribute-Id: {$comment->id}");
@@ -122,9 +86,7 @@ class CommentController extends CiiController
 				));
 			}
 			else
-			{
-				throw new CHttpException(400, 'Missing or malformed request');
-			}
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error saving your comment.'));
 		}
 	}
 	
@@ -139,15 +101,16 @@ class CommentController extends CiiController
 		{
 			$comment = Comments::model()->findByPk($id);
 			if ($comment == NULL)
-				throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Invalid request. Please do not repeat this request again.'));
 			
 			$comment->approved = '-1';
+			
 			if($comment->save())
 				return true;
 			else
-				throw new CHttpException(400, 'Something went wrong');
+				throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'There was an error flagging this comment.'));
 		}
 		else
-			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+			throw new CHttpException(400, Yii::t('ciims.controllers.Comments', 'Invalid request. Please do not repeat this request again.'));
 	}
 }

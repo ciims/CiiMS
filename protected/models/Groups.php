@@ -9,7 +9,7 @@
  * @property string $created
  * @property string $updated
  */
-class Groups extends CActiveRecord
+class Groups extends CiiModel
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -40,7 +40,6 @@ class Groups extends CActiveRecord
 			array('name', 'required'),
 			array('name', 'length', 'max'=>150),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, name, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -62,10 +61,10 @@ class Groups extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'created' => 'Created',
-			'updated' => 'Updated',
+			'id' 	  => Yii::t('ciims.models.Groups', 'ID'),
+			'name' 	  => Yii::t('ciims.models.Groups', 'Name'),
+			'created' => Yii::t('ciims.models.Groups', 'Created'),
+			'updated' => Yii::t('ciims.models.Groups', 'Updated'),
 		);
 	}
 
@@ -75,9 +74,6 @@ class Groups extends CActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
@@ -88,17 +84,5 @@ class Groups extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
 	}
 }

@@ -9,7 +9,7 @@
 			<?php $md = new CMarkdownParser; echo strip_tags($md->safeTransform($content->extract), '<h1><h2><h3><h4><h5><6h><p><b><strong><i>'); ?>
 		</div>
 		<div class="blog-meta">
-			<span class="date"><?php echo $content->getCreatedFormatted() ?></span>
+			<span class="date"><?php echo Cii::formatDate($content->published); ?></span>
 			<span class="separator">⋅</span>
 			<span class="blog-author minor-meta"><strong>by </strong>
 				<span>
@@ -25,11 +25,15 @@
 				<span class="separator">⋅</span> 
 			</span> 					
 			<span class="comment-container">
-				<?php echo $content->getCommentCount(); ?> Comments</a>					
+				<?php if (Cii::getConfig('useDisqusComments')): ?>
+					<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread') . ' ' . Yii::t('DefaultTheme', 'Comments'); ?>
+				<?php else: ?>
+					<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
+				<?php endif; ?>				
 			</span>
 		</div>
 		<a class="read-more-icon" href="<?php echo $this->createUrl('/' . $content->slug); ?>" rel="bookmark">
-			<strong style="width: 93px;">Read more</strong>
+			<strong style="width: 93px;"><?php echo Yii::t('DefaultTheme', 'Read more'); ?></strong>
 			<span></span>
 		</a>
 	</div>

@@ -1,13 +1,21 @@
-<h4>Install Database Tables and Other Basic Stuff</h4>
+<h4><?php echo Yii::t('Install.main', 'Install Database Tables and Other Basic Stuff'); ?></h4>
     <div class="alert in alert-block fade alert-error" id="error-alert" style="display:none;">
-        <strong>Oh snap!</strong> Looks like the database istallations failed failed. Most likely this is an issue with your database connection. You can click the "View Migration Details" button below to full the full details, or you can refresh the page to attempt the migrations again. Alternatively, you could try running the migrations from the command line.
+        <?php echo Yii::t('Install.main', '{{ohsnap}} Looks like the database istallations failed failed. Most likely this is an issue with your database connection. You can click the "View Migration Details" button below to full the full details, or you can refresh the page to attempt the migrations again. Alternatively, you could try running the migrations from the command line.', array(
+            '{{ohsnap}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Oh Snap!'))
+        )); ?>
     </div>
     
     <div class="alert in alert-block fade alert-success" id="success-alert" style="display:none;">
-        <strong>Horray!</strong> The database has been installed. Press the "Continue" button below to create an admin user.
+        <?php echo Yii::t('Install.main', '{{horray}} The database has been installed. Press the "Continue" button below to create an admin user.', array(
+            '{{horray}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Horray!'))
+        )); ?>
     </div>
     
-    <p>CiiMS is now installing the database. <strong>DO NOT LEAVE THIS PAGE UNTIL THE PROCESS HAS COMPLETED.</strong> A notification will appear when it's OK to continue.</p>
+    <p>
+        <?php echo Yii::t('Install.main', "CiiMS is now installing the database. {{donotleave}} A notification will appear when it's OK to continue.", array(
+            '{{donotleave}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'DO NOT LEAVE THIS PAGE UNTIL THE PROCESS HAS COMPLETED.'))
+        )); ?>
+    </p>
     
     <?php $this->widget('bootstrap.widgets.TbProgress', array(
                 'percent'=>1, // the progress
@@ -19,7 +27,7 @@
     <hr />
     <div class="clearfix">
     <?php $this->widget('bootstrap.widgets.TbButton',array(
-        'label' => 'View Migration Details',
+        'label' => Yii::t('Install.main', 'View Migration Details'),
         'type' => 'inverse',
         'size' => 'small',
         'htmlOptions' => array(
@@ -29,7 +37,7 @@
         )
     ));?>
     <?php $this->widget('bootstrap.widgets.TbButton',array(
-        'label' => 'Continue',
+        'label' => Yii::t('Install.main', 'Continue'),
         'type' => 'inverse',
         'size' => 'small',
         'url' => $this->createUrl('/createadmin'),
@@ -42,7 +50,7 @@
     <div class="clearfix"></div>
     <div id="details-div" style="display:none; margin-top: 5px;">
         <hr />
-        <h4>Output From YIIC</h4>
+        <h4><?php echo Yii::t('Install.main', 'Output From yiic'); ?></h4>
         <pre id="details-modal-details"></pre>
     </div>
 </div>

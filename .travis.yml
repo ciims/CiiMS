@@ -1,8 +1,5 @@
 language: php
 
-env:
-  secure: "RcFoZDD5ezk3v7qhrzna+6q/WisX08zRkRHlpQbQJqQG09nFllMZfA6EyblL\n/igIrS2RaqJmaOrCLb2BmE1s8yIIrXsFfkivyL5PmuEUVNKM5hovTmODIBeT\nTiY5rzIsX6jt6ZGrOOPqXOdKNOhhcp5m3ffzSscOfjitnSriWuM="
-  
 branches:
   only:
     - master
@@ -23,7 +20,6 @@ notifications:
   email:
     on_success: change
     on_failure: never
-
                                                     # Install the necessary scripts for running the unit tests
 before_script:
   - pear channel-discover pear.phpunit.de | cat     # Selinium/PHPUnit Channel
@@ -34,15 +30,3 @@ before_script:
   - cd ../
   - php yiic-test.php migrate up --interactive=0    # Run Migrations
   - cd tests                                        # Navigate to the Tests Directory to run the tests
-
-                                                    # Automate the deployment process for develop/master
-after_success:
-  - echo "Host erianna" >> ~/.ssh/config            # Add necessary SSH credentials
-  - echo "    Hostname erianna.com" >> ~/.ssh/config
-  - echo "    User deployment" >> ~/.ssh/config
-  - echo "    StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "    UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - gem install capistrano railsless-deploy capistrano_colors                           # Install necessary gems for Automated Deployment
-  - cd ../                                                                              # Get the root Directory
-  - git branch --no-color | sed -e 's/* (no branch)//g' | sed '/./!d' | sed 's/^[ \t]*//' > branch        # Derive the current branch name
-  - cat branch | while read line; do cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy:setup; cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com deploy; cap $line -S password=$PASSWORD -S deployment_host=www.erianna.com migrate; done                          # Export the branch to a variable

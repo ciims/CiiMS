@@ -1,34 +1,26 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-/**
- * This controller provides generic functionality for basic site actions such as errors, login, logout, registration, activation, etc...
- *
- * PHP version 5
- *
- * MIT LICENSE Copyright (c) 2012-2013 Charles R. Portwood II
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
- * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to 
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom 
- * the Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * @category   CategoryName
- * @package    CiiMS Content Management System
- * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
- * @license    http://opensource.org/licenses/MIT  MIT LICENSE
- * @link       https://github.com/charlesportwoodii/CiiMS
- */
 class SiteController extends CiiController
 {
+	public function filters()
+	{
+		return CMap::mergeArray(parent::filters(), array('accessControl'));
+	}
+
+	/**
+	 * Setup access controls to prevent guests from changing their emaila ddress
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('deny',  // allow authenticated admins to perform any action
+				'users'=>array('*'),
+				'expression'=>'Yii::app()->user->isGuest==true',
+				'actions' => array('emailchange')
+			),
+		);
+	}
+
 	/**
 	 * beforeAction method, performs operations before an action is presented
 	 * @param $action, the action being called
@@ -56,22 +48,47 @@ class SiteController extends CiiController
 			}
 			else
 			{
-				$this->setPageTitle(Yii::app()->name . ' | Error ' . $error['code']);
+				$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}} {{code}}', array(
+					'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+					'{{label}}'    => Yii::t('ciims.controllers.Site', 'Error'),
+					'{{code}}'     => $error['code']
+				)));
+
 				$this->render('error', array('error'=>$error));
 			}
 		}
+	}
+
+	/**
+	 * Allows themes to have their own dedicated callback resources.
+	 *
+	 * This enables theme developers to not have to hack CiiMS Core in order to accomplish stuff
+	 * @param  string $method The method of the current theme they want to call
+	 * @return The output or action of the callback
+	 */
+	public function actionThemeCallback($method)
+	{
+		$currentTheme = Yii::app()->getTheme()->name;
+
+		Yii::import('webroot.themes.' . $currentTheme . '.Theme');
+		$theme = new Theme();
+
+		return $theme->$method($_POST);
 	}
 	
     /**
      * Provides basic sitemap functionality via XML
      */
 	public function actionSitemap()
-	{		
-		$this->layout = false;
-		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1;')->queryAll();
+	{
+		ob_end_clean();
+		header('Content-type: text/xml; charset=utf-8');
+		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$this->setLayout(null);
+		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
-		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories));
-		Yii::app()->end();
+		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories, 'url' => $url));
+		//Yii::app()->end();
 	}
 	
     /**
@@ -80,7 +97,11 @@ class SiteController extends CiiController
      */
 	public function actionSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Search')
+		)));
+
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -89,8 +110,7 @@ class SiteController extends CiiController
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
-			$criteria=new CDbCriteria;
-			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
+			$criteria = Content::model()->getBaseCriteria();
 
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
@@ -105,16 +125,15 @@ class SiteController extends CiiController
 				// Load the search data
 				Yii::import('ext.sphinx.SphinxClient');
 				$sphinx = new SphinxClient();
-				$sphinx->setServer(Yii::app()->params['sphinxHost'], (int)Yii::app()->params['sphinxPort']);
+				$sphinx->setServer(Cii::getConfig('sphinxHost'), (int)Cii::getConfig('sphinxPort'));
 				$sphinx->setMatchMode(SPH_MATCH_EXTENDED2);
 				$sphinx->setMaxQueryTime(15);
-				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Yii::app()->params['sphinxSource']);	
+				$result = $sphinx->query(Cii::get($_GET, 'q', NULL), Cii::getConfig('sphinxSource'));	
 				$criteria->addInCondition('id', array_keys(isset($result['matches']) ? $result['matches'] : array()));
 				
     		}	
 
 			$criteria->addCondition('password = ""');
-			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);
@@ -127,7 +146,7 @@ class SiteController extends CiiController
 			
 		}		
 		
-		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+		$this->render('search', array('url' => 'search', 'id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 
     /**
@@ -136,7 +155,11 @@ class SiteController extends CiiController
      */
 	public function actionMySQLSearch($id=1)
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Search');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Search')
+		)));
+
 		$this->layout = '//layouts/default';
 		$data = array();
 		$pages = array();
@@ -145,23 +168,29 @@ class SiteController extends CiiController
 		
 		if (Cii::get($_GET, 'q', "") != "")
 		{	
-			$criteria=new CDbCriteria;
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('status = 1')
+		         	 ->addCondition('published <= NOW()');
+
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
-				$criteria->addCondition('author_id = :author_id');
+				$criteria->addCondition('author_id = :author_id')
+						 ->addCondition("vid=(SELECT MAX(vid) FROM content AS v WHERE v.id=t.id)");
 				$criteria->params = array(
-					':author_id' => str_replace('user_id:', '', $_GET['q'])
+					':author_id' => str_replace('user_id:', '', Cii::get($_GET, 'q', 0))
 				);
 			}
 			else
 			{
-				$criteria->addSearchCondition('content', Cii::get($_GET, 'q', NULL), true, 'OR');
-				$criteria->addSearchCondition('title', Cii::get($_GET, 'q', NULL), true, 'OR');
+				$param = Cii::get($_GET, 'q', 0);
+				$criteria->addCondition("vid=(SELECT MAX(vid) FROM content AS v WHERE v.id=t.id) AND ((t.content LIKE :param) OR (t.title LIKE :param2))");
+				$criteria->params = array(
+					':param' => '%' . $param . '%',
+					':param2' =>'%' . $param . '%'
+				);
     		}	
 
-    		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 			$criteria->addCondition('password = ""');
-			$criteria->addCondition('status = 1');
 			$criteria->limit = $pageSize;	
 			$criteria->order = 'id DESC';		
 			$itemCount = Content::model()->count($criteria);
@@ -173,7 +202,7 @@ class SiteController extends CiiController
     		$pages->applyLimit($criteria);	
 		}		
 		
-		$this->render('search', array('id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+		$this->render('search', array('url' => 'search', 'id'=>$id, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
 	}
 	
     /**
@@ -181,7 +210,11 @@ class SiteController extends CiiController
      */
 	public function actionLogin()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Login to your account');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Login to your account')
+		)));
+
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
@@ -220,7 +253,7 @@ class SiteController extends CiiController
 				$validator=new CEmailValidator;
 				if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
 				{
-					Yii::app()->user->setFlash('reset-error', 'The email your provided is not a valid email address.');
+					Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The email your provided is not a valid email address.'));
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}
@@ -252,14 +285,19 @@ class SiteController extends CiiController
 					$meta->save();
 					
 
-					$this->sendEmail($user, 'Your Password Reset Information', '//email/forgot', array('user' => $user, 'hash' => $hash), true, true);
+					$this->sendEmail($user, Yii::t('ciims.email', 'Your Password Reset Information'), '//email/forgot', array('user' => $user, 'hash' => $hash), true, true);
 					
 					// Set success flash
-					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
+					Yii::app()->user->setFlash('reset-sent', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
+						'{{email}}' => Cii::get($_POST, 'email', NULL)
+					)));
 				}
 				else
 				{
-					Yii::app()->user->setFlash('reset-sent', 'An email has been sent to ' . Cii::get($_POST, 'email', NULL) . ' with further instructions on how to reset your password');
+					Yii::app()->user->setFlash('reset-sent', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
+						'{{email}}' => Cii::get($_POST, 'email', NULL)
+					)));
+
 					$this->render('forgot', array('id'=>$id));
 					return;
 				}
@@ -295,23 +333,23 @@ class SiteController extends CiiController
 							$expires->delete();
 							
 							// Set a success flash message
-							Yii::app()->user->setFlash('reset', 'Your password has been reset, and you may now login with your new password');
+							Yii::app()->user->setFlash('reset', Yii::t('ciims.controllers.Site', 'Your password has been reset, and you may now login with your new password'));
 							
 							// Redirect to the login page
 							$this->redirect('/login');
 						}
 	
-						Yii::app()->user->setFlash('reset-error', 'The password you provided must be at least 8 characters.');
+						Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The password you provided must be at least 8 characters.'));
 						$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 						return;
 					}
 					
-					Yii::app()->user->setFlash('reset-error', 'The passwords you provided do not match');
+					Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'The passwords you provided do not match.'));
 					$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 					return;
 				}
 				
-				Yii::app()->user->setFlash('reset-error', 'You must provide your password twice for us to reset your password.');
+				Yii::app()->user->setFlash('reset-error', Yii::t('ciims.controllers.Site', 'You must provide your password twice for us to reset your password.'));
 				$this->render('forgot', array('id'=>$id, 'badHash'=>false));
 				return;
 			}
@@ -320,6 +358,95 @@ class SiteController extends CiiController
 	}
 	
 	/**
+	 * Allows the user to securely change their email address
+	 * @param  string $key the user's secure key
+	 */
+	public function actionEmailChange($key=null)
+	{
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Change Your Email Address')
+		)));
+
+		$success = false;
+
+		$this->layout = '//layouts/main';
+
+		if ($key == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
+		$meta = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key));
+
+		if ($meta == NULL || $meta->value != $key)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
+		$threeDays = 259200;
+		if ((strtotime($meta->created) + $threeDays) > time())
+		{
+			try {
+				// Delete the associated metadata when this error is thrown
+				$meta2 = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+				$meta2->delete();
+				$meta->delete();
+			} catch (Exception $e) {}
+
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'The request to change your email has expired.'));
+		}
+
+		$user = Users::model()->findByPk($meta->user_id);
+
+		if ($user->id != Yii::app()->user->id)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'You are not authorized to change this email address.'));
+
+		if (Cii::get($_POST, 'password') !== NULL)
+		{
+			// Retrieve the user's NEW email address
+			$meta = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+
+			$identity = new UserIdentity($user->email, $_POST['password']);
+
+			// If we can authenticate that the user wants to change their email address
+			if ($identity->authenticate())
+			{
+				// Generate a new hash for the user
+				$email = $meta->value;
+				$id = $meta->user_id;
+				$password = $identity->updatePassword($email, $_POST['password']);
+
+				// Manually update the db via CActiveDataProvider, since Users::beforeSave() will block the request
+				try {
+					$ret = Yii::app()->db->createCommand('UPDATE users SET email = :email, password = :password WHERE id = :id')
+								  ->bindParam(':id', $id)
+								  ->bindParam(':password', $password)
+								  ->bindParam(':email', $email)
+								  ->execute();
+					
+					$success = Yii::t('ciims.controllers.Site', 'Your email address has been sucessfully changes. Please {{login}} again for the changes to take effect.', array('{{login}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'Login'), Yii::app()->createUrl('/login'))));
+
+					// Kill the users session and force them to re-authenticate with their new credentials.
+					Yii::app()->user->logout();
+				} catch (Exception $e) {
+					// This error indicates
+					Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'The requested email address has already been taken. Please re-submit your request with a new email address.'));
+				}
+
+				// Delete the metadata and ignore any errors as they aren't really
+				try {
+					$meta->delete();
+					UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key))->delete();
+					UserMetadata::model()->findByAttributes(array('user_id' => $id, 'key' => 'newEmailAddressChangeKeyTime'))->delete();
+				} catch (Exception $e) {}
+			}
+			else
+				Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'We were unable to verify your current password. Please verify your password and try again.'));
+		}
+
+
+		$this->render('emailchange', array('key' => $key, 'success' => $success));
+
+	}
+
+	/**
 	 * Activation handler
 	 * @param string $email 	The user's email
 	 * @param int $id 			The activation key
@@ -327,6 +454,12 @@ class SiteController extends CiiController
 	public function actionActivation($email=NULL, $id=NULL) 
 	{
 		$this->layout = '//layouts/main';
+
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Activate Your Account')
+		)));
+
 		if ($id != NULL || $email = NULL)
 		{
 			$record = $user = Users::model()->findByPk($email);
@@ -354,30 +487,31 @@ class SiteController extends CiiController
 							
 							// Delete the activationKey
 							$meta->delete();
-							Yii::app()->user->setFlash('activation-success', 'Activation was successful! You may now ' . CHtml::link('login', $this->createUrl('/login')));
+							Yii::app()->user->setFlash('activation-success', Yii::t('ciims.controllers.Site', 'Activation was successful! You may now {{login}}', array(
+								'{{login}}' => CHtml::link(Yii::t('ciims.controllers.Site', 'login'), $this->createUrl('/login')))));
 							return $this->render('activation');
 						}
 						else
 						{
-							Yii::app()->user->setFlash('activation-error', 'Please provide the password you used during the signup process.');
+							Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'Please provide the password you used during the signup process.'));
 						}
 					}
 
-					Yii::app()->user->setFlash('activation-info', 'Enter the password you used to register your account to verify your email address.');
+					Yii::app()->user->setFlash('activation-info', Yii::t('ciims.controllers.Site', 'Enter the password you used to register your account to verify your email address.'));
 				}
 				else
 				{
-					Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
+					Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'The activation key your provided was invalid.'));
 				}
 			}
 			else
 			{
-				Yii::app()->user->setFlash('activation-error', 'Unable to activate user using the provided details');
+				Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'Unable to activate user using the provided details.'));
 			}
 		}
 		else
 		{
-			Yii::app()->user->setFlash('activation-error', 'The activation key your provided was invalid.');
+			Yii::app()->user->setFlash('activation-error', Yii::t('ciims.controllers.Site', 'The activation key your provided was invalid.'));
 		}
 		
 		$this->render('activation');
@@ -389,7 +523,11 @@ class SiteController extends CiiController
 	 **/
 	public function actionRegister()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Sign Up');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Sign Up')
+		)));
+
 		$this->layout = '//layouts/main';
 		$model = new RegisterForm();
 		$user = new Users();
@@ -432,7 +570,7 @@ class SiteController extends CiiController
 						$meta->save();
 						
 						// Send the registration email
-						$this->sendEmail($user, 'Activate Your Account', '//email/register', array('user' => $user, 'hash' => $hash), true, true);
+						$this->sendEmail($user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $user, 'hash' => $hash), true, true);
 					
 						$this->redirect('/register-success');
 						return;
@@ -440,7 +578,7 @@ class SiteController extends CiiController
 				}
 				catch(CDbException $e) 
 				{
-					$model->addError(null, 'The email address has already been associated to an account. Do you want to login instead?');
+					$model->addError(null, Yii::t('ciims.controllers.Site','The email address has already been associated to an account. Do you want to login instead?'));
 				}
 			}
 		}
@@ -453,9 +591,20 @@ class SiteController extends CiiController
 	 */
 	public function actionRegistersuccess()
 	{
-		$this->setPageTitle(Yii::app()->name . ' | Registration Successful');
+		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Registration Successful')
+		)));
+
+		$notifyUser  = new stdClass;
+        $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
+        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+
+        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
+            $notifyUser = Users::model()->findByPk(1);
+
 		$this->layout = '//layouts/main';
-		$this->render('register-success');
+		$this->render('register-success', array('notifyUser' => $notifyUser));
 	}
 
     /**

@@ -47,7 +47,6 @@ class ContentMetadata extends CiiModel
 			array('key', 'length', 'max'=>50),
 			array('value', 'length', 'max'=>255),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, content_id, key, value, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
@@ -70,11 +69,11 @@ class ContentMetadata extends CiiModel
 	public function attributeLabels()
 	{
 		return array(
-			'content_id' => 'Content',
-			'key' => 'Key',
-			'value' => 'Value',
-			'created' => 'Created',
-			'updated' => 'Updated'
+			'content_id' => Yii::t('ciims.models.ContentMetadata', 'Content ID'),
+			'key' 		 => Yii::t('ciims.models.ContentMetadata', 'Key'),
+			'value' 	 => Yii::t('ciims.models.ContentMetadata', 'Value'),
+			'created'	 => Yii::t('ciims.models.ContentMetadata', 'Created'),
+			'updated' 	 => Yii::t('ciims.models.ContentMetadata', 'Updated')
 		);
 	}
 	
@@ -84,9 +83,6 @@ class ContentMetadata extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('content_id',$this->content_id);
@@ -98,17 +94,5 @@ class ContentMetadata extends CiiModel
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-	
-	public function beforeSave() {
-	    	if ($this->isNewRecord)
-	    	{
-			$this->created = new CDbExpression('NOW()');
-			$this->updated = new CDbExpression('NOW()');
-		}
-	   	else
-			$this->updated = new CDbExpression('NOW()');
-	 
-	    	return parent::beforeSave();
 	}
 }
