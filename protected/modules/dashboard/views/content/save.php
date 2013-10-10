@@ -24,13 +24,14 @@
 		<div class="editor">
 			<div class="top-header">
 				<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
+				<span class="pull-right icon-camera"></span>
 			</div>
-				<div id="promotedDz" class="dropzone" style="display:none;"></div>
-				<div id="main">
-					<div class="content">
-						<?php echo $form->textArea($model, 'content'); ?>
-					</div>
+			<div id="promotedDz" class="dropzone" style="display:none;"></div>
+			<div id="main">
+				<div class="content">
+					<?php echo $form->textArea($model, 'content'); ?>
 				</div>
+			</div>
 		</div>
 
 		<div class="body-content">
@@ -44,9 +45,9 @@
 			<div id="main" class="nano">				
 				<div class="content flipbox">
 					<?php $meta = Content::model()->parseMeta($model->metadata); ?>
-					<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
-						<p style="text-align:center;"><?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?></p>
-					<?php endif; ?>	
+					<p style="text-align:center;">
+						<?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?>
+					</p>
 					<div class="preview-metadata">
 						<span class="blog-author minor-meta">
 							<?php echo Yii::t('Dashboard.main', 'By {{user}}', array(
