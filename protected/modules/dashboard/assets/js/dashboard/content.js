@@ -113,6 +113,9 @@ var CiiDashboard = {
 			},
 
 			loadDisqus : function() {
+				if ($("#item-status").text() != 1)
+					return;
+				
 				$("#disqus_thread").html(null);
 	            disqus_identifier = parseInt($(".preview-container").find("#item-id").text());
 	            disqus_title = $(".title").first().text();

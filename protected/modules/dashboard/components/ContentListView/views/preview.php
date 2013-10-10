@@ -37,6 +37,7 @@
 		<div id="md-output"></div>
 		<textarea id="markdown" style="display:none"><?php echo $model->content; ?></textarea>
 		<span id="item-id" style="display:none;"><?php echo $model->id; ?></span>
+		<span id="item-status" style="display:none;"><?php echo $model->status; ?></span>
 		<noscript>
 			<?php echo $md->safeTransform($model->content); ?>
 		<noscript>
