@@ -390,7 +390,7 @@ class SettingsController extends CiiSettingsController
 		));
 
 		$json = CJSON::decode(curl_exec($curl));
-		if ($json['version'] >= Cii::getVersion())
+		if ($json['version'] > Cii::getVersion())
 			$issues[] = array('issue' => 'version', 'message' =>  Yii::t('Dashboard.main', 'CiiMS is out of date. Please update to the latest version ({{version}})', array('{{version}}' => CHtml::link($json['version'], 'https://github.com/charlesportwoodii/CiiMS/tree/latest-version/', array('target' => '_blank')))));
 
 		// Check if migrations have been run
