@@ -40,15 +40,15 @@ class Yii
             foreach($languages as $language)
                 $sortedLanguages[]=$language[1];
         }
-        
-        return $sortedLanguages;
+	
+	return $sortedLanguages;
     }
 
     /**
      * This method is a total lie. All that is does is fetch the appropriate translation from the appropriate file if it exists
      * @return string
      */
-    public static function t($category, $message, $params=array (), $source=NULL, $language=NULL)
+    public static function t($category, $message=NULL, $params=array(), $source=NULL, $language=NULL)
     {
         $category = explode('.', $category);
         $lang = Yii::getPreferredLanguage();
@@ -58,7 +58,8 @@ class Yii
         if (file_exists($file))
         {
             $data = include($file);
-            if (isset($data[$mesage]))
+	
+            if (isset($data[$message]) && $data[$message] != "")
                 $message = $data[$message];
         }
 
@@ -73,7 +74,7 @@ class Yii
      */
     public static function translateMessage($message, $params = array())
     {
-        foreach ($params as $k=>$v)
+	foreach ($params as $k=>$v)
             $message = str_replace($k, $v, $message);
 
         return $message;
