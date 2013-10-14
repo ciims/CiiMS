@@ -12,7 +12,7 @@ class CategoriesController extends CiiSettingsController
 		if ($id == NULL)
 			$model = new Categories;
 		else
-			$model=$this->loadModel($id);
+			$model = Categories::model()->findByPk($id);
 
 		if(Cii::get($_POST, 'Categories') !== NULL)
 		{
@@ -20,7 +20,7 @@ class CategoriesController extends CiiSettingsController
 			if($model->save())
 			{
 				Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been updated'));
-				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+				$this->redirect(Yii::app()->createUrl('/dashboard/categories'));
 			}
 
 			Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error in your submission, please verify you data before trying again.'));
@@ -40,7 +40,7 @@ class CategoriesController extends CiiSettingsController
             throw new CHttpException(400,  Yii::t('Dashboard.main', 'Cannot delete parent category'));
 
 		// we only allow deletion via POST request
-		$this->loadModel($id)->delete();
+		Categories::model()->findByPk($id)->delete();
 
 		Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been deleted.'));
 
@@ -63,18 +63,5 @@ class CategoriesController extends CiiSettingsController
 		$this->render('index',array(
 			'model'=>$model,
 		));
-	}
-
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=Categories::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,  Yii::t('Dashboard.main', 'The requested page does not exist.'));
-		return $model;
 	}
 }

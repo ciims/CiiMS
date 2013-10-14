@@ -187,10 +187,6 @@ class CiiSettingsForm extends CWidget
 				    	values.push({ "name" : this.name, "value" : 0 })
 				    });
 
-					$(values).each(function() {
-						console.log(this);
-					});
-
 					$.post($("form").attr("action"), values, function(data, textStatus) {
 						var d = $("#yw2", $.parseHTML(data));
 

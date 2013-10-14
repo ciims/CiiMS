@@ -245,7 +245,7 @@ class Categories extends CiiModel
         
         // If we found an item that matched, it's possible that it is the current item (or a previous version of it)
         // in which case we don't need to alter the slug
-        if ($count)
+        if ($count >= 1)
         {
             if ($content)
                 return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));

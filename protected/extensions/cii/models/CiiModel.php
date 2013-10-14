@@ -112,7 +112,7 @@ class CiiModel extends CActiveRecord
 
         // If we found an item that matched, it's possible that it is the current item (or a previous version of it)
         // in which case we don't need to alter the slug
-        if ($count)
+        if ($count >= 1)
         {
             // Pull the data that matches
             $data = $this->findByPk($this->id == NULL ? -1 : $this->id);

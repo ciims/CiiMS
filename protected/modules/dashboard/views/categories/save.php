@@ -1,6 +1,6 @@
-<?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
+<?php $htmlOptions = array('class' => 'pure-input-2-3', 'no-field-change' => 'true'); ?>
 <?php $form = $this->beginWidget('cii.widgets.CiiActiveForm', array(
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
     'htmlOptions' => array(
     	'class' => 'pure-form pure-form-aligned'
     )
@@ -25,7 +25,7 @@
 					<?php echo $form->textFieldRow($model, 'name', $htmlOptions); ?>
 				</div>
 				<div class="pure-control-group">
-					<?php if (!$model->isNewRecord) echo $form->textFieldRow($model, 'slug', $htmlOptions); ?>
+					<?php echo $form->textFieldRow($model, 'slug', $htmlOptions); ?>
 				</div>
 				<div class="pure-control-group">
 					<?php echo $form->dropDownListRow($model, 'parent_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
@@ -36,4 +36,3 @@
 	</div>
 </div>
 <?php $this->endWidget(); ?>
-<?php $cs = Yii::app()->getClientScript()->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END); ?>
