@@ -16,7 +16,7 @@ class Theme extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('twitterHandle, menu, splashLogo, disqus_shortname', 'length', 'max' => 255),
+			array('twitterHandle, menu, splashLogo', 'length', 'max' => 255),
 			array('twitterTweetsToFetch', 'numerical', 'integerOnly' => true, 'min' => 0),
 		);
 	}
