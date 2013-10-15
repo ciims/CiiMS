@@ -30,7 +30,7 @@ end
 # Copy the config directories over to the persistent directory, and re-link the directories
 task :move_configs do
 	run "#{try_sudo} cp '#{deploy_to}/persistent/config/main.php' '#{release_path}/protected/config/main.php'"
-	run "#{try_sudo} cp '#{deploy_to}/persistent/uploads/*' '#{release_path}/uploads'"
+	run "#{try_sudo} cp #{deploy_to}/persistent/uploads/* #{release_path}/uploads"
 end
 
 task :migrate do
