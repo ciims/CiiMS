@@ -6,11 +6,12 @@ class CiiCacheCommand extends CConsoleCommand
 	{
 		if (!isset($args[0]))
 			return $this->showCommands();
-		
+
 		switch ($args[0])
 		{
 			case "flush":
-				Yii::app()->cache->flush();
+				$this->log(Yii::app()->cache->flush() ? "Cache flushed" : "Unable to flush cache. Are we connected?");
+				break;
 			default:
 				$this->showCommands();
 		}		
