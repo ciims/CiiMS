@@ -23,8 +23,8 @@ end
 
 # Fix Permissions
 task :fix_permissions do
-    run "sudo chown -R #{sudo_user}:#{sshgroup} #{site_root}"
-    run "sudo chmod -R 755 #{site_root}"
+    run "sudo  chown -R #{sudo_user}:#{sshgroup} #{site_root}"
+    run "sudo  chmod -R 775 #{site_root}"
 end
 
 # Copy the config directories over to the persistent directory, and re-link the directories
@@ -39,7 +39,7 @@ task :migrate do
 end
 
 task :flush_cache do
-	run "cd #{release_path}/protected/ && php yiic.php ciicache flush"
+	run "cd #{deploy_to}/current/protected/ && php yiic.php ciicache flush"
 end
 
 
@@ -48,4 +48,4 @@ before "deploy", :fix_permissions
 
 before "deploy:create_symlink", :move_configs
 before "deploy:create_symlink", :migrate
-before "deploy:create_symlink", :flush_cache
+after "deploy", :flush_cache
