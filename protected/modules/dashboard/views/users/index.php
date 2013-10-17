@@ -17,20 +17,35 @@
 				)
 	    	); ?>
 	    </form>
-		<!--<div class="pull-right">
-			<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
-			<?php echo CHtml::link(Yii::t('Dashboard.views', 'Invite Users'), $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'pure-button pure-button-link pure-button-primary pure-button-small')); ?>
-		</div>
-	-->
 		<div class="clearfix"></div>
 	</div>
 	<div id="main" class="nano">
 		<div class="content">
 			<fieldset>
-				<!-- <legend>Pending Invitations</legend> -->
 				<span style="padding:10px"></span>
-				<legend><?php echo Yii::t('Dashboard.main', 'Users'); ?></legend>
+				<legend>
+					<?php echo Yii::t('Dashboard.main', 'Invited Users'); ?>
+
+					<div class="pull-right">
+						<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-success pure-button-small'), NULL); ?>
+					</div>
+				</legend>
 				<div class="clearfix"></div>
+				<?php $this->widget('zii.widgets.CListView', array(
+				    'dataProvider'=>$invitees,
+				    'itemView'=>'userList',
+				    'id' => 'inviteesListView',
+				    'summaryText' => false,
+				    'pagerCssClass' => 'pagination',
+		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+				)); ?>
+
+				<div class="clearfix"></div>
+				<span style="padding:20px"></span>
+
+				<legend><?php echo Yii::t('Dashboard.main', 'Users'); ?></legend>
+
+				<span style="padding:10px"></span>
 				<?php $this->widget('zii.widgets.CListView', array(
 				    'dataProvider'=>$model->search(),
 				    'itemView'=>'userList',

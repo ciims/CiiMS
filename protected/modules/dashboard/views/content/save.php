@@ -46,7 +46,11 @@
 				<div class="content flipbox">
 					<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 					<p style="text-align:center;">
-						<?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?>
+						<?php if (isset($meta['blog-image']['value'])): ?>
+							<?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?>
+						<?php else: ?>
+							<?php echo CHtml::image('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', NULL, array('class'=>'preview-image')); ?>
+						<?php endif; ?>
 					</p>
 					<div class="preview-metadata">
 						<span class="blog-author minor-meta">

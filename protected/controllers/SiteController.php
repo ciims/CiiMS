@@ -17,7 +17,7 @@ class SiteController extends CiiController
 				'users'=>array('*'),
 				'expression'=>'Yii::app()->user->isGuest==true',
 				'actions' => array('emailchange')
-			),
+			)
 		);
 	}
 
@@ -463,7 +463,7 @@ class SiteController extends CiiController
 		if ($id != NULL || $email = NULL)
 		{
 			$record = $user = Users::model()->findByPk($email);
-			if ($user != NULL && $user->status == 0)
+			if ($user != NULL && $user->status == Users::INACTIVE)
 			{
 				$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$email, 'key'=>'activationKey', 'value'=>$id));
 				if ($meta != NULL)
@@ -482,7 +482,7 @@ class SiteController extends CiiController
 						if (password_verify($hash, $record->password))
 						{
 							// Update the user status
-							$user->status = 1;
+							$user->status = Users::ACTIVE;
 							$user->save();
 							
 							// Delete the activationKey
@@ -555,7 +555,7 @@ class SiteController extends CiiController
 					'lastName'=> NULL,
 					'displayName'=>Cii::get($_POST['RegisterForm'], 'displayName'),
 					'user_role'=>1,
-					'status'=>0
+					'status'=>Users::INACTIVE
 				);
 				
 				try 

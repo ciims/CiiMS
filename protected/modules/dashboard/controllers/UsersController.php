@@ -92,8 +92,18 @@ class UsersController extends CiiSettingsController
 			$model->attributes=$_GET['Users'];
 
 		$model->pageSize = 25;
+
+		// Retrive users who have been sent an invitation
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('status = :status');
+		$criteria->params = array(':status' => Users::PENDING_INVITATION);
+		$invitees = new CActiveDataProvider('Users', array(
+		    'criteria' => $criteria
+		));
+
 		$this->render('index',array(
 			'model'=>$model,
+			'invitees' => $invitees
 		));
 	}
 

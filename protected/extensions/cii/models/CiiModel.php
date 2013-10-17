@@ -95,6 +95,11 @@ class CiiModel extends CActiveRecord
 		
 		// Remove all of the extra junk characters that aren't valid urls
 		$slug = preg_replace("/[^A-Za-z0-9 ]/", "-", $slug);
+
+		// Allow the slug to be the root directory for setting the homepage
+		if ($slug == '-')
+			$slug = "/";
+		
 		return strToLower($this->checkSlug($slug));
 	}
 	

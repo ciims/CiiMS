@@ -49,6 +49,9 @@ $config['components']['db']['enableParamLogging'] = YII_DEBUG;
 // If debug mode is enabled, show us every possible error anywhere.
 if (YII_DEBUG && YII_TRACE_LEVEL == 3) 
 {
+	error_reporting(-1);
+	ini_set('display_errors', true);
+
 	// Enable WebLogRouteLogging
 	$config['preload'][] = 'log';
 	$config['components']['log']['routes'][0]['enabled'] = YII_DEBUG;

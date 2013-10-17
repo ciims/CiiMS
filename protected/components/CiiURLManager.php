@@ -128,7 +128,7 @@ class CiiURLManager extends CUrlManager
 		if($urlRules===false || $urlRules === NULL)
 		{
 			if ($fromString == "content")
-				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")->queryAll();
+				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND published >= NOW()")->queryAll();
 			else
 		   		$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString}")->queryAll();
 			

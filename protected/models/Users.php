@@ -25,6 +25,10 @@
  */
 class Users extends CiiModel
 {
+	const INACTIVE = 0;
+	const ACTIVE = 1;
+	const PENDING_INVITATION = 3;
+
 	public $pageSize = 15;
 
 	/**
@@ -135,6 +139,7 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->addCondition('status != ' . self::PENDING_INVITATION);
 		$criteria->order = "user_role DESC, created DESC";
 		
 		return new CActiveDataProvider($this, array(
