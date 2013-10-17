@@ -25,6 +25,22 @@ var CiiDashboard = {
 		loadIndex: function() {
 			CiiDashboard.Users.bindUserSearchBehavior();
 			CiiDashboard.Users.roundedImage();
+
+			// Bind Invitation Ajax + Effects
+			$(".invite-button").click(function(e) {
+				$(this).find("#spinner").fadeIn();
+				e.preventDefault();
+
+				$.post(CiiDashboard.endPoint + "/users/create", { "email" : $("#Invite_email").val() }, function(data) {
+					$("#inviteesListView .settings-row:last-child").after(data);
+				}).fail(function(data) {
+					$(".alert-secondary #info").remove();
+					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
+				});
+
+				$(this).find("#spinner").fadeOut();
+				return false;
+			});
 		},
 
 		loadUpdate : function() {

@@ -22,14 +22,25 @@
 	<div id="main" class="nano">
 		<div class="content">
 			<fieldset>
+				<div class="alert-secondary alert in alert-block fade alert-error" style="display:none">
+					<a class="close" data-dismiss="alert">×</a>
+				</div>
 				<span style="padding:10px"></span>
 				<legend>
 					<?php echo Yii::t('Dashboard.main', 'Invited Users'); ?>
-
-					<div class="pull-right">
-						<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-success pure-button-small'), NULL); ?>
-					</div>
 				</legend>
+	
+				<div class="invite-field">
+					<label><?php echo Yii::t('Dashboard.main', 'Email Address'); ?></label>
+					<input type="email" name="Invite[email]" id="Invite_email" placeholder="<?php echo Yii::t('Dashboard.main', 'Enter a email address to invite a user'); ?>"/>
+					<a class="pure-button pure-button-success pure-button-small invite-button">
+						<span id="spinner">
+							<span class="icon-spinner icon-spin icon-spinner-form"></span>
+							<span class="icon-spacer"></span>
+						</span>
+						<?php echo Yii::t('Dashboard.main', 'Invite User'); ?>
+					</a>
+				</div>
 				<div class="clearfix"></div>
 				<?php $this->widget('zii.widgets.CListView', array(
 				    'dataProvider'=>$invitees,

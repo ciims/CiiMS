@@ -27,6 +27,7 @@ class Users extends CiiModel
 {
 	const INACTIVE = 0;
 	const ACTIVE = 1;
+	const BANNED = 2;
 	const PENDING_INVITATION = 3;
 
 	public $pageSize = 15;

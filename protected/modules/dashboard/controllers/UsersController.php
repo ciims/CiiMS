@@ -80,6 +80,54 @@ class UsersController extends CiiSettingsController
 			'model'=>$model,
 		));
 	}
+
+	/**
+	 * Internal API endpoint for inviting new users to join the site
+	 *
+	 **/
+	public function actionCreate()
+	{
+		$validator=new CEmailValidator;
+                if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
+			throw new CHttpException(400, Yii::t('Dashboard.main', 'The email address you provided is invalid.'));
+
+		if (Users::model()->countByAttributes(array('email' => Cii::get($_POST, 'email', NULL))))
+			throw new CHttpException(400, Yii::t('Dashboard.main', 'A user with that email address already exists.'));
+
+		$user = new Users;
+		$user->attributes = array(
+			'status' => Users::PENDING_INVITATION,
+			'email' => Cii::get($_POST, 'email', NULL),
+			'user_role' => 5,
+			'about' => '',
+			'password' => '',
+			'displayName' => '',
+			'firstName' => '',
+			'lastName' => '',
+		);
+
+		$user->created = new CDbExpression('NOW()');
+		$user->updated =  new CDbExpression('NOW()');
+
+		// Save the user, and ignore all validation
+		if ($user->save(false))
+		{
+			$hash = mb_strimwidth(hash("sha256", md5(time() . md5(hash("sha512", time())))), 0, 16);
+			$meta = new UserMetadata;
+			$meta->user_id = $user->id;
+			$meta->key = 'activationKey';
+			$meta->value = $hash;
+			$meta->save();
+
+			// Send an invitation email
+			
+			$this->sendEmail($user, Yii::t('Dashboard.email', "You've Been Invited To Join a Blog!"), '/email/invite', array('user' => $user, 'hash' => $hash), true, true);
+			// End the request
+			return $this->renderPartial('/users/userList', array('data' => $user));
+		}
+
+		throw new CHttpException(400, Yii::t('Dashboard.main', 'An unexpected error occured fulfilling your request.'));
+	}
     
 	/**
 	 * Lists all models.

@@ -7,7 +7,13 @@
 		<div class="pure-control-group">
 			<label for="EmailSettings_Test"><?php echo Yii::t('Dashboard.views', 'Email To Test'); ?></label>
 			<input class="pure-input-1-2" id="EmailSettings_Test" type="email" placeholder="user@example.com" no-field-change="true"/>
-			<?php echo CHtml::tag('span', array('id' => 'test-email', 'class' => 'pure-button pure-button-error pure-button-small pure-button-link'), Yii::t('Dashboard.views', 'Test Email')); ?>
+			<span id="test-email" class="pure-button pure-button-error pure-button-small pure-button-link">
+				<span id="spinner">
+					<span class="icon-spinner icon-spin icon-spinner-form"></span>
+					<span class="icon-spacer"></span>
+				</span>
+				<?php echo Yii::t('Dashboard.views', 'Test Email'); ?>
+			</span>
 		</div>
 	</fieldset>
 </div>

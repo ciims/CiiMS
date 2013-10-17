@@ -44,7 +44,7 @@ var CiiDashboard = {
 					$(selector).imagepicker();
 				}).fail(function(data) {
 					$("#spinner").fadeOut();
-					$("#info").remove();
+					$(".alert-secondary #info").remove();
 					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
 				});
 			});
@@ -138,13 +138,19 @@ var CiiDashboard = {
 
 		loadEmail : function() {
 			$("#test-email").click(function() {
+				var self = this;
+				$(this).find("#spinner").fadeIn();
 				var testaddress = $("#EmailSettings_Test").val();
+				$(".alert-secondary").hide().html("<a class='close' data-dismiss='alert'></a>");
 				$.post(CiiDashboard.endPoint + "/settings/emailtest", { email : testaddress }, function(data, textStatus, jqXHR) { 
 					$(".alert-secondary").removeClass("alert-error").addClass("alert-success").find("a").after("Email Sent!");
+					$(".alert-secondary").fadeIn(200);
+					$(self).find("#spinner").fadeOut();
 				}).fail(function(data) {
 					$(".alert-secondary").removeClass("alert-success").addClass("alert-error").find("a").after(data.responseText);
+					$(".alert-secondary").fadeIn(200);
+					$(self).find("#spinner").fadeOut();
 				});
-				$(".alert-secondary").fadeIn(200);
 			});
 		},
 

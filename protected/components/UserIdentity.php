@@ -100,7 +100,7 @@ class UserIdentity extends CUserIdentity
 		    // Return early if the record is NULL. Bad things seem to happen with the $meta if we don't =(
 		    return !$this->errorCode;
 		}
-		else if ($record->status == 3 || $record->status == 0)
+		else if ($record->status == Users::BANNED || $record->status == Users::INACTIVE || $record->status == Users::PENDING_INVITATION)
 		{
 			// If the user is banned or unactivated, locked out, or exceeded their max login attempts
 			$this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
