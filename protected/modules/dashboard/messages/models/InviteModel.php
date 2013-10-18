@@ -17,25 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Author' => '',
-  'Category' => '',
-  'Commentable' => '',
-  'Comments' => '',
-  'Content' => '',
-  'Created' => '',
-  'Draft' => '',
-  'Extract' => '',
+  'Display Name' => '',
+  'First Name' => '',
   'ID' => '',
-  'Likes' => '',
-  'Parent' => '',
+  'Last Name' => '',
   'Password' => '',
-  'Published' => '',
-  'Ready for Review' => '',
-  'Slug' => '',
-  'Status' => '',
-  'Tags' => '',
-  'Title' => '',
-  'Type' => '',
-  'Updated' => '',
-  'Version' => '',
 );

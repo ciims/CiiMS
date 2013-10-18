@@ -79,36 +79,37 @@
 		<div class="settings">
 			<?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), $htmlOptions); ?>
+				<?php echo $form->dropDownListRow($model,'status', $model->getStatuses(), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'commentable', array(1=>Yii::t('Dashboard.views', 'Yes'), 0=>Yii::t('Dashboard.main', 'No')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group date form_datetime">
-					<?php echo $form->textFieldRow($model, 'published', $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->textFieldRow($model, 'published', $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
 			</div>
 			<div class="pure-control-group">
-	            <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
+	            <?php echo !$canPublish ? NULL : $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Password (Optional)'), 'value' => Cii::decrypt($model->password))); ?>
+				<?php echo !$canPublish ? NULL : $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Password (Optional)'), 'value' => Cii::decrypt($model->password))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Slug'))); ?>
+				<?php echo !$canPublish ? NULL :$form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Slug'))); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
 			</div>
 			<div class="pure-control-group">
+				<label for="extract" class="left-label"><?php echo $model->getAttributeLabel('extract'); ?></label>
 				<?php $htmlOptions['style'] = 'width: 100%; height: 250px;'; ?>
 				<?php $htmlOptions['placeholder'] =  Yii::t('Dashboard.views', 'Add a content extract here'); ?>
 				<?php echo $form->textArea($model, 'extract', $htmlOptions); ?>

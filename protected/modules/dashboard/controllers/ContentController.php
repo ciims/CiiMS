@@ -16,7 +16,11 @@ class ContentController extends CiiDashboardController
             ),
             array('deny',   // Prevent Editors from deleting content
                 'actions' => array('delete', 'deleteMany'),
-                'expression' => 'Yii::app()->user->role==7'
+                'expression' => 'Yii::app()->user->role==7||Yii::app()->user->role==5'
+            ),
+            array('allow',   
+                'actions' => array('index', 'save'),
+                'expression' => 'Yii::app()->user->role==5'
             ),
             array('deny',  // deny all users
                 'users'=>array('*'),
@@ -26,7 +30,7 @@ class ContentController extends CiiDashboardController
 
   /**
    * Default management page
-     * Display all items in a CListView for easy editing
+   * Display all items in a CListView for easy editing
    */
   public function actionIndex()
   {
@@ -46,7 +50,6 @@ class ContentController extends CiiDashboardController
 
         if (Cii::get($_GET, 'id') !== NULL)
             $preview = Content::model()->findByPk(Cii::get($_GET, 'id'));
-
 
         $model->pageSize = 20;
 
@@ -95,6 +98,14 @@ class ContentController extends CiiDashboardController
             $version = Content::model()->countByAttributes(array('id' => $id));
         }
 
+
+        $role = Yii::app()->user->role;
+        if ($role != 7 && $role != 9)
+        {
+            if ($model->author_id != Yii::app()->user->id)
+                throw new CHttpException(401, Yii::t('Dashboard.main', 'You are not authorized to perform this action.'));
+        }
+
         if(Cii::get($_POST, 'Content') !== NULL)
         {
             $model2 = new Content;
@@ -110,6 +121,12 @@ class ContentController extends CiiDashboardController
             $model2->layoutFile = $_POST['Content']['layout'];
             $model2->created    = $_POST['Content']['created'];
             $model2->published  = $_POST['Content']['published'];
+
+            // Prevent editors and collaborators from publishing acticles
+            if ($role == 5 || $role == 7)
+                if ($model2->status == 1)
+                    $model2->status = 2;
+
             if($model2->save()) 
             {
                 Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Content has been updated.'));
@@ -141,7 +158,8 @@ class ContentController extends CiiDashboardController
             'version'        =>  $version,
             'preferMarkdown' =>  $preferMarkdown,
             'views'          =>  $viewFiles,
-            'layouts'        =>  $layouts 
+            'layouts'        =>  $layouts,
+            'canPublish'     => (Yii::app()->user->role != 7 && Yii::app()->user->role != 5)
         ));
     }
 

@@ -17,11 +17,17 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'An administrator at {{blog}} has invited you to collaborate at their site at {{site}}. To accept this invitation and to setup your account, click the following link {{link}}.' => '',
   'CiiMS Email Change Notification' => '',
   'CiiMS Test Email' => '',
   'Hello {{user}},' => '',
+  'Hello,' => '',
   'If you did NOT request this change, you may safely ignore this email. This request will automatically expired in three (3) days.' => '',
+  'If you do not wish to accept this invite, you may safely disregard this email.' => '',
   'If you have recieved this email then your CiiMS instance is capable of sending out emails. No further action or changes is required on your part.' => '',
   'If you requested this change, please visit {{link}} to verify your new email address. Your email address will not be changed until you complete the verification process.' => '',
+  'Thank You,' => '',
   'This a security notification from CiiMS. A request has been made on your behalf to change the email address associated to your account.' => '',
+  'You\'ve Been Invited To Join a Blog!' => '',
+  '{{sitename}} Management' => '',
 );

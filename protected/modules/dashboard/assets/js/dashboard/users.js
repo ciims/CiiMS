@@ -32,7 +32,8 @@ var CiiDashboard = {
 				e.preventDefault();
 
 				$.post(CiiDashboard.endPoint + "/users/create", { "email" : $("#Invite_email").val() }, function(data) {
-					$("#inviteesListView .settings-row:last-child").after(data);
+					$("#inviteesListView .items").append(data);
+					$("#inviteesListView .items .empty").remove();
 				}).fail(function(data) {
 					$(".alert-secondary #info").remove();
 					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();

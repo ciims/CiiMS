@@ -529,8 +529,8 @@ class SiteController extends CiiController
 		)));
 
 		$this->layout = '//layouts/main';
-		$model = new RegisterForm();
-		$user = new Users();
+		$model = new RegisterForm;
+		$user = new Users;
 		
 		$error = '';
 		if (isset($_POST) && !empty($_POST))
@@ -589,7 +589,7 @@ class SiteController extends CiiController
 	/**
 	 * Handles successful registration
 	 */
-	public function actionRegistersuccess()
+	public function actionRegisterSuccess()
 	{
 		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
 			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
@@ -597,16 +597,48 @@ class SiteController extends CiiController
 		)));
 
 		$notifyUser  = new stdClass;
-        $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
-        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+		$notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
+		$notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
 
-        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
-            $notifyUser = Users::model()->findByPk(1);
+		if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
+		    $notifyUser = Users::model()->findByPk(1);
 
 		$this->layout = '//layouts/main';
 		$this->render('register-success', array('notifyUser' => $notifyUser));
 	}
 
+	/**
+	 * Enables users who have recieved an invitation to setup a new account
+	 * @param string $id	The activation id the of the user that we want to activate
+	 */
+	public function actionAcceptInvite($id=NULL)
+	{
+		$this->layout = "main";
+		if ($id == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
+
+		// Make sure we have a user first
+		$meta = UserMetadata::model()->findByAttributes(array('key' => 'activationKey', 'value' => $id));
+		if ($meta == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
+
+		$model = new InviteModel;
+		
+		$model->email = Users::model()->findByPk($meta->user_id)->email;
+		if (Cii::get($_POST, 'InviteModel', NULL) != NULL)
+		{
+			$model->attributes = Cii::get($_POST, 'InviteModel', NULL);
+		
+			if ($model->save($meta->user_id))
+			{
+				$meta->delete();
+				return $this->render('invitesuccess');	
+			}	
+		}
+		
+		$this->render('acceptinvite', array('model' => $model));
+	}
+	
     /**
      * Migrate Action
      * Allows the Site to perform migrations during the installation process

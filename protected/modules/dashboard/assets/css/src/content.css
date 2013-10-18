@@ -213,6 +213,12 @@ main .content-container .settings {
 	padding: 20px;
 }
 
+main .content-container .settings .left-label {
+	float: left;
+	margin: 0;
+	text-align: left;
+}
+
 main .body-content .icon-trash,
 main .editor .icon-camera,
 main .content-container .icon-gear {

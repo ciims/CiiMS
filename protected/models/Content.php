@@ -218,6 +218,27 @@ class Content extends CiiModel
 	}
 
 	/**
+	 * Returns the appropriate status' depending up the user's role
+	 * @return array
+	 */
+	public function getStatuses()
+	{
+
+		if (Yii::app()->user->role == 5 || Yii::app()->user->role == 7)
+			return array(2 => Yii::t('ciims.models.Content', 'Ready for Review'), 0 => Yii::t('ciims.models.Content', 'Draft'));
+		return array(1 => Yii::t('ciims.models.Content', 'Published'), 0 => Yii::t('ciims.models.Content', 'Draft'));
+	}
+
+	/**
+	 * Determines if an article is published or not
+	 * @return boolean 
+	 */
+	public function isPublished()
+	{
+		return $this->status == 1 && strtotime($this->published) <= time() ? true : false;
+	}
+
+	/**
 	 * Gets a flattened list of keyword tags for jQuery.tag.js
 	 * @return string
 	 */
@@ -282,7 +303,8 @@ class Content extends CiiModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('slug',$this->slug,true);
-		$criteria->compare('content',$this->slug,true);
+		$criteria->compare('author_id',$this->author_id,true);
+		$criteria->compare('content',$this->content,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('published',$this->updated,true);

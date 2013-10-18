@@ -25,7 +25,9 @@ class CiiModel extends CActiveRecord
 		'login',
 		'logout',
 		'admin',
-		'hybridauth'
+		'hybridauth',
+		'dashboard',
+		'acceptinvite'
 	);
 	
 	/**
