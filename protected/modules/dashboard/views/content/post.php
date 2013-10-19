@@ -22,7 +22,7 @@
 
 		<?php if ($data->status == 0): ?>
 			<span class="status draft"><?php echo Yii::t('Dashboard.views', 'Draft'); ?></span>
-		<?php elseif ($data->isPublished()): ?>
+		<?php elseif (!$data->isPublished()): ?>
 			<span class="status scheduled">
 				<?php echo Yii::t('Dashboard.views', 'Scheduled for {{date}}', array(
 					'{{date}}' => CHtml::tag('abbr',array(

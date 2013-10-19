@@ -74,7 +74,7 @@ class Categories extends CiiModel
 		return array(
 			'parent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
 			'metadata' => array(self::HAS_MANY, 'CategoriesMetadata', 'category_id'),
-			'contents' => array(self::HAS_MANY, 'Content', 'category_id'),
+			'content' => array(self::HAS_MANY, 'Content', 'category_id'),
 		);
 	}
 

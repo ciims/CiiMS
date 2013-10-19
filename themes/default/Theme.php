@@ -3,16 +3,35 @@
 Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 class Theme extends CiiSettingsModel
 {
+    /**
+     * @var string  The theme name
+     */
 	private $theme = 'default';
 
+    /**
+     * @var string  The user's twitter handle
+     */
 	protected $twitterHandle = NULL;
 
+    /**
+     * @var string  The number of tweets to fetch for display
+     */
 	protected $twitterTweetsToFetch = 1;
 
+    /**
+     * @var string  The Splash logo URI
+     */
 	protected $splashLogo = NULL;
 
+    /**
+     * @var string  The default menu items in | form
+     */
 	protected $menu = 'dashboard|blog';
 
+    /**
+     * Validation Rules
+     * @return array
+     */
 	public function rules()
 	{
 		return array(
@@ -21,6 +40,10 @@ class Theme extends CiiSettingsModel
 		);
 	}
 
+    /**
+     * Dashboard Groupings
+     * @return array
+     */
 	public function groups()
 	{
 		return array(
@@ -29,6 +52,10 @@ class Theme extends CiiSettingsModel
 		);
 	}
 
+    /**
+     * Attribute Labels
+     * @return array
+     */
 	public function attributeLabels()
 	{
 		return array(
@@ -39,6 +66,9 @@ class Theme extends CiiSettingsModel
 		);
 	}
 
+    /**
+     * AfterSave Event, is triggered when the model attributes are saved
+     */
 	public function afterSave()
 	{
 		// Bust the cache
@@ -53,9 +83,7 @@ class Theme extends CiiSettingsModel
 	 */
 	public function getTweets($postData=NULL)
 	{
-
 		header("Content-Type: application/json");
-
 		Yii::import('ext.twitteroauth.*');
 
     	try {
@@ -84,7 +112,6 @@ class Theme extends CiiSettingsModel
 			}
 
 			echo CJSON::encode($tweets);
-
 		} catch (Exception $e) {
 			echo CJSON::encode(array('errors' => array(array('message' => $e->getMessage()))));
 		}
@@ -100,14 +127,20 @@ class Theme extends CiiSettingsModel
         $categories = Yii::app()->cache->get('categories-listing');
         if ($categories == false)
         {
-            $categories = Yii::app()->db->createCommand('SELECT categories.id AS id, categories.name AS name, categories.slug AS slug, COUNT(DISTINCT(content.id)) AS content_count FROM categories LEFT JOIN content ON categories.id = content.category_id WHERE content.type_id = 2 AND content.status = 1 GROUP BY categories.id')->queryAll();
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('type_id = 2')
+                     ->addCondition('status = 1');
+            $criteria->with = 'content';
+            $criteria->select = 't.id, t.slug, t.name';
+
+            $categories = Categories::model()->findAll($criteria);
             Yii::app()->cache->set('categories-listing', $categories);                          
         }
         
         foreach ($categories as $k=>$v)
         {
             if ($v['name'] != 'Uncategorized')
-                $items[] = array('label' => $v['name'], 'url' => Yii::app()->createUrl('/' . $v['slug']));
+                $items[] = array('label' => $v->name, 'url' => Yii::app()->createUrl('/' . $v->slug));
         }
         
         return $items;
@@ -123,24 +156,18 @@ class Theme extends CiiSettingsModel
         $content = Yii::app()->cache->get('content-listing');
         if ($content == false)
         {
-            $content = Yii::app()->db->createCommand('SELECT content.id, title, content.published,  content.slug AS content_slug, 
-            												 categories.slug AS category_slug, 
-            												 categories.name AS category_name, 
-            												 comment_count, content.published 
-            										  FROM content LEFT JOIN categories ON content.category_id = categories.id 
-            										  WHERE vid = (
-            										  	SELECT MAX(vid) 
-            										  	FROM content AS content2 
-            										  	WHERE content2.id = content.id
-													  ) 
-													  AND type_id = 2 AND status = 1 
-                                                      AND password=""
-            										  ORDER BY content.published DESC LIMIT 5')->queryAll();
+            $criteria = Content::model()->getBaseCriteria()
+                        ->addCondition('type_id = 2')
+                        ->addCondition('password = ""');
+            $criteria->order = 'published DESC';
+            $criteria->limit = 5;
+
+            $content = Content::model()->findAll($criteria);
             Yii::app()->cache->set('content-listing', $content);                            
         }
         
-        foreach ($content as $k=>$v)
-			$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['content_slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
+        foreach ($content as $v)
+			$items[] = array('label' => $v->title, 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
         
         return $items;
     }
@@ -151,20 +178,19 @@ class Theme extends CiiSettingsModel
 	public function getRelatedPosts($id, $category_id)
 	{
 		$items = array();
-		$related = Yii::app()->db->createCommand('SELECT content.id, title, slug, content.published
-												  FROM content  WHERE status = 1 AND category_id = :category_id 
-												  AND id != :id AND vid = (
-												  	SELECT MAX(vid) 
-												  	FROM content AS content2 
-												  	WHERE content2.id = content.id) 
-												  AND password="" 
-												  ORDER BY updated DESC LIMIT 5')
-								 ->bindParam(':category_id', $category_id)
-								 ->bindParam(':id', $id)
-		 						 ->queryAll();
+        $criteria = Content::model()->getBaseCriteria()
+                    ->addCondition('category_id = :category_id') 
+                    ->addCondition('id != :id')
+                    ->addCondition('type_id = 2')
+                    ->addCondition('password = ""');
+        $criteria->order = 'published DESC';
+        $criteria->limit = 5;
+        $criteria->params = array(':id' => $id, ':category_id' => $category_id);
+
+        $related = Content::model()->findAll($criteria);
 			
 		 foreach ($related as $v)
-		 	$items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
+		 	$items[] = array('label' => $v->title, 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
         
         return $items;
 	}
@@ -177,25 +203,18 @@ class Theme extends CiiSettingsModel
     public function getPostsByAuthor($id=1)
     {
         $items = array();
-        $related = Yii::app()->db->createCommand('SELECT content.id, title, content.published,  content.slug AS slug, 
-                                                             categories.slug AS category_slug, 
-                                                             categories.name AS category_name, 
-                                                             comment_count, content.published 
-                                                      FROM content LEFT JOIN categories ON content.category_id = categories.id 
-                                                      WHERE vid = (
-                                                        SELECT MAX(vid) 
-                                                        FROM content AS content2 
-                                                        WHERE content2.id = content.id
-                                                      ) 
-                                                      AND type_id = 2 AND status = 1 
-                                                      AND password=""
-                                                      AND content.author_id = :author_id
-                                                      ORDER BY content.published DESC LIMIT 5')
-                                 ->bindParam(':author_id', $id)
-                                 ->queryAll();
+        $criteria = Content::model()->getBaseCriteria()
+                    ->addCondition('author_id = :author_id') 
+                    ->addCondition('type_id = 2')
+                    ->addCondition('password = ""');
+        $criteria->order = 'published DESC';
+        $criteria->limit = 5;
+        $criteria->params = array(':author_id' => $id);
+
+        $related = Content::model()->findAll($criteria);
             
-         foreach ($related as $v)
-            $items[] = array('label' => $v['title'], 'url' => Yii::app()->createUrl('/' . $v['slug']), 'itemOptions' => array('id' => Cii::get($v, 'id', 1), 'published' => $v['published']));
+        foreach ($related as $v)
+            $items[] = array('label' => $v['title'], 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
         
         return $items;
     }
@@ -219,6 +238,11 @@ class Theme extends CiiSettingsModel
         return $items;
     }
 
+    /**
+     * Retrieves the tags for a particular article and flattens them to a pretty array
+     * @param  int $id     The content id
+     * @return array
+     */
     public function getContentTags($id)
     {
         $items = array();

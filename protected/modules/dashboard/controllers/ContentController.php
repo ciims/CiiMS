@@ -310,12 +310,7 @@ class ContentController extends CiiDashboardController
      */
     public function actionDelete($id)
     {
-        // we only allow deletion via POST request
-        // and we delete /everything/
-        $command = Yii::app()->db
-                      ->createCommand("DELETE FROM content WHERE id = :id")
-                      ->bindParam(":id", $id, PDO::PARAM_STR)
-                      ->execute();
+        Content::model()->findAllByPk($id)->delete();
 
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
@@ -336,10 +331,7 @@ class ContentController extends CiiDashboardController
         
         foreach ($_POST[$key] as $id)
         {
-            $command = Yii::app()->db
-                      ->createCommand("DELETE FROM content WHERE id = :id")
-                      ->bindParam(":id", $id, PDO::PARAM_STR)
-                      ->execute();
+            Content::model()->findAllByPk($id)->delete();
         }
         
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
@@ -347,6 +339,24 @@ class ContentController extends CiiDashboardController
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if(!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+
+    /**
+     * Retrieves the available view files under the current theme
+     * @return array    A list of files by name
+     */
+    private function getViewFiles($theme='default')
+    {
+        return $this->getFiles($theme, 'views.content');
+    }
+    
+    /**
+     * Retrieves the available layouts under the current theme
+     * @return array    A list of files by name
+     */
+    private function getLayouts($theme='default')
+    {
+        return $this->getFiles($theme, 'views.layouts');
     }
     
     /**
@@ -388,23 +398,5 @@ class ContentController extends CiiDashboardController
         }
         
         return $returnFiles;
-    }
-
-    /**
-     * Retrieves the available view files under the current theme
-     * @return array    A list of files by name
-     */
-    private function getViewFiles($theme='default')
-    {
-        return $this->getFiles($theme, 'views.content');
-    }
-    
-    /**
-     * Retrieves the available layouts under the current theme
-     * @return array    A list of files by name
-     */
-    private function getLayouts($theme='default')
-    {
-        return $this->getFiles($theme, 'views.layouts');
     }
 }

@@ -214,7 +214,7 @@ class Content extends CiiModel
 		$criteria = new CDbCriteria();
 		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
 		         		->addCondition('status = 1')
-		         		->addCondition('published <= NOW()');
+		         		->addCondition('NOW() >= published');
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Content extends CiiModel
 	 */
 	public function isPublished()
 	{
-		return $this->status == 1 && strtotime($this->published) <= time() ? true : false;
+		return ($this->status == 1 && (strtotime($this->published) <= time())) ? true : false;
 	}
 
 	/**
