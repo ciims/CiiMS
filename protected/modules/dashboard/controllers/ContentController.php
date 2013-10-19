@@ -310,7 +310,7 @@ class ContentController extends CiiDashboardController
      */
     public function actionDelete($id)
     {
-        Content::model()->findAllByPk($id)->delete();
+        Content::model()->findByPk($id)->delete();
 
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
@@ -330,7 +330,7 @@ class ContentController extends CiiDashboardController
             throw new CHttpException(500,  Yii::t('Dashboard.main', 'No records were supplied to delete'));
         
         foreach ($_POST[$key] as $id)
-            Content::model()->findAllByPk($id)->delete();
+            Content::model()->findByPk($id)->delete();
         
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
