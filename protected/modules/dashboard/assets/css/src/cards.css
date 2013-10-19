@@ -344,6 +344,6 @@ main .dh-settings-container .sidebar .menu li a {
 }
 
 main .pure-button-xsmall {
-    top: -13px;
+    margin-top: -13px;
     margin-left: 5px;
 }
