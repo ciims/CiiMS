@@ -1,6 +1,6 @@
 <?php
 
-class ContentController extends CiiController
+class ContentController extends CiiSiteController
 {
 	/**
 	 * Base filter, allows logged in and non-logged in users to cache the page

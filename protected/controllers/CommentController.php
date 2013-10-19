@@ -1,6 +1,6 @@
 <?php
 
-class CommentController extends CiiController
+class CommentController extends CiiSiteController
 {
 	/**
 	 * @return array action filters

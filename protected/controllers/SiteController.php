@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends CiiController
+class SiteController extends CiiSiteController
 {
 	public function filters()
 	{

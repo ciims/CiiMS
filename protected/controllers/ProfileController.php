@@ -1,6 +1,6 @@
 <?php
 
-class ProfileController extends CiiController
+class ProfileController extends CiiSiteController
 {
 
 	/**
@@ -14,12 +14,7 @@ class ProfileController extends CiiController
 	 */
 	public function filters()
 	{
-		return array_merge(
-			parent::filters(), 
-			array(
-				'accessControl'
-			)
-		);
+		return CMap::mergeArray(parent::filters(), array('accessControl'));
 	}
 
     /**
