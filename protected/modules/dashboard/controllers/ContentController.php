@@ -320,7 +320,7 @@ class ContentController extends CiiDashboardController
      */
     public function actionDelete($id)
     {
-        Content::model()->findByPk($id)->delete();
+        Yii::app()->db->createCommand('DELETE FROM content WHERE id = :id')->bindParam(':id', $id)->execute();
 
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
