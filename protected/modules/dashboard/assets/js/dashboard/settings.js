@@ -119,7 +119,7 @@ var CiiDashboard = {
 				$(".alert-secondary").hide();
 
 				$.post(CiiDashboard.endPoint + '/settings/addCard', $("form").serialize(), function(data) {
-					$(".meta-container").append('<div class="pure-control-group"><label class="inline">' +  data.class + '</label><p class="text-small inline" style="top: -8px;">' + data.name + '</p><span class="pure-button pure-button-warning pure-button-small pure-button-link pull-right" style="top: -13px;">0</span><span class="icon-remove inline pull-right" id="' + data.folderName + '"></span></div>');
+					$(".meta-container").append('<div class="pure-control-group"><label class="inline">' +  data.class + '</label><p class="text-small inline" style="top: -8px;">' + data.name + '</p><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right remove-button" id="' + data.folderName + '"><span class="icon-remove"></span></span><span class="pure-button pure-button-warning pure-button-xsmall pure-button-link-xs pull-right">0</span></div>');
 					$("#spinner").fadeOut();
 				}).fail(function(data) {
 					$("#spinner").fadeOut();
@@ -128,10 +128,63 @@ var CiiDashboard = {
 				});
 			});
 
-			$(".icon-remove").click(function() {
+			$(".remove-button").click(function() {
 				var parent = $(this).parent();
 				$.post(CiiDashboard.endPoint + "/settings/deleteCard/id/" + $(this).attr("id"), function() {
 					$(parent).fadeOut();
+				})
+			});
+
+			// Check for card updates
+			$("span[id^=updater]").each(function() {
+				var id = $(this).attr("data-attr-id");
+				var self = this;
+				$.get(CiiDashboard.endPoint + '/card/isUpdateAvailable/id/' + id, function(data) {
+
+					$(self).find(".icon-spinner").hide();
+					$(self).find(".checking").hide();
+
+					if (data.update == false) {						
+						$(self).find(".uptodate").show();
+						$(self).removeClass("pure-button-primary").addClass("pure-button-success");
+					} else {
+						$(self).find(".available").show();
+						$(self).removeClass("pure-button-primary").addClass("pure-button-warning-pulse");
+					}
+				}).fail(function() {
+					$(self).parent().find(".icon-spinner").hide();
+					$(self).parent().find(".checking").hide();
+					$(self).removeClass("pure-button-primary").addClass("pure-button-error-pulse");
+					$(self).parent().find(".updating-error").show();
+				});
+			});
+
+			// Action to perform the update
+			$(".available").click(function() {
+				$(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
+				$(this).parent().find(".icon-spinner").show();
+				$(this).parent().find(".updating").show();
+				$(this).hide();
+
+				var id = $(this).parent().attr("data-attr-id");
+				var self = this;
+				$.get(CiiDashboard.endPoint + '/card/updateCard/id/' + id, function(data) {
+
+					$(self).parent().find(".icon-spinner").hide();
+					$(self).parent().find(".updating").hide();
+
+					if (data.updated == true) {
+						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-success");
+						$(self).parent().find(".uptodate").show();
+					} else {
+						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+						$(self).parent().find(".updating-error").show();
+					}
+				}).fail(function() {
+					$(self).parent().find(".icon-spinner").hide();
+					$(self).parent().find(".updating").hide();
+					$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+					$(self).parent().find(".updating-error").show();
 				})
 			});
 		},
