@@ -273,13 +273,14 @@ class CardController extends CiiDashboardController
         	if ($extraction)
         	{
         		// Update all the cards
+				$cardData = CJSON::decode($this->getBaseCardById($id));
         		$cards = Cards::model()->findAllByAttributes(array('name' => $id));
 
         		foreach ($cards as $c)
         		{
         			$currentData = CJSON::decode($c['data']);
         			$activeSize = $currentData['activeSize'];
-        			$newData = CMap::mergeArray($currentData, $cardData);
+        			$newData = $cardData;
         			$newData['activeSize'] = $activeSize;
         			$c->data = CJSON::encode($newData);
         			$c->save();
