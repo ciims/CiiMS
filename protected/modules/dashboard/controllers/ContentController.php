@@ -100,6 +100,7 @@ class ContentController extends CiiDashboardController
 
 
         $role = Yii::app()->user->role;
+
         if ($role != 7 && $role != 9)
         {
             if ($model->author_id != Yii::app()->user->id)
@@ -110,22 +111,30 @@ class ContentController extends CiiDashboardController
         {
             $model2 = new Content;
             $model2->attributes = Cii::get($_POST, 'Content', array());
-            if ($_POST['Content']['password'] != "")
+            if (Cii::get($_POST['Content'],'password', "") != "")
                 $model2->password = Cii::encrypt($_POST['Content']['password']);
+            else
+                $model2->password = "";
 
             // For some reason this isn't setting with the other data
             $model2->extract    = $_POST['Content']['extract'];
             $model2->id         = $id;
             $model2->vid        = $model->vid+1;
-            $model2->viewFile   = $_POST['Content']['view'];
-            $model2->layoutFile = $_POST['Content']['layout'];
+            $model2->viewFile   = Cii::get($_POST['Content'], 'view', 'blog');
+            $model2->layoutFile = Cii::get($_POST['Content'], 'layout', 'blog');
             $model2->created    = $_POST['Content']['created'];
-            $model2->published  = $_POST['Content']['published'];
+            $model2->commentable= Cii::get($_POST['Content'], 'commentable', 1);
+            $model2->type_id    = Cii::get($_POST['Content'], 'type_id', 2);
+            $model2->published  = Cii::get($_POST['Content'], 'publiished', NULL);
+
+            if ($model->author_id != Yii::app()->user->id)
+                $model2->author_id = $model->author_id;
 
             // Prevent editors and collaborators from publishing acticles
             if ($role == 5 || $role == 7)
                 if ($model2->status == 1)
                     $model2->status = 2;
+
 
             if($model2->save()) 
             {
@@ -147,6 +156,7 @@ class ContentController extends CiiDashboardController
 
                 $model->vid = $model2->vid-1;
                 $model->addErrors($model2->getErrors());
+                Cii::debug($model2->getErrors());
 
                 Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error saving your content. Please try again.'));
             }

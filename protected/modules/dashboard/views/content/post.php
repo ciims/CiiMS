@@ -22,6 +22,10 @@
 
 		<?php if ($data->status == 0): ?>
 			<span class="status draft"><?php echo Yii::t('Dashboard.views', 'Draft'); ?></span>
+		<?php elseif ($data->status == 2): ?>
+			<span class="status scheduled">
+				<?php echo Yii::t('Dashboard.views', 'Ready for Review'); ?>
+			</span>
 		<?php elseif (!$data->isPublished()): ?>
 			<span class="status scheduled">
 				<?php echo Yii::t('Dashboard.views', 'Scheduled for {{date}}', array(
@@ -32,10 +36,6 @@
 								Cii::formatDate($data->published)
 								)
 					)); ?>
-			</span>
-		<?php elseif ($data->status == 2): ?>
-			<span class="status scheduled">
-				<?php echo Yii::t('Dashboard.views', 'Ready for Review'); ?>
 			</span>
 		<?php else: ?>
 			<span class="status published">

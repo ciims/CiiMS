@@ -88,7 +88,7 @@
 				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'commentable', array(1=>Yii::t('Dashboard.views', 'Yes'), 0=>Yii::t('Dashboard.main', 'No')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
+				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group date form_datetime">
 				<?php echo !$canPublish ? NULL : $form->textFieldRow($model, 'published', $htmlOptions); ?>
