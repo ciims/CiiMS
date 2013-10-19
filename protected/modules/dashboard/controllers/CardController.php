@@ -286,6 +286,7 @@ class CardController extends CiiDashboardController
         			$c->save();
         		}
 
+        		unlink($downloadPath);
         		echo CJSON::encode(array('updated' => true));
         		return true;
         	}

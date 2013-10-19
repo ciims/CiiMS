@@ -343,7 +343,7 @@ main .dh-settings-container .sidebar .menu li a {
     text-decoration: none;
 }
 
-main .pure-button-xsmall {
+main .pure-button-link-xs {
     margin-top: -13px;
     margin-left: 5px;
 }
