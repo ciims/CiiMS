@@ -305,7 +305,7 @@ class ContentController extends CiiDashboardController
 
     /**
      * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * If deletion is successful, the browser will be redirected to the previous
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id)
@@ -330,9 +330,7 @@ class ContentController extends CiiDashboardController
             throw new CHttpException(500,  Yii::t('Dashboard.main', 'No records were supplied to delete'));
         
         foreach ($_POST[$key] as $id)
-        {
             Content::model()->findAllByPk($id)->delete();
-        }
         
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         

@@ -41,6 +41,9 @@
 				<span class="pull-right icon-trash"></span>
 				<span class="pull-right icon-gear show-settings"></span>
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
+				<?php if ($model->isPublished()): ?>
+					<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+				<?php endif; ?>
 			</div>
 			<div id="main" class="nano">				
 				<div class="content flipbox">

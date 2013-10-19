@@ -1509,6 +1509,7 @@ main .preview .preview-header .icon-eye-open,
 main .preview .preview-header .icon-comment,
 main .body-content .icon-trash,
 main .editor .icon-camera,
+main .body-content .icon-eye-open,
 main .content-container .icon-gear {
 	position: relative;
 	top: 5px;
