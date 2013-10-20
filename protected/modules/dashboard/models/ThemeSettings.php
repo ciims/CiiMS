@@ -52,6 +52,8 @@ class ThemeSettings extends CiiSettingsModel
 
 			foreach ($files as $file)
 			{
+				if (strpos($file,'theme.json') === false)
+					continue;
 				$theme = json_decode(file_get_contents($file), true);
 				$themes[$theme['type']][] = $theme;
 			}
