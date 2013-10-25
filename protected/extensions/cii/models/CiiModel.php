@@ -30,7 +30,25 @@ class CiiModel extends CActiveRecord
 		'acceptinvite',
 		'api'
 	);
-	
+
+    /**
+     * Returns attributes suitable for the API
+     * @return array
+     */
+    public function getAPIAttributes()
+    {
+        $attributes = array();
+        foreach ($this->attributes as $k=>$v)
+        {
+            if ($k == 'created' || $k == 'updated' || $k == 'published')
+                $attributes[$k] = strtotime($v);
+            else
+                $attributes[$k] = $v;
+        }
+
+        return $attributes;
+    }
+
 	/**
 	 * parseMeta pulls the metadata out of a model and returns that metadata as a usable array
 	 * @param CiiModel $model - The model to pull metedata from

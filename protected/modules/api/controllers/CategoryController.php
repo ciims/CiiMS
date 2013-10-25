@@ -23,7 +23,7 @@ class CategoryController extends ApiController
     }
 
 	/**
-	 * [GET] [/categories]
+	 * [GET] [/category/<id>]
 	 * @return array    List of categories
 	 */
 	public function actionIndex($id=NULL)
@@ -32,33 +32,61 @@ class CategoryController extends ApiController
         {
             $category = Categories::model()->findByPk($id);
             if ($category == NULL)
-                throw new CHttpException(404, Yii::t('Api.main', 'A category with {{id}} was not found.', array('{{id}}' => $id)));
+                throw new CHttpException(404, Yii::t('Api.category', 'A category with the id of {{id}} was not found.', array('{{id}}' => $id)));
 
-            return array('id' => $category->id, 'parent_id' => $category->parent_id, 'name' => $category->name, 'slug' => $category->slug);
+            return $category->getAPIAttributes();
 		}
-
         
         $categories = Categories::model()->findAll();
 		$response = array();
+
 		foreach ($categories as $category)
-			$response[] = array('id' => $category->id, 'parent_id' => $category->parent_id, 'name' => $category->name, 'slug' => $category->slug);
+			$response[] = $category->getAPIAttributes();
 
 		return $response;
 	}
 
     /**
-     * [POST] [/category]
+     * [POST] [/category/<id>]
      * @return array    Category
      */
-    public function actionIndexPost()
+    public function actionIndexPost($id=NULL)
     {
-        $category = new Categories;
-        $category->parent_id = 1;
+        if ($id === NULL)
+        {
+            $category = new Categories;
+            $category->parent_id = 1;
+        }
+        else
+        {
+            $category = Categories::model()->findByPk($id); 
+            if ($category == NULL)
+                throw new CHttpException(404, Yii::t('Api.category', 'A category with the id of {{id}} was not found.', array('{{id}}' => $id)));
+        }
         $category->attributes = $_POST;
         
         if ($category->save())
-            return array('id' => $category->id, 'parent_id' => $category->parent_id, 'name' => $category->name, 'slug' => $category->slug);
+            return $category->getAPIAttributes();
         else
             return $category->getErrors();
-    }    
+    }
+
+    /**
+     * [DELETE] [/category/<id>]
+     * @return boolean
+     */
+    public function actionIndexDelete($id=NULL)
+    {
+        if ($id == NULL)
+            throw new CHttpException(400, Yii::t('Api.category', 'A category id must be specified to delete.'));
+        
+        $category = Categories::model()->findByPk($id); 
+        if ($category == NULL)
+            throw new CHttpException(404, Yii::t('Api.category', 'A category with the id of {{id}} was not found.', array('{{id}}' => $id)));
+
+        if ($category->id == 1)
+            throw new CHttpException(400, Yii::t('Api.category', 'The root category cannot be deleted.'));
+
+        return $category->delete();
+    }
 }
