@@ -12,15 +12,12 @@ The API has been designed with serveral components in mind:
 The CiiMS API can be accessed via ```/api``` of your CiiMS instance.
 
 ### Appropriate Request Headers
-When making a request to the API you have 2 options for interaction, you can either send raw JSON via ```application/json``` as a raw request __OR__ you can send ```application/x-www-form-urlencoded``` form data and serialize your parameters as you would in jQuery or some other web language. If any raw request body is recieved the API will assume that the data you sent is ```application/json``` and will interpret the data as that.
+When making a request to the API you have 2 options for interaction, you can either send raw JSON via ```application/json``` as a raw request __OR__ you can send ```application/x-www-form-urlencoded``` form data and serialize your parameters as you would in jQuery. If any raw request body is recieved the API will assume that the data you sent is ```application/json``` and will interpret the data as that.
 
 ### Responses
 All responses from the API will be returned as JSON objects and will at minimum contain the HTTP response code sent with the headers, a error message if applicable, and an object called "response" which will contain the response. If an occur occurs, (depending on the resource), the response will be an empty JSON object or NULL.
 
 	{ "status" : <http_status_code>, "message" : null, "response" : { } }
-
-### Base Endpoints
-The root action for each endpoint will effectively trigger and OPTIONS response for the entire API Controller, and will always provide a list of available actions with descriptions.
 
 -------------------------------------------------------
 
@@ -37,13 +34,45 @@ In the future, this may also provide support for event notifications.
 ## Category [/category]
 The Category API allows users to access all viewable categories in the system, and if properly authenticated and privileges to manipulate particular categories.
 
-#### [GET]
-Lists all categories.
+#### [GET] [/category]
+Lists all categories in the system. 
 
-#### [POST]
-Allows for the creation of new categories.
+##### Example Response
+    
+    {"status":200,"message":null,"response":[{"id":"1","parent_id":"1","name":"New Category Name","slug":"newcategoryslug","created":1377734784,"updated":1382721259}}
 
-### [/category/<id>]
+#### [POST] [/category]
+Creates a new category if the user is a site manager or administrator. 
+
+The request must include the following fields:
+
+    name
+    slug
+
+The following fields are optional (default value is assumed)
+
+    parent_id : 1
+
+##### Example Request
+
+    { "name" : "category_name", "slug", "category_slug", "parent_id" : 1 }
+
+##### Example Response
+    
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "parent_id": 1,
+            "name": "category_name",
+            "slug": "category_slug",
+            "created": false,
+            "updated": false,
+            "id": "147"
+        }
+    }
+
+#### [/category/<id>]
 Allows for modification and retrieval of categories
 
 #### [GET]

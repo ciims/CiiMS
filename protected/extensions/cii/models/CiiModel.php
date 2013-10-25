@@ -40,8 +40,13 @@ class CiiModel extends CActiveRecord
         $attributes = array();
         foreach ($this->attributes as $k=>$v)
         {
-            if ($k == 'created' || $k == 'updated' || $k == 'published')
-                $attributes[$k] = strtotime($v);
+            if ($k == 'created' || $k == 'updated' || $k == 'published') 
+            {
+                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'NOW()')
+                    $attributes[$k] = time();
+                else
+                    $attributes[$k] = strtotime($v);
+            }
             else
                 $attributes[$k] = $v;
         }
