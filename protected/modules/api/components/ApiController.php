@@ -26,6 +26,12 @@ class ApiController extends CController
 	 */
 	public $status = 200;
 
+	public $xauthtoken = null;
+
+	public $xauthemail = null;
+
+	public $user = null;
+
 	/**
 	 * Prevents caching of responses, preloads accessControl filter
 	 */
@@ -47,6 +53,30 @@ class ApiController extends CController
      */
     public function beforeAction($action)
     {
+    	// Retrieve the AUTH Token and Email if they were set 
+    	$this->xauthtoken = Cii::get($_SERVER, 'HTTP_X_AUTH_TOKEN', NULL);
+    	$this->xauthemail = Cii::get($_SERVER, 'HTTP_X_AUTH_EMAIL', NULL);
+
+    	// Determine the user associated with it, if any
+    	if ($this->xauthemail != NULL)
+    	{
+    		// If a user exists with that email address 
+    		$user = Users::model()->findByAttributes(array('email' => $this->xauthemail));
+    		if ($user == NULL)
+    			break;
+
+    		$q = new CDbCriteria();
+			$q->addCondition('t.key LIKE :key');
+			$q->addCondition('value = :value');
+			$q->addCondition('user_id = :user_id');
+			$q->params = array(':user_id' => $user->id, ':value' => $this->xauthtoken, ':key' => 'api_key%');
+    		$meta = UserMetadata::model()->find($q);
+
+    		// And they have an active XAuthToken, set $this->user = the User object
+    		if ($meta != NULL)
+    			$this->user = $user;
+    	}  	
+
 		// If content was sent as application/x-www-form-urlencoded, use it. Otherwise, assume raw JSON was sent and convert it into
 		// the $_POST variable for ease of use
 		if (Yii::app()->request->rawBody != "" && empty($_POST)) 

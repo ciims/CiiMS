@@ -38,7 +38,8 @@ class UsersController extends CiiSettingsController
 					// Allow items to be added
 					if (strpos($k, '__new') !== false)
 					{
-						$k = str_replace(' ', '_', str_replace('__new', '', $k));
+						// Prevent new API keys from being generated
+						$k = str_replace('api_key', '', str_replace(' ', '_', str_replace('__new', '', $k)));
 						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, value, user_id, created, updated) VALUES (:key, :value, :id, NOW(), NOW())');
 						$command->bindParam(':value', $v);
 					}

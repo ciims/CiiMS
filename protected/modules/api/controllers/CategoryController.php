@@ -10,6 +10,7 @@ class CategoryController extends ApiController
 	{
 		if (Yii::app()->request->getRequestType() == 'POST')
 		{
+			die();
 		}
 
 		$categories = Categories::model()->findAll();
