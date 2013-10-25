@@ -21,8 +21,6 @@ class ApiModule extends CWebModule
         // Disable logging for the API
         Yii::app()->log->routes[0]->enabled = false; 
 
-        error_reporting(0);
-        ini_set('display_errors', false);
         // Update components
 		Yii::app()->setComponents(array(
             'errorHandler' => array(

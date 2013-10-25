@@ -26,10 +26,22 @@ class ApiController extends CController
 	 */
 	public $status = 200;
 
+	/**
+	 * The HTTP_X_AUTH_TOKEN if supplied
+	 * @var string
+	 */
 	public $xauthtoken = null;
 
+	/**
+ 	 * The HTTP_X_AUTH_EMAIL if supplied
+	 * @var string
+	 */
 	public $xauthemail = null;
 
+	/**
+	 * The User object if XAUTH has validated.
+	 * @var User
+	 */
 	public $user = null;
 
 	/**
@@ -39,19 +51,18 @@ class ApiController extends CController
     {
         return array(
             array(
-                'CHttpCacheFilter',
-                'cacheControl'=>'public, no-store, no-cache, must-revalidate',
-            ),
+                    'CHttpCacheFilter',
+                    'cacheControl'=>'public, no-store, no-cache, must-revalidate',
+                ),
             'accessControl'
         );
     }
 
     /**
-     * BeforeAction, validates that there is a valid response body
-     * @param  CAction $action    The action we want to run
-     * @return [type]         [description]
+     * Overrides accesscontrol
+     * @param CFilterChain $filterChain
      */
-    public function beforeAction($action)
+    public function filterAccessControl($filterChain)
     {
     	// Retrieve the AUTH Token and Email if they were set 
     	$this->xauthtoken = Cii::get($_SERVER, 'HTTP_X_AUTH_TOKEN', NULL);
@@ -77,6 +88,47 @@ class ApiController extends CController
     			$this->user = $user;
     	}  	
 
+        $filter=new ApiAccessControlFilter;
+        $filter->user = $this->user;
+        $filter->setRules($this->accessRules());
+        $filter->filter($filterChain);
+    }
+
+    /**
+     * Method overload allows clearer separation of controller actions in relation to REQUEST_TYPE
+     *
+     * GET actions will be routed to action$actionID
+     * Other actions will be routed to action$actionIDREQUEST_TYPE
+     * @param $actionID string  The string name of the action that we want to run
+     * @return CInlineAction
+     * @see CController::createAction($actionID)
+     */
+    public function createAction($actionID)
+    {
+        if($actionID==='')
+            $actionID=$this->defaultAction;
+
+        if (Yii::app()->request->getRequestType() != 'GET' && $actionID != 'error')
+            $actionID .= Yii::app()->request->getRequestType();
+
+        if(method_exists($this,'action'.$actionID) && strcasecmp($actionID,'s')) // we have actions method
+            return new CInlineAction($this,$actionID);
+        else
+        {
+            $action=$this->createActionFromMap($this->actions(),$actionID,$actionID);
+            if($action!==null && !method_exists($action,'run'))
+                throw new CException(Yii::t('yii', 'Action class {class} must implement the "run" method.', array('{class}'=>get_class($action))));
+            return $action;
+        }
+    }
+
+    /**
+     * BeforeAction, validates that there is a valid response body
+     * @param  CAction $action    The action we want to run
+     * @return [type]         [description]
+     */
+    public function beforeAction($action)
+    {
 		// If content was sent as application/x-www-form-urlencoded, use it. Otherwise, assume raw JSON was sent and convert it into
 		// the $_POST variable for ease of use
 		if (Yii::app()->request->rawBody != "" && empty($_POST)) 
@@ -132,15 +184,6 @@ class ApiController extends CController
 			'message' => $this->message,
 			'response' => $response
 		));
-	}
-
-	/**
-	 * Default handler
-	 * @return null
-	 */
-	public function actionIndex()
-	{
-		return null;
 	}
 
 	/**
