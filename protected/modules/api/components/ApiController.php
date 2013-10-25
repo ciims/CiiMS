@@ -112,7 +112,7 @@ class ApiController extends CController
             $actionID .= Yii::app()->request->getRequestType();
 
         if(method_exists($this,'action'.$actionID) && strcasecmp($actionID,'s')) // we have actions method
-            return new CInlineAction($this,$actionID);
+            return new ApiInlineAction($this,$actionID);
         else
         {
             $action=$this->createActionFromMap($this->actions(),$actionID,$actionID);
@@ -169,6 +169,7 @@ class ApiController extends CController
 	    }
 
 	    $this->_action=$priorAction;
+
 	    $this->renderOutput($response);
 	}
 

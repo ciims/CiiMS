@@ -15,7 +15,7 @@ class CategoryController extends ApiController
                         'actions' => array('index')
                     ),
                     array('allow',
-                        'actions' => array('indexPost'),
+                        'actions' => array('indexPost', 'indexDelete'),
                         'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
                     ),
                     array('deny') 
@@ -26,10 +26,19 @@ class CategoryController extends ApiController
 	 * [GET] [/categories]
 	 * @return array    List of categories
 	 */
-	public function actionIndex()
+	public function actionIndex($id=NULL)
 	{
-		$categories = Categories::model()->findAll();
+        if ($id !== NULL)
+        {
+            $category = Categories::model()->findByPk($id);
+            if ($category == NULL)
+                throw new CHttpException(404, Yii::t('Api.main', 'A category with {{id}} was not found.', array('{{id}}' => $id)));
 
+            return array('id' => $category->id, 'parent_id' => $category->parent_id, 'name' => $category->name, 'slug' => $category->slug);
+		}
+
+        
+        $categories = Categories::model()->findAll();
 		$response = array();
 		foreach ($categories as $category)
 			$response[] = array('id' => $category->id, 'parent_id' => $category->parent_id, 'name' => $category->name, 'slug' => $category->slug);
