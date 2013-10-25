@@ -19,6 +19,9 @@ All responses from the API will be returned as JSON objects and will at minimum 
 
 	{ "status" : <http_status_code>, "message" : null, "response" : { } }
 
+### A Note About Timestamps
+Timestamps will be returned as unixtime, but may be offset by the servers timezone due to the way CiiMS currenlty stores and records timestamps.
+
 -------------------------------------------------------
 
 # Available Methods
@@ -66,23 +69,66 @@ The following fields are optional (default value is assumed)
             "parent_id": 1,
             "name": "category_name",
             "slug": "category_slug",
-            "created": false,
-            "updated": false,
+            "created": 1382722520,
+            "updated": 1382722520,
             "id": "147"
         }
     }
 
 #### [/category/<id>]
-Allows for modification and retrieval of categories
+Allows for modification and retrieval of categories.
 
 #### [GET]
 Retrieves a category with a given id
 
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "parent_id": 1,
+            "name": "category_name",
+            "slug": "category_slug",
+            "created": 1382722520,
+            "updated": 1382722520,
+            "id": "147"
+        }
+    }
 #### [POST]
 Modifies a category with a given id
 
+CiiMS will only override values that you specify.
+
+##### Example Request
+
+    { "name" : "category_name", "slug", "category_slug", "parent_id" : 1 }
+
+##### Example Response
+    
+        {
+        "status": 200,
+        "message": null,
+        "response": {
+            "parent_id": 1,
+            "name": "category_name",
+            "slug": "category_slug",
+            "created": 1382722520,
+            "updated": 1382722520,
+            "id": "147"
+        }
+    }
+    
 #### [DELETE]
-Permanently deletes a category from the database
+DELETE requests will permanently delete categories from the database. The only limitation on this request is that the root category cannot be deleted. The response for this will either be true or false depending upon if the request was successful or not.
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": [true]
+    }
 
 -------------------------------------------------------
 
