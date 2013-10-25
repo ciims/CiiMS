@@ -31,6 +31,7 @@ return array(
         'application.modules.*',
     ),
     'modules' => array(
+        'api',
         'dashboard',
         'hybridauth' => array(
             'providers' => array()

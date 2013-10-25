@@ -37,7 +37,6 @@ Allows for the creation of new categories.
 
 ### [/category/<id>]
 
-#### [OPTIONS]
 #### [GET]
 #### [POST]
 #### [DELETE]
@@ -64,7 +63,6 @@ Allows the creation of new comment
 
 ### [/content/<id>]
 
-#### [OPTIONS]
 #### [GET]
 Users may request published content. If the content piece requires a password AND they do not have editing access to a document, the user must supply a password via GET
 
@@ -87,7 +85,6 @@ Allows the creation of new comments
 ### [/comment/<id>/]
 Allows for the manipulation of existing comments
 
-#### [OPTIONS]
 #### [GET]
 #### [POST]
 #### [DELETE]
@@ -101,7 +98,6 @@ Will provide a list of available <class> endpoints
 ### [/setting/<class>]
 Allows the manipulation of various settings that are found in the dashboard
 
-#### [OPTIONS]
 #### [GET]
 #### [POST]
 
@@ -116,50 +112,11 @@ Will send an invitation out to new users if they do not already exist
 
 ### [/user/<id>]
 
-#### [OPTIONS]
 #### [GET]
 #### [POST]
 
 ### Authentication [/user/token]
 While many resources from the API do not require authentication, any resource that modifies content (POST) or provides access to restricted content (such as password protects posts, or drafts owned by a contributor) requires an authentication.
-
-#### [OPTIONS]
-Returns the list of options outlined below as follows
-
-```
-	{
-		"OPTIONS" : {
-			"description" : "This response, a list of available options"
-		},
-		"POST" : {
-			"description" : "Authenticates a user and generates a long life token for that user given an application",
-			"parameters" : {
-				"email" : {
-					"type" : "email",
-					"description" : "The email address of the user"
-				},
-				"password" : {
-					"type" : "string",
-					"description" : "The password associated with the user's email address"
-				},
-				"name" : {
-					"type" : "string",
-					"description" : "The application name associated to the long life token"
-				}
-			}
-		},
-		"DELETE" : {
-			"description" : "Deletes an authentication token",
-			"parameters" : {
-				"token" : {
-					"type" : "string",
-					"description" : "The long life token to be deleted"
-				},
-			},
-			"headers" : [ "X-Auth-Email", "X-Auth-Token" ]
-		}
-	}
-```
 
 #### [POST] [/user/token] Authenticating a User, Retrieving a Long Life Token
 
