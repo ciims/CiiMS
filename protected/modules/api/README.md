@@ -1,5 +1,5 @@
 # CiiMS API
-The CiiMS API module provides basic access to common methods and data. The CiiMS API is a JSON REST API which supports OPTIONS,  GET, POST, and DELETE. POSTS requests should be sent as JSON encoded form fields for simplicity.
+The CiiMS API module provides basic access to common methods and data. The CiiMS API is a JSON REST API which supports GET, POST, and DELETE. POSTS requests should be sent as JSON encoded form fields for simplicity.
 
 ### API Objectives
 The API has been designed with serveral components in mind:
@@ -10,6 +10,9 @@ The API has been designed with serveral components in mind:
 
 ### Accessing the API
 The CiiMS API can be accessed via ```/api``` of your CiiMS instance.
+
+### Appropriate Request Headers
+When making a request to the API you have 2 options for interaction, you can either send raw JSON via ```application/json``` as a raw request __OR__ you can send ```application/x-www-form-urlencoded``` form data and serialize your parameters as you would in jQuery or some other web language. If any raw request body is recieved the API will assume that the data you sent is ```application/json``` and will interpret the data as that.
 
 ### Responses
 All responses from the API will be returned as JSON objects and will at minimum contain the HTTP response code sent with the headers, a error message if applicable, and an object called "response" which will contain the response. If an occur occurs, (depending on the resource), the response will be an empty JSON object or NULL.
@@ -29,17 +32,30 @@ The Event API is a new feature to CiiMS and allows custom events to be triggered
 
 In the future, this may also provide support for event notifications.
 
+-------------------------------------------------------
+
 ## Category [/category]
 The Category API allows users to access all viewable categories in the system, and if properly authenticated and privileges to manipulate particular categories.
+
+#### [GET]
+Lists all categories.
 
 #### [POST]
 Allows for the creation of new categories.
 
 ### [/category/<id>]
+Allows for modification and retrieval of categories
 
 #### [GET]
+Retrieves a category with a given id
+
 #### [POST]
+Modifies a category with a given id
+
 #### [DELETE]
+Permanently deletes a category from the database
+
+-------------------------------------------------------
 
 ## Content [/content]
 The Content API allows users to retrieve content by a particular content_id or slug. Authenticated users with appropriate privileges can also create new pieces of content and edit existing entries.
@@ -71,13 +87,15 @@ Users may request published content. If the content piece requires a password AN
 Administrators and content creators do not have to pass this option, as they have full read access to the content piece.
 
 #### [POST]
+Allows for modification of a given content piece
+
 #### [DELETE]
+Permanently deletes a content peice from the database
+
+-------------------------------------------------------
 
 ## Comment [/comment]
 The Comment API allows users to post and edit comments created by them, and for administrators to manage comments for their instance. The Comment API will be disabled if the site administrator has enabled Disqus comments for their site.
-
-#### [GET]
-Will provide a list of available API endpoints
 
 #### [POST]
 Allows the creation of new comments
@@ -86,8 +104,15 @@ Allows the creation of new comments
 Allows for the manipulation of existing comments
 
 #### [GET]
+Retrieves a comment with a given id
+
 #### [POST]
+Updates a comment with a given id
+
 #### [DELETE]
+Permanently deletes a content with a given id
+
+-------------------------------------------------------
 
 ## Setting [/setting]
 The Setting API allows administrators to modify various settings for their site
@@ -99,7 +124,12 @@ Will provide a list of available <class> endpoints
 Allows the manipulation of various settings that are found in the dashboard
 
 #### [GET]
+Retrieves all settings for a particular <class>
+
 #### [POST]
+Modifies a setting set for a particular <class>
+
+-------------------------------------------------------
 
 ## User [/user]
 The User API endpoint provides access to allow a user to manipulate their own information, and if they are an administrator manipulate the user details of all users in their site.
@@ -113,7 +143,10 @@ Will send an invitation out to new users if they do not already exist
 ### [/user/<id>]
 
 #### [GET]
+Retrieves user information for a given user. This is a privileges command.
+
 #### [POST]
+Allows for modification of a given user
 
 ### Authentication [/user/token]
 While many resources from the API do not require authentication, any resource that modifies content (POST) or provides access to restricted content (such as password protects posts, or drafts owned by a contributor) requires an authentication.

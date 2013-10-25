@@ -1,9 +1,1 @@
-<?php
-
-class DefaultController extends ApiController
-{
-	public function actionIndex()
-	{
-		return array();
-	}
-}
+<?php class DefaultController extends ApiController {}

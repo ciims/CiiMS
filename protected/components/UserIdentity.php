@@ -39,6 +39,12 @@ class UserIdentity extends CUserIdentity
 	private $cost = 13;
 
 	/**
+	 * The Application to use for API generation
+	 * @var string
+	 */
+	private $app_name = NULL;
+	
+	/**
 	 * Authenticates the user into the system
 	 * @param  boolean $force 				Whether or not to bypass the login process (passwordless logins from HybridAuth)
 	 * @return UserIdentity::$errorCode 	The error code associated to the login process
@@ -142,6 +148,21 @@ class UserIdentity extends CUserIdentity
 			$this->setState('displayName', 	$record->displayName);
 			$this->setState('status', 		$record->status);
 		  	$this->setState('role', 		$record->user_role);
+
+		  	// Create an CiiMS specific API key
+		  	$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => $this->_id, 'key' => 'api_key'));
+		  	if ($apiKey != NULL)
+		  		$apiKey->delete();
+
+		  	$apiKey = new UserMetadata;
+		  	$apiKey->user_id = $this->_id;
+		  	$apiKey->key     = 'api_key' . $this->app_name;
+		  	$apiKey->value   = hash_hmac('ripemd160', $record->email . $record->id . time(), $this->app_name);
+
+		  	$apiKey->save();
+
+		  	$this->setState('api_key', $apiKey->value);
+
 		    $this->errorCode=self::ERROR_NONE;
 		}
 		else
