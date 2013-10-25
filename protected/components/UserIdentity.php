@@ -150,7 +150,7 @@ class UserIdentity extends CUserIdentity
 		  	$this->setState('role', 		$record->user_role);
 
 		  	// Create an CiiMS specific API key
-		  	$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => $this->_id, 'key' => 'api_key'));
+		  	$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => $this->_id, 'key' => 'api_key' . $this->app_name));
 		  	if ($apiKey != NULL)
 		  		$apiKey->delete();
 

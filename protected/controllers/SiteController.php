@@ -234,6 +234,11 @@ class SiteController extends CiiSiteController
      */
 	public function actionLogout()
 	{
+		// Pure the active sessions API Key
+		$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'api_key'));
+	  	if ($apiKey != NULL)
+	  		$apiKey->delete();
+
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->user->returnUrl);
 	}
