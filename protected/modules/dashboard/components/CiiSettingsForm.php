@@ -60,10 +60,7 @@ class CiiSettingsForm extends CWidget
 	 * The following is run when the widget is called
 	 */
 	public function run()
-	{
-		if (count($this->properties) == 0 && $this->model->preContentView == NULL)
-			return;
-		
+	{		
 		if (count($this->properties) == 0 && $this->model->preContentView !== NULL)
 		{
 			$this->controller->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
@@ -137,6 +134,11 @@ class CiiSettingsForm extends CWidget
 					// If we want a custom form view, render that view instead of the default behavior
 					if ($this->model->form !== NULL)
 						$this->controller->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
+					else if (count($this->properties) == 0 && $this->model->preContentView == NULL)
+					{
+						echo CHtml::tag('legend', array(), Yii::t('Dashboard.main', 'Change Theme Settings'));
+						echo CHtml::tag('div', array('class' => 'alert alert-info'), Yii::t('Dashboard.main', 'There are no settings for this section.'));
+					}
 					else
 					{
 						$groups = $this->model->groups();

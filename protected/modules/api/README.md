@@ -177,13 +177,6 @@ If the user is not authenticated, they may freely browse currently published con
 
 Authenticated users who have the appropriate permissions will also see drafts that they are currently authoring, or drafts available in the system.
 
-Several filtering options also exist
-
-	offset
-	limit
-	category_id
-	author_id
-
 #### [POST]
 Allows the creation of new comment
 

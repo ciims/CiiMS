@@ -63,6 +63,7 @@ class CategoryController extends ApiController
             if ($category == NULL)
                 throw new CHttpException(404, Yii::t('Api.category', 'A category with the id of {{id}} was not found.', array('{{id}}' => $id)));
         }
+        
         $category->attributes = $_POST;
         
         if ($category->save())
