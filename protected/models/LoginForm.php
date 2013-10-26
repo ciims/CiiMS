@@ -38,6 +38,7 @@ class LoginForm extends CFormModel
 	 */
 	private $_identity;
 
+	public $app_name = NULL;
 	/**
 	 * Determines whether or not we should do a forced authentication and bypass the user's actual password
 	 * @see  application.modules.HybridAuth for more details
@@ -84,6 +85,7 @@ class LoginForm extends CFormModel
 		if(!$this->hasErrors())
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity->app_name = $this->app_name;
 			if(!$this->_identity->authenticate($this->force))
 				$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
 		}

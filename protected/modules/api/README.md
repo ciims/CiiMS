@@ -27,6 +27,41 @@ Timestamps will be returned as unixtime, but may be offset by the servers timezo
 # Available Methods
 The following methods are available in the CiiMS API.
 
+
+## Authentication [/user/token]
+While many resources from the API do not require authentication, any resource that modifies content (POST) or provides access to restricted content (such as password protects posts, or drafts owned by a contributor) requires an authentication.
+
+#### [POST] [/user/token] Authenticating a User, Retrieving a Long Life Token
+
+Before you can perform authenticated actions, you must first request an AUTH TOKEN. The AUTH TOKEN's provided by the API are long life API tokens and will not expire unless the origin password is changed, a new long life token is requests, or the token is explicity deleted.
+
+In order to allow multiple devices and resources to concurrently access the API a user may have multiple long life tokens in use.
+
+To request a new token for your application, submit the following payload to /user/authenticate.
+
+    { "email" : "<user@email.tld>", "password" : "<password>", "name" : "<application_name>" }
+
+If the users credentials are valid, you will be assigned a long life token for that application. If a long life token for that application and user already exist, a new token will be generated.
+
+    { "status" : 200, "message" : null, "response" : { "name" : "<application_name>", "token" : "<token_string>" } }
+
+If the users credentials are invalid, or if too many authentication requests for the user have been made in too short of a time a HTTP 400 status code will be returned.
+
+    { "status" : 400, "message" : "Unable to authenticate", "response" : { } }
+
+Once authenticated, all subsequent requests can be sent with the following HEADERS. Every request that requires authentication will accept this request.
+    
+    X-Auth-Email : <email>
+    X-Auth-Token : <auth_token>
+
+It's important to remember that these are long life tokens and should be treated with the same security levels as the user's password. While requests to change confidential user's information requires additional security (mainly the user's existing password), almost every other request can be manipulated using this authentication. If you ever believe that the users LLT has been comprimised, you should immediately request that the token be deauthenticated.
+
+#### [DELETE] [/user/token/<token>] Deauthenticates a long life token
+
+This method will kill the requested long life token belonging to the user associated to the session. Use this method if you believe the API token has been comprimised or if you wish to force new authentication.
+
+-------------------------------------------------------
+
 ## Event [/event]
 The Event API is a new feature to CiiMS and allows custom events to be triggered and captured for later processing. This new feature will integrate with Analytics.js and will allow a custom CiiMS analytics.js provider to recieve events sent by the provider.
 
@@ -212,45 +247,139 @@ The User API endpoint provides access to allow a user to manipulate their own in
 #### [GET]
 Will retrieve all users in the system. Only authenticated users can access this method
 
+##### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "1",
+            "email": "*******",
+            "firstName": "Charles",
+            "lastName": "Portwood",
+            "displayName": "test",
+            "about": " ",
+            "user_role": "9",
+            "status": "1",
+            "created": 1377734805,
+            "updated": 1382800693
+        }, {
+            "id": "15",
+            "email": "*******",
+            "firstName": "Charles",
+            "lastName": "Portwood",
+            "displayName": "test",
+            "about": " ",
+            "user_role": "1",
+            "status": "1",
+            "created": 1382792044,
+            "updated": 1382799142
+        }]
+    }
+
 #### [POST]
-Will send an invitation out to new users if they do not already exist
+Will send an invitation out to new users. This method requires administrative access as either an Administrator or a Site Manager
+
+The following fields are required:
+
+    email
+
+
+The following fields are optional:
+
+    firstName
+    lastName
+    displayName
+    about
+    user_role
+
+With the exception of ```user_role```, the user will be able to override any predefined values you set when they create their accounts. It's recommended that you just provide the email as in the example below.
+
+##### Example Request
+    
+    {
+        "email" : "email@example.com"
+    }
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "1",
+            "email": "email@example.com"
+            "firstName": "",
+            "lastName": "",
+            "displayName": "",
+            "about": "",
+            "user_role": "1",
+            "status": "1",
+            "created": 1377734805,
+            "updated": 1382800693
+        }
+    }
 
 ### [/user/<id>]
+Allows for the modification of existing user data. If the user is currently authenticated they can modify their own user information via this endpoint. If the user is an admin or a site manager they can alter other users information.
 
 #### [GET]
 Retrieves user information for a given user. This is a privileges command.
 
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "1",
+            "email": "email@example.com"
+            "firstName": "",
+            "lastName": "",
+            "displayName": "",
+            "about": "",
+            "user_role": "1",
+            "status": "1",
+            "created": 1377734805,
+            "updated": 1382800693
+        }
+    }
+
 #### [POST]
-Allows for modification of a given user
+Allows for modification of a given user. If the user is authenticated they will be able to change their own information. Administrative approval as either an Administrator or a Site Manager is required to make changes to other users. Please note the following:
 
-### Authentication [/user/token]
-While many resources from the API do not require authentication, any resource that modifies content (POST) or provides access to restricted content (such as password protects posts, or drafts owned by a contributor) requires an authentication.
+1. The user's password can be changed from this endpoint. The user WILL NOT be notified that their password has been changed IF just their password is changed.
+2. If the user's email address is changed a password verification process will be triggered. The users WILL be notified via email of the change, and will be required to go through the verification process before they can login again.
 
-#### [POST] [/user/token] Authenticating a User, Retrieving a Long Life Token
+The user will still be notified of the email change in this instance. It's _HIGHLY_ recommended that you allow the normal password/email change policies built into CiiMS handle this.
 
-Before you can perform authenticated actions, you must first request an AUTH TOKEN. The AUTH TOKEN's provided by the API are long life API tokens and will not expire unless the origin password is changed, a new long life token is requests, or the token is explicity deleted.
+##### Example Request
+    
+    {
+        "email" : "email@example.com",
+        "password" : "changeme7",
+        "firstName" : "Example",
+        "lastName" : "Example",
+        "displayName" "Example",
+        "about" : "I'm an Example!"
+        "user_role" : 9, // Can only be changed by site managers/administrators
+        "status" : 1 // Can only be changed by site managers/administrators
+    }
 
-In order to allow multiple devices and resources to concurrently access the API a user may have multiple long life tokens in use.
+##### Example Response
 
-To request a new token for your application, submit the following payload to /user/authenticate.
-
-	{ "email" : "<user@email.tld>", "password" : "<password>", "name" : "<application_name>" }
-
-If the users credentials are valid, you will be assigned a long life token for that application. If a long life token for that application and user already exist, that one will be returned to you rather than a new token being generated. If you wish to generate a new token, first deauthenticate your current token and peform a new authentication request.
-
-	{ "status" : 200, "message" : null, "response" : { "name" : "<application_name>", "token" : "<token_string>" } }
-
-If the users credentials are invalid, or if too many authentication requests for the user have been made in too short of a time a HTTP 400 status code will be returned.
-
-	{ "status" : 400, "message" : "Unable to authenticate", "response" : { } }
-
-Once authenticated, all subsequent requests can be sent with the following HEADERS. Every request that requires authentication will accept this request.
-	
-	X-Auth-Email : <email>
-	X-Auth-Token : <auth_token>
-
-It's important to remember that these are long life tokens and should be treated with the same security levels as the user's password. While requests to change confidential user's information requires additional security (mainly the user's existing password), almost every other request can be manipulated using this authentication. If you ever believe that the users LLT has been comprimised, you should immediately request that the token be deauthenticated.
-
-#### [DELETE] [/user/token/<token>] Deauthenticates a long life token
-
-This method will kill the requested long life token belonging to the user.
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "1",
+            "email": "email@example.com"
+            "firstName": "",
+            "lastName": "",
+            "displayName": "",
+            "about": "",
+            "user_role": "1",
+            "status": "1",
+            "created": 1377734805,
+            "updated": 1382800693
+        }
+    }

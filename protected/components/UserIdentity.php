@@ -42,7 +42,7 @@ class UserIdentity extends CUserIdentity
 	 * The Application to use for API generation
 	 * @var string
 	 */
-	private $app_name = NULL;
+	public $app_name = NULL;
 	
 	/**
 	 * Authenticates the user into the system
@@ -149,7 +149,7 @@ class UserIdentity extends CUserIdentity
 			$this->setState('status', 		$record->status);
 		  	$this->setState('role', 		$record->user_role);
 
-		  	// Create an CiiMS specific API key
+		  	// Create an API key
 		  	$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => $this->_id, 'key' => 'api_key' . $this->app_name));
 		  	if ($apiKey != NULL)
 		  		$apiKey->delete();

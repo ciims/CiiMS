@@ -10,12 +10,58 @@ class UserController extends ApiController
     public function accessRules()
     {   
         return array(
+        	array('allow',
+        		'actions' => array('tokenPost')
+        	),
+        	array('allow',
+        		'actions' => array('tokenDelete'),
+        		'expression' => '$user!=NULL'
+        	),
             array('allow',
                 'actions' => array('index', 'indexPost'),
                 'expression' => '$user!=NULL&&(($user->user_role==6||$user->user_role==9)||(Yii::app()->request->getParam("id")==$user->id))'
             ),
             array('deny') 
         );  
+    }
+
+    /**
+     * [POST] [/user/token]
+     * Allows for the generation of new LL API Token
+     * @return array
+     */
+    public function actionTokenPost()
+    {
+    	$model = new LoginForm;
+    	$model->username = Cii::get($_POST, 'email');
+    	$model->password = Cii::get($_POST, 'password');
+
+    	if (Cii::get($_POST, 'name', NULL) == NULL)
+    		throw new CHttpException(400, Yii::t('Api.user', 'Application name must be defined.'));
+    	else
+    		$model->app_name = Cii::get($_POST, 'name', 'api');
+
+    	if ($model->validate())
+    	{
+    		if ($model->login())
+    			return UserMetadata::model()->findByAttributes(array('user_id' => Users::model()->findByAttributes(array('email' => $_POST['email']))->id, 'key' => 'api_key' . $_POST['name']))->value;
+    	}
+
+    	throw new CHttpException(403, Yii::t('Api.user', 'Unable to authenticate.'));
+    }
+
+    /**
+     * [DELETE] [/user/token]
+     * Allows for the deletion of the active API token
+     * @return array
+     */
+    public function actionTokenDelete()
+    {
+    	$model = UserMetadata::model()->findByAttributes(array('user_id' => $this->user->id, 'value' => $this->xauthtoken));
+
+    	if ($model === NULL)
+    		throw new CHttpException(500, Yii::t('Api.user', 'An unexpected error occured while deleting the token. Please re-generate a new token for subsequent requests.'));
+    	return $model->delete();
     }
 
 	/**
