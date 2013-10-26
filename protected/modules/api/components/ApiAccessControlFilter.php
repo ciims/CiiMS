@@ -65,16 +65,15 @@ class ApiAccessControlFilter extends CAccessControlFilter
         }
     }
 
-     /**
+    /**
      * Denies the access of the user.
      * This method is invoked when access check fails.
      * @param IWebUser $user the current user
      * @param string $message the error message to be displayed
      */
-    protected function accessDenied($user,$message)
+    protected function accessDenied($user,$message=NULL)
     {
-        if($user == NULL)
-            throw new CHttpException(403, $message);
+        throw new CHttpException(403, $message);
     }
 }
 

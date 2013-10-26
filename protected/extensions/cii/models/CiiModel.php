@@ -35,11 +35,14 @@ class CiiModel extends CActiveRecord
      * Returns attributes suitable for the API
      * @return array
      */
-    public function getAPIAttributes()
+    public function getAPIAttributes($params=array())
     {
         $attributes = array();
         foreach ($this->attributes as $k=>$v)
         {
+        	if (in_array($k, $params))
+        		continue;
+
             if ($k == 'created' || $k == 'updated' || $k == 'published') 
             {
                 if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'NOW()')

@@ -89,7 +89,7 @@ class UsersController extends CiiSettingsController
 	public function actionCreate()
 	{
 		$validator=new CEmailValidator;
-                if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
+        if (!$validator->validateValue(Cii::get($_POST, 'email', NULL)))
 			throw new CHttpException(400, Yii::t('Dashboard.main', 'The email address you provided is invalid.'));
 
 		if (Users::model()->countByAttributes(array('email' => Cii::get($_POST, 'email', NULL))))

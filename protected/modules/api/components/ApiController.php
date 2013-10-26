@@ -6,7 +6,7 @@
  *
  * All actions that are run from this parent class should @return a value rather than running $this->render(). Exceptions are handled normally
  */
-class ApiController extends CController
+class ApiController extends CiiController
 {
 	/**
 	 * The current action
@@ -51,9 +51,9 @@ class ApiController extends CController
     {
         return array(
             array(
-                    'CHttpCacheFilter',
-                    'cacheControl'=>'public, no-store, no-cache, must-revalidate',
-                ),
+                'CHttpCacheFilter',
+                'cacheControl'=>'public, no-store, no-cache, must-revalidate',
+            ),
             'accessControl'
         );
     }
@@ -75,6 +75,9 @@ class ApiController extends CController
     		$user = Users::model()->findByAttributes(array('email' => $this->xauthemail));
     		if ($user == NULL)
     			break;
+
+    		if ($user->status!=Users::ACTIVE)
+    			throw new CHttpException(403, Yii::t('Api.main', 'Only active users can access the API.'));
 
     		$q = new CDbCriteria();
 			$q->addCondition('t.key LIKE :key');

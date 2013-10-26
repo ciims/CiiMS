@@ -10,16 +10,16 @@ class CategoryController extends ApiController
      */
     public function accessRules()
     {   
-            return array(
-                    array('allow',  // allow authenticated admins to perform any action
-                        'actions' => array('index')
-                    ),
-                    array('allow',
-                        'actions' => array('indexPost', 'indexDelete'),
-                        'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
-                    ),
-                    array('deny') 
-            );  
+        return array(
+            array('allow',
+                'actions' => array('index')
+            ),
+            array('allow',
+                'actions' => array('indexPost', 'indexDelete'),
+                'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
+            ),
+            array('deny') 
+        );  
     }
 
 	/**
