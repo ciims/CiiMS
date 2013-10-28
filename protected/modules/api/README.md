@@ -290,6 +290,51 @@ Modifies a setting set for a particular <class>. Note that you are only able to 
         }
     }
 
+### [/setting/theme?type=(desktop|mobile|tablet)]
+
+    Allows for retrieval and modification of various theme settings for the currently active theme of the selected type. Endpoint will default to ```desktop``` if not specified
+
+#### [GET]
+
+    Retrieves the theme options for a given theme. An empty object will be returned if nothing is available.
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "twitterHandle": null,
+            "twitterTweetsToFetch": "1",
+            "splashLogo": null,
+            "menu": "dashboard|blog"
+        }
+    }
+
+#### [POST]
+
+    Updates the theme settings.
+
+##### Example Request
+
+    {
+        "twitterHandle" : "ciims",
+        "menu" : "blog|dashboard"
+    }
+
+##### Example Response
+    
+     {
+        "status": 200,
+        "message": null,
+        "response": {
+            "twitterHandle": "ciims",
+            "twitterTweetsToFetch": "1",
+            "splashLogo": null,
+            "menu": "blog|dashboard"
+        }
+    }
+
 -------------------------------------------------------
 
 ## User [/user]

@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(-1);
+ini_set('display_errors', true);
 Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 Yii::import('application.modules.dashboard.models.*');
 class SettingController extends ApiController
@@ -117,6 +119,57 @@ class SettingController extends ApiController
 	{
 		$model = new ThemeSettings;
 		return $this->loadData($_POST, $model);
+	}
+
+	/**
+	 * [GET] [/api/setting/theme]
+	 * @class Theme
+	 */
+	public function actionTheme($type='desktop')
+	{
+		$model = $this->getTheme($type);
+		return $this->getModelAttributes($model);
+	}
+
+	/**
+	 * [POST] [/api/setting/theme]
+	 * @class Theme
+	 */
+	public function actionThemePost($type='desktop')
+	{
+		$model = $this->getThemeAttributes($type);
+		return $this->loadData($_POST, $model);
+	}
+
+	/**
+	 * Retrieves the appropriate model for the theme
+	 * @param  string $type The data type to load
+	 * @return CiiThemeModel
+	 */
+	private function getThemeAttributes($type)
+	{
+		$theme = null;
+		if ($type == 'desktop')
+			$theme = Cii::getConfig('theme', 'default');
+		else if ($type == 'mobile')
+			$theme = Cii::getConfig('mobileTheme');
+		else if ($type == 'tablet')
+			$theme = Cii::getConfig('tabletTheme');
+		else
+			$theme = Cii::getConfig('theme', 'default');
+
+		if (!file_exists(Yii::getPathOfAlias('webroot.themes.' . $theme) . DIRECTORY_SEPARATOR . 'Theme.php'))
+			throw new CHttpException(400, Yii::t('Api.setting',  'The requested theme type is not set. Please set a theme before attempting to change theme settings.'));
+
+		Yii::import('webroot.themes.' . $theme . '.Theme');
+
+		try {
+			$model = new Theme();
+		} catch(Exception $e) {
+			throw new CHttpException(400,  Yii::t('Api.setting', 'The requested theme type is not set. Please set a theme before attempting to change theme settings.'));
+		}
+
+		return $model;
 	}
 
 	/**
