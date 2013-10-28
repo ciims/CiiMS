@@ -68,8 +68,8 @@ class CategoryController extends ApiController
         
         if ($category->save())
             return $category->getAPIAttributes();
-        else
-            return $category->getErrors();
+
+        return $this->returnError(400, NULL, $category->getErrors());         
     }
 
     /**

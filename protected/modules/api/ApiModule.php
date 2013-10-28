@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CiiMS API Module
  *

@@ -220,17 +220,75 @@ Permanently deletes a content with a given id
 ## Setting [/setting]
 The Setting API allows administrators to modify various settings for their site
 
-#### [GET]
-Will provide a list of available <class> endpoints
-
-### [/setting/<class>]
+### [/setting/<class>] [index|appearance|analytics|social|email]
 Allows the manipulation of various settings that are found in the dashboard
 
 #### [GET]
 Retrieves all settings for a particular <class>
 
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "name": "CiiMS Test Site",
+            "dateFormat": "F jS, Y",
+            "timeFormat": "H:i",
+            "timezone": "America\/Chicago",
+            "defaultLanguage": "en_US",
+            "offline": "0",
+            "bcrypt_cost": "13",
+            "searchPaginationSize": "10",
+            "categoryPaginationSize": "10",
+            "contentPaginationSize": "10",
+            "autoApproveComments": "1",
+            "notifyAuthorOnComment": "1",
+            "useDisqusComments": "0",
+            "disqus_shortname": null,
+            "sphinx_enabled": "0",
+            "sphinxHost": "localhost",
+            "sphinxPort": "9312",
+            "sphinxSource": null
+        }
+    }
+
 #### [POST]
-Modifies a setting set for a particular <class>
+Modifies a setting set for a particular <class>. Note that you are only able to set existing attributes. You only need to pass the attributes you want to change. For all intensive purposes all values should be treated as either ```null``` or as a ```string```, even if they are returned as an integer.
+
+##### Example Request
+    
+    {
+        "name" : "New Name",
+        "usedisqusComments" : 1
+    }
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "name": "New Name",             // This value has changed
+            "dateFormat": "F jS, Y",
+            "timeFormat": "H:i",
+            "timezone": "America\/Chicago",
+            "defaultLanguage": "en_US",
+            "offline": "0",
+            "bcrypt_cost": "13",
+            "searchPaginationSize": "10",
+            "categoryPaginationSize": "10",
+            "contentPaginationSize": "10",
+            "autoApproveComments": "1",
+            "notifyAuthorOnComment": "1",
+            "useDisqusComments": "1",       // This value has changed
+            "disqus_shortname": null,
+            "sphinx_enabled": "0",
+            "sphinxHost": "localhost",
+            "sphinxPort": "9312",
+            "sphinxSource": null
+        }
+    }
 
 -------------------------------------------------------
 
@@ -246,10 +304,10 @@ Will retrieve all users in the system. Only authenticated users can access this 
         "message": null,
         "response": [{
             "id": "1",
-            "email": "*******",
-            "firstName": "Charles",
-            "lastName": "Portwood",
-            "displayName": "test",
+            "email": email@example.com",
+            "firstName" : "Example",
+            "lastName" : "Example",
+            "displayName" "Example",
             "about": " ",
             "user_role": "9",
             "status": "1",
@@ -257,10 +315,10 @@ Will retrieve all users in the system. Only authenticated users can access this 
             "updated": 1382800693
         }, {
             "id": "15",
-            "email": "*******",
-            "firstName": "Charles",
-            "lastName": "Portwood",
-            "displayName": "test",
+            "email": "email@example.com",
+            "firstName" : "Example",
+            "lastName" : "Example",
+            "displayName" "Example",
             "about": " ",
             "user_role": "1",
             "status": "1",

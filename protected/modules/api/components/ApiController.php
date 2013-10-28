@@ -201,4 +201,24 @@ class ApiController extends CiiController
             $this->message = $error['message'];
 	    }
     }
+
+    /**
+     * Performs an error dump with the given status code
+     * @param  int    $status    The HTTP Status Code
+     * @param  string $message   The error message
+     * @param  array  $response  The error response
+     * @return array
+     */
+    public function returnError($status, $message = NULL, $response)
+    {
+    	header('HTTP/1.1 '. $status);
+        $this->status = $status;
+
+        if ($message === NULL)
+       		$this->message = Yii::t('Api.main', 'Failed to set model attributes.');
+       	else
+       		$this->message = $message;
+
+        return $response;
+    }
 }

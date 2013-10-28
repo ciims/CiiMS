@@ -141,7 +141,7 @@ class UserController extends ApiController
 		if($user->save())
 			return $user->getAPIAttributes(array('password', 'activation_key'));
 
-		return $user->getErrors();
+		return $this->returnError(400, NULL, $user->getErrors());
 	}
 
 	/** 
