@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(-1);
-ini_set('display_errors', true);
 Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 Yii::import('application.modules.dashboard.models.*');
 class SettingController extends ApiController
@@ -186,7 +184,6 @@ class SettingController extends ApiController
 			return $this->getModelAttributes($model);
 
 		return $this->returnError(400, NULL, $model->getErrors());
-
 	}
 
 	/**

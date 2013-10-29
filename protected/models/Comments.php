@@ -148,6 +148,9 @@ class Comments extends CiiModel
         if ($content === NULL)
             return true;
         
+        if (!$this->isNewRecord)
+        	return true;
+        
         $content->comment_count = $content->getCommentCount();
         $content->save();
 
