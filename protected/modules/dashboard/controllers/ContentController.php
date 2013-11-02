@@ -156,7 +156,6 @@ class ContentController extends CiiDashboardController
 
                 $model->vid = $model2->vid-1;
                 $model->addErrors($model2->getErrors());
-                Cii::debug($model2->getErrors());
 
                 Yii::app()->user->setFlash('error',  Yii::t('Dashboard.main', 'There was an error saving your content. Please try again.'));
             }
