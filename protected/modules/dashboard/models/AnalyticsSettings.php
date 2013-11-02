@@ -182,8 +182,8 @@ class AnalyticsSettings extends CiiSettingsModel
 		return array(
 			//'AdRoll' => array('analyticsjs_AdRoll_enabled', 'analyticsjs_AdRoll_advId', 'analyticsjs_AdRoll_pixId'),
 			//'Amplitude' => array('analyticsjs_Amplitude_enabled', 'analyticsjs_Amplitude_apiKey', 'analyticsjs_Amplitude_pageview'),
-			//'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
-			'Chartbeat' => array('analyticsjs_Chartbeat_enabled', 'analyticsjs_Chartbeat_domain', 'analyticsjs_Chartbeat_uid'),
+			'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
+			//'Chartbeat' => array('analyticsjs_Chartbeat_enabled', 'analyticsjs_Chartbeat_domain', 'analyticsjs_Chartbeat_uid'),
 			//'ClickTale' => array('analyticsjs_ClickTale_enabled', 'analyticsjs_ClickTale_httpCdnUrl', 'analyticsjs_ClickTale_httpsCdnUrl', 'analyticsjs_ClickTale_projectId', 'analyticsjs_ClickTale_recordingRatio', 'analyticsjs_ClickTale_partitionId'),
 			'Clicky' => array('analyticsjs_Clicky_enabled', 'analyticsjs_Clicky_siteId'),
 			//'comScore' => array('analyticsjs_comScore_enabled', 'analyticsjs_comScore_c1', 'analyticsjs_comScore_c2'),
@@ -194,18 +194,18 @@ class AnalyticsSettings extends CiiSettingsModel
 			'Gauges' => array('analyticsjs_Gauges_enabled', 'analyticsjs_Gauges_siteId'),
 			//'Get Satisfaction' => array('analyticsjs_Get__Satisfaction_enabled', 'analyticsjs_Get__Satisfaction_widgetId'),
 			'Google Analytics' => array('analyticsjs_Google__Analytics_enabled', 'analyticsjs_Google__Analytics_anonymizeIp', 'analyticsjs_Google__Analytics_domain', 'analyticsjs_Google__Analytics_doubleClick', 'analyticsjs_Google__Analytics_enhancedLinkAttribution', 'analyticsjs_Google__Analytics_ignoreReferrer', 'analyticsjs_Google__Analytics_initialPageview', 'analyticsjs_Google__Analytics_siteSpeedSampleRate', 'analyticsjs_Google__Analytics_trackingId', 'analyticsjs_Google__Analytics_universalClient'),
-			'GoSquared' => array('analyticsjs_GoSquared_enabled', 'analyticsjs_GoSquared_siteToken'),
+			//'GoSquared' => array('analyticsjs_GoSquared_enabled', 'analyticsjs_GoSquared_siteToken'),
 			//'Heap' => array('analyticsjs_Heap_enabled', 'analyticsjs_Heap_apiKey'),
 			//'HitTail' => array('analyticsjs_HitTail_enabled', 'analyticsjs_HitTail_siteId'),
 			//'HubSpot' => array('analyticsjs_HubSpot_enabled', 'analyticsjs_HubSpot_portalId'),
 			//'Improvely' => array('analyticsjs_Improvely_enabled', 'analyticsjs_Improvely_domain', 'analyticsjs_Improvely_projectId'),
 			//'Intercom' => array('analyticsjs_Intercom_enabled', 'analyticsjs_Intercom_appId', 'analyticsjs_Intercom_activator', 'analyticsjs_Intercom_counter'),
 			//'Keen IO' => array('analyticsjs_Keen__IO_enabled', 'analyticsjs_Keen__IO_projectId', 'analyticsjs_Keen__IO_writeKey', 'analyticsjs_Keen__IO_readKey', 'analyticsjs_Keen__IO_pageview', 'analyticsjs_Keen__IO_initialPageview'),
-			'KISSmetrics' => array('analyticsjs_KISSmetrics_enabled', 'analyticsjs_KISSmetrics_apiKey'),
+			//'KISSmetrics' => array('analyticsjs_KISSmetrics_enabled', 'analyticsjs_KISSmetrics_apiKey'),
 			//'Klaviyo' => array('analyticsjs_Klaviyo_enabled', 'analyticsjs_Klaviyo_apiKey'),
 			//'LiveChat' => array('analyticsjs_LiveChat_enabled', 'analyticsjs_LiveChat_license'),
 			//'Lytics' => array('analyticsjs_Lytics_enabled', 'analyticsjs_Lytics_cid'),
-			//'Mixpanel' => array('analyticsjs_Mixpanel_enabled', 'analyticsjs_Mixpanel_nameTag', 'analyticsjs_Mixpanel_people', 'analyticsjs_Mixpanel_token', 'analyticsjs_Mixpanel_pageview', 'analyticsjs_Mixpanel_initialPageview'),
+			'Mixpanel' => array('analyticsjs_Mixpanel_enabled', 'analyticsjs_Mixpanel_nameTag', 'analyticsjs_Mixpanel_people', 'analyticsjs_Mixpanel_token', 'analyticsjs_Mixpanel_pageview', 'analyticsjs_Mixpanel_initialPageview'),
 			//'Olark' => array('analyticsjs_Olark_enabled', 'analyticsjs_Olark_siteId', 'analyticsjs_Olark_identify', 'analyticsjs_Olark_track', 'analyticsjs_Olark_pageview'),
 			//'Optimizely' => array('analyticsjs_Optimizely_enabled', 'analyticsjs_Optimizely_variations'),
 			//'Perfect Audience' => array('analyticsjs_Perfect__Audience_enabled', 'analyticsjs_Perfect__Audience_siteId'),
@@ -214,7 +214,7 @@ class AnalyticsSettings extends CiiSettingsModel
 			//'Preact' => array('analyticsjs_Preact_enabled', 'analyticsjs_Preact_projectCode'),
 			//'Qualaroo' => array('analyticsjs_Qualaroo_enabled', 'analyticsjs_Qualaroo_customerId', 'analyticsjs_Qualaroo_siteToken', 'analyticsjs_Qualaroo_track'),
 			//'Quantcast' => array('analyticsjs_Quantcast_enabled', 'analyticsjs_Quantcast_pCode'),
-			'Sentry' => array('analyticsjs_Sentry_enabled', 'analyticsjs_Sentry_config'),
+			//'Sentry' => array('analyticsjs_Sentry_enabled', 'analyticsjs_Sentry_config'),
 			//'SnapEngage' => array('analyticsjs_SnapEngage_enabled', 'analyticsjs_SnapEngage_apiKey'),
 			//'USERcycle' => array('analyticsjs_USERcycle_enabled', 'analyticsjs_USERcycle_key'),
 			//'userfox' => array('analyticsjs_userfox_enabled', 'analyticsjs_userfox_clientId'),
@@ -228,7 +228,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_Bitdeli_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_pwk_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
+			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_pwk_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
 		);
 	}
 
