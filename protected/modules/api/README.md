@@ -130,6 +130,7 @@ Retrieves a category with a given id
             "id": "147"
         }
     }
+
 #### [POST]
 Modifies a category with a given id
 
@@ -170,30 +171,251 @@ DELETE requests will permanently delete categories from the database. The only l
 ## Content [/content]
 The Content API allows users to retrieve content by a particular content_id or slug. Authenticated users with appropriate privileges can also create new pieces of content and edit existing entries.
 
-#### [GET]
-Provides a list of available pieces of content. This response is very dependant upon whether the user is authenticated or not.
+#### [GET] [/content]
+Retrieves all published and non password protected content pieces. This method supports basic Yii CListView Pagination options
 
-If the user is not authenticated, they may freely browse currently published content. This included password protected content.
+##### Example Response
 
-Authenticated users who have the appropriate permissions will also see drafts that they are currently authoring, or drafts available in the system.
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }]
+    }
 
-#### [POST]
-Allows the creation of new comment
+#### [POST] [/content]
+Creates a new entry
 
-### [/content/<id>]
+##### Example Request
 
-#### [GET]
-Users may request published content. If the content piece requires a password AND they do not have editing access to a document, the user must supply a password via GET
+    {
+        "title": " Pellentesque pretium",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+        "extract": "Pellentesque ...",
+        "status": "1",
+        "commentable": "1",
+        "parent_id": "1",
+        "category_id": "1",
+        "type_id": "2",
+        "slug": "pellentesque",
+    }
 
-	password
+##### Example Response
 
-Administrators and content creators do not have to pass this option, as they have full read access to the content piece.
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }
+    }
 
-#### [POST]
-Allows for modification of a given content piece
+#### [GET] [/content/<id>]
+Retrieves a given content by it's id. This method supports basic Yii CListView Pagination options
 
-#### [DELETE]
-Permanently deletes a content peice from the database
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }
+    }
+
+#### [POST] [/content/<id>]
+Creates a given entry
+
+##### Example Request
+
+    {
+        "title": " Pellentesque pretium",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+        "extract": "Pellentesque ...",
+        "status": "1",
+        "commentable": "1",
+        "parent_id": "1",
+        "category_id": "1",
+        "type_id": "2",
+        "slug": "pellentesque",
+    }
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }
+    }
+
+#### [DELETE] [/content/<id>]
+Deletes a given entry
+
+#### [GET] [/content/drafts]
+Retrieves all drafts in the system. Administrators only
+
+##### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }]
+    }
+
+#### [GET] [/content/my]
+Retrieves all entries for the active user
+
+##### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }]
+    }
+
+#### [GET] [/content/mydrafts]
+Retrieves all drafts for the active user
+
+##### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "9",
+            "vid": "5",
+            "author_id": "1",
+            "title": " Pellentesque pretium",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...",
+            "extract": "Pellentesque ...",
+            "status": "1",
+            "commentable": "1",
+            "parent_id": "1",
+            "category_id": "1",
+            "type_id": "2",
+            "slug": "pellentesque",
+            "published": 1383426871,
+            "created": 1383426871,
+            "updated": 1383426871
+        }]
+    }
+
+#### [GET] [/content/tag/<id>]
+Retrives all tags for a given entry.
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": ["Lorem", "ipsum"]
+    }
+
+#### [POST] [/content/tag/<id>]
+Adds a new tag to a given entry
+
+##### Example Request
+    {
+        "tag" : "test"
+    }
+
+##### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": ["Lorem", "ipsum", "test"]
+    }
+    
+#### [DELETE] [/content/tag/id/<id>/tag/<tag>]
+Deletes <tag> for the given entry
 
 -------------------------------------------------------
 
@@ -203,14 +425,87 @@ The Comment API allows users to post and edit comments created by them, and for 
 #### [POST]
 Allows the creation of new comments
 
+##### Example Request
+
+    {
+        "comment" : "My new comment"  
+    }
+
+#### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "1",
+            "content_id": "8",
+            "user_id": "1",
+            "parent_id": "0",
+            "comment": "My new comment",
+            "approved": "1",
+            "created": 1383005227,
+            "updated": 1383005688
+        }
+    }
+
+### [/comment/comments/id/<id>]
+
+Retrieves comments for a particular content entry
+
+#### [GET]
+
+#### Example Response
+    {
+        "status": 200,
+        "message": null,
+        "response": [{
+            "id": "1",
+            "content_id": "8",
+            "user_id": "1",
+            "parent_id": "0",
+            "comment": "test",
+            "approved": "0",
+            "created": 1383005227,
+            "updated": 1383005688
+        }, {
+            "id": "2",
+            "content_id": "8",
+            "user_id": "1",
+            "parent_id": "1",
+            "comment": "test",
+            "approved": "1",
+            "created": 1383006640,
+            "updated": 1383006640
+        }]
+    }
+
 ### [/comment/<id>/]
 Allows for the manipulation of existing comments
 
-#### [GET]
-Retrieves a comment with a given id
-
 #### [POST]
 Updates a comment with a given id
+
+##### Example Request
+
+    {
+        "comment" : "My new comment2"  
+    }
+
+##### Example Response
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "id": "1",
+            "content_id": "8",
+            "user_id": "1",
+            "parent_id": "0",
+            "comment": "My new comment2",
+            "approved": "1",
+            "created": 1383005227,
+            "updated": 1383005688
+        }
+    }
 
 #### [DELETE]
 Permanently deletes a content with a given id
