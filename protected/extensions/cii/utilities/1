@@ -185,8 +185,9 @@ class Cii {
         }
 
         $providers['CiiMS'] = array(
-            'endpoint' => '/api'
+            'endpoint' => Yii::app()->getAbsoluteBaseUrl(true)
         );
+        Cii::debug($providers); die();
         return $providers;
     }
 

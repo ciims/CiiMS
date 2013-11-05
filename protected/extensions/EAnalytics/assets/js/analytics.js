@@ -4025,6 +4025,7 @@ module.exports = [
   require('./amplitude'),
   require('./bitdeli'),
   require('./bugherd'),
+  require('./ciims'),
   require('./chartbeat'),
   require('./clicktale'),
   require('./clicky'),
@@ -4799,6 +4800,76 @@ module.exports = Provider.extend({
   }
 
 });
+});
+
+require.register("analytics/src/providers/ciims.js", function(Exports, require, module) {
+  var Provider  = require('../provider')
+    , load      = require('load-script')
+    , type      = require('type')
+    , url       = require('url')
+    , canonical = require('canonical');
+
+    module.exports = Provider.extend({
+        name : 'CiiMS',
+
+        defaults : {
+            'endpoint' : '/api'
+        },
+
+        initialize : function(options, ready) {
+          ready();
+            var request = { 
+                'event'     : "_pageview",
+                'uri'        : window.location.pathname.slice(1),
+                'page_title' : document.title,
+            };
+
+            this._runEventTrigger(request, options);            
+        },
+
+        pageview : function(url) {
+            if (url == "undefined" || url == undefined || url == "")
+              url = window.location.pathname.slice(1)
+            var request = { 
+                'event'     : "_pageview",
+                'uri'        : url,
+                'page_title' : null,
+            };
+
+            this._runEventTrigger(request, this.defaults);
+        },
+
+        track : function (event, properties) {
+            var request = { 
+                'event'      : event,
+                'uri'        : properties == undefined || properties.uri == undefined ? window.location.pathname.slice(1) : properties.uri,
+                'page_title' : null,
+                'event_data' : properties == undefined ? null : properties
+            };
+
+            this._runEventTrigger(request, this.defaults);
+        },
+
+        _runEventTrigger : function(request, options) {
+            if (request.uri == "")
+                request.uri ="/";
+
+            var str = this.serialize(request);
+
+            load("//" + window.location.host + options.endpoint + '/event?' + str); 
+        },
+
+        serialize: function(obj, prefix) {
+            var str = [];
+            for(var p in obj) {
+                var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
+                str.push(typeof v == "object" ? 
+                    this.serialize(v, k) :
+                    encodeURIComponent(k) + "=" + encodeURIComponent(v));
+            }
+            return str.join("&");
+        }
+    });
 });
 
 require.register("analytics/src/providers/piwik.js", function(Exports, require, module) {

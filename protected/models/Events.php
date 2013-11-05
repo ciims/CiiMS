@@ -29,7 +29,8 @@ class Events extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'numerical', 'integerOnly'=>true),
+            array('event, uri', 'required'),
+			array('id, content_id', 'numerical', 'integerOnly'=>true),
 			array('event, uri, page_title', 'length', 'max'=>255),
 			array('event_data, created', 'safe'),
 			// The following rule is used by search().
@@ -49,9 +50,16 @@ class Events extends CiiModel
 			'event_data' => 'Event Data',
 			'uri' => 'URI',
 			'page_title' => 'Page Title',
+            'content_id' => 'Content ID',
 			'created' => 'Created',
 		);
 	}
+
+    public function beforeValidate()
+    {
+        $this->event_data = CJSON::encode($this->event_data);
+        return parent::beforeValidate();
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -76,6 +84,7 @@ class Events extends CiiModel
 		$criteria->compare('event_data',$this->event_data,true);
 		$criteria->compare('uri',$this->uri,true);
 		$criteria->compare('page_title',$this->page_title,true);
+		$criteria->compare('content_id',$this->content_id,true);
 		$criteria->compare('created',$this->created,true);
 
 		return new CActiveDataProvider($this, array(
