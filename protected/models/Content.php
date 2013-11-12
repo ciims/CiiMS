@@ -486,7 +486,7 @@ class Content extends CiiModel
         {
             $model = new ContentMetadata();
             $model->content_id = $this->id;
-            $model->key = 'layout';
+            $model->key = 'view';
         }
         
         // If this is an existing record, and we're changing it to blog, delete it instead of saving.
