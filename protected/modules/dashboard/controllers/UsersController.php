@@ -58,7 +58,7 @@ class UsersController extends CiiSettingsController
 					{
 						// Prevent new API keys from being generated
 						$k = str_replace('api_key', '', str_replace(' ', '_', str_replace('__new', '', $k)));
-						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, value, user_id, created, updated) VALUES (:key, :value, :id, NOW(), NOW())');
+						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, value, user_id, created, updated) VALUES (:key, :value, :id, UTC_TIMESTAMP(), UTC_TIMESTAMP())');
 						$command->bindParam(':value', $v);
 					}
 					else if ($v == "" && $k)
@@ -68,7 +68,7 @@ class UsersController extends CiiSettingsController
 					else
 					{
 						// And updated
-						$command = $connection->createCommand('UPDATE user_metadata SET value = :value, updated = NOW() WHERE `key` = :key AND user_id = :id');
+						$command = $connection->createCommand('UPDATE user_metadata SET value = :value, updated = UTC_TIMESTAMP() WHERE `key` = :key AND user_id = :id');
 						$command->bindParam(':value', $v);
 					}
 
@@ -125,8 +125,8 @@ class UsersController extends CiiSettingsController
 			'lastName' => '',
 		);
 
-		$user->created = new CDbExpression('NOW()');
-		$user->updated =  new CDbExpression('NOW()');
+		$user->created = new CDbExpression('UTC_TIMESTAMP()');
+		$user->updated =  new CDbExpression('UTC_TIMESTAMP()');
 
 		// Save the user, and ignore all validation
 		if ($user->save(false))

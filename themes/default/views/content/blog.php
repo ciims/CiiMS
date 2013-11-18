@@ -22,7 +22,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="blog-meta inline">
-				<span class="date"><?php echo Cii::formatDate($content->published); ?></span>
+				<span class="date"><?php echo Cii::timeAgo($content->published); ?></span>
 				<span class="separator">⋅</span>
 				<span class="blog-author minor-meta">
 					<?php

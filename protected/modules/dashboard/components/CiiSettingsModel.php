@@ -242,7 +242,7 @@ class CiiSettingsModel extends CFormModel
 			try {
 				foreach($this->attributes as $key=>$value)
 				{
-					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, UTC_TIMESTAMP(), UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE value = :value2, updated = UTC_TIMESTAMP()');
 					$command->bindParam(':key', $key);
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);

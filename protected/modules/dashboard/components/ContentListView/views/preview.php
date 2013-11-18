@@ -26,7 +26,7 @@
 				)); ?>
 				<span class="separator">⋅</span> 
 			</span>
-			<span class="date"><?php echo Cii::formatDate($model->published) ?>
+			<span class="date"><?php echo Cii::timeAgo($content->published); ?>
 				<span class="separator">⋅</span> 
 			</span>
 			<span class="separator">⋅</span>

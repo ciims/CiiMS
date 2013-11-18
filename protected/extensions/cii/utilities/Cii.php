@@ -110,6 +110,33 @@ class Cii {
 
 		return date($format, strtotime($date));
 	}
+
+    /**
+     * Automatically handles TimeAgo for UTC
+     *
+     * @param  mxied  $date   Likely a string in date format (of some kind)
+     * @param  string $format The format we want to FORCE the dts to be formatted to
+     *                        If this isn't supplied, we'll pull it from Cii::getConfig()
+     * @return CHtml:tag span element
+     */
+    public static function timeago($date, $format = NULL)
+    {
+        Yii::app()->controller->widget('ext.timeago.JTimeAgo', array(
+            'selector' => ' .timeago',
+        ));
+
+       return CHtml::tag(
+            'span',
+            array(
+                'class'=>"timeago",
+                'style'=>'text-decoration:none; cursor: default', // Post processing class application
+                'rel'=>'tooltip',
+                'data-original-title'=>Cii::formatDate($date, $format),
+                'title'=>CTimestamp::formatDate('c', strtotime($date))
+            ),
+            Cii::formatDate($date, $format)
+        );
+    }
 	
     /**
      * Retrieves Analytics.js Providers

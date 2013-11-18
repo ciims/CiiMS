@@ -85,7 +85,7 @@ class SiteController extends CiiSiteController
 		header('Content-type: text/xml; charset=utf-8');
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
 		$this->setLayout(null);
-		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
+		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= UTC_TIMESTAMP();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
 		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories, 'url' => $url));
 		//Yii::app()->end();
@@ -170,7 +170,7 @@ class SiteController extends CiiSiteController
 		{	
 			$criteria = new CDbCriteria;
 			$criteria->addCondition('status = 1')
-		         	 ->addCondition('published <= NOW()');
+		         	 ->addCondition('published <= UTC_TIMESTAMP()');
 
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{

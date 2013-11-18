@@ -45,7 +45,7 @@ class CiiModel extends CActiveRecord
 
             if ($k == 'created' || $k == 'updated' || $k == 'published') 
             {
-                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'NOW()')
+                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UTC_TIMESTAMP()')
                     $attributes[$k] = time();
                 else
                     $attributes[$k] = strtotime($v);
@@ -101,11 +101,11 @@ class CiiModel extends CActiveRecord
 		if ($this->hasAttribute('created'))
 		{
 	        if ($this->isNewRecord)
-	            $this->created = new CDbExpression('NOW()');
+	            $this->created = new CDbExpression('UTC_TIMESTAMP()');
 		}
 
 		if ($this->hasAttribute('updated'))
-       		$this->updated = new CDbExpression('NOW()');
+       		$this->updated = new CDbExpression('UTC_TIMESTAMP()');
 
        	return parent::beforeValidate();
 	}

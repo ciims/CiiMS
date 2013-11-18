@@ -166,7 +166,7 @@ class CiiCard extends CiiSettingsModel
 		// Set the id of the new object
 		$this->id = $rnd_id;
 
-		return Yii::app()->db->createCommand("INSERT INTO `cards` VALUES (NULL, :name, :uid, :data, NOW()); ")
+		return Yii::app()->db->createCommand("INSERT INTO `cards` VALUES (NULL, :name, :uid, :data, UTC_TIMESTAMP()); ")
 				  ->bindParam(':name', $id)
 				  ->bindParam(':uid', $rnd_id)
 				  ->bindParam(':data', $data)
@@ -318,12 +318,12 @@ class CiiCard extends CiiSettingsModel
 					if (strpos($key, 'global_') !== false)
 					{
 						$PDOKey  = get_class($this).'_'.$key;
-						$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, :entity_type, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, entity_type = :entity_type, updated = NOW()');
+						$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, :entity_type, UTC_TIMESTAMP(), UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE value = :value2, entity_type = :entity_type, updated = UTC_TIMESTAMP()');
 					}
 					else
 					{
 						$PDOKey  = $this->id . '_' . $key;
-						$command = $connection->createCommand('INSERT INTO `user_metadata` VALUES (:uid, :key, :value, :entity_type, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, entity_type = :entity_type, updated = NOW()')->bindParam(':uid', $uid);
+						$command = $connection->createCommand('INSERT INTO `user_metadata` VALUES (:uid, :key, :value, :entity_type, UTC_TIMESTAMP(), UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE value = :value2, entity_type = :entity_type, updated = UTC_TIMESTAMP()')->bindParam(':uid', $uid);
 					}
 					
 					$command->bindParam('entity_type', $entity_type);

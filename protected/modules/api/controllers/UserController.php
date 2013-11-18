@@ -182,8 +182,8 @@ class UserController extends ApiController
 
 		$user->attributes = $_POST;
 
-		$user->created = new CDbExpression('NOW()');
-		$user->updated =  new CDbExpression('NOW()');
+		$user->created = new CDbExpression('UTC_TIMESTAMP()');
+		$user->updated =  new CDbExpression('UTC_TIMESTAMP()');
 
 		// Save the user, and ignore all validation
 		if ($user->save(false))

@@ -214,7 +214,7 @@ class Content extends CiiModel
 		$criteria = new CDbCriteria();
 		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
 		         		->addCondition('status = 1')
-		         		->addCondition('NOW() >= published');
+		         		->addCondition('UTC_TIMESTAMP() >= published');
 	}
 
 	/**
@@ -359,7 +359,7 @@ class Content extends CiiModel
 	   	
 	   	// Allow publication times to be set automatically
 		if ($this->published == NULL)
-			$this->published = new CDbExpression('NOW()');
+			$this->published = new CDbExpression('UTC_TIMESTAMP()');
 		
 		if (strlen($this->extract) == 0)
     		$this->extract = $this->myTruncate($this->content, 250, '.', '');
@@ -382,9 +382,9 @@ class Content extends CiiModel
         $this->category_id = 1;
         $this->type_id = 0;
         $this->password = '';
-        $this->created = new CDbExpression('NOW()');
-        $this->updated = new CDbExpression('NOW()');
-        $this->published = new CDbExpression('NOW()');
+        $this->created = new CDbExpression('UTC_TIMESTAMP()');
+        $this->updated = new CDbExpression('UTC_TIMESTAMP()');
+        $this->published = new CDbExpression('UTC_TIMESTAMP()');
         $this->vid = 0;
         $this->author_id = Yii::app()->user->id;
         return $this->save(false);
