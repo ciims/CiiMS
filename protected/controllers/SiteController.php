@@ -223,7 +223,7 @@ class SiteController extends CiiSiteController
 			$model->attributes=$_POST['LoginForm'];
             
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect(isset($_GET['next']) ? $_GET['next'] : Yii::app()->user->returnUrl);
 		}
         
 		$this->render('login',array('model'=>$model));
