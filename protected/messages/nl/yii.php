@@ -19,6 +19,7 @@
 return array (
   '&lt; Previous' => '',
   '&lt;&lt; First' => '',
+  'Action class {class} must implement the "run" method.' => '',
   'CApcCache requires PHP apc extension to be loaded.' => '',
   'CMemCache server configuration must be an array.' => '',
   'CMemCache server configuration must have "host" value.' => '',

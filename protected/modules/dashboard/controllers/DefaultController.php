@@ -16,6 +16,11 @@ class DefaultController extends CiiDashboardController
             else 
                 $this->render('error', array('error' => $error));     
 	    }
+        else
+        {
+            Yii::app()->user->setFlash('error_code', Yii::t('Dashboard.main', 'You do not have permission to access the dashboard.'));
+            $this->redirect($this->createUrl('/error/403'));
+        }
     }
 
     /**

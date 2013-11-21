@@ -17,15 +17,12 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  '&lt; Previous' => '',
-  '&lt;&lt; First' => '',
-  'Action class {class} must implement the "run" method.' => '',
-  'CApcCache requires PHP apc extension to be loaded.' => '',
-  'CMemCache server configuration must be an array.' => '',
-  'CMemCache server configuration must have "host" value.' => '',
-  'Go to page: ' => '',
-  'Last &gt;&gt;' => '',
-  'Next &gt;' => '',
-  'The "forceCopy" and "linkAssets" cannot be both true.' => '',
-  'The asset "{asset}" to be published does not exist.' => '',
+  'By {{author}} under {{category}}' => '',
+  'Failed to set model attributes.' => '',
+  'Only active users can access the API.' => '',
+  'Proudly Published with {{CiiMS}} - {{Spectre}}' => '',
+  'Recent Posts' => '',
+  'Request payload not properly formed JSON.' => '',
+  'Search' => '',
+  'Submit' => '',
 );

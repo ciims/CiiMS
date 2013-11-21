@@ -82,7 +82,8 @@ class CiiURLManager extends CUrlManager
 		'/dashboard'					=> '/dashboard',
 		'/dashboard/content/<page:\d+>'	=> '/dashboard/content',
 		'/acceptinvite'					=> '/site/acceptinvite',
-		'/acceptinvite/<id:\w+>'		=> '/site/acceptinvite'
+		'/acceptinvite/<id:\w+>'		=> '/site/acceptinvite',
+		'/error/<code:\w+>' 			=> '/site/error'
 	);
 
 	/**

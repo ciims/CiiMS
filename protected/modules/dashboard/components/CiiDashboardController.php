@@ -54,6 +54,7 @@ class CiiDashboardController extends CiiController
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
+				'deniedCallback' => array($this, 'actionError')
 			),
 		);
 	}

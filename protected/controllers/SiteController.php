@@ -36,7 +36,7 @@ class SiteController extends CiiSiteController
 	/**
 	 * This is the action to handle external exceptions.
 	 */
-	public function actionError()
+	public function actionError($code=NULL, $message=NULL)
 	{
 		$this->layout = '//layouts/main';
 
@@ -57,6 +57,8 @@ class SiteController extends CiiSiteController
 				$this->render('error', array('error'=>$error));
 			}
 		}
+		else
+			throw new CHttpException($code, Yii::app()->user->getFlash('error_code'));
 	}
 
 	/**

@@ -17,7 +17,7 @@ class DashboardModule extends CWebModule
 		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets.js'), true, -1, YII_DEBUG);
 		Yii::app()->setComponents(array(
             'errorHandler' => array(
-            	'errorAction'  => 'dashboard/default/error',
+            	'errorAction'  => '//dashboard/default/error',
         	),
             'messages' => array(
                 'class' => 'ext.cii.components.CiiPHPMessageSource',
