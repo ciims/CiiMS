@@ -36,6 +36,7 @@ class CategoriesController extends CiiSettingsController
 		if(Cii::get($_POST, 'Categories') !== NULL)
 		{
 			$model->attributes = Cii::get($_POST, 'Categories', array());
+            $model->description = Cii::get(Cii::get($_POST, 'Categories', array()), 'description', NULL);
 			if($model->save())
 			{
 				Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been updated'));
