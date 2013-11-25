@@ -102,8 +102,8 @@ class CategoriesController extends CiiSiteController
 		$criteria->offset = $criteria->limit*($pages->getCurrentPage());			
 		$data = Content::model()->findAll($criteria);
 		$pages->applyLimit($criteria);		
-		
-		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+
+		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages, 'meta' => array('description' => $category->getDescription())));
 	}
 	
 	/**

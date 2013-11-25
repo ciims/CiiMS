@@ -129,7 +129,8 @@ class ContentController extends CiiSiteController
 			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
 			'{{label}}'    => $content->title
 		)));
-	
+
+        $this->params['meta']['description'] = $content->extract;	
 		$this->render($content->view, array(
 				'id'=>$id, 
 				'data'=>$content, 

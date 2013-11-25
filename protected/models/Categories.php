@@ -136,9 +136,9 @@ class Categories extends CiiModel
      * Gets keyword tags for this entry
      * @return array
      */
-    public function getTags()
+    public function getKeywords()
     {
-        $tags = CategoriesMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
+        $tags = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
         return $tags === NULL ? array() : CJSON::decode($tags->value);
     }
     
@@ -155,7 +155,7 @@ class Categories extends CiiModel
         
         $tags[] = $tag;
         $tags = CJSON::encode($tags);
-        $metaTag = CategoriesMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
+        $metaTag = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
         if ($metaTag == false || $metaTag == NULL)
         {
             $metaTag = new CategoriestMetadata;
@@ -181,6 +181,10 @@ class Categories extends CiiModel
         $key = array_search($tag, $tags);
         unset($tags[$key]);
         $tags = CJSON::encode($tags);
+
+        $metaTag = CategoryMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+        $metaTag->value = $tags;
+        return $metaTag->save();
     }    
 	
 	/**
