@@ -62,7 +62,7 @@
 							)); ?>
 							<span class="separator">⋅</span> 
 						</span>
-						<span class="date"><?php echo Cii::formatDate($model->published) ?>
+						<span class="date"><?php echo Cii::timeago($model->published); ?>
 							<span class="separator">⋅</span> 
 						</span>
 						<span class="separator">⋅</span>
@@ -92,6 +92,7 @@
 			</div>
 			<div class="pure-control-group date form_datetime">
 				<?php echo !$canPublish ? NULL : $form->textFieldRow($model, 'published', $htmlOptions); ?>
+				<?php echo CHtml::hiddenField('timezone', NULL); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
@@ -136,4 +137,5 @@
 				 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
+				 ->registerScriptFile($this->asset.'/js/jstz.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/datepicker/js/bootstrap-datetimepicker.min.js', CClientScript::POS_END); ?>

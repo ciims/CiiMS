@@ -125,7 +125,11 @@ class ContentController extends CiiDashboardController
             $model2->created    = $_POST['Content']['created'];
             $model2->commentable= Cii::get($_POST['Content'], 'commentable', 1);
             $model2->type_id    = Cii::get($_POST['Content'], 'type_id', 2);
-            $model2->published  = Cii::get($_POST['Content'], 'publiished', NULL);
+
+            $model2->published  = Cii::get($_POST['Content'], 'published', NULL);
+            $time = strtotime($model2->published . $_POST['timezone']);
+            $published = date('Y-m-d H:i:s', $time);
+            $model2->published = $published;
 
             if ($model->author_id != Yii::app()->user->id)
                 $model2->author_id = $model->author_id;

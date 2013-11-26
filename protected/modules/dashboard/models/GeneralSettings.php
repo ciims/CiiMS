@@ -8,8 +8,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $timeFormat = 'H:i';
 
-	protected $timezone = "UTC";
-
 	protected $defaultLanguage = 'en_US';
 
 	//protected $url = NULL;
@@ -53,7 +51,7 @@ class GeneralSettings extends CiiSettingsModel
 			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
-			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'timezone', 'defaultLanguage'),
+			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 		);
 	}
@@ -65,9 +63,9 @@ class GeneralSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('name, dateFormat, timeFormat, timezone, defaultLanguage', 'required'),
+			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
-			array('dateFormat, timeFormat, timezone, defaultLanguage', 'length', 'max' => 25),
+			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
 			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
@@ -87,7 +85,6 @@ class GeneralSettings extends CiiSettingsModel
 			'name' => Yii::t('Dashboard.models-general', 'Site Name'),
 			'dateFormat' => Yii::t('Dashboard.models-general', 'Date Format'),
 			'timeFormat' => Yii::t('Dashboard.models-general', 'Time Format'),
-			'timezone' => Yii::t('Dashboard.models-general', 'Timezone'),
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
 			//'url' => Yii::t('Dashboard.models-general', 'Site URL'),
 			//'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
