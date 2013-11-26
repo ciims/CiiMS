@@ -2,11 +2,17 @@
 
 class DefaultController extends CiiDashboardController
 {
+    /**
+     * Index action to render dashboard + cards
+     */
 	public function actionIndex()
 	{
 		$this->render('index', array('cards' => $this->getCards()));
 	}
 
+    /**
+     * Handles errors
+     */
 	public function actionError()
     {
 	    if($error=Yii::app()->errorHandler->error)
@@ -18,6 +24,9 @@ class DefaultController extends CiiDashboardController
 	    }
         else
         {
+            if (Yii::app()->user->isGuest)
+                $this->redirect($this->createUrl('/login'));
+
             Yii::app()->user->setFlash('error_code', Yii::t('Dashboard.main', 'You do not have permission to access the dashboard.'));
             $this->redirect($this->createUrl('/error/403'));
         }
