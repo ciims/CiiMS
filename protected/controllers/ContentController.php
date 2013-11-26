@@ -12,7 +12,7 @@ class ContentController extends CiiSiteController
         
         if ($id != NULL)
 		{
-			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id', $id)->queryScalar();
+			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = :id2 AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id2', $id)->bindParam(':id', $id)->queryScalar();
 			$theme = Cii::getConfig('theme', 'default');
 			
 			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
@@ -51,7 +51,7 @@ class ContentController extends CiiSiteController
 				'actions' => array('index', 'password', 'list', 'rss'),
 				'users'=>array('*'),
 			),
-			array('allow',  // deny all users
+			array('allow',  // Allow authenticated users to like stuff
 				'actions' => array('like'),
 				'users'=>array('@'),
 			),
@@ -66,7 +66,7 @@ class ContentController extends CiiSiteController
 	 * protecting it from possible attacks.
 	 * @param $id	- The content ID we want to verify before proceeding
 	 **/
-	private function beforeCiiAction($id)
+	private function beforeCiiAction($id=NULL)
 	{
 		// If we do not have an ID, consider it to be null, and throw a 404 error
 		if ($id == NULL)
@@ -86,7 +86,7 @@ class ContentController extends CiiSiteController
 		if ($requestUri == $route)
 			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The requested post cannot be found.'));
         
-        return str_replace($r->baseUrl, '', $r->requestUri);;
+        return str_replace($r->baseUrl, '', $r->requestUri);
 	}
 	
 	/**
@@ -97,32 +97,26 @@ class ContentController extends CiiSiteController
 	 **/
 	public function actionIndex($id=NULL)
     {
-		// Run a pre check of our data
-		$requestUri = $this->beforeCiiAction($id);
-		
-        // Set the ReturnURL to this page so that the user can be redirected back to her after login
-        Yii::app()->user->setReturnUrl($requestUri);
+        // Set the ReturnURL to this page so that the user can be redirected back to here after login
+        Yii::app()->user->setReturnUrl($this->beforeCiiAction($id));
         
 		// Retrieve the data
-		$content = Content::model()->with('category')->findByPk($id);
+		$content = Content::model()->findByPk($id);
 
-		if ($content->status != 1 || strtotime($content->published) > time())
+		if ($content->status != 1 || !$content->isPublished())
 			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The article you specified does not exist. If you bookmarked this page, please delete it.'));
-        
-		$this->breadcrumbs = array_merge(Categories::model()->getParentCategories($content['category_id']), array($content['title']));
 		
 		// Check for a password
-		if ($content->attributes['password'] != '')
+		if ($content->password != '' || Cii::decrypt($content->password) != '')
 		{
 			// Check SESSION to see if a password is set
 			$tmpPassword = Cii::get(Cii::get(Cii::get($_SESSION, 'password', array()), $id, array()), 'password', NULL);
 			
-			if ($tmpPassword != $content->attributes['password'])
+			if ($tmpPassword != $content->password)
 				$this->redirect(Yii::app()->createUrl('/content/password/' . $id));
 		}
 		
 		// Parse Metadata
-		$meta = Content::model()->parseMeta($content->metadata);
 		$this->setLayout($content->layout);
 		
 		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
@@ -132,11 +126,10 @@ class ContentController extends CiiSiteController
 
         $this->params['meta']['description'] = $content->extract;	
 		$this->render($content->view, array(
-				'id'=>$id, 
+				'id'=>$content->id, 
 				'data'=>$content, 
-				'meta'=>$meta,
-				'comments'=>Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
-				'model'=>Comments::model()
+				'meta'=>$content->parseMeta($content->metadata),
+				'comments'=> Cii::getConfig('useDisqusComments') ? NULL : Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
 			)
 		);
 	}
