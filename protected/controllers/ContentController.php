@@ -32,6 +32,11 @@ class ContentController extends CiiSiteController
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
                     'etagSeed'=> YII_DEBUG ? mt_rand() : $eTag
                 ),
+                array(
+                    'COutputCache + index',
+                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+                    'varyByParam' => array('id')
+                )
             );
 		}
 
