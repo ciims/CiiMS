@@ -18,6 +18,7 @@
  */
 return array (
   'Created' => '',
+  'Description' => '',
   'ID' => '',
   'Name' => '',
   'Parent' => '',

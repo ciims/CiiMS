@@ -10,11 +10,9 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $defaultLanguage = 'en_US';
 
-	//protected $url = NULL;
+	protected $enableAPI = false;
 
 	protected $offline = 0;
-
-	//protected $preferMarkdown = 1;
 
 	protected $bcrypt_cost = 13;
 
@@ -48,7 +46,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
@@ -66,7 +64,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments, enableAPI', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -86,10 +84,8 @@ class GeneralSettings extends CiiSettingsModel
 			'dateFormat' => Yii::t('Dashboard.models-general', 'Date Format'),
 			'timeFormat' => Yii::t('Dashboard.models-general', 'Time Format'),
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
-			//'url' => Yii::t('Dashboard.models-general', 'Site URL'),
-			//'subdomain' => Yii::t('Dashboard.models-general', 'CiiMS Subdomain'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
-			//'preferMarkdown' => Yii::t('Dashboard.models-general', 'Use Markdown'),
+			'enableAPI' => Yii::t('Dashboard.models-general', 'Enable API'),
 			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
 			'searchPaginationSize' => Yii::t('Dashboard.models-general', 'Search Post Count'),
 			'categoryPaginationSize' => Yii::t('Dashboard.models-general', 'Category Post Count'),

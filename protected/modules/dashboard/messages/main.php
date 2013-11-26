@@ -25,4 +25,5 @@ return array (
   'Request payload not properly formed JSON.' => '',
   'Search' => '',
   'Submit' => '',
+  'The CiiMS API is not enabled.' => '',
 );

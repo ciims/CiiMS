@@ -128,20 +128,27 @@ class ApiController extends CiiController
     /**
      * BeforeAction, validates that there is a valid response body
      * @param  CAction $action    The action we want to run
-     * @return [type]         [description]
      */
     public function beforeAction($action)
     {
+        if (Cii::getConfig('enableAPI') != true)
+        {
+            header('HTTP/1.1 403 Access Denied');
+            $this->status = 403;
+            $this->message = Yii::t('Api.main', 'The CiiMS API is not enabled.');
+            return null;
+        }
+
 		// If content was sent as application/x-www-form-urlencoded, use it. Otherwise, assume raw JSON was sent and convert it into
 		// the $_POST variable for ease of use
 		if (Yii::app()->request->rawBody != "" && empty($_POST)) 
 		{
-			// IF the rawBody is malformed, throw an HTTP 500 error
-			json_decode(Yii::app()->request->rawBody);
+			// IF the rawBody is malformed, throw an HTTP 500 error. Use json_encode so that we can get json_last_error
+			$_POST = json_decode(Yii::app()->request->rawBody);
  			if (json_last_error() != JSON_ERROR_NONE)
  			{
- 				header('HTTP/1.1 500 Internal Server Error');
- 				$this->status = 500;
+ 				header('HTTP/1.1 400 Bad Request');
+ 				$this->status = 400;
  				$this->message = Yii::t('Api.main', 'Request payload not properly formed JSON.');
  				return null;
  			}

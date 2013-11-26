@@ -18,7 +18,6 @@
  */
 return array (
   'An administrator at {{blog}} has invited you to collaborate at their site at {{site}}. To accept this invitation and to setup your account, click the following link {{link}}.' => '',
-  'CiiMS Email Change Notification' => '',
   'CiiMS Test Email' => '',
   'Hello {{user}},' => '',
   'Hello,' => '',
@@ -30,4 +29,5 @@ return array (
   'This a security notification from CiiMS. A request has been made on your behalf to change the email address associated to your account.' => '',
   'You\'ve Been Invited To Join a Blog!' => '',
   '{{sitename}} Management' => '',
+  'CiiMS Email Change Notification' => '@@@@',
 );

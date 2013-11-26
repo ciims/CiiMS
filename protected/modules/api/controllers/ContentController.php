@@ -287,7 +287,7 @@ class ContentController extends ApiController
         $response = array();
         foreach ($model->search()->getData() as $content)
         {
-            if ($content->isPublished() && $content->password != "")
+            if ($content->isPublished() && ($content->password == "" || Cii::decrypt($content->password) == ""))
                 $response[] = $content->getApiAttributes($attributes);
         }
 

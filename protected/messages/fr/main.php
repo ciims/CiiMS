@@ -17,9 +17,13 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Oh Snap! Something went wrong. Please try again later.' => '',
-  'Unable to bind new user locally' => '',
-  'We were able to authenticate you against the remote network, but could not sign you in locally.' => '',
-  'You chose OpenID but didn\'t provide an OpenID identifier' => '',
-  'You haven\'t supplied a provider' => '',
+  'Failed to set model attributes.' => '',
+  'Only active users can access the API.' => '',
+  'Request payload not properly formed JSON.' => '',
+  'The CiiMS API is not enabled.' => '',
+  'Oh Snap! Something went wrong. Please try again later.' => '@@@@',
+  'Unable to bind new user locally' => '@@@@',
+  'We were able to authenticate you against the remote network, but could not sign you in locally.' => '@@@@',
+  'You chose OpenID but didn\'t provide an OpenID identifier' => '@@@@',
+  'You haven\'t supplied a provider' => '@@@@',
 );
