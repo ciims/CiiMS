@@ -50,6 +50,8 @@ class UsersController extends CiiSettingsController
 			{
 				$connection = Yii::app()->db;
 				$transaction = $connection->beginTransaction();
+				$rollback = false;
+				$messge = NULL;
 
 				foreach (Cii::get($_POST, 'UserMetadata') as $k=>$v)
 				{
@@ -58,7 +60,7 @@ class UsersController extends CiiSettingsController
 					{
 						// Prevent new API keys from being generated
 						$k = str_replace('api_key', '', str_replace(' ', '_', str_replace('__new', '', $k)));
-						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, value, user_id, created, updated) VALUES (:key, :value, :id, UTC_TIMESTAMP(), UTC_TIMESTAMP())');
+						$command = $connection->createCommand('INSERT INTO user_metadata (`key`, `value`, user_id, created, updated) VALUES (:key, :value, :id, UTC_TIMESTAMP(), UTC_TIMESTAMP())');
 						$command->bindParam(':value', $v);
 					}
 					else if ($v == "" && $k)
@@ -68,22 +70,29 @@ class UsersController extends CiiSettingsController
 					else
 					{
 						// And updated
-						$command = $connection->createCommand('UPDATE user_metadata SET value = :value, updated = UTC_TIMESTAMP() WHERE `key` = :key AND user_id = :id');
+						$command = $connection->createCommand('UPDATE user_metadata SET `value` = :value, updated = UTC_TIMESTAMP() WHERE `key` = :key AND user_id = :id');
 						$command->bindParam(':value', $v);
 					}
 
+					$k = (string)$k;
 					$command->bindParam(':key', $k);
 					$command->bindParam(':id', $id);
 					try {
 						$ret = $command->execute();
 					} catch (Exception $e) {
 						$transaction->rollBack();
+						$message = $e->getMessage();
+						$rollback = true;
 						break;
 					}
 				}
 
 				// Allow metadata to be saved independently of the actual model
-				$transaction->commit();
+				if (!$rollback)
+					$transaction->commit();
+				else
+					Yii::app()->user->setFlash('error', $message);
+
 			}
 
 			if($model->save()) 
