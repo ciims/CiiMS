@@ -46,6 +46,8 @@ return array (
   'Enter the user/repo of where the theme you want to download is located at.' => '',
   'Enter the user/repo of where the widget you want to upload is located at.' => '',
   'Enter your post title here' => '',
+  'Example: charlesportwoodii/ciims-weather-card' => '',
+  'Example: charlesportwoodii/spectre' => '',
   'Filter by Name' => '',
   'Flush CiiMS Cache' => '',
   'General' => '',
