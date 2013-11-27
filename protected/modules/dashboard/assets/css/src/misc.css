@@ -197,6 +197,12 @@ input[type="range"]::-ms-fill-lower {
   top: 100%;
 }
 
+.category-plus-fix {
+  float: right;
+  padding-left: 10px;
+  top: 3px;
+}
+
 /** http://zurb.com/playground/radioactive-buttons MIT License **/
 @-webkit-keyframes greenPulse {
   from { background-color: #749a02; -webkit-box-shadow: 0 0 9px #333; }
