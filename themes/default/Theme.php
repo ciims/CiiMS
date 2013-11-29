@@ -6,7 +6,7 @@ class Theme extends CiiSettingsModel
     /**
      * @var string  The theme name
      */
-	private $theme = 'default';
+	public $theme = 'default';
 
     /**
      * @var bool    Enables the use and inclusion of Bootstrap

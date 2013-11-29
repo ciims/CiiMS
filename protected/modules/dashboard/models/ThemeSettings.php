@@ -2,7 +2,7 @@
 
 class ThemeSettings extends CiiSettingsModel
 {
-	private $theme = 'default';
+	public $theme = 'default';
 
 	protected $mobileTheme = NULL;
 
