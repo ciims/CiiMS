@@ -4,6 +4,9 @@
 #### What is CiiMS?
 CiiMS is a high performance CMS blogging platform designed to be easy to use, fun to work with, and easy to develop with. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
 
+#### Interested in a Hosted Solution?
+Be sure to checkout [www.ciims.org](http://www.ciims.org) to pre-register for exclusive early access to our hosted platform.
+
 #### Upgrading CiiMS?
 See the [Upgrading Guide](https://github.com/charlesportwoodii/CiiMS/wiki/Upgrading) for notes on how to upgrade from one version to another.
 

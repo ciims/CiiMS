@@ -32,7 +32,6 @@
 			$elementOptions = array('options' => array(array('value' => NULL)));
 		}
 		
-
 		foreach ($options as $k=>$v)
 		{
 			$themeFolder = str_replace('webroot.themes.', '', $v['folder']);
