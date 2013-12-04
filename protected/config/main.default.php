@@ -18,7 +18,6 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
-
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
@@ -26,8 +25,6 @@ return array(
     'language' => 'en_US',
     'preload' => array('cii', 'analytics'),
     'import' => array(
-        'application.models.*',
-        'application.components.*',
         'application.modules.*',
     ),
     'modules' => array(
