@@ -35,7 +35,8 @@ class ContentController extends CiiSiteController
                 array(
                     'COutputCache + index',
                     'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-                    'varyByParam' => array('id')
+                    'varyByParam' => array('id'),
+                    'varyByExpression' => 'Yii::app()->controller->getTheme()'
                 )
             );
 		}
