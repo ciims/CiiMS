@@ -261,7 +261,7 @@ class CardController extends CiiDashboardController
         
         // Extract the file
         $zip = new ZipArchive;
-        $res = $zip->open($downloadPath);
+        $res = $zip->open($downloadPath, ZIPARCHIVE::OVERWRITE);
 
         // If we can open the file
         if ($res === true)
@@ -292,7 +292,7 @@ class CardController extends CiiDashboardController
         	}
         }
 
-        echo CJSON::encode(array('updated' => false));
+        echo CJSON::encode(array('updated' => false, 'res' => $res));
         return true;
 	}
 
