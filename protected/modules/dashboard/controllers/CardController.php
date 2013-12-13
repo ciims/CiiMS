@@ -238,63 +238,62 @@ class CardController extends CiiDashboardController
 	 * @param  string $id  The card ID
 	 * @return JSON
 	 */
-	public function actionUpdateCard($id=NULL)
-	{
-		header('Content-Type: application/json');
-		$card = $this->getBaseCardConfig($id);
-		$cardData = CJSON::decode($this->getBaseCardById($id));
+    public function actionUpdateCard($id=NULL)
+    {
+        header('Content-Type: application/json');
+        $card = $this->getBaseCardConfig($id);
+        $cardData = CJSON::decode($this->getBaseCardById($id));
 
-		// Determine the runtime directory
-		$runtimeDirectory = Yii::getPathOfAlias('application.runtime');
-		$downloadPath = $runtimeDirectory . DIRECTORY_SEPARATOR . 'cards' . DIRECTORY_SEPARATOR . $card['folderName'] . '.zip';
-		if (!is_writable($runtimeDirectory))
-			throw new CHttpException(500,  Yii::t('Dashboard.main', 'Runtime directory is not writable'));
+        // Determine the runtime directory
+        $runtimeDirectory = Yii::getPathOfAlias('application.runtime');
+        $downloadPath = $runtimeDirectory . DIRECTORY_SEPARATOR . 'cards' . DIRECTORY_SEPARATOR . $card['folderName'] . '.zip';
+        if (!is_writable($runtimeDirectory))
+            throw new CHttpException(500,  Yii::t('Dashboard.main', 'Runtime directory is not writable'));
 
-		$targetFile = fopen($downloadPath, 'w' );
+        $targetFile = fopen($downloadPath, 'w' );
 
         // Initiate the CURL request
-        $ch = curl_init('https://github.com/' . str_replace('https://www.github.com/', '', $cardData['repository']) . '/archive/master.zip');
+        $ch = curl_init($cardData['repository'] . '/archive/master.zip');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_FILE, $targetFile);
         curl_exec($ch);
-        
+
         // Extract the file
         $zip = new ZipArchive;
-        $res = $zip->open($downloadPath, ZIPARCHIVE::OVERWRITE);
-
+        $res = $zip->open($downloadPath);
         // If we can open the file
         if ($res === true)
         {
-        	// Extract it to the appropriate location
-        	$extraction = $zip->extractTo(str_replace('.zip', '', $downloadPath));
+            $extractionPath = str_replace('.zip', '', $downloadPath);
+            // Extract it to the appropriate location
+            $extraction = $zip->extractTo($extractionPath);
 
-        	// If we can extract it
-        	if ($extraction)
-        	{
-        		// Update all the cards
-				$cardData = CJSON::decode($this->getBaseCardById($id));
-        		$cards = Cards::model()->findAllByAttributes(array('name' => $id));
+            // If we can extract it
+            if ($extraction)
+            {
+                // Update all the cards
+                $cardData = CJSON::decode($this->getBaseCardById($id));
+                $cards = Cards::model()->findAllByAttributes(array('name' => $id));
 
-        		foreach ($cards as $c)
-        		{
-        			$currentData = CJSON::decode($c['data']);
-        			$activeSize = $currentData['activeSize'];
-        			$newData = $cardData;
-        			$newData['activeSize'] = $activeSize;
-        			$c->data = CJSON::encode($newData);
-        			$c->save();
-        		}
+                foreach ($cards as $c)
+                {
+                    $currentData = CJSON::decode($c['data']);
+                    $activeSize = $currentData['activeSize'];
+                    $newData = $cardData;
+                    $newData['activeSize'] = $activeSize;
+                    $c->data = CJSON::encode($newData);
+                    $c->save();
+                }
 
-        		unlink($downloadPath);
-        		echo CJSON::encode(array('updated' => true));
-        		return true;
-        	}
+                unlink($downloadPath);
+                echo CJSON::encode(array('updated' => true));
+                return true;
+            }
         }
 
-        echo CJSON::encode(array('updated' => false, 'res' => $res));
-        return true;
-	}
+        echo CJSON::encode(array('updated' => false, 'reason' => $res));
+     }
 
 	/**
 	 * Retrieves the baseconfig for a card
