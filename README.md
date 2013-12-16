@@ -1,5 +1,6 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/3040a07108dae68a8096ec13fe127e9d "githalytics.com")](http://githalytics.com/charlesportwoodii/ciims)
 
 #### What is CiiMS?
 CiiMS is a high performance CMS blogging platform designed to be easy to use, fun to work with, and easy to develop with. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
