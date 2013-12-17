@@ -572,7 +572,7 @@ class SiteController extends CiiController
 						// Send the registration email
 						$this->sendEmail($user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $user, 'hash' => $hash), true, true);
 					
-						$this->redirect('/register-success');
+						$this->redirect($this->createUrl('/register-success'));
 						return;
 					}
 				}
