@@ -43,6 +43,7 @@ class UsersController extends CiiSettingsController
 				unset($_POST['Users']['password']);
 				
 			$model->attributes=$_POST['Users'];
+			$model->about = Cii::get($_POST['Users'], 'about', NULL);
 			
 			// Handle saving and updating of Metadata via CDbCommand
 			// By wrapping this in a transaction, we can make sure all metadata is saved AND that the operation goes quickly
