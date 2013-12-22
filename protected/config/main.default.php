@@ -109,11 +109,18 @@ return array(
         ),
     ),
     'params' => array(
-        'yiiPath'       => NULL,
-        'encryptionKey' => NULL,
-        'debug'         => false,
-        'trace'         => 0,
-        'user'          => null,
-	'demo' 		=> 0
+        // The path to Yii
+        'yiiPath'             => NULL,
+        // The hash CiiMS should use for user data
+        'encryptionKey'       => NULL,
+        // Run in debug mode or not
+        'debug'               => false,
+        // The number of stack traces CiiMS should return
+        'trace'               => 0,
+        // Whether CiiMS should run in Demo Mode (which fixes some analytics values)
+	    'demo' 		          => 0,
+        // Defines the maximum filesize that CiiMS will allowed to be uploaded
+        // Must not exceed php.ini post_max_size and upload_max_filesize
+        'max_fileupload_size' => (10 * 1024 * 1024)
     ),
 );

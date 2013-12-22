@@ -190,7 +190,7 @@ class ContentController extends CiiDashboardController
             $folder = $this->getUploadPath();
 
             $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
-            $sizeLimit = 10 * 1024 * 1024;
+            $sizeLimit = Yii::app()->params['max_fileupload_size'];
 
             $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
 

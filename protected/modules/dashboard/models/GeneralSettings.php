@@ -38,11 +38,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $sphinxSource = NULL;
 
-	public function getSubdomain()
-	{
-		return Yii::app()->params['user'];
-	}
-
 	public function groups()
 	{
 		return array(
