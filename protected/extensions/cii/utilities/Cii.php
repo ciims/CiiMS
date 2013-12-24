@@ -62,6 +62,19 @@ class Cii {
     }
 
     /**
+     * Override control file
+     * @return array
+     */
+    public static function getCiiConfig()
+    {
+        $config = __DIR__ . '/../../../config/ciiparams.php';
+        if (file_exists($config))
+            return require $config;
+
+        return array();
+    }
+
+    /**
      * Gets a configuration value from user_metadata
      * @param  string $key     The key we want to retrieve from Configuration
      * @param  mixed  $default The default value to return if key is not found

@@ -85,7 +85,20 @@ class CiiSetupCommand extends CConsoleCommand
 			$fh = fopen($paramsFile, 'w+');
 			fwrite($fh, "<?php return array(\n");
 			foreach ($params as $key=>$value)
-				fwrite($fh, "    '$key' => '$value',\n");
+			{
+				if (is_int($value))
+					fwrite($fh, "    '$key' => " . (int)$value . ",\n");
+				elseif(is_bool($value))
+				{
+					if ($value)
+						fwrite($fh, "    '$key' => true,\n");
+					else
+						fwrite($fh, "    '$key' => false,\n");
+				}
+				else
+						fwrite($fh, "    '$key' => '$value',\n");
+
+			}
 			fwrite($fh, ");");
 			fclose($fh);
 

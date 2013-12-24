@@ -40,13 +40,19 @@ class GeneralSettings extends CiiSettingsModel
 
 	public function groups()
 	{
-		return array(
+		$groups = array(
 			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 		);
+
+		// If the API has been disabled via CiiParams, then don't show it here
+		if (($allow_api = Cii::get(Cii::getCiiConfig(), 'allow_api', true)) == false)
+			unset($groups[Yii::t('Dashboard.models-general', 'Site Settings')][2]);
+
+		return $groups;
 	}
 
 	/**
@@ -94,5 +100,17 @@ class GeneralSettings extends CiiSettingsModel
 			'useDisqusComments'    => Yii::t('Dashboard.models-general', 'Use Disqus Comments'),
 			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode')
 		);
+	}
+
+	/**
+	 * Allow some override values
+	 * @return parent::beforeSave();
+	 */
+	public function beforeSave()
+	{
+		if (($allow_api= Cii::get(Cii::getCiiConfig(), 'allow_api', true)) == false)
+			$this->attributes['enableAPI'] = $this->enableAPI = (int)$allow_api;
+
+		return parent::beforeSave();
 	}
 }

@@ -131,7 +131,7 @@ class ApiController extends CiiController
      */
     public function beforeAction($action)
     {
-        if (Cii::getConfig('enableAPI') != true)
+        if (Cii::getConfig('enableAPI') != true ||  Cii::get(Cii::getCiiConfig(), 'allow_api', true) == false)
         {
             header('HTTP/1.1 403 Access Denied');
             $this->status = 403;

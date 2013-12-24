@@ -84,6 +84,7 @@ return array (
   'Test Email' => '',
   'Theme' => '',
   'There are no themes installed for this category.' => '',
+  'User Information' => '',
   'Users' => '',
   'Web Server' => '',
   'Welcome back' => '',

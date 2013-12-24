@@ -186,50 +186,14 @@ class ContentController extends CiiDashboardController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            $path = '/';
-            $folder = $this->getUploadPath();
-
-            $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
-            $sizeLimit = Yii::app()->params['max_fileupload_size'];
-
-            $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
-
-            $result = $uploader->handleUpload($folder);
-            
-            if (Cii::get($result,'success', false) == true)
-            {
-                $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
-
-                if ($meta == NULL)
-                    $meta = new ContentMetadata;
-
-                $meta->content_id = $id;
-                $meta->key = $result['filename'];
-                $meta->value = '/uploads' . $path . $result['filename'];
-                if ($meta->save())
-                {
-
-                    if ($promote)
-                        $this->promote($id, $result['filename']);
-
-                    $result['filepath'] = '/uploads/' . $result['filename'];
-                    echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-                }
-                else
-                {
-                    throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
-                }
-            }
+            if (Cii::get(Cii::getCiiConfig(), 'rs_container', NULL) == NULL)
+                $this->_uploadFile($id, $promote);
             else
-            {
-                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-                throw new CHttpException(400, $result['error']);
-            }
+                $this->_uploadCDNFile($id, $promote);
         }  
 
         Yii::app()->end();  
     }
-
 
     /**
      * Public action to add a tag to the particular model
@@ -310,12 +274,6 @@ class ContentController extends CiiDashboardController
         
         return true;
     }
-
-    private function getUploadPath($path="/")
-    {
-        return Yii::app()->getBasePath() .'/../uploads' . $path;
-    }
-
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the previous
@@ -409,5 +367,83 @@ class ContentController extends CiiDashboardController
         }
         
         return $returnFiles;
+    }
+
+    /**
+     * Handle normal file uploads
+     */
+    private function _uploadFile($id, $promote)
+    {
+        $path = '/';
+        $folder = Yii::app()->getBasePath() .'/../uploads' . $path;
+
+        $sizeLimit = Yii::app()->params['max_fileupload_size'];
+        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
+        $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
+
+        $result = $uploader->handleUpload($folder);
+        
+        if (Cii::get($result,'success', false) == true)
+        {
+            $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
+
+            if ($meta == NULL)
+                $meta = new ContentMetadata;
+
+            $meta->content_id = $id;
+            $meta->key = $result['filename'];
+            $meta->value = '/uploads' . $path . $result['filename'];
+            if ($meta->save())
+            {
+
+                if ($promote)
+                    $this->promote($id, $result['filename']);
+
+                $result['filepath'] = '/uploads/' . $result['filename'];
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            }
+            else
+                throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
+        }
+        else
+        {
+            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            throw new CHttpException(400, $result['error']);
+        }
+    }
+
+    private function _uploadCDNFile($id, $promote)
+    {
+        Yii::import('ext.opencloud.OpenCloud');
+        $openCloud = new OpenCloud(NULL, NULL, true);
+        $container = $openCloud->getContainer(Cii::get(Cii::getCiiConfig(), 'rs_container', NULL));
+        $result = $openCloud->uploadFile($container);
+
+        if (Cii::get($result,'success', false) == true)
+        {
+            $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
+
+            if ($meta == NULL)
+                $meta = new ContentMetadata;
+
+            $meta->content_id = $id;
+            $meta->key = $result['filename'];
+            $meta->value = $result['url'] . '/' . $result['filename'];
+            if ($meta->save())
+            {
+
+                if ($promote)
+                    $this->promote($id, $result['filename']);
+                $result['filepath'] = $result['url'] . '/' . $result['filename'];
+                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            }
+            else
+                throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
+        }
+        else
+        {
+            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+            throw new CHttpException(400, $result['error']);
+        }
     }
 }
