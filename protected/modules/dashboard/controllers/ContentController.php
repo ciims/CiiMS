@@ -186,11 +186,9 @@ class ContentController extends CiiDashboardController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if (Cii::getConfig('useOpenstackCDN'))
-                $this->_uploadCDNFile($id, $promote);
-            else
-                $this->_uploadFile($id, $promote);
-        }  
+            $result = new CiiFileUpload($id, $promote);
+            echo $result->uploadFile();
+        }
 
         Yii::app()->end();  
     }
@@ -242,38 +240,6 @@ class ContentController extends CiiDashboardController
         return $model->delete();
     }
 
-    /**
-     * Promotes an image to blog-image
-     */
-    private function promote($id = NULL, $key = NULL)
-    {
-        $promotedKey = 'blog-image';
-
-        // Only proceed if we have valid date
-        if ($id == NULL || $key == NULL)
-            return false;
-        
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
-        
-        // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
-        if ($model->key == $promotedKey)
-            return true;
-        
-        $model2 = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $promotedKey));
-        if ($model2 === NULL)
-        {
-            $model2 = new ContentMetadata;
-            $model2->content_id = $id;
-            $model2->key = $promotedKey;
-        }
-        
-        $model2->value = $model->value;
-        
-        if (!$model2->save())
-            return false;
-        
-        return true;
-    }
     /**
      * Deletes a particular model.
      * If deletion is successful, the browser will be redirected to the previous
@@ -367,93 +333,5 @@ class ContentController extends CiiDashboardController
         }
         
         return $returnFiles;
-    }
-
-    /**
-     * Handle normal file uploads
-     */
-    private function _uploadFile($id, $promote)
-    {
-        $path = '/';
-        $folder = Yii::app()->getBasePath() .'/../uploads' . $path;
-
-        $sizeLimit = Yii::app()->params['max_fileupload_size'];
-        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
-        $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
-
-        $result = $uploader->handleUpload($folder);
-        
-        if (Cii::get($result,'success', false) == true)
-        {
-            $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
-
-            if ($meta == NULL)
-                $meta = new ContentMetadata;
-
-            $meta->content_id = $id;
-            $meta->key = $result['filename'];
-            $meta->value = '/uploads' . $path . $result['filename'];
-            if ($meta->save())
-            {
-
-                if ($promote)
-                    $this->promote($id, $result['filename']);
-
-                $result['filepath'] = '/uploads/' . $result['filename'];
-                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-            }
-            else
-                throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
-        }
-        else
-        {
-            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-            throw new CHttpException(400, $result['error']);
-        }
-    }
-
-    /**
-     * Handle CDN related Uploads
-     * @param  int $id      The content_id
-     * @param  int $promote Whether or not this image should be promoted
-     */
-    private function _uploadCDNFile($id, $promote)
-    {
-        Yii::import('ext.opencloud.OpenCloud');
-
-        if (Cii::getConfig('useRackspaceCDN'))
-            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), true, NULL, Cii::getConfig('openstack_region'));
-        else
-            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), false, Cii::getConfig('openstack_identity'), Cii::getConfig('openstack_region'));
-
-        $container = $openCloud->getContainer(Cii::getConfig('openstack_container'));
-        $result = $openCloud->uploadFile($container);
-
-        if (Cii::get($result,'success', false) == true)
-        {
-            $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
-
-            if ($meta == NULL)
-                $meta = new ContentMetadata;
-
-            $meta->content_id = $id;
-            $meta->key = $result['filename'];
-            $meta->value = $result['url'] . '/' . $result['filename'];
-            if ($meta->save())
-            {
-
-                if ($promote)
-                    $this->promote($id, $result['filename']);
-                $result['filepath'] = $result['url'] . '/' . $result['filename'];
-                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-            }
-            else
-                throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
-        }
-        else
-        {
-            echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-            throw new CHttpException(400, $result['error']);
-        }
     }
 }
