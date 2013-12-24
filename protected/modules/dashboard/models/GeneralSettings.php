@@ -38,6 +38,19 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $sphinxSource = NULL;
 
+	protected $useOpenstackCDN = false;
+	protected $useRackspaceCDN = false;
+
+	protected $openstack_identity = NULL;
+
+	protected $openstack_username = NULL;
+
+	protected $openstack_apikey = NULL;
+
+	protected $openstack_region = NULL;
+
+	protected $openstack_container = NULL;
+
 	public function groups()
 	{
 		$groups = array(
@@ -45,6 +58,7 @@ class GeneralSettings extends CiiSettingsModel
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
+			Yii::t('Dashboard.models-general', 'Upload Settings') => array('useOpenstackCDN', 'useRackspaceCDN', 'openstack_identity', 'openstack_username', 'openstack_apikey', 'openstack_region', 'openstack_container'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
 		);
 
@@ -65,8 +79,8 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments, enableAPI', 'boolean'),
-			array('sphinxHost, sphinxSource, disqus_shortname', 'length', 'max' => 255),
+			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('sphinxHost, sphinxSource, disqus_shortname, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
@@ -98,8 +112,49 @@ class GeneralSettings extends CiiSettingsModel
 			'notifyAuthorOnComment' => Yii::t('Dashboard.models-general', 'Notify Author on New Comment'),
 			'autoApproveComments'	=> Yii::t('Dashboard.models-general', 'Auto Approve Comments'),
 			'useDisqusComments'    => Yii::t('Dashboard.models-general', 'Use Disqus Comments'),
-			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode')
+			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode'),
+			// Openstack Data
+			'useOpenstackCDN' => Yii::t('Dashboard.models-general', 'Use Openstack for Uploads?'),
+			'useRackspace CDN' => Yii::t('Dashboard.models-general', 'Use Rackspace CDN?'),
+			'openstack_identity' => Yii::t('Dashboard.models-general', 'Openstack Identity URL'),
+			'openstack_username' => Yii::t('Dashboard.models-general', 'Openstack Username'),
+			'openstack_apikey' => Yii::t('Dashboard.models-general', 'Openstack API Key'),
+			'openstack_region' => Yii::t('Dashboard.models-general', 'Openstack Region'),
+			'openstack_container' => Yii::t('Dashboard.models-general', 'Openstack Container Name'),
 		);
+	}
+
+	/**
+	 * Overload the __getter so that it checks for data in the following order
+	 * 1) Pull From db/cache (Cii::getConfig now does caching of elements for improved performance)
+	 * 2) Check for __protected__ property, which we consider the default vlaue
+	 * 3) parent::__get()
+	 *
+	 * In order for this to work with __default__ values, the properties in classes that extend from this
+	 * MUST be protected. If they are public it will bypass this behavior.
+	 * 
+	 * @param  mixed $name The variable name we want to retrieve from the calling class
+	 * @return mixed
+	 */
+	public function __get($name)
+	{
+		$data = Cii::getConfig($name);
+
+		if ($data !== NULL && $data !== "" && !isset($this->attributes[$name]))
+		{
+			if ($name == 'openstack_apikey')
+				return Cii::decrypt($data);
+			return $data;
+		}
+
+		if (property_exists($this, $name))
+		{
+			if ($name == 'openstack_apikey')
+				return Cii::decrypt($this->$name);
+			return $this->$name;
+		}
+
+		return parent::__get($name);
 	}
 
 	/**
@@ -110,6 +165,10 @@ class GeneralSettings extends CiiSettingsModel
 	{
 		if (($allow_api= Cii::get(Cii::getCiiConfig(), 'allow_api', true)) == false)
 			$this->attributes['enableAPI'] = $this->enableAPI = (int)$allow_api;
+
+		// Encrypt the Openstack API Key
+		if ($this->attributes['openstack_apikey'] != NULL && $this->attributes['openstack_apikey'] != "")
+			$this->attributes['openstack_apikey'] = $this->openstack_apikey = Cii::encrypt($this->attributes['openstack_apikey']);
 
 		return parent::beforeSave();
 	}

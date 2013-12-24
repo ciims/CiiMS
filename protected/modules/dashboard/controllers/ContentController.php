@@ -186,10 +186,10 @@ class ContentController extends CiiDashboardController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            if (Cii::get(Cii::getCiiConfig(), 'rs_container', NULL) == NULL)
-                $this->_uploadFile($id, $promote);
-            else
+            if (Cii::getConfig('useOpenstackCDN'))
                 $this->_uploadCDNFile($id, $promote);
+            else
+                $this->_uploadFile($id, $promote);
         }  
 
         Yii::app()->end();  
@@ -412,11 +412,21 @@ class ContentController extends CiiDashboardController
         }
     }
 
+    /**
+     * Handle CDN related Uploads
+     * @param  int $id      The content_id
+     * @param  int $promote Whether or not this image should be promoted
+     */
     private function _uploadCDNFile($id, $promote)
     {
         Yii::import('ext.opencloud.OpenCloud');
-        $openCloud = new OpenCloud(NULL, NULL, true);
-        $container = $openCloud->getContainer(Cii::get(Cii::getCiiConfig(), 'rs_container', NULL));
+
+        if (Cii::getConfig('useRackspaceCDN'))
+            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), true, NULL, Cii::getConfig('openstack_region'));
+        else
+            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), false, Cii::getConfig('openstack_identity'), Cii::getConfig('openstack_region'));
+
+        $container = $openCloud->getContainer(Cii::getConfig('openstack_container'));
         $result = $openCloud->uploadFile($container);
 
         if (Cii::get($result,'success', false) == true)

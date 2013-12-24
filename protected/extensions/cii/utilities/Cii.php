@@ -307,15 +307,19 @@ class Cii {
      * @param  string $field The data we want to ecrnypt
      * @return string        encrypted data
      */
-    public static function encrypt($field)
+    
+    public static function encrypt($field, $key = NULL)
     {
+        if ($key == NULL)
+            $key = Yii::app()->params['encryptionKey'];
+
         return base64_encode(
             mcrypt_encrypt(
                 MCRYPT_RIJNDAEL_256, 
-                md5(Yii::app()->params['encryptionKey']), 
+                md5($key), 
                 $field,
                 MCRYPT_MODE_CBC, 
-                md5(md5(Yii::app()->params['encryptionKey']))
+                md5(md5($key))
                 )
             );
     }
@@ -326,15 +330,18 @@ class Cii {
      * @param  string $field encrypted text
      * @return string        unencrypted text
      */
-    public static function decrypt($field)
+    public static function decrypt($field, $key = NULL)
     {
+        if ($key == NULL)
+            $key = Yii::app()->params['encryptionKey'];
+        
         return rtrim(
             mcrypt_decrypt(
                 MCRYPT_RIJNDAEL_256, 
-                md5(Yii::app()->params['encryptionKey']),
+                md5($key),
                 base64_decode($field), 
                 MCRYPT_MODE_CBC, 
-                md5(md5(Yii::app()->params['encryptionKey']))
+                md5(md5($key))
             ), 
         "\0");
     }
