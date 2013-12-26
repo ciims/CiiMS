@@ -209,8 +209,6 @@ class CiiController extends CController
     {
         $theme = Cii::getConfig('theme', 'default');
 
-        Yii::import('ext.mobile_detect.*');
-
         // Allow for mobile devices to have a separate theme
         if (MobileDetect::isMobileDevice() && !Mobiledetect::isTabletDevice())
         {
@@ -252,7 +250,6 @@ class CiiController extends CController
 	{
 	    if($this->beforeRender($view))
 	    {
-	    	$this->params['meta'] = Cii::get($data, 'meta', array());
             if (empty($this->params['meta']))
                 $data['meta'] = array();
 
@@ -264,7 +261,7 @@ class CiiController extends CController
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
                 $data['theme'] = $this->params['theme'] = new Theme();
 	    	}
-
+            
     		$output=$this->renderPartial($view,$data,true);
             
     		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)

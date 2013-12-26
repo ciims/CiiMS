@@ -12,11 +12,6 @@ class AnalyticsSettings extends CiiSettingsModel
 	protected $analyticsjs_Amplitude_apiKey = NULL;
 	protected $analyticsjs_Amplitude_pageview = NULL;
 
-	protected $analyticsjs_Bitdeli_enabled = false;
-	protected $analyticsjs_Bitdeli_inputId = NULL;
-	protected $analyticsjs_Bitdeli_authToken = NULL;
-	protected $analyticsjs_Bitdeli_initialPageview = NULL;
-
 	protected $analyticsjs_BugHerd_enabled = false;
 	protected $analyticsjs_BugHerd_apiKey = NULL;
 	protected $analyticsjs_BugHerd_showFeedbackTab = NULL;
@@ -187,17 +182,16 @@ class AnalyticsSettings extends CiiSettingsModel
 		return array(
 			//'AdRoll' => array('analyticsjs_AdRoll_enabled', 'analyticsjs_AdRoll_advId', 'analyticsjs_AdRoll_pixId'),
 			//'Amplitude' => array('analyticsjs_Amplitude_enabled', 'analyticsjs_Amplitude_apiKey', 'analyticsjs_Amplitude_pageview'),
-			//'Bitdeli' => array('analyticsjs_Bitdeli_enabled', 'analyticsjs_Bitdeli_inputId', 'analyticsjs_Bitdeli_authToken', 'analyticsjs_Bitdeli_initialPageview'),
-			//'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
+			'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
 			//'Chartbeat' => array('analyticsjs_Chartbeat_enabled', 'analyticsjs_Chartbeat_domain', 'analyticsjs_Chartbeat_uid'),
 			//'ClickTale' => array('analyticsjs_ClickTale_enabled', 'analyticsjs_ClickTale_httpCdnUrl', 'analyticsjs_ClickTale_httpsCdnUrl', 'analyticsjs_ClickTale_projectId', 'analyticsjs_ClickTale_recordingRatio', 'analyticsjs_ClickTale_partitionId'),
-			//'Clicky' => array('analyticsjs_Clicky_enabled', 'analyticsjs_Clicky_siteId'),
+			'Clicky' => array('analyticsjs_Clicky_enabled', 'analyticsjs_Clicky_siteId'),
 			//'comScore' => array('analyticsjs_comScore_enabled', 'analyticsjs_comScore_c1', 'analyticsjs_comScore_c2'),
 			//'CrazyEgg' => array('analyticsjs_CrazyEgg_enabled', 'analyticsjs_CrazyEgg_accountNumber'),
 			//'Customer.io' => array('analyticsjs_Customer___io_enabled', 'analyticsjs_Customer___io_siteId'),
-			//'Errorception' => array('analyticsjs_Errorception_enabled', 'analyticsjs_Errorception_projectId', 'analyticsjs_Errorception_meta'),
+			'Errorception' => array('analyticsjs_Errorception_enabled', 'analyticsjs_Errorception_projectId', 'analyticsjs_Errorception_meta'),
 			//'FoxMetrics' => array('analyticsjs_FoxMetrics_enabled', 'analyticsjs_FoxMetrics_appId'),
-			//'Gauges' => array('analyticsjs_Gauges_enabled', 'analyticsjs_Gauges_siteId'),
+			'Gauges' => array('analyticsjs_Gauges_enabled', 'analyticsjs_Gauges_siteId'),
 			//'Get Satisfaction' => array('analyticsjs_Get__Satisfaction_enabled', 'analyticsjs_Get__Satisfaction_widgetId'),
 			'Google Analytics' => array('analyticsjs_Google__Analytics_enabled', 'analyticsjs_Google__Analytics_anonymizeIp', 'analyticsjs_Google__Analytics_domain', 'analyticsjs_Google__Analytics_doubleClick', 'analyticsjs_Google__Analytics_enhancedLinkAttribution', 'analyticsjs_Google__Analytics_ignoreReferrer', 'analyticsjs_Google__Analytics_initialPageview', 'analyticsjs_Google__Analytics_siteSpeedSampleRate', 'analyticsjs_Google__Analytics_trackingId', 'analyticsjs_Google__Analytics_universalClient'),
 			//'GoSquared' => array('analyticsjs_GoSquared_enabled', 'analyticsjs_GoSquared_siteToken'),
@@ -211,7 +205,7 @@ class AnalyticsSettings extends CiiSettingsModel
 			//'Klaviyo' => array('analyticsjs_Klaviyo_enabled', 'analyticsjs_Klaviyo_apiKey'),
 			//'LiveChat' => array('analyticsjs_LiveChat_enabled', 'analyticsjs_LiveChat_license'),
 			//'Lytics' => array('analyticsjs_Lytics_enabled', 'analyticsjs_Lytics_cid'),
-			//'Mixpanel' => array('analyticsjs_Mixpanel_enabled', 'analyticsjs_Mixpanel_nameTag', 'analyticsjs_Mixpanel_people', 'analyticsjs_Mixpanel_token', 'analyticsjs_Mixpanel_pageview', 'analyticsjs_Mixpanel_initialPageview'),
+			'Mixpanel' => array('analyticsjs_Mixpanel_enabled', 'analyticsjs_Mixpanel_nameTag', 'analyticsjs_Mixpanel_people', 'analyticsjs_Mixpanel_token', 'analyticsjs_Mixpanel_pageview', 'analyticsjs_Mixpanel_initialPageview'),
 			//'Olark' => array('analyticsjs_Olark_enabled', 'analyticsjs_Olark_siteId', 'analyticsjs_Olark_identify', 'analyticsjs_Olark_track', 'analyticsjs_Olark_pageview'),
 			//'Optimizely' => array('analyticsjs_Optimizely_enabled', 'analyticsjs_Optimizely_variations'),
 			//'Perfect Audience' => array('analyticsjs_Perfect__Audience_enabled', 'analyticsjs_Perfect__Audience_siteId'),
@@ -234,7 +228,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_Bitdeli_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_pwk_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
+			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_pwk_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
 		);
 	}
 
@@ -246,16 +240,16 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_AdRoll_pixId' => 'pixId',
 
 			'analyticsjs_Amplitude_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Amplitude_apiKey' => 'apiKey',
+			'analyticsjs_Amplitude_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 			'analyticsjs_Amplitude_pageview' => 'pageview',
 
 			'analyticsjs_BugHerd_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_BugHerd_apiKey' => 'apiKey',
+			'analyticsjs_BugHerd_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 			'analyticsjs_BugHerd_showFeedbackTab' => 'showFeedbackTab',
 
 			'analyticsjs_Chartbeat_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Chartbeat_domain' => 'domain',
-			'analyticsjs_Chartbeat_uid' => 'uid',
+			'analyticsjs_Chartbeat_domain' => Yii::t('Dashboard.models-analytics', 'Domain'),
+			'analyticsjs_Chartbeat_uid' => Yii::t('Dashboard.models-analytics', 'UID'),
 
 			'analyticsjs_ClickTale_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_ClickTale_httpCdnUrl' => 'httpCdnUrl',
@@ -265,7 +259,7 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_ClickTale_partitionId' => 'partitionId',
 
 			'analyticsjs_Clicky_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Clicky_siteId' => 'siteId',
+			'analyticsjs_Clicky_siteId' => Yii::t('Dashboard.models-analytics', 'Site ID'),
 
 			'analyticsjs_comScore_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_comScore_c1' => 'c1',
@@ -278,14 +272,14 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Customer___io_siteId' => 'siteId',
 
 			'analyticsjs_Errorception_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Errorception_projectId' => 'projectId',
-			'analyticsjs_Errorception_meta' => 'meta',
+			'analyticsjs_Errorception_projectId' => Yii::t('Dashboard.models-analytics', 'Project ID'),
+			'analyticsjs_Errorception_meta' => Yii::t('Dashboard.models-analytics', 'Meta'),
 
 			'analyticsjs_FoxMetrics_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_FoxMetrics_appId' => 'appId',
 
 			'analyticsjs_Gauges_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Gauges_siteId' => 'siteId',
+			'analyticsjs_Gauges_siteId' => Yii::t('Dashboard.models-analytics', 'Site ID'),
 
 			'analyticsjs_Get__Satisfaction_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_Get__Satisfaction_widgetId' => 'widgetId',
@@ -302,10 +296,10 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Google__Analytics_universalClient' => Yii::t('Dashboard.models-analytics', 'Use Universal Client?'),
 
 			'analyticsjs_GoSquared_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_GoSquared_siteToken' => 'siteToken',
+			'analyticsjs_GoSquared_siteToken' => Yii::t('Dashboard.models-analytics', 'Site Token'),
 
 			'analyticsjs_Heap_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Heap_apiKey' => 'apiKey',
+			'analyticsjs_Heap_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 
 			'analyticsjs_HitTail_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_HitTail_siteId' => 'siteId',
@@ -331,10 +325,10 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Keen__IO_initialPageview' => 'initialPageview',
 
 			'analyticsjs_KISSmetrics_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_KISSmetrics_apiKey' => 'apiKey',
+			'analyticsjs_KISSmetrics_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 
 			'analyticsjs_Klaviyo_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Klaviyo_apiKey' => 'apiKey',
+			'analyticsjs_Klaviyo_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 
 			'analyticsjs_LiveChat_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_LiveChat_license' => 'license',
@@ -378,10 +372,10 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Quantcast_pCode' => 'pCode',
 
 			'analyticsjs_Sentry_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Sentry_config' => 'config',
+			'analyticsjs_Sentry_config' => Yii::t('Dashboard.models-analytics', 'Config'),
 
 			'analyticsjs_SnapEngage_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_SnapEngage_apiKey' => 'apiKey',
+			'analyticsjs_SnapEngage_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 
 			'analyticsjs_USERcycle_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_USERcycle_key' => 'key',
@@ -402,7 +396,7 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_UserVoice_tabInverted' => 'tabInverted',
 
 			'analyticsjs_Vero_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
-			'analyticsjs_Vero_apiKey' => 'apiKey',
+			'analyticsjs_Vero_apiKey' => Yii::t('Dashboard.models-analytics', 'API Key'),
 
 			'analyticsjs_Visual__Website__Optimizer_enabled' => Yii::t('Dashboard.models-analytics', 'Enabled'),
 			'analyticsjs_Visual__Website__Optimizer_replay' => 'replay',

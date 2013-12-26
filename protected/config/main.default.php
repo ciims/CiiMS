@@ -18,24 +18,17 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
-$preload = array('cii', 'analytics');
-if (isset($_SERVER['REQUEST_URI'])) {
-    if (strpos($_SERVER['REQUEST_URI'], '/dashboard') === false)
-        $preload[] = 'bootstrap';
-}
-
 return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
     'language' => 'en_US',
-    'preload' => $preload,
+    'preload' => array('cii', 'analytics'),
     'import' => array(
-        'application.models.*',
-        'application.components.*',
         'application.modules.*',
     ),
     'modules' => array(
+        'api',
         'dashboard',
         'hybridauth' => array(
             'providers' => array()
@@ -116,11 +109,18 @@ return array(
         ),
     ),
     'params' => array(
-        'yiiPath'       => NULL,
-        'encryptionKey' => NULL,
-        'debug'         => false,
-        'trace'         => 0,
-        'user'          => null,
-	'demo' 		=> 0
+        // The path to Yii
+        'yiiPath'             => NULL,
+        // The hash CiiMS should use for user data
+        'encryptionKey'       => NULL,
+        // Run in debug mode or not
+        'debug'               => false,
+        // The number of stack traces CiiMS should return
+        'trace'               => 0,
+        // Whether CiiMS should run in Demo Mode (which fixes some analytics values)
+	    'demo' 		          => 0,
+        // Defines the maximum filesize that CiiMS will allowed to be uploaded
+        // Must not exceed php.ini post_max_size and upload_max_filesize
+        'max_fileupload_size' => (10 * 1024 * 1024)
     ),
 );

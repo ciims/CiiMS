@@ -78,7 +78,7 @@ class CiiRedisCache extends CiiCache
 	 */
 	protected function getValues($keys)
 	{
-		return $this->__redis->mget($keys);
+		return $this->_redis->mget($keys);
 	}
 
 	/**

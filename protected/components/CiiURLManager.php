@@ -57,30 +57,33 @@ class CiiURLManager extends CUrlManager
 	 * @var array
 	 */
 	public $defaultRules = array(
-		'/sitemap.xml' 						=> '/site/sitemap',
-        '/search/<page:\d+>' 				=> '/site/mysqlsearch',
-        '/search' 							=> '/site/mysqlsearch',
-        '/hybridauth/<provider:\w+>'		=> '/hybridauth',
-        '/contact' 							=> '/site/contact',
-        '/blog.rss' 						=> '/content/rss',
-        '/blog/<page:\d+>' 					=> '/content/list',
-        '/' 								=> '/content/list',
-        '/blog' 							=> '/content/list',
-        '/activation/<email:\w+>/<id:\w+>' 	=> '/site/activation',
-        '/activation' 						=> '/site/activation',
-        '/emailchange/<key:\w+>'			=> '/site/emailchange',
-        '/emailchange'						=> '/site/emailchange',
-        '/forgot/<id:\w+>' 					=> '/site/forgot',
-        '/forgot' 							=> '/site/forgot',
-        '/register' 						=> '/site/register',
-        '/register-success' 				=> '/site/registersuccess',
-        '/login'							=> '/site/login',
-        '/logout' 							=> '/site/logout',
-        '/profile/edit'						=> '/profile/edit',
-        '/profile/<id:\w+>/<displayName:\w+>' => '/profile/index',
-        '/profile/<id:\w+>' 				=> '/profile/index',
-        '/dashboard'						=> '/dashboard',
-        '/dashboard/content/<page:\d+>'		=> '/dashboard/content'
+		'/sitemap.xml' 					=> '/site/sitemap',
+		'/search/<page:\d+>' 			=> '/site/mysqlsearch',
+		'/search' 						=> '/site/mysqlsearch',
+		'/hybridauth/<provider:\w+>'	=> '/hybridauth',
+		'/contact' 						=> '/site/contact',
+		'/blog.rss' 					=> '/content/rss',
+		'/blog/<page:\d+>' 				=> '/content/list',
+		'/' 							=> '/content/list',
+		'/blog' 						=> '/content/list',
+		'/activation/<email:\w+>/<id:\w+>' 	=> '/site/activation',
+		'/activation' 					=> '/site/activation',
+		'/emailchange/<key:\w+>'		=> '/site/emailchange',
+		'/emailchange'					=> '/site/emailchange',
+		'/forgot/<id:\w+>' 				=> '/site/forgot',
+		'/forgot' 						=> '/site/forgot',
+		'/register' 					=> '/site/register',
+		'/register-success' 			=> '/site/registersuccess',
+		'/login'						=> '/site/login',
+		'/logout' 						=> '/site/logout',
+		'/profile/edit'					=> '/profile/edit',
+		'/profile/<id:\w+>/<displayName:\w+>' 	=> '/profile/index',
+		'/profile/<id:\w+>' 			=> '/profile/index',
+		'/dashboard'					=> '/dashboard',
+		'/dashboard/content/<page:\d+>'	=> '/dashboard/content',
+		'/acceptinvite'					=> '/site/acceptinvite',
+		'/acceptinvite/<id:\w+>'		=> '/site/acceptinvite',
+		'/error/<code:\w+>' 			=> '/site/error'
 	);
 
 	/**
@@ -128,7 +131,7 @@ class CiiURLManager extends CUrlManager
 		if($urlRules===false || $urlRules === NULL)
 		{
 			if ($fromString == "content")
-				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")->queryAll();
+				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND published <= UTC_TIMESTAMP()")->queryAll();
 			else
 		   		$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString}")->queryAll();
 			

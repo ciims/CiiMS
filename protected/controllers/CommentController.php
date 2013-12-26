@@ -1,6 +1,6 @@
 <?php
 
-class CommentController extends CiiController
+class CommentController extends CiiSiteController
 {
 	/**
 	 * @return array action filters
@@ -73,6 +73,7 @@ class CommentController extends CiiController
 			if ($comment->save())
 			{
 				$content = Content::model()->findByPk($comment->content_id);
+
 				// Pass the values as "now" for the comment view"
 				$comment->created = $comment->updated = Yii::t('ciims.controllers.Comments', "now");
 

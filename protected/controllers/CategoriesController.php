@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesController extends CiiController
+class CategoriesController extends CiiSiteController
 {
 	/**
 	 * Base filter, allows logged in and non-logged in users to cache the page
@@ -102,8 +102,8 @@ class CategoriesController extends CiiController
 		$criteria->offset = $criteria->limit*($pages->getCurrentPage());			
 		$data = Content::model()->findAll($criteria);
 		$pages->applyLimit($criteria);		
-		
-		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages));
+
+		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages, 'meta' => array('description' => $category->getDescription())));
 	}
 	
 	/**

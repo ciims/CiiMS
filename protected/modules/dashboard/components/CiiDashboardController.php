@@ -54,15 +54,10 @@ class CiiDashboardController extends CiiController
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
+				'deniedCallback' => array($this, 'actionError')
 			),
 		);
 	}
-	
-	/**
-	 * Params... for?
-	 * @var array
-	 */
-	public $params = array();
     
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',

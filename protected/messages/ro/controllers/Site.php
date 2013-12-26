@@ -37,6 +37,7 @@ return array (
   'The passwords you provided do not match.' => '',
   'The request to change your email has expired.' => '',
   'The requested email address has already been taken. Please re-submit your request with a new email address.' => '',
+  'There was an error fulfilling your request.' => '',
   'Unable to activate user using the provided details.' => '',
   'We were unable to verify your current password. Please verify your password and try again.' => '',
   'You are not authorized to change this email address.' => '',

@@ -125,7 +125,7 @@ class UserForm extends CFormModel
             // Try to save the record into the database
             $connection = new CDbConnection(Yii::app()->session['dsn']['dsn'], Yii::app()->session['dsn']['username'], Yii::app()->session['dsn']['password']);
             $connection->setActive(true);
-            $connection->createCommand('INSERT INTO users (id, email, password, firstName, lastName, displayName, user_role, status, created, updated) VALUES (1, :email, :password, :firstName, :lastName, :displayName, 9, 1, NOW(), NOW())')
+            $connection->createCommand('INSERT INTO users (id, email, password, firstName, lastName, displayName, user_role, status, created, updated) VALUES (1, :email, :password, :firstName, :lastName, :displayName, 9, 1, UTC_TIMESTAMP(), UTC_TIMESTAMP())')
                        ->bindParam(':email',        $this->email)
                        ->bindParam(':password',     $this->encryptedPassword)
                        ->bindParam(':firstName',    $this->firstName)

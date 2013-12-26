@@ -109,12 +109,14 @@ class CiiSettingsModel extends CFormModel
 
 	/**
 	 * Provides a generic method for populating data
-	 * @param  array  $data $_POST data
+	 * @param  array  $data    $_POST data
+	 * @param  bool   $direct  If the data should be accessed directly rather than by getting it through the class name
 	 * @return bool
 	 */
-	public function populate($data = array())
+	public function populate($data = array(), $direct = false)
 	{
-		$data = Cii::get($data, get_class($this));
+		if (!$direct)
+			$data = Cii::get($data, get_class($this));
 
 		foreach ($data as $attribute=>$value)
 			$this->set($attribute, $value);
@@ -240,7 +242,7 @@ class CiiSettingsModel extends CFormModel
 			try {
 				foreach($this->attributes as $key=>$value)
 				{
-					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, NOW(), NOW()) ON DUPLICATE KEY UPDATE value = :value2, updated = NOW()');
+					$command = $connection->createCommand('INSERT INTO `configuration` VALUES (:key, :value, UTC_TIMESTAMP(), UTC_TIMESTAMP()) ON DUPLICATE KEY UPDATE value = :value2, updated = UTC_TIMESTAMP()');
 					$command->bindParam(':key', $key);
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);

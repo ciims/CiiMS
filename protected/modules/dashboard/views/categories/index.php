@@ -28,7 +28,7 @@
 					<?php echo Yii::t('Dashboard.main', 'Categories'); ?>
 
 					<div class="pull-right">
-						<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/categories/save'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
+						<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/categories/save'), array('id' => 'header-button', 'class' => 'category-plus-fix icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
 					</div>
 				</legend>
 				<div class="clearfix"></div>

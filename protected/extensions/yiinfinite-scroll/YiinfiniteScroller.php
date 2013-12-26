@@ -20,7 +20,7 @@ class YiinfiniteScroller extends CBasePager {
         'url'           => null,
         'debug'         => false,
         'defaultCallback'   => 'js:function(text, data) { }',
-        'errorCallback'     => 'js:function(data) { $(".infinite_navigation").fadeOut(); }',     
+        'errorCallback'     => 'js:function(data) { $(".infinite_navigation").fadeOut(); }', 
         'loading' => array(
             'img'           => 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
             'finishedMsg'   => null,

@@ -25,9 +25,38 @@ class CiiModel extends CActiveRecord
 		'login',
 		'logout',
 		'admin',
-		'hybridauth'
+		'hybridauth',
+		'dashboard',
+		'acceptinvite',
+		'api'
 	);
-	
+
+    /**
+     * Returns attributes suitable for the API
+     * @return array
+     */
+    public function getAPIAttributes($params=array())
+    {
+        $attributes = array();
+        foreach ($this->attributes as $k=>$v)
+        {
+        	if (in_array($k, $params))
+        		continue;
+
+            if ($k == 'created' || $k == 'updated' || $k == 'published') 
+            {
+                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UTC_TIMESTAMP()')
+                    $attributes[$k] = time();
+                else
+                    $attributes[$k] = strtotime($v);
+            }
+            else
+                $attributes[$k] = $v;
+        }
+
+        return $attributes;
+    }
+
 	/**
 	 * parseMeta pulls the metadata out of a model and returns that metadata as a usable array
 	 * @param CiiModel $model - The model to pull metedata from
@@ -72,11 +101,11 @@ class CiiModel extends CActiveRecord
 		if ($this->hasAttribute('created'))
 		{
 	        if ($this->isNewRecord)
-	            $this->created = new CDbExpression('NOW()');
+	            $this->created = new CDbExpression('UTC_TIMESTAMP()');
 		}
 
 		if ($this->hasAttribute('updated'))
-       		$this->updated = new CDbExpression('NOW()');
+       		$this->updated = new CDbExpression('UTC_TIMESTAMP()');
 
        	return parent::beforeValidate();
 	}
@@ -99,7 +128,7 @@ class CiiModel extends CActiveRecord
 		// Allow the slug to be the root directory for setting the homepage
 		if ($slug == '-')
 			$slug = "/";
-
+		
 		return strToLower($this->checkSlug($slug));
 	}
 	

@@ -206,6 +206,128 @@ class CardController extends CiiDashboardController
 	}
 
 	/**
+	 * JSON Response to determine if there is an update for a card
+	 * @param  string $id  The card ID
+	 * @return JSON
+	 */
+	public function actionIsUpdateAvailable($id=NULL)
+	{
+		header('Content-Type: application/json');
+		$card = CJSON::decode($this->getBaseCardById($id));
+
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		    CURLOPT_RETURNTRANSFER => 1,
+		    CURLOPT_URL => 'https://raw.github.com/' . str_replace('https://www.github.com/', '', $card['repository']) . '/master/card.json',
+		    CURLOPT_FOLLOWLOCATION => true
+		));
+
+		$response = CJSON::decode(curl_exec($curl));
+		if ($card['version'] != $response['version'])
+		{
+			echo CJSON::encode(array('update' => true));
+			return true;
+		}
+
+		echo CJSON::encode(array('update' => false));
+		return true;
+	}
+
+	/**
+	 * Updates the card and the associated data
+	 * @param  string $id  The card ID
+	 * @return JSON
+	 */
+    public function actionUpdateCard($id=NULL)
+    {
+        header('Content-Type: application/json');
+        $card = $this->getBaseCardConfig($id);
+        $cardData = CJSON::decode($this->getBaseCardById($id));
+
+        // Determine the runtime directory
+        $runtimeDirectory = Yii::getPathOfAlias('application.runtime');
+        $downloadPath = $runtimeDirectory . DIRECTORY_SEPARATOR . 'cards' . DIRECTORY_SEPARATOR . $card['folderName'] . '.zip';
+        if (!is_writable($runtimeDirectory))
+            throw new CHttpException(500,  Yii::t('Dashboard.main', 'Runtime directory is not writable'));
+
+        $targetFile = fopen($downloadPath, 'w' );
+
+        // Initiate the CURL request
+        $ch = curl_init($cardData['repository'] . '/archive/master.zip');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_FILE, $targetFile);
+        curl_exec($ch);
+
+        // Extract the file
+        $zip = new ZipArchive;
+        $res = $zip->open($downloadPath);
+        // If we can open the file
+        if ($res === true)
+        {
+            $extractionPath = str_replace('.zip', '', $downloadPath);
+            // Extract it to the appropriate location
+            $extraction = $zip->extractTo($extractionPath);
+
+            // If we can extract it
+            if ($extraction)
+            {
+                // Update all the cards
+                $cardData = CJSON::decode($this->getBaseCardById($id));
+                $cards = Cards::model()->findAllByAttributes(array('name' => $id));
+
+                foreach ($cards as $c)
+                {
+                    $currentData = CJSON::decode($c['data']);
+                    $activeSize = $currentData['activeSize'];
+                    $newData = $cardData;
+                    $newData['activeSize'] = $activeSize;
+                    $c->data = CJSON::encode($newData);
+                    $c->save();
+                }
+
+                unlink($downloadPath);
+                echo CJSON::encode(array('updated' => true));
+                return true;
+            }
+        }
+
+        echo CJSON::encode(array('updated' => false, 'reason' => $res));
+     }
+
+	/**
+	 * Retrieves the baseconfig for a card
+	 * @param  string $id  The card ID
+	 * @return JSON
+	 */
+	private function getBaseCardConfig($id)
+	{
+		if ($id == NULL)
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'An ID must be specified'));
+		
+		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $id)->queryScalar(), true);
+
+		if ($json == NULL)
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
+
+		return $json;
+	}
+
+	/**
+	 * Retrieves the baseconfig for a card
+	 * @param  string $id  The card ID
+	 * @return JSON
+	 */
+	private function getBaseCardById($id)
+	{
+		$json = $this->getBaseCardConfig($id);
+
+		$data = file_get_contents(Yii::getPathOfAlias($json['path']) . DIRECTORY_SEPARATOR . 'card.json');
+
+		return $data;
+	}
+
+	/**
 	 * Retrieves a card given a particular $id
 	 * @return string $id
 	 */

@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends CiiController
+class SiteController extends CiiSiteController
 {
 	public function filters()
 	{
@@ -17,7 +17,7 @@ class SiteController extends CiiController
 				'users'=>array('*'),
 				'expression'=>'Yii::app()->user->isGuest==true',
 				'actions' => array('emailchange')
-			),
+			)
 		);
 	}
 
@@ -36,7 +36,7 @@ class SiteController extends CiiController
 	/**
 	 * This is the action to handle external exceptions.
 	 */
-	public function actionError()
+	public function actionError($code=NULL)
 	{
 		$this->layout = '//layouts/main';
 
@@ -56,6 +56,12 @@ class SiteController extends CiiController
 
 				$this->render('error', array('error'=>$error));
 			}
+		}
+		else
+		{
+			$message = Yii::app()->user->getFlash('error_code');
+			Yii::app()->user->setFlash('error_code', $message);
+			throw new CHttpException($code, $message);
 		}
 	}
 
@@ -85,7 +91,7 @@ class SiteController extends CiiController
 		header('Content-type: text/xml; charset=utf-8');
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
 		$this->setLayout(null);
-		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= NOW();')->queryAll();
+		$content = Yii::app()->db->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= UTC_TIMESTAMP();')->queryAll();
 		$categories = Yii::app()->db->createCommand('SELECT slug, updated FROM categories;')->queryAll();
 		$this->renderPartial('sitemap', array('content'=>$content, 'categories'=>$categories, 'url' => $url));
 		//Yii::app()->end();
@@ -170,7 +176,7 @@ class SiteController extends CiiController
 		{	
 			$criteria = new CDbCriteria;
 			$criteria->addCondition('status = 1')
-		         	 ->addCondition('published <= NOW()');
+		         	 ->addCondition('published <= UTC_TIMESTAMP()');
 
 			if (strpos($_GET['q'], 'user_id') !== false)
 			{
@@ -223,7 +229,7 @@ class SiteController extends CiiController
 			$model->attributes=$_POST['LoginForm'];
             
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+				$this->redirect(isset($_GET['next']) ? $_GET['next'] : Yii::app()->user->returnUrl);
 		}
         
 		$this->render('login',array('model'=>$model));
@@ -234,6 +240,11 @@ class SiteController extends CiiController
      */
 	public function actionLogout()
 	{
+		// Pure the active sessions API Key
+		$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'api_key'));
+	  	if ($apiKey != NULL)
+	  		$apiKey->delete();
+
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->user->returnUrl);
 	}
@@ -463,7 +474,7 @@ class SiteController extends CiiController
 		if ($id != NULL || $email = NULL)
 		{
 			$record = $user = Users::model()->findByPk($email);
-			if ($user != NULL && $user->status == 0)
+			if ($user != NULL && $user->status == Users::INACTIVE)
 			{
 				$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$email, 'key'=>'activationKey', 'value'=>$id));
 				if ($meta != NULL)
@@ -482,7 +493,7 @@ class SiteController extends CiiController
 						if (password_verify($hash, $record->password))
 						{
 							// Update the user status
-							$user->status = 1;
+							$user->status = Users::ACTIVE;
 							$user->save();
 							
 							// Delete the activationKey
@@ -529,8 +540,8 @@ class SiteController extends CiiController
 		)));
 
 		$this->layout = '//layouts/main';
-		$model = new RegisterForm();
-		$user = new Users();
+		$model = new RegisterForm;
+		$user = new Users;
 		
 		$error = '';
 		if (isset($_POST) && !empty($_POST))
@@ -555,7 +566,7 @@ class SiteController extends CiiController
 					'lastName'=> NULL,
 					'displayName'=>Cii::get($_POST['RegisterForm'], 'displayName'),
 					'user_role'=>1,
-					'status'=>0
+					'status'=>Users::INACTIVE
 				);
 				
 				try 
@@ -589,7 +600,7 @@ class SiteController extends CiiController
 	/**
 	 * Handles successful registration
 	 */
-	public function actionRegistersuccess()
+	public function actionRegisterSuccess()
 	{
 		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
 			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
@@ -597,16 +608,48 @@ class SiteController extends CiiController
 		)));
 
 		$notifyUser  = new stdClass;
-        $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
-        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+		$notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
+		$notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
 
-        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
-            $notifyUser = Users::model()->findByPk(1);
+		if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
+		    $notifyUser = Users::model()->findByPk(1);
 
 		$this->layout = '//layouts/main';
 		$this->render('register-success', array('notifyUser' => $notifyUser));
 	}
 
+	/**
+	 * Enables users who have recieved an invitation to setup a new account
+	 * @param string $id	The activation id the of the user that we want to activate
+	 */
+	public function actionAcceptInvite($id=NULL)
+	{
+		$this->layout = "main";
+		if ($id == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
+
+		// Make sure we have a user first
+		$meta = UserMetadata::model()->findByAttributes(array('key' => 'activationKey', 'value' => $id));
+		if ($meta == NULL)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
+
+		$model = new InviteModel;
+		
+		$model->email = Users::model()->findByPk($meta->user_id)->email;
+		if (Cii::get($_POST, 'InviteModel', NULL) != NULL)
+		{
+			$model->attributes = Cii::get($_POST, 'InviteModel', NULL);
+		
+			if ($model->save($meta->user_id))
+			{
+				$meta->delete();
+				return $this->render('invitesuccess');	
+			}	
+		}
+		
+		$this->render('acceptinvite', array('model' => $model));
+	}
+	
     /**
      * Migrate Action
      * Allows the Site to perform migrations during the installation process

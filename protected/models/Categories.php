@@ -21,6 +21,10 @@ class Categories extends CiiModel
 {
 	public $pageSize = 15;
 
+    public $description = NULL;
+
+    public $keywords = array();
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -74,7 +78,7 @@ class Categories extends CiiModel
 		return array(
 			'parent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
 			'metadata' => array(self::HAS_MANY, 'CategoriesMetadata', 'category_id'),
-			'contents' => array(self::HAS_MANY, 'Content', 'category_id'),
+			'content' => array(self::HAS_MANY, 'Content', 'category_id'),
 		);
 	}
 
@@ -88,10 +92,21 @@ class Categories extends CiiModel
 			'parent_id' => Yii::t('ciims.models.Categories', 'Parent'),
 			'name'      => Yii::t('ciims.models.Categories', 'Name'),
 			'slug'      => Yii::t('ciims.models.Categories', 'Slug'),
+            'description' => Yii::t('ciims.models.Categories', 'Description'),
 			'created'   => Yii::t('ciims.models.Categories', 'Created'),
 			'updated'   => Yii::t('ciims.models.Categories', 'Updated'),
 		);
 	}
+
+    public function getDescription()
+    {
+        $this->description = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
+        if ($this->description == null || $this->description == false)
+            return NULL;
+
+        $this->description = $this->description->value;
+        return $this->description;
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -116,6 +131,61 @@ class Categories extends CiiModel
             )
 		));
 	}
+    
+    /**
+     * Gets keyword tags for this entry
+     * @return array
+     */
+    public function getKeywords()
+    {
+        $tags = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+        return $tags === NULL ? array() : CJSON::decode($tags->value);
+    }
+    
+    /**
+     * Adds a tag to the model
+     * @param string $tag	The tag to add
+     * @return bool			If the insert was successful or not
+     */
+    public function addKeyword($tag)
+    {
+        $tags = $this->keywords;
+        if (in_array($tag, $tags)  || $tag == "")
+            return false;
+        
+        $tags[] = $tag;
+        $tags = CJSON::encode($tags);
+        $metaTag = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+        if ($metaTag == false || $metaTag == NULL)
+        {
+            $metaTag = new CategoriestMetadata;
+            $metaTag->content_id = $this->id;
+            $metaTag->key = 'keywords';
+        }
+        
+        $metaTag->value = $tags;		
+        return $metaTag->save();
+    }
+    
+    /**
+     * Removes a tag from the model
+     * @param string $tag	The tag to remove
+     * @return bool			If the removal was successful
+     */
+    public function removeKeyword($tag)
+    {
+        $tags = $this->keywords;
+        if (!in_array($tag, $tags) || $tag == "")
+            return false;
+        
+        $key = array_search($tag, $tags);
+        unset($tags[$key]);
+        $tags = CJSON::encode($tags);
+
+        $metaTag = CategoryMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+        $metaTag->value = $tags;
+        return $metaTag->save();
+    }    
 	
 	/**
 	 * Verifies the slug before validating the model
@@ -126,12 +196,22 @@ class Categories extends CiiModel
 
 		return parent::beforeValidate();
 	}
-     
+
     /**
      * Flushes URL data from the cache before the model is updated
      */
 	public function afterSave()
 	{		
+        $meta = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
+        if ($meta == NULL)
+            $meta = new CategoriesMetadata;
+        
+        $meta->category_id = $this->id;
+        $meta->key = 'description';
+        $meta->value  = $this->description;
+
+        $meta->save();
+
         Yii::app()->cache->delete('categories-listing');
 		Yii::app()->cache->delete('categories');
 		Yii::app()->cache->delete('WFF-categories-url-rules');

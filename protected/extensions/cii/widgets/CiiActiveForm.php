@@ -256,7 +256,7 @@ class CiiActiveForm extends TbActiveForm
 	public function toggleButtonRow($model, $property, $htmlOptions=array(), $validators=NULL)
 	{
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
-		echo CHtml::openTag('div', array('class' => 'pure-input-2-3', 'style' => 'display: inline-block'));
+		echo CHtml::openTag('div', array('class' => Cii::get($htmlOptions, 'class', 'pure-input-2-3'), 'style' => 'display: inline-block'));
 			echo CHtml::openTag('label', array('class' => 'switch-light toggle candy blue'));
 				$checked = array();
 				if($model->$property == 1)

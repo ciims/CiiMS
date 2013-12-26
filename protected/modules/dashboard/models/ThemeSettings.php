@@ -2,7 +2,7 @@
 
 class ThemeSettings extends CiiSettingsModel
 {
-	protected $theme = 'default';
+	public $theme = 'default';
 
 	protected $mobileTheme = NULL;
 
@@ -25,6 +25,11 @@ class ThemeSettings extends CiiSettingsModel
 			'mobileTheme' => Yii::t('Dashboard.models-theme', 'Mobile Theme'),
 			'tabletTheme' => Yii::t('Dashboard.models-theme', 'Tablet Theme'),
 		);
+	}
+
+	public function getTheme()
+	{
+		return $this->theme;
 	}
 
 	/**
@@ -52,10 +57,12 @@ class ThemeSettings extends CiiSettingsModel
 
 			foreach ($files as $file)
 			{
+				if (strpos($file,'theme.json') === false)
+					continue;
 				$theme = json_decode(file_get_contents($file), true);
 				$themes[$theme['type']][] = $theme;
 			}
-			
+
 			Yii::app()->cache->set('settings_themes', $themes);
 		}
 

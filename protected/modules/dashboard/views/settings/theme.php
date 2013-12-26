@@ -6,7 +6,7 @@
 	<div class="pure-control-group pure-input-3-4">
 		<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Enter the user/repo of where the theme you want to download is located at.'); ?></p>
 		<label><?php echo Yii::t('Dashboard.views', 'Repository'); ?></label>
-		<input type="text" name="Theme[new]" id="Theme_new" class="pure-input-2-3" no-field-change="true" />
+		<input type="text" name="Theme[new]" id="Theme_new" class="pure-input-2-3" no-field-change="true" placeholder="<?php echo Yii::t('Dashboard.views', 'Example: charlesportwoodii/spectre'); ?>"/>
 		<a id="submit-form" class="pure-button pure-button-primary pure-button-small pull-right">
 			<span id="spinner">
 				<span class="icon-spinner icon-spin icon-spinner-form"></span>
@@ -32,7 +32,6 @@
 			$elementOptions = array('options' => array(array('value' => NULL)));
 		}
 		
-
 		foreach ($options as $k=>$v)
 		{
 			$themeFolder = str_replace('webroot.themes.', '', $v['folder']);

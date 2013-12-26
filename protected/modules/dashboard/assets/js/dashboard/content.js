@@ -655,6 +655,24 @@ var CiiDashboard = {
 
 			// Binds the datePicker effect
 			datePicker : function() {
+				var res = new Date($("#Content_published").val() + " UTC");
+				var res = new Date(res);
+				
+				var dd = res.getDate();
+				var mm = res.getMonth()+1;//January is 0!
+				var yyyy = res.getFullYear();
+				var hours = res.getHours();
+				var minutes = res.getMinutes();
+				var seconds = res.getSeconds();
+				if(dd<10){dd='0'+dd}
+				if(mm<10){mm='0'+mm}
+				d=yyyy + "-" + mm + "-" + dd + ' '+hours+':'+minutes+':'+seconds
+
+				$("#Content_published").val(d);
+
+				var tz = jstz.determine(); // Determines the time zone of the browser client
+    	
+				$("#timezone").val(tz.name());
 				$("#Content_published").datetimepicker({
 				    format: "yyyy-mm-dd hh:ii:ss",
 				    showMeridian: true,

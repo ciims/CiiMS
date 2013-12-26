@@ -4,7 +4,7 @@
 		<li class="provider">
 			<div class="tile" data-name="<?php echo str_replace(".", "_", str_replace(" ", "_", $group)); ?>">
 				<span class="title">
-					<?php echo CHtml::image($this->asset.'/images/providers/' . $group .'/logo.png'); ?>
+					<img src="<?php echo $this->asset.'/images/providers/' . $group .'/logo.png'; ?>" />
 				</span>
 				<?php $first = reset($keys); ?>
 				<?php echo $form->toggleButtonRow($model, $first, $htmlOptions); ?>

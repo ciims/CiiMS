@@ -17,20 +17,46 @@
 				)
 	    	); ?>
 	    </form>
-		<!--<div class="pull-right">
-			<?php echo CHtml::link(NULL, $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'icon-plus pure-plus pure-button pure-button-link pure-button-primary pure-button-small'), NULL); ?>
-			<?php echo CHtml::link(Yii::t('Dashboard.views', 'Invite Users'), $this->createUrl('/dashboard/users/create'), array('id' => 'header-button', 'class' => 'pure-button pure-button-link pure-button-primary pure-button-small')); ?>
-		</div>
-	-->
 		<div class="clearfix"></div>
 	</div>
 	<div id="main" class="nano">
 		<div class="content">
 			<fieldset>
-				<!-- <legend>Pending Invitations</legend> -->
+				<div class="alert-secondary alert in alert-block fade alert-error" style="display:none">
+					<a class="close" data-dismiss="alert">×</a>
+				</div>
 				<span style="padding:10px"></span>
-				<legend><?php echo Yii::t('Dashboard.main', 'Users'); ?></legend>
+				<legend>
+					<?php echo Yii::t('Dashboard.main', 'Invited Users'); ?>
+				</legend>
+	
+				<div class="invite-field">
+					<label><?php echo Yii::t('Dashboard.main', 'Email Address'); ?></label>
+					<input type="email" name="Invite[email]" id="Invite_email" placeholder="<?php echo Yii::t('Dashboard.main', 'Enter a email address to invite a user'); ?>"/>
+					<a class="pure-button pure-button-success pure-button-small invite-button">
+						<span id="spinner">
+							<span class="icon-spinner icon-spin icon-spinner-form"></span>
+							<span class="icon-spacer"></span>
+						</span>
+						<?php echo Yii::t('Dashboard.main', 'Invite User'); ?>
+					</a>
+				</div>
 				<div class="clearfix"></div>
+				<?php $this->widget('zii.widgets.CListView', array(
+				    'dataProvider'=>$invitees,
+				    'itemView'=>'userList',
+				    'id' => 'inviteesListView',
+				    'summaryText' => false,
+				    'pagerCssClass' => 'pagination',
+		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+				)); ?>
+
+				<div class="clearfix"></div>
+				<span style="padding:20px"></span>
+
+				<legend><?php echo Yii::t('Dashboard.main', 'Users'); ?></legend>
+
+				<span style="padding:10px"></span>
 				<?php $this->widget('zii.widgets.CListView', array(
 				    'dataProvider'=>$model->search(),
 				    'itemView'=>'userList',

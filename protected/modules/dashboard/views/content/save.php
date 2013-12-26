@@ -41,12 +41,19 @@
 				<span class="pull-right icon-trash"></span>
 				<span class="pull-right icon-gear show-settings"></span>
 				<span class="pull-right icon-gear show-preview" style="display:none"></span>
+				<?php if ($model->isPublished()): ?>
+					<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+				<?php endif; ?>
 			</div>
 			<div id="main" class="nano">				
 				<div class="content flipbox">
 					<?php $meta = Content::model()->parseMeta($model->metadata); ?>
 					<p style="text-align:center;">
-						<?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?>
+						<?php if (isset($meta['blog-image']['value'])): ?>
+							<?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'preview-image')); ?>
+						<?php else: ?>
+							<?php echo CHtml::image('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', NULL, array('class'=>'preview-image')); ?>
+						<?php endif; ?>
 					</p>
 					<div class="preview-metadata">
 						<span class="blog-author minor-meta">
@@ -55,7 +62,7 @@
 							)); ?>
 							<span class="separator">⋅</span> 
 						</span>
-						<span class="date"><?php echo Cii::formatDate($model->published) ?>
+						<span class="date"><?php echo Cii::timeago($model->published); ?>
 							<span class="separator">⋅</span> 
 						</span>
 						<span class="separator">⋅</span>
@@ -75,36 +82,38 @@
 		<div class="settings">
 			<?php $htmlOptions = array('class' => 'pure-input-2-3'); ?>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'status', array(1=>'Published', 0=>'Draft'), $htmlOptions); ?>
+				<?php echo $form->dropDownListRow($model,'status', $model->getStatuses(), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'commentable', array(1=>'Yes', 0=>'No'), $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'commentable', array(1=>Yii::t('Dashboard.views', 'Yes'), 0=>Yii::t('Dashboard.main', 'No')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->dropDownListRow($model,'category_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group date form_datetime">
-					<?php echo $form->textFieldRow($model, 'published', $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->textFieldRow($model, 'published', $htmlOptions); ?>
+				<?php echo CHtml::hiddenField('timezone', NULL); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model,'type_id', array(2=> Yii::t('Dashboard.views', 'Blog Post'), 1=> Yii::t('Dashboard.views', 'Page')), $htmlOptions); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
+				<?php echo !$canPublish ? NULL : $form->dropDownListRow($model, 'view', $views, array('class'=>'pure-input-2-3', 'options' => array($model->view => array('selected' => true)))); ?>
 			</div>
 			<div class="pure-control-group">
-	            <?php echo $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
+	            <?php echo !$canPublish ? NULL : $form->dropDownListRow($model, 'layout', $layouts, array('class'=>'pure-input-2-3', 'options' => array($model->layout => array('selected' => true)))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Password (Optional)'), 'value' => Cii::decrypt($model->password))); ?>
+				<?php echo !$canPublish ? NULL : $form->textFieldRow($model,'password',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Password (Optional)'), 'value' => Cii::decrypt($model->password))); ?>
 			</div>
 			<div class="pure-control-group">
-				<?php echo $form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Slug'))); ?>
+				<?php echo !$canPublish ? NULL :$form->textFieldRow($model,'slug',array('class'=>'pure-input-2-3','maxlength'=>150, 'placeholder' =>  Yii::t('Dashboard.views', 'Slug'))); ?>
 			</div>
 			<div class="pure-control-group">
 				<?php echo $form->textField($model, 'tagsFlat', array('id' => 'tags')); ?>
 			</div>
 			<div class="pure-control-group">
+				<label for="extract" class="left-label"><?php echo $model->getAttributeLabel('extract'); ?></label>
 				<?php $htmlOptions['style'] = 'width: 100%; height: 250px;'; ?>
 				<?php $htmlOptions['placeholder'] =  Yii::t('Dashboard.views', 'Add a content extract here'); ?>
 				<?php echo $form->textArea($model, 'extract', $htmlOptions); ?>
@@ -128,4 +137,5 @@
 				 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
+				 ->registerScriptFile($this->asset.'/js/jstz.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/datepicker/js/bootstrap-datetimepicker.min.js', CClientScript::POS_END); ?>

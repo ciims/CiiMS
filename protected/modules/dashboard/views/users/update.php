@@ -14,10 +14,23 @@
 	</div>
 	<div class="clearfix"></div>
 </div>
+
+	<?php if (Yii::app()->user->hasFlash('error')): ?>
+		<div class="alert-secondary alert in alert-block fade alert-error">
+			<?php echo Yii::app()->user->getFlash('error'); ?>
+			<a class="close" data-dismiss="alert">×</a>
+		</div>
+	<?php elseif (Yii::app()->user->hasFlash('success')): ?>
+		<div class="alert-secondary alert in alert-block fade alert-success">
+			<?php echo Yii::app()->user->getFlash('success'); ?>
+			<a class="close" data-dismiss="alert">×</a>
+		</div>
+	<?php endif; ?>
 <div id="main" class="nano">
 	<div class="content">
 		<fieldset>
-				<legend>System Information</legend>
+
+				<legend><?php echo Yii::t('Dashboard.views', 'User Information'); ?></legend>
 				<div class="pure-control-group">
 					<?php echo $form->toggleButtonRow($model, 'status', $htmlOptions); ?>
 				</div>
@@ -53,6 +66,7 @@
 					<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Do not alter this data unless you know what you are doing.'); ?></p>
 					<div class="clearfix"></div>
 					<?php foreach ($model->metadata as $meta): ?>
+						<?php if (strpos($meta->key, 'api_key') !== false) continue; // Prevent API keys from being displayed or manipulated?>
 						<?php $options = array('class' => 'pure-input-2-3', 'type' => 'text', 'value' => $meta->value, 'name' => 'UserMetadata[' . $meta->key . ']'); ?>
 
 						<div class="pure-control-group">

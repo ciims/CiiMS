@@ -16,7 +16,11 @@ class ContentController extends CiiDashboardController
             ),
             array('deny',   // Prevent Editors from deleting content
                 'actions' => array('delete', 'deleteMany'),
-                'expression' => 'Yii::app()->user->role==7'
+                'expression' => 'Yii::app()->user->role==7||Yii::app()->user->role==5'
+            ),
+            array('allow',   
+                'actions' => array('index', 'save'),
+                'expression' => 'Yii::app()->user->role==5'
             ),
             array('deny',  // deny all users
                 'users'=>array('*'),
@@ -26,7 +30,7 @@ class ContentController extends CiiDashboardController
 
   /**
    * Default management page
-     * Display all items in a CListView for easy editing
+   * Display all items in a CListView for easy editing
    */
   public function actionIndex()
   {
@@ -46,7 +50,6 @@ class ContentController extends CiiDashboardController
 
         if (Cii::get($_GET, 'id') !== NULL)
             $preview = Content::model()->findByPk(Cii::get($_GET, 'id'));
-
 
         $model->pageSize = 20;
 
@@ -95,21 +98,48 @@ class ContentController extends CiiDashboardController
             $version = Content::model()->countByAttributes(array('id' => $id));
         }
 
+
+        $role = Yii::app()->user->role;
+
+        if ($role != 7 && $role != 9)
+        {
+            if ($model->author_id != Yii::app()->user->id)
+                throw new CHttpException(401, Yii::t('Dashboard.main', 'You are not authorized to perform this action.'));
+        }
+
         if(Cii::get($_POST, 'Content') !== NULL)
         {
             $model2 = new Content;
             $model2->attributes = Cii::get($_POST, 'Content', array());
-            if ($_POST['Content']['password'] != "")
+            if (Cii::get($_POST['Content'],'password', "") != "")
                 $model2->password = Cii::encrypt($_POST['Content']['password']);
+            else
+                $model2->password = "";
 
             // For some reason this isn't setting with the other data
             $model2->extract    = $_POST['Content']['extract'];
             $model2->id         = $id;
             $model2->vid        = $model->vid+1;
-            $model2->viewFile   = $_POST['Content']['view'];
-            $model2->layoutFile = $_POST['Content']['layout'];
+            $model2->viewFile   = Cii::get($_POST['Content'], 'view', 'blog');
+            $model2->layoutFile = Cii::get($_POST['Content'], 'layout', 'blog');
             $model2->created    = $_POST['Content']['created'];
-            $model2->published  = $_POST['Content']['published'];
+            $model2->commentable= Cii::get($_POST['Content'], 'commentable', 1);
+            $model2->type_id    = Cii::get($_POST['Content'], 'type_id', 2);
+
+            $model2->published  = Cii::get($_POST['Content'], 'published', NULL);
+            $time = strtotime($model2->published . $_POST['timezone']);
+            $published = date('Y-m-d H:i:s', $time);
+            $model2->published = $published;
+
+            if ($model->author_id != Yii::app()->user->id)
+                $model2->author_id = $model->author_id;
+
+            // Prevent editors and collaborators from publishing acticles
+            if ($role == 5 || $role == 7)
+                if ($model2->status == 1)
+                    $model2->status = 2;
+
+
             if($model2->save()) 
             {
                 Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Content has been updated.'));
@@ -141,7 +171,8 @@ class ContentController extends CiiDashboardController
             'version'        =>  $version,
             'preferMarkdown' =>  $preferMarkdown,
             'views'          =>  $viewFiles,
-            'layouts'        =>  $layouts 
+            'layouts'        =>  $layouts,
+            'canPublish'     => (Yii::app()->user->role != 7 && Yii::app()->user->role != 5)
         ));
     }
 
@@ -155,50 +186,12 @@ class ContentController extends CiiDashboardController
     {
         if (Yii::app()->request->isPostRequest)
         {
-            $path = '/';
-            $folder = $this->getUploadPath();
-
-            $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
-            $sizeLimit = 10 * 1024 * 1024;
-
-            $uploader = new CiiFileUploader($allowedExtensions, $sizeLimit);
-
-            $result = $uploader->handleUpload($folder);
-            
-            if (Cii::get($result,'success', false) == true)
-            {
-                $meta = ContentMetadata::model()->findbyAttributes(array('content_id' => $id, 'key' => $result['filename']));
-
-                if ($meta == NULL)
-                    $meta = new ContentMetadata;
-
-                $meta->content_id = $id;
-                $meta->key = $result['filename'];
-                $meta->value = '/uploads' . $path . $result['filename'];
-                if ($meta->save())
-                {
-
-                    if ($promote)
-                        $this->promote($id, $result['filename']);
-
-                    $result['filepath'] = '/uploads/' . $result['filename'];
-                    echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-                }
-                else
-                {
-                    throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to save uploaded image.'));
-                }
-            }
-            else
-            {
-                echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-                throw new CHttpException(400, $result['error']);
-            }
-        }  
+            $result = new CiiFileUpload($id, $promote);
+            echo $result->uploadFile();
+        }
 
         Yii::app()->end();  
     }
-
 
     /**
      * Public action to add a tag to the particular model
@@ -248,56 +241,13 @@ class ContentController extends CiiDashboardController
     }
 
     /**
-     * Promotes an image to blog-image
-     */
-    private function promote($id = NULL, $key = NULL)
-    {
-        $promotedKey = 'blog-image';
-
-        // Only proceed if we have valid date
-        if ($id == NULL || $key == NULL)
-            return false;
-        
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $key));
-        
-        // If the current model is already blog-image, return true (consider it a successful promotion, even though we didn't do anything)
-        if ($model->key == $promotedKey)
-            return true;
-        
-        $model2 = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => $promotedKey));
-        if ($model2 === NULL)
-        {
-            $model2 = new ContentMetadata;
-            $model2->content_id = $id;
-            $model2->key = $promotedKey;
-        }
-        
-        $model2->value = $model->value;
-        
-        if (!$model2->save())
-            return false;
-        
-        return true;
-    }
-
-    private function getUploadPath($path="/")
-    {
-        return Yii::app()->getBasePath() .'/../uploads' . $path;
-    }
-
-    /**
      * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * If deletion is successful, the browser will be redirected to the previous
      * @param integer $id the ID of the model to be deleted
      */
     public function actionDelete($id)
     {
-        // we only allow deletion via POST request
-        // and we delete /everything/
-        $command = Yii::app()->db
-                      ->createCommand("DELETE FROM content WHERE id = :id")
-                      ->bindParam(":id", $id, PDO::PARAM_STR)
-                      ->execute();
+        Yii::app()->db->createCommand('DELETE FROM content WHERE id = :id')->bindParam(':id', $id)->execute();
 
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
@@ -317,18 +267,31 @@ class ContentController extends CiiDashboardController
             throw new CHttpException(500,  Yii::t('Dashboard.main', 'No records were supplied to delete'));
         
         foreach ($_POST[$key] as $id)
-        {
-            $command = Yii::app()->db
-                      ->createCommand("DELETE FROM content WHERE id = :id")
-                      ->bindParam(":id", $id, PDO::PARAM_STR)
-                      ->execute();
-        }
+            Content::model()->findByPk($id)->delete();
         
         Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Post has been deleted'));
         
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if(!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+    }
+
+    /**
+     * Retrieves the available view files under the current theme
+     * @return array    A list of files by name
+     */
+    private function getViewFiles($theme='default')
+    {
+        return $this->getFiles($theme, 'views.content');
+    }
+    
+    /**
+     * Retrieves the available layouts under the current theme
+     * @return array    A list of files by name
+     */
+    private function getLayouts($theme='default')
+    {
+        return $this->getFiles($theme, 'views.layouts');
     }
     
     /**
@@ -370,23 +333,5 @@ class ContentController extends CiiDashboardController
         }
         
         return $returnFiles;
-    }
-
-    /**
-     * Retrieves the available view files under the current theme
-     * @return array    A list of files by name
-     */
-    private function getViewFiles($theme='default')
-    {
-        return $this->getFiles($theme, 'views.content');
-    }
-    
-    /**
-     * Retrieves the available layouts under the current theme
-     * @return array    A list of files by name
-     */
-    private function getLayouts($theme='default')
-    {
-        return $this->getFiles($theme, 'views.layouts');
     }
 }

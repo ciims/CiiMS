@@ -22,7 +22,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div class="blog-meta inline">
-				<span class="date"><?php echo Cii::formatDate($content->published); ?></span>
+				<span class="date"><?php echo Cii::timeAgo($content->published); ?></span>
 				<span class="separator">⋅</span>
 				<span class="blog-author minor-meta">
 					<?php
@@ -124,7 +124,7 @@
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						<?php echo Yii::t('DefaultTheme', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
 							'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Hey there!')),
-							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme', 'login'), $this->createUrl('/login')),
+							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme', 'login'), $this->createUrl('/login?next=' . $content->slug)),
 							'{{register}}' => CHtml::link(Yii::t('DefaultTheme', 'signup'), $this->createUrl('/register'))
 						)); ?>
 					</div>

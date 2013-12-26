@@ -2,6 +2,25 @@
 
 class CategoriesController extends CiiSettingsController
 {
+
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules()
+    {
+            return array(
+                    array('allow',  // allow authenticated admins to perform any action
+                            'users'=>array('@'),
+                            'expression'=>'Yii::app()->user->role==6||Yii::app()->user->role==9'
+                    ),
+                    array('deny',  // deny all users
+                            'users'=>array('*'),
+                    ),
+            );
+    }
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -17,6 +36,7 @@ class CategoriesController extends CiiSettingsController
 		if(Cii::get($_POST, 'Categories') !== NULL)
 		{
 			$model->attributes = Cii::get($_POST, 'Categories', array());
+            $model->description = Cii::get(Cii::get($_POST, 'Categories', array()), 'description', NULL);
 			if($model->save())
 			{
 				Yii::app()->user->setFlash('success',  Yii::t('Dashboard.main', 'Category has been updated'));

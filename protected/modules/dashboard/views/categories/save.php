@@ -28,6 +28,9 @@
 					<?php echo $form->textFieldRow($model, 'slug', $htmlOptions); ?>
 				</div>
 				<div class="pure-control-group">
+					<?php echo $form->textAreaRow($model, 'description', CMap::mergeArray($htmlOptions, array('style' => 'height: 100px; width: 66%;', 'value' => $model->getDescription()))); ?>
+				</div>
+				<div class="pure-control-group">
 					<?php echo $form->dropDownListRow($model, 'parent_id', CHtml::listData(Categories::model()->findAll(), 'id', 'name'), $htmlOptions); ?>
 				</div>
 

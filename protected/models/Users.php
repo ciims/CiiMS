@@ -25,6 +25,11 @@
  */
 class Users extends CiiModel
 {
+	const INACTIVE = 0;
+	const ACTIVE = 1;
+	const BANNED = 2;
+	const PENDING_INVITATION = 3;
+
 	public $pageSize = 15;
 
 	/**
@@ -135,6 +140,7 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->addCondition('status != ' . self::PENDING_INVITATION);
 		$criteria->order = "user_role DESC, created DESC";
 		
 		return new CActiveDataProvider($this, array(
@@ -196,6 +202,9 @@ class Users extends CiiModel
     		$meta->key = 'newEmailAddressChangeKey';
     		$key = $meta->value = md5(md5($newEmail . time()) . Yii::app()->params['encryptionKey']);
     		$meta->save();
+
+    		// Delete all API tokens associated to this account
+    		$response = Yii::app()->db->createCommand('DELETE FROM user_metadata WHERE `key` LIKE "api_key%" AND user_id = :id')->bindParam(':id', $this->id)->execute();
 
     		// Fire off an email to the OLD email address asking them VERIFY the change
     		$response = Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));

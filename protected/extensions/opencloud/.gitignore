@@ -1,0 +1,12 @@
+.idea/
+.local/
+.test/
+build/
+docs/api/
+
+*.log
+*.phar
+.DS_Store
+composer.lock
+composer.phar
+phpunit.xml

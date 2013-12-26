@@ -7,10 +7,7 @@ class CiiCache extends CCache
 {
 		public function generateUniqueIdentifier()
 		{
-			$user = Yii::app()->params['user'];
-        	if ($user == null)
-        		$user = md5(Yii::app()->params['encryptionKey']);
-
+			$user = md5(Yii::app()->params['encryptionKey']);
         	return 'ciims_' . $user . '_';
 		}
 

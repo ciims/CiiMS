@@ -342,3 +342,8 @@ main .dh-settings-container .sidebar .menu li a {
     padding-left: 20px;
     text-decoration: none;
 }
+
+main .pure-button-link-xs {
+    margin-top: -13px;
+    margin-left: 5px;
+}

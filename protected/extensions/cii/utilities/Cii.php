@@ -62,6 +62,19 @@ class Cii {
     }
 
     /**
+     * Override control file
+     * @return array
+     */
+    public static function getCiiConfig()
+    {
+        $config = __DIR__ . '/../../../config/ciiparams.php';
+        if (file_exists($config))
+            return require $config;
+
+        return array();
+    }
+
+    /**
      * Gets a configuration value from user_metadata
      * @param  string $key     The key we want to retrieve from Configuration
      * @param  mixed  $default The default value to return if key is not found
@@ -110,6 +123,56 @@ class Cii {
 
 		return date($format, strtotime($date));
 	}
+
+    /**
+     * Automatically handles TimeAgo for UTC
+     *
+     * @param  mxied  $date   Likely a string in date format (of some kind)
+     * @param  string $format The format we want to FORCE the dts to be formatted to
+     *                        If this isn't supplied, we'll pull it from Cii::getConfig()
+     * @return CHtml:tag span element
+     */
+    public static function timeago($date, $format = NULL)
+    {
+        Yii::app()->controller->widget('ext.timeago.JTimeAgo', array(
+            'selector' => ' .timeago',
+            'settings' => array(
+                'refreshMillis' => 60000,
+                'allowFuture' => true,
+                  'strings' => array(
+                    'prefixAgo' => null,
+                    'prefixFromNow' => null,
+                    'suffixAgo' => "ago",
+                    'suffixFromNow' => "from now",
+                    'seconds' => "less than a minute",
+                    'minute' => "about a minute",
+                    'minutes' => "%d minutes",
+                    'hour' => "about an hour",
+                    'hours' => "about %d hours",
+                    'day' => "a day",
+                    'days' => "%d days",
+                    'month' => "about a month",
+                    'months' => "%d months",
+                    'year' => "about a year",
+                    'years' => "%d years",
+                    'wordSeparator' => " ",
+                    'numbers' => array()
+                  )
+            )
+        ));
+
+       return CHtml::tag(
+            'span',
+            array(
+                'class'=>"timeago",
+                'style'=>'text-decoration:none; cursor: default', // Post processing class application
+                'rel'=>'tooltip',
+                'data-original-title'=>Cii::formatDate($date, $format),
+                'title'=>CTimestamp::formatDate('c', strtotime($date))
+            ),
+            Cii::formatDate($date, $format)
+        );
+    }
 	
     /**
      * Retrieves Analytics.js Providers
@@ -181,10 +244,12 @@ class Cii {
                     }
                 }
             }
-
             Yii::app()->cache->set('analyticsjs_providers', $providers);
         }
 
+        $providers['CiiMS'] = array(
+            'endpoint' => '/api'
+        );
         return $providers;
     }
 
@@ -242,15 +307,19 @@ class Cii {
      * @param  string $field The data we want to ecrnypt
      * @return string        encrypted data
      */
-    public static function encrypt($field)
+    
+    public static function encrypt($field, $key = NULL)
     {
+        if ($key == NULL)
+            $key = Yii::app()->params['encryptionKey'];
+
         return base64_encode(
             mcrypt_encrypt(
                 MCRYPT_RIJNDAEL_256, 
-                md5(Yii::app()->params['encryptionKey']), 
+                md5($key), 
                 $field,
                 MCRYPT_MODE_CBC, 
-                md5(md5(Yii::app()->params['encryptionKey']))
+                md5(md5($key))
                 )
             );
     }
@@ -261,15 +330,18 @@ class Cii {
      * @param  string $field encrypted text
      * @return string        unencrypted text
      */
-    public static function decrypt($field)
+    public static function decrypt($field, $key = NULL)
     {
+        if ($key == NULL)
+            $key = Yii::app()->params['encryptionKey'];
+        
         return rtrim(
             mcrypt_decrypt(
                 MCRYPT_RIJNDAEL_256, 
-                md5(Yii::app()->params['encryptionKey']),
+                md5($key),
                 base64_decode($field), 
                 MCRYPT_MODE_CBC, 
-                md5(md5(Yii::app()->params['encryptionKey']))
+                md5(md5($key))
             ), 
         "\0");
     }

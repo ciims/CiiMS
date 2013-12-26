@@ -8,7 +8,7 @@
 	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                                       ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
-                                      ->registerMetaTag(strip_tags($this->params['data']['extract']), 'description', 'description', array(), 'description')
+                                      ->registerMetaTag(strip_tags($this->params['meta']['description']), 'description', 'description', array(), 'description')
                                       ->registerCssFile($this->asset .'/css/main.css')
                                       ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
 		                              ->registerCoreScript('jquery')

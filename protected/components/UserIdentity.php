@@ -39,6 +39,12 @@ class UserIdentity extends CUserIdentity
 	private $cost = 13;
 
 	/**
+	 * The Application to use for API generation
+	 * @var string
+	 */
+	public $app_name = NULL;
+	
+	/**
 	 * Authenticates the user into the system
 	 * @param  boolean $force 				Whether or not to bypass the login process (passwordless logins from HybridAuth)
 	 * @return UserIdentity::$errorCode 	The error code associated to the login process
@@ -100,7 +106,7 @@ class UserIdentity extends CUserIdentity
 		    // Return early if the record is NULL. Bad things seem to happen with the $meta if we don't =(
 		    return !$this->errorCode;
 		}
-		else if ($record->status == 3 || $record->status == 0)
+		else if ($record->status == Users::BANNED || $record->status == Users::INACTIVE || $record->status == Users::PENDING_INVITATION)
 		{
 			// If the user is banned or unactivated, locked out, or exceeded their max login attempts
 			$this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
@@ -142,6 +148,21 @@ class UserIdentity extends CUserIdentity
 			$this->setState('displayName', 	$record->displayName);
 			$this->setState('status', 		$record->status);
 		  	$this->setState('role', 		$record->user_role);
+
+		  	// Create an API key
+		  	$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => $this->_id, 'key' => 'api_key' . $this->app_name));
+		  	if ($apiKey != NULL)
+		  		$apiKey->delete();
+
+		  	$apiKey = new UserMetadata;
+		  	$apiKey->user_id = $this->_id;
+		  	$apiKey->key     = 'api_key' . $this->app_name;
+		  	$apiKey->value   = hash_hmac('ripemd160', $record->email . $record->id . time(), $this->app_name);
+
+		  	$apiKey->save();
+
+		  	$this->setState('api_key', $apiKey->value);
+
 		    $this->errorCode=self::ERROR_NONE;
 		}
 		else

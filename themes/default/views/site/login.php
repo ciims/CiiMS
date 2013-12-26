@@ -5,7 +5,8 @@
 			<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 						'id'					=>	'login-form',
 						'focus'					=>'	input[type="text"]:first',
-						'enableAjaxValidation'	=>	true
+						'enableAjaxValidation'	=>	true,
+                        'action'                => $this->createUrl('/login') . (isset($_GET['next']) ? '?next=' . $_GET['next'] : NULL)
 					)); ?>
 				<div class="login-form-container">
 					<?php if (!Yii::app()->user->isGuest): ?>

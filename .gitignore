@@ -11,6 +11,7 @@
 !/protected/modules/admin
 !/protected/modules/hybridauth
 !/protected/modules/dashboard
+!/protected/modules/api
 .htaccess
 /uploads/*
 /install.php
