@@ -184,18 +184,19 @@ class ApiController extends CiiController
 	}
 
 	/**
-	 * Outputs the data as JSON
-	 * @param  array  $response the response data
-	 */
-	public function renderOutput($response = array())
-	{
-		header('Content-Type: application/json');
-		echo CJSON::encode(array(
-			'status' => $this->status,
-			'message' => $this->message,
-			'response' => $response
-		));
-	}
+     * Outputs the data as JSON
+     * @param  array  $response the response data
+     */
+    public function renderOutput($response = array(), $status=NULL, $message=NULL)
+    {
+        header('Content-Type: application/json');
+        echo CJSON::encode(array(
+            'status' => $status != NULL ? $status : $this->status,
+            'message' => $message != NULL ? $message : $this->message,
+            'response' => $response
+        ));
+        Yii::app()->end();
+    }
 
 	/**
 	 * Default Error Handler. Yii automatically magics the response when renderOutput is called. This just updates the necessary components for us
