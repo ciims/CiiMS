@@ -75,9 +75,9 @@ class CiiSetupCommand extends CConsoleCommand
 
 			// If the params file already exists, import it
 			if (file_exists($paramsFile))
-				$params = require_once($paramsFile);
+				$params = require $paramsFile;
 
-			if ($params == 1)
+			if (empty($params))
 				$params = $paramsTemplate;
 
 			$params['encryptionKey'] = $hash;
