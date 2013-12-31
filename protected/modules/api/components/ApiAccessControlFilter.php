@@ -73,7 +73,7 @@ class ApiAccessControlFilter extends CAccessControlFilter
      */
     protected function accessDenied($user,$message=NULL)
     {
-        throw new CHttpException(403, $message);
+        Yii::app()->controller->renderOutput(array(), 403, $message);
     }
 }
 

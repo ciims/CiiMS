@@ -98,7 +98,7 @@ class CiiURLManager extends CUrlManager
 		$this->cacheRules('categories', $this->categoriesUrlRulesId);
 
 		// Allow Sphinx Search settings to be dynamically via CiiSettings
-		if (Cii::getConfig('sphinx_enabled') === true)
+		if (Cii::getConfig('sphinx_enabled'))
 		{
 			$this->rules['/search/<page:\d+>'] = '/site/search';
 			$this->rules['/search'] = '/site/search';
