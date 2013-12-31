@@ -75,7 +75,7 @@ class CiiSetupCommand extends CConsoleCommand
 
 			// If the params file already exists, import it
 			if (file_exists($paramsFile))
-				$params = require $paramsFile;
+				$params = CMap::mergeArray($paramsTemplate, require $paramsFile);
 
 			if (empty($params))
 				$params = $paramsTemplate;
