@@ -26,10 +26,6 @@
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
         ),
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap',
-            'responsiveCss' => false
-        ),
         'errorHandler' => array(
             'errorAction' => '/install/default/error',
         ),

@@ -57,10 +57,6 @@ return array(
         'assetManager' => array(
             'class' => 'ext.cii.components.CiiAssetManager',
         ),
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap',
-            'responsiveCss' => true
-        ),
         'clientScript' => array(
             'class' => 'ext.minify.EClientScript',
             'combineScriptFiles'    => true,   // Script Combination Kills the Dashboard

@@ -1,5 +1,3 @@
-<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
-<?php Yii::import('application.modules.dashboard.components.ContentListView.ContentListView'); ?>
 <?php $this->widget('ContentListView', array(
 	'htmlOptions' => array(
 		'class' => 'settings-container', 
@@ -13,7 +11,7 @@
     'sorterHeader' => '',
     'itemsCssClass' => 'posts nano',
     'pagerCssClass' => 'pagination',
-    'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+    'pager' => array('class'=>'cii.widgets.CiiPager'),
     'sorterCssClass' => 'sorter',
     'beforeAjaxUpdate' => 'js:function() {
     	CiiDashboard.Content.Preview.beforeAjaxUpdate();

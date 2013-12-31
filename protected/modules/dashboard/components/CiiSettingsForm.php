@@ -112,7 +112,7 @@ class CiiSettingsForm extends CWidget
 			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 		echo CHtml::closeTag('div');
 
-		$this->widget('bootstrap.widgets.TbAlert', array(
+		$this->widget('cii.widgets.CiiAlert', array(
 	              'block'=>true,
 	              'fade'=>true,
 	              'closeText'=>'×',
