@@ -102,14 +102,6 @@ class InstallHelper
             require __DIR__ . "/views/install/error.php";
         return;
     }
-
-    /**
-     * Loads styles
-     */ 
-    public function getStyles()
-    {
-        return require __DIR__ . "/views/install/styles.php";
-    }
     
     /**
      * Returns a json_encoded response then exits the script
