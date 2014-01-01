@@ -1,6 +1,4 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
 /**
  * This is the primary bootstrapper for CiiMS. Almost every option is derived from the
  * configuration file or the default configuration file. This bootstrapper also disables error
@@ -10,7 +8,7 @@
  *
  * @package    CiiMS Content Management System
  * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
+ * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2014
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
@@ -23,7 +21,7 @@ ini_set('display_errors', 0);
 $config=dirname(__FILE__).'/protected/config/main.php';
 
 // If we don't have a configuration file, run the installer.
-if (file_exists('install.php') && !file_exists($config)) 
+if (!file_exists($config) && file_exists('install.php')) 
 {
 	require('install.php');
 	exit();

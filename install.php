@@ -11,32 +11,25 @@
 
 error_reporting(-1);
 ini_set('display_errors', true);
+
 // change the following paths if necessary
 $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
 $ciimsConfig = require($config);
 
-// Session Management check for CMS Config
-session_start();
-if (!isset($_SESSION['config']))
-    $_SESSION['config'] = array();
+// Determine if we should enable debugging and call stack if debug and trace are set in our config file.
+// By default this disabled
+defined('YII_DEBUG') or define('YII_DEBUG',isset($ciimsConfig['params']['debug']) ? $ciimsConfig['params']['debug'] : false);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($ciimsConfig['params']['trace']) ? $ciimsConfig['params']['trace'] : 0);
 
-// Session
-$ciimsConfig = array_merge($ciimsConfig, $_SESSION['config']);
-session_write_close();
-
-if (!file_exists($mainConfig) && $ciimsConfig['params']['yiiPath'] == "") 
+$yiiPath = __DIR__ . '/protected/runtime/' .  $ciimsConfig['params']['yiiVersionPath'] . '/framework/yiilite.php';
+if (!file_exists($mainConfig) && !file_exists($yiiPath)) 
 {
-    require(dirname(__FILE__).'/protected/modules/install/installer.php');
+    require(dirname(__FILE__).'/protected/modules/install/init.php');
     exit();
 }
 
-require_once($ciimsConfig['params']['yiiPath'].'yiilite.php');
+require_once($yiiPath);
 
 // If YiiBootstrap throws a CException becausae of permissions, catch the error, route to back to the installer, and display it within pre-bootstrap for the user to correct.
-try {
-    Yii::createWebApplication($config)->run();
-} catch (Exception $e) {
-    require(dirname(__FILE__).'/protected/modules/install/installer.php');
-    exit();
-}
+Yii::createWebApplication($config)->run();

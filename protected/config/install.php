@@ -1,10 +1,8 @@
 <?php return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => 'CiiMS Installer',
-    'defaultController' => 'default',
     'preload' => array(
         'cii',
-        'bootstrap',
     ),
     'import' => array(
         'application.components.*',
@@ -14,15 +12,6 @@
         'install',
     ),
     'components' => array(
-        'log'=>array(
-            'class'=>'CLogRouter',
-            'routes'=>array(
-                array(
-                    'class'=>'CWebLogRoute',
-                    'levels'=>'trace,error,warning,notice',
-                )       
-            ),
-        ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
         ),
@@ -31,6 +20,8 @@
         ),
         'session' => array(
             'autoStart' => true,
+            'sessionName'   => 'CiiMS_Installer',
+            'cookieMode'    => 'only', 
         ),
         'urlManager' => array(
             'urlFormat' => 'path',
@@ -47,8 +38,9 @@
     'params' => array(
         'yiiVersionPath' => 'yii-1.1.14',
         'yiiDownloadPath' => 'https://github.com/yiisoft/yii/archive/1.1.14.zip', // 1.1.13 is the latest version of the framework
-        'yiiPath' => '',
-        'stage' => 0
+        'stage' => 0,
+        'debug' => true,
+        'trace' => 3
     ),
 );
 
