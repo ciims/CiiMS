@@ -8,6 +8,7 @@
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	    <title><?php echo Yii::t('Dashboard.views', 'CiiMS Dashboard | {{pagetitle}}', array('{{pagetitle}}' => CHtml::encode($this->pageTitle))); ?></title>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
+				                      ->registerCssFile($this->asset . '/css/bootstrap.min.css')
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/css/dashboard.css' : '/css/dashboard.min.css'))
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
 				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')

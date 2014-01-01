@@ -1,4 +1,4 @@
-<?php $this->widget('ContentListView', array(
+<?php $this->widget('application.modules.dashboard.components.ContentListView.ContentListView', array(
 	'htmlOptions' => array(
 		'class' => 'settings-container', 
 	),

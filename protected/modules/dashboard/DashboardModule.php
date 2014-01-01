@@ -12,6 +12,7 @@ class DashboardModule extends CWebModule
 		$this->setImport(array(
 			'dashboard.models.*',
 			'dashboard.components.*',
+			'dashboard.components.ContentListView',
 		));
 
 		$asset=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.modules.dashboard.assets.js'), true, -1, YII_DEBUG);
