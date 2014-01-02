@@ -189,16 +189,18 @@ class SettingsController extends CiiSettingsController
 			// Download the Card information from Github via cURL
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_RETURNTRANSFER => true,
+			    CURLOPT_FOLLOWLOCATION => true,
 			    CURLOPT_URL => 'https://raw.github.com/' . $repository . '/master/theme.json',
+			    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt'
 			));
 
 			$json = CJSON::decode(curl_exec($curl));
+			curl_close($curl);
 
 			// If we have an invalid repo - abort
 			if ($json == NULL)
 				throw new CHttpException(400,  Yii::t('Dashboard.main', 'Unable to find valid theme at that location.'));
-
 
 			if (file_exists(Yii::getPathOfAlias($json['folder'])))
 				throw new CHttpException(400, Yii::t('Dashboard.main', 'A theme with that name already exist. Unable to install theme.'));
@@ -212,11 +214,16 @@ class SettingsController extends CiiSettingsController
 			$targetFile = fopen($downloadPath, 'w' );
 
             // Initiate the CURL request
-            $ch = curl_init('https://github.com/' . $repository . '/archive/master.zip');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_FILE, $targetFile);
-            curl_exec($ch);
+            $curl = curl_init();
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => true,
+			    CURLOPT_FOLLOWLOCATION => true,
+			    CURLOPT_URL => 'https://github.com/' . $repository . '/archive/master.zip',
+			    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt',
+			    CURLOPT_FILE => $targetFile
+			));
+			curl_exec($curl);
+			curl_close($curl);
             
             // Extract the file
             $zip = new ZipArchive;
@@ -275,11 +282,14 @@ class SettingsController extends CiiSettingsController
 			// Download the Card information from Github via cURL
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_RETURNTRANSFER => true,
+			    CURLOPT_FOLLOWLOCATION => true,
 			    CURLOPT_URL => 'https://raw.github.com/' . $repository . '/master/card.json',
+			    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt',
 			));
 
 			$json = CJSON::decode(curl_exec($curl));
+			curl_close($curl);
 
 			// If we have an invalid repo - abort
 			if ($json == NULL)
@@ -305,12 +315,17 @@ class SettingsController extends CiiSettingsController
 
 			$targetFile = fopen($downloadPath, 'w' );
 
-            // Initiate the CURL request
-            $ch = curl_init('https://github.com/' . $repository . '/archive/master.zip');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_FILE, $targetFile);
-            curl_exec($ch);
+            $curl = curl_init();
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => true,
+			    CURLOPT_FOLLOWLOCATION => true,
+			    CURLOPT_URL => 'https://github.com/' . $repository . '/archive/master.zip',
+			    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt',
+			    CURLOPT_FILE => $targetFile
+			));
+
+			curl_exec($curl);
+			curl_close($curl);            
             
             // Extract the file
             $zip = new ZipArchive;
@@ -403,11 +418,14 @@ class SettingsController extends CiiSettingsController
 		// Check CiiMS version
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => 'https://raw.github.com/charlesportwoodii/CiiMS/latest-version/protected/extensions/cii/ciims.json',
+		    CURLOPT_RETURNTRANSFER => true,
+		    CURLOPT_FOLLOWLOCATION => true,
+		    CURLOPT_URL => 'https://raw.github.com/charlesportwoodii/CiiMS/latest-version/extensions/cii/ciims.json',
+		    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt',
 		));
 
 		$json = CJSON::decode(curl_exec($curl));
+		curl_close($curl);
 		if ($json['version'] > Cii::getVersion())
 			$issues[] = array('issue' => 'version', 'message' =>  Yii::t('Dashboard.main', 'CiiMS is out of date. Please update to the latest version ({{version}})', array('{{version}}' => CHtml::link($json['version'], 'https://github.com/charlesportwoodii/CiiMS/tree/latest-version/', array('target' => '_blank')))));
 
