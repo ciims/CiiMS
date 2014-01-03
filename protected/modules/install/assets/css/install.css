@@ -1,0 +1,216 @@
+/** Custom Styles for the Installer **/
+html, body, * {
+	font-family: 'Open Sans';
+	color: #2D2D2D;
+}
+
+html, body {
+	background: #f3f5f9;
+}
+
+body {
+	margin-top: 15%;
+}
+
+
+.alert {
+	background: #1f8dd6;
+	padding: 0.3em 1em;
+	border-radius: 3px;
+	color: #fff;
+	display: none
+}
+
+main {
+	min-height: 300px;
+	width: 50%;
+	border: 1px solid #ebeff6;
+	text-align:center;
+	margin: 0 auto;
+	background: #fafafa;
+	padding: 5px 20px;
+	font-size: 14px;
+	box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
+}
+
+.highlight {
+	color: #f67d42;
+}
+
+hr {
+	border: 1px solid #efefef;
+}
+
+p, pre {
+	text-align:left;
+}
+
+pre {
+	padding: 10px;
+	word-wrap: break-word;
+	line-height: 1.3em;
+	margin: 0 auto;
+	border: 1px solid #eee;
+	color: #333;
+	background: rgb(250, 250, 250);
+	max-width: 90%;
+	font-size: 10px;
+}
+
+.pull-right {
+	float:right;
+}
+
+.pull-left {
+	float:left;
+}
+
+.clearfix {
+	clear:both;
+}
+
+.pure-button {
+	text-align: center;
+	font-weight: bold;
+  color: #fff;
+}
+
+.fa {
+	font-weight: normal;
+	color: #fff;
+}
+
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.progress {
+  height: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #ffffff;
+  text-align: center;
+  background-color: #428bca;
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: width 0.6s ease;
+          transition: width 0.6s ease;
+}
+
+.progress-striped .progress-bar {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+.progress.active .progress-bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+          animation: progress-bar-stripes 2s linear infinite;
+}
+
+.progress-bar-success {
+  background-color: #5cb85c;
+}
+
+.progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-info {
+  background-color: #5bc0de;
+}
+
+.progress-striped .progress-bar-info {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-warning {
+  background-color: #f0ad4e;
+}
+
+.progress-striped .progress-bar-warning {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.progress-bar-danger {
+  background-color: #d9534f;
+}
+
+.progress-striped .progress-bar-danger {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.pure-button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.pure-button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.pure-button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.pure-button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.pure-button-xsmall {
+    font-size: 70% !important;
+}
+
+.pure-button-small {
+    font-size: 85% !important;
+}
+
+.pure-button-large {
+    font-size: 110% !important;
+}
+
+.pure-button-xlarge {
+    font-size: 125% !important;
+}
+
+input {
+  font-size: 12px !important;
+  padding: 7px !important;
+  margin: 7px 5px !important;
+}
+.error {
+  border-color: #a94442 !important;
+  color: #a94442 !important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+}
