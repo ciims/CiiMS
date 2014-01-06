@@ -50,6 +50,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		DefaultTheme.loadComment(<?php echo $comment->id; ?>);
+		Theme.loadComment(<?php echo $comment->id; ?>);
 	});
 </script>

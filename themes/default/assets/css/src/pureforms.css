@@ -1,0 +1,9 @@
+.pure-form input {
+    padding: 8px !important;
+    margin-bottom: 10px !important;
+    font-size: 12px !important;
+}
+
+.pure-form button {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans !important;
+} 

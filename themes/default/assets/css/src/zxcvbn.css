@@ -1,0 +1,57 @@
+main #password_strength_2 {
+    margin-bottom: 15px;
+}
+
+main .password_strength_container {
+    position: relative;
+    width: 100%;
+    margin-top: -6px;
+    height: 10px;
+}
+
+main .password_strength_bg {
+    height: 4px;
+    background-color: #e8e8e8;
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+
+main .password_strength {
+    height: 4px;
+    background-color: #c81818;
+    width: 0;
+    position: absolute;
+    left: 0;
+}
+
+main .password_strength.great, main .password_strength_desc.great {
+    background-color: rgb(39, 179, 15);
+}
+
+main .password_strength.good, main .password_strength_desc.good {
+    background-color: rgb(166, 192, 96);
+}
+
+main .password_strength.poor, main .password_strength_desc.poor {
+    background-color: rgb(255, 172, 29);
+}
+
+main .password_strength.bad, main .password_strength_desc.bad {
+    background-color: #c81818;
+}
+
+main .password_strength_separator {
+    height: 4px;
+    width: 2px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+}
+
+main .password_strength_desc {
+    float: right;
+    margin-top: 6px;
+    line-height: 16px;
+    font-size: 11px;
+}

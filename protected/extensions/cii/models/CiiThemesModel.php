@@ -8,11 +8,6 @@ class CiiThemesModel extends CiiSettingsModel
      */
 	private $theme = NULL;
 
-    /**
-     * @var bool    Enables the use and inclusion of Bootstrap
-     */
-    public $useBootstrap = false;
-
 	/**
      * Retrieves all categories to display int he footer
      * @return array $items     The CMenu Items we are going to return
