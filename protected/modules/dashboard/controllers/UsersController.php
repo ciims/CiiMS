@@ -150,7 +150,7 @@ class UsersController extends CiiSettingsController
 
 			// Send an invitation email
 			
-			$this->sendEmail($user, Yii::t('Dashboard.email', "You've Been Invited To Join a Blog!"), '/email/invite', array('user' => $user, 'hash' => $hash), true, true);
+			$this->sendEmail($user, Yii::t('Dashboard.email', "You've Been Invited..."), '//email/invite', array('user' => $user, 'hash' => $hash), true, true);
 			// End the request
 			return $this->renderPartial('/users/userList', array('data' => $user));
 		}
