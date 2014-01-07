@@ -1,92 +1,82 @@
-<h4><?php echo Yii::t('Install.main', 'Install Database Tables and Other Basic Stuff'); ?></h4>
-    <div class="alert in alert-block fade alert-error" id="error-alert" style="display:none;">
-        <?php echo Yii::t('Install.main', '{{ohsnap}} Looks like the database istallations failed failed. Most likely this is an issue with your database connection. You can click the "View Migration Details" button below to full the full details, or you can refresh the page to attempt the migrations again. Alternatively, you could try running the migrations from the command line.', array(
-            '{{ohsnap}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Oh Snap!'))
-        )); ?>
-    </div>
-    
-    <div class="alert in alert-block fade alert-success" id="success-alert" style="display:none;">
-        <?php echo Yii::t('Install.main', '{{horray}} The database has been installed. Press the "Continue" button below to create an admin user.', array(
-            '{{horray}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'Horray!'))
-        )); ?>
-    </div>
-    
+<h3><?php echo Yii::t('Install.main', '{install} and Migrate Database', array('{install}' => CHtml::tag('span', array('class' => 'highlight'), Yii::t('Isntall.main', 'Install')))); ?></h3>
+
+<p>
+    <?php echo Yii::t('Install.main', "CiiMS is now installing the database. {{donotleave}} A notification will appear when it's OK to continue.", array(
+        '{{donotleave}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'DO NOT LEAVE THIS PAGE UNTIL THE PROCESS HAS COMPLETED.'))
+    )); ?>    
+</p>
+<hr />
+<h3 id="inprogress">
+    <?php echo Yii::t('Install.main', 'Database Migration in Progress...'); ?>
+</h3>
+<div id="done" style="display:none">
+    <h3>
+        <?php echo Yii::t('Install.main', 'Migration Complete!'); ?>
+    </h3>
     <p>
-        <?php echo Yii::t('Install.main', "CiiMS is now installing the database. {{donotleave}} A notification will appear when it's OK to continue.", array(
-            '{{donotleave}}' => CHtml::tag('strong', array(), Yii::t('Install.main', 'DO NOT LEAVE THIS PAGE UNTIL THE PROCESS HAS COMPLETED.'))
+        <?php echo Yii::t('Install.main', '{{horray}} The database has been installed. Press the "Continue" button below to create an admin user.', array(
+        '{{horray}}' => CHtml::tag('strong', array('class' => 'highlight'), Yii::t('Install.main', 'Horray!'))
+    )); ?>
+    </p>
+</div>
+
+<div id="error" style="display:none">
+    <h3>
+        <?php echo Yii::t('Install.main', 'Could Not Complete Migration'); ?>
+    </h3>
+    <p>
+        <?php echo Yii::t('Install.main', '{{ohsnap}} Looks like the database istallations failed failed. Most likely this is an issue with your database connection. Alternatively, you could try running the migrations from the command line.', array(
+            '{{ohsnap}}' => CHtml::tag('strong', array('class' => 'highlight'), Yii::t('Install.main', 'Oh Snap!'))
         )); ?>
     </p>
-    
-    <?php $this->widget('bootstrap.widgets.TbProgress', array(
-                'percent'=>1, // the progress
-                'striped'=>true,
-                'animated'=>true,
-            ));
-    ?>
-    
-    <hr />
-    <div class="clearfix">
-    <?php $this->widget('bootstrap.widgets.TbButton',array(
-        'label' => Yii::t('Install.main', 'View Migration Details'),
-        'type' => 'inverse',
-        'size' => 'small',
-        'htmlOptions' => array(
-            'class' => 'pull-left',
-            'id' => 'migration-details',
-            'style' => 'display: none;'
-        )
-    ));?>
-    <?php $this->widget('bootstrap.widgets.TbButton',array(
-        'label' => Yii::t('Install.main', 'Continue'),
-        'type' => 'inverse',
-        'size' => 'small',
-        'url' => $this->createUrl('/createadmin'),
-        'htmlOptions' => array(
-            'class' => 'pull-right disabled',
-            'id' => 'continue-button'
-        )
-    ));?>
-    
-    <div class="clearfix"></div>
-    <div id="details-div" style="display:none; margin-top: 5px;">
-        <hr />
-        <h4><?php echo Yii::t('Install.main', 'Output From yiic'); ?></h4>
-        <pre id="details-modal-details"></pre>
+</div>
+
+<div class="progress progress-striped active">
+    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 1%">
     </div>
 </div>
+
+<hr />
+
+<div class="pure-u-1 buttons">
+    <?php echo CHtml::link(Yii::t('Install.main', 'Continue'), $this->createUrl('/createadmin'), array('class' => 'pure-button-disabled pure-button pure-button-primary pull-right', 'id' => 'continue-button')); ?>
+</div>
+
 <?php Yii::app()->clientScript->registerScript('ajaxMigrate', '
     var width = 1;
     progressInterval = setInterval(function() {
-        width++;
-        $(".bar").css("width", width + "%");
+        width+=.5;
+        $(".progress-bar").css("width", width + "%");
         if (width >= 99)
             clearInterval(progressInterval);
     }, 100);
-    
+
+
     $.post("runmigrations", function(data) {
         // Set the bar to 100%
         width = 100;
-        $(".bar").css("width", "100%");
+        $(".progress-bar").css("width", "100%");
         clearInterval(progressInterval);
-        
-        $("#migration-details").show();
-        $("#details-modal-details").text(data.details);
-        console.log(data);
+        $("#inprogress").hide();
         if (data.migrated)
         {
-            $(".progress").addClass("progress-success");
-            $("#success-alert").show();
-            $("#continue-button").removeClass("disabled").unbind("click");
+            $(".progress-bar").removeClass("progress-bar-warning").addClass("progress-bar-success");
+            $("#done").show();
+            $("#continue-button").removeClass("pure-button-disabled")
         }
         else
         {
-            $(".progress").addClass("progress-danger");
-            $("#error-alert").show();
+            $(".progress-bar").removeClass("progress-bar-warning").addClass("progress-danger");
+            $("#error").show();
         }
+    }).error(function() {
+        $("#inprogress").hide();
+        width = 100;
+        $(".progress-bar").css("width", "100%");
+        clearInterval(progressInterval);
+        $(".progress-bar").removeClass("progress-bar-warning").addClass("progress-bar-danger");
+        $("#error").show();
     });
-    
-    $("#migration-details").click(function(e) {
-        e.preventDefault();
-        $("#details-div").toggle();
-    })
-', CClientScript::POS_READY); ?>
+
+
+',CClientScript::POS_READY); ?>

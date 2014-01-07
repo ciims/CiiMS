@@ -3,6 +3,13 @@
 /**
  * This class is a standing for an actually Yii application, and servers no other purpose OTHER than to provide us
  * With access to Yii::t() for message translations purposes. It also enables ciimessaages to generates translations for this file
+ *
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net>
+ * @package CiiMS https://www.github.com/charlesportwoodii/CiiMS
+ * @license MIT License
+ * @copyright 2011-2014 Charles R. Portwood II
+ *
+ * @notice  This file is part of CiiMS, and likely will not function without the necessary CiiMS classes
  */
 class Yii
 {

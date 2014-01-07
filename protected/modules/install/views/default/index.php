@@ -1,22 +1,29 @@
-<h4><?php echo Yii::t('Install.main', 'Now Lets Connect To Your Database'); ?></h4>
+<h3>
+    <?php echo Yii::t('Install.main', '{connect} to MySQL Database', array(
+        '{connect}' => CHtml::tag('span', array('class' => 'highlight'), 'Connect')
+    )); ?>
+</h3>
+<hr />
 <p><?php echo Yii::t('Install.main', "If you don't have a MySQL database setup yet, please do so now, then return to this page."); ?></p>
 
-<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form = $this->beginWidget('cii.widgets.CiiBaseActiveForm', array(
     'id'=>'db-source-form',
-    'type'=>'inline',
-    'enableAjaxValidation'=>true,
-    'enableClientValidation'=>true,
+    'htmlOptions' => array(
+        'class' => 'pure-form pure-form-aligned'
+    )
 )); ?>
-    <div class="path-field">
-        <?php echo $form->textFieldRow($model, 'username',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Username'))); ?>
-        <?php echo $form->passwordFieldRow($model, 'password',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Password'))); ?>
-    </div>
-    <div class="clearfix" style="margin: 5px;"></div>
-    <div class="path-field">
-        <?php echo $form->textFieldRow($model, 'dbname',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Database Name'))); ?>
-        <?php echo $form->textFieldRow($model, 'host',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Database Host'))); ?>
-    </div>
-    <div class="clearfix" style="margin: 5px;"></div>
+    <fieldset>
+            <div class="pure-u-1">
+                <?php echo $form->textField($model, 'username',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Username'))); ?>
+                <?php echo $form->passwordField($model, 'password',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Password'))); ?>
+            </div>
+            <div class="pure-u-1">
+                <?php echo $form->textField($model, 'dbname',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Database Name'))); ?>
+                <?php echo $form->textField($model, 'host',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Database Host'))); ?>
+            </div>
+    </fieldset>
+    <div class="clearfix"></div>
     <hr />
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>Yii::t('Install.main', 'Validate'), 'htmlOptions' => array('class'=>'pull-right btn-inverse')) ); ?>
+    <button class="pure-button pure-button-primary" type="submit"><?php echo Yii::t('Install.main', 'Check MySQL Connection'); ?></button>
+    
 <?php $this->endWidget(); ?>

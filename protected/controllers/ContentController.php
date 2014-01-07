@@ -9,7 +9,7 @@ class ContentController extends CiiSiteController
     {
         $id = Yii::app()->getRequest()->getQuery('id');
         $key = false;
-        
+
         if ($id != NULL)
 		{
 			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = :id2 AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id2', $id)->bindParam(':id', $id)->queryScalar();

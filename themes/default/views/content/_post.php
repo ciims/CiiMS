@@ -1,41 +1,36 @@
-<?php $meta = Content::model()->parseMeta($content->metadata); ?>
 <div class="post">
-	<?php if (Cii::get(Cii::get($meta, 'blog-image', array()), 'value', '') != ""): ?>
-		<p style="text-align:center;"><?php echo CHtml::image(Yii::app()->baseUrl . $meta['blog-image']['value'], NULL, array('class'=>'image')); ?></p>
-	<?php endif; ?>
+	<?php $this->renderPartial('//site/attached-content', array('meta' => Content::model()->parseMeta($content->metadata))); ?>
 	<div class="post-inner">
 		<div class="post-header">
-			<h3><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h3>
-			<?php $md = new CMarkdownParser; echo strip_tags($md->safeTransform($content->extract), '<h1><h2><h3><h4><h5><6h><p><b><strong><i>'); ?>
-		</div>
-		<div class="blog-meta">
-			<span class="date"><?php echo Cii::timeAgo($content->published); ?></span>
-			<span class="separator">⋅</span>
-			<span class="blog-author minor-meta"><strong>by </strong>
-				<span>
-					<?php echo CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?>
-				</span>
-				<span class="separator">⋅</span> 
-			</span> 
-			<span class="minor-meta-wrap">
-				<span class="blog-categories minor-meta"><strong>in </strong>
-				<span>
+			<h2><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h2>
+			<span class="author">
+				<?php echo Yii::t('DefaultTheme', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
+				<span class="pull-right">
 					<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
-				</span> 
-				<span class="separator">⋅</span> 
-			</span> 					
-			<span class="comment-container">
-				<?php if (Cii::getConfig('useDisqusComments')): ?>
-					<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread') . ' ' . Yii::t('DefaultTheme', 'Comments'); ?>
-				<?php else: ?>
-					<?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $content->getCommentCount())); ?>
-				<?php endif; ?>				
+				</span>
 			</span>
+			<div class="extract">
+				<?php echo strip_tags($md->safeTransform($content->extract), '<h1><h2><h3><h4><h5><6h><p><b><strong><i>'); ?>
+			</div>
 		</div>
-		<a class="read-more-icon" href="<?php echo $this->createUrl('/' . $content->slug); ?>" rel="bookmark">
-			<strong style="width: 93px;"><?php echo Yii::t('DefaultTheme', 'Read more'); ?></strong>
-			<span></span>
-		</a>
+
+		<div class="post-details">
+			<?php echo CHtml::link(Yii::t('DefaultTheme', 'Read More'), $this->createUrl('/' . $content->slug), array('class' => 'read-more', 'rel' => 'bookmark')); ?>
+
+			<div class="icons">
+				<span class="comment-container">
+					<?php if (Cii::getConfig('useDisqusComments')): ?>
+						<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread'); ?>
+					<?php else: ?>
+						<?php echo Chtml::link($content->getCommentCount(),Yii::app()->createUrl($content->slug) . '#comments'); ?>
+					<?php endif; ?>				
+				</span>
+				<span class="likes-container">
+					<?php echo $content->getLikeCount(); ?>
+				</span>
+			</div>
+		</div>
+		<div class="clearfix"></div>
 	</div>
     <div style="clear:both;"><br /></div>
 </div>

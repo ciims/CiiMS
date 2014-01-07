@@ -1,6 +1,5 @@
 <?php
-error_reporting(-1);
-ini_set('display_errors', true);
+
 class EventController extends ApiController
 {
 	public function accessRules()
@@ -12,6 +11,7 @@ class EventController extends ApiController
 
 	public function actionIndex()
 	{
+		header('Content-Type: application/json');
 		$event = new Events;
 		$event->attributes = $_GET;
 

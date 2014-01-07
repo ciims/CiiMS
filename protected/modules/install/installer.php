@@ -1,5 +1,6 @@
 <?php
-require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'YiiUtilityHelper.php');
+if (!class_exists('Yii'))
+    require(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'YiiUtilityHelper.php');
 
 $stage = max((isset($ciimsConfig['params']['stage']) ? $ciimsConfig['params']['stage'] : 0), isset($_GET['stage']) ? $_GET['stage'] : 0);
 $stage = isset($e) && !empty($e) ? 10 : $stage;
@@ -28,10 +29,8 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
 <html>
     <head>
         <title><?php echo Yii::t('Install.main', 'CiiMS Installer'); ?></title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-        <link href="css/install/main.css" rel="stylesheet" />
-    </head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <body>
         <div class="well well-container">
             <div class="navbar navbar-inverse">
@@ -132,8 +131,8 @@ if (isset($_POST['_ajax']) && isset($_POST['_method']))
             </div>
             <div class="clearfix"></div>
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(".disabled").click(function(e) {
                 e.preventDefault();

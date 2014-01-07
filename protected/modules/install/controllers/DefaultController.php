@@ -1,5 +1,13 @@
 <?php
-error_reporting(-1);
+/**
+ *
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net>
+ * @package CiiMS https://www.github.com/charlesportwoodii/CiiMS
+ * @license MIT License
+ * @copyright 2011-2014 Charles R. Portwood II
+ *
+ * @notice  This file is part of CiiMS, and likely will not function without the necessary CiiMS classes
+ */
 class DefaultController extends CController
 {
     /**
@@ -13,21 +21,6 @@ class DefaultController extends CController
      * The defualt stage we want to start on for this instance
      */
     public $stage = 4;
-    
-    /**
-     * @var array $breadcrumbs
-     * An array of breadcrumbs that we can index against
-     */
-    public function getBreadcrumbs()
-    {
-        return array(
-            4 => Yii::t('Install.main', 'Connect to Database'),
-            5 => Yii::t('Install.main', 'Migrate Database'),
-            6 => Yii::t('Install.main', 'Create Admin User'),
-            7 => Yii::t('Install.main', 'Finalize Configuration'),
-            10 => Yii::t('Install.main', 'Error'),
-        );
-    }
 
     /**
      * BeforeAction, sets the stage 
@@ -88,6 +81,7 @@ class DefaultController extends CController
                 )));
             }
         }
+
         $this->render('index', array('model'=>$model));
     }
     
@@ -178,7 +172,7 @@ class DefaultController extends CController
         $user = Yii::app()->session['dsn']['username'];
         $pass = Yii::app()->session['dsn']['password'];
         
-        $path = $_SESSION['config']['params']['yiiPath'];
+        $path = 'protected/runtime/' .  Yii::app()->params['yiiVersionPath'] . '/framework/';
         $key  = Yii::app()->session['encryptionKey'];
 
         $config = "<?php return array(
