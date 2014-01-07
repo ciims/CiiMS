@@ -215,6 +215,10 @@ var Theme = {
             window.location = $(this).find("a").attr("href");
             return false;
         });
+
+        $(".nav-item").click(function() {
+        	$(".top-navigation").slideToggle();
+        });
 	},
 
 	/**

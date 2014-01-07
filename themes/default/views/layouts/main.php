@@ -3,7 +3,7 @@
 <html lang="<?php echo Yii::app()->language; ?>">
 	<head>
 		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-		<meta name="viewport" content="initial-scale=1.0">
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
 	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 		<?php $cs->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
@@ -21,6 +21,7 @@
 				<div class="logo pull-left">
 					<?php echo CHtml::link(CHtml::encode(Cii::getConfig('name')), Yii::app()->getBaseUrl(true)); ?>
 				</div>
+				<div class="nav-item"></div>
 				<nav class="top-navigation pull-right">
 					<ul>
 						<li><?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Home'), Yii::app()->getBaseUrl(true)); ?></li>
