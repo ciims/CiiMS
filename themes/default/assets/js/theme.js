@@ -49,12 +49,7 @@ var Theme = {
 		            $("#textbox").focus();
 		        }, 100);
 		    });
-		    $("#textbox").keydown( function() {
-		        if($(this).text() != "")
-		            $("#submit-comment").css("background","#3b9000");
-		        else
-		            $("#submit-comment").css("background","#9eca80");
-		        });
+
 		    $("#close").click( function () {
 		        $("#b").html("Comment on this post");
 		        $("#textbox").html("");
@@ -76,7 +71,7 @@ var Theme = {
 		        		"Comments" : 
 		        		{ 
 		        			"comment" : $("#textbox").html(), 
-		        			"content_id" : $(".content").attr("data-attr-id") 
+		        			"content_id" : $("#content").attr("data-attr-id") 
 		        		}
 		        	}, 
 		        	function(data) { 
@@ -262,12 +257,7 @@ var Theme = {
 	            $("#textbox-" + id).focus();
 	        }, 100);
 	    });
-	    $("#textbox-" + id).keydown( function() {
-	        if($(this).text() != "")
-	            $("#submit-comment-" + id).css("background","#3b9000");
-	        else
-	            $("#submit-comment-" + id).css("background","#9eca80");
-	        });
+
 	    $("#close-" + id).click( function () {
 	        $("#b-" + id).html("Comment on this post");
 	        $("#textbox-" + id).html("");
@@ -290,7 +280,7 @@ var Theme = {
 	        		"Comments" : 
 	        		{ 
 	        			"comment" : $("#textbox-" + id).html(), 
-	        			"content_id" : $(".content").attr("data-attr-id"),
+	        			"content_id" : $("#content").attr("data-attr-id"),
 	        			"parent_id" : elementId
 	        		}
 	        	}, 
@@ -304,6 +294,7 @@ var Theme = {
 
 	        		$("#close-" + id).click();
 
+	        		$("#submit-comment-" + id).parent().hide();
 	        		$("#submit-comment-" + id).removeAttr("disabled");
 	        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
 	        	}

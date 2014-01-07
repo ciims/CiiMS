@@ -1,0 +1,155 @@
+main .comment {
+	clear:both;
+	font-size: 13px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid rgba(0,0,0,0.1);
+	position: relative;
+}
+
+main .comment-form {
+	display:none; 
+	padding-left: 50px; 
+	margin-top: 10px; 
+	margin-bottom: 0px; 
+	padding-bottom: -10px; 
+	height: 40px;
+}
+
+main .comment:first {
+	border-top: 0px;
+}
+
+main .comment .comment-byline {
+	margin-left: 10px;
+	font-weight: 400;
+	font-size: 85%;
+	color: #999;
+}
+
+main .comment .comment-byline-footer {
+	margin-top: -10px;
+	cursor: pointer;
+}
+
+main .comment .comment-byline-footer span {
+	transition: all .2s ease-in-out;
+}
+main .comment .comment-byline-footer span:hover {
+	color: #666;
+	transition: all .2s ease-in-out;
+}
+
+main .comment .comment-byline-footer span.flagged {
+	color: #CE4444;
+}
+
+main .comment .comment-body {
+	padding-left: 10px;
+	margin-left: 30px;
+	clear: none;
+}
+
+main .comment .avatar {
+	display: block;
+	float: left;
+	margin-top: 5px;
+}
+
+main .comment .author-indicator > .comment-body {
+	margin-left: -10px;
+	padding-left: 0px;
+}
+
+main #sharebox, main [id*='sharebox-'] {
+    border:1px solid #ddd;
+}
+
+main [id*='sharebox-'] {
+	width: 100%;
+	float: left;
+}
+
+main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
+    display:none;
+    padding: 10px;
+    color:#000;
+    position:relative;
+}
+
+main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
+    padding:10px;
+    min-height:15px;
+    cursor:text;
+    color:#999
+}
+ 
+main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
+    float:left;
+}
+
+main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
+    width:99%;
+    min-height:20px;
+    outline:none;
+    min-height:50px;
+}
+
+main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
+    height: 9px;
+    width: 9px;
+    cursor: pointer;
+    right: 11px;
+    margin: 1px;
+    position: absolute;
+    top: 11px;
+    font-family: FontAwesome;
+    content: "\f00d";
+}
+
+main .sharebox-submit {
+	margin-top: 10px;
+}
+
+
+input[type="text"], input[type="password"] {
+	min-height: 30px;
+}
+
+/** Misc Styles **/
+div[class*='-indicator'] {
+	padding-left: 20px;
+}
+
+.black-indicator {
+	border-left:5px solid #444;
+}
+
+.green-indicator {
+	border-left:5px solid #A7CE44;
+}
+
+.blue-indicator {
+	border-left:5px solid #59A0DC;
+}
+
+.red-indicator {
+	border-left:5px solid #CE4444;
+}
+
+.yellow-indicator {
+	border-left:5px solid #CABF42;
+}
+
+.magenta-indicator {
+	border-left:5px solid #A9014B;
+}
+
+.orange-indicator {
+	border-left:5px solid #FF5C00;
+}
+
+.author-indicator {
+	padding-right: 0px;
+	margin-left: 40px;
+}

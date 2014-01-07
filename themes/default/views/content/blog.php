@@ -1,7 +1,7 @@
 <?php $content = &$data; ?>
 <?php $meta = Content::model()->parseMeta($content->metadata); ?>
 
-<div data-attr-id="<?php echo $content->id; ?>">
+<div id="content" data-attr-id="<?php echo $content->id; ?>">
 	<div class="post">
 		<?php $this->renderPartial('//site/attached-content', array('meta' => Content::model()->parseMeta($content->metadata))); ?>
 
@@ -102,12 +102,12 @@
 				    <div id="a">
 					<div id="textbox" contenteditable="true"></div>
 					<div id="close"></div>
-					<div style="clear:both"></div>
+					<div style="clearfix"></div>
 				    </div>
-				    <div id="b" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
+				    <div id="b"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
 				</div>
 
-				<a id="submit-comment" class="sharebox-submit btn btn-success" style="margin-bottom: 5px;" href="#">
+				<a id="submit-comment" class="sharebox-submit pure-button pure-button-primary pure-button-xsmall pull-right" href="#">
 					<i class="icon-spin icon-spinner" style="display:none;"></i>
 					<?php echo Yii::t('DefaultTheme', 'Submit'); ?>
 				</a>
@@ -122,7 +122,7 @@
 						)); ?>
 					</div>
 			<?php endif; ?>
-		    <div id="comment-container" style="display:none; margin-top: -1px;"></div>
+		    <div id="comment-container" ></div>
 		    <div class="comment"></div>
 		    <div class="clearfix"></div>
 		</div>
