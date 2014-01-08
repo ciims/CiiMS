@@ -5,7 +5,7 @@
 		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
 	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<?php $cs->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
                  ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
                  ->registerMetaTag(strip_tags($this->params['meta']['description']), 'description', 'description', array(), 'description')

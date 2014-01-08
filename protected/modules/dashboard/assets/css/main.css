@@ -2,33 +2,33 @@
   font-family: 'PT Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('PT Sans'), local('PTSans-Regular'), url(../fonts/ptsans/LKf8nhXsWg5ybwEGXk8UBQ.woff) format('woff');
+  src: local('PT Sans'), local('PTSans-Regular'), url(../fonts/ptsans/D7F3bIyVvgEwAiTjRyhWnKCWcynf_cDxXwCLxiixG1c.woff) format('woff');
 }
 
 @font-face {
   font-family: 'PT Sans';
   font-style: normal;
   font-weight: 700;
-  src: local('PT Sans Bold'), local('PTSans-Bold'), url(../fonts/ptsans/0XxGQsSc1g4rdRdjJKZrNBsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+  src: local('PT Sans Bold'), local('PTSans-Bold'), url(../fonts/ptsans/HXiERDIZdwFzjXlbcMq7XHYhjbSpvc47ee6xR_80Hnw.woff)) format('woff');
 }
 
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(../fonts/opensans/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+  src: local('Open Sans'), local('OpenSans'), url(../fonts/opensans/wMws1cEtxWZc6AZZIpiqWALUuEpTyoUstqEm5AMlJo4.woff) format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/opensans/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../fonts/opensans/MTP_ySUJH_bn48VBG8sNSr3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 800;
-  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(../fonts/opensans/EInbV5DfGHOiMmvb1Xr-hnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(../fonts/opensans/EInbV5DfGHOiMmvb1Xr-hr3hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
 }
 
 
