@@ -21,15 +21,14 @@
     /**
      * @var string $password
      * Password we want to connection with
-     */
-     
+     */     
     public $password;
     
     /**
      * @var string $host
      * The host we want to connect to
      */
-    public $host;
+    public $host = '127.0.0.1';
     
     /**
      * @var string $dbname
@@ -49,7 +48,7 @@
     public function rules()
     {
         return array(
-            array('username, password, host, dbname', 'required')
+            array('username, host, dbname', 'required')
         );
     }
 
