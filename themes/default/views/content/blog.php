@@ -9,7 +9,7 @@
 			<div class="post-header">
 				<h2><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h2>
 				<span class="author">
-					<?php echo Yii::t('DefaultTheme', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
+					<?php echo Yii::t('DefaultTheme.main', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
 					<span class="pull-right">
 						<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 					</span>
@@ -76,7 +76,7 @@
 		<div class="post">
 			<div class="post-inner">
 				<div class="post-header post-header-comments">
-					<h3 class="comment-count pull-left left-header"><?php echo Yii::t('DefaultTheme', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
+					<h3 class="comment-count pull-left left-header"><?php echo Yii::t('DefaultTheme.main', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
 
 
                     <div class="post-details">
@@ -104,21 +104,21 @@
 					<div id="close"></div>
 					<div style="clearfix"></div>
 				    </div>
-				    <div id="b"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
+				    <div id="b"><?php echo Yii::t('DefaultTheme.main', 'Comment on this post'); ?></div> 
 				</div>
 
 				<a id="submit-comment" class="sharebox-submit pure-button pure-button-primary pure-button-xsmall pull-right" href="#">
 					<i class="icon-spin icon-spinner" style="display:none;"></i>
-					<?php echo Yii::t('DefaultTheme', 'Submit'); ?>
+					<?php echo Yii::t('DefaultTheme.main', 'Submit'); ?>
 				</a>
 
 			<?php endif; ?>
 		    <?php else: ?>
 					<div class="alert alert-warning">
-						<?php echo Yii::t('DefaultTheme', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
-							'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Hey there!')),
-							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme', 'login'), $this->createUrl('/login?next=' . $content->slug)),
-							'{{register}}' => CHtml::link(Yii::t('DefaultTheme', 'signup'), $this->createUrl('/register'))
+						<?php echo Yii::t('DefaultTheme.main', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
+							'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme.main', 'Hey there!')),
+							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme.main', 'login'), $this->createUrl('/login?next=' . $content->slug)),
+							'{{register}}' => CHtml::link(Yii::t('DefaultTheme.main', 'signup'), $this->createUrl('/register'))
 						)); ?>
 					</div>
 			<?php endif; ?>

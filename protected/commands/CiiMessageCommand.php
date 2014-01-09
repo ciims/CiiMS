@@ -48,7 +48,7 @@ class CiiMessageCommand extends MessageCommand
 			if (isset($args[1]))
 				$config['sourcePath'] .= $args[1] . DIRECTORY_SEPARATOR;
 		}
-
+		
 		if (isset($args[0]) && $args[0] == 'modules')
 		{
 			$config['sourcePath'] = Yii::getPathOfAlias('application.modules');
@@ -114,6 +114,7 @@ class CiiMessageCommand extends MessageCommand
 
 			foreach($messages as $category=>$msgs)
 			{
+				echo $category . "\n";
 				$msgs=array_values(array_unique($msgs));
 
 				// If this is part of CiiMS Core
@@ -121,12 +122,14 @@ class CiiMessageCommand extends MessageCommand
 				{
 					$originalCategory = $category;
 					$category = strtolower(str_replace('Theme', '', $category));
-					$dir=$messagePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.$category.DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language;
-					$dirPath = implode(DIRECTORY_SEPARATOR, explode('.', $category));
+					$path = explode('.', $category);
+					if (!isset($path[1]))
+						$path = array($category, 'main');
 
+					$dir=$messagePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.strtolower($path[0]).DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language;
 
 					@mkdir($dir.DIRECTORY_SEPARATOR, 0777, true);
-					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.$originalCategory.'.php',$overwrite,$removeOld,$sort);
+					$this->generateMessageFile($msgs,$dir.DIRECTORY_SEPARATOR.strtolower($path[1]).'.php',$overwrite,$removeOld,$sort);
 				}
 				else if (strpos($category, 'module.') !== false)
 				{
@@ -171,8 +174,10 @@ class CiiMessageCommand extends MessageCommand
                 {
                 	if (strpos($matches[$i][1],'Dashboard')!==false || strpos($matches[$i][1],'Hybridauth')!==false || strpos($matches[$i][1],'Install')!==false)
 						$category='module.'.substr($matches[$i][1],1,-1);
+					else if (strpos($matches[$i][1],'Theme')!==false)
+						$category=$matches[$i][1];
 					else
-                   		$category=substr($matches[$i][1],$pos+1,-1);
+						$category=substr($matches[$i][1],$pos+1,-1);
                 }                   
                 else 
                     $category=substr($matches[$i][1],1,-1);
@@ -180,6 +185,7 @@ class CiiMessageCommand extends MessageCommand
 
                 $message=$matches[$i][2];
 
+                $category = str_replace("'", '', $category);
                 $messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
             }
         }

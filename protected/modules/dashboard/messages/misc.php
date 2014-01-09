@@ -17,5 +17,11 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Unable to retrieve comments for the requested post.' => '',
+  'Could not save uploaded file. The upload was cancelled, or server error encountered' => '',
+  'File has an invalid extension, it should be one of {{these}}.' => '',
+  'File is empty' => '',
+  'File is too large' => '',
+  'No files were uploaded.' => '',
+  'increase post_max_size and upload_max_filesize to {{size}}' => '',
+  '{{dir}} Server error. Upload directory isn\'t writable.' => '',
 );

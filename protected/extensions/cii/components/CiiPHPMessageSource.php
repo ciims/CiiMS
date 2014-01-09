@@ -18,10 +18,14 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	 * Constructor
 	 * Sets the default basePath to webroot.themes.{{themename}}
 	 */
-	public function __construct()
+	public function init()
 	{
+        Yii::app()->language = Cii::setApplicationLanguage();
+        parent::init();
 		if (isset(Yii::app()->theme->name))
 			$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
+        else if (isset(Yii::app()->controller->module->id))
+            $this->basePath = Yii::getPathOfAlias('application.modules.' . Yii::app()->controller->module->id);
 		else
 			$this->basePath = Yii::getPathOfAlias('application.modules.install');
 	}
@@ -52,9 +56,17 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	                $this->_files[$category][$language]=Yii::getPathOfAlias($this->extensionPaths[$extensionClass]).DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
 	            else
 	            {
-	                // No extension registered, need to find it.
-	                $class=new ReflectionClass($extensionClass);
-	                $this->_files[$category][$language]=dirname($class->getFileName()).DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+                    if (strpos($extensionClass, 'Theme') !== false)
+                        $this->_files[$category][$language] = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages').DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+                    else 
+                    {
+                        // No extension registered, need to find it.
+                        if (isset(Yii::app()->controller->module->id))
+                            $extensionClass .= 'Module';
+
+                        $class=new ReflectionClass($extensionClass);
+                        $this->_files[$category][$language]=dirname($class->getFileName()).DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+                    }
 	            }
 	        }
 	        else

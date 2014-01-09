@@ -1,5 +1,5 @@
 <div class="modal-container">
-    <h2><?php echo Yii::t('DefaultTheme', 'Change Your Email Address'); ?></h2>
+    <h2><?php echo Yii::t('DefaultTheme.main', 'Change Your Email Address'); ?></h2>
     <hr />
     <?php $form=$this->beginWidget('cii.widgets.CiiActiveForm', array(
         'id'					=> 'login-form',
@@ -23,9 +23,9 @@
         <?php endif; ?>
 
         <?php if (!$success): ?>
-            <p class="pull-text-left"><?php echo Yii::t('DefaultTheme', 'To change the email address associated to your account, please enter your current password.'); ?></p>
-            <?php echo CHtml::passwordField('password',  Cii::get($_POST, 'password', ''), array('class' => 'pure-u-1', 'placeholder'=>Yii::t('DefaultTheme', 'Your current password'))); ?>
-            <button type="submit" class="pull-right pure-button pure-button-primary"><?php echo Yii::t('DefaultTheme', 'Submit'); ?></button>
+            <p class="pull-text-left"><?php echo Yii::t('DefaultTheme.main', 'To change the email address associated to your account, please enter your current password.'); ?></p>
+            <?php echo CHtml::passwordField('password',  Cii::get($_POST, 'password', ''), array('class' => 'pure-u-1', 'placeholder'=>Yii::t('DefaultTheme.main', 'Your current password'))); ?>
+            <button type="submit" class="pull-right pure-button pure-button-primary"><?php echo Yii::t('DefaultTheme.main', 'Submit'); ?></button>
             <div class="clearfix"></div>
         <?php endif; ?>
     <?php $this->endWidget(); ?>

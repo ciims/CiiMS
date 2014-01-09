@@ -24,9 +24,9 @@
 	<?php endif; ?>
 <?php else: ?>
 	<div class="alert alert-info">
-		<?php echo Yii::t('DefaultTheme', "{{woah}} It looks like there aren't any posts in this category yet. Why don't you check out some of our other pages or check back later?", 
+		<?php echo Yii::t('DefaultTheme.main', "{{woah}} It looks like there aren't any posts in this category yet. Why don't you check out some of our other pages or check back later?", 
 			array(
-				'{{woah}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme', 'Woah!'))
+				'{{woah}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme.main', 'Woah!'))
 		)); ?>
 	</div>
 <?php endif; ?>

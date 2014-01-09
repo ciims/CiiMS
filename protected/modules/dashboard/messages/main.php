@@ -17,13 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'By {{author}} under {{category}}' => '',
   'Failed to set model attributes.' => '',
+  'Install' => '',
   'Only active users can access the API.' => '',
-  'Proudly Published with {{CiiMS}} - {{Spectre}}' => '',
-  'Recent Posts' => '',
   'Request payload not properly formed JSON.' => '',
-  'Search' => '',
-  'Submit' => '',
   'The CiiMS API is not enabled.' => '',
 );

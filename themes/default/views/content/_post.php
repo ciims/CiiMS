@@ -4,7 +4,7 @@
 		<div class="post-header">
 			<h2><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h2>
 			<span class="author">
-				<?php echo Yii::t('DefaultTheme', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
+				<?php echo Yii::t('DefaultTheme.main', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
 				<span class="pull-right">
 					<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 				</span>
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="post-details">
-			<?php echo CHtml::link(Yii::t('DefaultTheme', 'Read More'), $this->createUrl('/' . $content->slug), array('class' => 'read-more', 'rel' => 'bookmark')); ?>
+			<?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Read More'), $this->createUrl('/' . $content->slug), array('class' => 'read-more', 'rel' => 'bookmark')); ?>
 
 			<div class="icons">
 				<span class="comment-container">

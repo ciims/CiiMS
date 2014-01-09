@@ -134,30 +134,6 @@ class CiiController extends CController
     }
 
     /**
-     * Sets the application language for the site based upon $_POST, $_SESSION, http headers
-     * @return string   string for translations
-     */
-    private function setApplicationLanguage()
-    {
-        $app = Yii::app();
-        
-        // Set the default language to whatever we have in the dahsboard
-        $app->language = Cii::getConfig('defaultLanguage');
-
-        // If the language is set via POST, accept it
-        if (Cii::get($_POST, '_lang', false))
-            $app->language = $app->session['_lang'] = $_POST['_lang'];
-        else if (Cii::get($app->session, '_lang', false))
-            $app->language = $app->session['_lang'];
-        else
-            $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
-
-        $app->session['_lang'] = $app->language;
-        
-        return $app->language;
-    }
-
-    /**
      * BeforeAction method
      * The events defined here occur before every controller action that extends CiiController occurs.
      * This method will run the following tasks:
@@ -177,7 +153,7 @@ class CiiController extends CController
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
         } catch (Exception $e) {}
 
-        $this->setApplicationLanguage();
+        Cii::setApplicationLanguage();
 
         $offlineMode = (bool)Cii::getConfig('offline', false);
 

@@ -7,6 +7,7 @@ class Cii {
         $data = json_decode(file_get_contents(Yii::getPathOfAlias('ext.cii').'/ciims.json'),true);
         return $data['version'];
     }
+
 	/**
 	 * Checks for the existance of an item at a given array index and returns that object if it exists
 	 * @param array $array 	 The array to check
@@ -72,6 +73,26 @@ class Cii {
             return require $config;
 
         return array();
+    }
+
+    public static function setApplicationLanguage()
+    {
+        $app = Yii::app();
+
+        // Set the default language to whatever we have in the dahsboard
+        $app->language = Cii::getConfig('defaultLanguage');
+
+        // If the language is set via POST, accept it
+        if (Cii::get($_POST, '_lang', false))
+            $app->language = $app->session['_lang'] = $_POST['_lang'];
+        else if ($app->session['_lang'] != NULL)
+            $app->language = $app->session['_lang'];
+        else
+            $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
+
+        Yii::app()->language = $app->session['_lang'] = $app->language;
+
+        return $app->language;
     }
 
     /**

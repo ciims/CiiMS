@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Accept Invitation' => '',
   'Activate Your Account' => '',
   'Activation was successful! You may now {{login}}' => '',
   'An email has been sent to {{email}} with further instructions on how to reset your password' => '',

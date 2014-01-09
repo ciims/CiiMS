@@ -22,7 +22,6 @@ return array(
     'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
-    'language' => 'en_US',
     'preload' => array('cii', 'analytics'),
     'import' => array(
         'application.modules.*',
