@@ -80,7 +80,8 @@ class Cii {
         $app = Yii::app();
 
         // Set the default language to whatever we have in the dahsboard
-        $app->language = Cii::getConfig('defaultLanguage');
+        if (Yii::app()->controller->module->id != 'install')
+            $app->language = Cii::getConfig('defaultLanguage');
 
         // If the language is set via POST, accept it
         if (Cii::get($_POST, '_lang', false))

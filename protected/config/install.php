@@ -23,6 +23,9 @@
             'sessionName'   => 'CiiMS_Installer',
             'cookieMode'    => 'only', 
         ),
+        'cache' => array(
+            'class' => 'CFileCache'
+        ),
         'urlManager' => array(
             'urlFormat' => 'path',
             'showScriptName' => false,

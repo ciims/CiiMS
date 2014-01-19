@@ -10,7 +10,8 @@
  * @copyright 2011-2014 Charles R. Portwood II
  *
  * @notice  This file is part of CiiMS, and likely will not function without the necessary CiiMS classes
- */class DatabaseForm extends CFormModel
+ */
+class DatabaseForm extends CFormModel
 {
     /**
      * @var string $username
