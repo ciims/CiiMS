@@ -1,96 +1,54 @@
+<?php $cs = Yii::app()->clientScript; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo Yii::app()->language; ?>">
 	<head>
-		<meta name="viewport" content="initial-scale=1.0">
-	    <meta charset="UTF-8" />
+		<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+		<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no">
 	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	    <?php Yii::app()->clientScript->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
-                                      ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
-                                      ->registerMetaTag(strip_tags($this->params['meta']['description']), 'description', 'description', array(), 'description')
-                                      ->registerCssFile($this->asset .'/css/main.css')
-                                      ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
-		                              ->registerCoreScript('jquery')
-								      ->registerScriptFile($this->asset .'/js/script.js')
-								      ->registerScript('load', '$(document).ready(function() { DefaultTheme.load(); });', CClientScript::POS_END); ?>
-		<!--[if lt IE 9]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<?php $cs->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
+                 ->registerMetaTag($this->keywords, 'keywords', 'keywords', array(), 'keywords')
+                 ->registerMetaTag(strip_tags($this->params['meta']['description']), 'description', 'description', array(), 'description')
+                 ->registerCssFile($this->asset . (YII_DEBUG ? '/css/theme.css' : '/css/theme.min.css'))
+				 ->registerCssFile($this->asset . '/font-awesome/css/font-awesome.min.css')
+				 ->registerScriptFile($this->asset . '/js/jquery-2.0.3.min.js')
+				 ->registerScriptFile($this->asset .(YII_DEBUG ? '/js/theme.js' : '/js/theme.min.js'))
+				 ->registerScript('load', '$(document).ready(function() { Theme.load(); });', CClientScript::POS_END); ?>
 	</head>
 	<body>
-		<header>
-		    <div class="header-top-bar"></div>
-		    <div class="row-fluid header-middle-bar">
-			    	<?php $this->widget('bootstrap.widgets.TbNavbar', array(
-						'brand' => Cii::getConfig('name', Yii::app()->name),
-						'fixed' => false,
-						'items' => array(
-							array(
-								'class' => 'bootstrap.widgets.TbMenu',
-								'items' => $this->params['theme']->getMenu()
-							)
-						)
-					)); ?>
-		    </div>		    
-		</header>
-		
-		<main class="main">
-		    <div class="container image-container">
-		    	<div class="row-fluid image-viewport">
-		    		<?php $logo = Cii::getConfig('splashLogo', $this->asset.'/images/splash-logo.jpg', Yii::app()->theme->name .'_settings_'); ?>
-		    		<?php $logo = $logo == '' ? $this->asset.'/images/splash-logo.jpg' : $logo; ?>
-		    		<?php echo CHtml::image($logo); ?>
-		    	</div>
-		   	</div>
-		   	<div class="container main-container">
-                <div class="row-fluid main-body">
-                    <?php echo $content; ?>
-                </div>
-            </div>
-		</main>
-		
-		<footer>
-		    <div class="footer-top-block">
-		        <div class="container"></div>
-		    </div>
-		    <div class="footer-main-block">
-		        <div class="row-fluid">
-		            <div class="inner-container">
-                        <div class="span3 well" id="twitterFeed">
-                        </div>
-		                <div class="span3">
-                            <h5><?php echo Yii::t('DefaultTheme', 'Categories'); ?></h5>
-                            <?php $this->widget('bootstrap.widgets.TbMenu', array(
-                                'items' => $this->params['theme']->getCategories()
-                            )); ?>
-                        </div>
-                        <div class="span3">
-                            <h5><?php echo Yii::t('DefaultTheme', 'Recent Posts'); ?></h5>
-                            <?php $this->widget('bootstrap.widgets.TbMenu', array(
-                                'items' => $this->params['theme']->getRecentPosts()
-                            )); ?>
-                        </div>
-                        <div class="span3">
-                            <h5><?php echo Yii::t('DefaultTheme', 'Search'); ?></h5>
-                            <p><?php echo Yii::t('DefaultTheme', 'Looking for something on the blog?'); ?></p>
-                            <?php echo CHtml::beginForm($this->createUrl('/search'), 'get', array('id' => 'search')); ?>
-                                <div class="input-append">
-                                    <?php echo CHtml::textField('q', Cii::get($_GET, 'q', ''), array('type' => 'text', 'style' => 'width: 75%', 'placeholder' => Yii::t('DefaultTheme', 'Search...'))); ?>
-                                </div>
-                            <?php echo CHtml::endForm(); ?>
-                        </div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="footer-bottom-block">
-		        <div class="container">
-                        <div class="pull-left">Copyright &copy <?php echo date('Y'); ?> <?php echo Cii::getConfig('name', Yii::app()->name); ?></div>
-                        <div class="pull-right cii-menu"><?php $this->widget('cii.widgets.CiiMenu', array('items' => $this->params['theme']->getMenu(), 'htmlOptions' => array('class' => 'footer-nav'))); ?></div>
-		        </div>
-		    </div>
-		</footer>
-
-		<span id="endpoint" data-attr-endpoint="<?php echo Yii::app()->getBaseUrl(true); ?>" style="display:none"></span>
+		<div id="main-container">
+			<header id="top-header">
+				<div class="logo pull-left">
+					<?php echo CHtml::link(CHtml::encode(Cii::getConfig('name')), Yii::app()->getBaseUrl(true)); ?>
+				</div>
+				<div class="nav-item"></div>
+				<nav class="top-navigation pull-right">
+					<ul>
+						<li><?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Home'), Yii::app()->getBaseUrl(true)); ?></li>
+						<li><?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Dashboard'), $this->createUrl('/dashboard')); ?></li>
+						<li><?php echo CHtml::link(NULL, $this->createUrl('/search'), array('class' => 'fa fa-search')); ?></li>
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+			</header>
+			<main class="pure-g-r">
+				<?php echo $content; ?>
+			</main>
+			<div class="main-footer-container">
+				<footer id="main-footer">
+					<div class="copyright pull-left">
+						Copyright &copy <?php echo date("Y"); ?> <?php echo CHtml::encode(Cii::getConfig('name')); ?>
+					</div>
+					<nav class="footer-nav pull-right">
+						<ul>
+							<li><?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Home'), Yii::app()->getBaseUrl(true)); ?></li>
+							<li><?php echo CHtml::link(Yii::t('DefaultTheme.main', 'Dashboard'), $this->createUrl('/dashboard')); ?></li>
+						</ul>
+					</nav>
+					<div class="clearfix"></div>
+				</footer>
+			</div>
+		</div>
 	</body>
+	<span id="endpoint" data-attr-endpoint="<?php echo Yii::app()->getBaseUrl(true); ?>" style="display:none"></span>
 </html>

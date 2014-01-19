@@ -1,27 +1,26 @@
-<h4><?php echo Yii::t('Install.main', 'Create Admin User'); ?></h4>
+<h3><?php echo Yii::t('Install.main', '{create} Admin User', array('{create}' => CHtml::tag('span', array('class' => 'highlight'), Yii::t('Install.main', 'Create')))); ?></h3>
 <p><?php echo Yii::t('Install.main', 'Lets setup your first admin user, and set a few site settings. All of these settings can be changed later in the admin panel.'); ?></p>
 
-<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form = $this->beginWidget('cii.widgets.CiiBaseActiveForm', array(
     'id'=>'user-form',
     'type'=>'inline',
-    'enableAjaxValidation'=>true,
-    'enableClientValidation'=>true,
+    'htmlOptions' => array(
+        'class' => 'pure-form pure-form-aligned'
+    )
 )); ?>
-    <div class="path-field">
-        <?php echo $form->textFieldRow($model, 'email',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Email'))); ?>
-        <?php echo $form->passwordFieldRow($model, 'password',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Password'))); ?>
+    <div class="pure-u-1">
+        <?php echo $form->textField($model, 'email',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Email'))); ?>
+        <?php echo $form->passwordField($model, 'password',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Password'))); ?>
     </div>
-    <div class="clearfix" style="margin: 5px;"></div>
-    <div class="path-field">
-        <?php echo $form->textFieldRow($model, 'firstName',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'First Name'))); ?>
-        <?php echo $form->textFieldRow($model, 'lastName',  array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Last Name'))); ?>
+    <div class="pure-u-1">
+        <?php echo $form->textField($model, 'firstName',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'First Name'))); ?>
+        <?php echo $form->textField($model, 'lastName',  array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Last Name'))); ?>
     </div>
-    <div class="clearfix" style="margin: 5px;"></div>
-    <div class="path-field">
-        <?php echo $form->textFieldRow($model, 'displayName', array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Display Name'))); ?>
-        <?php echo $form->textFieldRow($model, 'siteName', array('class'=>'input-small', 'placeholder' => Yii::t('Install.main', 'Site Name'))); ?>
+   <div class="pure-u-1">
+        <?php echo $form->textField($model, 'displayName', array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Display Name'))); ?>
+        <?php echo $form->textField($model, 'siteName', array('class'=>'pure-u-1-3', 'placeholder' => Yii::t('Install.main', 'Site Name'))); ?>
     </div>
-    <div class="clearfix" style="margin: 5px;"></div>
     <hr />
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>Yii::t('Install.main', 'Submit'), 'htmlOptions' => array('class'=>'pull-right btn-inverse')) ); ?>
+
+   <button class="pure-button pure-button-primary" type="submit"><?php echo Yii::t('Install.main', 'Create Admin User'); ?></button>
 <?php $this->endWidget(); ?>

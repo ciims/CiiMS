@@ -1,4 +1,3 @@
-<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <div class="settings-row comment comment-<?php echo $comment->id; ?>" data-attr-id="<?php echo $comment->id; ?>" style="margin-left: <?php echo $depth*4 * 10; ?>px;">
 	<div class="container-bundle">
 		<div class="user-avatar">

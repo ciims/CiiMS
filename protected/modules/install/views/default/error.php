@@ -1,5 +1,18 @@
-<h4><?php echo $this->breadcrumbs[$this->stage]; ?></h4>
-<p><?php echo Yii::t('Install.main', "Whoops! Whatever you did just broke the installer! I'm sure that this is just a temporary thing though. Why don't you go back to the previous page and try whatever you did again? Here's a couple ideas to help get you out of this:"); ?></p>
+<h3>
+	<?php echo Yii::t('Install.main', '{woah} An error occured!', array(
+		'{woah}' => CHtml::tag('span', array('class' => 'highlight'), 'Woah!')
+	)); ?>
+</h3>
+<hr />
+<p>
+	<?php echo Yii::t('Install.main', 'CiiMS has encountered an error during the installation that requires manual intervention.'); ?>
+</p>
+
+<?php if (isset($error)): ?>
+	<h4><?php echo Yii::t('Install.main', 'The following error was produced during the installation.'); ?></h4>
+	<pre><?php echo $error['message']; ?></pre>
+<?php endif; ?>
+
 <ul>
     <li><?php echo Yii::t('Install.main', 'Press the "back" button in your browser to go back to the previous page and try whatever action you last performed again.'); ?></li>
     <li><?php echo Yii::t('Install.main', 'Press the button below and let CiiMS figure out what you need to do next.'); ?></li>
@@ -7,7 +20,3 @@
     		'{{github}}' => CHtml::link(Yii::t('Install.main', 'github'), 'https://github.com/charlesportwoodii/CiiMS/issues')
     )); ?></li>
 </ul>
-<div class="clearfix"></div>
-<hr />
-
-<div class="clearfix"></div>

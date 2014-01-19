@@ -1,4 +1,3 @@
-<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <div class="form">
 	<div class="header">
 		<div class="pull-left">
@@ -48,7 +47,7 @@
 				    'id' => 'inviteesListView',
 				    'summaryText' => false,
 				    'pagerCssClass' => 'pagination',
-		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+		    		'pager' => array('class'=>'cii.widgets.CiiPager'),
 				)); ?>
 
 				<div class="clearfix"></div>
@@ -63,7 +62,7 @@
 				    'id' => 'categoryListView',
 				    'summaryText' => false,
 				    'pagerCssClass' => 'pagination',
-		    		'pager' => array('class'=>'bootstrap.widgets.TbPager'),
+		    		'pager' => array('class'=>'cii.widgets.CiiPager'),
 				)); ?>
 			<fieldset>
 		</div>

@@ -127,7 +127,11 @@ class CiiURLManager extends CUrlManager
 	 **/
 	private function cacheRules($fromString, $item)
 	{
-		$urlRules = Yii::app()->cache->get($item);
+		if (YII_DEBUG)
+			$urlRules = false;
+		else
+			$urlRules = Yii::app()->cache->get($item);
+
 		if($urlRules===false || $urlRules === NULL)
 		{
 			if ($fromString == "content")

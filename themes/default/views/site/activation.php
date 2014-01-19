@@ -2,7 +2,7 @@
 <div class="login-container">
 	<div class="sidebar">
 		<div class="well-span">
-			<h4><?php echo Yii::t('DefaultTheme', 'Activate your Account'); ?></h4>
+			<h4><?php echo Yii::t('DefaultTheme.main', 'Activate your Account'); ?></h4>
 			<?php if(Yii::app()->user->hasFlash('activation-error')):?>
 				<div class="alert alert-error" style="margin-top: 20px;">
 				  	<?php echo Yii::app()->user->getFlash('activation-error'); ?>
@@ -28,11 +28,11 @@
 							'enableAjaxValidation'	=>	true
 						)); ?>
 				<div class="login-form-container">
-					<?php echo CHtml::passwordField('password', Cii::get($_POST, 'password', NULL), array('placeholder' => Yii::t('DefaultTheme', 'Password'))); ?>
+					<?php echo CHtml::passwordField('password', Cii::get($_POST, 'password', NULL), array('placeholder' => Yii::t('DefaultTheme.main', 'Password'))); ?>
 					<?php $this->widget('bootstrap.widgets.TbButton', array(
 						'buttonType' => 'submit',
 	                    'type' => 'success',
-	                    'label' => Yii::t('DefaultTheme', 'Submit'),
+	                    'label' => Yii::t('DefaultTheme.main', 'Submit'),
 	                    'htmlOptions' => array(
 	                        'id' => 'submit-comment',
 	                        'class' => 'sharebox-submit pull-right',

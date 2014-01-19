@@ -11,6 +11,7 @@ class EventController extends ApiController
 
 	public function actionIndex()
 	{
+		header('Content-Type: application/json');
 		$event = new Events;
 		$event->attributes = $_GET;
 

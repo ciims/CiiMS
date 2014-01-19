@@ -1,4 +1,3 @@
-<?php Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('ext.bootstrap')); ?>
 <?php $isIE = preg_match('/(?i)msie [1-8]/',$_SERVER['HTTP_USER_AGENT']); ?>
 <?php if(!$isIE) echo "<!DOCTYPE html>"; ?>
 <html lang="<?php echo Yii::app()->language; ?>" class="<?php echo $isIE ? 'ie' : NULL ?>">
@@ -8,9 +7,8 @@
 	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	    <title><?php echo Yii::t('Dashboard.views', 'CiiMS Dashboard | {{pagetitle}}', array('{{pagetitle}}' => CHtml::encode($this->pageTitle))); ?></title>
-	    <?php $bootstrap=Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.bootstrap.assets'), true, -1, YII_DEBUG); ?>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
-				                      ->registerCssFile($bootstrap .'/css/bootstrap.min.css')
+				                      ->registerCssFile($this->asset . '/css/bootstrap.min.css')
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/css/dashboard.css' : '/css/dashboard.min.css'))
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
 				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')

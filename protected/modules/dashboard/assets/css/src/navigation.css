@@ -98,6 +98,7 @@ aside.navigation nav {
 
 aside.navigation nav ul {
     list-style: none;
+    padding-left: 0;
     margin-left: auto;
     margin-right: auto;
     text-align: center;

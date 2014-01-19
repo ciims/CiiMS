@@ -1,9 +1,7 @@
 <?php
-// Import bootstrap TbActiveForm
-Yii::setPathOfAlias('bootstrap', Yii::getPathOfAlias('application.extensions.bootstrap'));
-Yii::import('application.extensions.bootstrap.widgets.TbActiveForm'); 
 
-class CiiActiveForm extends TbActiveForm
+Yii::import('cii.widgets.CiiBaseActiveForm');
+class CiiActiveForm extends CiiBaseActiveForm
 {
 	public $registerPureCss = true;
 

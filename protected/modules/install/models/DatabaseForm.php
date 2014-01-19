@@ -3,8 +3,14 @@
 /**
  * DatabaseForm class.
  * DatabaseForm is a data keeping structure for storing information about the database
- */
-class DatabaseForm extends CFormModel
+ *
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net>
+ * @package CiiMS https://www.github.com/charlesportwoodii/CiiMS
+ * @license MIT License
+ * @copyright 2011-2014 Charles R. Portwood II
+ *
+ * @notice  This file is part of CiiMS, and likely will not function without the necessary CiiMS classes
+ */class DatabaseForm extends CFormModel
 {
     /**
      * @var string $username
@@ -15,15 +21,14 @@ class DatabaseForm extends CFormModel
     /**
      * @var string $password
      * Password we want to connection with
-     */
-     
+     */     
     public $password;
     
     /**
      * @var string $host
      * The host we want to connect to
      */
-    public $host;
+    public $host = '127.0.0.1';
     
     /**
      * @var string $dbname
@@ -43,7 +48,7 @@ class DatabaseForm extends CFormModel
     public function rules()
     {
         return array(
-            array('username, password, host, dbname', 'required')
+            array('username, host, dbname', 'required')
         );
     }
 

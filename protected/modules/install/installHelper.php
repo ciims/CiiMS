@@ -4,28 +4,37 @@
  * field verification. It should only be used and called during the pre-bootstrap phases.
  * This also _significantly_ declutters the pre-bootstrap installer of unnecessary PHP Code, which means it
  * remains most HTML and jQuery
+ *
+ * @author Charles R. Portwood II <charlesportwoodii@ethreal.net>
+ * @package CiiMS https://www.github.com/charlesportwoodii/CiiMS
+ * @license MIT License
+ * @copyright 2011-2014 Charles R. Portwood II
  */
 class InstallHelper
 {
+
+    // The current State
+    public $stage = 0;
+
+    public $config;
     /**
-     * Checks to see if Yii exists at the provided path
-     * @param string $path  Path to Yii Framework
+     * Constructor
+     * Sets the stage when we first load up, then tries to call a method if it exists
      */
-    public function pathExists($path = "")
+    public function __construct($ciimsConfig)
     {
-        // Use forward slashes always, should fix Windows Install issue
-        $path = str_replace('\\', '/', $path);
-        if ($path[strlen($path)-1] != '/')
-            $path .= '/';
-        
-        // Check if yii.php exists
-        if (file_exists($path . '/yii.php'))
-        {
-            $this->setPath($path);
-            $this->exitWithResponse(array('pathExists' => true));
-        }
-        
-        $this->exitWithResponse(array('pathExists' => false));
+        // Sets the stage
+        $this->stage = max((isset($ciimsConfig['params']['stage']) ? $ciimsConfig['params']['stage'] : 0), isset($_GET['stage']) ? $_GET['stage'] : 0);
+        $this->stage = isset($e) && !empty($e) ? 10 : $this->stage;
+        if ($this->stage == 10)
+            header("HTTP/1.0 409 Conflict");
+
+        $this->config = $ciimsConfig;
+
+        // Attempts to call a request if a method is called
+        if (isset($_POST['_ajax']) && isset($_POST['_method']))
+            if (method_exists($this, $_POST['_method']))
+                $this->$_POST['_method']($_POST['data']);
     }
     
     /**
@@ -40,9 +49,7 @@ class InstallHelper
         
         try {
             // Replace pathspec
-            $data['runtime'] = str_replace('\\', '/', $data['runtime']);
-            if ($data['runtime'][strlen($data['runtime'])-1] != '/')
-                $data['runtime'] .= '/';
+            $data['runtime'] = __DIR__ . '/../../runtime/';
             
             // Create a progress file
             file_put_contents($data['runtime'] . 'progress.txt', '0');
@@ -55,12 +62,12 @@ class InstallHelper
             $targetFile = fopen($data['runtime'] . 'yii.zip', 'w' );
             
             // Initiate the CURL request
-            $ch = curl_init( $data['remote'] );
+            $ch = curl_init($data['remote'] );
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt( $ch, CURLOPT_NOPROGRESS, false );
+            curl_setopt($ch, CURLOPT_NOPROGRESS, false );
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt( $ch, CURLOPT_FILE, $targetFile );
-            curl_exec( $ch );
+            curl_setopt($ch, CURLOPT_FILE, $targetFile);
+            curl_exec($ch);
             
             // Extract the file
             $zip = new ZipArchive;
@@ -73,46 +80,27 @@ class InstallHelper
                 
                 // Remove the file
                 unlink($data['runtime'] . 'yii.zip');
-                
                 // Set the path and prompt for a reload
-                $this->setPath($data['runtime'] .  $data['version'] . '/framework/');
                 $this->exitwithResponse(array('completed' => true));
             }
             
             $this->exitwithResponse(array('completed' => false, 'status' => 1));
         } 
-        catch (Exception $e)
-        {
+        catch (Exception $e) {
             $this->exitwithResponse(array('completed' => false, 'status' => 2));
         }
     }
-    
+
     /**
-     * Sets the YiiPath in Session so the bootstrapper can take over
-     * @param string $path      The path to Yii Framework
+     * Loads the stage viewfile
      */
-    private function setPath($path)
+    public function getView()
     {
-        session_start();
-        $_SESSION['config']['params']['yiiPath'] = $path;
-        session_write_close();
-        return;
-    }
-
-    private function setLanguage()
-    {
-        $language = 'en_US';
-        session_start();
-        // If the language is set via POST, accept it
-        if (isset($_POST['_lang']))
-            $language = $_SESSION['_lang'] = $_POST['_lang'];
-        else if (isset($_SESSION['_lang']))
-            $language = $_SESSION['_lang'];
+        if (file_exists(__DIR__ . "/views/install/{$this->stage}.php"))
+            include __DIR__ . "/views/install/{$this->stage}.php";
         else
-            $language = $_SESSION['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
-
-        $_SESSION['_lang'] = $language;
-        session_write_close();
+            require __DIR__ . "/views/install/error.php";
+        return;
     }
     
     /**

@@ -646,7 +646,13 @@ class SiteController extends CiiSiteController
 				return $this->render('invitesuccess');	
 			}	
 		}
-		
+	
+         $this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
+            '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+            '{{label}}'    => Yii::t('ciims.controllers.Site', 'Accept Invitation')
+        )));
+
+
 		$this->render('acceptinvite', array('model' => $model));
 	}
 	

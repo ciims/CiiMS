@@ -14,7 +14,7 @@
 		</div>
 		<div class="comment-body">
 		    <?php if ($comment->approved == -2): ?>
-		        <em class="flagged"><?php echo Yii::t('DefaultTheme', 'Comment has been redacted'); ?></em>
+		        <em class="flagged"><?php echo Yii::t('DefaultTheme.main', 'Comment has been redacted'); ?></em>
 		    <?php else: ?>
 			    <?php echo $md->safeTransform($comment->comment); ?>
 			<?php endif; ?>
@@ -28,8 +28,9 @@
 			<?php endif; ?>
 		</div>
 	</div>
-		<?php $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+		<?php $form = $this->beginWidget('cii.widgets.CiiActiveForm', array(
 		    'id'=>'comment-form',
+		    'registerPureCss'	=> false,
 		    'htmlOptions' => array('class' => 'comment-form')
 		)); ?>
 			<div id="sharebox-<?php echo $comment->id; ?>" class="comment-box">
@@ -38,11 +39,12 @@
                     <div id="close-<?php echo $comment->id; ?>"></div>
                     <div style="clearfix"></div>
                 </div>
-                <div id="b-<?php echo $comment->id; ?>" style="color:#999"><?php echo Yii::t('DefaultTheme', 'Comment on this post'); ?></div> 
+                <div id="b-<?php echo $comment->id; ?>" ><?php echo Yii::t('DefaultTheme.main', 'Comment on this post'); ?></div> 
             </div>
-            <a id="submit-comment-<?php echo $comment->id; ?>" class="sharebox-submit btn btn-success" style="margin-bottom: 5px;" href="#">
+            <div class="clearfix"></div>
+            <a id="submit-comment-<?php echo $comment->id; ?>" class="sharebox-submit pure-button pure-button-primary pure-button-small pull-right" style="margin-bottom: 5px;" href="#">
             	<i class="icon-spin icon-spinner" style="display:none;"></i>
-            	<?php echo Yii::t('DefaultTheme', 'Submit'); ?>
+            	<?php echo Yii::t('DefaultTheme.main', 'Submit'); ?>
             </a>
 		<?php $this->endWidget(); ?>
 	<div class="clearfix"></div>
@@ -50,6 +52,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		DefaultTheme.loadComment(<?php echo $comment->id; ?>);
+		Theme.loadComment(<?php echo $comment->id; ?>);
 	});
 </script>
