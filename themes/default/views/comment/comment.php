@@ -3,11 +3,6 @@
 	<div class="<?php echo $comment->author->id == $comment->content->author->id ? 'green-indicator author-indicator' : NULL; ?>">
 		<div class="comment-body comment-byline">
 			<?php echo CHtml::encode($comment->author->name); ?>
-			<?php if ($comment->parent_id != 0): ?>
-				<span class="icon-share-alt"></span> <?php echo CHtml::encode($comment->parent->author->name); ?> •
-			<?php else: ?>
-			 •
-			<?php endif; ?>
 			<time class="timeago" datetime="<?php echo date(DATE_ISO8601, strtotime($comment->created)); ?>">
 				<?php echo Cii::formatDate($comment->created); ?>
 			</time>
