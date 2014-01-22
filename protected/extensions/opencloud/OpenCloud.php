@@ -38,7 +38,7 @@ class OpenCloud extends CComponent
 	private $_overrideControl = array();
 
 	// A list of valid extensions
-	private $allowedExtensions = array(
+	public $allowedExtensions = array(
         'png',
         'jpeg',
         'jpg',
