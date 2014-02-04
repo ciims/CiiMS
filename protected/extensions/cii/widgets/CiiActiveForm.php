@@ -269,8 +269,8 @@ class CiiActiveForm extends CiiBaseActiveForm
 				), $checked));
 
 				echo CHtml::openTag('span');
-					echo CHtml::tag('span', array(), Yii::t('Dashboard.widgets', 'Off'));
-					echo CHtml::tag('span', array(), Yii::t('Dashboard.widgets', 'On'));
+					echo CHtml::tag('span', array(), 'Off');
+					echo CHtml::tag('span', array(), 'On');
 				echo CHtml::closeTag('span');
 
 				echo CHtml::tag('a', array('class' => 'slide-button'), NULL);
