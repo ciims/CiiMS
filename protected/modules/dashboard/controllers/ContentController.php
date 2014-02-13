@@ -89,7 +89,6 @@ class ContentController extends CiiDashboardController
         else
         {
             $model = Content::model()->findByPk($id);
-              
             if ($model == NULL)
                 throw new CHttpException(400,  Yii::t('Dashboard.main', 'We were unable to retrieve a post with that id. Please do not repeat this request again.'));
               
@@ -126,10 +125,7 @@ class ContentController extends CiiDashboardController
             $model2->commentable= Cii::get($_POST['Content'], 'commentable', 1);
             $model2->type_id    = Cii::get($_POST['Content'], 'type_id', 2);
 
-            $model2->published  = Cii::get($_POST['Content'], 'published', NULL);
-            $time = strtotime($model2->published . $_POST['timezone']);
-            $published = date('Y-m-d H:i:s', $time);
-            $model2->published = $published;
+            $model2->published = gmdate('Y-m-d H:i:s', strtotime(Cii::get($_POST['Content'], 'published', NULL) . $_POST['timezone']));
 
             if ($model->author_id != Yii::app()->user->id)
                 $model2->author_id = $model->author_id;

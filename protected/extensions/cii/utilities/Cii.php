@@ -141,9 +141,9 @@ class Cii {
             $format = Cii::getConfig('dateFormat') . ' @ ' . Cii::getConfig('timeFormat');
 
         if ($format == ' @ ')
-            $format = 'F jS, Y @ H:i';
+            $format = 'F jS, Y @ H:i UTC';
 
-		return date($format, strtotime($date));
+		return gmdate($format, strtotime($date));
 	}
 
     /**
