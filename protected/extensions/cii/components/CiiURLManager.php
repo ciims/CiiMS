@@ -94,6 +94,7 @@ class CiiURLManager extends CUrlManager
 	{
 		
 		$this->addBasicRules();
+        $this->addModuleRules();
 		$this->cacheRules('content', $this->contentUrlRulesId);
 		$this->cacheRules('categories', $this->categoriesUrlRulesId);
 
@@ -107,8 +108,8 @@ class CiiURLManager extends CUrlManager
 		// Append our cache rules BEFORE we run the defaults
 		$this->rules['<controller:\w+>/<action:\w+>/<id:\d+>'] = '<controller>/<action>';
 		$this->rules['<controller:\w+>/<action:\w+>'] = '<controller>/<action>';
-
-		return parent::processRules();
+		
+        return parent::processRules();
 	}
 	
 	/**
@@ -118,6 +119,36 @@ class CiiURLManager extends CUrlManager
 	{
 		$this->rules = CMap::mergeArray($this->defaultRules, $this->rules);
 	}
+    
+    /**
+     * Adds rules from the module/config/rules.php file
+     */
+    private function addModuleRules()
+    {
+        if (YII_DEBUG)
+            $rulesCache = false;
+        else
+            $rulesCache = Yii::app()->cache->get('module_url_rules');
+
+        if ($rulesCache == false || $rulesCache == NULL)
+        {
+            $rulesCache = array();
+            $directories = glob(Yii::getPathOfAlias('application.modules') . '/*' , GLOB_ONLYDIR);
+
+            foreach ($directories as $dir)
+            {
+                $routePath = $dir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routes.php';
+                if (file_exists($routePath))
+                {
+                    $routes = require_once($routePath);
+                    foreach ($routes as $k=>$v)
+                        $rulesCache[$k] = $v;
+                }
+            }
+        }
+   
+        $this->rules = CMap::mergeArray($rulesCache, $this->rules);
+    }
 
 	/**
 	 * Method for retrieving rules from the database and caching them
@@ -132,7 +163,7 @@ class CiiURLManager extends CUrlManager
 		else
 			$urlRules = Yii::app()->cache->get($item);
 
-		if($urlRules===false || $urlRules === NULL)
+		if($urlRules == false || $urlRules == NULL)
 		{
 			if ($fromString == "content")
 				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND published <= UTC_TIMESTAMP()")->queryAll();
