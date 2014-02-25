@@ -5,6 +5,7 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
+Yii::import('ext.cii.components.CiiUserIdentity');
 class LoginForm extends CFormModel
 {
 	/**
@@ -34,11 +35,17 @@ class LoginForm extends CFormModel
 
 	/**
 	 * The identity of the user
-	 * @var CUserIdentity
+	 * @var CiiUserIdentity
 	 */
 	private $_identity;
 
+    /**
+     * The Application Name (??)
+     * // TODO: Remember what this is used for
+     * @var $app_name
+     */
 	public $app_name = NULL;
+
 	/**
 	 * Determines whether or not we should do a forced authentication and bypass the user's actual password
 	 * @see  application.modules.HybridAuth for more details
@@ -84,7 +91,7 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity=new CiiUserIdentity($this->username,$this->password);
 			$this->_identity->app_name = $this->app_name;
 			if(!$this->_identity->authenticate($this->force))
 				$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
@@ -99,11 +106,11 @@ class LoginForm extends CFormModel
 	{
 		if($this->_identity===null)
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity=new CiiUserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
 		}
 
-		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
+		if($this->_identity->errorCode===CiiUserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24 : 0; // 30 days
 			Yii::app()->user->login($this->_identity,$duration);

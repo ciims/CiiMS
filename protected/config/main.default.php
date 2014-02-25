@@ -73,7 +73,7 @@ return array(
             'cookieMode'    => 'only', 
         ),
         'urlManager' => array(
-            'class'          => 'CiiURLManager',
+            'class'          => 'ext.cii.components.CiiURLManager',
             'cache'          => true,
             'urlFormat'      => 'path',
             'showScriptName' => false
