@@ -190,6 +190,10 @@ class ApiController extends CiiController
     public function renderOutput($response = array(), $status=NULL, $message=NULL)
     {
         header('Content-Type: application/json');
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: x-auth-token, x-auth-email");
+        header('Access-Control-Allow-Methods: PUT, PATCH, DELETE, POST, GET, OPTIONS');
+        
         echo CJSON::encode(array(
             'status' => $status != NULL ? $status : $this->status,
             'message' => $message != NULL ? $message : $this->message,
