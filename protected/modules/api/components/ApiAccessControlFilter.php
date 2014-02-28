@@ -14,27 +14,27 @@ class ApiAccessControlFilter extends CAccessControlFilter
      */
     protected function preFilter($filterChain)
     {
-            $app=Yii::app();
-            $request=$app->getRequest();
-            $user=$this->user;
-            $verb=$request->getRequestType();
-            $ip=$request->getUserHostAddress();
+        $app=Yii::app();
+        $request=$app->getRequest();
+        $user=$this->user;
+        $verb=$request->getRequestType();
+        $ip=$request->getUserHostAddress();
 
-            foreach($this->getRules() as $rule)
+        foreach($this->getRules() as $rule)
+        {
+            if(($allow=$rule->isUserAllowed($user,$filterChain->controller,$filterChain->action,$ip,$verb))>0) // allowed
+                break;
+            elseif($allow<0) // denied
             {
-                if(($allow=$rule->isUserAllowed($user,$filterChain->controller,$filterChain->action,$ip,$verb))>0) // allowed
-                    break;
-                elseif($allow<0) // denied
-                {
-                    if(isset($rule->deniedCallback))
-                        call_user_func($rule->deniedCallback, $rule);
-                    else
-                        $this->accessDenied($user,$this->resolveErrorMessage($rule));
-                    return false;
-                }
+                if(isset($rule->deniedCallback))
+                    call_user_func($rule->deniedCallback, $rule);
+                else
+                    $this->accessDenied($user,$this->resolveErrorMessage($rule));
+                return false;
             }
+        }
 
-            return true;
+        return true;
     }
     
     public function getRules()
