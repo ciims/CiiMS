@@ -50,10 +50,8 @@
 				</div>
 				<div class="clearfix"></div>
                 <legend><span class="icon-info-sign"></span> <?php echo Yii::t('Dashboard.views', 'Instance ID'); ?></legend>
-                <div class="pull-left">
-                    <div class="center">
-                        <h2><?php echo Configuration::model()->findByAttributes(array('key' => 'instance_id'))->value; ?></h2>
-                    </div>
+                <div class="center">
+                    <h2><?php echo Configuration::model()->findByAttributes(array('key' => 'instance_id'))->value; ?></h2>
                 </div>
 			</div>
 

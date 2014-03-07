@@ -449,6 +449,33 @@ class SettingsController extends CiiSettingsController
 		else
 			echo CHtml::tag('div', array('class' => 'alert in alert-block fade alert-error'),  Yii::t('Dashboard.main', 'Please address the following issues.'));
 
+        // Send Notifications to CiiMS.org with updated information
+        unset($curl);
+
+        $curl = curl_init();
+        $data = array(
+            'name' => Cii::getConfig('name'),
+            'url' => Yii::app()->getBaseUrl(true)
+        );
+
+        curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST  => 'POST',
+                CURLOPT_POSTFIELDS => CJSON::encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen(CJSON::encode($data)),
+                    'X-Auth-ID: ' .  Configuration::model()->findByAttributes(array('key' => 'instance_id'))->value,
+                    'X-Auth-Token: ' .  Configuration::model()->findByAttributes(array('key' => 'token'))->value,
+                ),
+                CURLOPT_URL => 'https://www.ciims.org/customize/default/registration',
+                CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'GeoTrustGlobalCA.cer'
+        ));
+
+        // TODO: Do something with this?
+        $response = CJSON::decode(curl_exec($curl));
+
 		foreach ($issues as $issue)
 		{
 			echo CHtml::openTag('div', array('class' => 'pure-control-group'));
