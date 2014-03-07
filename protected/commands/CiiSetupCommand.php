@@ -16,6 +16,9 @@ class CiiSetupCommand extends CConsoleCommand
 			case "generatefirstuser":
 				$this->generateFirstUser($args[1], $args[2]);
 				break;
+            case "sethostname":
+                $this->setHostname($args[1]);
+                break;
 			default:
 				$this->showCommands();
 		}		
@@ -48,6 +51,32 @@ class CiiSetupCommand extends CConsoleCommand
 	}
 
 	/** ======================================== **/
+
+    private function setHostname($hostname)
+    {
+        $validator = new CUrlValidator;
+        $isValid = $validator->validateValue($hostname);
+        try {
+        Yii::import('application.models.Configuration');        
+            if ($isValid != false)
+            {
+                $config = new Configuration;
+                $config->attributes = array(
+                    'key' => 'hostname',
+                    'value' => $hostname
+                );
+        
+                if ($config->save())
+                    return $this->log('Base URL has been set');
+                else
+                    return $this->log('Unable to save Base URL');            
+            }
+            else
+                return $this->log("$hostname is not a valid URL");
+        } catch (Exception $e) {
+            return $this->log("Base URL is already set. CiiMS will automatically manage this for you from now on");
+        }
+    }
 
 	/**
 	 * Generates a new encryption key

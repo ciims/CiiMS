@@ -2120,6 +2120,13 @@ main .error-container {
 	padding: 5%;
 }
 
+main .center {
+    margin: 0 auto;
+    text-align: center;
+    float:none;
+}
+
+
 
 /*
  * CSS TOGGLE SWITCHES

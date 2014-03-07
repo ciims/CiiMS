@@ -441,3 +441,9 @@ main .error-container {
 	vertical-align: middle;
 	padding: 5%;
 }
+
+main .center {
+    margin: 0 auto;
+    text-align: center;
+    float:none;
+}
