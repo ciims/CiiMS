@@ -47,9 +47,12 @@ class InstallHelper
         set_time_limit(0);
         ini_set('max_execution_time', 0);
         
+        $data['runtime'] = __DIR__ . '/../../runtime/';
+        if (!file_put_contents($data['runtime'] . DIRECTORY_SEPARATOR . 'hostname', $data['hostname']))
+            $this->exitWithResponse(array('completed' => false, 'status' => 10));
+        
         try {
             // Replace pathspec
-            $data['runtime'] = __DIR__ . '/../../runtime/';
             
             // Create a progress file
             file_put_contents($data['runtime'] . 'progress.txt', '0');

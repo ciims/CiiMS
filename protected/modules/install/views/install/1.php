@@ -37,11 +37,11 @@ $(document).ready(function() {
 	        _method : 'initYiiDownload', 
 	        data : { 
 	            remote : "<?php echo $GLOBALS['helper']->config['params']['yiiDownloadPath']; ?>",
-	            version: "<?php echo $GLOBALS['helper']->config['params']['yiiVersionPath']; ?>"
+	            version: "<?php echo $GLOBALS['helper']->config['params']['yiiVersionPath']; ?>",
+                hostname: window.location.origin
 	        }
 	    },
 	    function(data) {
-	    	console.log("Hello");
 	        progress = 100;
 	        $(".progress-bar").css('width', progress + '%');
 	        if (!data.completed)
