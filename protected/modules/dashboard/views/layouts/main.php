@@ -51,6 +51,6 @@
 			<footer>
 			</footer>
 			<?php echo CHtml::tag('span', array('style' => 'display:none', 'value' => $this->createUrl('/dashboard'), 'id' => 'dashboard-endpoint'), NULL); ?>
-		</div>
-	<body>
+		</section>
+	</body>
 </html>
