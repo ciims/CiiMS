@@ -209,7 +209,41 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
      */
     public function actionInstall($id=NULL)
     {
+        if ($id == NULL)
+            throw new CHttpException(400, Yii::t('Dashboard.main', 'Missing ID'));
 
+        // Force the response to be returned instead of outputted
+        $this->_returnResponse = true;
+        $details  = $this->actionDetails($id);
+
+        if ($details['status'] != 200)
+            throw new CHttpException(404, $details['message']);
+        
+        $register = $this->actionRegister($id);
+        
+        // Downloads the ZIP package to the "cards" directory
+        $this->downloadPackage($id, $details['response']['file'], Yii::getPathOfAlias('application.runtime.cards'));
+        $filePath = Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR . $id;
+        $zip = new ZipArchive;
+
+        // If we can open the file
+        if ($zip->open($filePath . '.zip') === true)
+        {
+            // And we were able to extract it
+            if ($zip->extractTo($filePath))
+            {
+                unlink($filePath . '.zip');
+                
+                return true;
+            }
+        }
+
+        // If anything went wrong, do a full deletion cleanup
+        unlink($filePath);
+        unlink($filePath . '.zip');
+    
+        // And throw a JSON error for the client to catch and deal with
+        throw new CHttpException(500, Yii::t('Dashboard.main', 'Failed to download and install archive'));
     }
 
     /**

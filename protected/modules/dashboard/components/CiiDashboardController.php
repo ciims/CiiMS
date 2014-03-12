@@ -40,6 +40,25 @@ class CiiDashboardController extends CiiController
 		);
 	}
 
+    /**
+     * Handles errors
+     */
+    public function actionError()
+    {
+        if (Yii::app()->user->isGuest)
+           return $this->redirect($this->createUrl('/login?next=' . Yii::app()->request->requestUri));
+
+        if($error=Yii::app()->errorHandler->error)
+        {
+            if(Yii::app()->request->isAjaxRequest)
+                echo $error['message'];
+            else
+                $this->render('error', array('error' => $error));
+        }
+        else
+            $this->redirect($this->createUrl('/error/403'));
+    }
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.

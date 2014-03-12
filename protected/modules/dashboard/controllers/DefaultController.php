@@ -11,28 +11,6 @@ class DefaultController extends CiiDashboardController
 	}
 
     /**
-     * Handles errors
-     */
-	public function actionError()
-    {
-	    if($error=Yii::app()->errorHandler->error)
-	    {
-            if(Yii::app()->request->isAjaxRequest)
-                echo $error['message'];
-            else 
-                $this->render('error', array('error' => $error));     
-	    }
-        else
-        {
-            if (Yii::app()->user->isGuest)
-                $this->redirect($this->createUrl('/login?next=dashboard'));
-
-            Yii::app()->user->setFlash('error_code', Yii::t('Dashboard.main', 'You do not have permission to access the dashboard.'));
-            $this->redirect($this->createUrl('/error/403'));
-        }
-    }
-
-    /**
      * Retrieves all cards in a particular category
      * @param  string $id The category id
      */
