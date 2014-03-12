@@ -112,6 +112,21 @@ var CiiDashboard = {
 		},
 
 		loadCards : function() {
+
+            $("#cardCarousel").owlCarousel({
+                items : 2,
+                itemsMobile : 1,
+                jsonPath : window.location.origin + CiiDashboard.endPoint + "/card/search",
+                jsonSuccess : function(data) {
+                    var content = "";
+                    $(data.response).each(function() {
+                        var img = this.screen_shot;
+                        content += "<img src=\"" + img + "\" />";
+                    });
+                    $("#cardCarousel").html(content);
+                }
+            });
+
 			$("#submit-form").click(function(e) {
 				$("#spinner").fadeIn();
 				e.preventDefault();

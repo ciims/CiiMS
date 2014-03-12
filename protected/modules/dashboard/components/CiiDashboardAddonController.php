@@ -9,6 +9,15 @@ class CiiDashboardAddonController extends CiiDashboardController
     public $layout = NULL;
 
     /**
+     * Overload of init to handle JSON response errors
+     */
+    public function init()
+    {
+        parent::init();
+        Yii::app()->errorHandler->errorAction = '/dashboard/' . $this->getType() . '/error';
+    }
+
+    /**
      * Override of BeforeAction to disable log routing
      * @param CAction $action   The Action
      * @see CiiDashboardController::beforeAction()
@@ -27,15 +36,61 @@ class CiiDashboardAddonController extends CiiDashboardController
     {
         return strtolower(Cii::singularize(str_replace('Controller', '', get_class($this))));
     }
-
-    public function actionRegister()
+   
+    /**
+     * Returns a JSON error appropriate for this controller
+     * @return JSON
+     */ 
+    public function actionError()
     {
-
+        header('Content-Type: application/json');
+        $error = Yii::app()->errorHandler->error;
+        echo CJSON::encode(array('status' => $error['code'], 'message' => $error['message'], 'response' => NULL));
+        Yii::app()->end();
     }
 
-    public function actionUnregister()
+    /**
+     * Handles processing of the response for this controller
+     * @param array $response   The response from the API
+     * @return JSON
+     */
+    private function renderResponse($response)
     {
+        header('Content-Type: application/json');
+        if ($response['status'] == 200)
+            echo CJSON::encode($response);
+        else
+            throw new CHttpException($response['status'], $response['message']);
+        Yii::app()->end();
+    }
 
+    /**
+     * Registers a card with this instance
+     * @param string $id    The UUID of the Card
+     */
+    public function actionRegister($id=NULL)
+    {
+        $response = $this->curlRequest('default/addAddon/id/' . $id, array());
+        $this->renderResponse($response);
+    }
+
+    /**
+     * Unregisters a card with this instance
+     * @param string $id    The UUID of the Card
+     */
+    public function actionUnregister($id=NULL)
+    {
+        $response = $this->curlRequest('default/removeAddon/id/' . $id, array());
+        $this->renderResponse($response);
+    }
+
+    /**
+     * Lists all Addons of this type registered to this instance
+     */
+    public function actionListRegistered()
+    {
+        $response = $this->curlRequest('default/' . Cii::pluralize($this->getType()));
+        $this->renderResponse($response);
     }
 
     /**
@@ -50,9 +105,8 @@ class CiiDashboardAddonController extends CiiDashboardController
             'text' =>  Cii::get($_POST, 'text')
         );
         
-        $response = $this->curlRequest('/customize/default/search', $data);
-        echo CJSON::encode($response['response']);
-        Yii::app()->end();        
+        $response = $this->curlRequest('default/search', $data);
+        $this->renderResponse($response);
     }
 
     /**
@@ -75,7 +129,7 @@ class CiiDashboardAddonController extends CiiDashboardController
                 'X-Auth-ID: ' . Cii::getConfig('instance_id'),
                 'X-Auth-Token: ' . Cii::getConfig('token')
             ),
-            CURLOPT_URL => 'https://www.ciims.org/' . $endpoint,
+            CURLOPT_URL => 'https://www.ciims.org/customize/' . $endpoint,
             CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'GeoTrustGlobalCA.cer'
         ));
 
@@ -85,11 +139,10 @@ class CiiDashboardAddonController extends CiiDashboardController
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($curl, CURLOPT_POSTFIELDS, CJSON::encode($data));
         }
-
+        
         $response = CJSON::decode(curl_exec($curl));
         curl_close($curl);
 
         return $response;
-
     }
 }

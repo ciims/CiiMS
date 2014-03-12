@@ -201,7 +201,16 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 
 	public function actionIsUpdateAvailable($id=NULL) {}
     public function actionUpdateAddon($id=NULL) { }    
-    public function actionInstall($id=NULL) {}
+    
+    /** 
+     * Installs a card from CiiMS.org
+     * @param string $id the UUID of the card
+     * @return JSON
+     */
+    public function actionInstall($id=NULL)
+    {
+
+    }
 
     /**
 	 * Deletes a card and all associated files from the system
@@ -222,6 +231,8 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 				
 		return $card->fullDelete($card->value['folderName']);
     }
+    
+    public function actionListInstalled() {}
 
 	/**
 	 * Retrieves the baseconfig for a card

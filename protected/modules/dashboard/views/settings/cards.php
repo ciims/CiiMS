@@ -12,7 +12,10 @@
 
 	<div id="main" class="nano">
 		<div class="content">
+            <!-- Carousel Slider for Cards -->
+            <div class="owl-carousel owl-theme" id="cardCarousel"></div>
 
+            <!-- other stuff -->
 			<legend><?php echo Yii::t('Dashboard.views', 'Active Cards'); ?></legend>
 			<div class="meta-container">
 				<?php foreach($cards as $card): ?>
@@ -41,3 +44,8 @@
 		</div>
 	</div>
 <?php $this->endWidget(); ?>
+
+<?php Yii::app()->clientScript->registerScriptFile($this->asset.'/owl-carousel/owl.carousel.min.js'); ?>
+<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.carousel.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.theme.css'); ?>
+<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.transitions.css'); ?>
