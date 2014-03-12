@@ -1,13 +1,7 @@
 <?php
 
-class CardController extends CiiDashboardController
+class CardController extends CiiDashboardAddonController implements CiiDashboardAddonInterface
 {
-	/**
-	 * Disable layout rendering for this controller
-	 * @var string $layout
-	 */
-	public $layout = NULL;
-
 	/**
 	 * Creates a new Dashboard card with the $id dashboard_card_{ID_HERE}
 	 * $id is a randomly generated hash based upon the unique data of the card.json + name, and contains 2 key pieces of information
@@ -105,9 +99,9 @@ class CardController extends CiiDashboardController
 		// Delete the user metadata object if the delete was successful
 		$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
 
-		$uids = json_decode($meta->value, true);
+		$uids = CJSON::decode($meta->value, true);
 		unset($uids[$id]);
-		$meta->value = json_encode($uids);
+		$meta->value = CJSON::encode($uids);
 		return $meta->save();
 		
 	}
@@ -123,7 +117,7 @@ class CardController extends CiiDashboardController
 		{
 			$card = $this->getCardById($id);
 
-			$data = json_decode($card->getJSON(), true);
+			$data = CJSON::decode($card->getJSON(), true);
 			$data['activeSize'] = $_POST['activeSize'];
 
 			if ($card->update($data))
@@ -141,7 +135,7 @@ class CardController extends CiiDashboardController
 	{
 		if (Cii::get($_POST, 'cards') != NULL)
 		{
-			$data =json_encode($_POST['cards']);
+			$data = CJSON::encode($_POST['cards']);
 			$meta = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'dashboard'));
 			$meta->value = $data;
 			if ($meta->save())
@@ -161,19 +155,19 @@ class CardController extends CiiDashboardController
 		if ($meta == NULL)
 			return true;
 
-		$uids = json_decode($meta->value, true);
+		$uids = CJSON::decode($meta->value, true);
 
 		foreach ($uids as $id)
 		{
 			$name = Yii::app()->db->createCommand("SELECT value FROM `configuration` LEFT JOIN `cards` ON `cards`.`name` = `configuration`.`key` WHERE `cards`.`uid` = :uid")->bindParam(':uid', $id)->queryScalar();
-			$name = json_decode($name, true);
+			$name = CJSON::decode($name, true);
 
 			// This seems to happen more than often
 			// If for some reason we get a path that is blank, delete the card reference from the user
 			if ($name['path'] == '') 
 			{
 				unset($uids[$id]);
-				$meta->value = json_encode($uids);
+				$meta->value = CJSON::encode($uids);
 				$meta->save();
 				continue;
 			}
@@ -197,7 +191,7 @@ class CardController extends CiiDashboardController
 		if ($meta == NULL)
 			return true;
 
-		$uids = json_decode($meta->value, true);
+		$uids = CJSON::decode($meta->value, true);
 
 		if (in_array($id, $uids))
 			return $this->getCardById($id)->render();
@@ -205,95 +199,29 @@ class CardController extends CiiDashboardController
 		throw new CHttpException(400,  Yii::t('Dashboard.main', 'You do not have permission to access this card'));
 	}
 
-	/**
-	 * JSON Response to determine if there is an update for a card
-	 * @param  string $id  The card ID
-	 * @return JSON
+	public function actionIsUpdateAvailable($id=NULL) {}
+    public function actionUpdateAddon($id=NULL) { }    
+    public function actionInstall($id=NULL) {}
+
+    /**
+	 * Deletes a card and all associated files from the system
+	 * @param  string $id 	The id of the card we want to delete
+	 * @return boolean    	If the card was deleted or not
 	 */
-	public function actionIsUpdateAvailable($id=NULL)
-	{
-		header('Content-Type: application/json');
-		$card = CJSON::decode($this->getBaseCardById($id));
-
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => 'https://raw.github.com/' . str_replace('https://www.github.com/', '', $card['repository']) . '/master/card.json',
-		    CURLOPT_FOLLOWLOCATION => true
-		));
-
-		$response = CJSON::decode(curl_exec($curl));
-		if ($card['version'] != $response['version'])
-		{
-			echo CJSON::encode(array('update' => true));
-			return true;
-		}
-
-		echo CJSON::encode(array('update' => false));
-		return true;
-	}
-
-	/**
-	 * Updates the card and the associated data
-	 * @param  string $id  The card ID
-	 * @return JSON
-	 */
-    public function actionUpdateCard($id=NULL)
+    public function actionUninstall($id=NULL)
     {
-        header('Content-Type: application/json');
-        $card = $this->getBaseCardConfig($id);
-        $cardData = CJSON::decode($this->getBaseCardById($id));
+    	if ($id == NULL)
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'You must specify a card to delete'));
 
-        // Determine the runtime directory
-        $runtimeDirectory = Yii::getPathOfAlias('application.runtime');
-        $downloadPath = $runtimeDirectory . DIRECTORY_SEPARATOR . 'cards' . DIRECTORY_SEPARATOR . $card['folderName'] . '.zip';
-        if (!is_writable($runtimeDirectory))
-            throw new CHttpException(500,  Yii::t('Dashboard.main', 'Runtime directory is not writable'));
+		$card = Configuration::model()->findByAttributes(array('key' => $id));
 
-        $targetFile = fopen($downloadPath, 'w' );
+		if ($card == NULL)
+			throw new CHttpException(400,  Yii::t('Dashboard.main', 'There are no dashboard cards with that id'));
 
-        // Initiate the CURL request
-        $ch = curl_init($cardData['repository'] . '/archive/master.zip');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_FILE, $targetFile);
-        curl_exec($ch);
-
-        // Extract the file
-        $zip = new ZipArchive;
-        $res = $zip->open($downloadPath);
-        // If we can open the file
-        if ($res === true)
-        {
-            $extractionPath = str_replace('.zip', '', $downloadPath);
-            // Extract it to the appropriate location
-            $extraction = $zip->extractTo($extractionPath);
-
-            // If we can extract it
-            if ($extraction)
-            {
-                // Update all the cards
-                $cardData = CJSON::decode($this->getBaseCardById($id));
-                $cards = Cards::model()->findAllByAttributes(array('name' => $id));
-
-                foreach ($cards as $c)
-                {
-                    $currentData = CJSON::decode($c['data']);
-                    $activeSize = $currentData['activeSize'];
-                    $newData = $cardData;
-                    $newData['activeSize'] = $activeSize;
-                    $c->data = CJSON::encode($newData);
-                    $c->save();
-                }
-
-                unlink($downloadPath);
-                echo CJSON::encode(array('updated' => true));
-                return true;
-            }
-        }
-
-        echo CJSON::encode(array('updated' => false, 'reason' => $res));
-     }
+		$card->value = CJSON::decode($card->value);
+				
+		return $card->fullDelete($card->value['folderName']);
+    }
 
 	/**
 	 * Retrieves the baseconfig for a card
@@ -305,7 +233,7 @@ class CardController extends CiiDashboardController
 		if ($id == NULL)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'An ID must be specified'));
 		
-		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $id)->queryScalar(), true);
+		$json = CJSON::decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $id)->queryScalar(), true);
 
 		if ($json == NULL)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
@@ -341,7 +269,7 @@ class CardController extends CiiDashboardController
 		if ($name === false)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
 		
-		$json = json_decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
+		$json = CJSON::decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
 
 		Yii::import($json['path'].'.*');
 
