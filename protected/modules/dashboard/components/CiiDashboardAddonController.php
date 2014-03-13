@@ -188,18 +188,20 @@ class CiiDashboardAddonController extends CiiDashboardController
         ignore_user_abort(true);
         set_time_limit(0);
 
+        $fp = fopen($path . DIRECTORY_SEPARATOR . $id . '.zip', 'w+');
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_FILE => fopen($path . DIRECTORY_SEPARATOR . $id . '.zip', 'w+'),
-            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FILE => $fp,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_URL => $file,
+            CURLOPT_BINARYTRANSFER => true,
             CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'BaltimoreCyberTrustRootCA.crt'
         ));
 
         $response = curl_exec($curl);
         curl_close($curl);
-        
-        return $response;
+        fclose($fp);
+
+        return;
     }
 }

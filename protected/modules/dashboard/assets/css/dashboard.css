@@ -349,9 +349,16 @@ main .pure-button-link-xs {
     margin-left: 5px;
 }
 
-
 main .pure-form .pure-search-alt {
     margin-top: 8px;
+}
+
+main .text-small-inline {
+    margin-top: -9px !important;
+}
+
+main .installing {
+    margin-left: 5px;
 }
 main #comments {
   height: 100%;
@@ -2242,6 +2249,9 @@ main .center {
     float:none;
 }
 
+main .no-items-notification {
+	font-size: 12px;
+}
 
 
 /*

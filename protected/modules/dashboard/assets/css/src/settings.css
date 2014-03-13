@@ -447,3 +447,7 @@ main .center {
     text-align: center;
     float:none;
 }
+
+main .no-items-notification {
+	font-size: 12px;
+}

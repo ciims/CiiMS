@@ -1,4 +1,8 @@
 <fieldset>
+
+</fieldset>
+
+<fieldset>
 <?php
 	foreach ($model->getThemes() as $theme=>$options)
 	{

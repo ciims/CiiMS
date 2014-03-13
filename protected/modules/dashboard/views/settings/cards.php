@@ -25,24 +25,34 @@
 			<div class="clearfix"></div>
 
 			<legend>Uninstalled Cards</legend>
-			<div class="meta-container">
+			<div class="meta-container" id="uninstalled-container">
 
+				<div class="no-items-notification center" id="uninstalled-notifier" style="display:none;"><?php echo Yii::t('Dashboard.main', "All cards associated to this instance are currently installed."); ?></div>
+				<span class="install" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Install Card'); ?></span>
+				<span class="installing" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Installing Card...'); ?></span>
 			</div>
 			
             <!-- other stuff -->
 			<legend><?php echo Yii::t('Dashboard.views', 'Active Cards'); ?></legend>
 			<div class="meta-container">
+
+				<div class="no-items-notification center" id="reload-notifier" style="display:none;">
+					<?php echo Yii::t('Dashboard.main', 'New cards have been installed! Reload the page to manage these new cards.'); ?>
+				</div>
+
+				<?php if (empty($cards)): ?>
+					<div class="no-items-notification center" id="installed-notifier"><?php echo Yii::t('Dashboard.main', "There are currently no cards installed. Search for cards above to add them!"); ?></div>
+				<?php endif; ?>
+
 				<?php foreach($cards as $card): ?>
 					<?php $card->value = CJSON::decode($card->value); ?>
 					<div class="pure-control-group">
-						<?php echo CHtml::tag('label', array('class' => 'inline'), Cii::titleize($card->value['class'])); ?>
-						<?php $count = Cards::model()->countByAttributes(array('name' => $card->key)); ?>
-						<p class="text-small inline" style="top: -8px;"><?php echo $card->value['name']; ?></p>
+						<p class="text-small text-small-inline inline"><?php echo $card->value['name']; ?></p>
 						<span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right remove-button" id="<?php echo $card->key; ?>">
 							<span class="icon-remove"></span>
 						</span>
 						<span class="pure-button pure-button-warning pure-button-xsmall pure-button-link-xs pull-right">
-							<?php echo $count; ?>
+							<?php echo Cards::model()->countByAttributes(array('name' => $card->key)); ?>
 						</span>
 						<span class="pure-button pure-button-primary pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="<?php echo $card->key; ?>">
 							<span class="icon-spinner icon-spin"></span>

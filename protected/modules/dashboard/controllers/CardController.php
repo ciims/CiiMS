@@ -199,18 +199,78 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		throw new CHttpException(400,  Yii::t('Dashboard.main', 'You do not have permission to access this card'));
 	}
 
-	public function actionIsUpdateAvailable($id=NULL) {}
-    public function actionUpdateAddon($id=NULL) { }    
+	/**
+	 * Determines if a card is up to date
+	 * @param  string $id The card ID
+	 * @return JSON
+	 */
+	public function actionIsUpdateAvailable($id=NULL)
+	{
+		// Retrieve the value from cache if it is set
+		$response = Yii::app()->cache->get($id . '_updatecheck');
+
+		// Otherwise, retrieve it from the origin server
+		if ($response === false)
+		{
+			// Get the current configuration of the card
+			$card = CJSON::decode($this->getBaseCardById($id));
+
+			// Get the base ID
+			$baseID = str_replace('dashboard_card_', '', $id);
+
+			// Get the details of the card with that baseID from ciims.org
+			$this->_returnResponse = true;
+	        $details  = $this->actionDetails($baseID);
+	        $this->_returnResponse = false;
+
+	        $response = array(
+	        	'status' => 200, 
+	        	'message' => NULL,
+	        	'response' => array(
+        			'update' => $card['version'] != $details['response']['version']
+        	));
+
+	        // Cache the value for 4 hours
+        	Yii::app()->cache->set($id . '_updatecheck', $response, 14400);
+		}
+		
+		// Return the response
+        return parent::renderResponse($response);
+	}
+
+	/**
+	 * Performs a hard update of the card by downloading the package then overwriting the existing config
+	 * @param  string $id The card ID
+	 * @return JSON
+	 */
+    public function actionUpgrade($id=NULL)
+    {
+    	// Get the read ID
+    	$baseID = str_replace('dashboard_card_', '', $id);
+
+    	// Perform a forced install
+    	$response = $this->actionInstall($baseID, true);
+
+    	// Then return the actual response as JSON
+    	$this->_returnResponse = false;
+    	return parent::renderResponse($response);
+    }    
     
     /** 
      * Installs a card from CiiMS.org
      * @param string $id the UUID of the card
      * @return JSON
      */
-    public function actionInstall($id=NULL)
+    public function actionInstall($id=NULL, $force = false)
     {
         if ($id == NULL)
             throw new CHttpException(400, Yii::t('Dashboard.main', 'Missing ID'));
+
+        // Generate the folder path
+        $filePath = Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR . $id;
+
+        if ((file_exists($filePath) && is_dir($filePath)) && !$force)
+        	throw new CHttpException(409, Yii::t('Dashboard.main', 'Card is already installed'));
 
         // Force the response to be returned instead of outputted
         $this->_returnResponse = true;
@@ -223,7 +283,6 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
         
         // Downloads the ZIP package to the "cards" directory
         $this->downloadPackage($id, $details['response']['file'], Yii::getPathOfAlias('application.runtime.cards'));
-        $filePath = Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR . $id;
         $zip = new ZipArchive;
 
         // If we can open the file
@@ -232,9 +291,42 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
             // And we were able to extract it
             if ($zip->extractTo($filePath))
             {
+            	$zip->close();
                 unlink($filePath . '.zip');
+
+                if (!$force)
+               		$config = new Configuration;
+               	else
+               		$config = Configuration::model()->findByAttributes(array('key' => 'dashboard_card_' . $id));
                 
-                return true;
+                $json = CJSON::decode(file_get_contents($filePath . DIRECTORY_SEPARATOR . 'card.json'));
+
+				$config->key = 'dashboard_card_' . $id;
+				$config->value = CJSON::encode(array(
+					'name'  =>  Cii::get(Cii::get($json, 'name'), 'displayName'),
+					'class' => Cii::get(Cii::get($json, 'name'), 'name'),
+					'path' => 'application.runtime.cards.' . $id,
+					'folderName' => $id,
+					'uuid' => $id,
+				));
+
+				$config->save();
+
+				Yii::app()->cache->delete('dashboard_cards_available');
+	            Yii::app()->cache->delete('cards_in_category');
+                
+                if ($force)
+                	$this->_returnResponse = true;
+                else
+                	$this->_returnResponse = false;
+
+                return parent::renderResponse(array(
+                	'status' => 200, 
+                	'message' => NULL, 
+                	'response' => array(
+                		'details' => $details['response'], 
+                		'json' => $json
+                )));
             }
         }
 
@@ -294,6 +386,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
     		if (!in_array($card['uuid'], $installed['response']))
     			$uninstalled['response'][] = $card;
     	}
+
     	$this->_returnResponse = false;
     	return parent::renderResponse($uninstalled);
     }
@@ -308,7 +401,8 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		if ($id == NULL)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'An ID must be specified'));
 		
-		$json = CJSON::decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $id)->queryScalar(), true);
+		$config = Configuration::model()->findByAttributes(array('key' => $id));
+		$json = CJSON::decode($config->value);
 
 		if ($json == NULL)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
@@ -339,12 +433,14 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		if ($id == NULL)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'An ID must be specified'));
 
-		$name = Yii::app()->db->createCommand("SELECT name FROM `cards` WHERE `uid` = :id")->bindParam(':id', $id)->queryScalar();
+		$card = Cards::model()->findByAttributes(array('uid' => $id));
+		$name = $card->name;
 
 		if ($name === false)
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'No card with that ID exists'));
 		
-		$json = CJSON::decode(Yii::app()->db->createCommand("SELECT value FROM `configuration` WHERE `key` = :name")->bindParam(':name', $name)->queryScalar(), true);
+		$config = Configuration::model()->findByAttributes(array('key' => $name));
+		$json = CJSON::decode($config->value);
 
 		Yii::import($json['path'].'.*');
 

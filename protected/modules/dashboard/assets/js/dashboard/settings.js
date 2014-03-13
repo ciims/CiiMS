@@ -135,29 +135,52 @@ var CiiDashboard = {
 			    }
 			});
 
-			// Generate a list of uninstalled things			
+			// Generate a list of uninstalled cards and display them		
+			$.getJSON(window.location.origin + CiiDashboard.endPoint + "/card/uninstalled", function(data) { 
+				if (data.response.length == 0)
+					$("#uninstalled-notifier").show();
+				else
+				{
+					var html = "";
+					var installDiv = $(".install").html();
+					var installingDiv = $(".installing").html();
+					$(data.response).each(function() {
+						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span></div>';
+					});
 
+					$("#uninstalled-notifier").before(html);
 
-			// Bind the default behaviors
-			$("#submit-form").click(function(e) {
-				$("#spinner").fadeIn();
-				e.preventDefault();
+					// Bind an install click event for each of these buttons
+					$(".install").click(function() {
+						$(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
+						$(this).parent().find(".icon-spinner").show();
+						$(this).addClass("installing").removeClass("install").html(installingDiv);
 
-				$(".alert-secondary").hide();
+						var id = $(this).parent().attr("data-attr-id");
+						var self = this;
 
-				$.post(CiiDashboard.endPoint + '/settings/addCard', $("form").serialize(), function(data) {
-					$(".meta-container").append('<div class="pure-control-group"><label class="inline">' +  data.class + '</label><p class="text-small inline" style="top: -8px;">' + data.name + '</p><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right remove-button" id="' + data.folderName + '"><span class="icon-remove"></span></span><span class="pure-button pure-button-warning pure-button-xsmall pure-button-link-xs pull-right">0</span></div>');
-					$("#spinner").fadeOut();
-				}).fail(function(data) {
-					$("#spinner").fadeOut();
-					$("#info").remove();
-					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
-				});
+						// Actually install the card
+						$.getJSON(CiiDashboard.endPoint + '/card/install/id/' + id, function(data) {
+							if (data.status == 200)
+							{
+								$(self).parent().parent().remove();
+								$("#reload-notifier").show();
+								$("#installed-notifier").hide();
+							}
+							else
+								$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+
+							// Show the uninstalled notifier
+							if ($("#uninstalled-container").find(".pure-control-group").size() == 0)
+								$("#uninstalled-notifier").show();
+						});
+					});
+				}
 			});
 
 			$(".remove-button").click(function() {
 				var parent = $(this).parent();
-				$.post(CiiDashboard.endPoint + "/settings/deleteCard/id/" + $(this).attr("id"), function() {
+				$.post(CiiDashboard.endPoint + "/card/uninstall/id/" + $(this).attr("id"), function() {
 					$(parent).fadeOut();
 				})
 			});
@@ -171,7 +194,7 @@ var CiiDashboard = {
 					$(self).find(".icon-spinner").hide();
 					$(self).find(".checking").hide();
 
-					if (data.update == false) {						
+					if (data.response.update == false) {						
 						$(self).find(".uptodate").show();
 						$(self).removeClass("pure-button-primary").addClass("pure-button-success");
 					} else {
@@ -195,12 +218,12 @@ var CiiDashboard = {
 
 				var id = $(this).parent().attr("data-attr-id");
 				var self = this;
-				$.get(CiiDashboard.endPoint + '/card/updateCard/id/' + id, function(data) {
+				$.get(CiiDashboard.endPoint + '/card/upgrade/id/' + id, function(data) {
 
 					$(self).parent().find(".icon-spinner").hide();
 					$(self).parent().find(".updating").hide();
 
-					if (data.updated == true) {
+					if (data.status == 200) {
 						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-success");
 						$(self).parent().find(".uptodate").show();
 					} else {
