@@ -451,3 +451,8 @@ main .center {
 main .no-items-notification {
 	font-size: 12px;
 }
+
+main .carousel-container {
+    min-height: 335px;
+    margin: auto;
+}

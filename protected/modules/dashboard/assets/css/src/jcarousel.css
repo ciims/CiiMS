@@ -110,3 +110,8 @@
     opacity: .25;
     cursor: default;
 }
+
+.jcarousel .loading img {
+    margin: 0 auto;
+    padding: 85px 0;
+}

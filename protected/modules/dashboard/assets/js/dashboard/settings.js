@@ -320,11 +320,6 @@ var CiiDashboard = {
  * Handles all the Javacript for the Dashboard.
  */
 $(document).ready(function() {
-
-	// Bind nanoscrollers
 	$("#main.nano").nanoScroller();
-
-	// Load the dashboard
 	CiiDashboard.Settings.load();
-	
 });

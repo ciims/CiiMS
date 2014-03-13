@@ -17,7 +17,7 @@
 	            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
 		            <div class="jcarousel-wrapper">
 		                <div class="jcarousel">
-		                    <div class="loading">Loading carousel items...</div>
+		                    <div class="loading"><?php echo CHtml::image($this->asset . '/jcarousel-master/carousel-preloader.gif'); ?></div>
 		                </div>
 		            </div>
 				<a href="#" class="jcarousel-control-next">&rsaquo;</a>

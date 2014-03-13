@@ -894,6 +894,12 @@ main .body-content .preview-image {
     opacity: .25;
     cursor: default;
 }
+
+.jcarousel .loading img {
+    margin: 0 auto;
+    padding: 85px 0;
+}
+
 select, 
 textarea, 
 input[type="text"], 
@@ -2252,6 +2258,12 @@ main .center {
 main .no-items-notification {
 	font-size: 12px;
 }
+
+main .carousel-container {
+    min-height: 335px;
+    margin: auto;
+}
+
 
 
 /*
