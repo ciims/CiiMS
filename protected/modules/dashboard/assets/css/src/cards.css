@@ -348,3 +348,8 @@ main .pure-button-link-xs {
     margin-top: -13px;
     margin-left: 5px;
 }
+
+
+main .pure-form .pure-search-alt {
+    margin-top: 8px;
+}

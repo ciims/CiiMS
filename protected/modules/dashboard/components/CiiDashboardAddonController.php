@@ -67,7 +67,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      * @param array $response   The response from the API
      * @return JSON
      */
-    private function renderResponse($response)
+    protected function renderResponse($response)
     {
         if ($this->_returnResponse)
             return $response;
@@ -103,7 +103,7 @@ class CiiDashboardAddonController extends CiiDashboardController
     /**
      * Lists all Addons of this type registered to this instance
      */
-    public function actionListRegistered()
+    public function actionRegistered()
     {
         $response = $this->curlRequest('default/' . Cii::pluralize($this->getType()));
         return $this->renderResponse($response);
@@ -162,12 +162,12 @@ class CiiDashboardAddonController extends CiiDashboardController
         ));
 
         // Set the POST attributes if the data is set 
-        if ($data !== false)
+        if ($data != false)
         {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($curl, CURLOPT_POSTFIELDS, CJSON::encode($data));
         }
-        
+
         $response = CJSON::decode(curl_exec($curl));
         curl_close($curl);
 

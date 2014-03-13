@@ -6,5 +6,6 @@ interface CiiDashboardAddonInterface
     public function actionUpdateAddon($id=NULL);
     public function actionInstall($id=NULL);
     public function actionUninstall($id=NULL);
-    public function actionListInstalled();
+    public function actionInstalled();
+    public function actionUninstalled();
 }

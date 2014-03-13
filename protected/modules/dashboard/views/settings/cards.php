@@ -1,20 +1,34 @@
-<?php $form = $this->beginWidget('cii.widgets.CiiActiveForm', array(
-	'htmlOptions' => array(
-		'class' => 'pure-form pure-form-aligned form-vertical'
-	)
-)); ?>
+<div class="form">
 	<div class="header">
 		<div class="pull-left">
 			<p><?php echo $header['h3']; ?></p>
 		</div>
+	    <form class="pure-form pull-right header-form">
+			<span class="icon-search pull-right icon-legend"></span>
+			<input id="text" name="text" class="pull-right pure-input pure-search pure-search-alt" placeholder="<?php echo Yii::t('Dashboard.views', 'Search for Cards...'); ?>" type="text">
+		</form>
 		<div class="clearfix"></div>
 	</div>
 
-	<div id="main" class="nano">
-		<div class="content">
+	<div id="main" class="nano pure-form pure-form-aligned">
+		<div class="content pure-form">
             <!-- Carousel Slider for Cards -->
-            <div class="owl-carousel owl-theme" id="cardCarousel"></div>
+            <div class="carousel-container">
+	            <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+		            <div class="jcarousel-wrapper">
+		                <div class="jcarousel">
+		                    <div class="loading">Loading carousel items...</div>
+		                </div>
+		            </div>
+				<a href="#" class="jcarousel-control-next">&rsaquo;</a>
+			</div>
+			<div class="clearfix"></div>
 
+			<legend>Uninstalled Cards</legend>
+			<div class="meta-container">
+
+			</div>
+			
             <!-- other stuff -->
 			<legend><?php echo Yii::t('Dashboard.views', 'Active Cards'); ?></legend>
 			<div class="meta-container">
@@ -43,9 +57,7 @@
 			</div>
 		</div>
 	</div>
-<?php $this->endWidget(); ?>
+</div>
 
-<?php Yii::app()->clientScript->registerScriptFile($this->asset.'/owl-carousel/owl.carousel.min.js'); ?>
-<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.carousel.css'); ?>
-<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.theme.css'); ?>
-<?php Yii::app()->clientScript->registerCssFile($this->asset.'/owl-carousel/owl.transitions.css'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($this->asset.'/jcarousel-master/dist/jquery.jcarousel.min.js'); ?>
+<?php Yii::app()->clientScript->registerCssFile($this->asset.'/css/pure.css');  ?>

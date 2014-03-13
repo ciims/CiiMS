@@ -266,7 +266,37 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		return $card->fullDelete($card->value['folderName']);
     }
     
-    public function actionListInstalled() {}
+    /**
+     * Lists all the Cards that have been installed by scanning the directory
+     */
+    public function actionInstalled()
+    {
+    	$files = array('status' => 200, 'message' => NULL, 'response' => array());
+    	$directories = glob(Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
+    	foreach($directories as $dir)
+    		$files['response'][] = str_replace(Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR, '', $dir);
+    	return parent::renderResponse($files);
+    }
+
+    /**
+     * Retrieves all the cards that are NOT currently installed but are associated to this instance
+     */
+    public function actionUninstalled()
+    {
+    	$this->_returnResponse = true;
+    	$uninstalled = array('status' => 200, 'message' => NULL, 'response' => array());
+
+    	$installed = $this->actionInstalled();
+    	$registered = $this->actionRegistered();
+
+    	foreach ($registered['response'] as $card)
+    	{
+    		if (!in_array($card['uuid'], $installed['response']))
+    			$uninstalled['response'][] = $card;
+    	}
+    	$this->_returnResponse = false;
+    	return parent::renderResponse($uninstalled);
+    }
 
 	/**
 	 * Retrieves the baseconfig for a card

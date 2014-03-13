@@ -64,7 +64,7 @@
 				    'pagerCssClass' => 'pagination',
 		    		'pager' => array('class'=>'cii.widgets.CiiPager'),
 				)); ?>
-			<fieldset>
+			</fieldset>
 		</div>
 	</div>
 </div>

@@ -111,22 +111,34 @@ var CiiDashboard = {
 			});
 		},
 
+		Carousel : {
+			recentlySearched : []
+		},
+
 		loadCards : function() {
 
-            $("#cardCarousel").owlCarousel({
-                items : 2,
-                itemsMobile : 1,
-                jsonPath : window.location.origin + CiiDashboard.endPoint + "/card/search",
-                jsonSuccess : function(data) {
-                    var content = "";
-                    $(data.response).each(function() {
-                        var img = this.screen_shot;
-                        content += "<img src=\"" + img + "\" />";
-                    });
-                    $("#cardCarousel").html(content);
-                }
-            });
+			// Bind the carousel
+			CiiDashboard.Settings.bindCarousel('card', null);
 
+			// Bind the search event on the carousel
+			$("input#text").submit(function(e) {
+				e.preventDefault();
+				CiiDashboard.Settings.bindCarousel('card', $(this).val());
+				return false;
+			});
+
+			$('form').keypress(function(e){
+			    if ( e.which == 13 ) // Enter key = keycode 13
+			    {
+			        $("input#text").submit();
+			        return false;
+			    }
+			});
+
+			// Generate a list of uninstalled things			
+
+
+			// Bind the default behaviors
 			$("#submit-form").click(function(e) {
 				$("#spinner").fadeIn();
 				e.preventDefault();
@@ -245,6 +257,39 @@ var CiiDashboard = {
 
 		},
 
+		bindCarousel : function(type, text) {
+
+			var jcarousel = $('.jcarousel').jcarousel();
+
+			$.post(window.location.origin + CiiDashboard.endPoint + "/" + type + "/search", { 'type' : type, 'text' : text}, function(data) {
+				
+				CiiDashboard.Settings.Carousel.recentlySearched = data.response;
+
+            	var html = "<ul>";
+            	$(data.response).each(function() {
+            		html += '<li><img src="' + this.screen_shot + '"></li>';
+            	});
+            	html += "</ul>";
+            	jcarousel.html(html);
+            	jcarousel.jcarousel('reload');
+            }, 'json');
+
+            $('.jcarousel-control-prev').on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            }).on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            }).jcarouselControl({
+                target: '-=1'
+            });
+
+	        $('.jcarousel-control-next').on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            }).on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            }).jcarouselControl({
+                target: '+=1'
+            });
+		},
 	}
 };
 
