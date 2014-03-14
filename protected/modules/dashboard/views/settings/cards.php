@@ -30,6 +30,7 @@
 				<div class="no-items-notification center" id="uninstalled-notifier" style="display:none;"><?php echo Yii::t('Dashboard.main', "All cards associated to this instance are currently installed."); ?></div>
 				<span class="install" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Install Card'); ?></span>
 				<span class="installing" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Installing Card...'); ?></span>
+				<span class="unregister" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Unregister'); ?></span>
 			</div>
 			
             <!-- other stuff -->

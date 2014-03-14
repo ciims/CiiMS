@@ -144,11 +144,25 @@ var CiiDashboard = {
 					var html = "";
 					var installDiv = $(".install").html();
 					var installingDiv = $(".installing").html();
+					var unregisterDiv = $(".unregister").html();
 					$(data.response).each(function() {
-						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span></div>';
+						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right"><span class="unregister">' + unregisterDiv + '</span></span></div>';
 					});
 
 					$("#uninstalled-notifier").before(html);
+
+					$(".unregister").click(function() {
+						var id = $(this).parent().parent().find("#updater").attr("data-attr-id");
+						var self = this;
+						$.getJSON(CiiDashboard.endPoint + '/card/unregister/id/' + id, function(data) {
+							if (data.status == 200)
+							{
+								$(self).parent().parent().remove();
+							}
+							else
+								$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+						});
+					});
 
 					// Bind an install click event for each of these buttons
 					$(".install").click(function() {
@@ -285,7 +299,6 @@ var CiiDashboard = {
 			var jcarousel = $('.jcarousel').jcarousel();
 
 			$.post(window.location.origin + CiiDashboard.endPoint + "/" + type + "/search", { 'type' : type, 'text' : text}, function(data) {
-				
 				CiiDashboard.Settings.Carousel.recentlySearched = data.response;
 
             	var html = "<ul>";

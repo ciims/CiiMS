@@ -86,7 +86,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      */
     public function actionRegister($id=NULL)
     {
-        $response = $this->curlRequest('default/addAddon/id/' . $id, array());
+        $response = $this->curlRequest('default/addAddon/id/' . $id, array(null));
         return $this->renderResponse($response);
     }
 
@@ -96,7 +96,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      */
     public function actionUnregister($id=NULL)
     {
-        $response = $this->curlRequest('default/removeAddon/id/' . $id, array());
+        $response = $this->curlRequest('default/removeAddon/id/' . $id, array(null));
         return $this->renderResponse($response);
     }
 

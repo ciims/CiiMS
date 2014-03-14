@@ -1009,7 +1009,6 @@ body {
 
 .pure-form .pure-search {
     border: none !important;
-    border-bottom: 1px solid #e5e5e5 !important;
     margin-top: 11px;
     font-size: 12px !important;
   font-family: "Open Sans", Arial, sans-serif;
@@ -1177,6 +1176,7 @@ input[type="range"]::-ms-fill-lower {
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
 }
+
 section.hbox {
     display: table;
     table-layout: fixed;
