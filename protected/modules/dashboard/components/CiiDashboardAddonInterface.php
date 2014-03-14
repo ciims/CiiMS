@@ -8,4 +8,5 @@ interface CiiDashboardAddonInterface
     public function actionUninstall($id=NULL);
     public function actionInstalled();
     public function actionUninstalled();
+    public function isInstalled($id=NULL);
 }

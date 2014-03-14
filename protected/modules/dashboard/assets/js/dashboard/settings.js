@@ -294,6 +294,18 @@ var CiiDashboard = {
 
 		},
 
+		bindReload : function(type) {
+        	$(".jcarousel ul li img").click(function() {
+        		// Get the clicked ID
+        		var id = $(this).parent().attr("data-attr-id");
+
+        		// Retrieve the view file, and display it.
+        		$.get(window.location.origin + CiiDashboard.endPoint + "/" + type + "/detailsview/id/" + id, function(data) {
+        			$('div.modal').html(data).omniWindow().trigger('show');
+        		});
+        	});
+		},
+
 		bindCarousel : function(type, text) {
 
 			var jcarousel = $('.jcarousel').jcarousel();
@@ -303,11 +315,14 @@ var CiiDashboard = {
 
             	var html = "<ul>";
             	$(data.response).each(function() {
-            		html += '<li><img src="' + this.screen_shot + '"></li>';
+            		html += '<li data-attr-id="' + this.uuid +'"><img src="' + this.screen_shot + '"></li>';
             	});
             	html += "</ul>";
             	jcarousel.html(html);
             	jcarousel.jcarousel('reload');
+
+            	CiiDashboard.Settings.bindReload(type);
+
             }, 'json');
 
             $('.jcarousel-control-prev').on('jcarouselcontrol:active', function() {

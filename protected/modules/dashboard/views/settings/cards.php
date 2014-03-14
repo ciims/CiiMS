@@ -70,5 +70,8 @@
 	</div>
 </div>
 
+<div class="ow-overlay ow-closed"></div> 
+<div class="modal ow-closed"></div>
 <?php Yii::app()->clientScript->registerScriptFile($this->asset.'/jcarousel-master/dist/jquery.jcarousel.min.js'); ?>
+<?php Yii::app()->clientScript->registerScriptFile($this->asset.'/js/jquery.omniwindow.min.js'); ?>
 <?php Yii::app()->clientScript->registerCssFile($this->asset.'/css/pure.css');  ?>

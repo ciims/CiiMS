@@ -127,16 +127,47 @@ class CiiDashboardAddonController extends CiiDashboardController
     
     /**
      * Retrives the details for a particular card
+     * @param string   $id    The Addon ID
      * @return JSON
-     * @param bool   $render    Whether or not we should return or render an response
      */
     public function actionDetails($id=NULL)
     {
         if ($id == NULL)
             throw new CHttpException(400, 'Missing ID');
-        $response = $this->curlRequest('default/addon/id/' . $id);
+
+        $response = Yii::app()->cache->get('cached_addon_details_' . $id);
+        if ($response == false)
+        {
+            $response = $this->curlRequest('default/addon/id/' . $id);
+            if ($response['status'] == 200)
+                Yii::app()->cache->set('cached_addon_details_' . $id, $response, 7200);
+        }
+
         return $this->renderResponse($response);
     }
+
+    /**
+     * Displays a menu for installing a new addon
+     * @param string   $id    The Addon ID
+     */
+    public function actionDetailsView($id=NULL)
+    {
+        if ($id == NULL)
+            throw new CHttpException(400, 'Missing ID');
+
+        $this->_returnResponse = true;
+        $details = $this->actionDetails($id);
+
+        echo $this->renderPartial('application.modules.dashboard.views.settings.addoninstall', array(
+            'details' => $details['response'], 
+            'id' => $id,
+            'md' => new CMarkdownParser,
+            'type' => $this->getType()
+        ));
+
+        Yii::app()->end();
+    }
+
     /**
      * CURL wrapper for controllers that extend CiiDashboardAddonController
      * Ensures that the X-Auth details are set and that the correct cert is loaded.

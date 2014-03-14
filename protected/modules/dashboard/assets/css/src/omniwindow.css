@@ -1,0 +1,56 @@
+.ow-overlay {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #424242;
+    opacity: 0.8;
+}
+
+.ow-closed {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    z-index: 20;
+    min-height: 500px;
+    max-width: 650px;
+    height: 90%;
+    left: 50%;
+    top: 50px;
+    width: 80%;
+    margin-top: 0%;
+    margin-bottom: 20px;
+    overflow: auto;
+    background-color: #f3f5f9;
+}
+
+.modal .modal-container {
+    height: 100%;
+    margin: 10px auto;
+}
+
+.modal .description {
+    padding: 20px;
+    padding-top: 0px;
+    max-width: 590px;
+    min-width: 590px;
+    color: #666;
+    font-size: 14px;
+}
+
+.modal .image-banner {
+    margin: 0 23px;
+    margin-bottom: 25px;
+}
+
+.modal .download-button {
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+    margin: 0 23px;
+    width: 547px;
+}

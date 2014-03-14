@@ -183,7 +183,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 	/**
 	 * Retrieves a card by a given ID
 	 * @param  string $id
-	 * @return [type]     [description]
+	 * @return JSON
 	 */
 	public function actionCard($id=NULL)
 	{
@@ -197,6 +197,24 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 			return $this->getCardById($id)->render();
 
 		throw new CHttpException(400,  Yii::t('Dashboard.main', 'You do not have permission to access this card'));
+	}
+
+	/**
+	 * Implements if the item is installed or not
+	 * @param  string $id  The Card ID
+	 * @return boolean
+	 */
+	public function isInstalled($id=NULL)
+	{
+		if ($id == NULL)
+			return false;
+
+		$filePath = Yii::getPathOfAlias('application.runtime.cards') . DIRECTORY_SEPARATOR . $id;
+
+        if ((file_exists($filePath) && is_dir($filePath)))
+        	return true;
+
+        return false;
 	}
 
 	/**
