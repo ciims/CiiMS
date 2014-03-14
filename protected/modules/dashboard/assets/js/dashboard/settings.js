@@ -146,7 +146,7 @@ var CiiDashboard = {
 					var installingDiv = $(".installing").html();
 					var unregisterDiv = $(".unregister").html();
 					$(data.response).each(function() {
-						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right"><span class="unregister">' + unregisterDiv + '</span></span></div>';
+						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right"><span class="unregister">' + unregisterDiv + '</span></span><div class="clearfix"></div></div>';
 					});
 
 					$("#uninstalled-notifier").before(html);

@@ -135,13 +135,7 @@ class CiiDashboardAddonController extends CiiDashboardController
         if ($id == NULL)
             throw new CHttpException(400, 'Missing ID');
 
-        $response = Yii::app()->cache->get('cached_addon_details_' . $id);
-        if ($response == false)
-        {
-            $response = $this->curlRequest('default/addon/id/' . $id);
-            if ($response['status'] == 200)
-                Yii::app()->cache->set('cached_addon_details_' . $id, $response, 7200);
-        }
+        $response = $this->curlRequest('default/addon/id/' . $id);
 
         return $this->renderResponse($response);
     }
@@ -162,7 +156,7 @@ class CiiDashboardAddonController extends CiiDashboardController
             'details' => $details['response'], 
             'id' => $id,
             'md' => new CMarkdownParser,
-            'type' => $this->getType()
+            'type' => $this->getType(),
         ));
 
         Yii::app()->end();

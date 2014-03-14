@@ -228,10 +228,14 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		$response = Yii::app()->cache->get($id . '_updatecheck');
 
 		// Otherwise, retrieve it from the origin server
-		if ($response === false)
+		if (true)//$response === false)
 		{
 			// Get the current configuration of the card
-			$card = CJSON::decode($this->getBaseCardById($id));
+			$card = Configuration::model()->findByAttributes(array('key' => $id));
+			if ($card == NULL)
+				throw new CHttpException(500, Yii::t('Dashboard.main', 'Unable to find card. Fatal error'));
+
+			$card = CJSON::decode($card->value);
 
 			// Get the base ID
 			$baseID = str_replace('dashboard_card_', '', $id);
@@ -245,7 +249,9 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 	        	'status' => 200, 
 	        	'message' => NULL,
 	        	'response' => array(
-        			'update' => $card['version'] != $details['response']['version']
+        			'update' => $card['version'] != $details['response']['version'],
+        			'currentVersion' => $card['version'],
+        			'latestVersion' => $details['response']['version']
         	));
 
 	        // Cache the value for 4 hours
@@ -326,6 +332,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 					'path' => 'application.runtime.cards.' . $id,
 					'folderName' => $id,
 					'uuid' => $id,
+					'version' => $details['response']['version']
 				));
 
 				$config->save();
@@ -337,6 +344,8 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
                 	$this->_returnResponse = true;
                 else
                 	$this->_returnResponse = false;
+
+                Yii::app()->cache->set($id . '_updatecheck', false, 0);
 
                 return parent::renderResponse(array(
                 	'status' => 200, 

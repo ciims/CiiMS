@@ -63,6 +63,7 @@
 							<span class="updating" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Updating...'); ?></span>
 							<span class="updating-error" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Unable to Update'); ?></span>
 						</span>
+						<div class="clearfix"></div>
 					</div>
 				<?php endforeach; ?>
 			</div>
