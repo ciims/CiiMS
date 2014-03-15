@@ -5,130 +5,11 @@ var Theme = {
 
 	/**
 	 * All functionality related to blog posts is wrapped up in here
-	 * @type {Object}
 	 */
 	Blog : {
 
-		loadDisqusCommentCount : function(shortname) {
-			disqus_shortname = shortname;
-			
-		    (function () {
-		        var s = document.createElement('script'); s.async = true;
-		        s.type = 'text/javascript';
-		        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-		        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-		    }());
-
-		},
-
-		loadDisqus : function(shortname, id, title, slug) {
-			disqus_shortname = shortname;
-            disqus_identifier = id;
-            disqus_title = title;
-            disqus_url = window.location.origin + "/" + slug;
-
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-
-            Theme.Blog.loadDisqusCommentCount(shortname);
-		},
-		
-		/**
-		 * Loads functionality to allow the comment box to work
-		 */
-		commentBox : function() {
-			Theme.endPoint = $("#endpoint").attr("data-attr-endpoint") + "/";
-			$("#b").click( function () {
-		        $(this).html("");
-		        $("#a").slideDown("fast");
-		        $("#submit-comment").show();
-		        setTimeout(function() {
-		            $("#textbox").focus();
-		        }, 100);
-		    });
-
-		    $("#close").click( function () {
-		        $("#b").html("Comment on this post");
-		        $("#textbox").html("");
-		        $("#a").slideUp("fast");
-		        $("#submit-comment").hide();
-		    });
-		    
-		    $("#submit-comment").click(function(e) {
-		        e.preventDefault();
-		        if ($("#textbox").text() == "")
-		            return;
-
-		        // Disable the button to prevent double submits
-		        $("#submit-comment").attr("disabled", "disabled");
-		        $("#submit-comment i").show();
-
-		        $.post(Theme.endPoint + "/comment/comment", 
-		        	{ 
-		        		"Comments" : 
-		        		{ 
-		        			"comment" : $("#textbox").html(), 
-		        			"content_id" : $("#content").attr("data-attr-id") 
-		        		}
-		        	}, 
-		        	function(data) { 
-		        		$("#submit-comment i").hide();
-		        		$("#textbox").text("");  
-		        		$("#comment-container").prepend(data);
-		        		$("div#comment-container").children(":first").fadeIn();
-		        		$("#close").click();
-
-				        // Disable the button to prevent double submits
-				        $("#submit-comment").removeAttr("disabled");
-		        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
-		        	}
-		        );
-		    });
-		},
-
-		/**
-		 * Retrieves comments for a given blog
-		 * @param  int id    The id of the blog
-		 */
-		getComments : function(id) {
-		
-			$.post(Theme.endPoint + "/comment/getComments/id/" + id, function(data) {
-
-				$("#comment-container").html(data);
-				$(".comment").show();
-				$("#comment-container").fadeIn();
-				$(".rounded-img").load(function() {
-				    $(this).wrap(function(){
-				      return '<span class="' + $(this).attr('class') + '" style="background:url(' + $(this).attr('src') + ') no-repeat center center; width: ' + $(this).width() + 'px; height: ' + $(this).height() + 'px;" />';
-				    });
-				    $(this).css("opacity","0");
-				});
-
-				// Flag option
-				$("[class ^='flag']").click(function() {
-					if ($(this).hasClass("flagged"))
-						return;
-
-					var element = $(this);
-					$.post("comment/flag/id/" + $(this).attr("data-attr-id"), function() {
-						$(element).addClass("flagged").text("flagged");
-					});
-				});
-
-				// Reply button
-				$("[class ^='reply']").click(function() { 
-					$(this).parent().parent().parent().find("#comment-form").slideToggle(200); 
-				});
-				
-			});
-		},
-
 		/**
 		 * Adds functionalityt o conitrol the likebox
-		 * @return {[type]} [description]
 		 */
 		likeBox : function(id) {
 
@@ -139,7 +20,6 @@ var Theme = {
             });
 
             $(".likes-container").click(function(e) {
-                console.log("click");
                 e.preventDefault();
                 $(this).find("a").click();
             });
@@ -149,7 +29,7 @@ var Theme = {
 
 				$.post(Theme.endPoint + "/content/like/id/" + id, function(data, textStatus, jqXHR) {
 					if (data.status == undefined)
-						window.location = "' . $this->createUrl('/login') . '"
+						window.location = Theme.endPoint + "/login";
 
 					if (data.status == "success")
 					{
@@ -186,8 +66,6 @@ var Theme = {
 			$("#md-output").html(output);
 			$("#md-output a").attr("rel", "nofollow").attr("target", "_blank")
 		}
-
-
 	},
 
 	/**
@@ -235,75 +113,8 @@ var Theme = {
 	 */
 	loadBlog : function(id) {
 		Theme.endPoint = $("#endpoint").attr("data-attr-endpoint");
-	
-		if (!$(".comments").hasClass("disqus"))	
-			Theme.Blog.getComments(id);
-
 		Theme.Blog.marked();
-		Theme.Blog.commentBox();
 		Theme.Blog.likeBox(id);
-	},
-
-	/**
-	 * Binds certain behaviors to a comment when it is laoded in via Ajax
-	 * @param  int id   The id of the comment. This must be bound to each comment set
-	 */
-	loadComment : function(id) {
-		Theme.endPoint = $("#endpoint").attr("data-attr-endpoint");
-		$(".timeago").timeago();
-
-		// Comment Form
-		$("#b-" + id).click( function () {
-	        $(this).html("");
-	        $("#a-" + id).slideDown("fast");
-	        $("#submit-comment-" + id).show();
-	        setTimeout(function() {
-	            $("#textbox-" + id).focus();
-	        }, 100);
-	    });
-
-	    $("#close-" + id).click( function () {
-	        $("#b-" + id).html("Comment on this post");
-	        $("#textbox-" + id).html("");
-	        $("#a-" + id).slideUp("fast");
-	        $("#submit-comment-" + id).hide();
-	    });
-
-	    // Submit
-	    $("#submit-comment-" + id).click(function(e) {
-	    	var elementId = $(this).attr('id').replace('submit-comment-', '');
-        	e.preventDefault();
-	        if ($("#textbox-" + id).text() == "")
-	            return;
-
-	        $("#submit-comment-" + id).attr("disabled", "disabled");
-	        $("#submit-comment-" + id + " i").show();
-
-	        $.post(Theme.endPoint + "/comment/comment", 
-	        	{ 
-	        		"Comments" : 
-	        		{ 
-	        			"comment" : $("#textbox-" + id).html(), 
-	        			"content_id" : $("#content").attr("data-attr-id"),
-	        			"parent_id" : elementId
-	        		}
-	        	}, 
-	        	function(data, textStatus, jqXHR) { 
-	        		$("#submit-comment-" + id + " i").hide();
-	        		$("#textbox-" + id).text("");  
-	        		// PREPEND DATA
-	        		var newElementId = jqXHR.getResponseHeader("X-Attribute-Id");
-	        		$(".comment-" + elementId).append(data);
-	        		$(".comment-" + newElementId).fadeIn();
-
-	        		$("#close-" + id).click();
-
-	        		$("#submit-comment-" + id).parent().hide();
-	        		$("#submit-comment-" + id).removeAttr("disabled");
-	        		$(".comment-count").text((parseInt($(".comment-count").text().replace(" Comment", "").replace(" Comments", "")) + 1) + " Comments");
-	        	}
-	        );
-	    });
 	},
 
 	/**

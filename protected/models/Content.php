@@ -126,12 +126,28 @@ class Content extends CiiModel
 	}
 
 	/**
-	 * Retrievers the comment count for this article, as comment_count has been broken since 1.1
-	 * @return int   The number of comments for this content piece
+	 * Returns a safe output to the theme
+	 * This includes setting nofollow tags on links, forcing them to open in new windows, and safely encoding the text
+	 * @return text
 	 */
-	public function getCommentCount()
+	public function getSafeOutput()
 	{
-		return Comments::model()->countByAttributes(array('content_id' => $this->id, 'approved' => 1));
+		$md = new CMarkdownParser;
+		$dom = new DOMDocument();
+		$dom->loadHtml('<?xml encoding="UTF-8">'.$md->safeTransform($this->content));
+		$x = new DOMXPath($dom);
+
+		foreach ($x->query('//a') as $node)
+		{
+			$element = $node->getAttribute('href');
+			if ($element[0] !== "/")
+			{
+				$node->setAttribute('rel', 'nofollow');
+				$node->setAttribute('target', '_blank');
+			}
+		}
+
+		return $md->safeTransform($dom->saveHtml());
 	}
 
 	/**
@@ -287,8 +303,6 @@ class Content extends CiiModel
     protected function afterFind()
     {
     	parent::afterFind();
-
-    	$this->comment_count = $this->getCommentCount();
     	$this->like_count = $this->getLikeCount();
     }
 

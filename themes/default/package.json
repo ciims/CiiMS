@@ -1,7 +1,12 @@
 {
-	"name" : "CiiMSTheme",
-    "title" : "spectre",
+	"name" : "DefaultTheme",
+    "title" : "default",
+    "description" : "The Default 2014 Theme that comes pre-bundled with CiiMS",
     "version" : "1.0.0",
+    "repository": { 
+        "type": "git",
+        "url": "https://www.github.com/charlesportwoodii/CiiMS"
+    },
     "devDependencies": {
         "grunt": "0.4.1",
         "grunt-contrib-concat": "0.1.3",

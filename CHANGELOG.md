@@ -1,6 +1,6 @@
-## 1.10.0 (unreleased)
+# 1.10.0 (unreleased)
 
-#### BREAKING CHANGES:
+###### BREAKING CHANGES:
 	
 - There is no way to upgrade currently installed cards.
 - Cards and Themes can no longer be installed from Github
@@ -13,7 +13,7 @@ class Theme extends CiiThemesModel
 ```
 - ```CommentController``` and views have been removed in favor of using the Comment API
 
-#### BUG FIXES:
+###### BUG FIXES:
 
 - #106 Installer now permits empty passwords
 - #105 Publishing time is now properly offset by UTC in the Dashboard
@@ -21,7 +21,7 @@ class Theme extends CiiThemesModel
 - Dashboard redirects to login page on timeout rather than throwing a render error
 - CiiTimezoneFixCommand added to correct Timezone bugs introduced in 1.9.0. This command only needs to be run if you're experience time related issues.
 
-#### IMPROVEMENTS:
+###### IMPROVEMENTS:
 
 - Migrations automatically register instance with ciims.org
 - Cards now use uuid from ciims.org rather than generating their own
@@ -38,12 +38,12 @@ class Theme extends CiiThemesModel
 - CiiSetupCommand added support for headless/automated installs
 - All Cii related functionality has been moved into extensions/cii
 
-#### FEATURES:
+###### FEATURES:
 
 - Cards can now be installed from ciims.org
 - Themes can now be installed from ciims.org
 - Cards and Themes can notify user when there is an update available for them, and can do ondemand in place self updates.
 
-## Previous
+# Previous
 
 The changelog began with version 1.10.0 so any changes prior to that can be seen by checking the tagged releases and reading git commit messages.

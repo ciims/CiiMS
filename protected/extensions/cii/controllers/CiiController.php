@@ -241,7 +241,19 @@ class CiiController extends CController
     		$output=$this->renderPartial($view,$data,true);
             
     		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
+            {
+                // Render AddThis
+                if ($this->layout == 'blog')
+                    $this->widget('ext.cii.widgets.CiiAddThisWidget');
+
+                // Render the Comment functionality automatically
+                if (Cii::getConfig('useDisqusComments'))
+                    $this->widget('ext.cii.widgets.CiiDisqusComments', array('content' => isset($data['data']) && is_a($data['data'], 'Content') ? $data['data']->attributes : false));
+                else
+                    $this->widget('ext.cii.widgets.CiiComments');
+
     		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>$this->params['meta']),true);
+            }
     
     		$this->afterRender($view,$output);
             

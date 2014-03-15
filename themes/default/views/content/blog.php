@@ -14,39 +14,15 @@
 						<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 					</span>
 				</span>
-				<?php
-						$md = new CMarkdownParser;
-						$dom = new DOMDocument();
-						$dom->loadHtml('<?xml encoding="UTF-8">'.$md->safeTransform($content->content));
-						$x = new DOMXPath($dom);
 
-						foreach ($x->query('//a') as $node)
-						{
-							$element = $node->getAttribute('href');
-
-							// Don't follow links outside of this site, and always open them in a new tab
-							if ($element[0] !== "/")
-							{
-								$node->setAttribute('rel', 'nofollow');
-								$node->setAttribute('target', '_blank');
-							}
-						}
-					?>
-
-					<div id="md-output"><?php echo $md->safeTransform($dom->saveHtml()); ?></div>
-					<textarea id="markdown" style="display:none;"><?php echo $content->content; ?></textarea>
+				<div id="md-output"><?php echo $content->safeOutput; ?></div>
+				<textarea id="markdown" style="display:none;"><?php echo $content->content; ?></textarea>
 
 			</div>
 
 			<div class="post-details">
 				<div class="icons">
-					<span class="comment-container">
-						<?php if (Cii::getConfig('useDisqusComments')): ?>
-							<?php echo CHtml::link(0, Yii::app()->createUrl($content->slug) . '#disqus_thread'); ?>
-						<?php else: ?>
-                            <?php echo Chtml::link($content->getCommentCount(),Yii::app()->createUrl($content->slug) . '#comments'); ?>
-						<?php endif; ?>				
-					</span>
+					<div class="comment-container comment-count"></div>
 					<div class="likes-container">
 						<div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
 						    <a href="#" id="upvote">
@@ -63,71 +39,11 @@
 	    <div style="clear:both;"><br /></div>
 	</div>
 </div>
-	
-<div id="comments"></div>
-<div class="comments <?php echo Cii::getConfig('useDisqusComments') ? 'disqus' : NULL; ?>">
-	<?php if (Cii::getConfig('useDisqusComments')): ?>
-		<?php $shortname = Cii::getConfig('disqus_shortname'); ?>
-		<div class="post"><div class="post-inner" style="margin-top: 20px;"><div id="disqus_thread"></div></div></div>
-        <?php Yii::app()->getClientScript()->registerScript('disqus-comments', "Theme.Blog.loadDisqus(\"{$shortname}\", \"{$content->id}\", \"{$content->title}\", \"{$content->slug}\");"); ?>
-    <?php else: ?>
-		<?php $count = 0;?>
-		<?php echo CHtml::link(NULL, NULL, array('name'=>'comments')); ?>
-		<div class="post">
-			<div class="post-inner">
-				<div class="post-header post-header-comments">
-					<h3 class="comment-count pull-left left-header"><?php echo Yii::t('DefaultTheme.main', '{{count}} Comments', array('{{count}}' => $comments)); ?></h3>
 
-
-                    <div class="post-details">
-                        <div class="icons">
-                            <div class="likes-container pull-right inner-likes-container">
-                                <div class="likes <?php echo Yii::app()->user->isGuest ?: (Users::model()->findByPk(Yii::app()->user->id)->likesPost($content->id) ? 'liked' : NULL); ?>">     
-                                    <a href="#" id="upvote">
-                                    <span class="counter">
-                                        <span id="like-count"><?php echo $content->like_count; ?></span>
-                                    </span>      
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    					
-				</div>
-				<div class="clearfix"></div>
-				<?php if (!Yii::app()->user->isGuest): ?>
-					<?php if ($data->commentable): ?>
-					<a id="comment-box"></a>
-				<div id="sharebox" class="comment-box">
-				    <div id="a">
-					<div id="textbox" contenteditable="true"></div>
-					<div id="close"></div>
-					<div style="clearfix"></div>
-				    </div>
-				    <div id="b"><?php echo Yii::t('DefaultTheme.main', 'Comment on this post'); ?></div> 
-				</div>
-
-				<a id="submit-comment" class="sharebox-submit pure-button pure-button-primary pure-button-xsmall pull-right" href="#">
-					<i class="icon-spin icon-spinner" style="display:none;"></i>
-					<?php echo Yii::t('DefaultTheme.main', 'Submit'); ?>
-				</a>
-
-			<?php endif; ?>
-		    <?php else: ?>
-					<div class="alert alert-warning">
-						<?php echo Yii::t('DefaultTheme.main', '{{heythere}} Before leaving a comment you must {{signup}} or {{register}}', array(
-							'{{heythere}}' => CHtml::tag('strong', array(), Yii::t('DefaultTheme.main', 'Hey there!')),
-							'{{signup}}' => CHtml::link(Yii::t('DefaultTheme.main', 'login'), $this->createUrl('/login?next=' . $content->slug)),
-							'{{register}}' => CHtml::link(Yii::t('DefaultTheme.main', 'signup'), $this->createUrl('/register'))
-						)); ?>
-					</div>
-			<?php endif; ?>
-		    <div id="comment-container" ></div>
-		    <div class="comment"></div>
-		    <div class="clearfix"></div>
-		</div>
+<div class="post">
+	<div class="post-inner" style="margin-top: 20px;">
+		<div class="comments" id="comment"></div>
 	</div>
-	<?php endif; ?>
 </div>
 
 <?php Yii::app()->getClientScript()

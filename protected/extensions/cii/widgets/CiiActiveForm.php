@@ -19,7 +19,7 @@ class CiiActiveForm extends CiiBaseActiveForm
 	 */
 	public function init()
 	{
-		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('application.extensions.cii.assets'), true, -1, YII_DEBUG);
+		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets'), true, -1, YII_DEBUG);
 		$cs = Yii::app()->getClientScript();
 
 		if ($this->registerPureCss)
