@@ -10,11 +10,15 @@ class CommentController extends ApiController
     public function accessRules()
     {   
         return array(
+            array('allow',
+                'actions' => array('index')
+            ),
         	array('allow',
-        		'actions' => array('index', 'indexPost', 'indexDelete'),
+        		'actions' => array('indexPost'),
         		'expression' => '$user!=NULL'
         	),
             array('allow',
+                'actions' => array('indexDelete'),
                 'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
             ),
             array('deny') 
