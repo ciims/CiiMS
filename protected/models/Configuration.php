@@ -107,9 +107,12 @@ class Configuration extends CiiModel
      * @param  string $name The folder name in runtiome
      * @return boolean      If the recursive delete was successful or not
      */
-    public function fullDelete($name)
+    public function fullDelete($name, $type='card')
     {
-        $path = Yii::getPathOfAlias('application.runtime.cards.' . $name);
+        if ($type == 'card')
+            $path = Yii::getPathOfAlias('application.runtime.cards.' . $name);
+        else
+            $path = $name;
 
         try {
             // Delete the directory path

@@ -228,7 +228,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 		$response = Yii::app()->cache->get($id . '_updatecheck');
 
 		// Otherwise, retrieve it from the origin server
-		if (true)//$response === false)
+		if ($response === false)
 		{
 			// Get the current configuration of the card
 			$card = Configuration::model()->findByAttributes(array('key' => $id));
@@ -356,9 +356,14 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
                 )));
             }
         }
+        die();
 
         // If anything went wrong, do a full deletion cleanup
-        unlink($filePath);
+        if (!$force)
+        {
+            $config = new Configuration;
+            $config->fullDelete($filePath, 'theme');
+        }
         unlink($filePath . '.zip');
     
         // And throw a JSON error for the client to catch and deal with
@@ -381,7 +386,10 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 			throw new CHttpException(400,  Yii::t('Dashboard.main', 'There are no dashboard cards with that id'));
 
 		$card->value = CJSON::decode($card->value);
-				
+		
+		Yii::app()->cache->delete('dashboard_cards_available');
+	    Yii::app()->cache->delete('cards_in_category');
+	    
 		return $card->fullDelete($card->value['folderName']);
     }
     

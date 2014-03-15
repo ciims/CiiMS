@@ -1,14 +1,1 @@
-{
-	"name" : "Default",
-	"folder" : "webroot.themes.default",
-	"description" : "The default theme for CiiMS 2014",
-	"author" : {
-		"email" :"charlesportwoodii@ethreal.net", 
-		"name" : "Charles R. Portwood II"
-	},
-	"license" : "MIT",
-	"version" : ".1",
-	"homepage" : "https://github.com/charlesportwoodii/CiiMS",
-	"repository" : "https://github.com/charlesportwoodii/CiiMS",
-	"type" : "desktop"
-}
+{"name":"Default","folder":"webroot.themes.default","description":"The default theme for CiiMS 2014","author":{"email":"charlesportwoodii@ethreal.net","name":"Charles R. Portwood II"},"license":"MIT","version":"1.0","addonVersion":"1.0","homepage":"https:\/\/github.com\/charlesportwoodii\/CiiMS","repository":"https:\/\/github.com\/charlesportwoodii\/CiiMS","type":"desktop","uuid":"FfELXWAihCRHv0rYbykt"}

@@ -2313,6 +2313,7 @@ main .center {
 
 main .no-items-notification {
 	font-size: 12px;
+	margin-bottom: 20px;
 }
 
 main .carousel-container {

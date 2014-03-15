@@ -24,7 +24,7 @@
 			</div>
 			<div class="clearfix"></div>
 
-			<legend>Uninstalled Cards</legend>
+			<legend><?php echo Yii::t('Dashboard.views', 'Uninstalled Cards'); ?></legend>
 			<div class="meta-container" id="uninstalled-container">
 
 				<div class="no-items-notification center" id="uninstalled-notifier" style="display:none;"><?php echo Yii::t('Dashboard.main', "All cards associated to this instance are currently installed."); ?></div>
@@ -39,11 +39,13 @@
 
 				<div class="no-items-notification center" id="reload-notifier" style="display:none;">
 					<?php echo Yii::t('Dashboard.main', 'New cards have been installed! Reload the page to manage these new cards.'); ?>
+					<div class="clearfix"></div>
 				</div>
 
 				<?php if (empty($cards)): ?>
 					<div class="no-items-notification center" id="installed-notifier"><?php echo Yii::t('Dashboard.main', "There are currently no cards installed. Search for cards above to add them!"); ?></div>
 				<?php endif; ?>
+				<div class="clearfix"></div>
 
 				<?php foreach($cards as $card): ?>
 					<?php $card->value = CJSON::decode($card->value); ?>

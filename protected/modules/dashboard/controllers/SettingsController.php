@@ -106,7 +106,7 @@ class SettingsController extends CiiSettingsController
 		
 		$this->submitPost($model);
 
-		$this->render('form', array('model' => $model, 'header' => array(
+		$this->render('theme', array('model' => $model, 'header' => array(
 			'h3' =>  Yii::t('Dashboard.main', 'Appearance'),
 			'p' => Yii::t('Dashboard.main',  'Change the site theme for desktop, tablet, and mobile.'),
 			'save-text' =>  Yii::t('Dashboard.main', 'Save Theme')

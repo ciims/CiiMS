@@ -4,6 +4,141 @@ var CiiDashboard = {
 
 	Settings : {
 
+		// Settings for Addons that apply to both themes and cards
+		Addon : {
+
+			ucwords : function(str) {
+			  	return (str + '').replace(/^([a-z\u00E0-\u00FC])|\s+([a-z\u00E0-\u00FC])/g, function($1) {
+			    	return $1.toUpperCase();
+			    });
+			},
+
+			manager : function(type) {
+				$(".remove-button").click(function() {
+					var parent = $(this).parent();
+					$.post(CiiDashboard.endPoint + "/" + type + "/uninstall/id/" + $(this).attr("id"), function() {
+						$(parent).fadeOut();
+					})
+				});
+
+				// Check for card updates
+				$("span[id^=updater]").each(function() {
+					var id = $(this).attr("data-attr-id");
+
+					if (id == "")
+						return;
+
+					var self = this;
+					$.get(CiiDashboard.endPoint + '/' + type + '/isUpdateAvailable/id/' + id, function(data) {
+
+						$(self).find(".icon-spinner").hide();
+						$(self).find(".checking").hide();
+
+						if (data.response.update == false) {						
+							$(self).find(".uptodate").show();
+							$(self).removeClass("pure-button-primary").addClass("pure-button-success");
+						} else {
+							$(self).find(".available").show();
+							$(self).removeClass("pure-button-primary").addClass("pure-button-warning-pulse");
+						}
+					}).fail(function() {
+						$(self).parent().find(".icon-spinner").hide();
+						$(self).parent().find(".checking").hide();
+						$(self).removeClass("pure-button-primary").addClass("pure-button-error-pulse");
+						$(self).parent().find(".updating-error").show();
+					});
+				});
+
+				// Action to perform the update
+				$(".available").click(function() {
+					$(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
+					$(this).parent().find(".icon-spinner").show();
+					$(this).parent().find(".updating").show();
+					$(this).hide();
+
+					var id = $(this).parent().attr("data-attr-id");
+					var self = this;
+					$.get(CiiDashboard.endPoint + '/' + type + '/upgrade/id/' + id, function(data) {
+
+						$(self).parent().find(".icon-spinner").hide();
+						$(self).parent().find(".updating").hide();
+
+						if (data.status == 200) {
+							$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-success");
+							$(self).parent().find(".uptodate").show();
+						} else {
+							$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+							$(self).parent().find(".updating-error").show();
+						}
+					}).fail(function() {
+						$(self).parent().find(".icon-spinner").hide();
+						$(self).parent().find(".updating").hide();
+						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+						$(self).parent().find(".updating-error").show();
+					})
+				});
+			},
+
+			uninstall : function(type) {
+				// Generate a list of uninstalled cards and display them        
+	            $.getJSON(window.location.origin + CiiDashboard.endPoint + "/" + type +"/uninstalled", function(data) {
+	                if (data.response.length == 0)
+	                    $("#uninstalled-notifier").show();
+	                else
+	                {
+	                    var html = "";
+	                    var installDiv = $(".install").html();
+	                    var installingDiv = $(".installing").html();
+	                    var unregisterDiv = $(".unregister").html();
+	                    $(data.response).each(function() {
+	                        html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right"><span class="unregister">' + unregisterDiv + '</span></span><div class="clearfix"></div></div>';
+	                    });
+
+	                    $("#uninstalled-notifier").before(html);
+
+	                    $(".unregister").click(function() {
+	                        var id = $(this).parent().parent().find("#updater").attr("data-attr-id");
+	                        var self = this;
+	                        $.getJSON(CiiDashboard.endPoint + '/' + type + '/unregister/id/' + id, function(data) {
+	                            if (data.status == 200)
+	                            {
+	                                $(self).parent().parent().remove();
+	                            }
+	                            else
+	                                $(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+	                        });
+	                    });
+
+	                    // Bind an install click event for each of these buttons
+	                    $(".install").click(function() {
+	                        $(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
+	                        $(this).parent().find(".icon-spinner").show();
+	                        $(this).addClass("installing").removeClass("install").html(installingDiv);
+
+	                        var id = $(this).parent().attr("data-attr-id");
+	                        var self = this;
+
+	                        // Actually install the card
+	                        $.getJSON(CiiDashboard.endPoint + '/' + type + '/install/id/' + id, function(data) {
+	                            if (data.status == 200)
+	                            {
+	                                $(self).parent().parent().remove();
+	                                $("#reload-notifier").show();
+	                                $("#installed-notifier").hide();
+	                            }
+	                            else
+	                                $(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
+
+	                            // Show the uninstalled notifier
+	                            if ($("#uninstalled-container").find(".pure-control-group").size() == 0)
+	                                $("#uninstalled-notifier").show();
+	                        });
+	                    });
+	                }
+	            });
+			}
+		},
+
 		load : function() {
 			$(".menu li").click(function() {
 				window.location = $(this).find("a").attr("href");
@@ -23,31 +158,57 @@ var CiiDashboard = {
 		},
 
 		loadAppearance : function() {
+
+            CiiDashboard.Settings.bindCarousel('theme', null);
+
 			$("select").imagepicker();
 
-			$("#submit-form").click(function(e) {
-				$("#spinner").fadeIn();
+			$("#ThemeSettings_theme, #ThemeSettings_mobileTheme, #ThemeSettings_tabletTheme").change(function(e) { 
 				e.preventDefault();
+                var form = $(this).parent().parent();
 
-				$(".alert-secondary").hide();
-
-				$.post(CiiDashboard.endPoint + '/settings/addTheme', { "Theme" : { "new" : $("#Theme_new").val() } }, function(data) {
-					$("#spinner").fadeOut();
-					var selector = "#ThemeSettings_theme";
-					if (data.type == "mobile")
-						selector = "#ThemeSettings_mobileTheme";
-					else if (data.type == "tablet")
-						selector = "#ThemeSettings_tabletTheme";
-					else
-						selector = "#ThemeSettings_theme";
-					$(selector).append("<option value=\"" + data.theme + "\" data-img-src=\"" + "/themes/" + data.theme + "/default.png" + "\">" + data.theme + "</option>");
-					$(selector).imagepicker();
-				}).fail(function(data) {
-					$("#spinner").fadeOut();
-					$(".alert-secondary #info").remove();
-					$(".alert-secondary").append("<div id=\"info\">" + data.responseText + "</div>").show();
-				});
+                // TODO: Pretty this up some
+                $.post($(form).attr("action"), $(form).serialize());
 			});
+
+            // Bind the search event on the carousel
+            $("input#text").submit(function(e) {
+                e.preventDefault();
+                CiiDashboard.Settings.bindCarousel('theme', $(this).val());
+                return false;
+            });
+
+            $('form').keypress(function(e) {
+                if ( e.which == 13 ) {
+                    $("input#text").submit();
+                    return false;
+                }
+            });
+
+            // Handle uninstallation of themnes
+            CiiDashboard.Settings.Addon.uninstall('theme');
+
+            // Retrieve all the managed & installed items
+            $.getJSON(window.location.origin + CiiDashboard.endPoint + "/theme/installed", function(data) {
+				// Iterate through all of the existing items, and templatize them
+            	$.each(data.response, function(key, value) {
+            		// Fetch the template
+            		if (value.uuid == false)
+            			return;
+
+            		var template = $(".template").clone();
+            		$(template).removeClass(".template");
+            		$(template).find(".text-small").text(CiiDashboard.Settings.Addon.ucwords(value.name));
+            		$(template).find(".remove-button").attr("id", value.uuid);
+            		$(template).find("#updater").attr("data-attr-id", value.uuid);
+            		$(template).show();
+
+            		$("#installed-container").append("<div class='pure-control-group'>" + $(template).html() + "</div>");
+            	});
+
+            	CiiDashboard.Settings.Addon.manager('theme');
+            }, "json");
+
 		},
 
 		loadAnalytics: function() {
@@ -136,121 +297,10 @@ var CiiDashboard = {
 			});
 
 			// Generate a list of uninstalled cards and display them		
-			$.getJSON(window.location.origin + CiiDashboard.endPoint + "/card/uninstalled", function(data) { 
-				if (data.response.length == 0)
-					$("#uninstalled-notifier").show();
-				else
-				{
-					var html = "";
-					var installDiv = $(".install").html();
-					var installingDiv = $(".installing").html();
-					var unregisterDiv = $(".unregister").html();
-					$(data.response).each(function() {
-						html += '<div class="pure-control-group"><p class="text-small text-small-inline inline">' + this.name + '</p><span class="pure-button pure-button-warning-pulse pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="' + this.uuid + '"><span class="icon-spinner icon-spin" style="display:none;"></span><span class="install">' + installDiv + '</span></span><span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right"><span class="unregister">' + unregisterDiv + '</span></span><div class="clearfix"></div></div>';
-					});
+			CiiDashboard.Settings.Addon.uninstall('card');
 
-					$("#uninstalled-notifier").before(html);
-
-					$(".unregister").click(function() {
-						var id = $(this).parent().parent().find("#updater").attr("data-attr-id");
-						var self = this;
-						$.getJSON(CiiDashboard.endPoint + '/card/unregister/id/' + id, function(data) {
-							if (data.status == 200)
-							{
-								$(self).parent().parent().remove();
-							}
-							else
-								$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
-						});
-					});
-
-					// Bind an install click event for each of these buttons
-					$(".install").click(function() {
-						$(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
-						$(this).parent().find(".icon-spinner").show();
-						$(this).addClass("installing").removeClass("install").html(installingDiv);
-
-						var id = $(this).parent().attr("data-attr-id");
-						var self = this;
-
-						// Actually install the card
-						$.getJSON(CiiDashboard.endPoint + '/card/install/id/' + id, function(data) {
-							if (data.status == 200)
-							{
-								$(self).parent().parent().remove();
-								$("#reload-notifier").show();
-								$("#installed-notifier").hide();
-							}
-							else
-								$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
-
-							// Show the uninstalled notifier
-							if ($("#uninstalled-container").find(".pure-control-group").size() == 0)
-								$("#uninstalled-notifier").show();
-						});
-					});
-				}
-			});
-
-			$(".remove-button").click(function() {
-				var parent = $(this).parent();
-				$.post(CiiDashboard.endPoint + "/card/uninstall/id/" + $(this).attr("id"), function() {
-					$(parent).fadeOut();
-				})
-			});
-
-			// Check for card updates
-			$("span[id^=updater]").each(function() {
-				var id = $(this).attr("data-attr-id");
-				var self = this;
-				$.get(CiiDashboard.endPoint + '/card/isUpdateAvailable/id/' + id, function(data) {
-
-					$(self).find(".icon-spinner").hide();
-					$(self).find(".checking").hide();
-
-					if (data.response.update == false) {						
-						$(self).find(".uptodate").show();
-						$(self).removeClass("pure-button-primary").addClass("pure-button-success");
-					} else {
-						$(self).find(".available").show();
-						$(self).removeClass("pure-button-primary").addClass("pure-button-warning-pulse");
-					}
-				}).fail(function() {
-					$(self).parent().find(".icon-spinner").hide();
-					$(self).parent().find(".checking").hide();
-					$(self).removeClass("pure-button-primary").addClass("pure-button-error-pulse");
-					$(self).parent().find(".updating-error").show();
-				});
-			});
-
-			// Action to perform the update
-			$(".available").click(function() {
-				$(this).parent().removeClass("pure-button-warning-pulse").addClass("pure-button-primary-pulse");
-				$(this).parent().find(".icon-spinner").show();
-				$(this).parent().find(".updating").show();
-				$(this).hide();
-
-				var id = $(this).parent().attr("data-attr-id");
-				var self = this;
-				$.get(CiiDashboard.endPoint + '/card/upgrade/id/' + id, function(data) {
-
-					$(self).parent().find(".icon-spinner").hide();
-					$(self).parent().find(".updating").hide();
-
-					if (data.status == 200) {
-						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-success");
-						$(self).parent().find(".uptodate").show();
-					} else {
-						$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
-						$(self).parent().find(".updating-error").show();
-					}
-				}).fail(function() {
-					$(self).parent().find(".icon-spinner").hide();
-					$(self).parent().find(".updating").hide();
-					$(self).parent().removeClass("pure-button-primary-pulse").addClass("pure-button-error-pulse");
-					$(self).parent().find(".updating-error").show();
-				})
-			});
+			// Handle management of existing items
+			CiiDashboard.Settings.Addon.manager('card');
 		},
 
 		loadEmail : function() {
@@ -274,6 +324,7 @@ var CiiDashboard = {
 		loadPlugins : function() {},
 		
 		loadTheme : function() {},
+
 		loadMobileTheme : function() {},
 		loadTabletTheme : function() {},
 		
