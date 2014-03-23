@@ -4,7 +4,7 @@
  * @class CiiCommentWidget
  * @description Renders the appropriate comment container for the commenting system in use
  *
- * @usage Yii::app()->controller->widget('ext.cii.widgets.CiiCommentWidget')
+ * @usage Yii::app()->controller->widget('ext.cii.widgets.CiiCommentWidget');
  */
 class CiiCommentWidget extends CWidget
 {

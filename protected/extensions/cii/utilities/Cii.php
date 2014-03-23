@@ -75,6 +75,10 @@ class Cii {
         return array();
     }
 
+    /**
+     * Sets the application language
+     * @return string
+     */
     public static function setApplicationLanguage()
     {
         $app = Yii::app();
@@ -312,6 +316,17 @@ class Cii {
         }
         
         return $providers;
+    }
+
+    /**
+     * Retrieves the comment provider
+     * @return string
+     */
+    public static function getCommentProvider()
+    {
+        if (Cii::getConfig('useDisqusComments'))
+            return 'CiiDisqusComments';
+        return 'CiiComments';
     }
 
     /**

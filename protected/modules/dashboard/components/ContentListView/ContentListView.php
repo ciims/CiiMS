@@ -116,7 +116,7 @@ class ContentListView extends CListView
 					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 				echo CHtml::closeTag('div');
 
-				Yii::app()->controller->widget('ext.cii.widgets.CiiCommentWidget');
+				Yii::app()->controller->widget('ext.cii.widgets.comments.CiiCommentWidget');
 
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');

@@ -7,6 +7,7 @@ var Disqus = {
 
 	/**
 	 * Binds the Disqus comment box to the post
+	 * @param  optional int id
 	 * @return void
 	 */
 	load : function(id) {
@@ -60,8 +61,12 @@ var Disqus = {
 	}
 };
 
+/**
+ * Overload this object depending upon the commenting system you are using
+ * @type Comments
+ */
 var Comments = {
 	reload : function(id) {
 		Disqus.load(id);
 	}
-};
+}

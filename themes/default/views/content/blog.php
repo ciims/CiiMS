@@ -42,7 +42,7 @@
 
 <div class="post">
 	<div class="post-inner" style="margin-top: 20px;">
-		<?php $this->widget('ext.cii.widgets.CiiCommentWidget'); ?>
+		<?php $this->widget('ext.cii.widgets.comments.CiiCommentWidget'); ?>
 	</div>
 </div>
 

@@ -1,5 +1,14 @@
+/**
+ * CiiMSComments Javascript handler
+ * Automatically loads and registers CiiMS comments to a site
+ * @type {Object}
+ */
 var CiiMSComments = {
 
+	/**
+	 * Binds the CiiMS comments to the page
+	 * @param  optional int id
+	 */
 	load : function(id) {
 
 		if (id == undefined)
@@ -49,6 +58,9 @@ var CiiMSComments = {
 		});
 	},
 
+	/**
+	 * Binds the CiiMSComments comment count
+	 */
 	commentCount : function() {
 		var endpoint = $('#endpoint').attr('data-attr-endpoint') + "/";
 
@@ -77,6 +89,10 @@ var CiiMSComments = {
 		});
 	},
 
+	/**
+	 * Binds to the load more click event
+	 * @return void
+	 */
 	more : function() {
 		$("a#more").click(function() {
 			CiiMSComments.commentCount();
@@ -84,6 +100,10 @@ var CiiMSComments = {
 	}
 };
 
+/**
+ * Overload this object depending upon the commenting system you are using
+ * @type Comments
+ */
 var Comments = {
 	reload : function(id) {
 		CiiMSComments.load(id);
