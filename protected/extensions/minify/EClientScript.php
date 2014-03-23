@@ -47,11 +47,18 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	public $optimizeScriptFiles = false;
 
-    /**
-     * @var booolean if you want to optimize HTML data
-     */
-    public $compressHTML        = false;
+	/**
+	 * Init for presetting of variables
+	 */
+	public function init()
+	{
+		$this->combineScriptFiles = !YII_DEBUG;
+		$this->combineCssFiles = !YII_DEBUG;
+		$this->optimizeCssFiles = !YII_DEBUG;
+		$this->optimizeScriptFiles = !YII_DEBUG;
 
+		return parent::init();
+	}
 	/**
 	 * Combine css files and script files before renderHead.
 	 * @param string the output to be inserted with scripts.

@@ -26,12 +26,7 @@ class DashboardModule extends CWebModule
             ),
             // For some odd reason, redefining this here fixes any issues that come up with this
             'clientScript'=>array(
-                'class' => 'ext.minify.EClientScript',
-                'combineScriptFiles'    => !YII_DEBUG,
-                'combineCssFiles'       => !YII_DEBUG,
-                'optimizeCssFiles'      => !YII_DEBUG,
-                'optimizeScriptFiles'   => !YII_DEBUG,
-                'compressHTML'          => !YII_DEBUG,
+                'class' => 'ext.cii.components.CiiClientScript',
                 'packages'=>array(
                     'jquery'=>array(
                         'baseUrl'=>$asset,

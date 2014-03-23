@@ -48,7 +48,7 @@ class CiiDisqusComments extends CWidget
             disqus_identifier = \"{$this->content['id']}\";
             disqus_title = \"{$this->content['title']}\";
             disqus_url = endpoint  + \"{$this->content['slug']}\";
-            
+
             // Update the comment div
             $('#comment').addClass('disqus').append('<div id=\"disqus_thread\"></div>');
             $('.comment-count').addClass('registered').append('$link');
@@ -61,7 +61,6 @@ class CiiDisqusComments extends CWidget
 
 	/**
 	 * Renders the Diqsus Comment count on the page
-	 * @return [type] [description]
 	 */
 	private function renderCommentCount()
 	{

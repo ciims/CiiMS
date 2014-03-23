@@ -217,7 +217,7 @@ class CiiController extends CController
     }
 		
 	/**
-	 * Overloaded Render allows us to generate dynamic content and to provide compression
+	 * Overloaded Render allows us to generate dynamic content
      * @param string $view      The viewfile we want to render
      * @param array $data       The data that is passed to us from $this->render()
      * @param bool $return      Whether or not we should return the data as a variable or echo it.
@@ -259,13 +259,6 @@ class CiiController extends CController
             
     		$output = $this->processOutput($output);
             $config = Yii::app()->getComponents(false);
-
-            if (isset($config['clientScript']->compressHTML) && $config['clientScript']->compressHTML == true)
-            {
-                Yii::import('ext.contentCompactor.*');
-                $compactor = new ContentCompactor();
-                $output = $compactor->compact($output, array());
-            }
     		
     		if($return)
     		    return $output;

@@ -57,12 +57,7 @@ return array(
             'class' => 'ext.cii.components.CiiAssetManager',
         ),
         'clientScript' => array(
-            'class' => 'ext.minify.EClientScript',
-            'combineScriptFiles'    => true,   // Script Combination Kills the Dashboard
-            'combineCssFiles'       => true,
-            'optimizeCssFiles'      => true,   // CSS Combination kills the dashboard too...
-            'optimizeScriptFiles'   => true,
-            'compressHTML'          => false    // And this kills Google Adsense...
+            'class' => 'ext.cii.components.CiiClientScript'
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',
@@ -74,7 +69,6 @@ return array(
         ),
         'urlManager' => array(
             'class'          => 'ext.cii.components.CiiURLManager',
-            'cache'          => true,
             'urlFormat'      => 'path',
             'showScriptName' => false
         ),

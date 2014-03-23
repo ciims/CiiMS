@@ -36,7 +36,7 @@ class CiiURLManager extends CUrlManager
 	 * Override in main.php
 	 * @var boolean
 	 */
-	public $cache = true;
+	public $cache = false;
 	
 	/**
 	 * The id for our content rules
@@ -92,6 +92,7 @@ class CiiURLManager extends CUrlManager
 	 **/
 	protected function processRules()
 	{
+		$this->cache = !YII_DEBUG;
 		
 		$this->addBasicRules();
         $this->addModuleRules();

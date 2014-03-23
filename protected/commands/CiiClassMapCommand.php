@@ -7,7 +7,7 @@ class CiiClassMapCommand extends CConsoleCommand
 		$data = "<?php\n";
 		$data .= '$basePath = dirname(__FILE__) . \'/..\';' . "\n";
 		$data .= 'Yii::$classMap = ' . "array(\n";
-		$path = realpath('/var/www/ciims/protected/extensions');
+		$path = Yii::getPathOfAlias('ext');
 
 		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 		foreach($objects as $name => $object) {
@@ -19,7 +19,7 @@ class CiiClassMapCommand extends CConsoleCommand
 		    }
 		}
 
-		$path = realpath('/var/www/ciims/protected/models');
+		$path = Yii::getPathOfAlias('application.models');
 
 		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 		foreach($objects as $name => $object) {
@@ -31,7 +31,7 @@ class CiiClassMapCommand extends CConsoleCommand
 		    }
 		}
 
-		$path = realpath('/var/www/ciims/protected/controllers');
+		$path = Yii::getPathOfAlias('application.controllers');
 
 		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 		foreach($objects as $name => $object) {
@@ -43,21 +43,9 @@ class CiiClassMapCommand extends CConsoleCommand
 		    }
 		}
 
-		$path = realpath('/var/www/ciims/protected/components');
-
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
-		foreach($objects as $name => $object) {
-		    if (strpos($name, '.php') !== false && strpos($name, 'gii') == false)
-		    {
-		        $id = str_replace('.php', '', substr( $name, strrpos( $name, '/' )+1 ));
-		        if ($this->starts_with_upper($id))
-		        	$data .=  "    '" . $id . "' =>" . '$basePath . \'' . str_replace('/var/www/ciims/protected', '', $name) . "',\n";
-		    }
-		}
-
 		$data .=  ");\n";
 
-		$handle = fopen(dirname(__FILE__) . '/../config/classmap.php', 'w+');
+		$handle = fopen(Yii::getPathOfAlias('application.config') . DIRECTORY_SEPARATOR . 'classmap.php', 'w+');
 		fwrite($handle, $data);
 		fclose($handle);
 		return;
