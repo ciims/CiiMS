@@ -9,7 +9,10 @@ var Disqus = {
 	 * Binds the Disqus comment box to the post
 	 * @return void
 	 */
-	load : function() {
+	load : function(id) {
+		if (id != undefined)
+			 disqus_identifier = id;
+
 		(function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -58,7 +61,7 @@ var Disqus = {
 };
 
 var Comments = {
-	reload : function() {
-		Disqus.load();
+	reload : function(id) {
+		Disqus.load(id);
 	}
-}
+};
