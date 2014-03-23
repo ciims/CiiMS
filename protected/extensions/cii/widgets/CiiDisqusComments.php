@@ -41,7 +41,7 @@ class CiiDisqusComments extends CWidget
 		$link = CHtml::link('0', Yii::app()->createAbsoluteUrl($this->content['slug']) . '#disqus_thread', array('data-disqus-identifier' => $this->content['id']));
 		Yii::app()->clientScript->registerScript('DisqusComments', "
 			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/'
+			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
 			// Set the Disqus variables
 			disqus_shortname = \"{$this->_shortname}\";
@@ -66,7 +66,7 @@ class CiiDisqusComments extends CWidget
 	{
 		Yii::app()->clientScript->registerScript('DisqusCommentCount', "
 			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/'
+			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
 			// Set the Disqus variables
 			disqus_shortname = \"{$this->_shortname}\";

@@ -22,6 +22,12 @@
 class Comments extends CiiModel
 {
 	/**
+	 * API Attribute for retrieving the counts
+	 * @var int
+	 */
+	public $count = 0;
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Comments the static model class
@@ -92,17 +98,6 @@ class Comments extends CiiModel
 			'created' 	 => Yii::t('ciims.models.Comments', 'Created'),
 			'updated' 	 => Yii::t('ciims.models.Comments', 'Updated'),
 		);
-	}
-
-	/**
-	 * Returns a threaded instance for display within the viewfile
-	 * You should only call this instance on array instance
-	 * @return ThreadedComments
-	 */
-	public function thread($comments, $thread = false)
-	{
-		Yii::import('ext.ThreadedComments');
-		return new ThreadedComments($comments, $thread);
 	}
 	
 	/**

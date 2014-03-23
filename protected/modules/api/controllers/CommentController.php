@@ -11,7 +11,7 @@ class CommentController extends ApiController
     {   
         return array(
             array('allow',
-                'actions' => array('index')
+                'actions' => array('index', 'countPost')
             ),
         	array('allow',
         		'actions' => array('indexPost'),
@@ -35,6 +35,30 @@ class CommentController extends ApiController
     	if (Cii::getConfig('useDisqusComments')=="1")
     		throw new CHttpException(403, Yii::t('Api.comment', 'The comment API is not available while Disqus comments are enabled.'));
     	return parent::beforeAction($action);
+    }
+
+    /**
+     * [GET] [/comment/comments/count]
+     * Retrives comments counts for a set of ID's
+     * @return array
+     */
+    public function actionCountPost()
+    {
+        if (!isset($_POST['ids']))
+            throw new CHttpException(400, Yii::t('Api.comment', 'Missing ids attribute'));
+
+        $response = array();
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('content_id', Cii::get($_POST, 'ids', array()));
+        $criteria->select = 'content_id, count(id) as count';
+        $criteria->group = 'content_id';
+        $results = Comments::model()->findAll($criteria);
+
+        foreach ($results as $result)
+            $response[$result->content_id] = $result->count;
+        
+        return $response;
     }
 
     /**

@@ -250,7 +250,7 @@ class CiiController extends CController
                 if (Cii::getConfig('useDisqusComments'))
                     $this->widget('ext.cii.widgets.CiiDisqusComments', array('content' => isset($data['data']) && is_a($data['data'], 'Content') ? $data['data']->attributes : false));
                 else
-                    $this->widget('ext.cii.widgets.CiiComments');
+                    $this->widget('ext.cii.widgets.CiiComments', array('content' => isset($data['data']) && is_a($data['data'], 'Content') ? $data['data']->attributes : false));
 
     		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>$this->params['meta']),true);
             }

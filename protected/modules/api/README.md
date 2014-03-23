@@ -422,8 +422,10 @@ Deletes <tag> for the given entry
 ## Comment [/comment]
 The Comment API allows users to post and edit comments created by them, and for administrators to manage comments for their instance. The Comment API will be disabled if the site administrator has enabled Disqus comments for their site.
 
-#### [POST]
+### [/comment/comments/]
 Allows the creation of new comments
+
+#### [POST]
 
 ##### Example Request
 
@@ -446,10 +448,6 @@ Allows the creation of new comments
             "updated": 1383005688
         }
     }
-
-### [/comment/comments/id/<id>]
-
-Retrieves comments for a particular content entry
 
 #### [GET]
 
@@ -509,6 +507,30 @@ Updates a comment with a given id
 
 #### [DELETE]
 Permanently deletes a content with a given id
+
+
+## [/comment/count]
+
+### [POST]
+Retrieves the number of comments for the posted array
+
+#### Example Request
+
+    { "ids" : [ 1, 2, 3, 4, 5] }
+
+#### Example Request
+
+    {
+        "status": 200,
+        "message": null,
+        "response": {
+            "<id>" : "<count>",
+            "24": "6",
+            "25": "1"
+        }
+    }
+
+
 
 -------------------------------------------------------
 
