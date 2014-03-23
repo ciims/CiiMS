@@ -56,3 +56,9 @@ var Disqus = {
 		})
 	}
 };
+
+var Comments = {
+	reload : function() {
+		Disqus.load();
+	}
+}

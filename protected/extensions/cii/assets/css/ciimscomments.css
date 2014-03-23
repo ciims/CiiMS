@@ -1,0 +1,42 @@
+#ciims_comments {
+	width: 100%;
+}
+
+#ciims_comments .comment:last-child {
+	border-bottom: none;
+}
+
+.comment.template {
+	display: none;
+}
+
+.comment {
+	border-bottom: 1px solid #eee;
+	padding-top: 5px;
+}
+
+.comment .comment_person {
+	width: 40px;
+	padding: 5px;
+}
+
+.comment .comment_person img {
+	border-radius: 2px;
+}
+
+.comment .comment_body .comment_body_byline {
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.comment .comment_body .comment_body_byline a {
+	text-decoration: none;
+}
+
+.comment .comment_body .comment_body_byline .author {
+	font-weight: bold;
+}
+
+.comment .comment_body .comment_body_inner {
+	font-size: 14px;
+}

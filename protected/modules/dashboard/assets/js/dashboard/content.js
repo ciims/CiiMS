@@ -94,38 +94,6 @@ var CiiDashboard = {
 				CiiDashboard.Content.Preview.bindPostClick();
 				CiiDashboard.Content.Preview.bindScrollEvent();
 				$(".nano").nanoScroller();
-				
-				if ($("#disqus_shortname").text() != "")
-					CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
-
-			},
-
-			loadDisqusCommentCount : function(shortname) {
-
-				disqus_shortname = shortname;
-				
-			    (function () {
-			        var s = document.createElement('script'); s.async = true;
-			        s.type = 'text/javascript';
-			        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-			        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-			    }());
-			},
-
-			loadDisqus : function() {
-				if ($("#item-status").text() != 1)
-					return;
-				
-				$("#disqus_thread").html(null);
-	            disqus_identifier = parseInt($(".preview-container").find("#item-id").text());
-	            disqus_title = $(".title").first().text();
-	            disqus_url = window.location.origin + $(".icon-eye-open").attr("href");
-
-	            (function() {
-	                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-	                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	            })();
 			},
 
 			// Binds infinite scrolling behavior to the content page. This is preferable to Ajax Pagination
@@ -144,8 +112,6 @@ var CiiDashboard = {
 							CiiDashboard.Content.Preview.allowPagination = false;
 
 							CiiDashboard.Content.Preview.getPages(CiiDashboard.Content.Preview.currentPage + 1);
-
-							CiiDashboard.Content.Preview.loadDisqusCommentCount($("#disqus_shortname").text());
 						}
 					});
 				}
@@ -271,121 +237,17 @@ var CiiDashboard = {
 				$(".content-sidebar").find(".comment-container").html(null);
 				if ($(".content-sidebar").is(":visible")) {
 					var id = $(".preview-container").find("#item-id").text();
-
-					if (!$("#disqus_shortname").text() != "")
-						CiiDashboard.Content.Preview.Comments.loadComments(id);
+					Comments.reload(id);
 				}
 
 				$(".icon-comment").click(function() {
 					$(".preview-container").toggleClass("active", function() {
 						if ($(this).hasClass("active")) {
 							var id = $(".preview-container").find("#item-id").text();
-
-							if ($("#disqus_shortname").text() != "") {
-								CiiDashboard.Content.Preview.loadDisqus();
-								$(".comment-box-main").show();
-							}
-							else
-								CiiDashboard.Content.Preview.Comments.loadComments(id);
+							Comments.reload(id);
 						}
 					});
 				})
-			},
-
-			// Behaviors for handling comments
-			Comments : {
-
-				mainCommentBoxLoaded : false,
-
-				/**
-				 * Loads a main comment box that isn't bound to any particular comment
-				 * @return {[type]} [description]
-				 */
-				loadMainCommentBox : function() {
-					if (CiiDashboard.Content.Preview.Comments.mainCommentBoxLoaded)
-						return;
-
-					CiiDashboard.Content.Preview.Comments.mainCommentBoxLoaded = true;
-
-				    $(".comment-box-main").show();
-					$("#b").click(function() {
-					    $(this).html("");
-						$("#a").slideDown("fast").show();
-						$("#submit-comment").show();
-						setTimeout(function() {
-						    $("#textbox").focus();
-						}, 100);
-				    });
-
-				    $("#textbox").keydown( function() {
-						if($(this).text() != "")
-						    $("#submit-comment").css("background","#3b9000");
-						else
-						    $("#submit-comment").css("background","#9eca80");
-				    });
-
-				    $("#close").click(function () {
-						$("#b").html("Comment on this post");
-						$("#textbox").html("");
-						$("#a").slideUp("fast");
-						$("#submit-comment").hide();
-				    });
-
-				    $("#submit-comment").click(function(e) {
-						e.preventDefault();
-						if ($("#textbox").text() == "")
-						    return;
-
-						$.post(CiiDashboard.endPoint + "/comment/comment", { 
-						    "Comments" : { 
-						        "comment" : $("#textbox").html(), 
-								"content_id" : $("#item-id").text()
-							    }
-							}, function(data) { 
-							    $("#textbox").text("");
-								$("#close").click();
-								$(".comment-container").prepend(data);
-								var count = (parseInt($(".post.active").find(".comments strong").text()) + 1);
-								$(".post.active").find(".comments strong").text(count);
-						});
-				    });
-				},
-
-				// Loads comments to be displayed
-				loadComments : function(id) {
-					$.get(CiiDashboard.endPoint + "/comment/getComments/id/" + id, function(data) {
-						$(".comment-container").html(data);
-						CiiDashboard.Content.Preview.Comments.loadMainCommentBox();
-					});
-				},
-
-				// Loads comment related functionality
-				loadComment : function(id) {
-					$(".delete-" + id).click(function() {
-						$.post(CiiDashboard.endPoint + "/comment/delete/id/" + id, function() {
-							$(".comment-" + id).slideUp();
-							var count = (parseInt($(".post.active").find(".comments strong").text()) - 1);
-							$(".post.active").find(".comments strong").text(count);
-						});
-					});
-
-					$(".block-" + id).click(function() {
-						$.post(CiiDashboard.endPoint + "/comment/approve/id/" + id, function() {
-							$(".block-" + id).hide();
-							$(".approve-" + id).show();
-						});
-					});
-
-					$(".approve-" + id).click(function() {
-						$.post(CiiDashboard.endPoint + "/comment/approve/id/" + id, function() {
-							$(".approve-" + id).hide();
-							$(".block-" + id).show();
-						});
-					});
-
-
-				},
-
 			},
 
 			// Allows content to be deleted without page refresh

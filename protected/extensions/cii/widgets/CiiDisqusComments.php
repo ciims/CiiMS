@@ -50,7 +50,7 @@ class CiiDisqusComments extends CWidget
             disqus_url = endpoint  + \"{$this->content['slug']}\";
 
             // Update the comment div
-            $('#comment').addClass('disqus').append('<div id=\"disqus_thread\"></div>');
+            $('#comment').addClass('disqus')');
             $('.comment-count').addClass('registered').append('$link');
 
             // Load Disqus

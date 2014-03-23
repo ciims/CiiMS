@@ -368,116 +368,6 @@ main #comments {
 main #disqus_thread {
     padding: 10px;
 }
-
-main .comment-box-main {
-    height: 94%;
-    min-height: 94%;
-}
-
-main .comment-box-main .content {
-    height: 100%;
-    min-height: 100%;
-}
-main .comment-container .settings-row,
-main .comment-container .settings-row .comment-byline {
-    border-bottom: 1px solid #eee;
-    padding: 10px 20px;
-    color: #999;
-    font-size: 11px;
-    font-family: 'Open Sans';
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-main .comment-container .settings-row .user-avatar {
-    display: table-cell;
-    float: none;
-    min-width: 35px;
-    vertical-align: top;
-}
-
-main .comment-container .settings-row .main-comment {
-    display: table-cell;
-    float: none;
-}
-
-main .comment-container .settings-row .comment-byline {
-    border: none;
-    padding: 0px;
-    cursor : pointer;
-}
-
-main .comment-container .settings-row .user-info {
-    margin-left: 15px;
-}
-
-main .comment-container .settings-row .body {
-    text-transform: none;
-    font-weight: 400;
-    margin-left: 15px;
-    color: #2D2D2D;
-}
-
-
-/** Sharebox **/
-main .sharebox-submit  {
-    background:#9eca80;
-    border-radius:2px;
-    float:right;
-    margin-top: 5px;
-    color:#fff;
-    cursor:pointer;
-    text-align:center;
-    font-size:80%;
-    font-weight:bold;
-}
-
-main #sharebox, main [id*='sharebox-'] {
-    border:1px solid #ddd;
-    margin: 10px;
-}
-
-main [id*='sharebox-'] {
-    width: 81%;
-    float: left;
-}
-
-main #sharebox #a, [id*='sharebox-'] [id*='a-'] {
-    display:none;
-    padding: 10px;
-    color:#000;
-    position:relative;
-}
-
-main #sharebox #b, [id*='sharebox-'] [id*='b-'] {
-    padding:10px;
-    min-height:15px;
-    cursor:text;
-}
- 
-main #sharebox #close, #sharebox #textbox, [id*='sharebox-'] [id*='close-'], [id*='sharebox-'] [id*='textbox-'] {
-    float:left;
-}
-
-main #sharebox #textbox,[id*='sharebox-'] [id*='textbox-'] {
-    width:99%;
-    min-height:20px;
-    outline:none;
-    min-height:50px;
-}
-
-main #sharebox #close, [id*='sharebox-'] [id*='close-'] {
-    background: no-repeat url(../images/bg.png) -33px -31px;
-    height: 9px;
-    width: 9px;
-    cursor: pointer;
-    right: 11px;
-    margin: 1px;
-    position: absolute;
-    top: 11px;
-}
-
-
 main .content-container {
 	height: 100%;
 	min-height: 100%;
@@ -1553,8 +1443,13 @@ main .post-metadata-inner .row {
 	margin-left: 0px;
 }
 
-main .post-metadata-inner .row.comments {
+main .post-metadata-inner .row.comments,
+main .post-metadata-inner .row.comments a {
 	color: #A7CE44;
+}
+
+main .post-metadata-inner .row.comments span {
+	margin-top: 4px;
 }
 
 main .post-metadata-inner .comment-count-sp {
@@ -1723,6 +1618,7 @@ main .preview-container .content-sidebar {
 	height:90%;
 	min-height:90%;
 	background: #fff;
+	height: 10px;
     border: 1px solid #ebeff6;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;

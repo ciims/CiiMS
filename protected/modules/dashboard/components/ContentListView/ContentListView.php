@@ -6,6 +6,7 @@ class ContentListView extends CListView
 	public $afterAjaxUpdate;
 	public $ajaxUpdateError;
 	public $preview = NULL;
+	public $content = NULL;
 
 	/**
 	 * Registers necessary client scripts.
@@ -115,46 +116,10 @@ class ContentListView extends CListView
 					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 				echo CHtml::closeTag('div');
 
-				// Sharebox
-				echo CHtml::openTag('div', array('class' => 'comment-box-main nano', 'style' => 'display: none'));
-					echo CHtml::openTag('div', array('class' => 'content'));
+				Yii::app()->controller->widget('ext.cii.widgets.CiiCommentWidget');
 
-
-						if (Cii::getConfig('useDisqusComments'))
-						{
-							echo CHtml::tag('div', array('id' => 'disqus_thread'), NULL);
-						}
-						else
-						{
-							echo CHtml::openTag('div', array('id' => 'sharebox', 'class' => 'comment-box'));
-								echo CHtml::openTag('div', array('id' => 'a'));
-									echo CHtml::tag('div', array('id' => 'textbox', 'contenteditable' => 'true'), NULL);
-									echo CHtml::tag('div', array('id' => 'close'), NULL);
-									echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-								echo CHtml::closeTag('div');
-
-								echo CHtml::tag('div', array('id' => 'b'), NULL);
-								
-								echo CHtml::tag('button', array(
-									'id' => 'submit-comment',
-									'class' => 'btn btn-success sharebox-submit',
-								    ), Yii::t('DefaultTheme', 'Submit'));
-							echo CHtml::closeTag('div');
-						}
-						
-
-					echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-					
-					echo CHtml::tag('div', array('class' => 'comment-container'));
-					
-					echo CHtml::closeTag('div');
-				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
-
-		if (Cii::getConfig('useDisqusComments'))
-			echo CHtml::tag('span', array('id' => 'disqus_shortname', 'style' => 'display: none'), Cii::getConfig('disqus_shortname'));
-
 	}
 
 	// Disable pagination in favor of infinite scrolling

@@ -97,8 +97,13 @@ main .post-metadata-inner .row {
 	margin-left: 0px;
 }
 
-main .post-metadata-inner .row.comments {
+main .post-metadata-inner .row.comments,
+main .post-metadata-inner .row.comments a {
 	color: #A7CE44;
+}
+
+main .post-metadata-inner .row.comments span {
+	margin-top: 4px;
 }
 
 main .post-metadata-inner .comment-count-sp {
@@ -267,6 +272,7 @@ main .preview-container .content-sidebar {
 	height:90%;
 	min-height:90%;
 	background: #fff;
+	height: 10px;
     border: 1px solid #ebeff6;
     box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;
     -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 5px;

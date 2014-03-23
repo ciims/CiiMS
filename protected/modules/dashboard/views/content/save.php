@@ -124,6 +124,7 @@
 
 <?php $this->endWidget(); ?>
 
+<?php $asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG); ?>
 <?php echo CHtml::tag('input', array('type' => 'hidden', 'class' => 'preferMarkdown', 'value' => Cii::getConfig('preferMarkdown')), NULL); ?>
 <?php  Yii::app()->getClientScript()
 				 ->registerCssFile($this->asset.'/highlight.js/default.css')
@@ -134,7 +135,7 @@
 				 ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset .'/js/jquery.tags.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
-				 ->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
+				 ->registerScriptFile($asset.'/marked.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/dropzone/dropzone.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/jquery.flippy.min.js', CClientScript::POS_END)
 				 ->registerScriptFile($this->asset.'/js/jstz.min.js', CClientScript::POS_END)

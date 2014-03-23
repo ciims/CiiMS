@@ -15,7 +15,13 @@ class CiiComments extends CWidget
 	{
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG);
 		Yii::app()->clientScript->registerScriptFile($asset. '/ciimscomments.js');
+		Yii::app()->clientScript->registerScriptFile($asset. '/date.format/date.format.js');
+		Yii::app()->clientScript->registerScriptFile($asset. '/marked.js');
+		Yii::app()->clientScript->registerScriptFile($asset. '/md5.js');
 
+		$css = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.css'), true, -1, YII_DEBUG);
+		Yii::app()->clientScript->registerCssFile($css. '/ciimscomments.css');
+		
 		if ($this->content != false)
 			$this->renderCommentBox();
 		else
@@ -34,7 +40,6 @@ class CiiComments extends CWidget
 			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
 			// Update the comments div
-			$('#comment').append('<div id=\"ciims_comments\"></div>');
             $('.comment-count').attr('data-attr-id', '$id').addClass('registered').append('$link');
 
             // Load the comments
