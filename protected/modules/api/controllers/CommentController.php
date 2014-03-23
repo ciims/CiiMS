@@ -11,7 +11,7 @@ class CommentController extends ApiController
     {   
         return array(
             array('allow',
-                'actions' => array('index', 'countPost')
+                'actions' => array('comments', 'countPost')
             ),
         	array('allow',
         		'actions' => array('indexPost'),
@@ -32,8 +32,12 @@ class CommentController extends ApiController
      */
     public function beforeAction($action)
     {
-    	if (Cii::getConfig('useDisqusComments')=="1")
+    	if (Cii::getConfig('useDisqusComments'))
     		throw new CHttpException(403, Yii::t('Api.comment', 'The comment API is not available while Disqus comments are enabled.'));
+
+        if (Cii::getConfig('useDiscourceComments'))
+            throw new CHttpException(403, Yii::t('Api.comment', 'The comment API is not available while Discourse comments are enabled.'));
+
     	return parent::beforeAction($action);
     }
 
@@ -79,7 +83,18 @@ class CommentController extends ApiController
 
     	$response = array();
     	foreach ($comments as $comment)
-    		$response[] = $comment->getApiAttributes();
+        {
+            $data = $comment->getApiAttributes();
+            $user = $comment->author->getApiAttributes();
+            $data['user'] = array(
+                'email' => $user['email'],
+                'firstName' => $user['firstName'],
+                'lastName' => $user['lastName'],
+                'displayName' => $user['displayName'],
+            );
+            
+    		$response[] = $data;
+        }
 
     	return $response;
     }

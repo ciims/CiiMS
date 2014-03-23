@@ -232,10 +232,10 @@ class CiiController extends CController
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 
-            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DIRECTORY_SEPARATOR . Yii::app()->theme->name . '/Theme.php'))
+            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DIRECTORY_SEPARATOR . Yii::app()->theme->name .  DIRECTORY_SEPARATOR . 'Theme.php'))
             {
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
-                $data['theme'] = $this->params['theme'] = new Theme();
+                $data['theme'] = $this->params['theme'] = new Theme;
 	    	}
             
     		$output=$this->renderPartial($view,$data,true);
