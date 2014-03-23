@@ -24,12 +24,12 @@
 				<?php echo Yii::t('Dashboard.main', 'By {{user}}', array(
 					'{{user}}' => CHtml::link(CHtml::encode($model->author->displayName), Yii::app()->createUrl("/profile/{$model->author->id}/"))
 				)); ?>
-				<span class="separator">⋅</span> 
+				 &#183;
 			</span>
-			<span class="date"><?php echo Cii::timeAgo($model->published); ?>
-				<span class="separator">⋅</span> 
+			<span class="date"><?php echo Cii::timeago($model->published); ?>
+				 &#183;
 			</span>
-			<span class="separator">⋅</span>
+			 &#183;
 			<span class="minor-meta-wrap">
 				<span class="blog-categories minor-meta">
 					<?php echo Yii::t('Dashboard.main', 'In {{category}}', array(

@@ -38,8 +38,8 @@
 					->registerCssFile($this->asset.'/highlight.js/github.css')
 					->registerScriptFile($this->asset.'/js/marked.js', CClientScript::POS_END)
 					->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js', CClientScript::POS_END)
-                    ->registerScriptFile($this->asset.'/js/md5.js', CClientScript::POS_END); ?>
-
-<?php $this->widget('ext.timeago.JTimeAgo', array(
+                    ->registerScriptFile($this->asset.'/js/md5.js', CClientScript::POS_END);
+$this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',
 )); ?>
+

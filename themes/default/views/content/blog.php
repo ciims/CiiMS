@@ -9,7 +9,7 @@
 			<div class="post-header">
 				<h2><?php echo CHtml::link($content->title, Yii::app()->createUrl($content->slug)); ?></h2>
 				<span class="author">
-					<?php echo Yii::t('DefaultTheme.main', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> 
+					<?php echo Yii::t('DefaultTheme.main', 'By:') . ' ' . CHtml::link(CHtml::encode($content->author->displayName), $this->createUrl("/profile/{$content->author->id}/")); ?> &#183; <?php echo Cii::timeago($content->published); ?>
 					<span class="pull-right">
 						<?php echo CHtml::link(CHtml::encode($content->category->name), Yii::app()->createUrl($content->category->slug)); ?>
 					</span>
@@ -51,8 +51,4 @@
 				->registerCssFile($this->asset.'/highlight.js/github.css')
 				->registerScriptFile($this->asset.'/js/marked.js')
 				->registerScriptFile($this->asset.'/highlight.js/highlight.pack.js')
-				->registerScript('loadBlog', '$(document).ready(function() { Theme.loadBlog(' . $content->id . '); });');
-$this->widget('ext.timeago.JTimeAgo', array(
-    'selector' => ' .timeago',
-));
-?>
+				->registerScript('loadBlog', '$(document).ready(function() { Theme.loadBlog(' . $content->id . '); });'); ?>
