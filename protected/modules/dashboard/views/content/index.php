@@ -13,10 +13,10 @@
     'pagerCssClass' => 'pagination',
     'pager' => array('class'=>'cii.widgets.CiiPager'),
     'sorterCssClass' => 'sorter',
-    'beforeAjaxUpdate' => 'js:function() {
+    'beforeAjaxUpdate' => 'function() {
     	CiiDashboard.Content.Preview.beforeAjaxUpdate();
     }',
-    'afterAjaxUpdate' => 'js:function() { 
+    'afterAjaxUpdate' => 'function() { 
     	CiiDashboard.Content.Preview.afterAjaxUpdate();
 	}',
     'sortableAttributes' => array(
