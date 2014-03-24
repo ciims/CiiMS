@@ -15,6 +15,19 @@
 	padding-top: 5px;
 }
 
+.comment_messages {
+	height: 45px;
+	display:none;
+}
+
+.comment_messages .alert {
+	width: 94%;
+	float: left;
+	margin:0 auto;
+	text-align:center;
+	margin-bottom: 10px;
+}
+
 .comment .comment_person {
 	width: 40px;
 	padding: 5px;
@@ -22,6 +35,10 @@
 
 .comment .comment_person img {
 	border-radius: 2px;
+}
+
+.comment .comment_body {
+	width: 90%;
 }
 
 .comment .comment_body .comment_body_byline {

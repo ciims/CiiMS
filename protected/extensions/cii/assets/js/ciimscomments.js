@@ -17,7 +17,20 @@ var CiiMSComments = {
 		var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
 		// Update the DOM
-		$("#ciims_comments").html("<div class='comment_loader'></div><div class='new_comment'></div><div class='comments_container' style='display:none'></div>");
+		$("#ciims_comments").html("<div class='comment_loader'></div><div class='comment_messages'><div class='clearfix'></div></div><div class='new_comment'></div><div class='comments_container' style='display:none'></div>");
+
+		// Show the submission text box
+		var isAuthenticated = localStorage.getItem("isAuthenticated");
+
+		if (isAuthenticated == "true")
+		{
+
+		}
+		else
+		{
+			var link = $("<a>").attr("href", endpoint + "login?next=" + window.location.href.replace(endpoint, "")).addClass("alert alert-info").html("You must be logged in to post new comments");
+			$("#ciims_comments").find(".comment_messages").show().prepend($(link));
+		}
 
 		// Retrieve all the comments
 		$.get(endpoint + '/api/comment/comments/id/' + id, function(data) {
@@ -53,9 +66,9 @@ var CiiMSComments = {
 
 			// Show the contianer
 			$(".comments_container").show();
-
-			// Show the submission container
 		});
+
+		
 	},
 
 	/**

@@ -35,6 +35,26 @@ class CiiComments extends CWidget
 	{
 		$link = CHtml::link('0', Yii::app()->createAbsoluteUrl($this->content['slug']) . '#comments', array('data-ciimscomments-identifier' => $this->content['id']));
 		$id = $this->content['id'];
+
+		if (!Yii::app()->user->isGuest)
+		{
+			$email = Yii::app()->user->email;
+			$token = UserMetadata::model()->findByAttributes(array('key' => 'api_key', 'user_id' => Yii::app()->user->id))->value;
+			Yii::app()->clientScript->registerScript('api_info', "
+				localStorage.setItem('email', '$email');
+				localStorage.setItem('token', '$token');
+				localStorage.setItem('isAuthenticated', true);
+			");
+		}
+		else
+		{
+			Yii::app()->clientScript->registerScript('api_info', "
+				localStorage.setItem('email', null);
+				localStorage.setItem('token', null);
+				localStorage.setItem('isAuthenticated', false);
+			");
+		}
+
 		Yii::app()->clientScript->registerScript('CiiMSComments', "
 			// Load the Endpoint
 			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';

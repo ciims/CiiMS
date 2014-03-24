@@ -76,7 +76,7 @@ class CommentController extends ApiController
     	if ($id === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Missing id'));
 
-    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id));
+    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id), array('order' => 'created DESC'));
 
     	if ($comments === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Could not find comments for that content piece.'));
