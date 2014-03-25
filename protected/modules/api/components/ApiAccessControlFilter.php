@@ -72,7 +72,8 @@ class ApiAccessControlFilter extends CAccessControlFilter
      * @param string $message the error message to be displayed
      */
     protected function accessDenied($user,$message=NULL)
-    {
+    {  
+        http_response_code(403);
         Yii::app()->controller->renderOutput(array(), 403, $message);
     }
 }

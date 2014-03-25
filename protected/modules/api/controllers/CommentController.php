@@ -8,7 +8,7 @@ class CommentController extends ApiController
      * @return array access control rules
      */
     public function accessRules()
-    {   
+    {
         return array(
             array('allow',
                 'actions' => array('comments', 'countPost')
@@ -21,8 +21,8 @@ class CommentController extends ApiController
                 'actions' => array('indexDelete'),
                 'expression' => '$user!=NULL&&($user->isSiteManager()||$user->isAdmin())'
             ),
-            array('deny') 
-        );  
+            array('deny')
+        );
     }
 
     /**
@@ -61,7 +61,7 @@ class CommentController extends ApiController
 
         foreach ($results as $result)
             $response[$result->content_id] = $result->count;
-        
+
         return $response;
     }
 
@@ -86,20 +86,11 @@ class CommentController extends ApiController
         {
             $data = $comment->getApiAttributes();
 
-            // If the user's comments have been banned due to their reputation falling too low
-            if (isset($data['banned_comment']))
-            {
-                // If the user isn't logged in, hide the bnaned comment
+            // Only show shadowbanned comments to the logged in user or to the admin/mod -- otherwise hide them
+            if (Cii::get($data, 'banned_comment', false) == true)
                 if ($this->user == NULL || (int)$this->user->id != (int)$data['user_id'])
-                {
                     if ($this->user == NULL || (!$this->user->isAdmin() && !$this->user->isModerator()))
-                    {
-                        $data['comment'] = $data['banned_comment'];
-                        unset($data['banned_comment']);
-                    }
-                    
-                }
-            }
+                        continue;
 
     		$response[] = $data;
         }
@@ -178,13 +169,6 @@ class CommentController extends ApiController
     {
     	$model = $this->getCommentModel($id);
 
-    	// Make sure the user has permission to edit this comment
-    	if ($this->user->user_role != 6 && $this->user->user_role != 9)
-    	{
-    		if ($model->user_id != $this->user->id)
-    			throw new CHttpException(403, Yii::t('Api.comment', 'You do not have permission to edit this comment'));
-    	}
-
     	return $model->delete();
     }
 
@@ -196,6 +180,16 @@ class CommentController extends ApiController
      */
     public function actionFlagPost($id=NULL)
     {
+        // Retrieve comments that have been flagged by this user
+        $flaggedComments = $this->user->getFlaggedComments();
+
+        // If the comment has already been flagged, return true
+        if (in_array($id, $flaggedComments))
+		{
+			$this->message = Yii::t('Api.comment', 'Comment has already been flagged by user.');
+            return true;
+		}
+
     	$model = $this->getCommentModel($id);
         $flagee = Users::model()->findByPk($model->user_id);
 
@@ -203,13 +197,16 @@ class CommentController extends ApiController
     	$flagee->setReputation(-5);
         $this->user->setReputation(-3);
 
-    	return $this->returnError(400, NULL, $model->getErrors());
+        // Indicate that the user has flagged this item before to prevent abuse
+        $this->user->flagComment($id);
+
+    	return true;
     }
 
     /**
      * Retrieves the Comment model
      * @param  int    $id The comment model
-     * @return Comment 
+     * @return Comment
      */
     private function getCommentModel($id=NULL)
     {

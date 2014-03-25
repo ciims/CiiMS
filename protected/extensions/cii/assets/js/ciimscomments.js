@@ -70,27 +70,10 @@ var CiiMSComments = {
 
 				// Iterate through the objects to add them to the dom
 				$.each(data.response, function() {
-					// Clone the template
-					var html = $(".comment.template").clone();
-
-					// Get the gravatar URL and append it
-					var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(this.user.email) + "?s=30"});
-					$(html).removeClass("template").find(".comment_person").append($(gravatar));
-
-					// Append the byline
-					var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + this.user_id + "'>" + this.user.displayName+ "</a></span>");
-					var date = new Date(this.created * 1000);
-					var mydate = date.format('c');
-					var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
-					$(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(timeAgo));
-
-					// Append the comment
-					$(html).find(".comment_body_inner").html(marked(this.comment));
-
-					// Add the comment to the DOM
-					$(".comments_container").append(html);
+                    CiiMSComments.behaviors.showComment(this);
 				});
 
+                CiiMSComments.behaviors.bindMod();
 				// Timeago
 				$(".timeago").timeago();
 
@@ -144,6 +127,115 @@ var CiiMSComments = {
 
 	behaviors : {
 
+        /**
+         * Shows a comment with a response
+         * @return void
+         */
+        showComment : function(response) {
+            var userRole = localStorage.getItem("userRole");
+            var isAuthenticated = localStorage.getItem("isAuthenticated");
+
+            var html = $(".comment.template").clone();
+
+            // Get the gravatar URL and append it
+            var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(response.user.email) + "?s=30"});
+            $(html).removeClass("template").find(".comment_person").append($(gravatar));
+
+            // Append the byline
+            var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + response.user_id + "'>" + response.user.displayName+ "</a></span>");
+            var date = new Date(response.created * 1000);
+            var mydate = date.format('c');
+            var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
+
+            // Flag/Delete functionality
+            var modContainer = $("<div>").addClass("mod_container pull-right");
+            var flagBtn = $("<a>").addClass("flag_comment fa fa-flag").attr("href", "#").attr("data-attr-id", response.id);
+            var deleteBtn = $("<a>").addClass("delete_comment fa fa-times").attr("href", "#").attr("data-attr-id", response.id);
+        
+            // If the user is an admin or mod Show some extra details
+            if (userRole == 7||userRole == 9)
+            {
+                // Indicate hellbanned comments to admins
+                if (response.banned_comment == true)
+                {
+                    var banned = $("<span>").addClass("orange").text("shadowbanned");
+                    $(modContainer).append($(banned)).append(" &#183; ");
+                }
+                $(modContainer).append($(flagBtn)).append(" &#183; ").append($(deleteBtn));
+            }
+            else if (isAuthenticated == "true")
+                $(modContainer).append($(flagBtn));
+            else
+                $(modContainer);
+
+            $(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(timeAgo)).append($(modContainer));
+
+            // Append the comment
+            $(html).find(".comment_body_inner").html(marked(response.comment));
+
+            // Add the comment to the DOM
+            $(".comments_container").append(html);
+        },
+
+        bindMod : function() {
+            // Bind flagging behavior
+            $(".flag_comment").click(function(e) {
+                e.preventDefault();
+                var id = $(this).attr("data-attr-id");
+                var self = $(this);
+                $.ajax({
+                    url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/flag/id/" + id,
+                    type : 'post',
+                    headers : {
+                        "X-Auth-Email" : localStorage.getItem("email"),
+                        "X-Auth-Token" : localStorage.getItem("token")
+                    },
+                    dataType : 'json',
+                    beforeSend : function() {
+                        $(self).addClass("orange");
+                    },
+                    error : function () {
+                        setTimeout(function() { $(self).removeClass("orange"); }, 1000);
+                    }
+                });
+
+                // Return false to prevent binding
+                return false;
+            });
+        
+            // Bind delete behavior
+            $(".delete_comment").click(function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr("data-attr-id");
+                var self = $(this);
+                $.ajax({
+                    url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/index/id/" + id,
+                    type : 'delete',
+                    headers : {
+                        "X-Auth-Email" : localStorage.getItem("email"),
+                        "X-Auth-Token" : localStorage.getItem("token")
+                    },
+                    dataType : 'json',
+                    beforeSend : function() {
+                        $(self).addClass("orange");
+                    },
+                    error : function () {
+                        setTimeout(function() { $(self).removeClass("orange"); }, 1000);
+                    },
+                    success : function() {
+                        var par = $(self).parent().parent().parent().parent().fadeOut().remove();
+                    }
+                });
+                // Return false to prevent link click
+                return false;
+            });
+        },
+
+        /**
+         * Binds the new comment box to the DOM
+         * @return void
+         */
 		bind : function() {
 
 			// On the Focu event
@@ -209,25 +301,10 @@ var CiiMSComments = {
 					    },
 					    success : function (data) {
 
-					    	var response = data.response;
-					    	var html = $(".comment.template").clone();
+                            // Show the comment
+                            CiiMSComments.behaviors.showComment(data.response);
+                            CiiMSComments.behaviors.bindMod();
 
-							// Get the gravatar URL and append it
-							var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(response.user.email) + "?s=30"});
-							$(html).removeClass("template").find(".comment_person").append($(gravatar));
-
-							// Append the byline
-							var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + response.user_id + "'>" + response.user.displayName+ "</a></span>");
-							var date = new Date(response.created * 1000);
-							var mydate = date.format('c');
-							var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
-							$(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(timeAgo));
-
-							// Append the comment
-							$(html).find(".comment_body_inner").html(marked(response.comment));
-
-							// Add the comment to the DOM
-							$(".comments_container").prepend(html);
 							$(".timeago").timeago();
 
 					    	// Close the comment box
@@ -239,12 +316,7 @@ var CiiMSComments = {
 
 				});
 			});
-
-			
-
-
 		}
-
 	}
 };
 

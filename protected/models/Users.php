@@ -52,12 +52,12 @@ class Users extends CiiModel
 
 	/**
 	 * @return array primary key of the table
-	 **/	 
+	 **/
 	public function primaryKey()
 	{
 		return array('id');
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -120,12 +120,12 @@ class Users extends CiiModel
     {
         return $this->firstName . ' ' . $this->lastName;
     }
-    
+
     /**
      * Retrieves the reputation for a given user
      * @return int
      */
-    public function getReputation()
+    public function getReputation($model=false)
     {
     	$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
 
@@ -138,27 +138,75 @@ class Users extends CiiModel
     			'value' => 150
     		);
 
-    		if ($reputation->save())
-    			return 0;
-    		return 0;
+            $reputation->save();
+    		if ($model == true)
+                return $reputation;
+            return 0;
     	}
+
+        if ($model)
+            return $reputation;
 
     	return $reputation->value;
     }
 
     /**
      * Updates a user's reputation
+     * @return boolean
      */
     public function setReputation($rep = 10)
     {
-    	// Retrieve the reputation
-    	$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
-
-    	// Set the new reputation
-    	$reputation->value = $reputation->value + $rep;
-
-    	// Save the reputation
+        $reputation = $this->getReputation(true);
+    	$reputation->value += $rep;
     	return $reputation->save();
+    }
+
+    /**
+     * Retrieves all comments that the user has flagged
+     * @return array
+     */
+    public function getFlaggedComments($model=false)
+    {
+        $flags = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'flaggedComments'));
+
+        if ($flags === NULL)
+        {
+            $flags = new UserMetadata;
+            $flags->attributes = array(
+                'user_id' => $this->id,
+                'key' => 'flaggedComments',
+                'value' => CJSON::encode(array())
+            );
+
+            $flags->save();
+
+            if ($model == true)
+                return $flags;
+            return array();
+        }
+
+        if ($model == true)
+            return $flags;
+        return CJSON::decode($flags->value);
+    }
+
+    /**
+     * Flags a comment with a given ID
+     * @return boolean
+     */
+    public function flagComment($id)
+    {
+        $flaggedComments = $this->getFlaggedComments(true);
+        $flags = CJSON::decode($flaggedComments->value);
+
+        // If the comment has already been flagged, just return true
+        if (in_array($id, $flags))
+            return true;
+
+        $flags[] = $id;
+        $flaggedComments->value = CJSON::encode($flags);
+
+        return $flaggedComments->save();
     }
 
 	/**
@@ -182,7 +230,7 @@ class Users extends CiiModel
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->addCondition('status != ' . self::PENDING_INVITATION);
 		$criteria->order = "user_role DESC, created DESC";
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
             'pagination' => array(
@@ -190,7 +238,7 @@ class Users extends CiiModel
             )
 		));
 	}
-	
+
 	/**
 	 * Sets some default values for the user record.
 	 * TODO: This should have been moved to CiiModel
@@ -211,7 +259,7 @@ class Users extends CiiModel
      *
      * The intention behind this is to protect the user from changes to their account, either by an administrator or a malicious user.
      * This doesn't protect from database attacks, it only protects from malicious attacks from within CiiMS.
-     * 
+     *
      * @return parent::afterSave();
      */
     public function beforeSave()
@@ -284,7 +332,7 @@ class Users extends CiiModel
 	 */
 	public function encryptHash($email, $password, $_dbsalt)
 	{
-		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 64);	
+		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 64);
 	}
 
 	/**
@@ -302,7 +350,7 @@ class Users extends CiiModel
 
 	/**
      * Returns true if a user is a regular user
-     * @return boolean 
+     * @return boolean
      */
     public function isUser()
     {
@@ -311,7 +359,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a pending user
-     * @return boolean 
+     * @return boolean
      */
     public function isPending()
     {
@@ -320,7 +368,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is suspended
-     * @return boolean 
+     * @return boolean
      */
     public function isSuspended()
     {
@@ -329,7 +377,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a moderator
-     * @return boolean 
+     * @return boolean
      */
     public function isModerator()
     {
@@ -338,7 +386,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a Collaborator
-     * @return boolean 
+     * @return boolean
      */
     public function isCollaborator()
     {
@@ -347,7 +395,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a site manager
-     * @return boolean 
+     * @return boolean
      */
     public function isSiteManager()
     {
@@ -356,7 +404,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a editor
-     * @return boolean 
+     * @return boolean
      */
     public function isEditor()
     {
@@ -365,7 +413,7 @@ class Users extends CiiModel
 
     /**
      * Returns true if a user is a publisher
-     * @return boolean 
+     * @return boolean
      */
     public function isPublisher()
     {
@@ -374,7 +422,7 @@ class Users extends CiiModel
 
     /**
      * Returns true of a user is a admin
-     * @return boolean 
+     * @return boolean
      */
     public function isAdmin()
     {

@@ -139,10 +139,8 @@ class Comments extends CiiModel
 
         // If this user cannot comment without approval
         if (!$user->canCommentWithoutApproval())
-        {
         	if ($user->isSuspended() || $user->getReputation() < 100)
-        		$data['banned_comment'] = Yii::t('Api.comment', 'Comments belonging to this user can no longer be seen.');
-        }
+        		$data['banned_comment'] = true;
 
         return $data;
 	}

@@ -11,6 +11,15 @@
 	padding-top: 0px;
 }
 
+.mod_container .fa {
+	transition: all 0.5s ease-in-out;
+}
+
+.mod_container .orange {
+    color: #f67d42;
+	transition: all 0.5s ease-in-out;
+}
+
 .comment.template {
 	display: none;
 }
@@ -43,7 +52,7 @@
 }
 
 .comment .comment_body {
-	width: 90%;
+	width: 89%;
 }
 
 .comment .comment_body .comment_body_byline {
