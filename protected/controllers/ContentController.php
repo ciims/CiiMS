@@ -134,8 +134,7 @@ class ContentController extends CiiSiteController
 		$this->render($content->view, array(
 				'id'=>$content->id, 
 				'data'=>$content, 
-				'meta'=>$content->parseMeta($content->metadata),
-				'comments'=> Cii::getConfig('useDisqusComments') ? NULL : Comments::model()->countByAttributes(array('content_id' => $content->id, 'approved' => 1)),
+				'meta'=>$content->parseMeta($content->metadata)
 			)
 		);
 	}

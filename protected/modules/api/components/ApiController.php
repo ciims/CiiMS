@@ -73,22 +73,22 @@ class ApiController extends CiiController
     	{
     		// If a user exists with that email address 
     		$user = Users::model()->findByAttributes(array('email' => $this->xauthemail));
-    		if ($user == NULL)
-    			break;
+    		if ($user != NULL)
+    		{
+        		if ($user->status!=Users::ACTIVE)
+        			throw new CHttpException(403, Yii::t('Api.main', 'Only active users can access the API.'));
 
-    		if ($user->status!=Users::ACTIVE)
-    			throw new CHttpException(403, Yii::t('Api.main', 'Only active users can access the API.'));
+        		$q = new CDbCriteria();
+    			$q->addCondition('t.key LIKE :key');
+    			$q->addCondition('value = :value');
+    			$q->addCondition('user_id = :user_id');
+    			$q->params = array(':user_id' => $user->id, ':value' => $this->xauthtoken, ':key' => 'api_key%');
+        		$meta = UserMetadata::model()->find($q);
 
-    		$q = new CDbCriteria();
-			$q->addCondition('t.key LIKE :key');
-			$q->addCondition('value = :value');
-			$q->addCondition('user_id = :user_id');
-			$q->params = array(':user_id' => $user->id, ':value' => $this->xauthtoken, ':key' => 'api_key%');
-    		$meta = UserMetadata::model()->find($q);
-
-    		// And they have an active XAuthToken, set $this->user = the User object
-    		if ($meta != NULL)
-    			$this->user = $user;
+        		// And they have an active XAuthToken, set $this->user = the User object
+        		if ($meta != NULL)
+        			$this->user = $user;
+            }
     	}  	
 
         $filter=new ApiAccessControlFilter;

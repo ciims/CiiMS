@@ -76,14 +76,33 @@ class CommentController extends ApiController
     	if ($id === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Missing id'));
 
-    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id, 'approved' => 1), array('order' => 'created DESC'));
+    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id), array('order' => 'created DESC'));
 
     	if ($comments === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Could not find comments for that content piece.'));
 
     	$response = array();
     	foreach ($comments as $comment)
-    		$response[] = $comment->getApiAttributes();
+        {
+            $data = $comment->getApiAttributes();
+
+            // If the user's comments have been banned due to their reputation falling too low
+            if (isset($data['banned_comment']))
+            {
+                // If the user isn't logged in, hide the bnaned comment
+                if ($this->user == NULL || (int)$this->user->id != (int)$data['user_id'])
+                {
+                    if ($this->user == NULL || (!$this->user->isAdmin() && !$this->user->isModerator()))
+                    {
+                        $data['comment'] = $data['banned_comment'];
+                        unset($data['banned_comment']);
+                    }
+                    
+                }
+            }
+
+    		$response[] = $data;
+        }
 
     	return $response;
     }

@@ -54,40 +54,50 @@ var CiiMSComments = {
 		}
 
 		// Retrieve all the comments
-		$.get(endpoint + '/api/comment/comments/id/' + id, function(data) {
-			// Create and append the template
-			var template = '<div class="comment template"><div class="pull-left comment_person"></div><div class="pull-left comment_body"><div class="comment_body_byline"></div><div class="comment_body_inner"></div></div><div class="clearfix"></div></div>';
-			$(".comments_container").append(template);
+		
+		$.ajax({
+		    url : endpoint + 'api/comment/comments/id/' + id,
+		    type : 'get',
+		    headers : {
+		        "X-Auth-Email" : localStorage.getItem("email"),
+		        "X-Auth-Token" : localStorage.getItem("token")
+		    },
+		    dataType : 'json',
+		    success : function(data) {
+				// Create and append the template
+				var template = '<div class="comment template"><div class="pull-left comment_person"></div><div class="pull-left comment_body"><div class="comment_body_byline"></div><div class="comment_body_inner"></div></div><div class="clearfix"></div></div>';
+				$(".comments_container").append(template);
 
-			// Iterate through the objects to add them to the dom
-			$.each(data.response, function() {
-				// Clone the template
-				var html = $(".comment.template").clone();
+				// Iterate through the objects to add them to the dom
+				$.each(data.response, function() {
+					// Clone the template
+					var html = $(".comment.template").clone();
 
-				// Get the gravatar URL and append it
-				var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(this.user.email) + "?s=30"});
-				$(html).removeClass("template").find(".comment_person").append($(gravatar));
+					// Get the gravatar URL and append it
+					var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(this.user.email) + "?s=30"});
+					$(html).removeClass("template").find(".comment_person").append($(gravatar));
 
-				// Append the byline
-				var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + this.user_id + "'>" + this.user.displayName+ "</a></span>");
-				var date = new Date(this.created * 1000);
-				var mydate = date.format('c');
-				var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
-				$(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(timeAgo));
+					// Append the byline
+					var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + this.user_id + "'>" + this.user.displayName+ "</a></span>");
+					var date = new Date(this.created * 1000);
+					var mydate = date.format('c');
+					var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
+					$(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(timeAgo));
 
-				// Append the comment
-				$(html).find(".comment_body_inner").html(marked(this.comment));
+					// Append the comment
+					$(html).find(".comment_body_inner").html(marked(this.comment));
 
-				// Add the comment to the DOM
-				$(".comments_container").append(html);
-			});
+					// Add the comment to the DOM
+					$(".comments_container").append(html);
+				});
 
-			// Timeago
-			$(".timeago").timeago();
+				// Timeago
+				$(".timeago").timeago();
 
-			// Show the contianer
-			$(".comments_container").show();
-			$(".comment_loader").fadeOut();
+				// Show the contianer
+				$(".comments_container").show();
+				$(".comment_loader").fadeOut();
+			}
 		});		
 	},
 
