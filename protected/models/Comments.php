@@ -123,6 +123,24 @@ class Comments extends CiiModel
 	}
 	
 	/**
+	 * Returns the API attributes for the model
+	 * @return array
+	 */
+	public function getApiAttributes($params = array())
+	{
+		$data = parent::getApiAttributes($params);
+        $user = Users::model()->findByPk($this->user_id)->getApiAttributes();
+        $data['user'] = array(
+            'email' => $user['email'],
+            'firstName' => $user['firstName'],
+            'lastName' => $user['lastName'],
+            'displayName' => $user['displayName'],
+        );
+
+        return $data;
+	}
+
+	/**
 	 * Set the created and updated records
 	 */
 	public function beforeSave() 
@@ -132,32 +150,7 @@ class Comments extends CiiModel
 		else 
 			return false;
 	}
-    
-    /**
-     * After Save, incriments the comment count of the parent content
-     * @return  bool
-     */
-    public function afterSave()
-    {
-        $content = Content::model()->findByPk($this->content_id);
-        if ($content === NULL)
-            return true;
-        
-        if (!$this->isNewRecord)
-        	return true;
-        
-        $content->comment_count = $content->getCommentCount();
-        $content->save();
 
-	    $user = Users::model()->findByPk(Yii::app()->user->id);
-		
-		// Send an email to the author if someone makes a comment on their blog
-		if ($content->author->id != Yii::app()->user->id && Cii::getConfig('notifyAuthorOnComment', 0) == 1)
-			Yii::app()->controller->sendEmail($user, Yii::t('ciims.email', 'New Comment Posted On {{title}}', array('{{title}}' => $content->title)), '//email/comment', array('content'=>$content, 'comment'=>$this));
-
-        return parent::afterSave();
-    }
-    
     /**
      * After Delete method, decriments the comment count of the parent content
      * @return  bool

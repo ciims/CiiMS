@@ -76,25 +76,14 @@ class CommentController extends ApiController
     	if ($id === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Missing id'));
 
-    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id), array('order' => 'created DESC'));
+    	$comments = Comments::model()->findAllByAttributes(array('content_id' => $id, 'approved' => 1), array('order' => 'created DESC'));
 
     	if ($comments === NULL)
     		throw new CHttpException(400, Yii::t('Api.comment', 'Could not find comments for that content piece.'));
 
     	$response = array();
     	foreach ($comments as $comment)
-        {
-            $data = $comment->getApiAttributes();
-            $user = $comment->author->getApiAttributes();
-            $data['user'] = array(
-                'email' => $user['email'],
-                'firstName' => $user['firstName'],
-                'lastName' => $user['lastName'],
-                'displayName' => $user['displayName'],
-            );
-            
-    		$response[] = $data;
-        }
+    		$response[] = $comment->getApiAttributes();
 
     	return $response;
     }
@@ -125,8 +114,11 @@ class CommentController extends ApiController
     	$model->attributes = $_POST;
 
     	$model->approved = Cii::getConfig('autoApproveComments', 0);
+        $model->user_id = $this->user->id;
+        $model->parent_id = 0;
+
     	if ($model->save())
-    		return $model->getApiAttributes();
+            return $model->getApiAttributes();
 
     	return $this->returnError(400, NULL, $model->getErrors());
     }
@@ -148,9 +140,11 @@ class CommentController extends ApiController
     	}
 
     	$model->attributes = $_POST;
+        $model->user_id = $this->user->id;
+        $model->parent_id = 0;
 
     	if ($model->save())
-    		return $model->getApiAttributes();
+            return $model->getApiAttributes();
 
     	return $this->returnError(400, NULL, $model->getErrors());
     }

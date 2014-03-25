@@ -24,8 +24,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $autoApproveComments = 1;
 
-	protected $notifyAuthorOnComment = 1;
-
 	protected $useDisqusComments = 0;
 
 	protected $disqus_shortname = NULL;

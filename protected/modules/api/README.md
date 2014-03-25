@@ -422,9 +422,6 @@ Deletes <tag> for the given entry
 ## Comment [/comment]
 The Comment API allows users to post and edit comments created by them, and for administrators to manage comments for their instance. The Comment API will be disabled if the site administrator has enabled Disqus comments for their site.
 
-### [/comment/comments/]
-Allows the creation of new comments
-
 #### [POST]
 
 ##### Example Request
