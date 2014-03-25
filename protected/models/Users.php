@@ -121,6 +121,46 @@ class Users extends CiiModel
         return $this->firstName . ' ' . $this->lastName;
     }
     
+    /**
+     * Retrieves the reputation for a given user
+     * @return int
+     */
+    public function getReputation()
+    {
+    	$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
+
+    	if ($reputation === NULL)
+    	{
+    		$reputation = new UserMetadata;
+    		$reputation->attributes = array(
+    			'user_id' => $this->id,
+    			'key' => 'reputation',
+    			'value' => 150
+    		);
+
+    		if ($reputation->save())
+    			return 0;
+    		return 0;
+    	}
+
+    	return $reputation->value;
+    }
+
+    /**
+     * Updates a user's reputation
+     */
+    public function setReputation($rep = 10)
+    {
+    	// Retrieve the reputation
+    	$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
+
+    	// Set the new reputation
+    	$reputation->value = $reputation->value + $rep;
+
+    	// Save the reputation
+    	return $reputation->save();
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -259,4 +299,94 @@ class Users extends CiiModel
 	{
 		return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->email))).'?s='.$size;
 	}
+
+	/**
+     * Returns true if a user is a regular user
+     * @return boolean 
+     */
+    public function isUser()
+    {
+    	return $this->role->id == 1;
+    }
+
+    /**
+     * Returns true if a user is a pending user
+     * @return boolean 
+     */
+    public function isPending()
+    {
+    	return $this->role->id == 2;
+    }
+
+    /**
+     * Returns true if a user is suspended
+     * @return boolean 
+     */
+    public function isSuspended()
+    {
+    	return $this->role->id == 3;
+    }
+
+    /**
+     * Returns true if a user is a moderator
+     * @return boolean 
+     */
+    public function isModerator()
+    {
+    	return $this->role->id == 4;
+    }
+
+    /**
+     * Returns true if a user is a Collaborator
+     * @return boolean 
+     */
+    public function isCollaborator()
+    {
+    	return $this->role->id == 5;
+    }
+
+    /**
+     * Returns true if a user is a site manager
+     * @return boolean 
+     */
+    public function isSiteManager()
+    {
+    	return $this->role->id == 6;
+    }
+
+    /**
+     * Returns true if a user is a editor
+     * @return boolean 
+     */
+    public function isEditor()
+    {
+    	return $this->role->id == 7;
+    }
+
+    /**
+     * Returns true if a user is a publisher
+     * @return boolean 
+     */
+    public function isPublisher()
+    {
+    	return $this->role->id == 8;
+    }
+
+    /**
+     * Returns true of a user is a admin
+     * @return boolean 
+     */
+    public function isAdmin()
+    {
+    	return $this->role->id == 9;
+    }
+
+    /**
+     * Determines if a user can comment without approval
+     * @return boolean
+     */
+    public function canCommentWithoutApproval()
+    {
+    	return $this->isAdmin() || $this->isModerator() || $this->isSiteManager();
+    }
 }

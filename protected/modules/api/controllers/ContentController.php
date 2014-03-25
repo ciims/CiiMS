@@ -10,7 +10,7 @@ class ContentController extends ApiController
             ),
             array('allow', 
                 'actions' => array('indexPost', 'indexDelete', 'tagPost', 'tagDelete', 'drafts', 'my', 'myDrafts'),
-                'expression' => '$user!=NULL'
+                'expression' => '$user!=NULL&&'
             ),
             array('deny')
         );
@@ -75,7 +75,7 @@ class ContentController extends ApiController
     {
         $model = $this->getModel($id);
 
-        if (!($this->user->id == $model->author->id || $this->user->role >= 7))
+        if (!($this->user->id == $model->author->id || $this->user->isEditor()))
             throw new CHttpException(403, Yii::t('Api.content', 'You do not have permission to modify tags.'));
 
         if ($model->addTag(Cii::get($_POST, 'tag')))
@@ -92,7 +92,7 @@ class ContentController extends ApiController
     public function actionTagDelete($id=NULL, $tag=NULL)
     {
         $model = $this->getModel($id);
-        if (!($this->user->id == $model->author->id || $this->user->role >= 7))
+        if (!($this->user->id == $model->author->id || $this->user->isEditor()))
             throw new CHttpException(403, Yii::t('Api.content', 'You do not have permission to modify tags.'));
 
         if ($model->removeTag(Cii::get($_POST, 'tag')))

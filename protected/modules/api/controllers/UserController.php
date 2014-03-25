@@ -19,7 +19,7 @@ class UserController extends ApiController
         	),
             array('allow',
                 'actions' => array('index', 'indexPost'),
-                'expression' => '$user!=NULL&&(($user->user_role==6||$user->user_role==9)||(Yii::app()->request->getParam("id")==$user->id))'
+                'expression' => '$user!=NULL&&($user->isSiteManager()||$user->isAdmin()||||(Yii::app()->request->getParam("id")==$user->id))'
             ),
             array('deny') 
         );  

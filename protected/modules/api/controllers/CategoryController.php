@@ -16,7 +16,7 @@ class CategoryController extends ApiController
             ),
             array('allow',
                 'actions' => array('indexPost', 'indexDelete'),
-                'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
+                'expression' => '$user!=NULL&&($user->isSiteManager()||$user->isAdmin())'
             ),
             array('deny') 
         );  

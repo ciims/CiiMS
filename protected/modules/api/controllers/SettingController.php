@@ -13,7 +13,7 @@ class SettingController extends ApiController
     {   
         return array(
             array('allow',
-                'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
+               'expression' => '$user!=NULL&&($user->isSiteManager()||$user->isAdmin())'
             ),
             array('deny') 
         );  

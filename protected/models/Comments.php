@@ -7,9 +7,7 @@
  * @property integer $id
  * @property integer $content_id
  * @property integer $user_id
- * @property integer $parent_id
  * @property string $comment
- * @property integer $approved
  * @property string $created
  * @property string $updated
  *
@@ -26,6 +24,12 @@ class Comments extends CiiModel
 	 * @var int
 	 */
 	public $count = 0;
+
+	/**
+	 * AfterSave IsNewRecord
+	 * @var boolean
+	 */
+	private $_isNewRecord = false;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -61,10 +65,10 @@ class Comments extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content_id, user_id, parent_id, comment, approved', 'required'),
-			array('content_id, user_id, parent_id, approved', 'numerical', 'integerOnly'=>true),
+			array('content_id, user_id, comment', 'required'),
+			array('content_id, user_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
-			array('id, content_id, user_id, parent_id, comment, approved, created, updated', 'safe', 'on'=>'search'),
+			array('id, content_id, user_id, comment, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,7 +81,6 @@ class Comments extends CiiModel
 		// class name for the relations automatically generated below.
 		return array(
 			'metadata' => array(self::HAS_MANY, 'CommentMetadata', 'comment_id'),
-			'parent' => array(self::BELONGS_TO, 'Comments', 'parent_id'),
 			'content' => array(self::BELONGS_TO, 'Content', 'content_id'),
 			'author' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
@@ -92,9 +95,7 @@ class Comments extends CiiModel
 			'id'		 => Yii::t('ciims.models.Comments', 'ID'),
 			'content_id' => Yii::t('ciims.models.Comments', 'Content'),
 			'user_id' 	 => Yii::t('ciims.models.Comments', 'User'),
-			'parent_id'  => Yii::t('ciims.models.Comments', 'Parent'),
 			'comment' 	 => Yii::t('ciims.models.Comments', 'Comment'),
-			'approved' 	 => Yii::t('ciims.models.Comments', 'Approved'),
 			'created' 	 => Yii::t('ciims.models.Comments', 'Created'),
 			'updated' 	 => Yii::t('ciims.models.Comments', 'Updated'),
 		);
@@ -111,9 +112,7 @@ class Comments extends CiiModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('content_id',$this->content_id);
 		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('parent_id',$this->parent_id);
 		$criteria->compare('comment',$this->comment,true);
-		$criteria->compare('approved',$this->approved);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 
@@ -129,41 +128,52 @@ class Comments extends CiiModel
 	public function getApiAttributes($params = array())
 	{
 		$data = parent::getApiAttributes($params);
-        $user = Users::model()->findByPk($this->user_id)->getApiAttributes();
+        $user = Users::model()->findByPk($this->user_id);
+        $attributes = $user->getApiAttributes();
         $data['user'] = array(
-            'email' => $user['email'],
-            'firstName' => $user['firstName'],
-            'lastName' => $user['lastName'],
-            'displayName' => $user['displayName'],
+            'email' => $attributes['email'],
+            'firstName' => $attributes['firstName'],
+            'lastName' => $attributes['lastName'],
+            'displayName' => $attributes['displayName'],
         );
+
+        // If this user cannot comment without approval
+        if (!$user->canCommentWithoutApproval())
+        {
+        	if ($user->isSuspended() || $user->getReputation() < 100)
+        		$data['comment'] = Yii::t('Api.comment', 'Comments belonging to this user can no longer be seen.');
+        }
 
         return $data;
 	}
 
 	/**
 	 * Set the created and updated records
+	 * @see CiiModel::beforeSave();
 	 */
 	public function beforeSave() 
 	{	 
+		if ($this->isNewRecord)
+			$this->_isNewRecord = true;
+
 	 	if (Content::model()->findByPk($this->content_id)->commentable)
 	    	return parent::beforeSave();
 		else 
 			return false;
 	}
 
-    /**
-     * After Delete method, decriments the comment count of the parent content
-     * @return  bool
-     */
-    public function afterDelete()
-    {
-        $content = Content::model()->findByPk($this->content_id);
-        if ($content === NULL)
-            return true;
-        
-        $content->comment_count = $content->comment_count = max($content->comment_count - 1, 0);
-        
-        $content->save();
-        return parent::afterDelete();
-    }
+	/**
+	 * After a new comment is posted, set the reputation += 10
+	 * @see parent::afterSave();
+	 */
+	public function afterSave()
+	{
+		if ($this->_isNewRecord)
+		{
+			$user = Users::model()->findByPk($this->user_id);
+			$user->setReputation(10);
+		}
+
+		return parent::afterSave();
+	}
 }

@@ -22,8 +22,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $contentPaginationSize = 10;
 
-	protected $autoApproveComments = 1;
-
 	protected $useDisqusComments = 0;
 
 	protected $disqus_shortname = NULL;
@@ -54,7 +52,6 @@ class GeneralSettings extends CiiSettingsModel
 		$groups = array(
 			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
-			Yii::t('Dashboard.models-general', 'Comments') => array('notifyAuthorOnComment', 'autoApproveComments'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Upload Settings') => array('useOpenstackCDN', 'useRackspaceCDN', 'openstack_identity', 'openstack_username', 'openstack_apikey', 'openstack_region', 'openstack_container'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
@@ -77,7 +74,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, notifyAuthorOnComment, autoApproveComments, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -107,8 +104,6 @@ class GeneralSettings extends CiiSettingsModel
 			'sphinxHost' => Yii::t('Dashboard.models-general', 'Sphinx Hostname'),
 			'sphinxPort' => Yii::t('Dashboard.models-general', 'Sphinx Port'),
 			'sphinxSource' => Yii::t('Dashboard.models-general', 'Sphinx Source Name'),
-			'notifyAuthorOnComment' => Yii::t('Dashboard.models-general', 'Notify Author on New Comment'),
-			'autoApproveComments'	=> Yii::t('Dashboard.models-general', 'Auto Approve Comments'),
 			'useDisqusComments'    => Yii::t('Dashboard.models-general', 'Use Disqus Comments'),
 			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode'),
 			// Openstack Data

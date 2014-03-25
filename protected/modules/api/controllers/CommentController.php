@@ -14,12 +14,12 @@ class CommentController extends ApiController
                 'actions' => array('comments', 'countPost')
             ),
         	array('allow',
-        		'actions' => array('indexPost'),
+        		'actions' => array('indexPost', 'flagPost'),
         		'expression' => '$user!=NULL'
         	),
             array('allow',
                 'actions' => array('indexDelete'),
-                'expression' => '$user!=NULL&&($user->user_role==6||$user->user_role==9)'
+                'expression' => '$user!=NULL&&($user->isSiteManager()||$user->isAdmin())'
             ),
             array('deny') 
         );  
@@ -170,49 +170,6 @@ class CommentController extends ApiController
     }
 
     /**
-     * [GET] [/comment/index/approve/id/<id>]
-     * Determines if a comment is approved or not
-     * @param  int  $id   The Comment id
-     * @return bool
-     */
-    public function actionApprove($id=NULL)
-    {
-    	$model = $this->getCommentModel($id);
-
-    	return array('approved' => (bool)$model->approved);
-    }
-
-    /**
-     * [POST] [/comment/index/approve/id/<id>]
-     * Approves or unapproves a comment
-     * @param  int  $id   The Comment id
-     * @return bool
-     */
-    public function actionApprovePost($id=NULL)
-    {
-    	$model = $this->getCommentModel($id);
-    	$model->approved = $_POST['approved'] == true ? '1' : '0';
-
-    	if ($model->save())
-    		return array('approved' => $model->approved == 1 ? true : false);
-
-    	return $this->returnError(400, NULL, $model->getErrors());
-    }
-
-    /**
-     * [GET] [/comment/index/flag/id/<id>]
-     * Flags or unflags a comment
-     * @param  int  $id   The Comment id
-     * @return bool
-     */
-    public function actionFlag($id=NULL)
-    {
-    	$model = $this->getCommentModel($id);
-
-    	return array('flagged' => $model->approved == '-1' ? true : false);
-    }
-
-    /**
      * [POST] [/comment/index/flag/id/<id>]
      * Flags or unflags a comment. Unflagging also approves it
      * @param  int  $id   The Comment id
@@ -221,10 +178,11 @@ class CommentController extends ApiController
     public function actionFlagPost($id=NULL)
     {
     	$model = $this->getCommentModel($id);
-    	$model->approved = $_POST['flagged'] == true ? '-1' : '1';
+        $flagee = Users::model()->findByPk($model->user_id);
 
-    	if ($model->save())
-    		return array('flagged' =>$model->approved == '-1' ? true : false);
+        // Damage the reputation of both the person who flagged this comment and the user who is being flagged
+    	$flagee->setReputation(-5);
+        $this->user->setReputation(-3);
 
     	return $this->returnError(400, NULL, $model->getErrors());
     }
