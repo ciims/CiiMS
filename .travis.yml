@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.2
   - 5.3
   - 5.4
   - 5.5
@@ -19,6 +18,6 @@ notifications:
     
 before_script:
   - php composer.phar install
-  - mysql -e 'create database ciims_test;'          # Create Database
-  - php yiic-test.php migrate up --interactive=0    # Run Migrations
-  - cd tests                                        # Navigate to the Tests Directory to run the tests
+  - mysql -e 'create database ciims_test;'                    # Create Database
+  - php protected/yiic-test.php migrate up --interactive=0    # Run Migrations
+  - cd tests                                                  # Navigate to the Tests Directory to run the tests
