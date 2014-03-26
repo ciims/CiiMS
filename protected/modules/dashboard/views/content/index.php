@@ -22,8 +22,6 @@
     'sortableAttributes' => array(
         'title',
         'author_id',
-        //'like_count',    // Same issue as comment_count
-        //'comment_count', // Until I can re-order CActiveDataProvidor on the fly, we can't order byu this correctly
         'category_id',
         'status',
         'created',

@@ -111,12 +111,11 @@ class ContentController extends ApiController
         $model->unsetAttributes();  // clear any default values
         unset($_GET['password']);
         unset($_GET['like_count']);
-        unset($_GET['comment_count']);
         if(!empty($_GET))
             $model->attributes=$_GET;
 
         // A list of attributes that we want to hide
-        $attributes = array('password', 'like_count', 'comment_count');
+        $attributes = array('password', 'like_count');
 
         $response = array();
         foreach ($model->search()->getData() as $content)
@@ -137,12 +136,11 @@ class ContentController extends ApiController
         $model->unsetAttributes();  // clear any default values
         unset($_GET['password']);
         unset($_GET['like_count']);
-        unset($_GET['comment_count']);
         if(!empty($_GET))
             $model->attributes=$_GET;
 
         // A list of attributes that we want to hide
-         $attributes = array('password', 'like_count', 'comment_count');
+         $attributes = array('password', 'like_count');
 
         $model->author_id = $this->user->id;
 
@@ -165,12 +163,11 @@ class ContentController extends ApiController
         $model->unsetAttributes();  // clear any default values
         unset($_GET['password']);
         unset($_GET['like_count']);
-        unset($_GET['comment_count']);
         if(!empty($_GET))
             $model->attributes=$_GET;
 
         // A list of attributes that we want to hide
-        $attributes = array('password', 'like_count', 'comment_count');
+        $attributes = array('password', 'like_count');
 
         $model->author_id = $this->user->id;
         
@@ -198,7 +195,7 @@ class ContentController extends ApiController
         $model->author_id = $this->user->id;
 
         if ($model->save(false))
-            return $model->getApiAttributes(array('password', 'like_count', 'comment_count'));
+            return $model->getApiAttributes(array('password', 'like_count'));
 
         return $this->returnError(400, NULL, $model->getErrors());
     }
@@ -222,7 +219,7 @@ class ContentController extends ApiController
         $model->vid = $vid++;
 
         if ($model->save())
-            return $model->getApiAttributes(array('password', 'like_count', 'comment_count'));
+            return $model->getApiAttributes(array('password', 'like_count'));
         
         return $this->returnError(400, NULL, $model->getErrors());
     }
@@ -248,7 +245,7 @@ class ContentController extends ApiController
                 throw new CHttpException(403, Yii::t('Api.content', 'You must be authenticated to access this action.'));
         }
 
-        return $model->getApiAttributes(array('password', 'like_count', 'comment_count'));
+        return $model->getApiAttributes(array('password', 'like_count'));
     }
 
     /**
@@ -276,12 +273,11 @@ class ContentController extends ApiController
         $model->unsetAttributes();  // clear any default values
         unset($_GET['password']);
         unset($_GET['like_count']);
-        unset($_GET['comment_count']);
         if(!empty($_GET))
             $model->attributes=$_GET;
 
         // A list of attributes that we want to hide
-        $attributes = array('password', 'like_count', 'comment_count');
+        $attributes = array('password', 'like_count');
 
         $model->status = 1;
         $response = array();

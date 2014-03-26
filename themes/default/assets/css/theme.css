@@ -483,6 +483,45 @@ footer#main-footer .footer-nav ul li a:hover {
 	clear:both;
 }
 
+main .social-icons {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    display: inline-block;
+}
+
+main .social-icons.facebook {
+    background: url('../img/icons/facebook.png') no-repeat;
+}
+
+main .social-icons.facebook:hover {
+    background: url('../img/icons/facebook_hover.png') no-repeat;
+}
+
+main .social-icons.linkedin {
+    background: url('../img/icons/linkedin.png') no-repeat;
+}
+
+main .social-icons.linkedin:hover {
+    background: url('../img/icons/linkedin_hover.png') no-repeat;
+}
+
+main .social-icons.google {
+    background: url('../img/icons/google.png') no-repeat;
+}
+
+main .social-icons.google:hover {
+    background: url('../img/icons/google_hover.png') no-repeat;
+}
+
+main .social-icons.twitter {
+    background: url('../img/icons/twitter.png') no-repeat;
+}
+
+main .social-icons.twitter:hover {
+    background: url('../img/icons/twitter_hover.png') no-repeat;
+}
 /*!
 Pure v0.3.0
 Copyright 2013 Yahoo! Inc. All rights reserved.

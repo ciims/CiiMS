@@ -16,7 +16,6 @@
  * @property integer $category_id
  * @property integer $type_id
  * @property string $password
- * @property integer $comment_count
  * @property integer $like_count
  * @property string $slug
  * @property string $published
@@ -74,10 +73,10 @@ class Content extends CiiModel
 		// will receive user inputs.
 		return array(
 			array('vid, author_id, title, content, status, commentable, parent_id, category_id', 'required'),
-			array('vid, author_id, status, commentable, parent_id, category_id, type_id, comment_count, like_count', 'numerical', 'integerOnly'=>true),
+			array('vid, author_id, status, commentable, parent_id, category_id, type_id, like_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
-			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, comment_count, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -115,7 +114,6 @@ class Content extends CiiModel
 			'category_id' 	=> Yii::t('ciims.models.Content', 'Category'),
 			'type_id' 		=> Yii::t('ciims.models.Content', 'Type'),
 			'password' 		=> Yii::t('ciims.models.Content', 'Password'),
-			'comment_count' => Yii::t('ciims.models.Content', 'Comments'),
 			'like_count' 	=> Yii::t('ciims.models.Content', 'Likes'),
 			'tags' 			=> Yii::t('ciims.models.Content', 'Tags'),
 			'slug' 			=> Yii::t('ciims.models.Content', 'Slug'),
@@ -298,7 +296,7 @@ class Content extends CiiModel
     }
 
     /**
-     * Updates the comment_count after finding new data
+     * Updates the like_count after finding new data
      */
     protected function afterFind()
     {
@@ -364,13 +362,7 @@ class Content extends CiiModel
      * @see CActiveRecord::beforeValidate
      */
 	public function beforeValidate()
-	{   
-
-		// If this is a new record and we don't have a created data pre-populated
-		// Failing to check the $this->created results in posts losing their original creation date
-    	if ($this->isNewRecord && $this->created == NULL)
-			$this->comment_count = 0;
-	   	
+	{   	   	
 	   	// Allow publication times to be set automatically
 		if ($this->published == NULL)
 			$this->published = new CDbExpression('UTC_TIMESTAMP()');

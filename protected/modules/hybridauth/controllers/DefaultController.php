@@ -70,9 +70,8 @@ class DefaultController extends CiiController
 		}
 		else if ($identity->errorCode == RemoteUserIdentity::ERROR_USERNAME_INVALID)
 		{
-			// If the user authenticatd against the remote network, but we didn't find them locally
+			// If the user authenticated against the remote network, but we didn't find them locally
 			// Create a local account, and bind this information to it.
-			
 			$user = new Users;
 			$user->attributes = array(
 					'email'=>$identity->userData['email'],
