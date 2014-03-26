@@ -1,19 +1,28 @@
 ## CiiMS
-[![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png?branch=master,develop, "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 
 #### What is CiiMS?
-CiiMS is a high performance CMS blogging platform designed to be easy to use, fun to work with, and easy to develop with. CiiMS is fast, powerful, extendable, and flexible, and is optimized to run with a combination of tools such as Memcache, Redis, APC, and Sphinx - but can run in other configurations. The _intent_ is to have a easy to use CMS platform that runs on Yii that is _fast_, _user friendly_, _easy to use_, _effecient_ and _not resource intensive_.
+CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system.
+
+----------------
 
 #### Interested in a Hosted Solution?
 Be sure to checkout [www.ciims.org](http://www.ciims.org) to pre-register for exclusive early access to our hosted platform.
 
+----------------
+
 #### Upgrading CiiMS?
 See the [Upgrading Guide](https://github.com/charlesportwoodii/CiiMS/wiki/Upgrading) for notes on how to upgrade from one version to another.
 
+----------------
+
 #### The One Rule/Suggestion/Request
-Yup, I'm stealing this idea from [Syte](https://github.com/rigoneri/syte) because I think it is awesome. If you use and love CiiMS create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site. If you want to a border color that's fine too.
+
+Do you use CiiMS and love it? Want to show your support? Would you like some free advertising for your CiiMS instance? Create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site and I'll merge it in! If you want to a border color that's fine too.
 
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
+
+----------------
 
 #### Demo
 A demo of CiiMS can be found at:
@@ -52,11 +61,14 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 
 #### Requirements
 
-* Yii Framework 1.1+ (Consequently Basic Yii Requirements) (The installer and download and install Yii for you automatically if you don't have it installed already).
-* PHP 5.3.7+ (Strong recommend 5.3.27+, or PHP 5.5)
-* MySQL 5.5+
-* PHP mcrypt/crypt library. This is required for bcrpt hashing.
-* PHP CURL Library
+Before installing CiiMS you'll need to have at _minimum_ the following:
+
+* PHP 5.3.7+
+* PHP CURL Extension
+* PHP ZIP Extension
+* PHP MCrypt Extension
+
+All the dependencies and other requirements are managed through composer, and will be reported back to you
 
 #### Recommendations
 The following extensions/applications are recommended to improve performance.
@@ -68,15 +80,18 @@ The following extensions/applications are recommended to improve performance.
 ------------------
 
 #### Setup Notes and Installation
-CiiMS comes with a built in installer which will walk you through the setup process and provide you with information in the event it can't do something. The installer should be fairly straightforward. If you run into issues during the installation, it's most likely a permission issues with /assets, /protected/runtime, or /protected/config. The installer has built in error support, and by default will recommend you make a few directories writable. Any others are most likely a _setup_ issue rather than an issue with the installer.
 
-Please see the [installation guide](https://github.com/charlesportwoodii/CiiMS/wiki/Installation-Guide) for a full guide on how to install CiiMS.
+CiiMS and all necessary dependencies can now be installed through the web installer that is run on first load. Please see the [installation guide](https://github.com/charlesportwoodii/CiiMS/wiki/Installation-Guide) for more details.
 
 #### Support
-If you require support at any time, submit a Github issue and I'll look into it as soon as I can. 
+If you require support, submit a Github issue and I'll look into it as soon as I can. 
 
 #### How Can I Contribute?
 
+We <3 Contributers!
+
+* Submit Detailed Bug Reports
+* Implement X Feature and submit it as a Pull Request
 * Unit & Functional Testing (We're currently hooked into TravisCI, but we don't have a lot of tests running at the moment)
 * Help write i18n language files [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
 * Help provide translations in your native/favorite language

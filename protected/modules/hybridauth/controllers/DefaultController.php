@@ -39,7 +39,7 @@ class DefaultController extends CiiController
 		$identity = new RemoteUserIdentity();
 
 		if ($identity->authenticate($provider))
-		{		
+		{
 			// If we found a user and authenticated them, bind this data to the user if it does not already exist
 			$user = UserMetadata::model()->findByAttributes(array('key'=>$provider.'Provider', 'value'=>$identity->userData['id']));
 			if ($user === NULL)
@@ -55,26 +55,6 @@ class DefaultController extends CiiController
 
 			// Log the user in with just their email address
 			$model=new LoginForm(true);
-			
-			// CiiMS 1.7 provided authentication schemes against md5 hashes. If we have any users in the system who still have md5 hashes
-			// as their password, allow authentication, but immediatly upgrade their password to something more secure.
-			$model->attributes=array(
-				'username'=>isset($user->email) ? $user->email : $identity->userData['email'],
-				'password'=>md5('PUBUSER'),
-			);
-			
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-			{
-				// Upgradee the user's password to bcrypt so they don't stick out in database dumps
-				if ($user->password == md5('PUBUSER'))
-				{
-					$user->password = password_hash($identity->userData['email'], PASSWORD_BCRYPT, array('cost' => 13));
-					$user->save();
-				}
-
-				$this->redirect(Yii::app()->user->returnUrl);
-			}
 
 			// If the prevvious authentication failed, then the user has been upgraded, and we should attempt to use the bcrypt hash isntead of the md5 one
 			$model->attributes=array(
@@ -111,7 +91,6 @@ class DefaultController extends CiiController
 			$meta->key = $provider.'Provider';
 			$meta->value = $identity->userData['id'];
 			$meta->save();
-			
 			
 			// Log the user in with just their email address
 			$model=new LoginForm(true);

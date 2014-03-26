@@ -193,7 +193,6 @@ class DefaultController extends CController
             ),
         ),
         'params' => array(
-            'yiiPath' => '{$path}',
             'encryptionKey' => '{$key}',
         )
     );";

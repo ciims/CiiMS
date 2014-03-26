@@ -22,7 +22,7 @@ $ciimsConfig = require($config);
 defined('YII_DEBUG') or define('YII_DEBUG',isset($ciimsConfig['params']['debug']) ? $ciimsConfig['params']['debug'] : false);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($ciimsConfig['params']['trace']) ? $ciimsConfig['params']['trace'] : 0);
 
-$yiiPath = __DIR__ . '/protected/runtime/' .  $ciimsConfig['params']['yiiVersionPath'] . '/framework/yiilite.php';
+$yiiPath = __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
 if (!file_exists($mainConfig) && !file_exists($yiiPath)) 
 {
     require(dirname(__FILE__).'/protected/modules/install/init.php');
