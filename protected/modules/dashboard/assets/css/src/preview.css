@@ -21,7 +21,7 @@ main .post.post-header h6 {
 	margin-bottom: 0px;
 }
 
-main .post.post-header .icon-plus {
+main .post.post-header .fa-plus {
 	top: 9px;
 	position: relative;
 	background: #A7CE44;
@@ -301,7 +301,7 @@ main .preview-container.active .content-sidebar {
 		width: 70%;
 	}
 
-	main .preview-container .preview .icon-comment {
+	main .preview-container .preview .fa-comment {
 		display: none;
 	}
 	
@@ -322,15 +322,15 @@ main .content-sidebar .comments-header {
 	text-transform: uppercase;
 }
 
-main .preview .preview-header .icon-edit, 
-main .preview .preview-header .icon-gear,
-main .preview .preview-header .icon-trash,
-main .preview .preview-header .icon-eye-open,
-main .preview .preview-header .icon-comment,
-main .body-content .icon-trash,
-main .editor .icon-camera,
-main .body-content .icon-eye-open,
-main .content-container .icon-gear {
+main .preview .preview-header .fa-edit, 
+main .preview .preview-header .fa-gear,
+main .preview .preview-header .fa-trash-o,
+main .preview .preview-header .fa-eye,
+main .preview .preview-header .fa-comment,
+main .body-content .fa-trash-o,
+main .editor .fa-camera,
+main .body-content .fa-eye,
+main .content-container .fa-gear {
 	position: relative;
 	top: 5px;
 	color: #999;
@@ -339,7 +339,7 @@ main .content-container .icon-gear {
 	padding-left: 10px;
 }
 
-main .preview .preview-header .icon-comment {
+main .preview .preview-header .fa-comment {
 	top: 4px;
 	padding-right: 2px;
 }

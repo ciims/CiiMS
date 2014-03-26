@@ -4,14 +4,14 @@
 		<span class="title pull-left"><?php echo ($model->title !== '' ? $model->title : CHtml::tag('em', array(), Yii::t('Dashboard.main', 'Drafted Post'))); ?></span>
 		
 		<?php if (Yii::app()->user->role != 7 && Yii::app()->user->role != 5): ?>
-			<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/delete/id/' . $model->id), array('class' => 'icon-trash pull-right')); ?>
+			<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/delete/id/' . $model->id), array('class' => 'fa fa-trash-o pull-right')); ?>
 		<?php endif; ?>
 
-		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'icon-edit pull-right')); ?>
+		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'fa fa-edit pull-right')); ?>
 
 		<?php if ($model->isPublished()): ?>
-			<span class="icon-comment pull-right"></span>
-			<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+			<span class="fa fa-comment pull-right"></span>
+			<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'fa fa-eye pull-right')); ?>
 		<?php endif; ?>
 		<div class="clearfix"></div>
 	</div>

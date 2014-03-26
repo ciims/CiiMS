@@ -8,7 +8,7 @@
 		<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	    <title><?php echo Yii::t('Dashboard.views', 'CiiMS Dashboard | {{pagetitle}}', array('{{pagetitle}}' => CHtml::encode($this->pageTitle))); ?></title>
 	    <?php Yii::app()->getClientScript()->registerMetaTag('text/html; charset=UTF-8', 'Content-Type', 'Content-Type', array(), 'Content-Type')
-				                      ->registerCssFile($this->asset . '/css/bootstrap.min.css')
+	    								->registerCssFile($this->asset . '/css/bootstrap.min.css')
 				                      ->registerCssFile($this->asset . '/css/pure.css')
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/css/dashboard.css' : '/css/dashboard.min.css'))
 				                      ->registerCssFile($this->asset . (YII_DEBUG ? '/font-awesome/css/font-awesome.css' : '/font-awesome/css/font-awesome.min.css'))
@@ -30,16 +30,16 @@
 					<?php $this->widget('zii.widgets.CMenu', array(
 						'encodeLabel' => false,
 						'items' => array(
-							array('label' => CHtml::tag('i', array('class' => 'icon-th-large'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Dashboard')), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
-							array('label' => CHtml::tag('i', array('class' => 'icon-pencil'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Content')), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
-							array('label' => CHtml::tag('i', array('class' => 'icon-cogs'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Settings')), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
+							array('label' => CHtml::tag('i', array('class' => 'fa fa-th-large'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Dashboard')), 'url' => $this->createUrl('/dashboard'), 'active' => $this->id == 'default'),
+							array('label' => CHtml::tag('i', array('class' => 'fa fa-pencil'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Content')), 'url' => $this->createUrl('/dashboard/content'), 'active' => $this->id == 'content'),
+							array('label' => CHtml::tag('i', array('class' => 'fa fa-cogs'), NULL) . CHtml::tag('span', array(), Yii::t('Dashboard.views', 'Settings')), 'url' => $this->createUrl('/dashboard/settings'), 'active' => !in_array($this->id, array('default', 'content'))),
 						)
 					)); ?>
 				</nav>
 				<footer>
 					<section>
-						<span class="icon-align-justify"></span>
-						<?php echo CHtml::link(CHtml::tag('span', array('class' => 'icon-power-off'), NULL), $this->createUrl('/logout')); ?>
+						<span class="fa fa-align-justify icon-align-justify"></span>
+						<?php echo CHtml::link(CHtml::tag('span', array('class' => 'fa fa-power-off'), NULL), $this->createUrl('/logout')); ?>
 					</section>
 				</footer>
 			</aside>
