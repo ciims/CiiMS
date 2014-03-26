@@ -24,7 +24,7 @@
 		<div class="editor">
 			<div class="top-header">
 				<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
-				<span class="pull-right icon-camera"></span>
+				<span class="pull-right fa fa-camera"></span>
 			</div>
 			<div id="promotedDz" class="dropzone" style="display:none;"></div>
 			<div id="main">
@@ -38,11 +38,11 @@
 			<div class="top-header">
 				<span class="show-settings"><?php echo Yii::t('Dashboard.views', 'Preview'); ?></span>
 				<span class="show-preview" style="display:none"><?php echo Yii::t('Dashboard.views', 'Content Settings'); ?></span>
-				<span class="pull-right icon-trash"></span>
-				<span class="pull-right icon-gear show-settings"></span>
-				<span class="pull-right icon-gear show-preview" style="display:none"></span>
+				<span class="pull-right fa fa-trash"></span>
+				<span class="pull-right fa fa-gear show-settings"></span>
+				<span class="pull-right fa fa-gear show-preview" style="display:none"></span>
 				<?php if ($model->isPublished()): ?>
-					<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'icon-eye-open pull-right')); ?>
+					<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'fa fa-eye-open pull-right')); ?>
 				<?php endif; ?>
 			</div>
 			<div id="main" class="nano">				

@@ -67,7 +67,7 @@ class ContentListView extends CListView
 					echo CHtml::openTag('div', array('class' => 'post post-header'));
 						echo CHtml::tag('h6', array('class' => 'pull-left'), 'Posts');
 						if (Yii::app()->user->role !== 7)
-							echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'icon-plus pull-right'));
+							echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save'), array('class' => 'fa fa-plus pull-right'));
 						echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
 					echo CHtml::closeTag('div');
 					
@@ -135,7 +135,7 @@ class ContentListView extends CListView
 		echo CHtml::openTag('div',array('class'=>$this->sorterCssClass))."\n";
 
 		echo CHtml::openTag('form', array('class' => 'pure-form pull-left header-form header-form-content'));
-			echo CHtml::tag('span', array('class' => 'icon-search pull-right icon-legend'), NULL);
+			echo CHtml::tag('span', array('class' => 'fa fa-search pull-right icon-legend'), NULL);
 			echo CHtml::textField(
 	    		'Content[title]', 
 	    		Cii::get(Cii::get($_GET, 'Content', array()), 'title'), 

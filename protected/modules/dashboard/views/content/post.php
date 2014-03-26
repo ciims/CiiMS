@@ -3,11 +3,11 @@
 		<div class="post-metadata-inner">
 			<span class="row comments">
 				<div class="comment-container comment-count" data-attr-slug="<?php echo $this->createUrl('/' . $data->slug); ?>" data-attr-id="<?php echo $data->id; ?>">
-					<span class="icon-comment pull-right">
+					<span class="fa fa-comment pull-right">
 				</div>
 			</span>
 			<span class="row likes">
-				<strong><?php echo $data->like_count; ?></strong> <span class="icon-heart"></span>
+				<strong><?php echo $data->like_count; ?></strong> <span class="fa fa-heart"></span>
 			</span>
 			<!--<span class="row views">
 				<strong>0</strong> <span class="icon-bar-chart"></span>
