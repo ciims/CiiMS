@@ -205,7 +205,7 @@ class SettingsController extends CiiSettingsController
 		curl_setopt_array($curl, array(
 		    CURLOPT_RETURNTRANSFER => true,
 		    CURLOPT_FOLLOWLOCATION => true,
-		    CURLOPT_URL => 'https://raw.github.com/charlesportwoodii/CiiMS/latest-version/extensions/cii/ciims.json',
+		    CURLOPT_URL => 'https://raw.github.com/charlesportwoodii/CiiMS/latest-version/composer.json',
 		    CURLOPT_CAINFO => Yii::app()->basePath . '/config/certs/DigiCertHighAssuranceEVRootCA.crt',
 		));
 

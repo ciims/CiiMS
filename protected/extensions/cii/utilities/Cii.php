@@ -4,7 +4,7 @@ class Cii {
 	
     public static function getVersion()
     {
-        $data = json_decode(file_get_contents(Yii::getPathOfAlias('ext.cii').'/ciims.json'),true);
+        $data = json_decode(file_get_contents(Yii::getPathOfAlias('webroot').DS.'composer.json'),true);
         return $data['version'];
     }
 

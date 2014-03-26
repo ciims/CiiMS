@@ -54,11 +54,14 @@ var Disqus = {
 	 * Binds to the load more click event
 	 * @return void
 	 */
-	more : function() {
+	more : function(force) {
 		$("a#more").click(function() {
 			setTimeout(function() { Disqus.commentCount(); }, 500);
 		});
-	}
+		
+		if (force == true)
+			setTimeout(function() { Disqus.commentCount(); }, 500);
+	},
 };
 
 /**
@@ -71,6 +74,6 @@ var Comments = {
 	},
 
 	more : function() {
-		Disqus.commentCount();
+		Disqus.commentCount(true);
 	}
 }

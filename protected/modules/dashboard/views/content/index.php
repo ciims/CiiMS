@@ -18,6 +18,7 @@
     }',
     'afterAjaxUpdate' => 'function() { 
     	CiiDashboard.Content.Preview.afterAjaxUpdate();
+        Comments.more();
 	}',
     'sortableAttributes' => array(
         'title',

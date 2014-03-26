@@ -360,14 +360,18 @@ main .text-small-inline {
 main .installing {
     margin-left: 5px;
 }
-main #comments {
+main #comment {
   height: 100%;
-  padding: 10px;
+  padding: 15px;
 }
 
 main #disqus_thread {
     padding: 10px;
 }
+main .comment_body {
+	width: 78% !important;
+}
+
 main .content-container {
 	height: 100%;
 	min-height: 100%;

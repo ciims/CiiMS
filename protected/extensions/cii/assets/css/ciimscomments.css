@@ -77,6 +77,7 @@
 	transition: all 0.5s ease-in-out;
 	height: 35px;
 	float: left;
+	width: 100%;
 }
 
 .comment .comment_box.pure-focus {
@@ -98,4 +99,3 @@
 	margin-top: 10px;
 	margin-right: 10px;
 }
-

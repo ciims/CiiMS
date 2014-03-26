@@ -119,10 +119,13 @@ var CiiMSComments = {
 	 * Binds to the load more click event
 	 * @return void
 	 */
-	more : function() {
+	more : function(force) {
 		$("a#more").click(function() {
 			setTimeout(function() { CiiMSComments.commentCount(); }, 500);
-		});		
+		});
+		
+		if (force == true)
+			setTimeout(function() { CiiMSComments.commentCount(); }, 500);
 	},
 
 	behaviors : {
@@ -330,6 +333,6 @@ var Comments = {
 	},
 
 	more : function() {
-    	CiiMSComments.more();
+    	CiiMSComments.more(true);
 	}
 }
