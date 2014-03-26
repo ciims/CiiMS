@@ -15,14 +15,12 @@ class DefaultController extends CiiController
 		if ($provider == 'callback')
 			$this->callback();
 		
-		try
-		{
+		try {
 			$this->hybridAuth($provider);
+		} catch (Exception $e) { 
+			throw new CHttpException(400, Yii::t('Hybridauth.main', 'Oh Snap! Something went wrong. Please try again later.')); 
 		}
-		catch (Exception $e)
-		{
-			throw new CHttpException(400, Yii::t('Hybridauth.main', 'Oh Snap! Something went wrong. Please try again later.'));
-		}
+
 		return;
 	}
 
@@ -42,7 +40,6 @@ class DefaultController extends CiiController
 
 		if ($identity->authenticate($provider))
 		{		
-
 			// If we found a user and authenticated them, bind this data to the user if it does not already exist
 			$user = UserMetadata::model()->findByAttributes(array('key'=>$provider.'Provider', 'value'=>$identity->userData['id']));
 			if ($user === NULL)
@@ -69,7 +66,6 @@ class DefaultController extends CiiController
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
 			{
-				
 				// Upgradee the user's password to bcrypt so they don't stick out in database dumps
 				if ($user->password == md5('PUBUSER'))
 				{
@@ -88,9 +84,7 @@ class DefaultController extends CiiController
 
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-			{
 				$this->redirect(Yii::app()->user->returnUrl);
-			}
 
 			throw new CException(Yii::t('Hybridauth.main', 'Unable to bind to local user'));
 		}
@@ -129,9 +123,7 @@ class DefaultController extends CiiController
 
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-			{ 
 				$this->redirect(Yii::app()->user->returnUrl);
-			}
 
 			throw new CException(Yii::t('Hybridauth.main', 'Unable to bind new user locally'));
 		}
@@ -148,8 +140,6 @@ class DefaultController extends CiiController
 	 */
 	private function callback()
 	{
-		Yii::import('application.modules.hybridauth.Hybrid.Hybrid_Auth');
-		Yii::import('application.modules.hybridauth.Hybrid.Hybrid_Endpoint');
 		Hybrid_Endpoint::process();
 	}
 
