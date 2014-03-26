@@ -4,14 +4,15 @@
 	
 - There is no way to upgrade currently installed cards.
 - Cards and Themes can no longer be installed from Github
-- Functionality previous stored in ```Theme.json``` has been moved into ```Cii```. Current themes may break if functionality is overloaded by existing theme file. New themes now only require the following base structure to function
-```
-class Theme extends CiiThemesModel
-{
-    public  $theme = '<theme_name>';
-}
-```
+- Functionality previous stored in ```Theme.json``` has been moved into ```Cii```. Current themes may break if functionality is overloaded by existing theme file. New themes now only require the following base structure to function:
+	```
+	class Theme extends CiiThemesModel
+	{
+	    public  $theme = '<theme_name>';
+	}
+	```
 - ```CommentController``` and views have been removed in favor of using the Comment API
+- Reliance on Composer means that you must run the ```php composer.phar install``` on first run. To avoid downtime in upgrading, generate the composer dependencies first and copy them into the ```vendor``` directory perform checkout out ```1.10.0```
 
 ###### BUG FIXES:
 
@@ -37,12 +38,15 @@ class Theme extends CiiThemesModel
 - Added CHANGELOG.md
 - CiiSetupCommand added support for headless/automated installs
 - All Cii related functionality has been moved into extensions/cii
+- CiiMS now ships with less code due to composer supported added in GH #111
+- Composer will notify you if you have insufficient requirements to run CiiMS on first install
 
 ###### FEATURES:
 
 - Cards can now be installed from ciims.org
 - Themes can now be installed from ciims.org
 - Cards and Themes can notify user when there is an update available for them, and can do ondemand in place self updates.
+- Added Composer Support (GH #111)
 
 # Previous
 
