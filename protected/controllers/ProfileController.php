@@ -88,10 +88,6 @@ class ProfileController extends CiiSiteController
 
 		if (Cii::get($_POST, 'Users', NULL) !== NULL)
 		{
-			// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
-			if (!function_exists('password_hash'))
-				require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-
 			$cost = Cii::getBcryptCost();
 
 			if ($_POST['Users']['password'] != '')

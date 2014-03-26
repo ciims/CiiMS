@@ -56,8 +56,8 @@ var Disqus = {
 	 */
 	more : function() {
 		$("a#more").click(function() {
-			Disqus.commentCount();
-		})
+			setTimeout(function() { Disqus.commentCount(); }, 500);
+		});
 	}
 };
 
@@ -68,5 +68,9 @@ var Disqus = {
 var Comments = {
 	reload : function(id) {
 		Disqus.load(id);
+	},
+
+	more : function() {
+		Disqus.commentCount();
 	}
 }

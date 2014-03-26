@@ -187,9 +187,6 @@ class CiiSetupCommand extends CConsoleCommand
      */
     public function getEncryptedPassword($email, $password, $hash)
     {
-        if (!function_exists('password_hash'))
-            require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-
         $hash = $this->encryptHash($email, $password, $hash);
         return password_hash($hash, PASSWORD_BCRYPT, array('cost' => 13));
     }

@@ -35,6 +35,7 @@ class GeneralSettings extends CiiSettingsModel
 	protected $sphinxSource = NULL;
 
 	protected $useOpenstackCDN = false;
+	
 	protected $useRackspaceCDN = false;
 
 	protected $openstack_identity = NULL;

@@ -1,4 +1,8 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', true);
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 function mergeArray($a,$b)
 {
     $args=func_get_args();
@@ -18,10 +22,12 @@ function mergeArray($a,$b)
     }
     return $res;
 }
-// change the following paths if necessary
-$config=dirname(__FILE__).'/config/main.php';
+// Load the configs
+$config=__DIR__.DS.'config'.DS.'main.php';
+$defaultConfig=__DIR__.DS.'config'.DS.'main.default.php';
 
-$config = require($config);
-$config = mergeArray(require(dirname(__FILE__).'/config/main.default.php'), $config);
+$config = mergeArray(require($defaultConfig), require($config));
 
-require_once((string)$config['params']['yiiPath'].'yiic.php');
+// Include the composer dependencies
+require(__DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php');
+require(__DIR__.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yiic.php');

@@ -56,10 +56,6 @@ class CiiUserIdentity extends CUserIdentity
 		$this->cost = Cii::getBcryptCost($this->cost);
 		$meta 		= $meta2 = NULL;	// Define this up here
 
-		// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
-		if (!function_exists('password_hash'))
-			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-
 		// We still want to secure our password using this algorithm
 		$this->hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
 

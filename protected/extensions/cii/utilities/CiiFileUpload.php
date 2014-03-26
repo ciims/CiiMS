@@ -65,12 +65,10 @@ class CiiFileUpload
      */
     private function _uploadCDNFile()
     {
-        Yii::import('ext.opencloud.OpenCloud');
-
         if (Cii::getConfig('useRackspaceCDN'))
-            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), true, NULL, Cii::getConfig('openstack_region'));
+            $openCloud = new CiiOpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), true, NULL, Cii::getConfig('openstack_region'));
         else
-            $openCloud = new OpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), false, Cii::getConfig('openstack_identity'), Cii::getConfig('openstack_region'));
+            $openCloud = new CiiOpenCloud(Cii::getConfig('openstack_username'), Cii::decrypt(Cii::getConfig('openstack_apikey')), false, Cii::getConfig('openstack_identity'), Cii::getConfig('openstack_region'));
 
         $container = $openCloud->getContainer(Cii::getConfig('openstack_container'));
         $this->_result = $openCloud->uploadFile($container);

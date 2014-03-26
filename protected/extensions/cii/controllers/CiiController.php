@@ -84,8 +84,7 @@ class CiiController extends CController
      */
     public function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
     {
-        Yii::import('application.extensions.phpmailer.JPhpMailer');
-        $mail = new JPhpMailer;
+        $mail = new PHPMailer;
         $mail->IsSMTP();
         $mail->SMTPAuth = false;
 
@@ -185,8 +184,9 @@ class CiiController extends CController
     {
         $theme = Cii::getConfig('theme', 'default');
 
+        $mobile_detect = new Mobile_Detect;
         // Allow for mobile devices to have a separate theme
-        if (MobileDetect::isMobileDevice() && !Mobiledetect::isTabletDevice())
+        if ($mobile_detect->isMobile() && !$mobile_detect->isTablet())
         {
             $mobileTheme = Cii::getConfig('mobileTheme');
             if ($mobileTheme != NULL && $mobileTheme != "")
@@ -194,7 +194,7 @@ class CiiController extends CController
         }
 
         // Allow for tablet devices to have a separate theme from desktop and mobile
-        if (MobileDetect::isTabletDevice())
+        if ($mobile_detect->isTablet())
         {
             $tabletTheme = Cii::getConfig('tabletTheme');
             if ($tabletTheme != NULL && $tabletTheme != "")

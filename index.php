@@ -13,12 +13,14 @@
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
 
-// Disable Error Reporting
-error_reporting(0);
-ini_set('display_errors', 0);
+// Disable Error Reporting and set some constants
+error_reporting(-1);
+ini_set('display_errors', true);
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file
-$config=dirname(__FILE__).'/protected/config/main.php';
+$config=__DIR__.DS.'protected'.DS.'config'.DS.'main.php';
+$defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 // If we don't have a configuration file, run the installer.
 if (!file_exists($config) && file_exists('install.php')) 
@@ -29,20 +31,24 @@ if (!file_exists($config) && file_exists('install.php'))
 
 // Load the config file
 $config = require($config);
+$defaultConfig = require($defaultConfig);
 
 // Determine if we should enable debugging and call stack if debug and trace are set in our config file.
 // By default this disabled
 defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $config['params']['debug'] : false);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
 
-// Load the configuration file
-require((string)$config['params']['yiiPath']. (YII_DEBUG ? 'yii.php' : 'yiilite.php'));
+// Register Yii Framework
+require(__DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php'));
 
 // Merge it with our default config file
-$config = CMap::mergeArray(require(dirname(__FILE__).'/protected/config/main.default.php'), $config);
-
+$config = CMap::mergeArray($defaultConfig, $config);
+ 
 // Include the ClassMap for enhanced performance
-require(dirname(__FILE__) . '/protected/config/classmap.php');
+require(__DIR__.DS.'protected'.DS.'config'.DS.'classmap.php');
+
+// Include the composer dependencies
+require(__DIR__.DS.'vendor'.DS.'autoload.php');
 
 $config['components']['db']['enableProfiling'] = YII_DEBUG;
 $config['components']['db']['enableParamLogging'] = YII_DEBUG;

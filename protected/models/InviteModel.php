@@ -69,10 +69,6 @@ class InviteModel extends CFormModel
 		$this->id = $user_id;
 		if (!$this->validate())
 			return false;
-
-
-		if (!function_exists('password_hash'))
-			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 		
 		$user = Users::model()->findByPk($this->id);
 

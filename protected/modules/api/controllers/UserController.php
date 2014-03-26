@@ -117,10 +117,6 @@ class UserController extends ApiController
 		if ($user === NULL)
 			throw new CHttpException(404, Yii::t('Api.user', 'A user with the id of {{id}} was not found.', array('{{id}}' => $id)));
 
-		// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
-		if (!function_exists('password_hash'))
-			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-
 		$cost = Cii::getBcryptCost();
 
 		// If the password is set, permit it to be changed

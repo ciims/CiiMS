@@ -11,10 +11,7 @@
 	    'contentSelector' => '#posts',
 	    'pages' => $pages,
 	    'defaultCallback' => "js:function(response, data) {
-	    	DefaultTheme.infScroll(response, data);
-	    	setTimeout(function() {
-	    		DefaultTheme.Blog.loadDisqusCommentCount(disqus_shortname); 
-	    	}, 500);
+	    	Theme.infScroll(response, data);
  		}"
 	)); ?>
 	<?php Yii::app()->clientScript->registerScript('unbind-infinite-scroll', "Theme.loadAll();"); ?>

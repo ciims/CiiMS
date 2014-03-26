@@ -39,8 +39,6 @@
         ),
     ),
     'params' => array(
-        'yiiVersionPath' => 'yii-1.1.14',
-        'yiiDownloadPath' => 'https://github.com/yiisoft/yii/archive/1.1.14.zip', // 1.1.13 is the latest version of the framework
         'stage' => 0,
         'debug' => true,
         'trace' => 3

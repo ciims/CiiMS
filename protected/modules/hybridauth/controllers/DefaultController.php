@@ -37,9 +37,6 @@ class DefaultController extends CiiController
 	{
 		if ($provider==NULL)
 			throw new CException(Yii::t('Hybridauth.main', "You haven't supplied a provider"));
-		
-		if (!function_exists('password_hash'))
-			require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
 
 		$identity = new RemoteUserIdentity();
 

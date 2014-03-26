@@ -98,8 +98,6 @@ return array(
         ),
     ),
     'params' => array(
-        // The path to Yii
-        'yiiPath'             => NULL,
         // The hash CiiMS should use for user data
         'encryptionKey'       => NULL,
         // Run in debug mode or not

@@ -483,10 +483,6 @@ class SiteController extends CiiSiteController
 					{
 						$cost = Cii::getBcryptCost();
 
-						// Load the bcrypt hashing tools if the user is running a version of PHP < 5.5.x
-						if (!function_exists('password_hash'))
-							require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-
 						// We still want to secure our password using this algorithm
 						$hash = Users::model()->encryptHash($record->email, $password, Yii::app()->params['encryptionKey']);
 
@@ -549,10 +545,7 @@ class SiteController extends CiiSiteController
 			$model->attributes = $_POST['RegisterForm'];
 			
 			if ($model->validate())
-			{
-				if (!function_exists('password_hash'))
-					require_once YiiBase::getPathOfAlias('ext.bcrypt.bcrypt').'.php';
-				
+			{				
 				// Bcrypt the initial password instead of just using the basic hashing mechanism
 				$hash = Users::model()->encryptHash(Cii::get($_POST['RegisterForm'], 'email'), Cii::get($_POST['RegisterForm'], 'password'), Yii::app()->params['encryptionKey']);
 				$cost = Cii::getBcryptCost();

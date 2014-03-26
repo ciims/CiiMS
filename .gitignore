@@ -1,8 +1,6 @@
 /assets/*
 /protected/runtime/*
-.settings
-.project
-*sublime*
+/vendor/*
 /protected/config/*
 /protected/modules/*
 /themes/*
@@ -13,8 +11,9 @@
 !/protected/modules/dashboard
 !/protected/modules/api
 !/protected/modules/install
-.htaccess
 /uploads/*
 /install.php
+.htaccess
+/composer.lock
 *.*~
 *.swp

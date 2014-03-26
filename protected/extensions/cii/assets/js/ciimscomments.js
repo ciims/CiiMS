@@ -121,8 +121,8 @@ var CiiMSComments = {
 	 */
 	more : function() {
 		$("a#more").click(function() {
-			CiiMSComments.commentCount();
-		})
+			setTimeout(function() { CiiMSComments.commentCount(); }, 500);
+		});		
 	},
 
 	behaviors : {
@@ -327,5 +327,9 @@ var CiiMSComments = {
 var Comments = {
 	reload : function(id) {
 		CiiMSComments.load(id);
+	},
+
+	more : function() {
+    	CiiMSComments.more();
 	}
 }

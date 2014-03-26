@@ -1,0 +1,51 @@
+{
+    "name": "CiiMS",
+    "description": "A fast, simple, and easy to use blogging platform and content management system",
+    "license": "MIT",
+    "version" : "1.10.0-dev",
+    "type" : "project",
+    "keywords": [
+        "ciims",
+        "CiiMS",
+        "content management system",
+        "blogging platform",
+        "redis",
+        "mysql"
+    ],
+    "authors": [
+        {
+            "name": "Charles R. Portwood II",
+            "email": "charlesportwoodii@ethreal.net",
+            "homepage": "https://www.erianna.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "support": {
+        "email": "charlesportwoodii@ethreal.net",
+        "issues": "https://github.com/charlesportwoodii/CiiMS/issues",
+        "wiki" : "https://github.com/charlesportwoodii/CiiMS/wiki/_pages",
+        "source" : "https://github.com/charlesportwoodii/CiiMS"
+    },
+    "homepage": "https://www.ciims.org",
+    "require": {
+        "php": ">=5.3.7",
+        "ext-curl" : "*",
+        "ext-mcrypt" : "*",
+        "ext-openssl": "*",
+        "ext-pdo_mysql": "*",
+        "ext-PDO":"*",
+        "ext-Reflection": "*",
+        "lib-curl": "*",
+        "lib-pcre": "*",
+        "lib-openssl": "*",
+        "yiisoft/yii": "1.1.14",
+        "rackspace/php-opencloud": "v1.9.2",
+        "ircmaxell/password-compat": "1.0.3",
+        "hybridauth/hybridauth": "2.2.0.*@dev",
+        "phpmailer/phpmailer": "v5.2.7",
+        "mobiledetect/mobiledetectlib": "2.7.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.13"
+    }
+}
