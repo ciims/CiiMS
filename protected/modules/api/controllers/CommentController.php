@@ -11,7 +11,7 @@ class CommentController extends ApiController
     {
         return array(
             array('allow',
-                'actions' => array('comments', 'countPost')
+                'actions' => array('comments', 'countPost', 'user')
             ),
         	array('allow',
         		'actions' => array('indexPost', 'flagPost'),
@@ -64,6 +64,39 @@ class CommentController extends ApiController
 
         return $response;
     }
+
+	/**
+	* [GET] [/comment/user/id/<id>]
+	* Retrives comments for a given content id
+	* @param  int  $id   The Content id
+	* @return array
+	*/
+	public function actionUser($id)
+	{
+		if ($id === NULL)
+			throw new CHttpException(400, Yii::t('Api.comment', 'Missing id'));
+
+		$comments = Comments::model()->findAllByAttributes(array('user_id' => $id), array('order' => 'created DESC'));
+
+		if ($comments === NULL)
+			throw new CHttpException(400, Yii::t('Api.comment', 'Could not find comments for that user.'));
+
+		$response = array();
+		foreach ($comments as $comment)
+		{
+			$data = $comment->getApiAttributes();
+
+			// Only show shadowbanned comments to the logged in user or to the admin/mod -- otherwise hide them
+			if (Cii::get($data, 'banned_comment', false) == true)
+				if ($this->user == NULL || (int)$this->user->id != (int)$data['user_id'])
+					if ($this->user == NULL || (!$this->user->isAdmin() && !$this->user->isModerator()))
+						continue;
+
+			$response[] = $data;
+		}
+
+		return $response;
+	}
 
     /**
      * [GET] [/comment/comments/id/<id>]

@@ -50,7 +50,7 @@ If the users credentials are invalid, or if too many authentication requests for
     { "status" : 400, "message" : "Unable to authenticate", "response" : { } }
 
 Once authenticated, all subsequent requests can be sent with the following HEADERS. Every request that requires authentication will accept this request.
-    
+
     X-Auth-Email : <email>
     X-Auth-Token : <auth_token>
 
@@ -73,14 +73,14 @@ In the future, this may also provide support for event notifications.
 The Category API allows users to access all viewable categories in the system, and if properly authenticated and privileges to manipulate particular categories.
 
 #### [GET] [/category]
-Lists all categories in the system. 
+Lists all categories in the system.
 
 ##### Example Response
-    
+
     {"status":200,"message":null,"response":[{"id":"1","parent_id":"1","name":"New Category Name","slug":"newcategoryslug","created":1377734784,"updated":1382721259}}
 
 #### [POST] [/category]
-Creates a new category if the user is a site manager or administrator. 
+Creates a new category if the user is a site manager or administrator.
 
 The request must include the following fields:
 
@@ -96,7 +96,7 @@ The following fields are optional (default value is assumed)
     { "name" : "category_name", "slug", "category_slug", "parent_id" : 1 }
 
 ##### Example Response
-    
+
     {
         "status": 200,
         "message": null,
@@ -141,7 +141,7 @@ CiiMS will only override values that you specify.
     { "name" : "category_name", "slug", "category_slug", "parent_id" : 1 }
 
 ##### Example Response
-    
+
         {
         "status": 200,
         "message": null,
@@ -154,7 +154,7 @@ CiiMS will only override values that you specify.
             "id": "147"
         }
     }
-    
+
 #### [DELETE]
 DELETE requests will permanently delete categories from the database. The only limitation on this request is that the root category cannot be deleted. The response for this will either be true or false depending upon if the request was successful or not.
 
@@ -413,7 +413,7 @@ Adds a new tag to a given entry
         "message": null,
         "response": ["Lorem", "ipsum", "test"]
     }
-    
+
 #### [DELETE] [/content/tag/id/<id>/tag/<tag>]
 Deletes <tag> for the given entry
 
@@ -422,7 +422,11 @@ Deletes <tag> for the given entry
 ## Comment [/comment]
 The Comment API allows users to post and edit comments created by them, and for administrators to manage comments for their instance. The Comment API will be disabled if the site administrator has enabled Disqus comments for their site.
 
+## [/comment/comment/id/<id>]
+Retrieves comments for a particular endpoint and allows authenticated users to post new comments to a particular ```content_id```.
+
 #### [POST]
+Creates a new comment for ```comment_id```.
 
 ##### Example Request
 
@@ -438,15 +442,27 @@ The Comment API allows users to post and edit comments created by them, and for 
             "id": "1",
             "content_id": "8",
             "user_id": "1",
-            "parent_id": "0",
             "comment": "My new comment",
-            "approved": "1",
             "created": 1383005227,
             "updated": 1383005688
         }
     }
 
 #### [GET]
+Retrieves comments for a ```content_id```.
+
+##### ShadowBanning/Hellbanning
+
+The CiiMS commenting system is intended to be used with an active, self-moderating community which is supplemented by actual moderators. To achieve this, the CiiMS Comment API endpoints internally keep track of a reputation for each user. Each user starts off with a sufficient number of "points". By default, all comments are automatically approved and available to be viewed by end users. When a user submits a new comment, their reputation increases a set amount of points.
+
+If the community deems it necessary to flag a particular comment, both the flagger and flagee will have their reputation damaged. The flagger will have their reputation slightly damaged as to discourage users from unecessarily flagging posts or attempting to deliberately shadowban a particular user. The flagee's reputation will be damage significantly more than the flagger.
+
+Once the users overall reputation drops below a predefined threshold, __ALL__ comments belonging to that user will be immediately hellbanned. The hellbanned user will continue to see their comments, however all other users will not see their comments. Only administrators and moderators will be able to see Shadowbanned comments, and they'll be indicated by a ```banned_comment``` flag with the comment response.
+
+--
+
+Users can un0shadowban themselves by contributing good quality comments to the blog, however they'll have to overcome their negative score first. Alternatively they can make a petition to the administrator to unshadowban them. (150 rep points)
+
 
 #### Example Response
     {
@@ -456,24 +472,20 @@ The Comment API allows users to post and edit comments created by them, and for 
             "id": "1",
             "content_id": "8",
             "user_id": "1",
-            "parent_id": "0",
             "comment": "test",
-            "approved": "0",
             "created": 1383005227,
             "updated": 1383005688
         }, {
             "id": "2",
             "content_id": "8",
             "user_id": "1",
-            "parent_id": "1",
             "comment": "test",
-            "approved": "1",
             "created": 1383006640,
             "updated": 1383006640
         }]
     }
 
-### [/comment/<id>/]
+### [/comment/id/<id>/]
 Allows for the manipulation of existing comments
 
 #### [POST]
@@ -494,9 +506,7 @@ Updates a comment with a given id
             "id": "1",
             "content_id": "8",
             "user_id": "1",
-            "parent_id": "0",
             "comment": "My new comment2",
-            "approved": "1",
             "created": 1383005227,
             "updated": 1383005688
         }
@@ -504,6 +514,11 @@ Updates a comment with a given id
 
 #### [DELETE]
 Permanently deletes a content with a given id
+
+## [/comment/user/id/<id>]
+
+### [GET]
+Retrieves the comments for a particular user
 
 
 ## [/comment/count]
@@ -571,7 +586,7 @@ Retrieves all settings for a particular <class>
 Modifies a setting set for a particular <class>. Note that you are only able to set existing attributes. You only need to pass the attributes you want to change. For all intensive purposes all values should be treated as either ```null``` or as a ```string```, even if they are returned as an integer.
 
 ##### Example Request
-    
+
     {
         "name" : "New Name",
         "usedisqusComments" : 1
@@ -637,7 +652,7 @@ Modifies a setting set for a particular <class>. Note that you are only able to 
     }
 
 ##### Example Response
-    
+
      {
         "status": 200,
         "message": null,
@@ -705,7 +720,7 @@ The following fields are optional:
 With the exception of ```user_role```, the user will be able to override any predefined values you set when they create their accounts. It's recommended that you just provide the email as in the example below.
 
 ##### Example Request
-    
+
     {
         "email" : "email@example.com"
     }
@@ -763,7 +778,7 @@ Allows for modification of a given user. If the user is authenticated they will 
 The user will still be notified of the email change in this instance. It's _HIGHLY_ recommended that you allow the normal password/email change policies built into CiiMS handle this.
 
 ##### Example Request
-    
+
     {
         "email" : "email@example.com",
         "password" : "changeme7",
