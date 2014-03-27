@@ -312,6 +312,7 @@ class ContentController extends CiiSiteController
 	 */
 	public function actionRss($id=NULL)
 	{
+		Yii::app()->log->routes[0]->enabled = false; 
 		ob_end_clean();
 		header('Content-type: text/xml; charset=utf-8');
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;

@@ -326,6 +326,8 @@ class Cii {
     {
         if (Cii::getConfig('useDisqusComments'))
             return 'CiiDisqusComments';
+        else if (Cii::getConfig('useDiscourseComments'))
+            return 'CiiDiscourseComments';
         return 'CiiComments';
     }
 

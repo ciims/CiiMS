@@ -26,6 +26,10 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $disqus_shortname = NULL;
 
+	//protected $useDiscourseComments = 0;
+
+	//protected $discourseUrl = '';
+
 	protected $sphinx_enabled = 0;
 
 	protected $sphinxHost = 'localhost';
@@ -52,7 +56,8 @@ class GeneralSettings extends CiiSettingsModel
 	{
 		$groups = array(
 			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
-			Yii::t('Dashboard.models-generate', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
+			Yii::t('Dashboard.models-general', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
+			//Yii::t('Dashboard.models-general', 'Discourse') => array('useDiscourseComments', 'discourseUrl'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
 			Yii::t('Dashboard.models-general', 'Upload Settings') => array('useOpenstackCDN', 'useRackspaceCDN', 'openstack_identity', 'openstack_username', 'openstack_apikey', 'openstack_region', 'openstack_container'),
 			Yii::t('Dashboard.models-general', 'Sphinx') => array('sphinx_enabled', 'sphinxHost', 'sphinxPort', 'sphinxSource'),
@@ -75,8 +80,8 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
-			array('sphinxHost, sphinxSource, disqus_shortname, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
+			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, useDiscourseComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('sphinxHost, sphinxSource, disqus_shortname, discourseUrl, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 1, 'max' => 100),
@@ -105,8 +110,15 @@ class GeneralSettings extends CiiSettingsModel
 			'sphinxHost' => Yii::t('Dashboard.models-general', 'Sphinx Hostname'),
 			'sphinxPort' => Yii::t('Dashboard.models-general', 'Sphinx Port'),
 			'sphinxSource' => Yii::t('Dashboard.models-general', 'Sphinx Source Name'),
+
+			// Discourse
 			'useDisqusComments'    => Yii::t('Dashboard.models-general', 'Use Disqus Comments'),
 			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode'),
+
+			// Discourse
+			'useDiscourseComments' => Yii::t('Dashboard.models-general', 'Use Discourse Comments'),
+			'discourseUrl' => Yii::t('Dashboard.models-general', 'Discourse URL'),
+
 			// Openstack Data
 			'useOpenstackCDN' => Yii::t('Dashboard.models-general', 'Use Openstack for Uploads?'),
 			'useRackspace CDN' => Yii::t('Dashboard.models-general', 'Use Rackspace CDN?'),

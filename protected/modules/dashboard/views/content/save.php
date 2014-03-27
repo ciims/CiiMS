@@ -24,7 +24,7 @@
 		<div class="editor">
 			<div class="top-header">
 				<span><?php echo Yii::t('Dashboard.views', 'Markdown'); ?></span>
-				<span class="pull-right fa fa-camera"></span>
+				<span class="pull-right fa fa-camera icon-camera"></span>
 			</div>
 			<div id="promotedDz" class="dropzone" style="display:none;"></div>
 			<div id="main">
