@@ -9,6 +9,7 @@ $yiit=__DIR__.DS.'..'.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.D
 $config=dirname(__FILE__).'/../config/test.php';
 
 $CiiMSTestConfig = require_once($config);
+require(__DIR__.DS.'..'.DS.'..'.DS.'vendor'.DS.'autoload.php');
 require_once($yiit);
 require_once(dirname(__FILE__).'/WebTestCase.php');
 
