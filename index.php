@@ -14,8 +14,8 @@
  */
 
 // Disable Error Reporting and set some constants
-error_reporting(0);
-ini_set('display_errors', false);
+error_reporting(-1);
+ini_set('display_errors', true);
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file

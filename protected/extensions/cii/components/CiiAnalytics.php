@@ -1,6 +1,5 @@
 <?php
 
-Yii::import('ext.EAnalytics.EAnalytics');
 class CiiAnalytics extends EAnalytics
 {
 	public $options;
