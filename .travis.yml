@@ -17,7 +17,9 @@ notifications:
     on_failure: never
     
 before_script:
+  - php composer.phar selfupdate
   - php composer.phar install
   - mysql -e 'create database ciims_test;'                    # Create Database
+  - echo "$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname         # Set the hostname for CI testing
   - php protected/yiic-test.php migrate up --interactive=0    # Run Migrations
   - cd protected/tests                                        # Navigate to the Tests Directory to run the tests
