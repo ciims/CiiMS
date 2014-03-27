@@ -21,7 +21,5 @@ before_script:
   - php composer.phar install
   - mysql -e 'create database ciims_test;'                    # Create Database
   - echo "$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname
-  - echo "$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org"
-  - cat protected/runtime/hostname
   - php protected/yiic-test.php migrate up --interactive=0    # Run Migrations
   - cd protected/tests                                        # Navigate to the Tests Directory to run the tests

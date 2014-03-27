@@ -54,10 +54,16 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
             $token->attributes = array('key' => 'token', 'value' => Cii::get($response['response'], 'token'));
 
             if (!$token->save())
+            {
+                echo "Token failed to save";
                 return false;
+            }
 
             if (!$instance->save())
+            {
+                echo "Instance failed to save";
                 return false;
+            }
 
             // Manually register the pre-bundled default theme so that it can recieve updates
             unset($curl);
@@ -86,10 +92,14 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
                 // If we get a 500 response code from CiiMS.org, perform a rollback
                 $token->delete();
                 $instance->delete();
+
+                echo "500 Error returned by Theme registration";
+                print_r($response2);
                 return false;
             }
         }
 
+        print_r($response);
         return false;
     }
 
