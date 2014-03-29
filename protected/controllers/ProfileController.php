@@ -26,7 +26,7 @@ class ProfileController extends CiiSiteController
 	{
 		return array(
 			array('allow',  // Allow all users to any section
-				'actions' => array('index', 'badges'),
+				'actions' => array('index'),
 				'users'=>array('*'),
 			),
 			array('allow',  // deny all users
@@ -66,17 +66,8 @@ class ProfileController extends CiiSiteController
 		if($model->status == 0)
 			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
-		$this->pageTitle = $model->displayName . ' | ' . Cii::getConfig('name', Yii::app()->name);
-		$postsCriteria = Content::model()->getBaseCriteria()
-									     ->addCondition('type_id=2')
-									     ->addCondition('password=""')
-									     ->addCondition('author_id=:id');
-	    $postsCriteria->params = array(
-	    	':id' => $id
-	    );
-
-		$contentCount =  Content::model()->count($postsCriteria);
-		$this->render('index', array('model' => $model, 'contentCount' => $contentCount));
+		$this->pageTitle = Yii::t('ciims.controllers.Profile', 'User {{user}} - CiiMS | {{sitename}}', array('{{user}}' => $model->name, '{{sitename}}' => Cii::getConfig('name', Yii::app()->name)));
+		$this->render('index', array('model' => $model, 'md' => new CMarkdownParser));
 	}
 
 	/**
@@ -107,19 +98,9 @@ class ProfileController extends CiiSiteController
 				$this->redirect($this->createUrl('/profile/'. $model->id));
 			}
 			else
-				Yii::app()->user->setFlash('warning', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
+				Yii::app()->user->setFlash('danger', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
 		}
 
 		$this->render('edit', array('model' => $model));
-	}
-
-	/**
-	 * Provides functionality for a user to show their badges and awards that they have earned
-	 */
-	public function actionBadges()
-	{
-		$model = Users::model()->findByPk(Yii::app()->user->id);
-		
-		$this->render('badges', array('model' => $model));
 	}
 }

@@ -4,6 +4,48 @@ var Theme = {
 	endPoint : $("#endpoint").attr("data-attr-endpoint") + "/",
 
 	/**
+	 * Retrieves a given user's comments and displays them
+	 * @param  {[type]} userId [description]
+	 * @return {[type]}        [description]
+	 */
+	profileComments : function(userId) {
+		$("#ciims_comments").html("<div class='comment_messages'><div class='clearfix'></div></div><div class='comments_container' style='display:none'></div>");
+
+		var template = '<div class="comment template"><div class="pull-left comment_person"></div><div class="pull-left comment_body"><div class="comment_body_byline"></div><div class="comment_body_inner"></div></div><div class="clearfix"></div></div>';
+		$(".comments_container").append(template);
+
+		$.get(Theme.endPoint + "/api/comment/user/id/" + userId, function(data) {
+			$.each(data.response, function() {
+				var response = this;
+				var html = $(".comment.template").clone();
+
+		        // Get the gravatar URL and append it
+		        var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(response.user.email) + "?s=30"});
+		        $(html).removeClass("template").find(".comment_person").append($(gravatar));
+
+		        // Append the byline
+		        var byline = $("<span class='author'><a href='" + endpoint + "/profile/" + response.user_id + "'>" + response.user.displayName+ "</a></span>");
+		        var date = new Date(response.created * 1000);
+		        var mydate = date.format('c');
+		        var timeAgo = $("<span class='timeago' title='" + mydate + "'>" + mydate + "</span>");
+
+		        var inline = $("<a href='" + endpoint + "/" + response.content.slug +"'>" + response.content.title +"</a>");
+		        $(html).find(".comment_body_byline").append($(byline)).append(" &#183; ").append($(inline)).append(" &#183; ").append($(timeAgo));
+
+		        // Append the comment
+		        $(html).find(".comment_body_inner").html(marked(response.comment));
+
+		        // Add the comment to the DOM
+		        $(".comments_container").append(html);
+			});
+
+			$(".comments_container").show();
+			$(".timeago").timeago();
+			$(".loader").remove();
+		});		
+	},
+
+	/**
 	 * All functionality related to blog posts is wrapped up in here
 	 */
 	Blog : {

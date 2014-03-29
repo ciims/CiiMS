@@ -137,6 +137,13 @@ class Comments extends CiiModel
             'displayName' => $attributes['displayName'],
         );
 
+        $content = Content::model()->findByPk($data['content_id']);
+        $data['content'] = array(
+        	'id' => $data['content_id'],
+        	'title' => $content->title,
+        	'slug' => $content->slug
+        );
+
         // If this user cannot comment without approval
         if (!$user->canCommentWithoutApproval())
         	if ($user->isSuspended() || $user->getReputation() < 100)
