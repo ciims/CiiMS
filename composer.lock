@@ -3,50 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0575b30a845979d7b4d1b0e85783db15",
+    "hash": "b6d93af2251b7c8f3390c007e7e473d2",
     "packages": [
-        {
-            "name": "abraham/twitteroauth",
-            "version": "dev-add-composer-json",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tomohikosato/twitteroauth.git",
-                "reference": "cc2449455b91890ee48eff68c3d5270530e64ed8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tomohikosato/twitteroauth/zipball/cc2449455b91890ee48eff68c3d5270530e64ed8",
-                "reference": "cc2449455b91890ee48eff68c3d5270530e64ed8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "package",
-            "autoload": {
-                "files": [
-                    "twitteroauth/twitteroauth.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abraham Williams",
-                    "email": "abraham@abrah.am",
-                    "homepage": "http://abrah.am",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Twitter oauth",
-            "keywords": [
-                "Twitter API",
-                "Twitter oAuth"
-            ],
-            "time": "2012-11-19 02:41:52"
-        },
         {
             "name": "charlesportwoodii/eanalytics",
             "version": "dev-master",
@@ -377,6 +335,33 @@
             "time": "2013-04-30 19:58:08"
         },
         {
+            "name": "kertz/twitteroauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kertz/twitteroauth.git",
+                "reference": "97b677ca030e7de7dcade797aabb4af8a3aa463f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kertz/twitteroauth/zipball/97b677ca030e7de7dcade797aabb4af8a3aa463f",
+                "reference": "97b677ca030e7de7dcade797aabb4af8a3aa463f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "twitteroauth"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2014-02-23 11:27:58"
+        },
+        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.7.9",
             "source": {
@@ -686,7 +671,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "hybridauth/hybridauth": 20,
-        "abraham/twitteroauth": 20,
+        "kertz/twitteroauth": 20,
         "charlesportwoodii/eanalytics": 20
     },
     "platform": {

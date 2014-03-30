@@ -46,7 +46,7 @@
         "hybridauth/hybridauth": "2.2.0.*@dev",
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
-        "abraham/twitteroauth": "dev-add-composer-json",
+        "kertz/twitteroauth": "dev-master",
         "charlesportwoodii/eanalytics": "dev-master"
     },
     "require-dev": {
