@@ -50,7 +50,7 @@ class Comments extends CiiModel
 	}
 
 	/**
-	 * @return array primary key of the table
+	 * @return string[] primary key of the table
 	 **/	 
 	public function primaryKey()
 	{

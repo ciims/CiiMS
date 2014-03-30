@@ -121,7 +121,7 @@ class CiiSettingsForm extends CWidget
 
 	/**
 	 * Renders the main body content
-	 * @param  CActiveForm $Form  The Form we're working with
+	 * @param  CActiveForm $form  The Form we're working with
 	 */
 	private function renderMain($form)
 	{

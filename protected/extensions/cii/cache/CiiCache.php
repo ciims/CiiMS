@@ -15,7 +15,7 @@ class CiiCache extends CCache
          * Overloaded method to generate a truely unique id that we can intelligently flush without dumping our entire cache
          * 
          * @param string $key a key identifying a value to be cached
-         * @return sring a key generated from the provided key which ensures the uniqueness across applications
+         * @return string a key generated from the provided key which ensures the uniqueness across applications
          */
         protected function generateUniqueKey($key)
         {

@@ -30,7 +30,7 @@ class CiiRedisCache extends CiiCache
 	}
 
 	/**
-	 * @return mixed the redis instance used by this component.
+	 * @return Redis|null the redis instance used by this component.
 	 */
 	public function getRedis()
 	{

@@ -51,7 +51,7 @@ class Users extends CiiModel
 	}
 
 	/**
-	 * @return array primary key of the table
+	 * @return string[] primary key of the table
 	 **/
 	public function primaryKey()
 	{
@@ -339,7 +339,7 @@ class Users extends CiiModel
 	 * Returns the gravatar image url for a particular user
 	 * The beauty of this is that you can call User::model()->findByPk()->gravatarImage() and not have to do anything else
 	 * Implemention details borrowed from Hypatia Cii User Extensions with permission
-	 * @param  string $size		The size of the image we want to display
+	 * @param  integer $size		The size of the image we want to display
 	 * @param  string $default	The default image to be displayed if none is found
 	 * @return string gravatar api image
 	 */

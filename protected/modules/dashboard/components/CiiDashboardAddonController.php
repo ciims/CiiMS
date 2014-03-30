@@ -204,6 +204,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      * WARNING: This has the potential to return a _very_ large response object that can exceed PHP's MAX_MEMORY settings
      *
      * @param string $file  The Path to the package ZIP file
+     * @param string $id
      * @return ZIP Package
      */
     protected function downloadPackage($id, $file, $path)

@@ -338,7 +338,7 @@ class EClientScript extends YiiNewRelicClientScript
 
 	/**
 	 * Optmize css, strip any spaces and newline
-	 * @param string $data input css data
+	 * @param string $code
 	 * @return string optmized css data
 	 */
 	private function optimizeCssCode($code)
@@ -352,7 +352,7 @@ class EClientScript extends YiiNewRelicClientScript
 
 	/**
 	 * Optimize script via google compiler
-	 * @param string $data script code
+	 * @param string $code
 	 * @return string optimized script code
 	 */
 	private function optimizeScriptCode($code)

@@ -156,6 +156,9 @@ class CiiMessageCommand extends MessageCommand
 		}
 	}
 
+	/**
+	 * @param string $translator
+	 */
 	protected function extractMessages($fileName,$translator)
     {
         echo "Extracting messages from $fileName...\n";
@@ -192,6 +195,12 @@ class CiiMessageCommand extends MessageCommand
         return $messages;
     }
 
+    /**
+     * @param string $fileName
+     * @param boolean $overwrite
+     * @param boolean $removeOld
+     * @param boolean $sort
+     */
     protected function generateMessageFile($messages,$fileName,$overwrite,$removeOld,$sort)
 	{
 		echo "Saving messages to $fileName...";

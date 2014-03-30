@@ -137,7 +137,7 @@ class Cii {
      * @param  mxied  $date   Likely a string in date format (of some kind)
      * @param  string $format The format we want to FORCE the dts to be formatted to
      *                        If this isn't supplied, we'll pull it from Cii::getConfig()
-     * @return Date
+     * @return string
      */
 	public static function formatDate($date, $format = NULL)
 	{
@@ -427,7 +427,7 @@ class Cii {
      *
      * @access public
      * @static
-     * @param    string    $word    English noun to pluralize
+     * @param string $string
      * @return string Plural noun
      */
     public static function pluralize( $string ) 
@@ -583,6 +583,9 @@ class Cii {
         return $uppercase(Cii::humanize(Cii::underscore($word)));
     }
 
+    /**
+     * @param string $word
+     */
     public static function underscoretowords($word)
     {
         return ucwords(str_replace("_", " ", Cii::underscore($word)));

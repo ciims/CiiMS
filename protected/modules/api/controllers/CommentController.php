@@ -28,7 +28,7 @@ class CommentController extends ApiController
     /**
      * If Disqus comments are enabled, disable the entire API
      * @param  CAction $action   The action we are using
-     * @return CAction
+     * @return null|boolean
      */
     public function beforeAction($action)
     {
@@ -148,7 +148,6 @@ class CommentController extends ApiController
     /**
      * Creates a new comment
      * TODO: Figure out how to fix the email issues
-     * @param  int  $id   The Comment id
      * @return array
      */
     private function createComment()
@@ -196,7 +195,7 @@ class CommentController extends ApiController
      * [DELETE] [/comment/index]
      * Deletes a comment
      * @param  int  $id   The Comment id
-     * @return array
+     * @return boolean
      */
     public function actionIndexDelete($id=NULL)
     {
