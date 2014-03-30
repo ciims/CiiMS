@@ -18,7 +18,7 @@ notifications:
     
 before_script:
   - php composer.phar selfupdate
-  - php composer.phar install
+  - php composer.phar install --no-dev
   - mysql -e 'create database ciims_test;'                    # Create Database
   - echo "https://$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname
   - php protected/yiic-test.php migrate up --interactive=0    # Run Migrations

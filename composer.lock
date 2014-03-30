@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "cbcfa00608e4317aeb5ea0f3ebf90e5d",
+    "hash": "0575b30a845979d7b4d1b0e85783db15",
     "packages": [
         {
             "name": "abraham/twitteroauth",
-            "version": "dev-master",
+            "version": "dev-add-composer-json",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tomohikosato/twitteroauth.git",
-                "reference": "98356f90107672c4c38fa2cd810d862e711a4ced"
+                "reference": "cc2449455b91890ee48eff68c3d5270530e64ed8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tomohikosato/twitteroauth/zipball/98356f90107672c4c38fa2cd810d862e711a4ced",
-                "reference": "98356f90107672c4c38fa2cd810d862e711a4ced",
+                "url": "https://api.github.com/repos/tomohikosato/twitteroauth/zipball/cc2449455b91890ee48eff68c3d5270530e64ed8",
+                "reference": "cc2449455b91890ee48eff68c3d5270530e64ed8",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
             "type": "package",
             "autoload": {
                 "files": [
-                    "twitteroauth/OAuth.php"
+                    "twitteroauth/twitteroauth.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -45,7 +45,7 @@
                 "Twitter API",
                 "Twitter oAuth"
             ],
-            "time": "2012-11-14 03:45:45"
+            "time": "2012-11-19 02:41:52"
         },
         {
             "name": "charlesportwoodii/eanalytics",
