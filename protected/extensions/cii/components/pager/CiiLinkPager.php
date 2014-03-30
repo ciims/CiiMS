@@ -140,7 +140,7 @@ class CiiLinkPager extends CiiBasePager
         }
 
         /**
-         * @return array the begin and end pages that need to be displayed.
+         * @return integer[] the begin and end pages that need to be displayed.
          */
         protected function getPageRange()
         {

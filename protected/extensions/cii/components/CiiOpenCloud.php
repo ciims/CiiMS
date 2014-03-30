@@ -128,7 +128,6 @@ class CiiOpenCloud extends CComponent
 
 	/**
 	 * Uploads a file to an OpenStack Conainter
-	 * @param  Openstack\Container $container  The container want to upload to
 	 */
 	public function uploadFile()
 	{

@@ -9,7 +9,7 @@ class RemoteUserIdentity extends CBaseUserIdentity {
 
 	/**
 	 * Authenticates a user.
-	 * @return boolean whether authentication succeeds.
+	 * @return boolean|null whether authentication succeeds.
 	 */
 	public function authenticate($provider=NULL)
 	{

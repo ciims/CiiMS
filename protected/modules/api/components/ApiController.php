@@ -185,7 +185,7 @@ class ApiController extends CiiController
 
 	/**
      * Outputs the data as JSON
-     * @param  array  $response the response data
+     * @param  boolean|null  $response the response data
      */
     public function renderOutput($response = array(), $status=NULL, $message=NULL)
     {

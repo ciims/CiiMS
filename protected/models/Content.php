@@ -57,7 +57,7 @@ class Content extends CiiModel
 	}
 
 	/**
-	 * @return array primary key of the table
+	 * @return string[] primary key of the table
 	 **/	 
 	public function primaryKey()
 	{
@@ -233,7 +233,7 @@ class Content extends CiiModel
 
 	/**
 	 * Returns the appropriate status' depending up the user's role
-	 * @return array
+	 * @return string[]
 	 */
 	public function getStatuses()
 	{

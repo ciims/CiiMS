@@ -37,7 +37,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * EmailField type
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -78,7 +77,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * TbActiveForm::textFieldRow() with min/max character length support.
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -116,7 +114,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * TbActiveForm::textFieldRow() with min/max character length support.
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -148,7 +145,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * passwordFieldRow provides a password box that decrypts the database stored value since it will be encrypted in the db
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -167,7 +163,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * numberRow HTML5 number elemtn to work with
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -201,7 +196,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * rangeRow provides a pretty ish range slider with view controls
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -244,7 +238,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options
@@ -280,7 +273,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 
 	/**
 	 * toggleButtonRow provides a checkbox with toggle support via purecss.io and prism.js
-	 * @param  CActiveForm      $form        The CActiveForm element
 	 * @param  CiiSettingsModel $model       The model that we are operating on
 	 * @param  string           $property    The name of the property we are working with
 	 * @param  array            $htmlOptions An array of HTML Options

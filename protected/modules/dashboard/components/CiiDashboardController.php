@@ -31,7 +31,7 @@ class CiiDashboardController extends CiiController
 	}
 
 	/**
-	 * @return array action filters
+	 * @return string[] action filters
 	 */
 	public function filters()
 	{

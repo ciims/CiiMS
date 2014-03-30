@@ -12,6 +12,9 @@ class CiiAssetManager extends CAssetManager
 		 return parent::getBasePath();
 	}
 
+	/**
+	 * @param string $file
+	 */
 	protected function generatePath($file, $hashByName=false)
 	{
     	return $this->hash($file);

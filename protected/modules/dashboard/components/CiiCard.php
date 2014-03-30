@@ -34,7 +34,7 @@ class CiiCard extends CiiSettingsModel
 
 	/**
 	 * Retrieves the appropriate sizes for a card
-	 * @return This is a default value
+	 * @return string is a default value
 	 */
 	public function getSize()
 	{
@@ -295,7 +295,7 @@ class CiiCard extends CiiSettingsModel
 	 * Save function for Configuration
 	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
 	 * and we should abort
-	 * @return bool      Whether or not the save succedded or not
+	 * @return boolean|null      Whether or not the save succedded or not
 	 */
 	public function save($runValidation=true)
 	{

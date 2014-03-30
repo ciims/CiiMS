@@ -2,6 +2,9 @@
 
 class CiiFile {
 
+    /**
+     * @param string $path
+     */
     public function save($path)
     {
         if (!move_uploaded_file($_FILES['file']['tmp_name'], $path))
@@ -61,6 +64,9 @@ class CiiFileUploader {
         }
     }
 
+    /**
+     * @param string $str
+     */
     private function toBytes($str)
     {
         $val = trim($str);
@@ -76,6 +82,7 @@ class CiiFileUploader {
 
     /**
      * Returns array('success'=>true) or array('error'=>'error message')
+     * @param string $uploadDirectory
      */
     public function handleUpload($uploadDirectory, $replaceOldFile = FALSE)
     {

@@ -69,6 +69,7 @@ class m130712_220749_settings extends CDbMigration
 
 	/**
 	 * Sets general settings where possible
+	 * @param CDbConnection $connection
 	 */
 	private function generalSettings(&$connection)
 	{

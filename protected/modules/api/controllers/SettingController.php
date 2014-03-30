@@ -142,7 +142,7 @@ class SettingController extends ApiController
 	/**
 	 * Retrieves the appropriate model for the theme
 	 * @param  string $type The data type to load
-	 * @return CiiThemeModel
+	 * @return Theme
 	 */
 	private function getThemeAttributes($type)
 	{

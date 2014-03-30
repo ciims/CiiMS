@@ -153,8 +153,8 @@ class CiiURLManager extends CUrlManager
 
 	/**
 	 * Method for retrieving rules from the database and caching them
-	 * @param $fromString - The string to be used in our FROM query
-	 * @param $item - Address of the caching rule
+	 * @param string $fromString - The string to be used in our FROM query
+	 * @param string $item - Address of the caching rule
 	 * @does - Adds to the url rules and caches the result
 	 **/
 	private function cacheRules($fromString, $item)

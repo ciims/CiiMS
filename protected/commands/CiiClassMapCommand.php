@@ -51,6 +51,9 @@ class CiiClassMapCommand extends CConsoleCommand
 		return;
 	}
 
+	/**
+	 * @param string $str
+	 */
 	private function starts_with_upper($str)
 	{
 	    $chr = mb_substr ($str, 0, 1, "UTF-8");

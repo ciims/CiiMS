@@ -128,7 +128,7 @@ class CiiSettingsModel extends CFormModel
 	 * Validates passwords by encrypting them for storage
 	 * @param  mixed $attribute
 	 * @param  mixed $params
-	 * @return true
+	 * @return boolean
 	 */
 	public function password($attribute, $params)
 	{
@@ -218,7 +218,7 @@ class CiiSettingsModel extends CFormModel
 	 * Save function for Configuration
 	 * Everything should be wrapped inside of a transaction - if there is an error saving any of the items then there was an error saving all of them
 	 * and we should abort
-	 * @return bool      Whether or not the save succedded or not
+	 * @return boolean|null      Whether or not the save succedded or not
 	 */
 	public function save($runValidation=true)
 	{
