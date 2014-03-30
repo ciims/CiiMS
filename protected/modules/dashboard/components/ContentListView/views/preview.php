@@ -10,7 +10,7 @@
 		<?php echo CHtml::link(NULL, Yii::app()->createUrl('/dashboard/content/save/id/' . $model->id), array('class' => 'fa fa-edit pull-right')); ?>
 
 		<?php if ($model->isPublished()): ?>
-			<span class="fa fa-comment pull-right"></span>
+			<span class="fa fa-comment icon-comment pull-right"></span>
 			<?php echo CHtml::link(NULL, Yii::app()->getBaseUrl(true) . Yii::app()->createUrl($model->slug), array('class' => 'fa fa-eye pull-right')); ?>
 		<?php endif; ?>
 		<div class="clearfix"></div>

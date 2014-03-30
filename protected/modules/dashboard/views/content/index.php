@@ -42,4 +42,3 @@
 $this->widget('ext.timeago.JTimeAgo', array(
     'selector' => '.timeago',
 )); ?>
-

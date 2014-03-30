@@ -5,6 +5,15 @@
  */
 var CiiMSComments = {
 
+	storage : null,
+
+	getStoredInfoBy : function(name) {
+		if (CiiMSComments.storage == null)
+			CiiMSComments.storage = jQuery.parseJSON(localStorage.getItem('ciims'));
+
+		return CiiMSComments.storage[name];
+	},
+
 	/**
 	 * Binds the CiiMS comments to the page
 	 * @param  optional int id
@@ -19,9 +28,9 @@ var CiiMSComments = {
 		// Update the DOM
 		$("#ciims_comments").html("<div class='comment_loader'></div><div class='comment_messages'><div class='clearfix'></div></div><h3>Comments</h3><div class='new_comment'></div><div class='comments_container' style='display:none'></div>");
 
-		var isAuthenticated = localStorage.getItem("isAuthenticated");
+		var isAuthenticated = CiiMSComments.getStoredInfoBy("isAuthenticated");
 
-		if (isAuthenticated == "true")
+		if (isAuthenticated == true)
 		{
 			// Create the container and clone it
 			var templateContainer = '<div class="comment template_container"><div class="pull-left comment_person"></div><div class="pull-left comment_body"><div class="comment_body_inner"></div></div><div class="clearfix"></div></div>';
@@ -32,7 +41,7 @@ var CiiMSComments = {
 			$(".template_container").remove();
 
 			// Create the Gravatar URL for the user
-			var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(localStorage.getItem("email")) + "?s=30"});
+			var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(CiiMSComments.getStoredInfoBy("email")) + "?s=30"});
 			$(NewComment).find(".comment_person").append($(gravatar));
 
 			// Add the comment box
@@ -59,8 +68,8 @@ var CiiMSComments = {
 		    url : endpoint + 'api/comment/comments/id/' + id,
 		    type : 'get',
 		    headers : {
-		        "X-Auth-Email" : localStorage.getItem("email"),
-		        "X-Auth-Token" : localStorage.getItem("token")
+		        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
+		        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
 		    },
 		    dataType : 'json',
 		    success : function(data) {
@@ -135,8 +144,8 @@ var CiiMSComments = {
          * @return void
          */
         showComment : function(response) {
-            var userRole = localStorage.getItem("userRole");
-            var isAuthenticated = localStorage.getItem("isAuthenticated");
+            var role = CiiMSComments.getStoredInfoBy("role");
+            var isAuthenticated = CiiMSComments.getStoredInfoBy("isAuthenticated");
 
             var html = $(".comment.template").clone();
 
@@ -156,7 +165,7 @@ var CiiMSComments = {
             var deleteBtn = $("<a>").addClass("delete_comment fa fa-times").attr("href", "#").attr("data-attr-id", response.id);
         
             // If the user is an admin or mod Show some extra details
-            if (userRole == 7||userRole == 9)
+            if (role == 7||role == 9)
             {
                 // Indicate hellbanned comments to admins
                 if (response.banned_comment == true)
@@ -190,8 +199,8 @@ var CiiMSComments = {
                     url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/flag/id/" + id,
                     type : 'post',
                     headers : {
-                        "X-Auth-Email" : localStorage.getItem("email"),
-                        "X-Auth-Token" : localStorage.getItem("token")
+                        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
+                        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
                     },
                     dataType : 'json',
                     beforeSend : function() {
@@ -216,8 +225,8 @@ var CiiMSComments = {
                     url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/index/id/" + id,
                     type : 'delete',
                     headers : {
-                        "X-Auth-Email" : localStorage.getItem("email"),
-                        "X-Auth-Token" : localStorage.getItem("token")
+                        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
+                        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
                     },
                     dataType : 'json',
                     beforeSend : function() {
@@ -290,8 +299,8 @@ var CiiMSComments = {
 					        "content_id" : $('.comment-count').attr("data-attr-id"),
 					    },
 					    headers : {
-					        "X-Auth-Email" : localStorage.getItem("email"),
-					        "X-Auth-Token" : localStorage.getItem("token")
+					        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
+					        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
 					    },
 					    dataType : 'json',
 					    beforeSend : function() {

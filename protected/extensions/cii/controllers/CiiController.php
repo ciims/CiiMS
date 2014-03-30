@@ -173,6 +173,22 @@ class CiiController extends CController
 
 		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
 
+        if (!Yii::app()->user->isGuest)// && Yii::app()->session['api_vars'] == NULL)
+        {
+            $json = CJSON::encode(array(
+                'email' =>  Yii::app()->user->email, 
+                'token' => Yii::app()->user->api_key, 
+                'role' => Yii::app()->user->role,
+                'isAuthenticated' => true,
+                'time' => time()
+            ));
+
+            Yii::app()->session['api_vars'] = true;
+            Yii::app()->clientScript->registerScript('ciims', "
+                localStorage.setItem('ciims', '$json');
+            ");
+        }
+
         return parent::beforeAction($action);
 	}
 	
@@ -256,7 +272,7 @@ class CiiController extends CController
             
     		$output = $this->processOutput($output);
             $config = Yii::app()->getComponents(false);
-    		
+
     		if($return)
     		    return $output;
     		else

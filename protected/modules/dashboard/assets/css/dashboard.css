@@ -361,13 +361,16 @@ main .installing {
     margin-left: 5px;
 }
 main #comment {
-  height: 100%;
+  height: 90%;
   padding: 15px;
+  overflow:hidden;
 }
 
-main #disqus_thread {
+main #disqus_thread,
+main #ciims_comments {
     padding: 10px;
 }
+
 main .comment_body {
 	width: 78% !important;
 }
@@ -1606,7 +1609,7 @@ main .preview-container .preview {
 }
 
 main .preview-container.active .preview {
-	width: 70%;
+	width: 50%;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-ms-transition: all .2s ease-in-out;
@@ -1637,7 +1640,7 @@ main .preview-container .content-sidebar {
 
 main .preview-container.active .content-sidebar {
 	display: block;
-	width: 28%;
+	width: 47%;
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-ms-transition: all .2s ease-in-out;
@@ -1648,7 +1651,7 @@ main .preview-container.active .content-sidebar {
 
 @media (min-width: 1550px) {
 	main .preview-container .preview {
-		width: 70%;
+		width: 59%;
 	}
 
 	main .preview-container .preview .fa-comment {
@@ -1657,7 +1660,7 @@ main .preview-container.active .content-sidebar {
 	
 	main .preview-container .content-sidebar {
 		display: block;
-		width: 28%;
+		width: 40%;
 	}
 }
 

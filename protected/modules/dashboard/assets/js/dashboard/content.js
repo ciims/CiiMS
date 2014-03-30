@@ -238,6 +238,7 @@ var CiiDashboard = {
 				if ($(".content-sidebar").is(":visible")) {
 					var id = $(".preview-container").find("#item-id").text();
 					Comments.reload(id);
+					CiiDashboard.Content.Preview.bindNano();
 				}
 
 				$(".icon-comment").click(function() {
@@ -245,9 +246,21 @@ var CiiDashboard = {
 						if ($(this).hasClass("active")) {
 							var id = $(".preview-container").find("#item-id").text();
 							Comments.reload(id);
+							CiiDashboard.Content.Preview.bindNano();
 						}
 					});
 				})
+			},
+
+			bindNano : function() {
+					setTimeout(function() {
+						$("div.comments").addClass("nano");
+						$("div.comments").children().first().addClass("content");
+						$("div.comments").nanoScroller({ OSNativeScrolling: true, flash : true}); 
+						$("div.comments").animate({
+							scrollTop : CiiDashboard.Content.Preview.scrollTop
+						}, 0);
+					}, 200);
 			},
 
 			// Allows content to be deleted without page refresh
