@@ -14,6 +14,5 @@
 /uploads/*
 /install.php
 .htaccess
-/composer.lock
 *.*~
 *.swp
