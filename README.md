@@ -1,5 +1,6 @@
 ## CiiMS
 [![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/badges/quality-score.png?s=f4dabc7c51c4de8a2989a8e14d0fe7fbb2ea2753)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
 
 #### What is CiiMS?
 CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system.
