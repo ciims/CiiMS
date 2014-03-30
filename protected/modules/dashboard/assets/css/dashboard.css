@@ -375,6 +375,15 @@ main .comment_body {
 	width: 78% !important;
 }
 
+main #ciims_comments .comment_body_inner form {
+	padding: 0;
+	margin: 0;
+}
+
+main #ciims_comments .comment_body_inner form input,
+main #ciims_comments .comment_body_inner form a {
+	font-size: 11px;
+}
 main .content-container {
 	height: 100%;
 	min-height: 100%;
