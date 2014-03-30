@@ -17,5 +17,25 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Are you sure you want to delete this item?' => '',
+  'Delete' => '',
+  'Displaying {start}-{end} of 1 result.|Displaying {start}-{end} of {count} results.' => '',
+  'Either "name" or "value" must be specified for CDataColumn.' => '',
+  'Home' => '',
+  'No results found.' => '',
+  'Not set' => '',
+  'Please specify the "attributes" property.' => '',
+  'Please specify the "data" property.' => '',
   'Sort by: ' => '',
+  'The "dataProvider" property cannot be empty.' => '',
+  'The attribute must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => '',
+  'The button type "{type}" is not supported.' => '',
+  'The column must be specified in the format of "Name:Type:Label", where "Type" and "Label" are optional.' => '',
+  'The property "itemView" cannot be empty.' => '',
+  'The property filterSelector should be defined.' => '',
+  'The property updateSelector should be defined.' => '',
+  'Total 1 result.|Total {count} results.' => '',
+  'Update' => '',
+  'View' => '',
+  '{class} must specify "model" and "{attribute}" or "{name}" property values.' => '',
 );

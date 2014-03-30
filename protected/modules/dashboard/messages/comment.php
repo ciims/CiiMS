@@ -18,8 +18,12 @@
  */
 return array (
   'Comment #{{id}} was not found.' => '',
+  'Comment has already been flagged by user.' => '',
   'Could not find comments for that content piece.' => '',
+  'Could not find comments for that user.' => '',
   'Missing id' => '',
+  'Missing ids attribute' => '',
+  'The comment API is not available while Discourse comments are enabled.' => '',
   'The comment API is not available while Disqus comments are enabled.' => '',
   'You do not have permission to edit this comment' => '',
 );

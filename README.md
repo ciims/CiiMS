@@ -40,9 +40,10 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 #### Features
 
 * Based on Yii Framework
-* Installs in under 5 Minutes (Will Install Yii for you too!)
+* Installs in under 5 Minutes
+* Utilizes Composer
 * Beautiful Default Theme
-* Content Support for both [Markdown Extra](http://daringfireball.net/projects/markdown/)
+* Supports [Markdown Extra](http://daringfireball.net/projects/markdown/)
 * SEO Optimized (Sitemap XML, URL Slugs, SEO Meta Tags)
 * Password Protected Content
 * Site wide and Category Specific RSS Feeds
@@ -51,7 +52,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Low Memory Footprint
 * Themable
 * Social Integration (Social Signon, Social Sharing)
-* Extendable with custom modules/extensions
+* Extendable with custom modules, extensions, themes, and cards
 * Beautiful _and_ functional dashboard for managing your content and settings.
 * i18n files provided for translations
 * Easily install new themes and cards from [https://www.ciims.org](https://www.ciims.org) in a single click
@@ -68,7 +69,7 @@ Before installing CiiMS you'll need to have at _minimum_ the following:
 * PHP ZIP Extension
 * PHP MCrypt Extension
 
-All the dependencies and other requirements are managed through composer, and will be reported back to you
+All the dependencies and other requirements are managed through composer, and will be reported back to you when you run ```composer install```.
 
 #### Recommendations
 The following extensions/applications are recommended to improve performance.
@@ -91,9 +92,10 @@ If you require support, submit a Github issue and I'll look into it as soon as I
 We <3 Contributers!
 
 * Submit Detailed Bug Reports
-* Implement X Feature and submit it as a Pull Request
-* Unit & Functional Testing (We're currently hooked into TravisCI, but we don't have a lot of tests running at the moment)
-* Help write i18n language files [see #5](https://github.com/charlesportwoodii/CiiMS/issues/5)
+* Implement a cool new Feature and submit it as a Pull Request
+* Fix a bug
+* Create more unit & functional tests
+* Help write i18n language files
 * Help provide translations in your native/favorite language
 * Create Dashboard Cards [See Instructions](https://github.com/charlesportwoodii/CiiMS/wiki/Creating-Cards)
 * Create Beautiful Themes [See Instructions](https://github.com/charlesportwoodii/CiiMS/wiki/Creating-Themes)

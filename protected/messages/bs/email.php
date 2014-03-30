@@ -18,7 +18,5 @@
  */
 return array (
   'Activate Your Account' => '',
-  'New Comment Posted On {{title}}' => '',
   'Your Password Reset Information' => '',
-  'New Comment Notification From CiiMS Blog' => '@@@@',
 );

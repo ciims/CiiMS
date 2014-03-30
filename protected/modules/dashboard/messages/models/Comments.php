@@ -17,12 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Approved' => '',
   'Comment' => '',
   'Content' => '',
   'Created' => '',
   'ID' => '',
-  'Parent' => '',
   'Updated' => '',
   'User' => '',
 );

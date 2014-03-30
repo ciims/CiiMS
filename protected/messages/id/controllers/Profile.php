@@ -19,5 +19,6 @@
 return array (
   'Oops! That user doesn\'t exist on our network!' => '',
   'There were errors saving your profile. Please correct them before trying to save again.' => '',
+  'User {{user}} - CiiMS | {{sitename}}' => '',
   'Your profile has been updated!' => '',
 );

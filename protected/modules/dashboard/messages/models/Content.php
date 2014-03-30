@@ -20,7 +20,6 @@ return array (
   'Author' => '',
   'Category' => '',
   'Commentable' => '',
-  'Comments' => '',
   'Content' => '',
   'Created' => '',
   'Draft' => '',

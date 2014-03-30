@@ -22,6 +22,8 @@ return array (
   'File is empty' => '',
   'File is too large' => '',
   'No files were uploaded.' => '',
+  'The server encountered an error during uploading. Please verify that you have saufficient space in the container and that your quota has not been reached.' => '',
+  'Unable to attach OpenStack Container.' => '',
   'increase post_max_size and upload_max_filesize to {{size}}' => '',
   '{{dir}} Server error. Upload directory isn\'t writable.' => '',
 );
