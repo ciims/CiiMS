@@ -135,6 +135,34 @@ class CiiOpenCloud extends CComponent
 		if ($this->_container == NULL)
 			return array('error' => Yii::t('ciims.misc', 'Unable to attach OpenStack Container.'));
 
+		$validation = $this->validateFile();
+        
+        if (isset($validation['error']))
+        	return $validation;
+        else
+        {
+        	$filename = $validation['data']['filename'];
+        	$data = $validation['data']['data'];
+        	$ext = $validation['data']['ext'];
+        }
+
+        try {
+        	$response = $this->_container->uploadObject($filename.'.'.$ext, $data, array());
+        	if ($response)
+	        	 return array('success'=>true,'filename'=> $filename.'.'.$ext, 'url' => $this->_container->getCDN()->getMetadata()->getProperty('Ssl-Uri'));
+	        else
+	        	return array('error'=> Yii::t('ciims.misc', 'Could not save uploaded file. The upload was cancelled, or server error encountered'));
+        } catch (Exception $e) {
+        	return array('error'=> Yii::t('ciims.misc', 'The server encountered an error during uploading. Please verify that you have saufficient space in the container and that your quota has not been reached.'));
+        }
+	}
+
+	/**
+	 * Handles file validation
+	 * @return array
+	 */
+	private function validateFile()
+	{
 		// Perform file validation
 		$this->_file = isset($_FILES['file']) ? $_FILES['file'] : false;
 
@@ -155,7 +183,6 @@ class CiiOpenCloud extends CComponent
 		$pathinfo = pathinfo($this->_file['name']);
         $filename = $pathinfo['filename'];
 
-        //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
 
         if(!in_array(strtolower($ext), $this->allowedExtensions))
@@ -167,15 +194,7 @@ class CiiOpenCloud extends CComponent
         $filename = 'upload-'. md5(md5($filename) . rand(10, 99) . time());
 
         $data = fopen($this->_file['tmp_name'], 'r+');
-        
-        try {
-        	$response = $this->_container->uploadObject($filename.'.'.$ext, $data, array());
-        	if ($response)
-	        	 return array('success'=>true,'filename'=> $filename.'.'.$ext, 'url' => $this->_container->getCDN()->getMetadata()->getProperty('Ssl-Uri'));
-	        else
-	        	return array('error'=> Yii::t('ciims.misc', 'Could not save uploaded file. The upload was cancelled, or server error encountered'));
-        } catch (Exception $e) {
-        	return array('error'=> Yii::t('ciims.misc', 'The server encountered an error during uploading. Please verify that you have saufficient space in the container and that your quota has not been reached.'));
-        }
+
+        return array('success' => true, 'data' => array('filename' => $filename, 'data' => $data, 'ext' => $ext));
 	}
 }

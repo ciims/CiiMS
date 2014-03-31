@@ -29,13 +29,24 @@ class CiiSetupCommand extends CiiConsoleCommand
         }
     }
 
+    /**
+	 * Generates a new encryption key
+	 * @param $overrideConfig 	boolean 	Whether or not to generate the config file
+	 *							If set to true, protected/config/params.php will be generated/updated
+	 *							With the newly generated hash.
+	 */
+    public function actionGenerateHash($override=false)
+    {
+    	return $this->generateHash($override);
+    }
+
 	/**
 	 * Generates a new encryption key
 	 * @param $overrideConfig 	boolean 	Whether or not to generate the config file
 	 *							If set to true, protected/config/params.php will be generated/updated
 	 *							With the newly generated hash.
 	 */
-	public function actionGenerateHash($overrideConfig = false)
+	private function generateHash($overrideConfig = false)
 	{
 		$hash = mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5(time() . md5(time())))) . hash("sha512", time()) . time()), 0, 120);
 		
@@ -110,10 +121,12 @@ class CiiSetupCommand extends CiiConsoleCommand
 		if ($count != 0)
 			return $this->log('Admin user already exists, aborting generation');
 
+		$passwordHash = $this->getEncryptedPassword($username, $password, Yii::app()->params['encryptionKey']);
+		
 		$connection = Yii::app()->db;
 		$connection->createCommand('INSERT INTO users (id, email, password, firstName, lastName, displayName, user_role, status, created, updated) VALUES (NULL, :email, :password, NULL, NULL, "administrator", 9, 1, UTC_TIMESTAMP(), UTC_TIMESTAMP())')
                    ->bindParam(':email',        $username)
-                   ->bindParam(':password',     $this->getEncryptedPassword($username, $password, Yii::app()->params['encryptionKey']))
+                   ->bindParam(':password',     $passwordHash)
                    ->execute();
 
         return $this->log("A new admin user has been created");

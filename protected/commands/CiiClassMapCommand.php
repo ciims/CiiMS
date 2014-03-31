@@ -8,20 +8,21 @@ class CiiClassMapCommand extends CiiConsoleCommand
 		$data = "<?php\n";
 		$data .= '$basePath = dirname(__FILE__) . \'/..\';' . "\n";
 		$data .= 'Yii::$classMap = ' . "array(\n";
-		$path = Yii::getPathOfAlias('ext');
 
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
-		foreach($objects as $name => $object) {
-		    if (strpos($name, '.php') !== false && strpos($name, 'gii') == false)
-		    {
-		        $id = str_replace('.php', '', substr( $name, strrpos( $name, '/' )+1 ));
-		        if ($this->starts_with_upper($id))
-		        	$data .=  "    '" . $id . "' => " . '$basePath . \'' . str_replace('/var/www/ciims/protected', '', $name) . "',\n";
-		    }
-		}
+		$this->updateDataPath(Yii::getPathOfAlias('ext'), $data);
+		$this->updateDataPath( Yii::getPathOfAlias('application.models'), $data);
+		$this->updateDataPath(Yii::getPathOfAlias('application.controllers'), $data);
 
-		$path = Yii::getPathOfAlias('application.models');
+		$data .=  ");\n";
 
+		$handle = fopen(Yii::getPathOfAlias('application.config') . DIRECTORY_SEPARATOR . 'classmap.php', 'w+');
+		fwrite($handle, $data);
+		fclose($handle);
+		return;
+	}
+
+	private function updateDataPath($path, &$data)
+	{
 		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 		foreach($objects as $name => $object) {
 		    if (strpos($name, '.php') !== false && strpos($name, 'gii') == false)
@@ -32,24 +33,7 @@ class CiiClassMapCommand extends CiiConsoleCommand
 		    }
 		}
 
-		$path = Yii::getPathOfAlias('application.controllers');
-
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
-		foreach($objects as $name => $object) {
-		    if (strpos($name, '.php') !== false && strpos($name, 'gii') == false)
-		    {
-		        $id = str_replace('.php', '', substr( $name, strrpos( $name, '/' )+1 ));
-		        if ($this->starts_with_upper($id))
-		        	$data .=  "    '" . $id . "' => " . '$basePath . \'' . str_replace('/var/www/ciims/protected', '', $name) . "',\n";
-		    }
-		}
-
-		$data .=  ");\n";
-
-		$handle = fopen(Yii::getPathOfAlias('application.config') . DIRECTORY_SEPARATOR . 'classmap.php', 'w+');
-		fwrite($handle, $data);
-		fclose($handle);
-		return;
+		return $data;
 	}
 
 	/**
