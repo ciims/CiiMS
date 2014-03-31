@@ -404,14 +404,8 @@ main .settings-container .list-view .settings-row .element {
 
 main .settings-container .meta-icon-plus {
 	top: 15px;
-	position: relative;
 	background: #A7CE44;
-	border-radius: 4px;
 	padding: 5px;
-	color: #fff;
-	font-size: 10px;
-	text-decoration: none;
-	margin-right: 5px;
 }
 
 main .empty {

@@ -60,7 +60,7 @@
 					<?php echo $form->passwordFieldRow($model, 'password', array('class' => 'pure-input-2-3', 'placeholder' => Yii::t('Dashboard.views', "Set or change a user's password. Otherwise leave blank"))); ?>
 				</div>
 				<legend>Metadata
-					<span class="meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
+					<span class="fa fa-plus meta-icon-plus pull-right icon-plus pure-button pure-button-link"></span>
 				</legend>
 				<div class="meta-container">
 					<p class="small-text"><?php echo Yii::t('Dashboard.views', 'Do not alter this data unless you know what you are doing.'); ?></p>

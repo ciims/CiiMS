@@ -4,7 +4,7 @@
 			<p><?php echo $header['h3']; ?></p>
 		</div>
 	    <form class="pure-form pull-right header-form">
-			<span class="icon-search pull-right icon-legend"></span>
+			<span class="fa fa-search pull-right icon-legend"></span>
 			<input id="text" name="text" class="pull-right pure-input pure-search pure-search-alt" placeholder="<?php echo Yii::t('Dashboard.views', 'Search for Cards...'); ?>" type="text">
 		</form>
 		<div class="clearfix"></div>
@@ -52,7 +52,7 @@
 					<div class="pure-control-group">
 						<p class="text-small text-small-inline inline"><?php echo $card->value['name']; ?></p>
 						<span class="pure-button pure-button-error pure-button-xsmall pure-button-link-xs pull-right remove-button" id="<?php echo $card->key; ?>">
-							<span class="icon-remove"></span>
+							<span class="fa fa-times"></span>
 						</span>
 						<span class="pure-button pure-button-warning pure-button-xsmall pure-button-link-xs pull-right">
 							<?php echo Cards::model()->countByAttributes(array('name' => $card->key)); ?>

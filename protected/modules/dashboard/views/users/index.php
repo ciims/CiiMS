@@ -4,7 +4,7 @@
 			<p><?php echo Yii::t('Dashboard.views', 'Manage Users'); ?></p>
 		</div>
 		<form class="pure-form pull-right header-form">
-			<span class="icon-search pull-right icon-legend"></span>
+			<span class="fa fa-search pull-right icon-legend"></span>
 			<?php echo CHtml::textField(
 	    		'Users[displayName]', 
 	    		Cii::get(Cii::get($_GET, 'Users', array()), 'displayName'), 
@@ -34,8 +34,7 @@
 					<input type="email" name="Invite[email]" id="Invite_email" placeholder="<?php echo Yii::t('Dashboard.main', 'Enter a email address to invite a user'); ?>"/>
 					<a class="pure-button pure-button-success pure-button-small invite-button">
 						<span id="spinner">
-							<span class="icon-spinner icon-spin icon-spinner-form"></span>
-							<span class="icon-spacer"></span>
+							<span class="fa fa-spinner fa-spin icon-spinner icon-spinner-form"></span>
 						</span>
 						<?php echo Yii::t('Dashboard.main', 'Invite User'); ?>
 					</a>
