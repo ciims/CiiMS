@@ -271,6 +271,7 @@ class ThemeController extends CiiDashboardAddonController implements CiiDashboar
     
     /**
      * Provides details about a specific theme installed from CiiMS.org
+     * @param string $id
      * @return JSON
      */
     private function getThemeDetails($id=NULL)

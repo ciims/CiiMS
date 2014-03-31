@@ -23,6 +23,7 @@ class m130712_220749_settings extends CDbMigration
 
 	/**
 	 * Attempts to import settings from HybridAuth config.
+	 * @param CDbConnection $connection
 	 */
 	private function socialSettings(&$connection)
 	{
