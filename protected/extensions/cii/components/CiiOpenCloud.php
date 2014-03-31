@@ -99,7 +99,7 @@ class CiiOpenCloud extends CComponent
 	 */
 	public function getService()
 	{
-		$this->_service = $this->_client->objectStoreService('cloudFiles', $this->region);
+		$this->_service = $this->getClient()->objectStoreService('cloudFiles', $this->region);
 		return $this->_service;
 	}
 
@@ -116,8 +116,7 @@ class CiiOpenCloud extends CComponent
 		if ($name == NULL)
 			return $this->_container = false;
 
-		$this->getService();
-        $this->_container = $this->_service->getContainer($name);
+        $this->_container = $this->getService()->getContainer($name);
 
         // Enforce the quote if one is defined in our override control
         if (($container_max_size = Cii::get($this->_overrideControl, 'max_container_size', 0)) != 0)

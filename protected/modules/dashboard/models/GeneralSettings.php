@@ -80,7 +80,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, useDiscourseComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname, discourseUrl, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -116,8 +116,8 @@ class GeneralSettings extends CiiSettingsModel
 			'disqus_shortname'     => Yii::t('Dashboard.models-general', 'Disqus Shortcode'),
 
 			// Discourse
-			'useDiscourseComments' => Yii::t('Dashboard.models-general', 'Use Discourse Comments'),
-			'discourseUrl' => Yii::t('Dashboard.models-general', 'Discourse URL'),
+			//'useDiscourseComments' => Yii::t('Dashboard.models-general', 'Use Discourse Comments'),
+			//'discourseUrl' => Yii::t('Dashboard.models-general', 'Discourse URL'),
 
 			// Openstack Data
 			'useOpenstackCDN' => Yii::t('Dashboard.models-general', 'Use Openstack for Uploads?'),

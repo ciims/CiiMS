@@ -4,6 +4,7 @@
  * UserIdentity represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
  * data can identity the user.
+ * @method string updatePassword(string $email, string $password)
  */
 class CiiUserIdentity extends CUserIdentity
 {

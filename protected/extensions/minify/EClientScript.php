@@ -185,7 +185,7 @@ class EClientScript extends YiiNewRelicClientScript
 						}
 					}
 					file_put_contents($fpath, $fileBuffer);
-					Yii::app()->cache->set('combineJs' . md5($fPath) . md5($fName), true);
+					Yii::app()->cache->set('combineJs' . md5($fpath) . md5($fname), true);
 				}
 				// real url of combined file
 				$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
@@ -265,7 +265,7 @@ class EClientScript extends YiiNewRelicClientScript
 					}
 				}
 				file_put_contents($fpath, $fileBuffer);
-				Yii::app()->cache->set('combineCss' . md5($fPath) . md5($fName), true);
+				Yii::app()->cache->set('combineCss' . md5($fpath) . md5($fname), true);
 			}
 			// add the combined file into scriptFiles
 			$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
