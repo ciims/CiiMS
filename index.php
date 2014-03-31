@@ -14,8 +14,8 @@
  */
 
 // Disable Error Reporting and set some constants
-error_reporting(-1);
-ini_set('display_errors', 'true');
+error_reporting(0);
+ini_set('display_errors', 'false');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file
@@ -57,7 +57,7 @@ $config['components']['db']['enableParamLogging'] = YII_DEBUG;
 if (YII_DEBUG && YII_TRACE_LEVEL == 3) 
 {
 	error_reporting(-1);
-	ini_set('display_errors', true);
+	ini_set('display_errors', 'true');
 
 	// Enable WebLogRouteLogging
 	$config['preload'][] = 'log';

@@ -19,20 +19,14 @@
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
 return array(
-    'basePath' => dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+    'basePath' => __DIR__.DS.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
     'preload' => array('cii', 'analytics'),
     'import' => array(
         'application.modules.*',
     ),
-    'modules' => array(
-        'api',
-        'dashboard',
-        'hybridauth' => array(
-            'providers' => array()
-        )
-    ),
+    'modules' => require_once __DIR__ . DS . 'modules.php',
     'behaviors' => array(
         'onBeginRequest' => array(
              'class' => 'ext.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',

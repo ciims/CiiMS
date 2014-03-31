@@ -277,7 +277,8 @@ class SettingsController extends CiiSettingsController
 	 */
 	public function actionFlushCache()
 	{
-		return Yii::app()->cache->flush();
+	    Yii::app()->cache->flush();
+        return unlink(Yii::getPathOfAlias('application.runtime').DS.'modules.config.php');
 	}
 
 	/**

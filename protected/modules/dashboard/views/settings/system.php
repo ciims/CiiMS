@@ -6,8 +6,7 @@
 		<div class="pull-right">
 			<span id="header-button" class="pure-button pure-button-error pure-button-link pure-button-small header-button-flush">
 				<span id="spinner">
-					<span class="icon-spinner icon-spin icon-spinner-form"></span>
-					<span class="icon-spacer"></span>
+					<span class="fa fa-spinner fa-spin icon-spinner icon-spinner-form"></span>
 				</span>
 				<?php echo Yii::t('Dashboard.views', 'Flush CiiMS Cache'); ?></span>
 		</div>
