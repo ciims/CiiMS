@@ -1,58 +1,9 @@
 <?php
 
-class CiiSetupCommand extends CConsoleCommand
+Yii::import('ext.cii.commands.CiiConsoleCommand');
+class CiiSetupCommand extends CiiConsoleCommand
 {
-
-	public function run($args=array())
-	{
-		if (!isset($args[0]))
-			return $this->showCommands();
-
-		switch ($args[0])
-		{
-			case "generatehash":
-				$this->generateHash(isset($args[1]) ? $args[1] : false);
-				break;
-			case "generatefirstuser":
-				$this->generateFirstUser($args[1], $args[2]);
-				break;
-            case "sethostname":
-                $this->setHostname($args[1]);
-                break;
-			default:
-				$this->showCommands();
-		}		
-	}
-
-	// The list of available commands
-	private function showCommands()
-	{
-		$this->log("CiiSetupCommand: A command line helper for automating installation of CiiMS.");
-		$this->log("===============================================================");
-		$this->log("Usage:");
-		$this->log("    php protected/yiic.php ciisetup [arg1] [arg2] [arg3] [...] [argn]\n");
-		$this->log("Arguments:");
-		$this->log("    generatehash		Generates a hash for CiiMS to use for user data");
-		$this->log("    				if '1' is passed as the second arguement, it will generate/update config/params.php");
-		$this->log("    generatefirstuser <email> <password>");
-		$this->log("					Creates a new admin user for the site, using the provided email and passwword");
-		$this->log("					This will also run generatehash if Yii::app()->params['encryptionKey'] is not defined");
-		$this->log("    				This command can only be used in headless setups, and will not create an admin user if one already exists");
-		$this->log();
-	}
-
-	/**
-	 * Simple logging command to make life easier
-	 * @param  string $message The message we want to output
-	 */
-	private function log($message="")
-	{
-		echo $message . "\n";
-	}
-
-	/** ======================================== **/
-
-    private function setHostname($hostname)
+    public function actionSetHostname($hostname)
     {
         $validator = new CUrlValidator;
         $isValid = $validator->validateValue($hostname);
@@ -84,7 +35,7 @@ class CiiSetupCommand extends CConsoleCommand
 	 *							If set to true, protected/config/params.php will be generated/updated
 	 *							With the newly generated hash.
 	 */
-	private function generateHash($overrideConfig = false)
+	public function actionGenerateHash($overrideConfig = false)
 	{
 		$hash = mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5(time() . md5(time())))) . hash("sha512", time()) . time()), 0, 120);
 		
@@ -147,7 +98,7 @@ class CiiSetupCommand extends CConsoleCommand
 	 * @param $username 	string 	The email address of the user
 	 * @param $password 	string 	The password for this new user
 	 */
-	private function generateFirstUser($username, $password)
+	public function actionGenerateFirstUser($username, $password)
 	{
 		if (Yii::app()->params['encryptionKey'] == NULL)
 			Yii::app()->params['encryptionKey'] = $this->generateHash(true);

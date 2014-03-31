@@ -48,7 +48,7 @@ class CiiRedisCache extends CiiCache
 	 **/
 	public function getServers()
 	{
-		return $this->_servers();
+		return $this->_servers;
 	}
 	
 	/**
@@ -165,4 +165,3 @@ class CiiRedisCache extends CiiCache
 		return $this->_redis->exists($id);
 	}
 }
-

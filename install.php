@@ -10,7 +10,7 @@
  */
 
 error_reporting(-1);
-ini_set('display_errors', true);
+ini_set('display_errors', 'true');
 
 // change the following paths if necessary
 $config=dirname(__FILE__).'/protected/config/install.php';

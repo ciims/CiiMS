@@ -16,6 +16,7 @@ Yii::$classMap = array(
     'Cii' => $basePath . '/extensions/cii/utilities/Cii.php',
     'CiiFileUpload' => $basePath . '/extensions/cii/utilities/CiiFileUpload.php',
     'CiiFileUploader' => $basePath . '/extensions/cii/utilities/CiiFileUploader.php',
+    'CiiConsoleCommand' => $basePath . '/extensions/cii/commands/CiiConsoleCommand.php',
     'CiiThemesModel' => $basePath . '/extensions/cii/models/CiiThemesModel.php',
     'CiiModel' => $basePath . '/extensions/cii/models/CiiModel.php',
     'CiiAlert' => $basePath . '/extensions/cii/widgets/CiiAlert.php',

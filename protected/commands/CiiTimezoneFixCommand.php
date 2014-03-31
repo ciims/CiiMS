@@ -1,49 +1,12 @@
 <?php
 
-class CiiTimezoneFixCommand extends CConsoleCommand
+Yii::import('ext.cii.commands.CiiConsoleCommand');
+class CiiTimezoneFixCommand extends CiiConsoleCommand
 {
-	public function run($args=array())
-	{
-		if (!isset($args[0]))
-			return $this->showCommands();
-
-		switch ($args[0])
-		{
-			case "update":
-				$this->update();
-				break;
-			default:
-				$this->showCommands();
-		}
-	}
-
-	private function showCommands()
-	{
-		$this->log("CiiTimezoneFixCommand: A command to convert data time used in CiiMS < 1.9");
-		$this->log("WARNING: Running this command will alter your database. Please perform a backup BEFORE running this command.");
-		$this->log("         And DO NOT run this command if it has already been run before.");
-		$this->log("===============================================================");
-		$this->log("Usage:");
-		$this->log("    php protected/yiic.php ciitimezonefix [arg] \n");
-		$this->log("Arguments:");
-		$this->log("    update           Will permanently update timezones in the database for all records.");
-
-		$this->log();
-	}
-
-	/**
-	 * Simple logging command to make life easier
-	 * @param  string $message The message we want to output
-	 */
-	private function log($message="")
-	{
-		echo $message . "\n";
-	}
-
 	/**
 	 * Runs through all database tables and convertes the time from localtime to UTC
 	 */
-	public function update()
+	public function actionUpdate()
 	{
 		$this->log("Running Update");
 		$offset = Yii::app()->db->createCommand("SELECT TIMESTAMPDIFF(MINUTE, UTC_TIMESTAMP(), NOW()) AS offset;")->queryRow();

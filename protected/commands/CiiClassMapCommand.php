@@ -1,8 +1,9 @@
 <?php
 
-class CiiClassMapCommand extends CConsoleCommand
+Yii::import('ext.cii.commands.CiiConsoleCommand');
+class CiiClassMapCommand extends CiiConsoleCommand
 {
-	public function run($args = array())
+	public function actionIndex()
 	{
 		$data = "<?php\n";
 		$data .= '$basePath = dirname(__FILE__) . \'/..\';' . "\n";

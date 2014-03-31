@@ -131,7 +131,8 @@ class CiiOpenCloud extends CComponent
 	public function uploadFile()
 	{
 		// Validate the container
-		if ($this->getContainer() == NULL)
+		$this->_container = $this->getContainer();
+		if ($this->_container == NULL)
 			return array('error' => Yii::t('ciims.misc', 'Unable to attach OpenStack Container.'));
 
 		// Perform file validation
