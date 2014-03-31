@@ -448,7 +448,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 	/**
 	 * Retrieves the baseconfig for a card
 	 * @param  string $id  The card ID
-	 * @return JSON
+	 * @return string
 	 */
 	private function getBaseCardById($id)
 	{
@@ -461,7 +461,8 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
 
 	/**
 	 * Retrieves a card given a particular $id
-	 * @return string $id
+	 * @param string $id
+	 * @return CiiSettingsModel $id
 	 */
 	private function getCardById($id=NULL)
 	{

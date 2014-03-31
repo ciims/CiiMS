@@ -231,6 +231,9 @@ function sphPackU64 ( $v )
 }
 
 // unpack 64-bit unsigned
+/**
+ * @param string $v
+ */
 function sphUnpackU64 ( $v )
 {
 	list ( $hi, $lo ) = array_values ( unpack ( "N*N*", $v ) );
@@ -297,6 +300,9 @@ function sphUnpackU64 ( $v )
 }
 
 // unpack 64-bit signed
+/**
+ * @param string $v
+ */
 function sphUnpackI64 ( $v )
 {
 	list ( $hi, $lo ) = array_values ( unpack ( "N*N*", $v ) );
@@ -526,6 +532,10 @@ class SphinxClient
 	}
 
 
+	/**
+	 * @param string $data
+	 * @param integer $length
+	 */
 	function _Send ( $handle, $data, $length )
 	{
 		if ( feof($handle) || fwrite ( $handle, $data, $length ) !== $length )
@@ -718,6 +728,10 @@ class SphinxClient
 
 	/// set maximum query time, in milliseconds, per-index
 	/// integer, 0 means "do not limit"
+
+	/**
+	 * @param integer $max
+	 */
 	function SetMaxQueryTime ( $max )
 	{
 		assert ( is_int($max) );
@@ -1135,6 +1149,11 @@ class SphinxClient
 	}
 
 	/// parse and return search query (or queries) response
+
+	/**
+	 * @param string $response
+	 * @param integer $nreqs
+	 */
 	function _ParseSearchResponse ( $response, $nreqs )
 	{
 		$p = 0; // current position

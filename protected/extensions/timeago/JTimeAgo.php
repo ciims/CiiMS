@@ -29,8 +29,8 @@ class JTimeAgo extends CWidget
     }
 
     /**
-     * @param $h
-     * @param $n
+     * @param string|null $h
+     * @param string $n
      * @return bool
      * if $h  stars with $n
      *

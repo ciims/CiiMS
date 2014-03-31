@@ -58,6 +58,7 @@ class m130712_220749_settings extends CDbMigration
 
 	/**
 	 * Sets the notifyName
+	 * @param CDbConnection $connection
 	 */
 	private function emailSettings(&$connection)
 	{
