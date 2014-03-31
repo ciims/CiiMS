@@ -224,7 +224,7 @@ class CiiDashboardAddonController extends CiiDashboardController
             CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'BaltimoreCyberTrustRootCA.crt'
         ));
 
-        $response = curl_exec($curl);
+        curl_exec($curl);
         curl_close($curl);
         fclose($fp);
 

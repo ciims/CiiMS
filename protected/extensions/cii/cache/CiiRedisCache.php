@@ -111,8 +111,8 @@ class CiiRedisCache extends CiiCache
 	{
 		if($expire>0)
 		{
-            if($this->_redis->setnx($key,$time,$value))
-                return $this->_redis->expire($key,$time);
+            if($this->_redis->setnx($key,$expire,$value))
+                return $this->_redis->expire($key,$expire);
             return false;
 		}
 		else

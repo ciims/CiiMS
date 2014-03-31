@@ -282,9 +282,6 @@ class ContentController extends CiiSiteController
 		
 		$this->breadcrumbs = array(Yii::t('ciims.controllers.Content', 'Blogroll'));
 		
-		$data = array();
-		$pages = array();
-		$itemCount = 0;
 		$pageSize = Cii::getConfig('contentPaginationSize', 10);	
 		
 		$criteria = Content::model()->getBaseCriteria()

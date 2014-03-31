@@ -81,9 +81,6 @@ class CategoriesController extends CiiSiteController
 		// Set the layout
 		$this->setLayout($layout);
 		
-		$data = array();
-		$pages = array();
-		$itemCount = 0;
 		$pageSize = Cii::getConfig('categoryPaginationSize', 10);	
 		
 		$criteria = Content::model()->getBaseCriteria()

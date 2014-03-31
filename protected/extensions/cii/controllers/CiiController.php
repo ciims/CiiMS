@@ -150,7 +150,9 @@ class CiiController extends CController
         // Attempt to contact NewRelic with Reporting Data
         try {
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            // NewRelic will throw an exception if it isn't installed. Ignore it - if it's not installed we don't care.
+        }
 
         Cii::setApplicationLanguage();
 
@@ -164,7 +166,9 @@ class CiiController extends CController
                     throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
             }
             else if (isset($this->module) && $this->module->getName() == "dashboard")
-                $nop = 1;
+            {
+                // If we're in the dashboard module, don't block the site
+            }
             else
                 throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
         }
@@ -271,7 +275,6 @@ class CiiController extends CController
     		$this->afterRender($view,$output);
             
     		$output = $this->processOutput($output);
-            $config = Yii::app()->getComponents(false);
 
     		if($return)
     		    return $output;

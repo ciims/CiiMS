@@ -292,10 +292,10 @@ class Users extends CiiModel
     		$meta->save();
 
     		// Delete all API tokens associated to this account
-    		$response = Yii::app()->db->createCommand('DELETE FROM user_metadata WHERE `key` LIKE "api_key%" AND user_id = :id')->bindParam(':id', $this->id)->execute();
+    		Yii::app()->db->createCommand('DELETE FROM user_metadata WHERE `key` LIKE "api_key%" AND user_id = :id')->bindParam(':id', $this->id)->execute();
 
     		// Fire off an email to the OLD email address asking them VERIFY the change
-    		$response = Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
+    		Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
     	}
 
     	return parent::beforeSave();

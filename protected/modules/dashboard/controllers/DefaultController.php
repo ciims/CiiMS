@@ -43,11 +43,11 @@ class DefaultController extends CiiDashboardController
     			
     	}
 
-	    	$form = $this->beginWidget('ext.cii.widgets.CiiActiveForm', array(
-	    		'htmlOptions' => array(
-					'class' => 'pure-form pure-form-aligned item-selection-form'
-				)
-	    	));
+    	$this->beginWidget('ext.cii.widgets.CiiActiveForm', array(
+    		'htmlOptions' => array(
+				'class' => 'pure-form pure-form-aligned item-selection-form'
+			)
+    	));
 	    	echo CHtml::openTag('div', array('class' => 'pure-form-group', 'style' => 'padding-bottom: 20px'));
 	    	echo CHtml::link( Yii::t('Dashboard.main', 'Add to Dashboard'), '#', array('id' => 'add-cards-button', 'class' => 'pure-button pure-button-link pure-button-primary pull-right pure-button-small', 'style' => 'position: absolute; top: 15px; right: 3%;'));
 			echo CHtml::tag('legend', array(), $id);

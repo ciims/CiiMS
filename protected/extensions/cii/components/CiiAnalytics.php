@@ -12,12 +12,7 @@ class CiiAnalytics extends EAnalytics
 	 */
 	public function getProviders()
 	{
-		$providers = array();
-
-		try {
-			$providers = Cii::getAnalyticsProviders();
-		} catch (Exception $e) {}
-
+		$providers = Cii::getAnalyticsProviders();
 		return CMap::mergeArray($this->options, $providers);
 	}
 }

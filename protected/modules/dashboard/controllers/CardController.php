@@ -303,7 +303,7 @@ class CardController extends CiiDashboardAddonController implements CiiDashboard
         if ($details['status'] != 200)
             throw new CHttpException(404, $details['message']);
         
-        $register = $this->actionRegister($id);
+        $this->actionRegister($id);
         
         // Downloads the ZIP package to the "cards" directory
         $this->downloadPackage($id, $details['response']['file'], Yii::getPathOfAlias('application.runtime.cards'));

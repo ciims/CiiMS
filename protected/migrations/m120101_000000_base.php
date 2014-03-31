@@ -10,7 +10,10 @@ class m120101_000000_base extends CDbMigration
             if (count($test) <= 1)
                 throw new Exception('CiiMS doesn\'t exist. Applying base migration');
             return true;
-        } catch (Exception $e) {}
+        } catch (Exception $e) { 
+          // Yii will throw an exception if Yii::app()->db->schema is undefined (which is should be if we're doing this for the first time)
+          // This SHOULD throw an error if we're running this for the first time - it's the only way to check if we have a valid db or not.
+        }
         // Otherwise, run the install migration
         
         // Categories

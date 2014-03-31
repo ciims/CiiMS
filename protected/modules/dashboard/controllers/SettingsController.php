@@ -258,8 +258,7 @@ class SettingsController extends CiiSettingsController
                 CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'GeoTrustGlobalCA.cer'
         ));
 
-        // TODO: Do something with this?
-        $response = CJSON::decode(curl_exec($curl));
+        CJSON::decode(curl_exec($curl));
 
 		foreach ($issues as $issue)
 		{

@@ -153,8 +153,6 @@ class CiiCard extends CiiSettingsModel
 	 */
 	public function create($id, $path)
 	{
-		$class = get_class($this);
-
 		$rnd_id = crypt(uniqid(mt_rand(),1)); 
 		$rnd_id = strip_tags(stripslashes($rnd_id)); 
 		$rnd_id = str_replace(".","",$rnd_id); 
@@ -330,7 +328,7 @@ class CiiCard extends CiiSettingsModel
 					$command->bindParam(':key', $PDOKey);
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);
-					$ret = $command->execute();
+					$command->execute();
 
 					Yii::app()->cache->delete('settings_'.$PDOKey);
 				}

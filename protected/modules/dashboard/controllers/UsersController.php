@@ -48,7 +48,7 @@ class UsersController extends CiiSettingsController
 				$connection = Yii::app()->db;
 				$transaction = $connection->beginTransaction();
 				$rollback = false;
-				$messge = NULL;
+				$message = NULL;
 
 				foreach (Cii::get($_POST, 'UserMetadata') as $k=>$v)
 				{
@@ -75,7 +75,7 @@ class UsersController extends CiiSettingsController
 					$command->bindParam(':key', $k);
 					$command->bindParam(':id', $id);
 					try {
-						$ret = $command->execute();
+						$command->execute();
 					} catch (Exception $e) {
 						$transaction->rollBack();
 						$message = $e->getMessage();

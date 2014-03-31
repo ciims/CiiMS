@@ -172,7 +172,6 @@ class DefaultController extends CController
         $user = Yii::app()->session['dsn']['username'];
         $pass = Yii::app()->session['dsn']['password'];
         
-        $path = 'protected/runtime/' .  Yii::app()->params['yiiVersionPath'] . '/framework/';
         $key  = Yii::app()->session['encryptionKey'];
 
         $config = "<?php return array(

@@ -49,8 +49,6 @@ class ContentController extends ApiController
      */
     public function actionIndexDelete($id=NULL)
     {
-        $model = $this->getModel($id);
-
         if (!in_array($this->user->role->id, array(8,9)))
             throw new CHttpException(403, Yii::t('Api.content', 'You do not have permission to delete entries.'));
 
@@ -239,9 +237,7 @@ class ContentController extends ApiController
             if ($this->user === NULL)
                 throw new CHttpException(403, Yii::t('Api.content', 'You must be authenticated to access this action.'));
 
-            if ($this->user->id == $model->author->id || $this->user->role >= 7)
-                $nop;
-            else
+            if (!($this->user->id == $model->author->id || $this->user->role >= 7))
                 throw new CHttpException(403, Yii::t('Api.content', 'You must be authenticated to access this action.'));
         }
 

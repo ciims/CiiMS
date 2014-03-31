@@ -246,7 +246,7 @@ class CiiSettingsModel extends CFormModel
 					$command->bindParam(':key', $key);
 					$command->bindParam(':value', $value);
 					$command->bindParam(':value2', $value);
-					$ret = $command->execute();
+					$command->execute();
 					Yii::app()->cache->delete('settings_'.$key);
 				}
 			} catch (Exception $e) {

@@ -120,7 +120,6 @@ class CiiMessageCommand extends MessageCommand
 				// If this is part of CiiMS Core
 				if (strpos($category, 'Theme') !== false)
 				{
-					$originalCategory = $category;
 					$category = strtolower(str_replace('Theme', '', $category));
 					$path = explode('.', $category);
 					if (!isset($path[1]))

@@ -394,12 +394,12 @@ class SiteController extends CiiSiteController
 		$threeDays = 259200;
 		if ((strtotime($meta->created) + $threeDays) > time())
 		{
-			try {
-				// Delete the associated metadata when this error is thrown
-				$meta2 = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+			// Delete the associated metadata when this error is thrown
+			$meta2 = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddress', 'user_id' => $meta->user_id));
+			if ($meta2 !== NULL)
 				$meta2->delete();
-				$meta->delete();
-			} catch (Exception $e) {}
+			if ($meta !== NULL)
+			$meta->delete();
 
 			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'The request to change your email has expired.'));
 		}
@@ -426,7 +426,7 @@ class SiteController extends CiiSiteController
 
 				// Manually update the db via CActiveDataProvider, since Users::beforeSave() will block the request
 				try {
-					$ret = Yii::app()->db->createCommand('UPDATE users SET email = :email, password = :password WHERE id = :id')
+					Yii::app()->db->createCommand('UPDATE users SET email = :email, password = :password WHERE id = :id')
 								  ->bindParam(':id', $id)
 								  ->bindParam(':password', $password)
 								  ->bindParam(':email', $email)
@@ -437,16 +437,21 @@ class SiteController extends CiiSiteController
 					// Kill the users session and force them to re-authenticate with their new credentials.
 					Yii::app()->user->logout();
 				} catch (Exception $e) {
-					// This error indicates
+					// This error indicates the email has already been taken
 					Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'The requested email address has already been taken. Please re-submit your request with a new email address.'));
 				}
 
 				// Delete the metadata and ignore any errors as they aren't really
-				try {
+				if ($meta !== NULL)
 					$meta->delete();
-					UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key))->delete();
-					UserMetadata::model()->findByAttributes(array('user_id' => $id, 'key' => 'newEmailAddressChangeKeyTime'))->delete();
-				} catch (Exception $e) {}
+
+				$attr1 = UserMetadata::model()->findByAttributes(array('key' => 'newEmailAddressChangeKey', 'value' => $key));
+				if ($attr1 !== NULL)
+					$attr1->delete();
+
+				$attr2 = bUserMetadata::model()->findByAttributes(array('user_id' => $id, 'key' => 'newEmailAddressChangeKeyTime'));
+				if ($attr2 !== NULL)
+					$attr2->delete();
 			}
 			else
 				Yii::app()->user->setFlash('authenticate-error', Yii::t('ciims.controllers.Site', 'We were unable to verify your current password. Please verify your password and try again.'));
@@ -481,8 +486,6 @@ class SiteController extends CiiSiteController
 				{
 					if ($password = Cii::get($_POST, 'password', NULL))
 					{
-						$cost = Cii::getBcryptCost();
-
 						// We still want to secure our password using this algorithm
 						$hash = Users::model()->encryptHash($record->email, $password, Yii::app()->params['encryptionKey']);
 
