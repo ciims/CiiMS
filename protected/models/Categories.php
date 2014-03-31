@@ -44,7 +44,7 @@ class Categories extends CiiModel
 	}
 
 	/**
-	 * @return array primary key of the table
+	 * @return string[] primary key of the table
 	 **/	 
 	public function primaryKey()
 	{
@@ -283,7 +283,6 @@ class Categories extends CiiModel
 	
 	/**
 	 * Recursive callback for retrieving parent categories
-	 * @param  array $all    An array of all categories currently in the system
 	 * @param  int  $id      The category we're seeking
 	 * @param  array  $stack A stack to hold the entire tree
 	 * @return Stack

@@ -20,6 +20,9 @@ class CiiAssetManager extends CAssetManager
     	return $this->hash($file);
 	}
 
+	/**
+	 * @param string $path
+	 */
 	protected function hash($path)
 	{
 	    return substr(md5($path), 0, 6);
