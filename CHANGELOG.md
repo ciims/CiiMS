@@ -2,9 +2,9 @@
 
 ###### BREAKING CHANGES:
 	
-- There is no way to upgrade currently installed cards.
+- There is no way to upgrade currently installed cards
 - Cards and Themes can no longer be installed from Github
-- Functionality previous stored in ```Theme.json``` has been moved into ```Cii```. Current themes may break if functionality is overloaded by existing theme file. New themes now only require the following base structure to function:
+- Functionality previous stored in ```Theme.php``` has been moved into ```CiiThemesModel.php```. Current themes may break if functionality is overloaded by existing theme file. New themes now only require the following base structure to load themselves.
 	```
 	class Theme extends CiiThemesModel
 	{
@@ -12,34 +12,36 @@
 	}
 	```
 - ```CommentController``` and views have been removed in favor of using the Comment API
-- Reliance on Composer means that you must run the ```php composer.phar install``` on first run. To avoid downtime in upgrading, generate the composer dependencies first and copy them into the ```vendor``` directory perform checkout out ```1.10.0```
+- Reliance on Composer means that you must run the ```php composer.phar install --no-dev``` on first run. To avoid downtime in upgrading, generate the composer dependencies first and copy them into the ```vendor``` directory perform checkout out ```1.10.0```
 
 ###### BUG FIXES:
 
 - #106 Installer now permits empty passwords
 - #105 Publishing time is now properly offset by UTC in the Dashboard
 - Theme page will appropriately show an error if the theme has no configurable options
-- Dashboard redirects to login page on timeout rather than throwing a render error
-- CiiTimezoneFixCommand added to correct Timezone bugs introduced in 1.9.0. This command only needs to be run if you're experience time related issues.
+- Dashboard redirects to login page on session timeout rather than throwing a render error
+- CiiTimezoneFixCommand added to correct Timezone bugs introduced in 1.9.0. This command only needs to be run if you're experience timezone related issues.
+- Javascript errors in Dashboard (GH #110)
 
 ###### IMPROVEMENTS:
 
+- Added CHANGELOG.md
 - Migrations automatically register instance with ciims.org
 - Cards now use uuid from ciims.org rather than generating their own
 - New Default Theme
 - Installed has been streamlined and rethemed
-- Comment API is now always enabled
+- Comment API is now always enabled if not using a secondary comment provider
 - Event API is now always enabled
 - Event API pre-registers itself for loading
 - Disqus automatically injects itself on the appropriate pages when enabled. Custom configuration in themes is no longer required
 - AddThis automatically injects itself on the appropriate pages when enabled. Manual configuration is themes is no longer required
 - CA Certs have been added to ensure SSL validation on curl requests always succeeds
 - Support for CiiParams override file for hosted and managed environments
-- Added CHANGELOG.md
 - CiiSetupCommand added support for headless/automated installs
 - All Cii related functionality has been moved into extensions/cii
 - CiiMS now ships with less code due to composer supported added in GH #111
 - Composer will notify you if you have insufficient requirements to run CiiMS on first install
+- FontAwesome version update
 
 ###### FEATURES:
 
@@ -47,6 +49,7 @@
 - Themes can now be installed from ciims.org
 - Cards and Themes can notify user when there is an update available for them, and can do ondemand in place self updates.
 - Added Composer Support (GH #111)
+- Modules now are self loading, and no longer require configuration changes to load (GH #114)
 
 # Previous
 
