@@ -49,7 +49,8 @@ class DatabaseForm extends CFormModel
     public function rules()
     {
         return array(
-            array('username, host, dbname', 'required')
+            array('username, host, dbname', 'required'),
+            array('password', 'safe'),
         );
     }
 

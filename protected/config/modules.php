@@ -26,8 +26,8 @@ else
         }
     }
 
-    $encoded = json_encode($response);
-    file_put_contents($cachedConfig, '<?php return json_decode(\''.$encoded.'\');');
+    $encoded = serialize($response);
+    file_put_contents($cachedConfig, '<?php return unserialize(\''.$encoded.'\');');
 
     // return the response
     return $response;
