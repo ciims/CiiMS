@@ -344,4 +344,4 @@ var Comments = {
 	more : function() {
     	CiiMSComments.more(true);
 	}
-}
+};

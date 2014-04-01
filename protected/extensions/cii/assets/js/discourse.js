@@ -71,4 +71,4 @@ var Comments = {
 	more : function() {
 		Discourse.commentCount(true);
 	}
-}
+};

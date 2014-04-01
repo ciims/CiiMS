@@ -76,4 +76,4 @@ var Comments = {
 	more : function() {
 		Disqus.commentCount(true);
 	}
-}
+};
