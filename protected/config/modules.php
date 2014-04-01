@@ -4,7 +4,7 @@
 $directory = __DIR__ . DS . '..' . DS . 'modules';
 $cachedConfig = __DIR__.DS.'..'.DS.'runtime'.DS.'modules.config.php';
 // Attempt to load the cached file if it exists
-if (!YII_DEBUG && file_exists($cachedConfig))
+if (file_exists($cachedConfig))
     return require_once($cachedConfig);
 else
 {

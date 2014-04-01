@@ -145,10 +145,7 @@ class EClientScript extends YiiNewRelicClientScript
 				{
 					$cache = Yii::app()->cache->get('combineJs' .  md5($fpath) . md5($fname));
 					if ($cache === false)
-					{
 						$valid = false;
-						break;
-					}
 
 					$mtime = filemtime($fpath);
 					foreach ($files as $file)
@@ -233,10 +230,7 @@ class EClientScript extends YiiNewRelicClientScript
 			{
 				$cache = Yii::app()->cache->get('combineCss' . md5($fpath) . md5($fname));
 				if ($cache === false)
-				{
 					$valid = false;
-					break;
-				}
 
 				$mtime = filemtime($fpath);
 				foreach ($toBeCombined as $file)

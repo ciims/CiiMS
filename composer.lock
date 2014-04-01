@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b6d93af2251b7c8f3390c007e7e473d2",
+    "hash": "34e07bb1380842cf106af34c327744aa",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/EAnalytics.git",
-                "reference": "c29a64138cc277020ae762c02255be437ef03145"
+                "reference": "867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/c29a64138cc277020ae762c02255be437ef03145",
-                "reference": "c29a64138cc277020ae762c02255be437ef03145",
+                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4",
+                "reference": "867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4",
                 "shasum": ""
             },
             "type": "library",
@@ -46,7 +46,7 @@
                 "analytics",
                 "analytics.js"
             ],
-            "time": "2014-03-27 17:48:37"
+            "time": "2014-04-01 00:59:43"
         },
         {
             "name": "guzzle/common",

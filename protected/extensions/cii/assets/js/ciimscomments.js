@@ -143,7 +143,11 @@ var CiiMSComments = {
          * Shows a comment with a response
          * @return void
          */
-        showComment : function(response) {
+        showComment : function(response, showFirst) {
+
+        	if (showFirst == undefined)
+        		showFirst = false;
+
             var role = CiiMSComments.getStoredInfoBy("role");
             var isAuthenticated = CiiMSComments.getStoredInfoBy("isAuthenticated");
 
@@ -186,7 +190,10 @@ var CiiMSComments = {
             $(html).find(".comment_body_inner").html(marked(response.comment));
 
             // Add the comment to the DOM
-            $(".comments_container").append(html);
+            if (showFirst)
+            	$(".comments_container").prepend(html);
+            else
+            	$(".comments_container").append(html);
         },
 
         bindMod : function() {
@@ -314,7 +321,7 @@ var CiiMSComments = {
 					    success : function (data) {
 
                             // Show the comment
-                            CiiMSComments.behaviors.showComment(data.response);
+                            CiiMSComments.behaviors.showComment(data.response, true);
                             CiiMSComments.behaviors.bindMod();
 
 							$(".timeago").timeago();

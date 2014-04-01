@@ -24,7 +24,7 @@ class ContentController extends CiiSiteController
 				$lastModified = filemtime($key) >= $lastModified ? filemtime($key) : $lastModified;
 			
 			$eTag = $this->id . Cii::get($this->action, 'id', NULL) . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
-			
+
             return array(
                 'accessControl',
                 array(
@@ -36,7 +36,9 @@ class ContentController extends CiiSiteController
                     'COutputCache + index',
                     'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                     'varyByParam' => array('id'),
-                    'varyByExpression' => 'Yii::app()->controller->getTheme()'
+                    'varyByExpression' => 'Yii::app()->controller->getTheme()&&Yii::app()->user->isGuest',
+                    'varyBySession' => true,
+                    'varyByLanguage' => true
                 )
             );
 		}

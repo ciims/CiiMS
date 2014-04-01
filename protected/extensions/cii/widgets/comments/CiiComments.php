@@ -14,10 +14,10 @@ class CiiComments extends CWidget
 	public function init()
 	{
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. '/ciimscomments.js');
-		Yii::app()->clientScript->registerScriptFile($asset. '/date.format/date.format.js');
-		Yii::app()->clientScript->registerScriptFile($asset. '/marked.js');
-		Yii::app()->clientScript->registerScriptFile($asset. '/md5.js');
+		Yii::app()->clientScript->registerScriptFile($asset. '/ciimscomments.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile($asset. '/date.format/date.format.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile($asset. '/marked.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile($asset. '/md5.js', CClientScript::POS_END);
 
 		$css = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.css'), true, -1, YII_DEBUG);
 		Yii::app()->clientScript->registerCssFile($css. '/ciimscomments.css');
@@ -37,16 +37,18 @@ class CiiComments extends CWidget
 		$id = $this->content['id'];
 
 		Yii::app()->clientScript->registerScript('CiiMSComments', "
-			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
+            $(document).ready(function() {
+				// Load the Endpoint
+				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
-			// Update the comments div
-            $('.comment-count').attr('data-attr-id', '$id').addClass('registered').append('$link');
+				// Update the comments div
+	            $('.comment-count').attr('data-attr-id', '$id').addClass('registered').append('$link');
 
-            // Load the comments
-            CiiMSComments.load();
-            CiiMSComments.commentCount();
-        ");
+	            // Load the comments
+	            CiiMSComments.load();
+	            CiiMSComments.commentCount();
+	        });
+	        ");
 	}
 
 	/**
@@ -55,10 +57,10 @@ class CiiComments extends CWidget
 	private function renderCommentCount()
 	{
 		Yii::app()->clientScript->registerScript('CiiMSCommentCount', "
-			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/'
-
-			CiiMSComments.commentCount();
+            $(document).ready(function() {
+				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
+				CiiMSComments.commentCount();
+			});
 		");
 	}
 }

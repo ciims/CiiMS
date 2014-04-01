@@ -155,10 +155,7 @@ class CommentController extends ApiController
     	$model = new Comments;
     	$model->attributes = $_POST;
 
-    	$model->approved = Cii::getConfig('autoApproveComments', 0);
         $model->user_id = $this->user->id;
-        $model->parent_id = 0;
-
     	if ($model->save())
             return $model->getApiAttributes();
 
@@ -183,7 +180,6 @@ class CommentController extends ApiController
 
     	$model->attributes = $_POST;
         $model->user_id = $this->user->id;
-        $model->parent_id = 0;
 
     	if ($model->save())
             return $model->getApiAttributes();

@@ -25,7 +25,7 @@ class CiiDisqusComments extends CWidget
 	{
 		$this->_shortname = Cii::getConfig('disqus_shortname');
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. '/disqus.js');
+		Yii::app()->clientScript->registerScriptFile($asset. '/disqus.js', CClientScript::POS_END);
 
 		if ($this->content != false)
 			$this->renderCommentBox();
@@ -40,22 +40,24 @@ class CiiDisqusComments extends CWidget
 	{
 		$link = CHtml::link('0', Yii::app()->createAbsoluteUrl($this->content['slug']) . '#disqus_thread', array('data-disqus-identifier' => $this->content['id']));
 		Yii::app()->clientScript->registerScript('DisqusComments', "
-			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
+			$(document).ready(function() {
+				// Load the Endpoint
+				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
-			// Set the Disqus variables
-			disqus_shortname = \"{$this->_shortname}\";
-            disqus_identifier = \"{$this->content['id']}\";
-            disqus_title = \"{$this->content['title']}\";
-            disqus_url = endpoint  + \"{$this->content['slug']}\";
+				// Set the Disqus variables
+				disqus_shortname = \"{$this->_shortname}\";
+	            disqus_identifier = \"{$this->content['id']}\";
+	            disqus_title = \"{$this->content['title']}\";
+	            disqus_url = endpoint  + \"{$this->content['slug']}\";
 
-            // Update the comment div
-            $('#comment').addClass('disqus');
-            $('.comment-count').addClass('registered').append('$link');
+	            // Update the comment div
+	            $('#comment').addClass('disqus');
+	            $('.comment-count').addClass('registered').append('$link');
 
-            // Load Disqus
-            Disqus.load();
-            Disqus.commentCount();
+	            // Load Disqus
+	            Disqus.load();
+	            Disqus.commentCount();
+	        });
 		");
 	}
 
@@ -65,13 +67,11 @@ class CiiDisqusComments extends CWidget
 	private function renderCommentCount()
 	{
 		Yii::app()->clientScript->registerScript('DisqusCommentCount', "
-			// Load the Endpoint
-			var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
-
-			// Set the Disqus variables
-			disqus_shortname = \"{$this->_shortname}\";
-
-			Disqus.commentCount();
+			$(document).ready(function() {
+				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
+				disqus_shortname = \"{$this->_shortname}\";
+				Disqus.commentCount();
+			});
 		");
 	}
 }
