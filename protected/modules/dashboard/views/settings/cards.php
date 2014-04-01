@@ -58,7 +58,7 @@
 							<?php echo Cards::model()->countByAttributes(array('name' => $card->key)); ?>
 						</span>
 						<span class="pure-button pure-button-primary pure-button-xsmall pure-button-link-xs pull-right" id="updater" data-attr-id="<?php echo $card->key; ?>">
-							<span class="icon-spinner icon-spin"></span>
+							<span class="fa fa-spinner fa-spin icon-spinner"></span>
 							<span class="checking"><?php echo Yii::t('Dashboard.main', 'Checking for Updates'); ?></span>
 							<span class="uptodate" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Up to Date!'); ?></span>
 							<span class="available" style="display:none;"><?php echo Yii::t('Dashboard.main', 'Click to Update'); ?></span>
