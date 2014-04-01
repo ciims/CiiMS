@@ -29,6 +29,9 @@ class SiteController extends CiiSiteController
 	 */
 	public function beforeAction($action)
 	{
+		if (!Yii::app()->getRequest()->isSecureConnection && Cii::getConfig('forceSecureSSL', false))
+            $this->redirect('https://' . Yii::app()->getRequest()->serverName . Yii::app()->getRequest()->requestUri);
+        
 		$this->breadcrumbs[] = ucwords(Yii::app()->controller->action->id);
 		return parent::beforeAction($action);
 	}

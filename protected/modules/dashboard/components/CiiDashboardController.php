@@ -31,6 +31,20 @@ class CiiDashboardController extends CiiController
 	}
 
 	/**
+	 * Before action method
+	 * @param  CAction $action The aciton
+	 * @return CAction
+	 */
+	public function beforeAction($action)
+	{
+		// Redirect to SSL if this is set in the dashboard
+		if (!Yii::app()->getRequest()->isSecureConnection && Cii::getConfig('forceSecureSSL', false))
+            $this->redirect('https://' . Yii::app()->getRequest()->serverName . Yii::app()->getRequest()->requestUri);
+
+        return parent::beforeAction($action);
+	}
+
+	/**
 	 * @return string[] action filters
 	 */
 	public function filters()

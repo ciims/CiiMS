@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * CiiBase
+ * Preloads all the necessary YII components
+ */
 class CiiBase extends CApplicationComponent
 {
     public function init()
@@ -14,19 +17,30 @@ class CiiBase extends CApplicationComponent
         Yii::import('ext.cii.controllers.*');
         Yii::import('ext.cii.models.*');
 
-        // Load some specific CiiMS JS here
-        $json = CJSON::encode(array(
-            'email' =>  isset(Yii::app()->user->email) ? Yii::app()->user->email : NULL,
-            'token' => isset(Yii::app()->user->api_key) ? Yii::app()->user->api_key : NULL,
-            'role' => isset(Yii::app()->user->role) ? Yii::app()->user->role : NULL,
-            'isAuthenticated' => isset(Yii::app()->user->id) ? true : false,
-            'time' => time()
-        ));
-          
-        Yii::app()->clientScript->registerScript('ciims', "
-            $(document).ready(function() { localStorage.setItem('ciims', '$json'); });
-        ");
+        $this->loadUserInfo();
 
         parent::init();
+    }
+
+    /**
+     * Loads the user information for the dashboard and CiiMSComments to use
+     */
+    private function loadUserInfo()
+    {
+        if (isset(Yii::app()->user))
+        {
+            // Load some specific CiiMS JS here
+            $json = CJSON::encode(array(
+                'email' =>  isset(Yii::app()->user->email) ? Yii::app()->user->email : NULL,
+                'token' => isset(Yii::app()->user->api_key) ? Yii::app()->user->api_key : NULL,
+                'role' => isset(Yii::app()->user->role) ? Yii::app()->user->role : NULL,
+                'isAuthenticated' => isset(Yii::app()->user->id) ? true : false,
+                'time' => time()
+            ));
+              
+            Yii::app()->clientScript->registerScript('ciims', "
+                $(document).ready(function() { localStorage.setItem('ciims', '$json'); });
+            ");
+        }
     }
 }

@@ -131,6 +131,10 @@ class ApiController extends CiiController
      */
     public function beforeAction($action)
     {
+        // Force SSL for secure areas if enabled from the dashboard
+        if (!Yii::app()->getRequest()->isSecureConnection && Cii::getConfig('forceSecureSSL', false))
+            $this->redirect('https://' . Yii::app()->getRequest()->serverName . Yii::app()->getRequest()->requestUri);
+
         if ((Cii::getConfig('enableAPI') != true || Cii::get(Cii::getCiiConfig(), 'allow_api', true) == false) && $this->id != "event" && $this->id != "comment")
         {
             header('HTTP/1.1 403 Access Denied');

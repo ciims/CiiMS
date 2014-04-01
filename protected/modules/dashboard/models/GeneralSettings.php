@@ -12,6 +12,8 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $enableAPI = false;
 
+	protected $forceSecureSSL = false;
+
 	protected $offline = 0;
 
 	protected $bcrypt_cost = 13;
@@ -55,7 +57,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		$groups = array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'forceSecureSSL', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-general', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			//Yii::t('Dashboard.models-general', 'Discourse') => array('useDiscourseComments', 'discourseUrl'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
@@ -80,7 +82,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, forceSecureSSL, useOpenstackCDN, useRackspaceCDN', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname, discourseUrl, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -102,6 +104,7 @@ class GeneralSettings extends CiiSettingsModel
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
 			'enableAPI' => Yii::t('Dashboard.models-general', 'Enable API'),
+			'forceSecureSSL' => Yii::t('Dashboard.models-general', 'Force SSL for Secure Areas'),
 			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
 			'searchPaginationSize' => Yii::t('Dashboard.models-general', 'Search Post Count'),
 			'categoryPaginationSize' => Yii::t('Dashboard.models-general', 'Category Post Count'),
