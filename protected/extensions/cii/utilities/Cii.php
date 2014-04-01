@@ -83,7 +83,11 @@ class Cii {
     {
         $app = Yii::app();
 
-        $app->language = Cii::getConfig('defaultLanguage');
+        try {
+            $app->language = Cii::getConfig('defaultLanguage', Yii::app()->getRequest()->getPreferredLanguage());
+        } catch (Exception $e) {
+            // This will only throw an error if we don't have a CDbConnection
+        }
 
         // If the language is set via POST, accept it
         if (Cii::get($_POST, '_lang', false))
