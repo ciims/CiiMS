@@ -197,6 +197,7 @@ class CiiController extends CController
     /**
      * Sets the theme
      * @param string theme The current theme
+     * @param string $theme
      */
     private function setGlobalTheme($theme)
     {
@@ -206,6 +207,7 @@ class CiiController extends CController
     /**
      * Handles being on offline mode
      * @param string theme The current theme
+     * @param CAction $action
      */
     private function handleOfflineMode($isOffline=false, &$action)
     {

@@ -33,7 +33,7 @@ class CiiDashboardController extends CiiController
 	/**
 	 * Before action method
 	 * @param  CAction $action The aciton
-	 * @return CAction
+	 * @return boolean
 	 */
 	public function beforeAction($action)
 	{
