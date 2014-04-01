@@ -154,28 +154,14 @@ class CiiController extends CController
             // NewRelic will throw an exception if it isn't installed. Ignore it - if it's not installed we don't care.
         }
 
+        // Sets the application language
         Cii::setApplicationLanguage();
 
-        $offlineMode = (bool)Cii::getConfig('offline', false);
+        // Handles the offline state
+        $this->handleOfflineMode((bool)Cii::getConfig('offline', false), $action);
 
-        if ($offlineMode)
-        {
-            if ($this->id == "site")
-            {
-                if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
-                    throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
-            }
-            else if (isset($this->module) && $this->module->getName() == "dashboard")
-            {
-                // If we're in the dashboard module, don't block the site
-            }
-            else
-                throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
-        }
-
-        $theme = $this->getTheme();
-
-		Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
+        // Sets the global theme for CiiMS
+        $this->setGlobalTheme($this->getTheme());
 
         return parent::beforeAction($action);
 	}
@@ -206,6 +192,37 @@ class CiiController extends CController
         }
 
         return $theme;
+    }
+
+    /**
+     * Sets the theme
+     * @param string theme The current theme
+     */
+    private function setGlobalTheme($theme)
+    {
+        Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
+    }
+
+    /**
+     * Handles being on offline mode
+     * @param string theme The current theme
+     */
+    private function handleOfflineMode($isOffline=false, &$action)
+    {
+        if (!$isOffline)
+            return;
+
+        if ($isOffline && $this->id == 'site')
+        {
+            if (!in_array($action->id, array('login', 'logout', 'error', 'sitemap', 'migrate')))
+                    throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
+        }
+        else if (!(isset($this->module) && $this->module->getName() == "dashboard"))
+        {
+                throw new CHttpException(403, Yii::t('ciims.controllers.Cii', 'This site is currently disabled. Please check back later.'));
+        }
+
+        return;
     }
 
     /**

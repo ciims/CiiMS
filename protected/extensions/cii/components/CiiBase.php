@@ -31,10 +31,10 @@ class CiiBase extends CApplicationComponent
         {
             // Load some specific CiiMS JS here
             $json = CJSON::encode(array(
-                'email' =>  isset(Yii::app()->user->email) ? Yii::app()->user->email : NULL,
-                'token' => isset(Yii::app()->user->api_key) ? Yii::app()->user->api_key : NULL,
-                'role' => isset(Yii::app()->user->role) ? Yii::app()->user->role : NULL,
-                'isAuthenticated' => isset(Yii::app()->user->id) ? true : false,
+                'email' =>  Cii::get(Yii::app()->user, 'email'),
+                'token' => Cii::get(Yii::app()->user, 'api_key'),
+                'role' => Cii::get(Yii::app()->user, 'role'),
+                'isAuthenticated' => isset(Yii::app()->user->id),
                 'time' => time()
             ));
               
