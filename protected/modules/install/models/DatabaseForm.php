@@ -50,7 +50,7 @@ class DatabaseForm extends CFormModel
     {
         return array(
             array('username, host, dbname', 'required'),
-            array('upassword', 'safe'),
+            array('password', 'safe'),
         );
     }
 
