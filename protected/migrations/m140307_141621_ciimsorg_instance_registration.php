@@ -5,12 +5,13 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
 	public function safeUp()
 	{
 	    $curl = curl_init();
+        $connection = $this->getDbConnection();
 
         // Retrieve the current URL either from the database (if a submission has been set) or from the installer's hostname file
         Yii::import('application.models.Configuration');
-        $url = Configuration::model()->findByAttributes(array('key' => 'hostname'));
+        $url = $connection->createCommand('SELECT `value` FROM configuration WHERE `key` = \'hostname\';')->queryScalar();
 
-        if ($url == NULL)
+        if ($url == false)
         {
             $hostnameFile = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'hostname';
             if (file_exists($hostnameFile))
@@ -27,7 +28,7 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
 
         // Submit the data
         $data = array(
-            'name' => Cii::getConfig('name'),
+            'name' => 'New CiiMS Site',
             'url' => $url->value
         );
 
@@ -48,22 +49,10 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
         
         if ($response['status'] == 200)
         {
-            $instance = new Configuration;
-            $instance->attributes = array('key' => 'instance_id', 'value' => Cii::get($response['response'], 'instance_id'));
-            $token = new Configuration;
-            $token->attributes = array('key' => 'token', 'value' => Cii::get($response['response'], 'token'));
+            $instance_id = Cii::get($response['response'], 'instance_id');
+            $token = Cii::get($response['response'], 'token');
 
-            if (!$token->save())
-            {
-                echo "Token failed to save";
-                return false;
-            }
-
-            if (!$instance->save())
-            {
-                echo "Instance failed to save";
-                return false;
-            }
+            $connection->createCommand('INSERT INTO `configuration` (`key`, `value`, `created`, `updated`) VALUES (\'instance_id\', \':instance_id\', UTC_TIMESTAMP(), UTC_TIMESTAMP()), (\'token\', \':token\', UTC_TIMESTAMP(), UTC_TIMESTAMP())')->bindParam(':instance_id', $instance_id)->bindParam(':token', $token)->execute();
 
             // Manually register the pre-bundled default theme so that it can recieve updates
             unset($curl);
@@ -75,8 +64,8 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
                 CURLOPT_CUSTOMREQUEST  => 'POST',
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json',
-                    'X-Auth-ID: ' . $instance->value,
-                    'X-Auth-Token: ' . $token->value
+                    'X-Auth-ID: ' . $instance_id,
+                    'X-Auth-Token: ' . $token
                 ),
                 CURLOPT_URL => 'https://www.ciims.org/customize/default/addAddon/id/FfELXWAihCRHv0rYbykt',
                 CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'GeoTrustGlobalCA.cer'
@@ -89,10 +78,6 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
                 return true;
             else
             {
-                // If we get a 500 response code from CiiMS.org, perform a rollback
-                $token->delete();
-                $instance->delete();
-
                 echo "500 Error returned by Theme registration";
                 print_r($response2);
                 return false;

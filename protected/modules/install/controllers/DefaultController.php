@@ -99,12 +99,14 @@ class DefaultController extends CController
         if (Yii::app()->session['dsn'] == "")
             $this->redirect($this->createUrl('/'));
         
+        $this->writeFile(Yii::getPathOfAlias('application.runtime').DS.'hostname', (Yii::app()->getRequest()->getIsSecureConnection() ? 'https://' : 'http://') . Yii::app()->getRequest()->serverName);
+
         // Set the stage to 5
         $this->stage = Yii::app()->session['stage'] = 5;
         
         $this->render('migrate');
     }
-	
+    
     /**
      * This action enables us to create an admin user for CiiMS
      */
@@ -148,7 +150,7 @@ class DefaultController extends CController
     public function actionRunMigrations()
     {
         header('Content-Type: application/json');
-        
+
         $response = $this->runMigrationTool(Yii::app()->session['dsn']);
         
         $data = array('migrated' => false, 'details' => $response);
@@ -197,24 +199,34 @@ class DefaultController extends CController
     );";
         
         // Write the configuration file out
-        $fh = fopen(dirname(__FILE__) . '/../../../config/main.php', 'w');
-        fwrite($fh, $config);
+        $this->writeFile(Yii::getPathOfAlias('application.config').DS.'main.php', $config);
+    }
+
+    /**
+     * Writes data to a file
+     * @param  string $filePath The path alias
+     * @param  mixed  $data     The data we want to write
+     */
+    private function writeFile($filePath, $data)
+    {
+        $fh = fopen($filePath, 'w+');
+        fwrite($fh, $data);
         fclose($fh);
     }
 
-	/**
-	 * Runs the migration tool, effectivly installing the database an all appliciable default settings
-	 */
-	private function runMigrationTool(array $dsn)
-	{
-	    $runner=new CConsoleCommandRunner();
-		$runner->commands=array(
-		    'migrate' => array(
-		        'class' => 'application.commands.CiiMigrateCommand',
-		        'dsn' => $dsn,
-		        'interactive' => 0,
-		    ),
-		    'db'=>array(
+    /**
+     * Runs the migration tool, effectivly installing the database an all appliciable default settings
+     */
+    private function runMigrationTool(array $dsn)
+    {
+        $runner=new CConsoleCommandRunner();
+        $runner->commands=array(
+            'migrate' => array(
+                'class' => 'application.commands.CiiMigrateCommand',
+                'dsn' => $dsn,
+                'interactive' => 0,
+            ),
+            'db'=>array(
                 'class'=>'CDbConnection',
                 'connectionString' => "mysql:host={$dsn['host']};dbname={$dsn['dbname']}",
                 'emulatePrepare' => true,
@@ -222,14 +234,14 @@ class DefaultController extends CController
                 'password' => $dsn['password'],
                 'charset' => 'utf8',
             ),
-		);
-		
-		ob_start();
-		$runner->run(array(
-		    'yiic',
-		    'migrate'
-		));
+        );
         
-		return htmlentities(ob_get_clean(), null, Yii::app()->charset);
-	}
+        ob_start();
+        $runner->run(array(
+            'yiic',
+            'migrate'
+        ));
+        
+        return htmlentities(ob_get_clean(), null, Yii::app()->charset);
+    }
 }
