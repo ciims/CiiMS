@@ -52,7 +52,7 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
             $instance_id = Cii::get($response['response'], 'instance_id');
             $token = Cii::get($response['response'], 'token');
 
-            $connection->createCommand('INSERT INTO `configuration` (`key`, `value`, `created`, `updated`) VALUES (\'instance_id\', \':instance_id\', UTC_TIMESTAMP(), UTC_TIMESTAMP()), (\'token\', \':token\', UTC_TIMESTAMP(), UTC_TIMESTAMP())')->bindParam(':instance_id', $instance_id)->bindParam(':token', $token)->execute();
+            $connection->createCommand('INSERT INTO `configuration` (`key`, `value`, `created`, `updated`) VALUES (\'instance_id\', :instance_id, UTC_TIMESTAMP(), UTC_TIMESTAMP()), (\'token\', :token, UTC_TIMESTAMP(), UTC_TIMESTAMP())')->bindParam(':instance_id', $instance_id)->bindParam(':token', $token)->execute();
 
             // Manually register the pre-bundled default theme so that it can recieve updates
             unset($curl);
