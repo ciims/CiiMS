@@ -235,7 +235,10 @@ var CiiDashboard = {
 						}
 
 						if ($("#preview").css("height") == "0px")
+						{
 							$("#preview").css("height", CiiDashboard.Content.Preview.computedHeight +"px");
+							$(".content-sidebar").css("height", CiiDashboard.Content.Preview.computedHeight +"px");
+						}
 						
 					});
 				});
