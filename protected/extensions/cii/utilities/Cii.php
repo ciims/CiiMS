@@ -402,6 +402,28 @@ class Cii {
 		
 		return;
 	}
+
+    /**
+     * Loads the user information
+     */
+    public static function loadUserInfo()
+    {
+        if (isset(Yii::app()->user))
+        {
+            // Load some specific CiiMS JS here
+            $json = CJSON::encode(array(
+                'email' =>  Cii::get(Yii::app()->user, 'email'),
+                'token' => Cii::get(Yii::app()->user, 'api_key'),
+                'role' => Cii::get(Yii::app()->user, 'role'),
+                'isAuthenticated' => isset(Yii::app()->user->id),
+                'time' => time()
+            ));
+              
+            Yii::app()->clientScript->registerScript('ciims', "
+                $(document).ready(function() { localStorage.setItem('ciims', '$json'); });
+            ");
+        }
+    }
 	
 	/**************************  Inflector Data **************************/
 	

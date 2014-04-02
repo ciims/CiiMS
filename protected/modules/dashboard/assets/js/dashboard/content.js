@@ -88,6 +88,9 @@ var CiiDashboard = {
 			// ScrollTop
 			scrollTop : null,
 
+			// IE11 Computed Height fix
+			computedHeight : 0,
+
 			// Consolodating Preview base functions that should be loaded
 			load : function() {
 				CiiDashboard.Content.Preview.marked();
@@ -193,6 +196,9 @@ var CiiDashboard = {
 			 * and that post should be loaded in the preview pane
 			 */
 			bindPostClick : function() {
+
+				CiiDashboard.Content.Preview.computedHeight = $("#preview").css("height").replace("px", "");
+
 				$(".post").unbind("click");
 				$(".post").click(function() { 
 					if ($(this).hasClass("post-header"))
@@ -227,6 +233,9 @@ var CiiDashboard = {
 							CiiDashboard.Content.Preview.loadDisqus();
 							$(".comment-box-main").show();
 						}
+
+						if ($("#preview").css("height") == "0px")
+							$("#preview").css("height", CiiDashboard.Content.Preview.computedHeight +"px");
 						
 					});
 				});
@@ -530,20 +539,15 @@ var CiiDashboard = {
 
 			// Binds the datePicker effect
 			datePicker : function() {
-				var res = new Date($("#Content_published").val() + " UTC");
-				var res = new Date(res);
-				
-				var dd = res.getDate();
-				var mm = res.getMonth()+1;//January is 0!
-				var yyyy = res.getFullYear();
-				var hours = res.getHours();
-				var minutes = (res.getMinutes()<10?'0':'') + res.getMinutes();
-				var seconds = (res.getSeconds()<10?'0':'') + res.getSeconds();
-				if(dd<10){dd='0'+dd}
-				if(mm<10){mm='0'+mm}
-				d=yyyy + "-" + mm + "-" + dd + ' '+hours+':'+minutes+':'+seconds
+				var dateStr = $("#Content_published").val();
 
-				$("#Content_published").val(d);
+				var a=dateStr.split(" ");
+				var d=a[0].split("-");
+				var t=a[1].split(":");
+				var date = new Date(Date.UTC(d[0],(d[1]-1),d[2],t[0],t[1],t[2]));
+				var format = date.format('Y-m-d H:i:s');
+				
+				$("#Content_published").val(format);
 
 				var tz = jstz.determine(); // Determines the time zone of the browser client
     	

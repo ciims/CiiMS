@@ -15,6 +15,7 @@
 				                      ->registerCssFile($this->asset .'/font-mfizz/font-mfizz.css')
 				                      ->registerCoreScript('jquery')
 				                      ->registerScriptFile($this->asset.'/js/jquery-ui.min.js', CClientScript::POS_HEAD)
+				                      ->registerScriptFile($this->asset.'/date.format/date.format.js', CClientScript::POS_HEAD)
 				                      ->registerScriptFile($this->asset.'/js/jquery.nanoscroller.min.js', CClientScript::POS_END)
 				                      ->registerScript('alert-close', '$(".close").click(function() { $(this).parent().fadeOut(); });')
 				                      ->registerScript('align', '$(".icon-align-justify").click(function() { $("aside.navigation").toggleClass("active"); });'); ?>
@@ -53,6 +54,7 @@
 			</footer>
 			<?php echo CHtml::tag('span', array('style' => 'display:none', 'value' => $this->createUrl('/dashboard'), 'id' => 'dashboard-endpoint'), NULL); ?>
 			<?php echo CHtml::tag('span', array('style' => 'display:none', 'data-attr-endpoint' => $this->createAbsoluteUrl('/'), 'id' => 'endpoint'), NULL); ?>
+			<?php Cii::loadUserInfo(); ?>
 		</section>
 	</body>
 </html>
