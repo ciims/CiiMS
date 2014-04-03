@@ -143,9 +143,9 @@ class EClientScript extends YiiNewRelicClientScript
 				// check exists file
 				if ($valid = file_exists($fpath))
 				{
-					$cache = Yii::app()->cache->get('combineJs' .  md5($fpath) . md5($fname));
-					if ($cache === false)
-						$valid = false;
+					//$cache = Yii::app()->cache->get('combineJs' .  md5($fpath) . md5($fname));
+					//if ($cache === false)
+					//	$valid = false;
 
 					$mtime = filemtime($fpath);
 					foreach ($files as $file)
@@ -182,7 +182,7 @@ class EClientScript extends YiiNewRelicClientScript
 						}
 					}
 					file_put_contents($fpath, $fileBuffer);
-					Yii::app()->cache->set('combineJs' . md5($fpath) . md5($fname), true);
+					//Yii::app()->cache->set('combineJs' . md5($fpath) . md5($fname), true);
 				}
 				// real url of combined file
 				$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
@@ -228,9 +228,9 @@ class EClientScript extends YiiNewRelicClientScript
 			// check exists file
 			if ($valid = file_exists($fpath))
 			{
-				$cache = Yii::app()->cache->get('combineCss' . md5($fpath) . md5($fname));
-				if ($cache === false)
-					$valid = false;
+				//$cache = Yii::app()->cache->get('combineCss' . md5($fpath) . md5($fname));
+				//if ($cache === false)
+				//	$valid = false;
 
 				$mtime = filemtime($fpath);
 				foreach ($toBeCombined as $file)
@@ -259,7 +259,7 @@ class EClientScript extends YiiNewRelicClientScript
 					}
 				}
 				file_put_contents($fpath, $fileBuffer);
-				Yii::app()->cache->set('combineCss' . md5($fpath) . md5($fname), true);
+				//Yii::app()->cache->set('combineCss' . md5($fpath) . md5($fname), true);
 			}
 			// add the combined file into scriptFiles
 			$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
