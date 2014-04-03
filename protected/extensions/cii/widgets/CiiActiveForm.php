@@ -108,7 +108,7 @@ class CiiActiveForm extends CiiBaseActiveForm
 		$htmlOptions['id'] = get_class($model) . '_' . $property;
 		$htmlOptions['name'] = get_class($model) . '[' . $property .']';
 
-		echo CHtml::tag('label', array(), Cii::underscoretowords($model->getAttributeLabel($property)) . (Cii::get($htmlOptions, 'required', false) ? CHtml::tag('span', array('class' => 'required'), ' *') : NULL));
+		echo CHtml::tag('label', array(), CiiInflector::underscoretowords($model->getAttributeLabel($property)) . (Cii::get($htmlOptions, 'required', false) ? CHtml::tag('span', array('class' => 'required'), ' *') : NULL));
 		echo CHtml::tag('input', $htmlOptions);
 	}
 

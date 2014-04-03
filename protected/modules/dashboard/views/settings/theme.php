@@ -72,7 +72,7 @@
                         }		
 
                         echo CHtml::openTag('div', array('class' => 'pure-form-group', 'style' => 'padding-bottom: 20px'));
-                            echo CHtml::tag('legend', array(), Cii::titleize($attribute));
+                            echo CHtml::tag('legend', array(), CiiInflector::titleize($attribute));
                             echo $form->dropDownListRow($model, $attribute, $elements, $elementOptions);
 
                             if (count($options) == 0)

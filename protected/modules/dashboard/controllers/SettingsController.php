@@ -263,7 +263,7 @@ class SettingsController extends CiiSettingsController
 		foreach ($issues as $issue)
 		{
 			echo CHtml::openTag('div', array('class' => 'pure-control-group'));
-				echo CHtml::tag('label', array(), Cii::titleize($issue['issue']));
+				echo CHtml::tag('label', array(), CiiInflector::titleize($issue['issue']));
 				echo CHtml::tag('span', array('class' => 'inline'), $issue['message']);
 			echo CHtml::closeTag('div');
 		}

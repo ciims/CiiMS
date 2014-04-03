@@ -159,7 +159,7 @@ class CiiSettingsForm extends CWidget
 						}
 						else
 						{
-							echo CHtml::tag('legend', array(), Cii::titleize(get_class($this->model)));
+							echo CHtml::tag('legend', array(), CiiInflector::titleize(get_class($this->model)));
 							foreach ($this->properties as $property)
 							{
 								$this->renderProperties($form, $property);

@@ -71,7 +71,7 @@
 
 						<div class="pure-control-group">
 							<!-- TODO: Find a way to hide dashboard items as they cause the dashboard to explode... -->
-							<?php echo CHtml::tag('label', array(), Cii::titleize($meta->key)); ?>
+							<?php echo CHtml::tag('label', array(), CiiInflector::titleize($meta->key)); ?>
 
 							<?php if (strpos($meta->key, 'Provider') !== false): ?>
 								<?php $options['disabled'] = true; ?>

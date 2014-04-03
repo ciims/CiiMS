@@ -40,7 +40,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      */
     private function getType()
     {
-        return strtolower(Cii::singularize(str_replace('Controller', '', get_class($this))));
+        return strtolower(CiiInflector::singularize(str_replace('Controller', '', get_class($this))));
     }
    
     /**
@@ -105,7 +105,7 @@ class CiiDashboardAddonController extends CiiDashboardController
      */
     public function actionRegistered()
     {
-        $response = $this->curlRequest('default/' . Cii::pluralize($this->getType()));
+        $response = $this->curlRequest('default/' . CiiInflector::pluralize($this->getType()));
         return $this->renderResponse($response);
     }
 
