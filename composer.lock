@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "34e07bb1380842cf106af34c327744aa",
+    "hash": "a4956ec9f30660a83cf70a22fe951703",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -335,33 +335,6 @@
             "time": "2013-04-30 19:58:08"
         },
         {
-            "name": "kertz/twitteroauth",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kertz/twitteroauth.git",
-                "reference": "97b677ca030e7de7dcade797aabb4af8a3aa463f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kertz/twitteroauth/zipball/97b677ca030e7de7dcade797aabb4af8a3aa463f",
-                "reference": "97b677ca030e7de7dcade797aabb4af8a3aa463f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "twitteroauth"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2014-02-23 11:27:58"
-        },
-        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.7.9",
             "source": {
@@ -671,7 +644,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "hybridauth/hybridauth": 20,
-        "kertz/twitteroauth": 20,
         "charlesportwoodii/eanalytics": 20
     },
     "platform": {
