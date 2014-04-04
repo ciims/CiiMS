@@ -46,10 +46,16 @@
         "hybridauth/hybridauth": "2.2.0.*@dev",
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
-        "charlesportwoodii/eanalytics": "dev-master"
+        "charlesportwoodii/eanalytics": "dev-master",
+	"ciims/defaulttheme": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.13",
         "phpunit/phpunit-selenium": "1.3.3"
+    },
+    "extra": {
+        "installer-paths": {
+            "themes/default": ["ciims/defaulttheme"]
+        }   
     }
 }
