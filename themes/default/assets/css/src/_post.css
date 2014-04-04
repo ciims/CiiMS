@@ -1,0 +1,165 @@
+main .post {
+	background: #fff;
+	border: 1px solid #e4e4e4;
+	margin-bottom: 10px;
+}
+
+main .post .post-inner {
+	padding: 5px 30px;
+}
+
+main .post .post-inner .post-header h2 {
+	margin-bottom: 0px;
+}
+
+main .post .post-inner .post-header h2 a {
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+main .post .post-inner .post-header h2 a:hover {
+	transition: all 0.2s ease-in-out;
+	color: #f67d42;
+	text-decoration: none;
+}
+
+main .post .post-inner .post-header span.author {
+	color: #999;
+	font-size: 12px;
+}
+
+main .post .post-inner .post-header span.author a {
+	text-decoration: none;
+	border-bottom: 1px dashed #999;
+	color: #999;
+	transition: all 0.2s ease-in-out;
+}
+
+main .post .post-inner .post-header span.author a:hover {
+	transition: all 0.2s ease-in-out;
+	border-bottom: 1px dashed #f67d42;
+	color: #f67d42;
+	text-decoration: none;
+}
+
+main .post .post-inner .post-header p {
+	font-size: 14px;
+	color: #2d2d2d;
+}
+
+main .post .post-inner .post-details a.read-more {
+	transition: all 0.2s ease-in-out;
+	color: #2d2d2d;
+	border: 1px solid #e4e4e4;
+	border-radius: 5px;
+	padding: 15px;
+	margin: 0 auto;
+	text-decoration: none;
+	float:left;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 1px;
+}
+
+main .post .post-inner .post-details a.read-more:hover {
+	transition: all 0.2s ease-in-out;
+	color: #f67d42;
+	text-decoration: none;
+}
+
+main .post .post-inner .post-details .icons {
+	float:right;
+	color: #999;
+	font-size: 14px;
+	margin-top: 20px;
+	width: 100px;
+}
+
+main .post .post-inner .post-details .icons .comment-container, main .post .post-inner .post-details .icons .likes-container {
+	transition: all 0.2s ease-in-out;
+	color: #999;
+	display: inline-block;
+    cursor: pointer;
+}
+
+
+main .post .post-inner .post-details .icons .inner-likes-container {
+    margin-right: 10px;
+}
+
+main .post .post-inner .post-details .icons .likes-container {
+	display: inline-block;
+	width: 45px;
+}
+
+main .post .post-inner .post-details .icons .likes-container a,
+main .post .post-inner .post-details .icons .comment-container a,
+main .post .post-inner .post-details .icons .likes-container a span {
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+	color: #999;
+}
+
+main .post .post-inner .post-details .icons .comment-container:hover, 
+main .post .post-inner .post-details .icons .likes-container:hover, 
+main .post .post-inner .post-details .icons .likes-container:hover a, 
+main .post .post-inner .post-details .icons .likes-container:hover a span {
+	transition: all 0.2s ease-in-out;
+	color: #f67d42;
+}
+
+main .post .post-inner .post-details .icons .comment-container:before {
+	font-family: FontAwesome;
+	content: "\f0e5";
+	padding: 0 10px;
+	padding-right: 5px;
+}
+
+main .post .post-inner .post-details .icons .likes-container:before {
+	font-family: FontAwesome;
+	content: "\f08a";
+	padding: 0 10px;
+	padding-right: 5px;
+}
+
+
+main .likes {
+	display: inline-block;
+}
+
+main .infinite_navigation {
+	transition: all 0.2s ease-in-out;
+	color: #2d2d2d;
+	border: 1px solid #e4e4e4;
+	border-radius: 5px;
+	padding: 15px;
+	margin: 0 auto;
+	text-decoration: none;
+	float:left;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 12px;
+	line-height: 18px;
+	letter-spacing: 1px;
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 96%;
+	background: #fff;
+	text-align:center;
+}
+
+main .infinite_navigation a  {
+	text-decoration: none;
+}
+
+main .infinite_navigation a strong {
+	transition: all 0.2s ease-in-out;
+}
+
+main .infinite_navigation a:hover strong {
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+	color: #f67d42;
+}
