@@ -166,7 +166,7 @@ class CiiSettingsForm extends CWidget
 							}
 						}
 						
-						echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small pull-right'), CHtml::tag('i', array('class' => 'icon-spinner icon-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
+						echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small pull-right'), CHtml::tag('i', array('class' => 'fa fa-spinner fa-spin icon-spinner icon-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
 					}
 
 				echo CHtml::closeTag('div');

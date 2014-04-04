@@ -92,6 +92,8 @@ class CiiController extends CController
         $smtpPort    = Cii::getConfig('SMTPPort',    NULL);
         $smtpUser    = Cii::getConfig('SMTPUser',    NULL);
         $smtpPass    = Cii::getConfig('SMTPPass',    NULL);
+        $useTLS      = Cii::getConfig('useTLS',      0);
+        $useSSL      = Cii::getConfig('useSSL',      0);
 
         $notifyUser  = new stdClass;
         $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
@@ -108,6 +110,12 @@ class CiiController extends CController
             $mail->Username   = $smtpUser; 
             $mail->SMTPAuth = true;
         }
+
+        if ($useTLS == 1)
+            $mail->SMTPSecure = 'tls';
+
+        if ($useSSL == 1)
+            $mail->SMTPSecure = 'ssl';
 
         if ($smtpPass !== NULL && $smtpPass !== "" && Cii::decrypt($smtpPass) != "")
         {

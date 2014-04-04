@@ -9,8 +9,7 @@
 			<input class="pure-input-1-2" id="EmailSettings_Test" type="email" placeholder="user@example.com" no-field-change="true"/>
 			<span id="test-email" class="pure-button pure-button-error pure-button-small pure-button-link">
 				<span id="spinner">
-					<span class="icon-spinner icon-spin icon-spinner-form"></span>
-					<span class="icon-spacer"></span>
+					<span class="fa fa-spinner fa-spin icon-spinner icon-spin icon-spinner-form"></span>
 				</span>
 				<?php echo Yii::t('Dashboard.views', 'Test Email'); ?>
 			</span>
