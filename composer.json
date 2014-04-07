@@ -49,7 +49,7 @@
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
         "charlesportwoodii/eanalytics": "dev-master",
-	"ciims/defaulttheme": "dev-master"
+	"ciims-themes/default": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.13",
@@ -57,7 +57,7 @@
     },
     "extra": {
 	"installer-paths": {
-		"themes/default": ["ciims/defaulttheme"]
+		"themes/default": ["ciims-themes/default"]
 	}
     }
 }
