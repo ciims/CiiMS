@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a65ee7092bb7b040c7380414a0e613d8",
+    "hash": "8fcbf4d97185a18a88b6a31b1735aa8c",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -53,14 +53,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/charlesportwoodii/defaulttheme.git",
-                "reference": "f0a0db063c4371748cfb1e0c7105d9ce15575d84"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/f0a0db063c4371748cfb1e0c7105d9ce15575d84",
-                "reference": "f0a0db063c4371748cfb1e0c7105d9ce15575d84",
-                "shasum": ""
+                "url": "/var/www/defaulttheme",
+                "reference": "7fedfef780c4b10ad755a5611facc3ec1598077f"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -68,8 +62,7 @@
                 "google/apiclient": "dev-master",
                 "kertz/twitteroauth": "dev-master"
             },
-            "type": "wordpress-theme",
-            "notification-url": "https://packagist.org/downloads/",
+            "type": "drupal-theme",
             "license": [
                 "MIT"
             ],
@@ -85,10 +78,17 @@
             "homepage": "https://www.ciims.org",
             "keywords": [
                 "CiiMS",
+                "ciims",
                 "default",
                 "theme"
             ],
-            "time": "2014-04-07 17:44:47"
+            "support": {
+                "email": "charlesportwoodii@ethreal.net",
+                "issues": "https://github.com/charlesportwoodii/defaulttheme/issues",
+                "wiki": "https://github.com/charlesportwoodii/defaulttheme/wiki/_pages",
+                "source": "https://github.com/charlesportwoodii/defaulttheme"
+            },
+            "time": "2014-04-07 21:08:15"
         },
         {
             "name": "composer/installers",
@@ -876,7 +876,9 @@
             "time": "2013-08-12 00:12:08"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
