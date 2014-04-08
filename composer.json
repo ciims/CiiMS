@@ -29,9 +29,6 @@
     "homepage": "https://www.ciims.org",
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [
-	{ "type" : "vcs", "url": "https://github.com/charlesportwoodii/installers" }
-    ],
     "require": {
         "php": ">=5.3.7",
         "ext-curl" : "*",
@@ -46,13 +43,19 @@
         "lib-pcre": "*",
         "lib-openssl": "*",
         "yiisoft/yii": "1.1.14",
-	"composer/installers": "dev-master",
+	"composer/installers": "~1.0",
         "rackspace/php-opencloud": "v1.9.2",
         "ircmaxell/password-compat": "1.0.3",
         "hybridauth/hybridauth": "2.2.0.*@dev",
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
         "charlesportwoodii/eanalytics": "dev-master",
-	"ciims-themes/default": "dev-master"
+	"ciims-themes/default": "dev-master",
+	"ciims-modules/dashboard": "dev-master"
+    },
+    "extra" : {
+	"installer-paths": {
+		"protected/modules/dashboard/": ["ciims-modules/dashboard"]
+	}
     }
 }

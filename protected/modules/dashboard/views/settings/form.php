@@ -1,1 +1,0 @@
-<?php $this->widget('application.modules.dashboard.components.CiiSettingsForm', array('model' => $model, 'header' => $header)); ?>

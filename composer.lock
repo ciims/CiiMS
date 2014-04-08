@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bc6648de8c651692b65c77fd576aa525",
+    "hash": "c807c859da64a18aa44f246079e85947",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -49,17 +49,53 @@
             "time": "2014-04-01 00:59:43"
         },
         {
+            "name": "ciims-modules/dashboard",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
+                "reference": "05623c3a5ae28e3c5a8f2836a7e6b0510845631c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/05623c3a5ae28e3c5a8f2836a7e6b0510845631c",
+                "reference": "05623c3a5ae28e3c5a8f2836a7e6b0510845631c",
+                "shasum": ""
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net",
+                    "homepage": "https://www.erianna.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "The dashboard module for CiiMS",
+            "homepage": "https://www.ciims.org",
+            "keywords": [
+                "CiiMS",
+                "dashboard",
+                "module"
+            ],
+            "time": "2014-04-08 03:14:28"
+        },
+        {
             "name": "ciims-themes/default",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/defaulttheme.git",
-                "reference": "be014cb1cb78c28adadc104e5144eb92dcdcf8f0"
+                "reference": "c1954d47da03ec05956c9b9b1b336cf5b9ddceba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/be014cb1cb78c28adadc104e5144eb92dcdcf8f0",
-                "reference": "be014cb1cb78c28adadc104e5144eb92dcdcf8f0",
+                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/c1954d47da03ec05956c9b9b1b336cf5b9ddceba",
+                "reference": "c1954d47da03ec05956c9b9b1b336cf5b9ddceba",
                 "shasum": ""
             },
             "require": {
@@ -87,20 +123,20 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-08 00:57:05"
+            "time": "2014-04-08 03:05:12"
         },
         {
             "name": "composer/installers",
-            "version": "dev-master",
+            "version": "v1.0.12",
             "source": {
                 "type": "git",
-                "url": "https://github.com/charlesportwoodii/installers.git",
-                "reference": "c5ef36f3d0296c606ee4fa29d5578763cf3a74e2"
+                "url": "https://github.com/composer/installers.git",
+                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/installers/zipball/c5ef36f3d0296c606ee4fa29d5578763cf3a74e2",
-                "reference": "c5ef36f3d0296c606ee4fa29d5578763cf3a74e2",
+                "url": "https://api.github.com/repos/composer/installers/zipball/4127333b03e8b4c08d081958548aae5419d1a2fa",
+                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa",
                 "shasum": ""
             },
             "replace": {
@@ -122,6 +158,7 @@
                     "Composer\\Installers\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -129,50 +166,48 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama"
+                    "homepage": "https://github.com/shama",
+                    "role": "Developer"
                 }
             ],
             "description": "A multi-framework Composer library installer",
             "homepage": "http://composer.github.com/installers/",
             "keywords": [
-                "AGL",
-                "AnnotateCms",
-                "CakePHP",
-                "CodeIgniter",
                 "Craft",
-                "Croogo",
-                "Drupal",
-                "Elgg",
-                "FuelPHP",
                 "Hurad",
-                "Joomla",
-                "Kohana",
-                "Laravel",
-                "Lithium",
-                "MODULEWork",
                 "MODX Evo",
-                "Magento",
-                "Mako",
-                "MediaWiki",
                 "OXID",
-                "PPI",
-                "Piwik",
-                "SilverStripe",
-                "TYPO3",
                 "WolfCMS",
-                "WordPress",
-                "Zend",
-                "Zikula",
+                "agl",
+                "annotatecms",
+                "cakephp",
+                "codeigniter",
                 "concrete5",
+                "croogo",
+                "drupal",
+                "elgg",
+                "fuelphp",
                 "installer",
-                "phpBB",
+                "joomla",
+                "kohana",
+                "laravel",
+                "lithium",
+                "magento",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "phpbb",
+                "piwik",
+                "ppi",
                 "shopware",
-                "symfony"
+                "silverstripe",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "zend",
+                "zikula"
             ],
-            "support": {
-                "source": "https://github.com/charlesportwoodii/installers/tree/master"
-            },
-            "time": "2014-04-07 21:24:39"
+            "time": "2014-02-24 04:21:34"
         },
         {
             "name": "facebook/php-sdk",
@@ -884,10 +919,10 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "composer/installers": 20,
         "hybridauth/hybridauth": 20,
         "charlesportwoodii/eanalytics": 20,
-        "ciims-themes/default": 20
+        "ciims-themes/default": 20,
+        "ciims-modules/dashboard": 20
     },
     "platform": {
         "php": ">=5.3.7",
