@@ -6,9 +6,6 @@
 /themes/*
 !/themes/default
 /protected/modules/*
-!/protected/modules/hybridauth
-!/protected/modules/api
-!/protected/modules/install
 /uploads/*
 /install.php
 .htaccess

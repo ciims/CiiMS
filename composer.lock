@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5cb3c3103c2192dcfaaa6be8cef21169",
+    "hash": "aa1ead8c114e81693c4a9d91caa22c89",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -119,6 +119,82 @@
                 "module"
             ],
             "time": "2014-04-08 03:14:28"
+        },
+        {
+            "name": "ciims-modules/hybridauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
+                "reference": "f9b9aa70f95a6cda0416db4d71a48b35711420bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/f9b9aa70f95a6cda0416db4d71a48b35711420bc",
+                "reference": "f9b9aa70f95a6cda0416db4d71a48b35711420bc",
+                "shasum": ""
+            },
+            "require": {
+                "hybridauth/hybridauth": "2.2.0.*@dev"
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net",
+                    "homepage": "https://www.erianna.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "HybridAuth Social Authentication for CiiMS",
+            "homepage": "https://www.ciims.org",
+            "keywords": [
+                "CiiMS",
+                "hybridauth",
+                "module",
+                "social"
+            ],
+            "time": "2014-04-08 03:42:29"
+        },
+        {
+            "name": "ciims-modules/install",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
+                "reference": "764d261c2467720be2c487e87ae75ab03f0e2fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/764d261c2467720be2c487e87ae75ab03f0e2fc0",
+                "reference": "764d261c2467720be2c487e87ae75ab03f0e2fc0",
+                "shasum": ""
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net",
+                    "homepage": "https://www.erianna.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "The installation module for CiiMS",
+            "homepage": "https://www.ciims.org",
+            "keywords": [
+                "CiiMS",
+                "installer",
+                "module"
+            ],
+            "time": "2014-04-08 03:45:45"
         },
         {
             "name": "ciims-themes/default",
@@ -955,11 +1031,12 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "hybridauth/hybridauth": 20,
         "charlesportwoodii/eanalytics": 20,
         "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
-        "ciims-modules/api": 20
+        "ciims-modules/api": 20,
+        "ciims-modules/install": 20,
+        "ciims-modules/hybridauth": 20
     },
     "platform": {
         "php": ">=5.3.7",
