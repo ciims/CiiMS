@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c807c859da64a18aa44f246079e85947",
+    "hash": "5cb3c3103c2192dcfaaa6be8cef21169",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -47,6 +47,42 @@
                 "analytics.js"
             ],
             "time": "2014-04-01 00:59:43"
+        },
+        {
+            "name": "ciims-modules/api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
+                "reference": "9458c6cc2fd065e1a64ff3223757997b2cd67ddc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/9458c6cc2fd065e1a64ff3223757997b2cd67ddc",
+                "reference": "9458c6cc2fd065e1a64ff3223757997b2cd67ddc",
+                "shasum": ""
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net",
+                    "homepage": "https://www.erianna.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "The API module for CiiMS",
+            "homepage": "https://www.ciims.org",
+            "keywords": [
+                "CiiMS",
+                "api",
+                "module"
+            ],
+            "time": "2014-04-08 03:33:29"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -922,7 +958,8 @@
         "hybridauth/hybridauth": 20,
         "charlesportwoodii/eanalytics": 20,
         "ciims-themes/default": 20,
-        "ciims-modules/dashboard": 20
+        "ciims-modules/dashboard": 20,
+        "ciims-modules/api": 20
     },
     "platform": {
         "php": ">=5.3.7",

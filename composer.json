@@ -51,11 +51,13 @@
         "mobiledetect/mobiledetectlib": "2.7.9",
         "charlesportwoodii/eanalytics": "dev-master",
 	"ciims-themes/default": "dev-master",
-	"ciims-modules/dashboard": "dev-master"
+	"ciims-modules/dashboard": "dev-master",
+	"ciims-modules/api": "dev-master"
     },
     "extra" : {
 	"installer-paths": {
-		"protected/modules/dashboard/": ["ciims-modules/dashboard"]
+		"protected/modules/dashboard/": ["ciims-modules/dashboard"],
+		"protected/modules/api/": ["ciims-modules/api"]
 	}
     }
 }
