@@ -30,7 +30,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
-	{ "type" : "vcs", "url": "/var/www/defaulttheme" }
+	{ "type" : "vcs", "url": "https://github.com/charlesportwoodii/installers" }
     ],
     "require": {
         "php": ">=5.3.7",
@@ -46,6 +46,7 @@
         "lib-pcre": "*",
         "lib-openssl": "*",
         "yiisoft/yii": "1.1.14",
+	"composer/installers": "dev-master",
         "rackspace/php-opencloud": "v1.9.2",
         "ircmaxell/password-compat": "1.0.3",
         "hybridauth/hybridauth": "2.2.0.*@dev",

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8fcbf4d97185a18a88b6a31b1735aa8c",
+    "hash": "bc6648de8c651692b65c77fd576aa525",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -53,16 +53,22 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "/var/www/defaulttheme",
-                "reference": "7fedfef780c4b10ad755a5611facc3ec1598077f"
+                "url": "https://github.com/charlesportwoodii/defaulttheme.git",
+                "reference": "be014cb1cb78c28adadc104e5144eb92dcdcf8f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/be014cb1cb78c28adadc104e5144eb92dcdcf8f0",
+                "reference": "be014cb1cb78c28adadc104e5144eb92dcdcf8f0",
+                "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0",
                 "facebook/php-sdk": "v3.2.3",
                 "google/apiclient": "dev-master",
                 "kertz/twitteroauth": "dev-master"
             },
             "type": "drupal-theme",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -78,30 +84,23 @@
             "homepage": "https://www.ciims.org",
             "keywords": [
                 "CiiMS",
-                "ciims",
                 "default",
                 "theme"
             ],
-            "support": {
-                "email": "charlesportwoodii@ethreal.net",
-                "issues": "https://github.com/charlesportwoodii/defaulttheme/issues",
-                "wiki": "https://github.com/charlesportwoodii/defaulttheme/wiki/_pages",
-                "source": "https://github.com/charlesportwoodii/defaulttheme"
-            },
-            "time": "2014-04-07 21:08:15"
+            "time": "2014-04-08 00:57:05"
         },
         {
             "name": "composer/installers",
-            "version": "v1.0.12",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/composer/installers.git",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa"
+                "url": "https://github.com/charlesportwoodii/installers.git",
+                "reference": "c5ef36f3d0296c606ee4fa29d5578763cf3a74e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/4127333b03e8b4c08d081958548aae5419d1a2fa",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa",
+                "url": "https://api.github.com/repos/charlesportwoodii/installers/zipball/c5ef36f3d0296c606ee4fa29d5578763cf3a74e2",
+                "reference": "c5ef36f3d0296c606ee4fa29d5578763cf3a74e2",
                 "shasum": ""
             },
             "replace": {
@@ -123,7 +122,6 @@
                     "Composer\\Installers\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -131,48 +129,50 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama",
-                    "role": "Developer"
+                    "homepage": "https://github.com/shama"
                 }
             ],
             "description": "A multi-framework Composer library installer",
             "homepage": "http://composer.github.com/installers/",
             "keywords": [
+                "AGL",
+                "AnnotateCms",
+                "CakePHP",
+                "CodeIgniter",
                 "Craft",
+                "Croogo",
+                "Drupal",
+                "Elgg",
+                "FuelPHP",
                 "Hurad",
+                "Joomla",
+                "Kohana",
+                "Laravel",
+                "Lithium",
+                "MODULEWork",
                 "MODX Evo",
+                "Magento",
+                "Mako",
+                "MediaWiki",
                 "OXID",
+                "PPI",
+                "Piwik",
+                "SilverStripe",
+                "TYPO3",
                 "WolfCMS",
-                "agl",
-                "annotatecms",
-                "cakephp",
-                "codeigniter",
+                "WordPress",
+                "Zend",
+                "Zikula",
                 "concrete5",
-                "croogo",
-                "drupal",
-                "elgg",
-                "fuelphp",
                 "installer",
-                "joomla",
-                "kohana",
-                "laravel",
-                "lithium",
-                "magento",
-                "mako",
-                "mediawiki",
-                "modulework",
-                "phpbb",
-                "piwik",
-                "ppi",
+                "phpBB",
                 "shopware",
-                "silverstripe",
-                "symfony",
-                "typo3",
-                "wordpress",
-                "zend",
-                "zikula"
+                "symfony"
             ],
-            "time": "2014-02-24 04:21:34"
+            "support": {
+                "source": "https://github.com/charlesportwoodii/installers/tree/master"
+            },
+            "time": "2014-04-07 21:24:39"
         },
         {
             "name": "facebook/php-sdk",
@@ -884,6 +884,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "composer/installers": 20,
         "hybridauth/hybridauth": 20,
         "charlesportwoodii/eanalytics": 20,
         "ciims-themes/default": 20
