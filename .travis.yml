@@ -17,7 +17,7 @@ notifications:
     on_failure: never
     
 before_script:
-  - php composer.phar selfupdate
+  - composer selfupdate
   - rm composer.lock
   - composer install
   - mysql -e 'create database ciims_test;'                    # Create Database
