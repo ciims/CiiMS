@@ -51,7 +51,7 @@ return array(
             'class' => 'ext.cii.components.CiiAssetManager',
         ),
         'clientScript' => array(
-            'class' => 'ext.cii.components.CiiClientScript'
+            'class' => 'ext.cii.components.CiiClientScript',
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',

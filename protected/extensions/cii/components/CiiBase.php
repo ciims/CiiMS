@@ -18,7 +18,16 @@ class CiiBase extends CApplicationComponent
         Yii::import('ext.cii.models.*');
 
         Cii::loadUserInfo();
-
+	$this->registerJqueryCore();
         parent::init();
+    }
+
+    private function registerJqueryCore()
+    {
+	$cs = Yii::app()->clientScript;	
+	$cs->scriptMap = array(
+		'jquery.js' => Yii::app()->assetManager->publish(Yii::getPathOfAlias('ext.cii.assets').'/js/jquery-2.0.3.min.js')
+	);
+	$cs->registerCoreScript('jquery'); 
     }
 }
