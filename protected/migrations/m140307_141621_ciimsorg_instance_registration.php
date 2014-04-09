@@ -47,45 +47,9 @@ class m140307_141621_ciimsorg_instance_registration extends CDbMigration
 
         $response = CJSON::decode(curl_exec($curl));
         
-        if ($response['status'] == 200)
-        {
-            $instance_id = Cii::get($response['response'], 'instance_id');
-            $token = Cii::get($response['response'], 'token');
-
-            $connection->createCommand('INSERT INTO `configuration` (`key`, `value`, `created`, `updated`) VALUES (\'instance_id\', :instance_id, UTC_TIMESTAMP(), UTC_TIMESTAMP()), (\'token\', :token, UTC_TIMESTAMP(), UTC_TIMESTAMP())')->bindParam(':instance_id', $instance_id)->bindParam(':token', $token)->execute();
-
-            // Manually register the pre-bundled default theme so that it can recieve updates
-            unset($curl);
-            
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_CUSTOMREQUEST  => 'POST',
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json',
-                    'X-Auth-ID: ' . $instance_id,
-                    'X-Auth-Token: ' . $token
-                ),
-                CURLOPT_URL => 'https://www.ciims.org/customize/default/addAddon/id/FfELXWAihCRHv0rYbykt',
-                CURLOPT_CAINFO => Yii::getPathOfAlias('application.config.certs') . DIRECTORY_SEPARATOR . 'GeoTrustGlobalCA.cer'
-            ));
-
-            $response2 = CJSON::decode(curl_exec($curl));
-
-            // If the API returns anything BUT a http 500 error, assume the theme was registered
-            if ($response2['status'] != 500)
-                return true;
-            else
-            {
-                echo "500 Error returned by Theme registration";
-                print_r($response2);
-                return false;
-            }
-        }
-
         print_r($response);
-        return false;
+	if ($response['status'] != 500)
+	        return true;
     }
 
 	public function safeDown()

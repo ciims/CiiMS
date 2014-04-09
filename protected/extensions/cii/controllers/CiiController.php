@@ -4,7 +4,13 @@
  * All controller classes for this application should extend from this base class.
  */
 class CiiController extends CController
-{    
+{
+    public $theme = NULL;
+
+    /*
+     * Retrieves the asset manager for the theme
+     * @return Published AssetManager path
+     */    
     public function getAsset()
     {
         $theme = $this->getTheme();
@@ -266,7 +272,7 @@ class CiiController extends CController
             if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DIRECTORY_SEPARATOR . Yii::app()->theme->name .  DIRECTORY_SEPARATOR . 'Theme.php'))
             {
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
-                $data['theme'] = $this->params['theme'] = new Theme;
+                $this->theme = new Theme;
 	    	}
             
     		$output=$this->renderPartial($view,$data,true);
@@ -292,19 +298,5 @@ class CiiController extends CController
     		else
     		    echo $output;
 	    }
-	}
-    
-	/**
-	 * Gets tags for a content for CMenu
-	 * @return array $items
-	 */
-	public function getContentTags()
-	{
-		$items = array();
-		$tags = Content::model()->findByPk($this->params['data']['id'])->getTags();
-		foreach ($tags as $item)
-			$items[] = array('label' => $item, 'url' => $this->createUrl('/search?q=' . $item));
-		
-		return $items;
 	}
 }
