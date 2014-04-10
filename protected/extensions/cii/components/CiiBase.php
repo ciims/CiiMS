@@ -26,7 +26,7 @@ class CiiBase extends CApplicationComponent
     {
 	$cs = Yii::app()->clientScript;	
 	$cs->scriptMap = array(
-		'jquery.js' => Yii::app()->assetManager->publish(Yii::getPathOfAlias('ext.cii.assets').'/js/jquery-2.0.3.min.js', true, -1, YII_DEBUG)
+		'jquery.js' => Yii::app()->assetManager->publish(Yii::getPathOfAlias('ext.cii.assets').(YII_DEBUG ? '/js/jquery-2.1.0.js' : '/js/jquery-2.1.0.min.js'), true, -1, YII_DEBUG)
 	);
 	$cs->registerCoreScript('jquery'); 
     }
