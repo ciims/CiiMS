@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/EAnalytics.git",
-                "reference": "867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4"
+                "reference": "8fe4c7fe598a071564e7878741c367b9444721bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4",
-                "reference": "867f1f7a7ac8273a7bc1421727ff1f6bd4932fb4",
+                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/8fe4c7fe598a071564e7878741c367b9444721bb",
+                "reference": "8fe4c7fe598a071564e7878741c367b9444721bb",
                 "shasum": ""
             },
             "type": "library",
@@ -46,7 +46,7 @@
                 "analytics",
                 "analytics.js"
             ],
-            "time": "2014-04-01 00:59:43"
+            "time": "2014-04-09 17:57:23"
         },
         {
             "name": "ciims-modules/api",
@@ -90,12 +90,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "05623c3a5ae28e3c5a8f2836a7e6b0510845631c"
+                "reference": "c1d7a23bcc63edf9ee5ee3a3fbb2e1f8202a68d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/05623c3a5ae28e3c5a8f2836a7e6b0510845631c",
-                "reference": "05623c3a5ae28e3c5a8f2836a7e6b0510845631c",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/c1d7a23bcc63edf9ee5ee3a3fbb2e1f8202a68d8",
+                "reference": "c1d7a23bcc63edf9ee5ee3a3fbb2e1f8202a68d8",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -118,7 +118,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-04-08 03:14:28"
+            "time": "2014-04-09 21:08:21"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -166,12 +166,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "764d261c2467720be2c487e87ae75ab03f0e2fc0"
+                "reference": "8288b528f25dd830ed07a03874e013f0381727cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/764d261c2467720be2c487e87ae75ab03f0e2fc0",
-                "reference": "764d261c2467720be2c487e87ae75ab03f0e2fc0",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/8288b528f25dd830ed07a03874e013f0381727cf",
+                "reference": "8288b528f25dd830ed07a03874e013f0381727cf",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -194,7 +194,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2014-04-08 03:45:45"
+            "time": "2014-04-10 04:04:22"
         },
         {
             "name": "ciims-themes/default",
@@ -202,12 +202,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/defaulttheme.git",
-                "reference": "c1954d47da03ec05956c9b9b1b336cf5b9ddceba"
+                "reference": "086b570ddcb279d846c1d9bb8d7a5f648856bea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/c1954d47da03ec05956c9b9b1b336cf5b9ddceba",
-                "reference": "c1954d47da03ec05956c9b9b1b336cf5b9ddceba",
+                "url": "https://api.github.com/repos/charlesportwoodii/defaulttheme/zipball/086b570ddcb279d846c1d9bb8d7a5f648856bea6",
+                "reference": "086b570ddcb279d846c1d9bb8d7a5f648856bea6",
                 "shasum": ""
             },
             "require": {
@@ -235,20 +235,20 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-08 03:05:12"
+            "time": "2014-04-10 04:26:10"
         },
         {
             "name": "composer/installers",
-            "version": "v1.0.12",
+            "version": "v1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa"
+                "reference": "26d37e307f9aa6e2e81806a6525666f8ab5ba0ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/4127333b03e8b4c08d081958548aae5419d1a2fa",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa",
+                "url": "https://api.github.com/repos/composer/installers/zipball/26d37e307f9aa6e2e81806a6525666f8ab5ba0ff",
+                "reference": "26d37e307f9aa6e2e81806a6525666f8ab5ba0ff",
                 "shasum": ""
             },
             "replace": {
@@ -319,7 +319,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-02-24 04:21:34"
+            "time": "2014-04-09 16:12:43"
         },
         {
             "name": "facebook/php-sdk",
@@ -373,12 +373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "242467783ed401aed137ba3eed8a6e30c0dc95c6"
+                "reference": "2cb383bb9fd74c25cb48e52bdbbfe5017d4db3e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/242467783ed401aed137ba3eed8a6e30c0dc95c6",
-                "reference": "242467783ed401aed137ba3eed8a6e30c0dc95c6",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/2cb383bb9fd74c25cb48e52bdbbfe5017d4db3e9",
+                "reference": "2cb383bb9fd74c25cb48e52bdbbfe5017d4db3e9",
                 "shasum": ""
             },
             "require": {
@@ -405,7 +405,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-05 06:04:45"
+            "time": "2014-04-09 14:26:58"
         },
         {
             "name": "guzzle/common",
