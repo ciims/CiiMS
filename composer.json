@@ -28,7 +28,6 @@
     },
     "homepage": "https://www.ciims.org",
     "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": ">=5.3.7",
         "ext-curl" : "*",
@@ -49,7 +48,7 @@
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
         "charlesportwoodii/eanalytics": "dev-master",
-	"ciims-themes/default": "dev-master",
+	"ciims-themes/default": "3.0.1",
 	"ciims-modules/dashboard": "dev-master",
 	"ciims-modules/api": "dev-master",
 	"ciims-modules/install": "dev-master",

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "aa1ead8c114e81693c4a9d91caa22c89",
+    "hash": "5a329738f6944e073c1189ba4cd6a034",
     "packages": [
         {
             "name": "charlesportwoodii/eanalytics",
@@ -54,12 +54,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "9458c6cc2fd065e1a64ff3223757997b2cd67ddc"
+                "reference": "435ba5396d7b24ad6acfe6861ddd40392cc99b76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/9458c6cc2fd065e1a64ff3223757997b2cd67ddc",
-                "reference": "9458c6cc2fd065e1a64ff3223757997b2cd67ddc",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/435ba5396d7b24ad6acfe6861ddd40392cc99b76",
+                "reference": "435ba5396d7b24ad6acfe6861ddd40392cc99b76",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -82,7 +82,7 @@
                 "api",
                 "module"
             ],
-            "time": "2014-04-08 03:33:29"
+            "time": "2014-04-11 19:13:15"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -198,16 +198,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "dev-master",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "8ab9ecb54c40e0c72323cc91e5e03d5da56b2686"
+                "reference": "ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/8ab9ecb54c40e0c72323cc91e5e03d5da56b2686",
-                "reference": "8ab9ecb54c40e0c72323cc91e5e03d5da56b2686",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11",
+                "reference": "ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11",
                 "shasum": ""
             },
             "require": {
@@ -235,11 +235,11 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-11 16:43:29"
+            "time": "2014-04-11 20:40:25"
         },
         {
             "name": "composer/installers",
-            "version": "v1.0.13",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
@@ -884,24 +884,26 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.4.3",
+            "version": "dev-master",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501"
+                "reference": "4b9a8defce833386224bdbf9045128a6e51fb0b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/4708b8cd41984a5ba29fe7dd40716f7f761ac501",
-                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/4b9a8defce833386224bdbf9045128a6e51fb0b4",
+                "reference": "4b9a8defce833386224bdbf9045128a6e51fb0b4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/dependency-injection": "~2.0"
+                "psr/log": "~1.0",
+                "symfony/dependency-injection": "~2.0",
+                "symfony/stopwatch": "~2.2"
             },
             "suggest": {
                 "symfony/dependency-injection": "",
@@ -910,7 +912,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -936,7 +938,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-04-03 05:23:50"
         },
         {
             "name": "yiisoft/yii",
@@ -1032,7 +1034,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "charlesportwoodii/eanalytics": 20,
-        "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/api": 20,
         "ciims-modules/install": 20,
