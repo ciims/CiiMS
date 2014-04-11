@@ -1,5 +1,6 @@
 /assets/*
 /protected/runtime/*
+/protected/assets
 /vendor/*
 /protected/config/*
 /protected/modules/*
