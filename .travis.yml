@@ -18,6 +18,7 @@ notifications:
     
 before_script:
   - composer selfupdate
+  - composer global require 'phpunit/phpunit=3.7.*'
   - rm composer.lock
   - composer install
   - mysql -e 'create database ciims_test;'                    # Create Database
