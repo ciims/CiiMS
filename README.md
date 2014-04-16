@@ -22,7 +22,7 @@ See the [Upgrading Guide](https://github.com/charlesportwoodii/CiiMS/wiki/Upgrad
 Do you use CiiMS and love it? Want to show your support? Would you like some free advertising for your CiiMS instance? Create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site and I'll merge it in! If you want to a border color that's fine too.
 
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
-[![CiiMS](http://009122eedc03242fddea-ee8e8c75278065b7c5ca93053b16734c.r16.cf5.rackcdn.com/ciims-logo-badge.png, "CiiMS")](https://www.ciims.org)
+[![CiiMS](https://bceaa6d6b482f260432e-ee8e8c75278065b7c5ca93053b16734c.ssl.cf5.rackcdn.com/ciims-logo-badge.png, "CiiMS")](https://www.ciims.org)
 [![Mosely](https://www.gravatar.com/avatar/dd61d5faf7eb9315960d528fc9ed2367?s=60, "Business as Usual")](https://www.manufactorum.net)
 
 ----------------
