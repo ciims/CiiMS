@@ -27,12 +27,10 @@
     },
     "homepage": "https://www.ciims.org",
     "minimum-stability": "dev",
-    "repositories": [
-         {
+    "repositories": [{
             "type": "vcs",
             "url": "https://github.com/ircmaxell/PHP-CryptLib"
-        }
-    ],
+    }],
     "require": {
         "php": ">=5.3.7",
         "ext-curl" : "*",
@@ -58,16 +56,16 @@
         "charlesportwoodii/eanalytics": "1.1.2",
         "ciims-themes/default": "3.0.1",
         "ciims-modules/dashboard": "dev-master",
-        "ciims-modules/api": "dev-master",
-        "ciims-modules/install": "dev-master",
+        "ciims-modules/api": "1.0.3",
+        "ciims-modules/install": "2.0.3",
         "ciims-modules/hybridauth": "dev-master"
     },
     "extra" : {
-	"installer-paths": {
-		"protected/modules/dashboard/": ["ciims-modules/dashboard"],
-		"protected/modules/hybridauth/": ["ciims-modules/hybridauth"],
-		"protected/modules/install/": ["ciims-modules/install"],
-		"protected/modules/api/": ["ciims-modules/api"]
-	}
+        "installer-paths": {
+            "protected/modules/dashboard/": ["ciims-modules/dashboard"],
+            "protected/modules/hybridauth/": ["ciims-modules/hybridauth"],
+            "protected/modules/install/": ["ciims-modules/install"],
+            "protected/modules/api/": ["ciims-modules/api"]
+        }
     }
 }

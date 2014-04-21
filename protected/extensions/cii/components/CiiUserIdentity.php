@@ -186,7 +186,7 @@ class CiiUserIdentity extends CUserIdentity
             $this->setState('role', 		$this->_user->user_role);
             $this->setstate('apiKey',       $this->generateAPIKey());
 
-            $this->errorCode=self::ERROR_NONE;
+            $this->errorCode = self::ERROR_NONE;
         }
 
         return !$this->errorCode;
