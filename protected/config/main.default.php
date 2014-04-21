@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -25,6 +25,7 @@ return array(
     'preload' => array('cii', 'analytics'),
     'import' => array(
         'application.modules.*',
+        'application.models.*',
     ),
     'modules' => require_once __DIR__ . DS . 'modules.php',
     'behaviors' => array(
@@ -59,7 +60,7 @@ return array(
         'session' => array(
             'autoStart'     => true,
             'sessionName'   => 'CiiMS',
-            'cookieMode'    => 'only', 
+            'cookieMode'    => 'only',
         ),
         'urlManager' => array(
             'class'          => 'ext.cii.components.CiiURLManager',

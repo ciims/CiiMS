@@ -25,7 +25,7 @@ class LoginForm extends CFormModel
 	 * This isn't uses as of CiiMS 1.1
 	 * @var boolean ?
 	 */
-	public $rememberMe;
+	public $rememberMe = true;
 
 	/**
 	 * Whether or not we should perform a forced authentication. By default we aren't going to do this
@@ -66,20 +66,8 @@ class LoginForm extends CFormModel
 		return array(
 			// username and password are required
 			array('username, password', 'required'),
-			// rememberMe needs to be a boolean
-			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
-		);
-	}
-
-	/**
-	 * Declares attribute labels.
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'rememberMe'=> Yii::t('ciims.models.LoginForm', 'Remember me next time'),
 		);
 	}
 
@@ -104,6 +92,9 @@ class LoginForm extends CFormModel
 	 */
 	public function login()
 	{
+        if (!$this->validate())
+            return false;
+
 		if($this->_identity===null)
 		{
 			$this->_identity=new CiiUserIdentity($this->username,$this->password);

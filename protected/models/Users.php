@@ -87,7 +87,6 @@ class Users extends CiiModel
 			'comments' => array(self::HAS_MANY, 'Comments', 'user_id'),
 			'content' => array(self::HAS_MANY, 'Content', 'author_id'),
 			'tags' => array(self::HAS_MANY, 'Tags', 'user_id'),
-			// Don't pull in dashboard junk...
 			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
 			'role' => array(self::BELONGS_TO, 'UserRoles', 'user_role'),
 		);
@@ -249,56 +248,22 @@ class Users extends CiiModel
         if ($this->about == NULL || $this->about == '')
             $this->about = ' ';
 
+        // If the password is nulled, or unchanged
+        if ($this->password == NULL || $this->password == Cii::get($this->_oldAttributes, 'password', false))
+		{
+			if (!$this->isNewRecord)
+				$this->password = $this->_oldAttributes['password'];
+		}
+		else
+		{
+            $hash = Users::model()->encryptHash($this->email, $this->password, Yii::app()->params['encryptionKey']);
+            $this->password = password_hash($hash, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
+
+            if (!$this->isNewRecord)
+                Yii::app()->controller->sendEmail($this,  Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'), '//email/passwordchange', array('user' => $this));
+        }
+
         return parent::beforeValidate();
-    }
-
-    /**
-     * Bind behaviors for changing the user's email, and allow them to make the appropriate changes on their end.
-     * The intention behind this, is that the user has to first, verify that they requested the change, and second
-     * verify that they own both email addresses.
-     *
-     * The intention behind this is to protect the user from changes to their account, either by an administrator or a malicious user.
-     * This doesn't protect from database attacks, it only protects from malicious attacks from within CiiMS.
-     *
-     * @return parent::afterSave();
-     */
-    public function beforeSave()
-    {
-    	// If the user's email address is about to change
-    	if (isset($this->_oldAttributes['email']) && $this->_oldAttributes['email'] != $this->email)
-    	{
-    		// Store the new email address
-    		$newEmail = $this->email;
-
-    		// Reset the email addres and block the change internally
-    		$this->email = $this->_oldAttributes['email'];
-
-    		// Save the NEW email address in the database as a metadata record
-    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddress'));
-    		if ($meta === NULL)
-    			$meta = new UserMetadata;
-    		$meta->user_id = $this->id;
-    		$meta->key = 'newEmailAddress';
-    		$meta->value = $newEmail;
-    		$meta->save();
-
-    		$meta = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'newEmailAddressChangeKey'));
-    		if ($meta === NULL)
-    			$meta = new UserMetadata;
-
-    		$meta->user_id = $this->id;
-    		$meta->key = 'newEmailAddressChangeKey';
-    		$key = $meta->value = md5(md5($newEmail . time()) . Yii::app()->params['encryptionKey']);
-    		$meta->save();
-
-    		// Delete all API tokens associated to this account
-    		Yii::app()->db->createCommand('DELETE FROM user_metadata WHERE `key` LIKE "api_key%" AND user_id = :id')->bindParam(':id', $this->id)->execute();
-
-    		// Fire off an email to the OLD email address asking them VERIFY the change
-    		Yii::app()->controller->sendEmail($this,  Yii::t('Dashboard.email', 'CiiMS Email Change Notification'), 'application.modules.dashboard.views.email.email-change', array('key' => $key));
-    	}
-
-    	return parent::beforeSave();
     }
 
 	/**

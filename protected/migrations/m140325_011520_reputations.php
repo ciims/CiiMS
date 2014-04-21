@@ -7,6 +7,7 @@ class m140325_011520_reputations extends CDbMigration
 		$this->dropColumn('content', 'comment_count');
 		$this->dropColumn('comments', 'approved');
 		$this->dropColumn('comments', 'parent_id');
+        $this->dropTable('comment_metadata');
 	}
 
 	public function safeDown()

@@ -1,7 +1,5 @@
 <?php
 
-/**
- */
 class RegisterForm extends CFormModel
 {
 	/**
@@ -20,7 +18,7 @@ class RegisterForm extends CFormModel
 	 * The password verification
 	 * @var string
 	 */
-	public $password2;
+	public $password_repeat;
 
 	/**
 	 * The submitted first name if it was supplied
@@ -49,37 +47,84 @@ class RegisterForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('email, password, password2, displayName', 'required'),
-			// password needs to be authenticated
-			array('password', 'compare', 'compareAttribute'=>'password2'),
+			array('email, password, password_repeat, displayName', 'required'),
+			array('password', 'compare'),
 			array('password', 'length', 'min'=>8),
 			array('email', 'email'),
+            array('email', 'isEmailUnique')
 		);
 	}
 
+    /**
+     * Determines if an email is already taken or not
+     * @param array $attributes
+     * @param array $params
+     * @return boolean
+     */
+    public function isEmailUnique($attributes, $params)
+    {
+        $user = Users::model()->findByAttributes(array('email' => $this->email));
+
+        if ($user != NULL)
+        {
+            $this->addError('email', Yii::t('ciims.models.RegisterForm', 'That email address is already in use'));
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Model attribute labels
+     * @return array
+     */
 	public function attributeLabels()
 	{
 		return array(
-			'email'       => Yii::t('ciims.models.RegisterForm', 'Email Address'),
-			'password'    => Yii::t('ciims.models.RegisterForm', 'Password'),
-			'password2'   => Yii::t('ciims.models.RegisterForm', 'Password (again)'),
-			'displayName' => Yii::t('ciims.models.RegisterForm', 'Display Name'),
-			'firstName'   => Yii::t('ciims.models.RegisterForm', 'First Name'),
-			'lastName'    => Yii::t('ciims.models.RegisterForm', 'Last Name')
+			'email'           => Yii::t('ciims.models.RegisterForm', 'Your Email Address'),
+			'password'        => Yii::t('ciims.models.RegisterForm', 'Your Password'),
+			'password_repeat' => Yii::t('ciims.models.RegisterForm', 'Your Password (again)'),
+			'displayName'     => Yii::t('ciims.models.RegisterForm', 'Your Display Name on the Site')
 		);
 	}
 
-	/**
-	 * Authenticates the password.
-	 * This is the 'authenticate' validator as declared in rules().
-	 */
-	public function authenticate($attribute,$params)
-	{
-		if(!$this->hasErrors())
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password',Yii::t('ciims.models.RegisterForm', 'Incorrectly filled out details.'));
-		}
-	}
+    /**
+     * Creates a new user, and sends the appropriate messaging out
+     * @return boolean
+     */
+    public function save()
+    {
+        if (!$this->validate())
+            return false;
+
+        $user = new Users;
+
+        // Set the model attributes
+        $user->attributes = array(
+            'email'       => $this->email,
+            'password'    => $this->password,
+            'firstName'   => NULL,
+            'lastName'    => NULL,
+            'displayName' => $this->displayName,
+            'user_role'   => 1,
+            'status'      => Users::PENDING_INVITATION
+        );
+
+        if($user->save())
+        {
+            $hash = mb_strimwidth(hash("sha256", md5(time() . md5(hash("sha512", time())))), 0, 16);
+            $meta = new UserMetadata;
+            $meta->user_id = $user->id;
+            $meta->key = 'activationKey';
+            $meta->value = $hash;
+            $meta->save();
+
+            // Send the registration email
+            Yii::app()->controller->sendEmail($user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $user, 'hash' => $hash), true, true);
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -30,7 +30,7 @@ class ProfileController extends CiiSiteController
 				'users'=>array('*'),
 			),
 			array('allow',  // deny all users
-				'actions' => array('edit'),
+				'actions' => array('edit', 'resend'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -75,32 +75,50 @@ class ProfileController extends CiiSiteController
 	 */
 	public function actionEdit()
 	{
-		$model = Users::model()->findByPk(Yii::app()->user->id);
+		$model = new ProfileForm;
+        $model->load(Yii::app()->user->id);
 
-		if (Cii::get($_POST, 'Users', NULL) !== NULL)
+		if (Cii::get($_POST, 'ProfileForm', NULL) !== NULL)
 		{
-			$cost = Cii::getBcryptCost();
-
-			if ($_POST['Users']['password'] != '')
-				$_POST['Users']['password'] = password_hash(Users::model()->encryptHash($_POST['Users']['email'], $_POST['Users']['password'], Yii::app()->params['encryptionKey']), PASSWORD_BCRYPT, array('cost' => $cost));
-			else
-				unset($_POST['Users']['password']);
-
-			unset($_POST['Users']['status']);
-			unset($_POST['Users']['user_role']);
-
-			$model->attributes = Cii::get($_POST, 'Users', array());
-			$model->about = Cii::get(Cii::get($_POST, 'Users', array()), 'about', NULL);
+            $model->attributes = $_POST['ProfileForm'];
+            $model->password_repeat = $_POST['ProfileForm']['password_repeat'];
+            $model->about = $_POST['ProfileForm']['about'];
 
 			if ($model->save())
 			{
 				Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'Your profile has been updated!'));
-				$this->redirect($this->createUrl('/profile/'. $model->id));
+				$this->redirect($this->createUrl('profile/index', array(
+                    'id' => $model->id,
+                    'displayName' => $model->displayName
+                )));
 			}
 			else
-				Yii::app()->user->setFlash('danger', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
+				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
 		}
 
 		$this->render('edit', array('model' => $model));
 	}
+
+    /**
+     * Send a new verification email to the user
+     */
+    public function actionResend()
+    {
+        $model = new ProfileForm;
+        $model->load(Yii::app()->user->id);
+
+        // If we don't have one on file, then someone the user got to a page they shouldn't have gotten to
+        // Seamlessly redirect them back
+        if ($model->getNewEmail() == NULL)
+            $this->redirect(Yii::app()->user->returnUrl);
+
+        if ($model->sendVerificationEmail())
+            Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'A new verification email has been resent to {{user}}. Please check your email address.', array(
+                '{{user}}' => $model->getNewEmail()
+            )));
+        else
+            Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There was an error resending the verification email. Please try again later.'));
+
+        $this->redirect(Yii::app()->user->returnUrl);
+    }
 }

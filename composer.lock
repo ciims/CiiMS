@@ -3,8 +3,57 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4be4067333105884d3235548e2bfcfee",
+    "hash": "7abc350d093a2a138661a72498b31244",
     "packages": [
+        {
+            "name": "CryptLib/CryptLib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/PHP-CryptLib.git",
+                "reference": "70390eac36f73becbe8b99b7327633ce51d7160e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/PHP-CryptLib/zipball/70390eac36f73becbe8b99b7327633ce51d7160e",
+                "reference": "70390eac36f73becbe8b99b7327633ce51d7160e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CryptLib": "lib"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@ircmaxell.com",
+                    "homepage": "http://blog.ircmaxell.com"
+                }
+            ],
+            "description": "A General Purpose Cryptography Library",
+            "homepage": "https://github.com/ircmaxell/PHP-CryptLib",
+            "keywords": [
+                "cipher",
+                "cryptography",
+                "encryption"
+            ],
+            "support": {
+                "source": "https://github.com/ircmaxell/PHP-CryptLib/tree/master",
+                "issues": "https://github.com/ircmaxell/PHP-CryptLib/issues"
+            },
+            "time": "2013-02-04 20:03:55"
+        },
         {
             "name": "charlesportwoodii/eanalytics",
             "version": "1.1.2",
@@ -373,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "042423bf73a8a819902399a4ad9a4f0402bb4011"
+                "reference": "9ee1980689c5447cdd761fdd3b88f01d62691c1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/042423bf73a8a819902399a4ad9a4f0402bb4011",
-                "reference": "042423bf73a8a819902399a4ad9a4f0402bb4011",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/9ee1980689c5447cdd761fdd3b88f01d62691c1c",
+                "reference": "9ee1980689c5447cdd761fdd3b88f01d62691c1c",
                 "shasum": ""
             },
             "require": {
@@ -405,7 +454,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-16 06:14:17"
+            "time": "2014-04-19 06:16:50"
         },
         {
             "name": "guzzle/common",
@@ -1422,19 +1471,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "180da8080bb15ca0c6de8ec94585bdba018a58d0"
+                "reference": "13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/180da8080bb15ca0c6de8ec94585bdba018a58d0",
-                "reference": "180da8080bb15ca0c6de8ec94585bdba018a58d0",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f",
+                "reference": "13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.0.*@dev"
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
@@ -1480,7 +1529,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2014-04-09 10:35:13"
+            "time": "2014-04-18 09:45:21"
         },
         {
             "name": "sebastian/version",
@@ -1582,12 +1631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "99fb0e0037cbe5bc76421e3aa2af8f1914389f6f"
+                "reference": "e9525fc511a51e7bfa214c6c420515c580fda35a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/99fb0e0037cbe5bc76421e3aa2af8f1914389f6f",
-                "reference": "99fb0e0037cbe5bc76421e3aa2af8f1914389f6f",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e9525fc511a51e7bfa214c6c420515c580fda35a",
+                "reference": "e9525fc511a51e7bfa214c6c420515c580fda35a",
                 "shasum": ""
             },
             "require": {
@@ -1622,7 +1671,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:36:21"
+            "time": "2014-04-18 20:40:13"
         },
         {
             "name": "yiisoft/yii",
@@ -1717,6 +1766,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "cryptlib/cryptlib": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/api": 20,
         "ciims-modules/install": 20,
