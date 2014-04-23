@@ -9,7 +9,6 @@ settings:
     colors: true
     memory_limit: 1024M
     log: true
-    debug: true
 modules:
     enabled: [PhpBrowser, WebHelper, TestHelper, Yii1, Db]
     config:
