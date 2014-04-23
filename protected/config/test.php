@@ -16,10 +16,10 @@ return array(
         ),
         'db' => array(
             'class' => 'CDbConnection',
-                'connectionString' => 'mysql:host=127.0.0.1;dbname=ciims',
+                'connectionString' => 'mysql:host=127.0.0.1;dbname=ciims_test',
                 'emulatePrepare' => true,
-                'username' => 'ciims',
-                'password' => 'ciims',
+                'username' => 'root',
+                'password' => '',
                 'charset' => 'utf8',
                 'schemaCachingDuration' => '3600',
                 'enableProfiling' => true,
