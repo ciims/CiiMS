@@ -23,10 +23,12 @@ function mergeArray($a,$b)
     return $res;
 }
 // Load the configs
-$config=__DIR__.DS.'config'.DS.'main.php';
-$defaultConfig=__DIR__.DS.'config'.DS.'main.default.php';
+$config = require __DIR__.DS.'config'.DS.'main.php';
+$defaultConfig = require __DIR__.DS.'config'.DS.'main.default.php';
 
-$config = mergeArray(require($defaultConfig), require($config));
+$config = mergeArray($defaultConfig, $config);
+
+unset($config['components']['user']);
 
 // Include the composer dependencies
 require(__DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php');

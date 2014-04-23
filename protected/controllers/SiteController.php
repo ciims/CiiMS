@@ -264,7 +264,7 @@ class SiteController extends CiiSiteController
                 Yii::app()->user->logout();
                 Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Site', 'Your new email address has been verified.'));
 
-                $this->redirect(Yii::app()->getBaseUrl(true));
+                $this->redirect($this->createUrl('profile/edit'));
             }
         }
 

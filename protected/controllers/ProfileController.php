@@ -119,6 +119,6 @@ class ProfileController extends CiiSiteController
         else
             Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There was an error resending the verification email. Please try again later.'));
 
-        $this->redirect(Yii::app()->user->returnUrl);
+        $this->redirect($this->createUrl('profile/edit'));
     }
 }
