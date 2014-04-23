@@ -67,6 +67,11 @@ return array(
             'urlFormat'      => 'path',
             'showScriptName' => false
         ),
+        'user' => array(
+            'allowAutoLogin' => true,
+            'authTimeout'    => 900,
+            'autoRenewCookie'=> true
+        ),
         'db' => array(
             'class'                 => 'CDbConnection',
             'connectionString'      => NULL,
