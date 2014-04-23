@@ -12,3 +12,5 @@
 .htaccess
 *.*~
 *.swp
+
+tests/_log/*

@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.3
+  - 5.3 #codeception will fail on 5.3
   - 5.4
   - 5.5
 #  - hhvm
@@ -17,11 +17,12 @@ notifications:
     on_failure: never
     
 before_script:
-  - composer selfupdate
-  - composer global require 'phpunit/phpunit=3.7.*'
   - rm composer.lock
-  - composer install
-  - mysql -e 'create database ciims_test;'                    # Create Database
+  - composer selfupdate
+  - composer install					
+  - mysql -e 'create database ciims_test;'
   - echo "https://$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname
-  - php protected/yiic-test.php migrate up --interactive=0    # Run Migrations
-  - cd protected/tests                                        # Navigate to the Tests Directory to run the tests
+  - php protected/yiic-test.php migrate up --interactive=0
+  - ./vendor/bin/codecept build
+
+script: ./vendor/bin/codecept run

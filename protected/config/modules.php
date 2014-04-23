@@ -3,6 +3,7 @@
 // Set the scan directory
 $directory = __DIR__ . DS . '..' . DS . 'modules';
 $cachedConfig = __DIR__.DS.'..'.DS.'runtime'.DS.'modules.config.php';
+
 // Attempt to load the cached file if it exists
 if (file_exists($cachedConfig))
     return require_once($cachedConfig);

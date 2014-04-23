@@ -1,0 +1,15 @@
+# Codeception Test Suite Configuration
+
+# suite for acceptance tests.
+# perform tests in browser using the WebDriver or PhpBrowser.
+# (tip: that's what your customer will see).
+# (tip: test your ajax and javascript only with WebDriver).
+
+class_name: WebDev
+modules:
+    enabled:
+        - PhpBrowser
+        - WebHelper
+    config:
+        PhpBrowser:
+            url: 'http://localhost/myapp/'

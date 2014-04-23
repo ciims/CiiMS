@@ -2,7 +2,7 @@
     "name": "charlesportwoodii/ciims",
     "description": "A fast, simple, and easy to use blogging platform and content management system",
     "license": "MIT",
-    "type" : "project",
+    "type": "project",
     "keywords": [
         "ciims",
         "CiiMS",
@@ -22,37 +22,41 @@
     "support": {
         "email": "charlesportwoodii@ethreal.net",
         "issues": "https://github.com/charlesportwoodii/CiiMS/issues",
-        "wiki" : "https://github.com/charlesportwoodii/CiiMS/wiki/_pages",
-        "source" : "https://github.com/charlesportwoodii/CiiMS"
+        "wiki": "https://github.com/charlesportwoodii/CiiMS/wiki/_pages",
+        "source": "https://github.com/charlesportwoodii/CiiMS"
     },
     "homepage": "https://www.ciims.org",
     "minimum-stability": "dev",
-    "repositories": [{
+    "repositories": [
+        {
             "type": "vcs",
             "url": "https://github.com/ircmaxell/PHP-CryptLib"
-    }],
+        },
+        {
+            "type": "vcs",
+            "url": "/var/www/YiiBridge"
+        }
+    ],
     "require": {
         "php": ">=5.3.7",
-        "ext-curl" : "*",
-        "ext-mcrypt" : "*",
+        "ext-curl": "*",
+        "ext-mcrypt": "*",
         "ext-openssl": "*",
-        "ext-Phar":"*",
+        "ext-Phar": "*",
         "ext-pdo_mysql": "*",
-        "ext-PDO":"*",
+        "ext-PDO": "*",
         "ext-Reflection": "*",
-        "ext-zip":"*",
+        "ext-zip": "*",
         "lib-curl": "*",
         "lib-pcre": "*",
         "lib-openssl": "*",
         "yiisoft/yii": "1.1.14",
-	    "composer/installers": "v1.0.13",
+        "composer/installers": "v1.0.13",
         "rackspace/php-opencloud": "v1.9.2",
         "ircmaxell/password-compat": "1.0.3",
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
-	    "phpunit/phpunit": "4.0.15",
-        "phpunit/phpunit-selenium": "1.3.3",
         "charlesportwoodii/eanalytics": "1.1.2",
         "ciims-themes/default": "3.0.1",
         "ciims-modules/dashboard": "dev-master",
@@ -60,12 +64,30 @@
         "ciims-modules/install": "2.0.3",
         "ciims-modules/hybridauth": "dev-master"
     },
-    "extra" : {
+    "require-dev": {
+        "codeception/codeception": ">=1.6.4",
+        "jayhealey/webception": "*",
+        "codeception/YiiBridge": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Codeception": "src"
+        }
+    },
+    "extra": {
         "installer-paths": {
-            "protected/modules/dashboard/": ["ciims-modules/dashboard"],
-            "protected/modules/hybridauth/": ["ciims-modules/hybridauth"],
-            "protected/modules/install/": ["ciims-modules/install"],
-            "protected/modules/api/": ["ciims-modules/api"]
+            "protected/modules/dashboard/": [
+                "ciims-modules/dashboard"
+            ],
+            "protected/modules/hybridauth/": [
+                "ciims-modules/hybridauth"
+            ],
+            "protected/modules/install/": [
+                "ciims-modules/install"
+            ],
+            "protected/modules/api/": [
+                "ciims-modules/api"
+            ]
         }
     }
 }

@@ -74,7 +74,7 @@ class JTimeAgo extends CWidget
      * just used only when the file name is different from the canonical form
      * and you don't want modify the locale file manually.
      *  eg:   array('zh_cn'=>'zh-cn')
-     * 
+     *
      * ( In canonical form, a locale ID consists of only underscores and lower-case letters.)
      */
     public $localeIdMap = array();
@@ -133,7 +133,7 @@ class JTimeAgo extends CWidget
             $this->cs->registerCoreScript('jquery')->registerScriptFile($this->baseUrl . '/jquery.timeago.js', CCLientScript::POS_END);
         else
             $this->cs->registerCoreScript('jquery')->registerScriptFile($this->baseUrl . '/jquery.timeago.min.js', CCLientScript::POS_END);
-        
+
         if($this->useLocale == true) $this->handleLocale(true);
 
         if (empty($this->selector)) {
@@ -170,7 +170,12 @@ SETUP;
     public function handleLocale($registerLocaleJs = true)
     {
         //  $localeId = Yii::app()->getLocale()->getCanonicalID($localeId) ;
+        try {
         $localeId =  Yii::app()->getLocale()->getId();
+        } catch (Exception $e) {
+            $localeId = 'en_us';
+        }
+
         if(isset($this->localeIdMap[$localeId])){
             $localeId = $this->localeIdMap[$localeId] ;
         }

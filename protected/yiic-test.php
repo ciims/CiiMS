@@ -22,6 +22,7 @@ function mergeArray($a,$b)
     }
     return $res;
 }
+
 // Load the configs
 $config=__DIR__.DS.'config'.DS.'test.php';
 $defaultConfig=__DIR__.DS.'config'.DS.'main.default.php';

@@ -1,0 +1,20 @@
+actor: Dev
+paths:
+    tests: protected/tests
+    log: protected/tests/_log
+    data: protected/tests/_data
+    helpers: protected/tests/_helpers
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+    log: true
+    debug: true
+modules:
+    enabled: [PhpBrowser, WebHelper, TestHelper, Yii1]
+    config:
+        PhpBrowser:
+            url: http://localhost:8234
+        Yii1:
+            appPath: test.php
+            url: http://localhost:8234/test.php

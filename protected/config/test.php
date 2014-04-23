@@ -1,8 +1,19 @@
-<?php 
+<?php
 return array(
-    'basePath' => '/home/travis/build/charlesportwoodii/CiiMS/protected/config/..',
     'name' => 'CiiMS',
+    // Overload modules for Codeception
+    // Not sure why this has to be as explicity as it is
+    'modules' => array(
+        'dashboard',
+        'api',
+        'hybridauth',
+        'install'
+    ),
     'components' => array(
+        // Override CHttpRequest for codeception
+        'request' => array(
+            'class' => 'CodeceptionHttpRequest'
+        ),
         'db' => array(
             'class' => 'CDbConnection',
                 'connectionString' => 'mysql:host=localhost;dbname=ciims_test',
@@ -19,7 +30,6 @@ return array(
         ),
     ),
     'params' => array(
-        'yiiPath' => dirname(__FILE__) . '/../runtime/yii/framework/',
         'encryptionKey' => 'ag93ba23r'
     )
 );

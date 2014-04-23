@@ -23,7 +23,7 @@ $config=__DIR__.DS.'protected'.DS.'config'.DS.'main.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 // If we don't have a configuration file, run the installer.
-if (!file_exists($config) && file_exists('install.php')) 
+if (!file_exists($config) && file_exists('install.php'))
 {
 	require('install.php');
 	exit();
@@ -39,22 +39,22 @@ defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
 
 // Register Yii Framework
-require(__DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php'));
+require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
 
 // Merge it with our default config file
 $config = CMap::mergeArray($defaultConfig, $config);
- 
+
 // Include the ClassMap for enhanced performance
-require(__DIR__.DS.'protected'.DS.'config'.DS.'classmap.php');
+require_once __DIR__.DS.'protected'.DS.'config'.DS.'classmap.php';
 
 // Include the composer dependencies
-require(__DIR__.DS.'vendor'.DS.'autoload.php');
+require_once __DIR__.DS.'vendor'.DS.'autoload.php';
 
 $config['components']['db']['enableProfiling'] = YII_DEBUG;
 $config['components']['db']['enableParamLogging'] = YII_DEBUG;
 
 // If debug mode is enabled, show us every possible error anywhere.
-if (YII_DEBUG && YII_TRACE_LEVEL == 3) 
+if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 {
 	error_reporting(-1);
 	ini_set('display_errors', 'true');
