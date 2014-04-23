@@ -16,7 +16,7 @@ return array(
         ),
         'db' => array(
             'class' => 'CDbConnection',
-                'connectionString' => 'mysql:host=localhost;dbname=ciims_test',
+                'connectionString' => 'mysql:host=127.0.0.1;dbname=ciims_test',
                 'emulatePrepare' => true,
                 'username' => 'root',
                 'password' => '',
