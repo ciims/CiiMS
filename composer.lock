@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "510bc9f20ad766c921d20cbb3f5e8b73",
+    "hash": "890f1e5125acf68bce71de5101868aca",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -1080,14 +1080,23 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "/var/www/YiiBridge",
+                "url": "https://github.com/charlesportwoodii/YiiBridge.git",
                 "reference": "3dad1623afe058440a7eaf9d5f801670103f34d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/YiiBridge/zipball/3dad1623afe058440a7eaf9d5f801670103f34d2",
+                "reference": "3dad1623afe058440a7eaf9d5f801670103f34d2",
+                "shasum": ""
             },
             "type": "package",
             "license": [
                 "MIT"
             ],
             "description": "YiiBridge extension",
+            "support": {
+                "source": "https://github.com/charlesportwoodii/YiiBridge/tree/master"
+            },
             "time": "2014-04-23 14:41:31"
         },
         {
@@ -1557,12 +1566,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7450a6daefb6ec65249dab6ba39af74b6bcc95fa"
+                "reference": "b9df0731b90bc0a33c7451852ce2a3877b1051ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7450a6daefb6ec65249dab6ba39af74b6bcc95fa",
-                "reference": "7450a6daefb6ec65249dab6ba39af74b6bcc95fa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b9df0731b90bc0a33c7451852ce2a3877b1051ec",
+                "reference": "b9df0731b90bc0a33c7451852ce2a3877b1051ec",
                 "shasum": ""
             },
             "require": {
@@ -1625,7 +1634,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-23 06:44:08"
+            "time": "2014-04-23 15:52:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1690,12 +1699,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "16ed07de9ba851ecc56ff3259c383b9a00c089f5"
+                "reference": "0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/16ed07de9ba851ecc56ff3259c383b9a00c089f5",
-                "reference": "16ed07de9ba851ecc56ff3259c383b9a00c089f5",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94",
+                "reference": "0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94",
                 "shasum": ""
             },
             "require": {
@@ -1747,7 +1756,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2014-04-18 15:21:20"
+            "time": "2014-04-23 15:54:11"
         },
         {
             "name": "sebastian/diff",
