@@ -27,8 +27,9 @@ function mergeArray($a,$b)
 $config = require_once __DIR__.DS.'config'.DS.'test.php';
 $defaultConfig = require_once  __DIR__.DS.'config'.DS.'main.default.php';
 
-unset($config['components']['request']);
 $config = mergeArray($defaultConfig, $config);
+unset($config['components']['request']);
+unset($config['components']['user']);
 
 // Include the composer dependencies
 require(__DIR__.DS.'..'.DS.'vendor'.DS.'autoload.php');
