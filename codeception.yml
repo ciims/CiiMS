@@ -19,8 +19,8 @@ modules:
             appPath: test.php
             url: http://localhost:8234/test.php
         Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=ciims_test'
-            user: 'ciims_test'
-            password: ''
+            dsn: 'mysql:host=127.0.0.1;dbname=ciims'
+            user: 'ciims'
+            password: 'ciims'
             populate: false
             cleanup: false

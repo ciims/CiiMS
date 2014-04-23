@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "890f1e5125acf68bce71de5101868aca",
+    "hash": "fb531c627e7800b020cab787e130cd62",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -247,16 +247,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11"
+                "reference": "ae2fbe49491a3525f67d2c55d94566c59ef0b5ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11",
-                "reference": "ad4a5ae55c94cfbe3afbbf91f6652f9df9161d11",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ae2fbe49491a3525f67d2c55d94566c59ef0b5ee",
+                "reference": "ae2fbe49491a3525f67d2c55d94566c59ef0b5ee",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-11 20:40:25"
+            "time": "2014-04-11 20:41:28"
         },
         {
             "name": "composer/installers",
@@ -422,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "a5b9d0cac497e9679acde78a369c61e45d0ea68c"
+                "reference": "adb700c86bd63fbb98d4bf0d68cc25bffd3401bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/a5b9d0cac497e9679acde78a369c61e45d0ea68c",
-                "reference": "a5b9d0cac497e9679acde78a369c61e45d0ea68c",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/adb700c86bd63fbb98d4bf0d68cc25bffd3401bd",
+                "reference": "adb700c86bd63fbb98d4bf0d68cc25bffd3401bd",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +454,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-23 06:20:18"
+            "time": "2014-04-23 17:56:52"
         },
         {
             "name": "guzzle/common",
@@ -1081,12 +1081,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/YiiBridge.git",
-                "reference": "3dad1623afe058440a7eaf9d5f801670103f34d2"
+                "reference": "377a25cd29ce9c2a6311799c826e10f0818c9fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/YiiBridge/zipball/3dad1623afe058440a7eaf9d5f801670103f34d2",
-                "reference": "3dad1623afe058440a7eaf9d5f801670103f34d2",
+                "url": "https://api.github.com/repos/charlesportwoodii/YiiBridge/zipball/377a25cd29ce9c2a6311799c826e10f0818c9fef",
+                "reference": "377a25cd29ce9c2a6311799c826e10f0818c9fef",
                 "shasum": ""
             },
             "type": "package",
@@ -1097,7 +1097,7 @@
             "support": {
                 "source": "https://github.com/charlesportwoodii/YiiBridge/tree/master"
             },
-            "time": "2014-04-23 14:41:31"
+            "time": "2014-04-23 19:09:42"
         },
         {
             "name": "codeception/codeception",
@@ -2435,12 +2435,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7"
+                "reference": "5b64c3c6d8e0ba21e3f57c4c0a82ab9fa1fb4bea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7",
-                "reference": "af6910e1a73eca5ed0adaaa26adfb6c3f92e7eb7",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/5b64c3c6d8e0ba21e3f57c4c0a82ab9fa1fb4bea",
+                "reference": "5b64c3c6d8e0ba21e3f57c4c0a82ab9fa1fb4bea",
                 "shasum": ""
             },
             "require": {
@@ -2484,7 +2484,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-04-15 20:49:49"
+            "time": "2014-04-23 18:34:55"
         }
     ],
     "aliases": [
@@ -2493,6 +2493,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cryptlib/cryptlib": 20,
+        "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/hybridauth": 20,
         "codeception/yiibridge": 20
