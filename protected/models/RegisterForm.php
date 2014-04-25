@@ -38,6 +38,12 @@ class RegisterForm extends CFormModel
 	 */
 	public $displayName;
 
+    /**
+     * The user model
+     * @param Users $_user
+     */
+    protected $_user;
+
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
@@ -63,9 +69,9 @@ class RegisterForm extends CFormModel
      */
     public function isEmailUnique($attributes, $params)
     {
-        $user = Users::model()->findByAttributes(array('email' => $this->email));
+        $this->_user = Users::model()->findByAttributes(array('email' => $this->email));
 
-        if ($user != NULL)
+        if ($this->_user != NULL)
         {
             $this->addError('email', Yii::t('ciims.models.RegisterForm', 'That email address is already in use'));
             return false;
@@ -92,35 +98,42 @@ class RegisterForm extends CFormModel
      * Creates a new user, and sends the appropriate messaging out
      * @return boolean
      */
-    public function save()
+    public function save($sendEmail = true)
     {
         if (!$this->validate())
             return false;
 
-        $user = new Users;
+        $this->_user = new Users;
 
         // Set the model attributes
-        $user->attributes = array(
+        $this->_user->attributes = array(
             'email'       => $this->email,
             'password'    => $this->password,
             'firstName'   => NULL,
             'lastName'    => NULL,
             'displayName' => $this->displayName,
             'user_role'   => 1,
-            'status'      => Users::PENDING_INVITATION
+            'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE
         );
 
-        if($user->save())
+        // If we saved the user model, return true
+        if($this->_user->save())
         {
-            $hash = mb_strimwidth(hash("sha256", md5(time() . md5(hash("sha512", time())))), 0, 16);
-            $meta = new UserMetadata;
-            $meta->user_id = $user->id;
-            $meta->key = 'activationKey';
-            $meta->value = $hash;
-            $meta->save();
+            // This class my be extended by other modules, in which case we don't need to send an activation form if we don't want need it to.
+            if ($sendEmail)
+            {
+                $factory = new CryptLib\Random\Factory;
+                $meta = new UserMetadata;
+                $meta->attributes = array(
+                    'user_id' => $this->_user->id,
+                    'key'     => 'activationKey',
+                    'value'   => str_replace('/', '', $factory->getHighStrengthGenerator()->generateString(16))
+                );
+                $meta->save();
 
-            // Send the registration email
-            Yii::app()->controller->sendEmail($user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $user, 'hash' => $hash), true, true);
+                // Send the registration email
+                Yii::app()->controller->sendEmail($this->_user, Yii::t('ciims.email','Activate Your Account'), '//email/register', array('user' => $this->_user, 'hash' => $hash), true, true);
+            }
 
             return true;
         }

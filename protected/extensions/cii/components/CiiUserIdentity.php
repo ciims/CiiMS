@@ -75,7 +75,7 @@ class CiiUserIdentity extends CUserIdentity
 		$this->_user = Users::model()->findByAttributes(array('email'=>$this->username));
 
         if ($this->_user == NULL)
-            $this->errorCode = Yii_DEBUG ? self::ERROR_USERNAME_INVALID : self::ERROR_UNKNOWN_IDENTITY;
+            $this->errorCode = YII_DEBUG ? self::ERROR_USERNAME_INVALID : self::ERROR_UNKNOWN_IDENTITY;
 
         // Generate what the hash should be
 		$this->_hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);

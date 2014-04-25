@@ -154,7 +154,7 @@ class ProfileForm extends CFormModel
 
         // Generate a new key
         $factory = new CryptLib\Random\Factory;
-        $metadata->value = $factory->getHighStrengthGenerator()->generateString(16);
+        $metadata->value = str_replace('/', '', $factory->getHighStrengthGenerator()->generateString(16));
 
         // Save the record
         return $metadata->save();
