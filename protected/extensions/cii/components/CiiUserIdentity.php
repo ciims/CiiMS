@@ -24,14 +24,14 @@ class CiiUserIdentity extends CUserIdentity
 	 * The user id
 	 * @var int $_id
 	 */
-	private $_id;
+	protected $_id;
 
 	/**
 	 * Whether or not to allow login or not
 	 * Possibly should be renamed to doLogin
 	 * @var boolean $force
 	 */
-	private $force = false;
+	protected $force = false;
 
     /**
      * The generated password hash, done to reduce work effort
@@ -43,7 +43,7 @@ class CiiUserIdentity extends CUserIdentity
      * The Users ActiveRecord record response
      * @var Users $_user
      */
-    private $_user;
+    protected $_user;
 
     /**
      * The bcrypt password hash cost
@@ -70,7 +70,7 @@ class CiiUserIdentity extends CUserIdentity
      * Retrieves the user's model, and presets an error code if one does not exists
      * @return Users $this->_user
      */
-    public function getUser()
+    protected function getUser()
     {
 		$this->_user = Users::model()->findByAttributes(array('email'=>$this->username));
 
@@ -111,7 +111,7 @@ class CiiUserIdentity extends CUserIdentity
      * Retrieves the number of password login attempts so that we can automatically lock users out of they attempt a brute force attack
      * @return UserMetadata
      */
-    public function getPasswordAttempts()
+    protected function getPasswordAttempts()
     {
         if ($this->_user == NULL)
             return false;
@@ -177,26 +177,34 @@ class CiiUserIdentity extends CUserIdentity
         if ($this->errorCode != NULL)
             return !$this->errorCode;
         else
-        {
-            // If we get to this point, assume authentication succeded
-            $this->_id 					  = $this->_user->id;
-            $this->setState('email', 		$this->_user->email);
-            $this->setState('displayName', 	$this->_user->displayName);
-            $this->setState('status', 		$this->_user->status);
-            $this->setState('role', 		$this->_user->user_role);
-            $this->setstate('apiKey',       $this->generateAPIKey());
-
-            $this->errorCode = self::ERROR_NONE;
-        }
+            $this->setIdentity();
 
         return !$this->errorCode;
+    }
+
+    /**
+     * Sets the identity attributes
+     * @return void
+     */
+    protected function setIdentity()
+    {
+        $this->_id 					  = $this->_user->id;
+        $this->setState('email', 		$this->_user->email);
+        $this->setState('displayName', 	$this->_user->displayName);
+        $this->setState('status', 		$this->_user->status);
+        $this->setState('role', 		$this->_user->user_role);
+        $this->setstate('apiKey',       $this->generateAPIKey());
+
+        $this->errorCode = self::ERROR_NONE;
+
+        return;
     }
 
     /**
      * Generates a new API key for this application
      * @return string
      */
-    private function generateApiKey()
+    protected function generateApiKey()
     {
         // Load the hashing factory
         $factory = new CryptLib\Random\Factory;
@@ -227,7 +235,7 @@ class CiiUserIdentity extends CUserIdentity
      * @param string $hash         The bcrypt hash
      * @return boolean
      */
-    private function password_verify_with_rehash($password, $hash)
+    protected function password_verify_with_rehash($password, $hash)
     {
         // Verify that the password matches
         if (!password_verify($password, $hash))
