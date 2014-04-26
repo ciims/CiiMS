@@ -62,7 +62,7 @@
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "1.0.3",
         "ciims-modules/install": "2.0.3",
-        "ciims-modules/hybridauth": "2.0.2"
+        "ciims-modules/hybridauth": "2.0.3"
     },
     "require-dev": {
         "codeception/codeception": ">=1.6.4",

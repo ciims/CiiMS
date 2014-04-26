@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7565650b5dae0a4c3a27dcaffa345e51",
+    "hash": "79e19306b1b89d98105d5be2cf9f62c9",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "752e6662762e392428a09f7dabad55adc7a1968f"
+                "reference": "0c8e575e7eb5ad74e1610be9ccd03b91f78ff399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/752e6662762e392428a09f7dabad55adc7a1968f",
-                "reference": "752e6662762e392428a09f7dabad55adc7a1968f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/0c8e575e7eb5ad74e1610be9ccd03b91f78ff399",
+                "reference": "0c8e575e7eb5ad74e1610be9ccd03b91f78ff399",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -167,20 +167,20 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-04-10 04:36:38"
+            "time": "2014-04-26 17:12:12"
         },
         {
             "name": "ciims-modules/hybridauth",
-            "version": "dev-master",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
-                "reference": "f9b9aa70f95a6cda0416db4d71a48b35711420bc"
+                "reference": "bb7101ab086b7e225b007bc5deb24526da8e5c48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/f9b9aa70f95a6cda0416db4d71a48b35711420bc",
-                "reference": "f9b9aa70f95a6cda0416db4d71a48b35711420bc",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/bb7101ab086b7e225b007bc5deb24526da8e5c48",
+                "reference": "bb7101ab086b7e225b007bc5deb24526da8e5c48",
                 "shasum": ""
             },
             "require": {
@@ -207,7 +207,7 @@
                 "module",
                 "social"
             ],
-            "time": "2014-04-08 03:42:29"
+            "time": "2014-04-26 17:11:57"
         },
         {
             "name": "ciims-modules/install",
@@ -422,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "adb700c86bd63fbb98d4bf0d68cc25bffd3401bd"
+                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/adb700c86bd63fbb98d4bf0d68cc25bffd3401bd",
-                "reference": "adb700c86bd63fbb98d4bf0d68cc25bffd3401bd",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
+                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +454,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-23 17:56:52"
+            "time": "2014-04-25 06:22:17"
         },
         {
             "name": "guzzle/common",
@@ -1319,12 +1319,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "aef655b2481c7ef8c8b73288c383261b2bb7e2a2"
+                "reference": "e3741b4937c32bc3b101e4c670083fe0ee78d225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/aef655b2481c7ef8c8b73288c383261b2bb7e2a2",
-                "reference": "aef655b2481c7ef8c8b73288c383261b2bb7e2a2",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e3741b4937c32bc3b101e4c670083fe0ee78d225",
+                "reference": "e3741b4937c32bc3b101e4c670083fe0ee78d225",
                 "shasum": ""
             },
             "require": {
@@ -1341,7 +1341,8 @@
             },
             "suggest": {
                 "ext-dom": "*",
-                "ext-xdebug": ">=2.2.1"
+                "ext-xdebug": ">=2.2.1",
+                "ext-xmlwriter": "*"
             },
             "type": "library",
             "extra": {
@@ -1375,7 +1376,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-03 03:26:47"
+            "time": "2014-04-26 09:30:11"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1566,16 +1567,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b9df0731b90bc0a33c7451852ce2a3877b1051ec"
+                "reference": "fa29ea1b706a6239e10f3ad5ab98de168f37360c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b9df0731b90bc0a33c7451852ce2a3877b1051ec",
-                "reference": "b9df0731b90bc0a33c7451852ce2a3877b1051ec",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa29ea1b706a6239e10f3ad5ab98de168f37360c",
+                "reference": "fa29ea1b706a6239e10f3ad5ab98de168f37360c",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
+                "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-reflection": "*",
                 "ext-spl": "*",
@@ -1593,9 +1595,6 @@
                 "symfony/yaml": "~2.0"
             },
             "suggest": {
-                "ext-json": "*",
-                "ext-simplexml": "*",
-                "ext-tokenizer": "*",
                 "phpunit/php-invoker": "~1.1"
             },
             "bin": [
@@ -1634,7 +1633,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-23 15:52:51"
+            "time": "2014-04-26 06:27:57"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2124,12 +2123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "822312aea23a8ab345402a62ffdcc5acd2739c32"
+                "reference": "b95e9cb9a73988853d51d6e35d18d032b8760877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/822312aea23a8ab345402a62ffdcc5acd2739c32",
-                "reference": "822312aea23a8ab345402a62ffdcc5acd2739c32",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/b95e9cb9a73988853d51d6e35d18d032b8760877",
+                "reference": "b95e9cb9a73988853d51d6e35d18d032b8760877",
                 "shasum": ""
             },
             "require": {
@@ -2172,7 +2171,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:36:34"
+            "time": "2014-04-18 20:54:24"
         },
         {
             "name": "symfony/css-selector",
@@ -2494,7 +2493,6 @@
     "stability-flags": {
         "cryptlib/cryptlib": 20,
         "ciims-modules/dashboard": 20,
-        "ciims-modules/hybridauth": 20,
         "codeception/yiibridge": 20
     },
     "platform": {
