@@ -1,14 +1,12 @@
 /assets/*
+/vendor/*
+/themes/*
 /protected/runtime/*
 /protected/assets
-/vendor/*
 /protected/config/*
-/protected/modules/*
-/themes/*
 !/themes/default
 /protected/modules/*
 /uploads/*
-/install.php
 .htaccess
 *.*~
 *.swp
