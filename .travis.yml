@@ -23,5 +23,6 @@ before_script:
   - mysql -e 'create database ciims_test;'
   - echo "https://$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname
   - php protected/tyiic.php migrate up --interactive=0
+  - ./vendor/bin/codecept build || true
 
 script: ./vendor/bin/codecept run
