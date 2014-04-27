@@ -23,3 +23,7 @@ modules:
             password: ''
             populate: false
             cleanup: false
+        curl:
+            CURLOPT_SSL_VERIFYPEER: 0
+            CURLOPT_SSL_VERIFYHOST: 0
+            CURLOPT_CERTINFO: 0
