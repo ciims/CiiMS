@@ -35,6 +35,14 @@
         {
             "type": "vcs",
             "url": "https://github.com/charlesportwoodii/YiiBridge"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/charlesportwoodii/ciims-modules-api"
         }
     ],
     "require": {
@@ -60,7 +68,7 @@
         "charlesportwoodii/eanalytics": "1.1.2",
         "ciims-themes/default": "dev-master",
         "ciims-modules/dashboard": "dev-master",
-        "ciims-modules/api": "1.0.3",
+        "ciims-modules/api": "dev-api_refactor",
         "ciims-modules/install": "2.0.3",
         "ciims-modules/hybridauth": "2.0.3"
     },
