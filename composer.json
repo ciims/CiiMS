@@ -58,14 +58,14 @@
         "phpmailer/phpmailer": "v5.2.7",
         "mobiledetect/mobiledetectlib": "2.7.9",
         "charlesportwoodii/eanalytics": "1.1.2",
-        "ciims-themes/default": "3.0.2",
+        "ciims-themes/default": "3.0.3",
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "1.0.3",
         "ciims-modules/install": "2.0.3",
         "ciims-modules/hybridauth": "2.0.3"
     },
     "require-dev": {
-        "codeception/codeception": "*",
+        "codeception/codeception": "dev-master",
         "codeception/YiiBridge": "dev-master"
     },
     "autoload": {

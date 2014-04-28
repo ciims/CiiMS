@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d87edad882ed00525c1f874438ea0af4",
+    "hash": "1d736adc4f4f256b7d72ffeeac6f4ff8",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -247,16 +247,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "bb8bd6d37712e2cf297f3edce835f27667fe07b4"
+                "reference": "5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/bb8bd6d37712e2cf297f3edce835f27667fe07b4",
-                "reference": "bb8bd6d37712e2cf297f3edce835f27667fe07b4",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080",
+                "reference": "5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-23 20:42:03"
+            "time": "2014-04-28 14:14:42"
         },
         {
             "name": "composer/installers",
@@ -1264,29 +1264,29 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "e3741b4937c32bc3b101e4c670083fe0ee78d225"
+                "reference": "f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e3741b4937c32bc3b101e4c670083fe0ee78d225",
-                "reference": "e3741b4937c32bc3b101e4c670083fe0ee78d225",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9",
+                "reference": "f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "phpunit/php-file-iterator": "~1.3.1",
-                "phpunit/php-text-template": "~1.2",
-                "phpunit/php-token-stream": "~1.2.2",
-                "sebastian/environment": "~1.0",
-                "sebastian/version": "~1.0.3"
+                "phpunit/php-file-iterator": ">=1.3.0",
+                "phpunit/php-text-template": ">=1.2.0",
+                "phpunit/php-token-stream": ">=1.1.3",
+                "sebastian/environment": ">=1.0.0",
+                "sebastian/version": ">=1.0.0"
             },
             "require-dev": {
                 "ext-xdebug": ">=2.1.4",
-                "phpunit/phpunit": ">=4.0.0,<4.1.0"
+                "phpunit/phpunit": "4.2.*@dev"
             },
             "suggest": {
                 "ext-dom": "*",
@@ -1296,7 +1296,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
@@ -1325,7 +1325,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-26 09:30:11"
+            "time": "2014-04-27 16:15:10"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1516,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fa29ea1b706a6239e10f3ad5ab98de168f37360c"
+                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa29ea1b706a6239e10f3ad5ab98de168f37360c",
-                "reference": "fa29ea1b706a6239e10f3ad5ab98de168f37360c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38ccc18e40d093aed238ddab7450fa842876d7f1",
+                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1",
                 "shasum": ""
             },
             "require": {
@@ -1531,7 +1531,7 @@
                 "ext-reflection": "*",
                 "ext-spl": "*",
                 "php": ">=5.3.3",
-                "phpunit/php-code-coverage": "2.0.*@dev",
+                "phpunit/php-code-coverage": "3.0.*@dev",
                 "phpunit/php-file-iterator": "~1.3.1",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "~1.0.2",
@@ -1582,7 +1582,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-26 06:27:57"
+            "time": "2014-04-27 14:32:28"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1590,12 +1590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "e087740cabf101ed42853d566eda3dcdb8b9539f"
+                "reference": "f0e9f6dcefc1739e716b75a77c3c4107033fa134"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/e087740cabf101ed42853d566eda3dcdb8b9539f",
-                "reference": "e087740cabf101ed42853d566eda3dcdb8b9539f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/f0e9f6dcefc1739e716b75a77c3c4107033fa134",
+                "reference": "f0e9f6dcefc1739e716b75a77c3c4107033fa134",
                 "shasum": ""
             },
             "require": {
@@ -1639,7 +1639,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-04-22 10:38:16"
+            "time": "2014-04-27 07:24:57"
         },
         {
             "name": "sebastian/comparator",
@@ -1647,12 +1647,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94"
+                "reference": "e4f1b2e03bf3af65b7b3e8f437a4255657df577d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94",
-                "reference": "0ea2e95cb5da42cb6fbee343a59914bbdbd1fd94",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/e4f1b2e03bf3af65b7b3e8f437a4255657df577d",
+                "reference": "e4f1b2e03bf3af65b7b3e8f437a4255657df577d",
                 "shasum": ""
             },
             "require": {
@@ -1704,7 +1704,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2014-04-23 15:54:11"
+            "time": "2014-04-27 07:18:17"
         },
         {
             "name": "sebastian/diff",
@@ -1762,12 +1762,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "79517609ec01139cd7e9fded0dd7ce08c952ef6a"
+                "reference": "87c45ac84fd568336a6432da4878624795cad97d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/79517609ec01139cd7e9fded0dd7ce08c952ef6a",
-                "reference": "79517609ec01139cd7e9fded0dd7ce08c952ef6a",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/87c45ac84fd568336a6432da4878624795cad97d",
+                "reference": "87c45ac84fd568336a6432da4878624795cad97d",
                 "shasum": ""
             },
             "require": {
@@ -1805,7 +1805,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2014-02-18 16:17:19"
+            "time": "2014-04-27 07:18:42"
         },
         {
             "name": "sebastian/exporter",
@@ -1813,12 +1813,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f"
+                "reference": "9a62fed6743f762aee4eb90a7b95c2aaf7b6c117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f",
-                "reference": "13e2857ac9208f9ded1f3e524de2c9b5a4a4db6f",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/9a62fed6743f762aee4eb90a7b95c2aaf7b6c117",
+                "reference": "9a62fed6743f762aee4eb90a7b95c2aaf7b6c117",
                 "shasum": ""
             },
             "require": {
@@ -1871,7 +1871,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2014-04-18 09:45:21"
+            "time": "2014-04-27 07:18:52"
         },
         {
             "name": "sebastian/version",
@@ -1972,12 +1972,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "b95e9cb9a73988853d51d6e35d18d032b8760877"
+                "reference": "d12686cea4e1155ed93449c0bca9db223f31bb2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/b95e9cb9a73988853d51d6e35d18d032b8760877",
-                "reference": "b95e9cb9a73988853d51d6e35d18d032b8760877",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/d12686cea4e1155ed93449c0bca9db223f31bb2d",
+                "reference": "d12686cea4e1155ed93449c0bca9db223f31bb2d",
                 "shasum": ""
             },
             "require": {
@@ -2020,7 +2020,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-18 20:54:24"
+            "time": "2014-04-28 13:26:08"
         },
         {
             "name": "symfony/css-selector",
@@ -2186,12 +2186,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "bb25c2766e5e4c85f9498d1aa44a9d2158a7a302"
+                "reference": "8a3edace8e8aabed8992b993bfc13df3b1e836f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/bb25c2766e5e4c85f9498d1aa44a9d2158a7a302",
-                "reference": "bb25c2766e5e4c85f9498d1aa44a9d2158a7a302",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/8a3edace8e8aabed8992b993bfc13df3b1e836f2",
+                "reference": "8a3edace8e8aabed8992b993bfc13df3b1e836f2",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2226,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-23 14:08:54"
+            "time": "2014-04-28 05:15:04"
         },
         {
             "name": "symfony/yaml",
@@ -2285,6 +2285,7 @@
     "stability-flags": {
         "cryptlib/cryptlib": 20,
         "ciims-modules/dashboard": 20,
+        "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },
     "platform": {
