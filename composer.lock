@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1d736adc4f4f256b7d72ffeeac6f4ff8",
+    "hash": "be419f42213bc4f389de784ff6ebcdcc",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -247,16 +247,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080"
+                "reference": "ea3fbfd688ab9678ee4d4b7aa4283585a6496784"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080",
-                "reference": "5f3d7d52bad2335b92ee4c6d9e4a7a6b23b49080",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ea3fbfd688ab9678ee4d4b7aa4283585a6496784",
+                "reference": "ea3fbfd688ab9678ee4d4b7aa4283585a6496784",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-28 14:14:42"
+            "time": "2014-04-28 14:47:50"
         },
         {
             "name": "composer/installers",
@@ -2284,6 +2284,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cryptlib/cryptlib": 20,
+        "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
