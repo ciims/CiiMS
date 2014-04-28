@@ -395,6 +395,15 @@ class Users extends CiiModel
     }
 
     /**
+     * Returns true of a user has access to the dashboard
+     * @return boolean
+     */
+    public function isDashboardUser()
+    {
+        return $this->isAdmin() || $this->isPublisher() || $this->isEditor() || $this->isSiteManager() || $this->isCollaborator();
+    }
+
+    /**
      * Determines if a user can comment without approval
      * @return boolean
      */
