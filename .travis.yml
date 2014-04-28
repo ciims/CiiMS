@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.3 #codeception will fail on 5.3
+#  - 5.3 # Codeception 2.0 hardfails on PHP 5.3 due to dependency issues. No longer testing on
   - 5.4
   - 5.5
 #  - hhvm
@@ -23,6 +23,5 @@ before_script:
   - mysql -e 'create database ciims_test;'
   - echo "https://$TRAVIS_BUILD_NUMBER-$TRAVIS_BUILD_ID-$TRAVIS_JOB_ID.travis-ci.org" > protected/runtime/hostname
   - php protected/tyiic.php migrate up --interactive=0
-  - ./vendor/bin/codecept build
 
 script: ./vendor/bin/codecept run
