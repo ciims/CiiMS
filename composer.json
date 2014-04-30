@@ -75,18 +75,10 @@
     },
     "extra": {
         "installer-paths": {
-            "protected/modules/dashboard/": [
-                "ciims-modules/dashboard"
-            ],
-            "protected/modules/hybridauth/": [
-                "ciims-modules/hybridauth"
-            ],
-            "protected/modules/install/": [
-                "ciims-modules/install"
-            ],
-            "protected/modules/api/": [
-                "ciims-modules/api"
-            ]
+            "protected/modules/dashboard/": ["ciims-modules/dashboard"],
+            "protected/modules/hybridauth/": ["ciims-modules/hybridauth"],
+            "protected/modules/install/": ["ciims-modules/install"],
+            "protected/modules/api/": ["ciims-modules/api"]
         }
     }
 }
