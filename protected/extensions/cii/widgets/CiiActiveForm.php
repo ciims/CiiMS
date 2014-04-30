@@ -25,12 +25,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 		if ($this->registerPureCss)
 			$cs->registerCssFile($asset.'/css/pure.css'); 
 
-		if ($this->registerPrism)
-		{
-			$cs->registerCssFile($asset.'/prism/prism-light.css'); 
-			$cs->registerScriptFile($asset.'/prism/prism.js', CClientScript::POS_END); 
-		}
-
 		return parent::init();
 	}
 

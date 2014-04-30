@@ -30,12 +30,12 @@ class EClientScript extends YiiNewRelicClientScript
 	/**
 	 * @var boolean if to combine the script files or not
 	 */
-	public $combineScriptFiles = false;
+	public $combineScriptFiles = true;
 
 	/**
 	 * @var boolean if to combine the css files or not
 	 */
-	public $combineCssFiles = false;
+	public $combineCssFiles = true;
 
 	/**
 	 * @var boolean if to optimize the css files
@@ -52,10 +52,8 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	public function init()
 	{
-		$this->combineScriptFiles = true;
+		$this->combineScriptFiles = !YII_DEBUG;
 		$this->combineCssFiles = !YII_DEBUG;
-		$this->optimizeCssFiles = !YII_DEBUG;
-		$this->optimizeScriptFiles = false;
 
 		return parent::init();
 	}
