@@ -52,10 +52,10 @@ class EClientScript extends YiiNewRelicClientScript
 	 */
 	public function init()
 	{
-		$this->combineScriptFiles = !YII_DEBUG;
+		$this->combineScriptFiles = true;
 		$this->combineCssFiles = !YII_DEBUG;
 		$this->optimizeCssFiles = !YII_DEBUG;
-		$this->optimizeScriptFiles = !YII_DEBUG;
+		$this->optimizeScriptFiles = false;
 
 		return parent::init();
 	}

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "be419f42213bc4f389de784ff6ebcdcc",
+    "hash": "b944e7e71b971b324d71a467147af618",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -99,7 +99,7 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
@@ -422,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1"
+                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
-                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
+                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +454,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-25 06:22:17"
+            "time": "2014-04-29 19:36:45"
         },
         {
             "name": "guzzle/common",
@@ -1516,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1"
+                "reference": "b8a22bec42d81df579f164da09480af82a7576bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38ccc18e40d093aed238ddab7450fa842876d7f1",
-                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8a22bec42d81df579f164da09480af82a7576bb",
+                "reference": "b8a22bec42d81df579f164da09480af82a7576bb",
                 "shasum": ""
             },
             "require": {
@@ -1582,7 +1582,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-27 14:32:28"
+            "time": "2014-04-29 23:29:13"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2137,12 +2137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "b1c92e9798e819dfd437f57b3b39fac7d35df8a6"
+                "reference": "51e3af2081d8497f6552cb3338e8a40541646773"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/b1c92e9798e819dfd437f57b3b39fac7d35df8a6",
-                "reference": "b1c92e9798e819dfd437f57b3b39fac7d35df8a6",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/51e3af2081d8497f6552cb3338e8a40541646773",
+                "reference": "51e3af2081d8497f6552cb3338e8a40541646773",
                 "shasum": ""
             },
             "require": {
@@ -2177,7 +2177,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-18 21:02:40"
+            "time": "2014-04-28 05:15:04"
         },
         {
             "name": "symfony/process",
@@ -2286,6 +2286,7 @@
         "cryptlib/cryptlib": 20,
         "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
+        "ciims-modules/api": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },

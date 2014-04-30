@@ -26,6 +26,8 @@ return array(
     'import' => array(
         'application.modules.*',
         'application.models.*',
+        'application.models.forms.*',
+        'application.models.settings.*',
     ),
     'modules' => require_once __DIR__ . DS . 'modules.php',
     'behaviors' => array(
