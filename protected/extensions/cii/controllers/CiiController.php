@@ -175,7 +175,7 @@ class CiiController extends CController
         $this->handleOfflineMode((bool)Cii::getConfig('offline', false), $action);
 
         // Sets the global theme for CiiMS
-        $this->setGlobalTheme($this->getTheme());
+        $this->getTheme();
 
         return parent::beforeAction($action);
 	}
@@ -187,24 +187,7 @@ class CiiController extends CController
     public function getTheme()
     {
         $theme = Cii::getConfig('theme', 'default');
-
-        $mobile_detect = new Mobile_Detect;
-        // Allow for mobile devices to have a separate theme
-        if ($mobile_detect->isMobile() && !$mobile_detect->isTablet())
-        {
-            $mobileTheme = Cii::getConfig('mobileTheme');
-            if ($mobileTheme != NULL && $mobileTheme != "")
-                $theme = $mobileTheme;
-        }
-
-        // Allow for tablet devices to have a separate theme from desktop and mobile
-        if ($mobile_detect->isTablet())
-        {
-            $tabletTheme = Cii::getConfig('tabletTheme');
-            if ($tabletTheme != NULL && $tabletTheme != "")
-                $theme = $tabletTheme;
-        }
-
+        Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
         return $theme;
     }
 
@@ -215,7 +198,7 @@ class CiiController extends CController
      */
     private function setGlobalTheme($theme)
     {
-        Yii::app()->setTheme(file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)) ? $theme : 'default');
+        
     }
 
     /**

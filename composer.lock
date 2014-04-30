@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c5278693cc2b32a30a98dedcd721145d",
+    "hash": "ffdbf3fffc65e1ef1a5f2ee2383a9956",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "de7682e004e4ce7fb32053ad157b78d5334ee1b6"
+                "reference": "011907a697d0c91e11b8402845791cff32d05f2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/de7682e004e4ce7fb32053ad157b78d5334ee1b6",
-                "reference": "de7682e004e4ce7fb32053ad157b78d5334ee1b6",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/011907a697d0c91e11b8402845791cff32d05f2b",
+                "reference": "011907a697d0c91e11b8402845791cff32d05f2b",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -131,7 +131,7 @@
                 "api",
                 "module"
             ],
-            "time": "2014-04-30 00:38:04"
+            "time": "2014-04-30 01:16:53"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -768,58 +768,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2014-02-23 11:27:58"
-        },
-        {
-            "name": "mobiledetect/mobiledetectlib",
-            "version": "2.7.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "610846237295e3e50a1923e7cc1639a956ead22a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/610846237295e3e50a1923e7cc1639a956ead22a",
-                "reference": "610846237295e3e50a1923e7cc1639a956ead22a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "Mobile_Detect.php"
-                ],
-                "psr-0": {
-                    "Detection": "namespaced/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Serban Ghita",
-                    "email": "serbanghita@gmail.com",
-                    "homepage": "http://mobiledetect.net",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
-            "homepage": "https://github.com/serbanghita/Mobile-Detect",
-            "keywords": [
-                "detect mobile devices",
-                "mobile",
-                "mobile detect",
-                "mobile detector",
-                "php mobile detect"
-            ],
-            "time": "2014-03-07 13:33:54"
         },
         {
             "name": "phpmailer/phpmailer",
