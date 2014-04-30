@@ -61,7 +61,8 @@
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "dev-master",
         "ciims-modules/install": "2.0.3",
-        "ciims-modules/hybridauth": "2.0.3"
+        "ciims-modules/hybridauth": "2.0.3",
+        "knplabs/packagist-api": "v1.1"
     },
     "require-dev": {
         "codeception/codeception": "dev-master",
