@@ -23,22 +23,22 @@ class Cii
 	{
 		if ($array === NULL)
 			return isset($default) ? $default : $item;
-		
+
 		if (is_object($array) && isset($array->$item))
-            return $array->$item; 
-		
+            return $array->$item;
+
         if (is_array($array))
             return isset($array[$item]) && !empty($array) ? $array[$item] : $default;
-        
+
 		if (!is_array($array))
 			return isset($array) ? $array : $item;
-		
+
 		if (isset($array[$item]) && !empty($array))
 			return $array[$item];
-        
-		return $default;	
+
+		return $default;
 	}
-	
+
     /**
      * Gets a configuration value from CiiMS::Configuration
      * @param  string $key     The key we want to retrieve from Configuration
@@ -121,7 +121,7 @@ class Cii
 
         if (!isset($data[0]['value']))
             return NULL;
-        
+
         return $data[0]['value'];
     }
 
@@ -204,7 +204,7 @@ class Cii
             Cii::formatDate($date, $format)
         );
     }
-	
+
     /**
      * Retrieves Analytics.js Providers
      * @return array $providors
@@ -215,10 +215,6 @@ class Cii
 
         if ($providers === false)
         {
-            // Import Analytics Settings so that we can appropriately determine the type of objects
-            Yii::import('application.modules.dashboard.components.CiiSettingsModel');
-            Yii::import('application.modules.dashboard.models.AnalyticsSettings');
-
             $analytics = new AnalyticsSettings;
             $rules = $analytics->rules();
             unset($analytics);
@@ -259,7 +255,7 @@ class Cii
                         {
                             if ($v == "0")
                                 $providers[$provider][$p[1]] = (bool)false;
-                            else if ($v == "1")          
+                            else if ($v == "1")
                                 $providers[$provider][$p[1]] = (bool)true;
                             else
                                 $providers[$provider][$p[1]] = 'null';
@@ -316,10 +312,10 @@ class Cii
                 else
                     $providers[$provider]['keys'][$key] = $v;
             }
-            
+
             Yii::app()->cache->set('hybridauth_providers', $providers);
         }
-        
+
         return $providers;
     }
 
@@ -347,11 +343,11 @@ class Cii
      *
      * The purpose of this is to _assist_ in hardened security, and is in no means a substitude for a more comprehensive
      * security strategy. This _WILL NOT_ help you if you encryptionKey is taken as well - but it might buy you some time.
-     * 
+     *
      * @param  string $field The data we want to ecrnypt
      * @return string        encrypted data
      */
-    
+
     public static function encrypt($field, $key = NULL)
     {
         if ($key == NULL)
@@ -359,10 +355,10 @@ class Cii
 
         return base64_encode(
             mcrypt_encrypt(
-                MCRYPT_RIJNDAEL_256, 
-                md5($key), 
+                MCRYPT_RIJNDAEL_256,
+                md5($key),
                 $field,
-                MCRYPT_MODE_CBC, 
+                MCRYPT_MODE_CBC,
                 md5(md5($key))
                 )
             );
@@ -378,15 +374,15 @@ class Cii
     {
         if ($key == NULL)
             $key = Yii::app()->params['encryptionKey'];
-        
+
         return rtrim(
             mcrypt_decrypt(
-                MCRYPT_RIJNDAEL_256, 
+                MCRYPT_RIJNDAEL_256,
                 md5($key),
-                base64_decode($field), 
-                MCRYPT_MODE_CBC, 
+                base64_decode($field),
+                MCRYPT_MODE_CBC,
                 md5(md5($key))
-            ), 
+            ),
         "\0");
     }
 
@@ -401,9 +397,9 @@ class Cii
 		if ($full_dump)
 			var_dump($data);
 		else
-			print_r($data);	
+			print_r($data);
 		echo '</pre>';
-		
+
 		return;
 	}
 
@@ -417,12 +413,13 @@ class Cii
             // Load some specific CiiMS JS here
             $json = CJSON::encode(array(
                 'email' =>  Cii::get(Yii::app()->user, 'email'),
-                'token' => Cii::get(Yii::app()->user, 'api_key'),
+                'token' => Cii::get(Yii::app()->user, 'apiKey'),
                 'role' => Cii::get(Yii::app()->user, 'role'),
                 'isAuthenticated' => isset(Yii::app()->user->id),
+                'debug' => YII_DEBUG,
                 'time' => time()
             ));
-              
+
             Yii::app()->clientScript->registerScript('ciims', "
                 $(document).ready(function() { localStorage.setItem('ciims', '$json'); });
             ");

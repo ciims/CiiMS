@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c9967517316cd70c26cfa3b285a0d20a",
+    "hash": "b944e7e71b971b324d71a467147af618",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -99,19 +99,20 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "dev-api_refactor",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "66cde1a1f24591735f415cc7d31b2420bc28806a"
+                "reference": "f0d28049303dd79f5be2505810b87b82f6c03483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/66cde1a1f24591735f415cc7d31b2420bc28806a",
-                "reference": "66cde1a1f24591735f415cc7d31b2420bc28806a",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/f0d28049303dd79f5be2505810b87b82f6c03483",
+                "reference": "f0d28049303dd79f5be2505810b87b82f6c03483",
                 "shasum": ""
             },
             "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -126,33 +127,28 @@
             "description": "The API module for CiiMS",
             "homepage": "https://www.ciims.org",
             "keywords": [
+                "CiiMS",
                 "api",
-                "ciims",
                 "module"
             ],
-            "support": {
-                "email": "charlesportwoodii@ethreal.net",
-                "issues": "https://github.com/charlesportwoodii/ciims-modules-api/issues",
-                "wiki": "https://github.com/charlesportwoodii/ciims-modules-api/wiki/_pages",
-                "source": "https://github.com/charlesportwoodii/ciims-modules-api"
-            },
-            "time": "2014-04-28 19:19:44"
+            "time": "2014-04-21 18:49:20"
         },
         {
             "name": "ciims-modules/dashboard",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember.git",
-                "reference": "7a51a25097bd781e80b0371895e6fe7850fe9906"
+                "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
+                "reference": "0c8e575e7eb5ad74e1610be9ccd03b91f78ff399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard-ember/zipball/7a51a25097bd781e80b0371895e6fe7850fe9906",
-                "reference": "7a51a25097bd781e80b0371895e6fe7850fe9906",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/0c8e575e7eb5ad74e1610be9ccd03b91f78ff399",
+                "reference": "0c8e575e7eb5ad74e1610be9ccd03b91f78ff399",
                 "shasum": ""
             },
             "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -164,21 +160,14 @@
                     "role": "Lead Developer"
                 }
             ],
-            "description": "A (mostly) client side iteration of the CiiMS Dashboard module, written in ember.js",
+            "description": "The dashboard module for CiiMS",
             "homepage": "https://www.ciims.org",
             "keywords": [
-                "ciims",
+                "CiiMS",
                 "dashboard",
-                "ember.json",
                 "module"
             ],
-            "support": {
-                "email": "charlesportwoodii@ethreal.net",
-                "issues": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember/issues",
-                "wiki": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember/wiki/_pages",
-                "source": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember"
-            },
-            "time": "2014-04-28 19:22:44"
+            "time": "2014-04-26 17:12:12"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -433,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1"
+                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
-                "reference": "e4e828e25860a0dbb0e8bdb8bbd401d51a93a5d1",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
+                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +454,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-25 06:22:17"
+            "time": "2014-04-29 19:36:45"
         },
         {
             "name": "guzzle/common",
@@ -1527,12 +1516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1"
+                "reference": "b8a22bec42d81df579f164da09480af82a7576bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/38ccc18e40d093aed238ddab7450fa842876d7f1",
-                "reference": "38ccc18e40d093aed238ddab7450fa842876d7f1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8a22bec42d81df579f164da09480af82a7576bb",
+                "reference": "b8a22bec42d81df579f164da09480af82a7576bb",
                 "shasum": ""
             },
             "require": {
@@ -1593,7 +1582,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-27 14:32:28"
+            "time": "2014-04-29 23:29:13"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2148,12 +2137,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "b1c92e9798e819dfd437f57b3b39fac7d35df8a6"
+                "reference": "51e3af2081d8497f6552cb3338e8a40541646773"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/b1c92e9798e819dfd437f57b3b39fac7d35df8a6",
-                "reference": "b1c92e9798e819dfd437f57b3b39fac7d35df8a6",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/51e3af2081d8497f6552cb3338e8a40541646773",
+                "reference": "51e3af2081d8497f6552cb3338e8a40541646773",
                 "shasum": ""
             },
             "require": {
@@ -2188,7 +2177,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-18 21:02:40"
+            "time": "2014-04-28 05:15:04"
         },
         {
             "name": "symfony/process",

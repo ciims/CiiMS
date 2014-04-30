@@ -10,8 +10,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $defaultLanguage = 'en_US';
 
-	protected $enableAPI = false;
-
 	protected $forceSecureSSL = false;
 
 	protected $offline = 0;
@@ -57,7 +55,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		$groups = array(
-			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'enableAPI', 'forceSecureSSL', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('Dashboard.models-general', 'Site Settings') => array('name', 'offline', 'forceSecureSSL', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('Dashboard.models-general', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			//Yii::t('Dashboard.models-general', 'Discourse') => array('useDiscourseComments', 'discourseUrl'),
 			Yii::t('Dashboard.models-general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
@@ -82,7 +80,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, enableAPI, forceSecureSSL, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('offline, preferMarkdown, sphinx_enabled, useDisqusComments, forceSecureSSL, useOpenstackCDN, useRackspaceCDN', 'boolean'),
 			array('sphinxHost, sphinxSource, disqus_shortname, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('sphinxPort', 'numerical', 'integerOnly' => true),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13, 'max' => 50),
@@ -103,7 +101,6 @@ class GeneralSettings extends CiiSettingsModel
 			'timeFormat' => Yii::t('Dashboard.models-general', 'Time Format'),
 			'defaultLanguage' => Yii::t('Dashboard.models-general', 'Default Language'),
 			'offline' => Yii::t('Dashboard.models-general', 'Offline Mode'),
-			'enableAPI' => Yii::t('Dashboard.models-general', 'Enable API'),
 			'forceSecureSSL' => Yii::t('Dashboard.models-general', 'Force SSL for Secure Areas'),
 			'bcrypt_cost' => Yii::t('Dashboard.models-general', 'Password Strength Settings'),
 			'searchPaginationSize' => Yii::t('Dashboard.models-general', 'Search Post Count'),
@@ -172,9 +169,6 @@ class GeneralSettings extends CiiSettingsModel
 	 */
 	public function beforeSave()
 	{
-		if (($allow_api= Cii::get(Cii::getCiiConfig(), 'allow_api', true)) == false)
-			$this->attributes['enableAPI'] = $this->enableAPI = (int)$allow_api;
-
 		// Encrypt the Openstack API Key
 		if ($this->attributes['openstack_apikey'] != NULL && $this->attributes['openstack_apikey'] != "")
 			$this->attributes['openstack_apikey'] = $this->openstack_apikey = Cii::encrypt($this->attributes['openstack_apikey']);

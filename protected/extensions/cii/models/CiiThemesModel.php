@@ -1,6 +1,5 @@
 <?php
 
-Yii::import('application.modules.dashboard.components.CiiSettingsModel');
 class CiiThemesModel extends CiiSettingsModel
 {
 	/**
@@ -25,18 +24,18 @@ class CiiThemesModel extends CiiSettingsModel
             $criteria->select = 't.id, t.slug, t.name';
 
             $categories = Categories::model()->findAll($criteria);
-            Yii::app()->cache->set('categories-listing', $categories);                          
+            Yii::app()->cache->set('categories-listing', $categories);
         }
-        
+
         foreach ($categories as $k=>$v)
         {
             if ($v['name'] != 'Uncategorized')
                 $items[] = array('label' => $v->name, 'url' => Yii::app()->createUrl('/' . $v->slug));
         }
-        
+
         return $items;
     }
-    
+
     /**
      * Retrieves the recent post items so that the view is cleaned up
      * @return array $items     The CMenu items we are going to return
@@ -54,12 +53,12 @@ class CiiThemesModel extends CiiSettingsModel
             $criteria->limit = 5;
 
             $content = Content::model()->findAll($criteria);
-            Yii::app()->cache->set('content-listing', $content);                            
+            Yii::app()->cache->set('content-listing', $content);
         }
-        
+
         foreach ($content as $v)
 			$items[] = array('label' => $v->title, 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
-        
+
         return $items;
     }
 
@@ -70,7 +69,7 @@ class CiiThemesModel extends CiiSettingsModel
 	{
 		$items = array();
         $criteria = Content::model()->getBaseCriteria()
-                    ->addCondition('category_id = :category_id') 
+                    ->addCondition('category_id = :category_id')
                     ->addCondition('id != :id')
                     ->addCondition('type_id = 2')
                     ->addCondition('password = ""');
@@ -79,13 +78,13 @@ class CiiThemesModel extends CiiSettingsModel
         $criteria->params = array(':id' => $id, ':category_id' => $category_id);
 
         $related = Content::model()->findAll($criteria);
-			
+
 		 foreach ($related as $v)
 		 	$items[] = array('label' => $v->title, 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
-        
+
         return $items;
 	}
-	
+
     /**
      * Retrieves the posts authored by a given user
      * @param  integer $id the id of the user
@@ -95,7 +94,7 @@ class CiiThemesModel extends CiiSettingsModel
     {
         $items = array();
         $criteria = Content::model()->getBaseCriteria()
-                    ->addCondition('author_id = :author_id') 
+                    ->addCondition('author_id = :author_id')
                     ->addCondition('type_id = 2')
                     ->addCondition('password = ""');
         $criteria->order = 'published DESC';
@@ -103,15 +102,15 @@ class CiiThemesModel extends CiiSettingsModel
         $criteria->params = array(':author_id' => $id);
 
         $related = Content::model()->findAll($criteria);
-            
+
         foreach ($related as $v)
             $items[] = array('label' => $v['title'], 'url' => Yii::app()->createAbsoluteUrl($v->slug), 'itemOptions' => array('id' => $v->id, 'published' => $v->published));
-        
+
         return $items;
     }
 
     /**
-     * Retrieves the CiiMenuItems from the configuration. If the items are not populated, then it 
+     * Retrieves the CiiMenuItems from the configuration. If the items are not populated, then it
      * builds them out from CiiMenu::$defaultItems
      */
     public function getMenu()
@@ -125,7 +124,7 @@ class CiiThemesModel extends CiiSettingsModel
                 continue;
             $items[] = array('label' => ucwords(str_replace('-', ' ', $route)), 'url' => Yii::app()->createUrl('/' . $route), 'active' => false);
         }
-        
+
         return $items;
     }
 
