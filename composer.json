@@ -62,7 +62,8 @@
         "ciims-modules/api": "dev-master",
         "ciims-modules/install": "2.0.4",
         "ciims-modules/hybridauth": "2.0.3",
-        "knplabs/packagist-api": "v1.1"
+        "knplabs/packagist-api": "v1.1",
+        "yiiext/imperavi-redactor-widget": "*"
     },
     "require-dev": {
         "codeception/codeception": "dev-master",

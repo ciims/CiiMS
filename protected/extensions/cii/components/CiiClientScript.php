@@ -147,9 +147,6 @@ class CiiClientScript extends YiiNewRelicClientScript
 				// check exists file
 				if ($valid = file_exists($fpath))
 				{
-					//$cache = Yii::app()->cache->get('combineJs' .  md5($fpath) . md5($fname));
-					//if ($cache === false)
-					//	$valid = false;
 
 					$mtime = filemtime($fpath);
 					foreach ($files as $file)
@@ -161,10 +158,11 @@ class CiiClientScript extends YiiNewRelicClientScript
 						}
 					}
 				}
+
 				// re-generate the file
 				if (!$valid)
 				{
-					$urlRegex = '#url\s*\(\s*([\'"])?(?!/|http://)([^\'"\s])#i';
+					$urlRegex = '#url\s*\(\s*([\'"])?(?!/|http://|data\:)([^\'"\s])#i';
 					$fileBuffer = '';
 					foreach ($files as $url => $file)
 					{
@@ -252,7 +250,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 				$fileBuffer = '';
 				foreach ($toBeCombined as $url => $file)
 				{
-					$contents = file_get_contents($file);
+					$contents = file_get_contents($file) . ';';
 					if ($contents)
 					{
 						if ($this->optimizeScriptFiles && strpos($file, '.min.') === false && strpos($file, '.pack.') === false)

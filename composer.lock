@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bfcb11f00a3688af9f88b3e358237b73",
+    "hash": "110e3d52eb09e2aa21cc8d093f4a29c0",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -1062,6 +1062,47 @@
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
             "time": "2014-04-29 10:13:57"
+        },
+        {
+            "name": "yiiext/imperavi-redactor-widget",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
+                "reference": "92868a5cee0a6938427a6421f0f42980c89d3801"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/92868a5cee0a6938427a6421f0f42980c89d3801",
+                "reference": "92868a5cee0a6938427a6421f0f42980c89d3801",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Veaceslav Medvedev",
+                    "email": "slavcopost@gmail.com",
+                    "role": "Founder and project lead"
+                }
+            ],
+            "description": "Imperavi Redactor Widget for Yii",
+            "homepage": "https://github.com/yiiext/imperavi-redactor-widget",
+            "keywords": [
+                "impravi",
+                "wysiwyg",
+                "yii"
+            ],
+            "time": "2014-04-18 10:51:04"
         },
         {
             "name": "yiisoft/yii",
