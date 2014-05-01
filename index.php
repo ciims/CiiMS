@@ -44,8 +44,9 @@ require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DE
 // Merge it with our default config file
 $config = CMap::mergeArray($defaultConfig, $config);
 
-// Include the ClassMap for enhanced performance
-require_once __DIR__.DS.'protected'.DS.'config'.DS.'classmap.php';
+// Include the ClassMap for enhanced performance if we're not in debug mode
+if (!YII_DEBUG)
+	require_once __DIR__.DS.'protected'.DS.'config'.DS.'classmap.php';
 
 // Include the composer dependencies
 require_once __DIR__.DS.'vendor'.DS.'autoload.php';

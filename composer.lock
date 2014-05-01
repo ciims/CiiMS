@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "208a8d5f48ed08a4a7ad3c57b6147d14",
+    "hash": "1dd00619d294d155e3138de27fc0c2eb",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "53383ec68fada4a41ddbc9a7d7bc3130f48fd110"
+                "reference": "962a52b12e108487833a8bf115d1ed68d95e5003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/53383ec68fada4a41ddbc9a7d7bc3130f48fd110",
-                "reference": "53383ec68fada4a41ddbc9a7d7bc3130f48fd110",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/962a52b12e108487833a8bf115d1ed68d95e5003",
+                "reference": "962a52b12e108487833a8bf115d1ed68d95e5003",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -167,7 +167,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-04-30 00:47:53"
+            "time": "2014-04-30 01:23:59"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -211,7 +211,7 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
@@ -247,16 +247,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "dev-master",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "ea3fbfd688ab9678ee4d4b7aa4283585a6496784"
+                "reference": "66e42d4b0f2e26694b1bd029a5ded90d5676a176"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ea3fbfd688ab9678ee4d4b7aa4283585a6496784",
-                "reference": "ea3fbfd688ab9678ee4d4b7aa4283585a6496784",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/66e42d4b0f2e26694b1bd029a5ded90d5676a176",
+                "reference": "66e42d4b0f2e26694b1bd029a5ded90d5676a176",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-04-28 14:47:50"
+            "time": "2014-04-30 23:48:45"
         },
         {
             "name": "composer/installers",
@@ -494,12 +494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754"
+                "reference": "a8e15807f223dbc706415b743011b4d0335e58eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
-                "reference": "1c4db158a0d9cf6f95326b0ff6151acffcb7c754",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/a8e15807f223dbc706415b743011b4d0335e58eb",
+                "reference": "a8e15807f223dbc706415b743011b4d0335e58eb",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +526,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-29 19:36:45"
+            "time": "2014-04-30 15:08:08"
         },
         {
             "name": "guzzle/common",
@@ -1011,12 +1011,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "133627e57441b50128807702bea0d395129809ad"
+                "reference": "cb62ec8dd05893fc8e4f0e6e21e326e1fc731fe8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/133627e57441b50128807702bea0d395129809ad",
-                "reference": "133627e57441b50128807702bea0d395129809ad",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/cb62ec8dd05893fc8e4f0e6e21e326e1fc731fe8",
+                "reference": "cb62ec8dd05893fc8e4f0e6e21e326e1fc731fe8",
                 "shasum": ""
             },
             "require": {
@@ -1024,6 +1024,7 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
+                "symfony/config": "~2.0",
                 "symfony/dependency-injection": "~2.0",
                 "symfony/stopwatch": "~2.2"
             },
@@ -1060,7 +1061,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-16 10:36:21"
+            "time": "2014-04-29 10:13:57"
         },
         {
             "name": "yiisoft/yii",
@@ -1178,12 +1179,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "e7e96046d894c11438efdfcd687ff7b80dba6e30"
+                "reference": "5f7c838fcd81ce4d05021bf2a7a8a8a3cb49a5aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/e7e96046d894c11438efdfcd687ff7b80dba6e30",
-                "reference": "e7e96046d894c11438efdfcd687ff7b80dba6e30",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/5f7c838fcd81ce4d05021bf2a7a8a8a3cb49a5aa",
+                "reference": "5f7c838fcd81ce4d05021bf2a7a8a8a3cb49a5aa",
                 "shasum": ""
             },
             "require": {
@@ -1235,7 +1236,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-04-23 02:48:30"
+            "time": "2014-05-01 00:16:01"
         },
         {
             "name": "fabpot/goutte",
@@ -1341,12 +1342,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9"
+                "reference": "a995604307026ed8693ffba8848765532030371b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9",
-                "reference": "f0565e24d9ac4c34f855d8ee4dc314545c7c4fd9",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/a995604307026ed8693ffba8848765532030371b",
+                "reference": "a995604307026ed8693ffba8848765532030371b",
                 "shasum": ""
             },
             "require": {
@@ -1398,7 +1399,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-27 16:15:10"
+            "time": "2014-04-30 08:57:33"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1589,12 +1590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b8a22bec42d81df579f164da09480af82a7576bb"
+                "reference": "1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b8a22bec42d81df579f164da09480af82a7576bb",
-                "reference": "b8a22bec42d81df579f164da09480af82a7576bb",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6",
+                "reference": "1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6",
                 "shasum": ""
             },
             "require": {
@@ -1655,7 +1656,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-29 23:29:13"
+            "time": "2014-04-30 13:01:14"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1720,12 +1721,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "e4f1b2e03bf3af65b7b3e8f437a4255657df577d"
+                "reference": "7043b47ba5990b6b12ee32625934d7a9be3a8ab2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/e4f1b2e03bf3af65b7b3e8f437a4255657df577d",
-                "reference": "e4f1b2e03bf3af65b7b3e8f437a4255657df577d",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/7043b47ba5990b6b12ee32625934d7a9be3a8ab2",
+                "reference": "7043b47ba5990b6b12ee32625934d7a9be3a8ab2",
                 "shasum": ""
             },
             "require": {
@@ -1777,7 +1778,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2014-04-27 07:18:17"
+            "time": "2014-04-30 06:50:25"
         },
         {
             "name": "sebastian/diff",
@@ -2357,14 +2358,14 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cryptlib/cryptlib": 20,
-        "ciims-themes/default": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/api": 20,
+        "ciims-modules/install": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },
     "platform": {
-        "php": ">=5.3.7",
+        "php": ">=5.3.10",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",

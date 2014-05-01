@@ -38,7 +38,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.7",
+        "php": ">=5.3.10",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",
@@ -57,10 +57,10 @@
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.7",
         "charlesportwoodii/eanalytics": "1.1.2",
-        "ciims-themes/default": "dev-master",
+        "ciims-themes/default": "3.0.2",
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "dev-master",
-        "ciims-modules/install": "2.0.3",
+        "ciims-modules/install": "dev-master",
         "ciims-modules/hybridauth": "2.0.3",
         "knplabs/packagist-api": "v1.1"
     },
