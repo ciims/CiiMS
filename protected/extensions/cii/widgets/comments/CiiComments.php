@@ -17,7 +17,7 @@ class CiiComments extends CWidget
 
 		// Register CSS and Scripts
 		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/ciimscomments.js' : '/ciimscomments.min.js'), CClientScript::POS_END);
-		Yii::app()->clientScript->registerCssFile($asset. (YII_DEBUG ? '/ciimscomments.css' : 'ciimscomments.min.css'));
+		Yii::app()->clientScript->registerCssFile($asset. (YII_DEBUG ? '/ciimscomments.css' : '/ciimscomments.min.css'));
 		
 		if ($this->content != false)
 			$this->renderCommentBox();

@@ -14,20 +14,9 @@
  */
 
 // Disable Error Reporting and set some constants
-error_reporting(0);
-ini_set('display_errors', 'false');
+error_reporting(-1);
+ini_set('display_errors', 'true');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-
-// Determine if we should enable debugging and call stack if debug and trace are set in our config file.
-// By default this disabled
-defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $config['params']['debug'] : false);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
-
-// Include the composer dependencies
-require_once __DIR__.DS.'vendor'.DS.'autoload.php';
-require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
-
-Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
 
 // This is the configuration file
 $config=__DIR__.DS.'protected'.DS.'config'.DS.'main.php';
@@ -40,10 +29,20 @@ if (!file_exists($config) && file_exists('install.php'))
 	exit();
 }
 
+$params = require($config);
+defined('YII_DEBUG') or define('YII_DEBUG',isset($params['params']['debug']) ? $params['params']['debug'] : false);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($params['params']['trace']) ? $params['params']['trace'] : 0);
+
+
 // Load the config file
 $config = require($config);
 $defaultConfig = require($defaultConfig);
 
+// Include the composer dependencies
+require_once __DIR__.DS.'vendor'.DS.'autoload.php';
+require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
+
+Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
 
 // Merge it with our default config file
 $config = CMap::mergeArray($defaultConfig, $config);
