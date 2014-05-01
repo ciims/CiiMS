@@ -30,25 +30,12 @@
 
 class CiiURLManager extends CUrlManager
 {
-
 	/**
 	 * Whether or not we should cache url rules
 	 * Override in main.php
 	 * @var boolean
 	 */
 	public $cache = true;
-
-	/**
-	 * The id for our content rules
-	 * @var string
-	 */
-	public $contentUrlRulesId = 'CiiMSContentUrlRules';
-
-	/**
-	 * The id for our category rules
-	 * @var string
-	 */
-	public $categoriesUrlRulesId = 'CiiMSCategoriesUrlRules';
 
 	/**
 	 * This is where our defaultRules are stored. This takes the place of the rules array in main.php
@@ -58,11 +45,11 @@ class CiiURLManager extends CUrlManager
 	 */
 	public $defaultRules = array(
 		'/sitemap.xml' 					        => '/site/sitemap',
-		'/search/<page:\d+>' 			        => '/site/mysqlsearch',
-		'/search' 						        => '/site/mysqlsearch',
+		'/search/<page:\d+>' 			        => '/site/search',
+		'/search' 						        => '/site/search',
 		'/hybridauth/<provider:\w+>'	        => '/hybridauth',
 		'/contact' 						        => '/site/contact',
-		'/blog.rss' 					        => '/content/rss',
+		'/blog.rss' 					        => '/categories/rss',
 		'/blog/<page:\d+>' 				        => '/content/list',
 		'/' 							        => '/content/list',
 		'/blog' 						        => '/content/list',
@@ -81,8 +68,6 @@ class CiiURLManager extends CUrlManager
         '/profile/resend'					    => '/profile/resend',
 		'/profile/<id:\w+>/<displayName:\w+>' 	=> '/profile/index',
 		'/profile/<id:\w+>' 			        => '/profile/index',
-		'/dashboard'					        => '/dashboard',
-		'/dashboard/content/<page:\d+>'	        => '/dashboard/content',
 		'/acceptinvite'					        => '/site/acceptinvite',
 		'/acceptinvite/<id:\w+>'		        => '/site/acceptinvite',
 		'/error/<code:\w+>' 			        => '/site/error'
@@ -94,12 +79,17 @@ class CiiURLManager extends CUrlManager
 	 **/
 	protected function processRules()
 	{
-		$this->cache = !YII_DEBUG;
+		// Generate the clientRules
+		$this->rules = $this->cache ? Yii::app()->cache->get('CiiMS::Routes') : array();
+		if ($this->rules == false || empty($this->rules))
+		{
+			$this->rules = array();
+        	$this->rules = $this->generateClientRules();
+        	$this->rules = CMap::mergearray($this->addRssRules(), $this->rules);
+        	$this->rules = CMap::mergeArray($this->addModuleRules(), $this->rules);
 
-		$this->addBasicRules();
-        $this->addModuleRules();
-		$this->cacheRules('content', $this->contentUrlRulesId);
-		$this->cacheRules('categories', $this->categoriesUrlRulesId);
+        	Yii::app()->cache->set('CiiMS::Routes', $this->rules);
+        }        
 
 		// Append our cache rules BEFORE we run the defaults
 		$this->rules['<controller:\w+>/<action:\w+>/<id:\d+>'] = '<controller>/<action>';
@@ -108,92 +98,145 @@ class CiiURLManager extends CUrlManager
         return parent::processRules();
 	}
 
-	/**
-	 * Adds basic rules back to the default route
-	 */
-	private function addBasicRules()
-	{
-		$this->rules = CMap::mergeArray($this->defaultRules, $this->rules);
-	}
-
     /**
-     * Adds rules from the module/config/rules.php file
+     * Adds rules from the module/config/routes.php file
+     * @return
      */
     private function addModuleRules()
     {
-        if (YII_DEBUG)
-            $rulesCache = false;
-        else
-            $rulesCache = Yii::app()->cache->get('module_url_rules');
+    	// Load the routes from cache
+        $moduleRoutes = array();
+        $directories = glob(Yii::getPathOfAlias('application.modules') . '/*' , GLOB_ONLYDIR);
 
-        if ($rulesCache == false || $rulesCache == NULL)
+        foreach ($directories as $dir)
         {
-            $rulesCache = array();
-            $directories = glob(Yii::getPathOfAlias('application.modules') . '/*' , GLOB_ONLYDIR);
-
-            foreach ($directories as $dir)
+            $routePath = $dir .DS. 'config' .DS. 'routes.php';
+            if (file_exists($routePath))
             {
-                $routePath = $dir . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routes.php';
-                if (file_exists($routePath))
-                {
-                    $routes = require_once($routePath);
-                    foreach ($routes as $k=>$v)
-                        $rulesCache[$k] = $v;
-                }
+                $routes = require_once($routePath);
+                foreach ($routes as $k=>$v)
+                    $moduleRoutes[$k] = $v;
             }
         }
 
-        $this->rules = CMap::mergeArray($rulesCache, $this->rules);
+        return $moduleRoutes;
     }
 
-	/**
-	 * Method for retrieving rules from the database and caching them
-	 * @param string $fromString - The string to be used in our FROM query
-	 * @param string $item - Address of the caching rule
-	 * @does - Adds to the url rules and caches the result
-	 **/
-	private function cacheRules($fromString, $item)
-	{
-		if (YII_DEBUG)
-			$urlRules = false;
-		else
-			$urlRules = Yii::app()->cache->get($item);
+    /**
+     * Generates RSS rules for categories
+     * @return array
+     */
+    private function addRSSRules()
+   	{
+   		$categories = Categories::model()->findAll();
+   		foreach ($categories as $category)
+   			$routes[$category->slug.'.rss'] = "categories/rss/id/{$category->id}";
 
-		if($urlRules == false || $urlRules == NULL)
-		{
-			if ($fromString == "content")
-				$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString} AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND published <= UTC_TIMESTAMP()")->queryAll();
-			else
-		   		$urlRules = Yii::app()->db->createCommand("SELECT id, slug FROM {$fromString}")->queryAll();
+   		return $routes;
+   	}
 
-			if ($this->cache)
-		    	Yii::app()->cache->set($item, $urlRules);
-		}
+   	/**
+   	 * Generates client rules, depending on if we want to handle rendering client side or server side
+   	 * @return array
+   	 */
+   	private function generateClientRules()
+   	{
+   		$theme;
+   		$themeName = Cii::getConfig('theme', 'default');
+   		if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DS . $themeName .  DS . 'Theme.php'))
+        {
+            Yii::import('webroot.themes.' . $themeName . '.Theme');
+            $theme = new Theme;
+    	}
 
-		$tmpRules = array();
-		foreach ($urlRules as $route)
-		{
-			if ($route['slug'] == NULL)
-				continue;
+    	// Generate the initial rules
+		$rules = CMap::mergeArray($this->defaultRules, $this->rules);
+    	
+    	// If the Theme has requested to handle routing client side, allow it to do so
+    	// Otherwise generate the URL rules for Yii to handle it
+    	if ($theme->noRouting)
+    		return $this->routeAllRulesToRoot();
+    	else
+    		return CMap::mergeArray($this->generateRules(), $rules);   	}
 
-			$pageRule = $route['slug'] . '/<page:\d+>';
-			$rule = $route['slug'];
+   	/**
+   	 * Eraseses all the existing rules and remaps them to the index
+   	 * @return array
+   	 */
+   	private function routeAllRulesToRoot()
+   	{
+   		$rules = $this->rules;
+   		foreach ($rules as $k=>$v)
+   			$rules[$k] = '/';
 
-			// Handle the case of the slug being just /
-			if($route['slug'] == '/')
-			{
-				$pageRule = '';
-				$rule = '';
-			}
+   		return $rules;
+   	}
 
-			$tmpRules[$pageRule] = "{$fromString}/index/id/{$route['id']}";
+   	/**
+   	 * Wrapper function for generation of content rules and category rules
+   	 * @return array
+   	 */
+   	private function generateRules()
+   	{
+   		return CMap::mergeArray($this->generateContentRules(), $this->generateCategoryRules());
+   	}
 
-			if ($fromString == 'categories')
-				$tmpRules[$rule.'.rss'] = "content/rss/id/{$route['id']}";
+   	/**
+   	 * Generates content rules
+   	 * @return array
+   	 */
+    private function generateContentRules()
+    {
+    	$rules = array();
+    	$criteria = Content::model()->getBaseCriteria();
+   		$content = Content::model()->findAll($criteria);
+   		foreach ($content as $el)
+   		{
+   			if ($el->slug == NULL)
+   				continue;
 
-			$tmpRules[$rule] = "{$fromString}/index/id/{$route['id']}";
-		}
+   			$pageRule = $el->slug.'/<page:\d+>';
+   			$rule = $el->slug;
 
-		$this->rules = CMap::mergeArray($tmpRules, $this->rules);
-	}
+   			if ($el->slug == '/')
+   				$pageRule = $rule = '';
+
+   			$pageRule = $el->slug . '/<page:\d+>';
+			$rule = $el->slug;
+
+			$rules[$pageRule] = "content/index/id/{$el->id}";
+			$rules[$rule] = "content/index/id/{$el->id}";
+   		}
+
+   		return $rules;
+    }
+
+    /**
+   	 * Generates category rules
+   	 * @return array
+   	 */
+    private function generateCategoryRules()
+    {
+    	$rules = array();
+   		$categories = Categories::model()->findAll();
+   		foreach ($categories as $el)
+   		{
+   			if ($el->slug == NULL)
+   				continue;
+
+   			$pageRule = $el->slug.'/<page:\d+>';
+   			$rule = $el->slug;
+
+   			if ($el->slug == '/')
+   				$pageRule = $rule = '';
+
+   			$pageRule = $el->slug . '/<page:\d+>';
+			$rule = $el->slug;
+
+			$rules[$pageRule] = "categories/index/id/{$el->id}";
+			$rules[$rule] = "categories/index/id/{$el->id}";
+   		}
+
+   		return $rules;
+    }
 }

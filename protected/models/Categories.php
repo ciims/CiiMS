@@ -212,9 +212,8 @@ class Categories extends CiiModel
 
         $meta->save();
 
-        Yii::app()->cache->delete('categories-listing');
-		Yii::app()->cache->delete('categories');
-		Yii::app()->cache->delete('WFF-categories-url-rules');
+        Yii::app()->cache->delete('CiiMS::Content::list');
+		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('categories-pid');
 
 	    return parent::afterSave();
@@ -234,9 +233,8 @@ class Categories extends CiiModel
 			return false;
 		}
 		
-		Yii::app()->cache->delete('categories');
-        Yii::app()->cache->delete('categories-listing');
-		Yii::app()->cache->delete('WFF-categories-url-rules');
+		Yii::app()->cache->delete('CiiMS::Content::list');
+		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('categories-pid');
 		
 		$parent = $this->parent_id;

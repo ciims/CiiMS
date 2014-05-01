@@ -192,16 +192,6 @@ class CiiController extends CController
     }
 
     /**
-     * Sets the theme
-     * @param string theme The current theme
-     * @param string $theme
-     */
-    private function setGlobalTheme($theme)
-    {
-        
-    }
-
-    /**
      * Handles being on offline mode
      * @param string theme The current theme
      * @param CAction $action
@@ -250,7 +240,7 @@ class CiiController extends CController
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 
-            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DIRECTORY_SEPARATOR . Yii::app()->theme->name .  DIRECTORY_SEPARATOR . 'Theme.php'))
+            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DS . Yii::app()->theme->name .  DS . 'Theme.php'))
             {
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
                 $this->theme = new Theme;

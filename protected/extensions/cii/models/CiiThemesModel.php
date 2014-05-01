@@ -7,6 +7,12 @@ class CiiThemesModel extends CiiSettingsModel
      */
 	private $theme = NULL;
 
+    /**
+     * Tells CiiMS to route everything to a single point so that a JS app can handle the rendering
+     * @var boolean $noRouting
+     */
+    public $noRouting = false;
+
 	/**
      * Retrieves all categories to display int he footer
      * @return array $items     The CMenu Items we are going to return
@@ -14,7 +20,7 @@ class CiiThemesModel extends CiiSettingsModel
     public function getCategories()
     {
         $items = array(array('label' =>Yii::t('ciims.models.theme',  'All Posts'), 'url' => Yii::app()->createUrl('/blog')));
-        $categories = Yii::app()->cache->get('categories-listing');
+        $categories = Yii::app()->cache->get('CiiMS::Categories::list');
         if ($categories == false)
         {
             $criteria = new CDbCriteria();
@@ -24,7 +30,7 @@ class CiiThemesModel extends CiiSettingsModel
             $criteria->select = 't.id, t.slug, t.name';
 
             $categories = Categories::model()->findAll($criteria);
-            Yii::app()->cache->set('categories-listing', $categories);
+            Yii::app()->cache->set('CiiMS::Categories::list', $categories);
         }
 
         foreach ($categories as $k=>$v)
@@ -43,7 +49,7 @@ class CiiThemesModel extends CiiSettingsModel
     public function getRecentPosts()
     {
         $items = array();
-        $content = Yii::app()->cache->get('content-listing');
+        $content = Yii::app()->cache->get('CiiMS::Content::list');
         if ($content == false)
         {
             $criteria = Content::model()->getBaseCriteria()
@@ -53,7 +59,7 @@ class CiiThemesModel extends CiiSettingsModel
             $criteria->limit = 5;
 
             $content = Content::model()->findAll($criteria);
-            Yii::app()->cache->set('content-listing', $content);
+            Yii::app()->cache->set('CiiMS::Content::list', $content);
         }
 
         foreach ($content as $v)

@@ -120,4 +120,29 @@ class CategoriesController extends CiiSiteController
 		$categories = Categories::model()->findAll($criteria);
 		$this->render('list', array('categories'=>$categories));
 	}
+
+	/**
+	 * Displays either all posts or all posts for a particular category_id if an $id is set in RSS Format
+	 * So that RSS Readers can access the website
+	 * @param  int $id
+	 */
+	public function actionRss($id=NULL)
+	{
+		Yii::app()->log->routes[0]->enabled = false; 
+		ob_end_clean();
+		header('Content-type: text/xml; charset=utf-8');
+		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$this->setLayout(null);
+		$criteria = Content::model()->getBaseCriteria()
+								   ->addCondition('type_id >= 2');
+                 
+		if ($id != NULL)
+			$criteria->addCondition("category_id = " . $id);
+					
+		$criteria->order = 'created DESC';
+		$data = Content::model()->findAll($criteria);
+		
+		$this->renderPartial('application.views.site/rss', array('data'=>$data, 'url'=> $url));
+		return;
+	}
 }

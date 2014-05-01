@@ -71,6 +71,7 @@ class SiteController extends CiiSiteController
 	public function actionSitemap()
 	{
 		ob_end_clean();
+		Yii::app()->log->routes[0]->enabled = false; 
 		header('Content-type: text/xml; charset=utf-8');
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
 		$this->setLayout(null);

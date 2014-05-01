@@ -403,10 +403,9 @@ class Content extends CiiModel
      */
 	public function beforeSave()
 	{
-		$this->slug = $this->verifySlug($this->slug, $this->title);		
-		Yii::app()->cache->delete('content');
-		Yii::app()->cache->delete('content-listing');
-		Yii::app()->cache->delete('WFF-content-url-rules');
+		$this->slug = $this->verifySlug($this->slug, $this->title);	
+		Yii::app()->cache->delete('CiiMS::Content::list');
+		Yii::app()->cache->delete('CiiMS::Routes');
 		
 		Yii::app()->cache->set('content-' . $this->id . '-layout', $this->layoutFile);
         Yii::app()->cache->set('content-' . $this->id . '-view', $this->viewFile);
@@ -432,9 +431,8 @@ class Content extends CiiModel
      */
 	public function beforeDelete()
 	{		
-		Yii::app()->cache->delete('content');
-		Yii::app()->cache->delete('content-listing');
-		Yii::app()->cache->delete('WFF-content-url-rules');
+		Yii::app()->cache->delete('CiiMS::Content::list');
+		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('content-' . $this->id . '-layout');
         Yii::app()->cache->delete('content-' . $this->id . '-view');
         

@@ -22,12 +22,11 @@
 - Dashboard redirects to login page on session timeout rather than throwing a render error
 - CiiTimezoneFixCommand added to correct Timezone bugs introduced in 1.9.0. This command only needs to be run if you're experience timezone related issues.
 - Javascript errors in Dashboard (GH #110)
+- CSS Assets with data:application/mime-type CSS URL rules triggered fatal error when loaded with YII_DEBUG=false (GH #128)
 
 ###### IMPROVEMENTS:
 
 - Added CHANGELOG.md
-- Migrations automatically register instance with ciims.org
-- Cards now use uuid from ciims.org rather than generating their own
 - New Default Theme
 - Installed has been streamlined and rethemed
 - Comment API is now always enabled if not using a secondary comment provider
@@ -42,12 +41,13 @@
 - CiiMS now ships with less code due to composer supported added in GH #111
 - Composer will notify you if you have insufficient requirements to run CiiMS on first install
 - FontAwesome version update
+- CiiMS can now run with Yii's internal routing disable for 100% client side themes.
+- Modules and Themes now utilize npm, grunt, and bower for asset and dependency management
 
 ###### FEATURES:
 
-- Cards can now be installed from ciims.org
-- Themes can now be installed from ciims.org
 - Cards and Themes can notify user when there is an update available for them, and can do ondemand in place self updates.
+- Cards are now 100% self contained javascript/html applications. PHP is no longer required.
 - Added Composer Support (GH #111)
 - Modules now are self loading, and no longer require configuration changes to load (GH #114)
 
