@@ -18,6 +18,17 @@ error_reporting(0);
 ini_set('display_errors', 'false');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
+// Determine if we should enable debugging and call stack if debug and trace are set in our config file.
+// By default this disabled
+defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $config['params']['debug'] : false);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
+
+// Include the composer dependencies
+require_once __DIR__.DS.'vendor'.DS.'autoload.php';
+require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
+
+Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
+
 // This is the configuration file
 $config=__DIR__.DS.'protected'.DS.'config'.DS.'main.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
@@ -33,13 +44,6 @@ if (!file_exists($config) && file_exists('install.php'))
 $config = require($config);
 $defaultConfig = require($defaultConfig);
 
-// Determine if we should enable debugging and call stack if debug and trace are set in our config file.
-// By default this disabled
-defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $config['params']['debug'] : false);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
-
-// Register Yii Framework
-require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
 
 // Merge it with our default config file
 $config = CMap::mergeArray($defaultConfig, $config);
@@ -47,9 +51,6 @@ $config = CMap::mergeArray($defaultConfig, $config);
 // Include the ClassMap for enhanced performance if we're not in debug mode
 if (!YII_DEBUG)
 	require_once __DIR__.DS.'protected'.DS.'config'.DS.'classmap.php';
-
-// Include the composer dependencies
-require_once __DIR__.DS.'vendor'.DS.'autoload.php';
 
 $config['components']['db']['enableProfiling'] = YII_DEBUG;
 $config['components']['db']['enableParamLogging'] = YII_DEBUG;

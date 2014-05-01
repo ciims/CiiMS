@@ -35,6 +35,30 @@
         {
             "type": "vcs",
             "url": "https://github.com/charlesportwoodii/YiiBridge"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "gtcode/yii-newrelic",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/gtcode/yii-newrelic",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "yiqing-95/YiiTimeAgo",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/yiqing-95/YiiTimeAgo",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
     ],
     "require": {
@@ -56,14 +80,15 @@
         "ircmaxell/password-compat": "1.0.3",
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.7",
+        "knplabs/packagist-api": "v1.1",
+        "gtcode/yii-newrelic": "dev-master",
+        "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.2",
         "ciims-themes/default": "3.0.2",
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "dev-master",
         "ciims-modules/install": "2.0.4",
-        "ciims-modules/hybridauth": "2.0.3",
-        "knplabs/packagist-api": "v1.1",
-        "yiiext/imperavi-redactor-widget": "*"
+        "ciims-modules/hybridauth": "2.0.4",
     },
     "require-dev": {
         "codeception/codeception": "dev-master",

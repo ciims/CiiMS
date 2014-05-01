@@ -13,14 +13,11 @@ class CiiComments extends CWidget
 	 */
 	public function init()
 	{
-		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. '/ciimscomments.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScriptFile($asset. '/date.format/date.format.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScriptFile($asset. '/marked.js', CClientScript::POS_END);
-		Yii::app()->clientScript->registerScriptFile($asset. '/md5.js', CClientScript::POS_END);
+		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
 
-		$css = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.css'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerCssFile($css. '/ciimscomments.css');
+		// Register CSS and Scripts
+		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/ciimscomments.js' : '/ciimscomments.min.js'), CClientScript::POS_END);
+		Yii::app()->clientScript->registerCssFile($asset. (YII_DEBUG ? '/ciimscomments.css' : 'ciimscomments.min.css'));
 		
 		if ($this->content != false)
 			$this->renderCommentBox();

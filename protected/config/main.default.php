@@ -32,7 +32,7 @@ return array(
     'modules' => require_once __DIR__ . DS . 'modules.php',
     'behaviors' => array(
         'onBeginRequest' => array(
-             'class' => 'ext.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
+             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
         ),
     ),
     'components' => array(
@@ -40,7 +40,7 @@ return array(
             'class' => 'ext.cii.components.CiiPHPMessageSource'
         ),
         'newRelic' => array(
-            'class' => 'ext.yii-newrelic.YiiNewRelic',
+            'class' => 'vendor.gtcode.yii-newrelic.YiiNewRelic',
         ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'

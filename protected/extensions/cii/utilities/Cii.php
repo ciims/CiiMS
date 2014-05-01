@@ -165,7 +165,7 @@ class Cii
      */
     public static function timeago($date, $format = NULL)
     {
-        Yii::app()->controller->widget('ext.timeago.JTimeAgo', array(
+        Yii::app()->controller->widget('vendor.yiqing-95.YiiTimeAgo.timeago.JTimeAgo', array(
             'selector' => ' .timeago',
             'settings' => array(
                 'refreshMillis' => 60000,

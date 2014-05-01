@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "110e3d52eb09e2aa21cc8d093f4a29c0",
+    "hash": "b42216e8b093ccdac014a5c7dbb4698e",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -171,16 +171,16 @@
         },
         {
             "name": "ciims-modules/hybridauth",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
-                "reference": "bb7101ab086b7e225b007bc5deb24526da8e5c48"
+                "reference": "884df853ef1c9f96f79ad333fa476af022528602"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/bb7101ab086b7e225b007bc5deb24526da8e5c48",
-                "reference": "bb7101ab086b7e225b007bc5deb24526da8e5c48",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/884df853ef1c9f96f79ad333fa476af022528602",
+                "reference": "884df853ef1c9f96f79ad333fa476af022528602",
                 "shasum": ""
             },
             "require": {
@@ -207,7 +207,7 @@
                 "module",
                 "social"
             ],
-            "time": "2014-04-26 17:11:57"
+            "time": "2014-05-01 17:10:08"
         },
         {
             "name": "ciims-modules/install",
@@ -494,12 +494,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "a8e15807f223dbc706415b743011b4d0335e58eb"
+                "reference": "e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/a8e15807f223dbc706415b743011b4d0335e58eb",
-                "reference": "a8e15807f223dbc706415b743011b4d0335e58eb",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d",
+                "reference": "e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +526,18 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-04-30 15:08:08"
+            "time": "2014-05-01 06:28:49"
+        },
+        {
+            "name": "gtcode/yii-newrelic",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gtcode/yii-newrelic",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2012-10-04 03:51:22"
         },
         {
             "name": "guzzle/common",
@@ -1064,47 +1075,6 @@
             "time": "2014-04-29 10:13:57"
         },
         {
-            "name": "yiiext/imperavi-redactor-widget",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiiext/imperavi-redactor-widget.git",
-                "reference": "92868a5cee0a6938427a6421f0f42980c89d3801"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiiext/imperavi-redactor-widget/zipball/92868a5cee0a6938427a6421f0f42980c89d3801",
-                "reference": "92868a5cee0a6938427a6421f0f42980c89d3801",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Makarov",
-                    "email": "sam@rmcreative.ru",
-                    "homepage": "http://rmcreative.ru/",
-                    "role": "Core framework development"
-                },
-                {
-                    "name": "Veaceslav Medvedev",
-                    "email": "slavcopost@gmail.com",
-                    "role": "Founder and project lead"
-                }
-            ],
-            "description": "Imperavi Redactor Widget for Yii",
-            "homepage": "https://github.com/yiiext/imperavi-redactor-widget",
-            "keywords": [
-                "impravi",
-                "wysiwyg",
-                "yii"
-            ],
-            "time": "2014-04-18 10:51:04"
-        },
-        {
             "name": "yiisoft/yii",
             "version": "1.1.14",
             "source": {
@@ -1187,6 +1157,17 @@
                 "yii"
             ],
             "time": "2013-08-12 00:12:08"
+        },
+        {
+            "name": "yiqing-95/YiiTimeAgo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiqing-95/YiiTimeAgo",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2012-06-15 05:47:46"
         }
     ],
     "packages-dev": [
@@ -1631,12 +1612,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6"
+                "reference": "39f55397645b8c583102895c40584d3b29407271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6",
-                "reference": "1dbd75bfb8de536c2e4906dd3841b5cabe1e95f6",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/39f55397645b8c583102895c40584d3b29407271",
+                "reference": "39f55397645b8c583102895c40584d3b29407271",
                 "shasum": ""
             },
             "require": {
@@ -1697,7 +1678,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-04-30 13:01:14"
+            "time": "2014-05-01 17:15:14"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1762,12 +1743,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "7043b47ba5990b6b12ee32625934d7a9be3a8ab2"
+                "reference": "f81cc1a52a8c2241015f02470d34ac44ff988b14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/7043b47ba5990b6b12ee32625934d7a9be3a8ab2",
-                "reference": "7043b47ba5990b6b12ee32625934d7a9be3a8ab2",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/f81cc1a52a8c2241015f02470d34ac44ff988b14",
+                "reference": "f81cc1a52a8c2241015f02470d34ac44ff988b14",
                 "shasum": ""
             },
             "require": {
@@ -1819,7 +1800,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2014-04-30 06:50:25"
+            "time": "2014-05-01 08:04:40"
         },
         {
             "name": "sebastian/diff",
@@ -2401,6 +2382,8 @@
         "cryptlib/cryptlib": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/api": 20,
+        "gtcode/yii-newrelic": 20,
+        "yiqing-95/yiitimeago": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },

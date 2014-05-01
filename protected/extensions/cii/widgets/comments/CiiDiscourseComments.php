@@ -24,8 +24,8 @@ class CiiDiscourseComments extends CWidget
 	public function init()
 	{
 		$this->_url = Cii::getConfig('discourseUrl');
-		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.js'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. '/discourse.js');
+		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
+		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/discourse.js' : '/discourse.min.js'), CClientScript::POS_END);
 
 		if ($this->content != false)
 			$this->renderCommentBox();
