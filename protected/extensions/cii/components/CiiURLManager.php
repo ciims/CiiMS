@@ -49,7 +49,6 @@ class CiiURLManager extends CUrlManager
 		'/search' 						        => '/site/search',
 		'/hybridauth/<provider:\w+>'	        => '/hybridauth',
 		'/contact' 						        => '/site/contact',
-		'/blog.rss' 					        => '/categories/rss',
 		'/blog/<page:\d+>' 				        => '/content/list',
 		'/' 							        => '/content/list',
 		'/blog' 						        => '/content/list',
@@ -132,6 +131,7 @@ class CiiURLManager extends CUrlManager
    		foreach ($categories as $category)
    			$routes[$category->slug.'.rss'] = "categories/rss/id/{$category->id}";
 
+   		$routes['blog.rss'] = '/categories/rss';
    		return $routes;
    	}
 
