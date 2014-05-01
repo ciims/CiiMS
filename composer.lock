@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1dd00619d294d155e3138de27fc0c2eb",
+    "hash": "bfcb11f00a3688af9f88b3e358237b73",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -211,16 +211,16 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "dev-master",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "06a5eb38b70e0863a94aac51775526967967a2e5"
+                "reference": "688f7c3b00314535c9aa33bcc9034bb20249523c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/06a5eb38b70e0863a94aac51775526967967a2e5",
-                "reference": "06a5eb38b70e0863a94aac51775526967967a2e5",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/688f7c3b00314535c9aa33bcc9034bb20249523c",
+                "reference": "688f7c3b00314535c9aa33bcc9034bb20249523c",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -243,7 +243,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2014-04-21 18:48:35"
+            "time": "2014-05-01 00:26:00"
         },
         {
             "name": "ciims-themes/default",
@@ -2360,7 +2360,6 @@
         "cryptlib/cryptlib": 20,
         "ciims-modules/dashboard": 20,
         "ciims-modules/api": 20,
-        "ciims-modules/install": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },

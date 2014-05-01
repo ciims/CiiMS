@@ -60,7 +60,7 @@
         "ciims-themes/default": "3.0.2",
         "ciims-modules/dashboard": "dev-master",
         "ciims-modules/api": "dev-master",
-        "ciims-modules/install": "dev-master",
+        "ciims-modules/install": "2.0.4",
         "ciims-modules/hybridauth": "2.0.3",
         "knplabs/packagist-api": "v1.1"
     },
