@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b42216e8b093ccdac014a5c7dbb4698e",
+    "hash": "7abf5f821cbf43302ebd042e4f470bf3",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -2380,10 +2380,10 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cryptlib/cryptlib": 20,
-        "ciims-modules/dashboard": 20,
-        "ciims-modules/api": 20,
         "gtcode/yii-newrelic": 20,
         "yiqing-95/yiitimeago": 20,
+        "ciims-modules/dashboard": 20,
+        "ciims-modules/api": 20,
         "codeception/codeception": 20,
         "codeception/yiibridge": 20
     },
