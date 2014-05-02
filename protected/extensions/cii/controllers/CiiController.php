@@ -218,13 +218,7 @@ class CiiController extends CController
      */
     private function isInModule()
     {
-        try {
-            return Yii::app()->controller->module->id != "";
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return false;
+        return isset(Yii::app()->controller->module);
     }
 
     /**
