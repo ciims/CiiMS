@@ -37,6 +37,10 @@
             "url": "https://github.com/charlesportwoodii/YiiBridge"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard2"
+        },
+        {
             "type": "package",
             "package": {
                 "name": "gtcode/yii-newrelic",

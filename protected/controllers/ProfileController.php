@@ -1,6 +1,6 @@
 <?php
 
-class ProfileController extends CiiSiteController
+class ProfileController extends CiiController
 {
 
 	/**

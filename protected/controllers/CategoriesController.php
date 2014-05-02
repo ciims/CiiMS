@@ -1,6 +1,6 @@
 <?php
 
-class CategoriesController extends CiiSiteController
+class CategoriesController extends CiiController
 {
 	/**
 	 * Base filter, allows logged in and non-logged in users to cache the page

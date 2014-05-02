@@ -213,6 +213,21 @@ class CiiController extends CController
     }
 
     /**
+     * Determines if the currently loaded route is in a module or not
+     * @return boolean
+     */
+    private function isInModule()
+    {
+        try {
+            return Yii::app()->controller->module->id != "";
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
      * Retrieves keywords for use in the viewfile
      */
     public function getKeywords()
@@ -240,7 +255,7 @@ class CiiController extends CController
 	    	if (isset($data['data']) && is_object($data['data']))
 	    		$this->params['data'] = $data['data']->attributes;
 
-            if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DS . Yii::app()->theme->name .  DS . 'Theme.php'))
+            if (!$this->isInModule() && file_exists(Yii::getPathOfAlias('webroot.themes.') . DS . Yii::app()->theme->name .  DS . 'Theme.php'))
             {
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
                 $this->theme = new Theme;
@@ -255,7 +270,8 @@ class CiiController extends CController
                     $this->widget('ext.cii.widgets.CiiAddThisWidget');
 
                 // Render the Comment functionality automatically
-                $this->widget('ext.cii.widgets.comments.CiiCommentMaster', array('type' => Cii::getCommentProvider(), 'content' => isset($data['data']) && is_a($data['data'], 'Content') ? $data['data']->attributes : false));
+                if (!$this->isInModule())
+                    $this->widget('ext.cii.widgets.comments.CiiCommentMaster', array('type' => Cii::getCommentProvider(), 'content' => isset($data['data']) && is_a($data['data'], 'Content') ? $data['data']->attributes : false));
 
     		    $output=$this->renderFile($layoutFile,array('content'=>$output, 'meta'=>$this->params['meta']),true);
             }

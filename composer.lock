@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7abf5f821cbf43302ebd042e4f470bf3",
+    "hash": "f38b32051a3366c21b90017d50da22d4",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -138,17 +138,16 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "962a52b12e108487833a8bf115d1ed68d95e5003"
+                "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard2.git",
+                "reference": "f19cda662aa152d7c9b9e28cd8b1a7681b491748"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/962a52b12e108487833a8bf115d1ed68d95e5003",
-                "reference": "962a52b12e108487833a8bf115d1ed68d95e5003",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard2/zipball/f19cda662aa152d7c9b9e28cd8b1a7681b491748",
+                "reference": "f19cda662aa152d7c9b9e28cd8b1a7681b491748",
                 "shasum": ""
             },
             "type": "drupal-module",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -160,14 +159,21 @@
                     "role": "Lead Developer"
                 }
             ],
-            "description": "The dashboard module for CiiMS",
+            "description": "A (mostly) client side iteration of the CiiMS Dashboard module, written in ember.js",
             "homepage": "https://www.ciims.org",
             "keywords": [
-                "CiiMS",
+                "ciims",
                 "dashboard",
+                "ember.json",
                 "module"
             ],
-            "time": "2014-04-30 01:23:59"
+            "support": {
+                "email": "charlesportwoodii@ethreal.net",
+                "issues": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember/issues",
+                "wiki": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember/wiki/_pages",
+                "source": "https://github.com/charlesportwoodii/ciims-modules-dashboard-ember"
+            },
+            "time": "2014-04-30 00:38:51"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -494,12 +500,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d"
+                "reference": "2b8fc32209f22891273a7b74f593c92b062e013e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d",
-                "reference": "e8dcb3318be6a5dc430328cf2ee3c463c9ebb23d",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/2b8fc32209f22891273a7b74f593c92b062e013e",
+                "reference": "2b8fc32209f22891273a7b74f593c92b062e013e",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +532,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-05-01 06:28:49"
+            "time": "2014-05-02 06:29:49"
         },
         {
             "name": "gtcode/yii-newrelic",
@@ -1612,12 +1618,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "39f55397645b8c583102895c40584d3b29407271"
+                "reference": "6357ee44aca49c621dde6b6a3e3d4e16efba6595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/39f55397645b8c583102895c40584d3b29407271",
-                "reference": "39f55397645b8c583102895c40584d3b29407271",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6357ee44aca49c621dde6b6a3e3d4e16efba6595",
+                "reference": "6357ee44aca49c621dde6b6a3e3d4e16efba6595",
                 "shasum": ""
             },
             "require": {
@@ -1678,7 +1684,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-01 17:15:14"
+            "time": "2014-05-02 11:59:15"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1743,12 +1749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "f81cc1a52a8c2241015f02470d34ac44ff988b14"
+                "reference": "f7069ee51fa9fb6c038e16a9d0e3439f5449dcf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/f81cc1a52a8c2241015f02470d34ac44ff988b14",
-                "reference": "f81cc1a52a8c2241015f02470d34ac44ff988b14",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/f7069ee51fa9fb6c038e16a9d0e3439f5449dcf2",
+                "reference": "f7069ee51fa9fb6c038e16a9d0e3439f5449dcf2",
                 "shasum": ""
             },
             "require": {
@@ -1757,7 +1763,7 @@
                 "sebastian/exporter": "~1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.1"
             },
             "type": "library",
             "extra": {
@@ -1800,7 +1806,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2014-05-01 08:04:40"
+            "time": "2014-05-02 07:05:58"
         },
         {
             "name": "sebastian/diff",
