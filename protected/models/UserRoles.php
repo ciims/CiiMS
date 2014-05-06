@@ -14,6 +14,89 @@
  */
 class UserRoles extends CiiModel
 {
+
+	/**
+	 * Returns a key => value array of userRole => bitwise permissions
+	 *
+	 * Permissions apply per role, with the exception of publisher and admin, whose permissions apply to everything
+	 * Note that these permissions only apply to content, and management of CiiMS' settings
+	 *
+	 * --------------------------------------------------------------------------------
+	 * | role/id | manage | publish other | publish | delete | update | create | read |
+	 * --------------------------------------------------------------------------------
+	 * |  user/1 |   0    |        0      |    0    |    0   |    0   |    0   |  1   |
+	 * --------------------------------------------------------------------------------
+	 * | clb/5   |   0    |        0      |    0    |    0   |    1   |    1   |  1   |
+	 * --------------------------------------------------------------------------------
+	 * | auth/7  |   0    |        0      |    1    |    1   |    1   |    1   |  1   |
+	 * --------------------------------------------------------------------------------
+	 * | pub/8   |   0    |        1      |    1    |    1   |    1   |    1   |  1   |
+	 * --------------------------------------------------------------------------------
+	 * | admin/9 |   1    |        1      |    1    |    1   |    1   |    1   |  1   |
+	 * --------------------------------------------------------------------------------  
+	 * @return array
+	 */
+	public function getPermissions()
+	{
+		return array(
+			'1' => 1,		// User
+			'2' => 0,		// Pending
+			'3' => 0,		// Suspended
+			'5' => 7,		// Collaborator
+			'7' => 16,		// Author
+			'8' => 32,		// Publisher
+			'9' => 64		// Admin
+		);
+	}
+
+	/**
+	 * Returns the bitwise permissions associated to each activity
+	 * @return array
+	 */
+	public function getActivities()
+	{
+		return array(
+			'read' 			=> 1,
+			'comment' 		=> 1,
+			'create' 		=> 3,
+			'update' 		=> 4,
+			'modify' 		=> 7,
+			'delete' 		=> 8,
+			'publish' 		=> 16,
+			'publishOther' 	=> 32,
+			'manage' 		=> 64
+
+		);
+	}
+
+	/**
+	 * Determines if a user with a given role has permission to perform a given activity
+	 * @param string $permissions   The permissions we want to lookup
+	 * @param int 	 $role 			The user role. If not provided, will be applied to the current user
+	 * @return boolean
+	 */
+	public function hasPermission($permission, $role=NULL)
+	{
+		if ($role == NULL)
+		{
+			if (isset($this->id))
+				$role = $this->id;
+			else if (Yii::app()->user->isGuest)
+				$role = 1;
+			else
+				$role = Yii::app()->user->role;
+		}
+
+		$permissions = $this->getPermissions();
+		$activities = $this->getActivities();
+
+		// If the permission doesn't exist for that role, return false;
+		if (isset($permission[$role]))
+			return false;
+
+		return $activities[$permission] <= $permissions[$role];
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -78,9 +161,6 @@ class UserRoles extends CiiModel
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

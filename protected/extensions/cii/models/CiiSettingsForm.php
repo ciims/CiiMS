@@ -60,12 +60,7 @@ class CiiSettingsForm extends CWidget
 	 * The following is run when the widget is called
 	 */
 	public function run()
-	{		
-		if (count($this->properties) == 0 && $this->model->preContentView !== NULL)
-		{
-			$this->controller->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
-			return;
-		}
+	{
 
 		// Setup the form
 		$form = $this->beginWidget('CiiActiveForm', array(
@@ -77,46 +72,11 @@ class CiiSettingsForm extends CWidget
 		    )
 		));
 
-			// Header
-			if ($this->displayHeader)
-				$this->renderHeader($form);
-
-			// Before Content View
-			// CActiveForm elements should not be used so that they are not submitted
-			if ($this->model->preContentView !== NULL)
-				$this->controller->renderPartial($this->model->preContentView, array('model' => $this->model, 'properties' => $this->properties));
-
 			// Main Content
 			$this->renderMain($form);
 
 		// Close the form
 		$this->endWidget();
-	}
-
-	/**
-	 * Renders the header
-	 * @param  CActiveForm $form The Form we're working with
-	 */
-	private function renderHeader($form)
-	{		
-		// Render out the header
-		echo CHtml::openTag('div', array('class'=>'header'));
-			echo CHtml::openTag('div', array('class'=>'pull-left'));
-				echo CHtml::tag('p', array(), $this->header['h3']);
-			echo CHtml::closeTag('div');
-
-			echo CHtml::openTag('div', array('class'=>'pull-right'));
-				echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small'), CHtml::tag('i', array('class' => 'fa fa-spinner fa-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
-			echo CHtml::closeTag('div');
-
-			echo CHtml::tag('div', array('class' => 'clearfix'), NULL);
-		echo CHtml::closeTag('div');
-
-		$this->widget('cii.widgets.CiiAlert', array(
-	              'block'=>true,
-	              'fade'=>true,
-	              'closeText'=>'×',
-	         ));
 	}
 
 	/**
@@ -127,14 +87,14 @@ class CiiSettingsForm extends CWidget
 	{
 		// #main .content
 		echo CHtml::openTag('div', array('id' => 'main', 'class' => 'nano'));
-			echo CHtml::openTag('div', array('class' => 'content'));
+			echo CHtml::openTag('div', array('class' => 'nano-content'));
 
 				echo CHtml::openTag('fieldset');
 
 					// If we want a custom form view, render that view instead of the default behavior
 					if ($this->model->form !== NULL)
 						$this->controller->renderPartial($this->model->form, array('model' => $this->model, 'properties' => $this->properties, 'form' => $form));
-					else if (count($this->properties) == 0 && $this->model->preContentView == NULL)
+					else if (count($this->properties) == 0)
 					{
 						echo CHtml::tag('legend', array(), Yii::t('Dashboard.main', 'Change Theme Settings'));
 						echo CHtml::tag('div', array('class' => 'alert alert-info'), Yii::t('Dashboard.main', 'There are no settings for this section.'));
@@ -165,43 +125,11 @@ class CiiSettingsForm extends CWidget
 								$this->renderProperties($form, $property);
 							}
 						}
-						
-						echo CHtml::tag('button', array('id' =>'header-button', 'escape' => false, 'class' => 'pure-button pure-button-primary pure-button-small pull-right'), CHtml::tag('i', array('class' => 'fa fa-spinner fa-spin icon-spinner icon-spin icon-spinner-form2', 'style' => 'display: none'), NULL) . $this->header['save-text']);
 					}
 
 				echo CHtml::closeTag('div');
 			echo CHtml::closeTag('div');
 		echo CHtml::closeTag('div');
-
-		Yii::app()->getClientScript()->registerScript('change', '
-			$("input:not([no-field-change=\'true\']").on("input onpropertychange change", function() {
-
-				try {
-					$(".icon-spinner-form2").fadeIn();
-					clearTimeout(timeout);
-				} catch (e) {}
-				
-				timeout = setTimeout(function() {
-
-					var values = $("form").serializeArray();
-
-				    $("form input[type=checkbox]:not(:checked)").each(function() {
-				    	values.push({ "name" : this.name, "value" : 0 })
-				    });
-
-					$.post($("form").attr("action"), values, function(data, textStatus) {
-						var d = $("#yw2", $.parseHTML(data));
-
-						$("#yw2").html($(d).html());						
-						$(".alert").not(".alert-secondary").fadeIn(1000);
-						$(".icon-spinner-form2").fadeOut();
-						setTimeout(function() { $(".alert").not(".alert-secondary").fadeOut(1000); }, 5000);
-					});
-
-				}, 1000);
-
-			});
-		');
 	}
 
 	/**

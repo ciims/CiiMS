@@ -3,31 +3,9 @@
 Yii::import('cii.widgets.CiiBaseActiveForm');
 class CiiActiveForm extends CiiBaseActiveForm
 {
-	public $registerPureCss = true;
+	public $registerPureCss = false;
 
-	public $registerPrism = true;
-
-	/**
-	 * Initializes CiiActiveForm
-	 *
-	 * CiiActiveForm provides a number of enhanced functionalities and tools that wouldn't otherwise be provided, such as HTML5 elements
-	 * However it's primary benefit comes from using CiiSettingsModel via the dashboard. While use in the dashboard is recommended, it can
-	 * be used outside of that. However for the sake of extensibility it needs to be a part of Cii itself so that it can be used elsewhere
-	 * within the application by developers if they so choose to use it.
-	 * 
-	 * @see CActiveForm::init()
-	 */
-	public function init()
-	{
-		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets'), true, -1, YII_DEBUG);
-		$cs = Yii::app()->getClientScript();
-
-		if ($this->registerPureCss)
-			$cs->registerCssFile($asset.'/css/pure.css'); 
-
-		return parent::init();
-	}
-
+	public $registerPrism = false;
 
 	/**
 	 * EmailField type
@@ -217,17 +195,6 @@ class CiiActiveForm extends CiiBaseActiveForm
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property) . (Cii::get($htmlOptions, 'required', false) ? CHtml::tag('span', array('class' => 'required'), ' *') : NULL));
 		echo $this->rangeField($model, $property, $htmlOptions);
 		echo CHtml::tag('div', array('class' => 'output'), NULL);
-
-		// Register a script. Allow it to be overriden since it is global
-		Yii::app()->getClientScript()->registerScript('slider', '
-			$("input[type=\"range\"]").each(function() {
-				$(this).parent().find(".output").html($(this).val());
-			})
-
-			$("input[type=\"range\"]").change(function() { 
-				$(this).parent().find(".output").html($(this).val()); 
-			});
-		');
 	}
 
 	/**
@@ -242,7 +209,7 @@ class CiiActiveForm extends CiiBaseActiveForm
 	{
 		echo CHtml::tag('label', array(), $model->getAttributeLabel($property));
 		echo CHtml::openTag('div', array('class' => Cii::get($htmlOptions, 'class', 'pure-input-2-3'), 'style' => 'display: inline-block'));
-			echo CHtml::openTag('label', array('class' => 'switch-light toggle candy blue'));
+			echo CHtml::openTag('label', array('class' => 'switch-light switch-candy'));
 				$checked = array();
 				if($model->$property == 1)
 					$checked = array('checked' => 'checked');

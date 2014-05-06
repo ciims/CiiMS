@@ -18,7 +18,12 @@ class EmailSettings extends CiiSettingsModel
 
 	protected $useSSL = 0;
 
-	public $preContentView = 'application.modules.dashboard.views.settings.email-test';
+	public function getMultiselect()
+	{
+		return array(
+			Yii::t('ciims.models.email', 'Connection Settings') => array('useTLS', 'useSSL')
+		);
+	} 
 
 	public function rules()
 	{
@@ -35,14 +40,14 @@ class EmailSettings extends CiiSettingsModel
 	public function attributeLabels()
 	{
 		return array(
-			'SMTPHost' => Yii::t('Dashboard.models-email', 'SMTP Hostname'),
-			'SMTPPort' => Yii::t('Dashboard.models-email', 'SMTP Port Number'),
-			'SMTPUser' => Yii::t('Dashboard.models-email', 'SMTP Username'),
-			'SMTPPass' => Yii::t('Dashboard.models-email', 'SMTP Password'),
-			'useTLS' => Yii::t('Dashboard.models-email', 'Use TLS Connection'),
-			'useSSL' => Yii::t('Dashboard.models-email', 'Use SSL Connection'),
-			'notifyName' => Yii::t('Dashboard.models-email', 'System From Name'),
-			'notifyEmail' => Yii::t('Dashboard.models-email', 'System Email Address')
+			'SMTPHost' => Yii::t('ciims.models.email', 'SMTP Hostname'),
+			'SMTPPort' => Yii::t('ciims.models.email', 'SMTP Port Number'),
+			'SMTPUser' => Yii::t('ciims.models.email', 'SMTP Username'),
+			'SMTPPass' => Yii::t('ciims.models.email', 'SMTP Password'),
+			'useTLS' => Yii::t('ciims.models.email', 'Use TLS Connection'),
+			'useSSL' => Yii::t('ciims.models.email', 'Use SSL Connection'),
+			'notifyName' => Yii::t('ciims.models.email', 'System From Name'),
+			'notifyEmail' => Yii::t('ciims.models.email', 'System Email Address')
 		);
 	}
 }
