@@ -18,13 +18,6 @@ class EmailSettings extends CiiSettingsModel
 
 	protected $useSSL = 0;
 
-	public function getMultiselect()
-	{
-		return array(
-			Yii::t('ciims.models.email', 'Connection Settings') => array('useTLS', 'useSSL')
-		);
-	} 
-
 	public function rules()
 	{
 		return array(
