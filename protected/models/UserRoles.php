@@ -91,7 +91,7 @@ class UserRoles extends CiiModel
 		$activities = $this->getActivities();
 
 		// If the permission doesn't exist for that role, return false;
-		if (isset($permission[$role]))
+		if (!isset($permissions[$role]))
 			return false;
 
 		return $activities[$permission] <= $permissions[$role];

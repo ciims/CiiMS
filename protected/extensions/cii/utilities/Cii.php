@@ -167,6 +167,7 @@ class Cii
     {
         Yii::app()->controller->widget('vendor.yiqing-95.YiiTimeAgo.timeago.JTimeAgo', array(
             'selector' => ' .timeago',
+            'useLocale' => false,
             'settings' => array(
                 'refreshMillis' => 60000,
                 'allowFuture' => true,
