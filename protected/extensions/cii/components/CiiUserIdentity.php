@@ -235,21 +235,19 @@ class CiiUserIdentity extends CUserIdentity
      * @param string $hash         The bcrypt hash
      * @return boolean
      */
-    protected function password_verify_with_rehash($password, $hash)
+    protected function password_verify_with_rehash($password_hash, $bcryt_hash)
     {
-        // Verify that the password matches
-        if (!password_verify($password, $hash))
-            return false;
+        if (!password_verify($password_hash, $bcryt_hash))
+           return false;
 
-        // Rehash and restore the password if necessary, bail if the rehash failed
-        if (password_needs_rehash($hash, PASSWORD_BCRYPT, array('cost' => $this->_cost)))
+        if (password_needs_rehash($bcryt_hash, PASSWORD_BCRYPT, array('cost' => $this->_cost)))
         {
-            // Rehash the password
-            $hash = password_hash($password, PASSWORD_BCRYPT, array('cost' => $this->_cost));
-
             // Update the hash in the db
-            $this->_user->password = $hash;
-            return $this->_user->save();
+            $this->_user->password = $this->password;
+            $this->_user->save();
+
+            // Return verification that the rehash worked
+            return password_verify(Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']), $this->_user->password);
         }
 
         // Otherwise return true

@@ -150,9 +150,9 @@ class SiteController extends CiiController
 		$this->layout = '//layouts/main';
 		$model=new LoginForm;
 
-		if(isset($_POST['LoginForm']))
+		if(Cii::get($_POST, 'LoginForm', false))
 		{
-			$model->attributes=$_POST['LoginForm'];
+			$model->attributes = Cii::get($_POST, 'LoginForm', array());
 
 			if($model->login())
 				$this->redirect(isset($_GET['next']) ? $_GET['next'] : Yii::app()->user->returnUrl);

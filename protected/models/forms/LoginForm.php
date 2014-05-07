@@ -101,7 +101,7 @@ class LoginForm extends CFormModel
 			$this->_identity=new CiiUserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
 		}
-
+		
 		if($this->_identity->errorCode===CiiUserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24 : 0; // 30 days
