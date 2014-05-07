@@ -86,7 +86,6 @@ class Users extends CiiModel
 		return array(
 			'comments' => array(self::HAS_MANY, 'Comments', 'user_id'),
 			'content' => array(self::HAS_MANY, 'Content', 'author_id'),
-			'tags' => array(self::HAS_MANY, 'Tags', 'user_id'),
 			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
 			'role' => array(self::BELONGS_TO, 'UserRoles', 'user_role'),
 		);

@@ -125,9 +125,9 @@ class Comments extends CiiModel
 	 * Returns the API attributes for the model
 	 * @return array
 	 */
-	public function getApiAttributes($params = array())
+	public function getApiAttributes($params = array(), $relations = false)
 	{
-		$data = parent::getApiAttributes($params);
+		$data = parent::getApiAttributes($params, $relations);
         $user = Users::model()->findByPk($this->user_id);
         $attributes = $user->getApiAttributes();
         $data['user'] = array(

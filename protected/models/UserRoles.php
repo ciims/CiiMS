@@ -123,7 +123,7 @@ class UserRoles extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, created, updated', 'required'),
+			array('name', 'required'),
 			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			array('id, name, created, updated', 'safe', 'on'=>'search'),

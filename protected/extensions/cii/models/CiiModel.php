@@ -20,22 +20,39 @@ class CiiModel extends CActiveRecord
 		'activation',
 		'forgot',
 		'register',
-		'register-success',
+		'register',
+		'resetpassword',
 		'profile',
 		'login',
 		'logout',
-		'admin',
 		'hybridauth',
 		'dashboard',
 		'acceptinvite',
 		'api'
 	);
 
+	/**
+	 * Adds the CTimestampBehavior to this class
+	 * @return array
+	 */
+	public function behaviors()
+	{
+		return array(
+			'CTimestampBehavior' => array(
+				'class' 			=> 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' 	=> 'created',
+				'updateAttribute' 	=> 'updated',
+				'timestampExpression' => new CDbExpression('UTC_TIMESTAMP()'),
+				'setUpdateOnCreate' => true
+			)
+		);
+	}
+
     /**
      * Returns attributes suitable for the API
      * @return array
      */
-    public function getAPIAttributes($params=array())
+    public function getAPIAttributes($params=array(), $relations = false)
     {
         $attributes = array();
         foreach ($this->attributes as $k=>$v)
@@ -54,6 +71,12 @@ class CiiModel extends CActiveRecord
                 $attributes[$k] = $v;
         }
 
+        if ($relations != false)
+        {
+	        foreach ($relations as $relation)
+	        	$attributes[$relation] = $this->$relation->getAPIAttributes();
+        }
+
         return $attributes;
     }
 
@@ -70,13 +93,11 @@ class CiiModel extends CActiveRecord
 			foreach ($model as $v)
 			{
 				if (isset($items[$v->key]))
-				{
 					$v->key = $v->key;
-				}
 			
 				$items[$v->key] = array(
 					'value'=>$v->value
-					);
+				);
 			}
 		}
 
@@ -90,24 +111,6 @@ class CiiModel extends CActiveRecord
 	{
 	    $this->_oldAttributes = $this->attributes;
 	    return parent::afterFind();
-	}
-
-	/**
-	 * Consolodates $this->creatd, and $this->updated attributes to our base model, rather than defining it in every Model
-	 * @return [type] [description]
-	 */
-	public function beforeValidate()
-	{
-		if ($this->hasAttribute('created'))
-		{
-	        if ($this->isNewRecord)
-	            $this->created = new CDbExpression('UTC_TIMESTAMP()');
-		}
-
-		if ($this->hasAttribute('updated'))
-       		$this->updated = new CDbExpression('UTC_TIMESTAMP()');
-
-       	return parent::beforeValidate();
 	}
     
 	/**

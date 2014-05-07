@@ -37,7 +37,7 @@ class Configuration extends CiiModel
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('key, value, created, updated', 'required'),
+            array('key, value', 'required'),
             array('key', 'length', 'max'=>64),
             // The following rule is used by search().
             array('key, value, created, updated', 'safe', 'on'=>'search'),

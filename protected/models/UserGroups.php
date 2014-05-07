@@ -38,7 +38,7 @@ class UserGroups extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('group_id, user_id, created, updated', 'required'),
+			array('group_id, user_id', 'required'),
 			array('group_id, user_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			array('id, group_id, user_id, created, updated', 'safe', 'on'=>'search'),
