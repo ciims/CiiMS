@@ -226,7 +226,6 @@ class Users extends CiiModel
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->addCondition('status != ' . self::PENDING_INVITATION);
 		$criteria->order = "user_role DESC, created DESC";
 
 		return new CActiveDataProvider($this, array(

@@ -64,9 +64,8 @@ class InviteForm extends CFormModel
 	 * @param  int $user_id    The id of the user that was created
 	 * @return bool            If the user was created
 	 */
-	public function save($user_id)
+	public function acceptInvite()
 	{
-		$this->id = $user_id;
 		if (!$this->validate())
 			return false;
 		
