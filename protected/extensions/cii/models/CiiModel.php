@@ -74,7 +74,15 @@ class CiiModel extends CActiveRecord
         if ($relations != false)
         {
 	        foreach ($relations as $relation)
-	        	$attributes[$relation] = $this->$relation->getAPIAttributes();
+	        {
+	        	if (is_array($this->$relation))
+	        	{
+	        		foreach ($this->$relation as $k)
+	        			$attributes[$relation][] = $k->getAPIAttributes();
+	        	}
+	        	else
+	        		$attributes[$relation] = $this->$relation->getAPIAttributes();
+	        }
         }
 
         return $attributes;

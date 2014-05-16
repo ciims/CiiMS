@@ -52,6 +52,12 @@ class ProfileForm extends CFormModel
     public $about;
 
     /**
+     * The user role
+     * @var int $role
+     */
+    public $user_role;
+
+    /**
      * The user model
      * @var Users $_user
      */
@@ -171,6 +177,8 @@ class ProfileForm extends CFormModel
             array('displayName, firstName, lastName', 'length', 'max' => 255),
             array('password', 'compare'),
             array('password', 'length', 'min' => 8),
+            array('user_role', 'numerical'),
+            array('user_role', 'validateUserRole'),
             array('currentPassword', 'validateUserPassword')
         );
     }
@@ -186,6 +194,21 @@ class ProfileForm extends CFormModel
             'password_repeat' => Yii::t('ciims.models.ProfileForm', 'Your New Password (again)')
         ));
 	}
+
+    /**
+     * Validates the role
+     * @param array $attributes
+     * @param array $params
+     * return array
+     */
+    public function validateUserRole($attributes, $params)
+    {
+        if ($this->overridePasswordCheck)
+            return true;
+
+        $this->addError('user_role', Yii::t('ciims.models.ProfileForm', 'You do not have permission to modify this attribute'));
+            return false;
+    }
 
     /**
      * Ensures that the password entered matches the one provided during registration
@@ -234,11 +257,11 @@ class ProfileForm extends CFormModel
             'firstName'     => $this->_user->firstName,
             'lastName'      => $this->_user->lastName,
             'displayName'   => $this->_user->displayName,
-            'about'         => $this->_user->about
+            'about'         => $this->_user->about,
+            'user_role'     => $this->_user->role->id
         );
 
-        // This doesn't load unless it's done explicitly.
-        // TODO: Figure out why
+        // TODO: Figure out why this doesn't load unless it's done explicitly.
         $this->about = $this->_user->about;
 
         return $this;
@@ -250,7 +273,7 @@ class ProfileForm extends CFormModel
      */
     public function save()
     {
-        if (!$this->validate())
+        if (!$this->validate(NULL, false))
             return false;
 
         // Change the email address, if necessary
@@ -261,7 +284,8 @@ class ProfileForm extends CFormModel
             'firstName'     => $this->firstName,
             'lastName'      => $this->lastName,
             'displayName'   => $this->displayName,
-            'about'         => $this->about
+            'about'         => $this->about,
+            'user_role'     => $this->user_role
         );
 
         if ($this->_user->save())
