@@ -14,7 +14,7 @@
  *
  * @package    CiiMS Content Management System
  * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2013
+ * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2014
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */

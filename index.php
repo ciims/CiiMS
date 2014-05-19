@@ -14,8 +14,8 @@
  */
 
 // Disable Error Reporting and set some constants
-error_reporting(-1);
-ini_set('display_errors', 'true');
+error_reporting(0);
+ini_set('display_errors', 'false');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file
@@ -32,7 +32,6 @@ if (!file_exists($config) && file_exists('install.php'))
 $params = require($config);
 defined('YII_DEBUG') or define('YII_DEBUG',isset($params['params']['debug']) ? $params['params']['debug'] : false);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($params['params']['trace']) ? $params['params']['trace'] : 0);
-
 
 // Load the config file
 $config = require($config);
@@ -62,7 +61,10 @@ if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 
 	// Enable WebLogRouteLogging
 	$config['preload'][] = 'log';
-	$config['components']['log']['routes'][0]['enabled'] = YII_DEBUG;
+
+	// Enable all the logging routes
+	foreach ($config['components']['log']['routes'] as $k=>$v)
+		$config['components']['log']['routes'][$k]['enabled'] = YII_DEBUG;
 }
 
 // Run the Yii application instance

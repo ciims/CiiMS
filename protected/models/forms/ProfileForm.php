@@ -288,6 +288,9 @@ class ProfileForm extends CFormModel
             'user_role'     => $this->user_role
         );
 
+        // ?????
+        $this->_user->about = $this->about;
+
         if ($this->_user->save())
             return true;
 

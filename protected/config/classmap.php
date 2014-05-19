@@ -2,11 +2,6 @@
 $basePath = dirname(__FILE__) . '/..';
 Yii::$classMap = array(
     'YiinfiniteScroller' => $basePath . '/extensions/yiinfinite-scroll/YiinfiniteScroller.php',
-    'JTimeAgo' => $basePath . '/extensions/timeago/JTimeAgo.php',
-    'YiiNewRelic' => $basePath . '/extensions/yii-newrelic/YiiNewRelic.php',
-    'YiiNewRelicWebAppBehavior' => $basePath . '/extensions/yii-newrelic/behaviors/YiiNewRelicWebAppBehavior.php',
-    'YiiNewRelicConsoleAppBehavior' => $basePath . '/extensions/yii-newrelic/behaviors/YiiNewRelicConsoleAppBehavior.php',
-    'YiiNewRelicClientScript' => $basePath . '/extensions/yii-newrelic/YiiNewRelicClientScript.php',
     'CiiFileDeleter' => $basePath . '/extensions/cii/utilities/CiiFileDeleter.php',
     'CiiFileUploader' => $basePath . '/extensions/cii/utilities/CiiFileUploader.php',
     'Cii' => $basePath . '/extensions/cii/utilities/Cii.php',
