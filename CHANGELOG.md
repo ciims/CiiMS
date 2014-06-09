@@ -1,4 +1,4 @@
-# 1.10.0 (unreleased)
+# 2.0.0 (unreleased)
 
 ###### BREAKING CHANGES:
 	
@@ -27,6 +27,7 @@
 ###### IMPROVEMENTS:
 
 - Added CHANGELOG.md
+- Switched to [semantic versioning](http://semver.org/)
 - New Default Theme
 - Installed has been streamlined and rethemed
 - Comment API is now always enabled if not using a secondary comment provider

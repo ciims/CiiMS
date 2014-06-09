@@ -126,9 +126,9 @@ class AnalyticsSettings extends CiiSettingsModel
 	protected $analyticsjs_Pingdom_enabled = false;
 	protected $analyticsjs_Pingdom_id = NULL;
 
-	protected $analyticsjs_pwk_enabled = false;
-	protected $analyticsjs_pwk_url = NULL;
-	protected $analyticsjs_pwk_id = NULL;
+	protected $analyticsjs_Piwik_enabled = false;
+	protected $analyticsjs_Piwik_url = NULL;
+	protected $analyticsjs_Piwik_id = NULL;
 
 	protected $analyticsjs_Preact_enabled = false;
 	protected $analyticsjs_Preact_projectCode = NULL;
@@ -182,7 +182,7 @@ class AnalyticsSettings extends CiiSettingsModel
 		return array(
 			//'AdRoll' => array('analyticsjs_AdRoll_enabled', 'analyticsjs_AdRoll_advId', 'analyticsjs_AdRoll_pixId'),
 			//'Amplitude' => array('analyticsjs_Amplitude_enabled', 'analyticsjs_Amplitude_apiKey', 'analyticsjs_Amplitude_pageview'),
-			'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
+			//'BugHerd' => array('analyticsjs_BugHerd_enabled', 'analyticsjs_BugHerd_apiKey', 'analyticsjs_BugHerd_showFeedbackTab'),
 			//'Chartbeat' => array('analyticsjs_Chartbeat_enabled', 'analyticsjs_Chartbeat_domain', 'analyticsjs_Chartbeat_uid'),
 			//'ClickTale' => array('analyticsjs_ClickTale_enabled', 'analyticsjs_ClickTale_httpCdnUrl', 'analyticsjs_ClickTale_httpsCdnUrl', 'analyticsjs_ClickTale_projectId', 'analyticsjs_ClickTale_recordingRatio', 'analyticsjs_ClickTale_partitionId'),
 			'Clicky' => array('analyticsjs_Clicky_enabled', 'analyticsjs_Clicky_siteId'),
@@ -210,7 +210,7 @@ class AnalyticsSettings extends CiiSettingsModel
 			//'Optimizely' => array('analyticsjs_Optimizely_enabled', 'analyticsjs_Optimizely_variations'),
 			//'Perfect Audience' => array('analyticsjs_Perfect__Audience_enabled', 'analyticsjs_Perfect__Audience_siteId'),
 			'Pingdom' => array('analyticsjs_Pingdom_enabled', 'analyticsjs_Pingdom_id'),
-			'pwk' => array('analyticsjs_pwk_enabled', 'analyticsjs_pwk_url', 'analyticsjs_pwk_id'),
+			'Piwik' => array('analyticsjs_Piwik_enabled', 'analyticsjs_Piwik_url', 'analyticsjs_Piwik_id'),
 			//'Preact' => array('analyticsjs_Preact_enabled', 'analyticsjs_Preact_projectCode'),
 			//'Qualaroo' => array('analyticsjs_Qualaroo_enabled', 'analyticsjs_Qualaroo_customerId', 'analyticsjs_Qualaroo_siteToken', 'analyticsjs_Qualaroo_track'),
 			//'Quantcast' => array('analyticsjs_Quantcast_enabled', 'analyticsjs_Quantcast_pCode'),
@@ -228,7 +228,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_pwk_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
+			array('analyticsjs_AdRoll_enabled, analyticsjs_Amplitude_enabled, analyticsjs_BugHerd_enabled, analyticsjs_Chartbeat_enabled, analyticsjs_ClickTale_enabled, analyticsjs_Clicky_enabled, analyticsjs_comScore_enabled, analyticsjs_CrazyEgg_enabled, analyticsjs_Customer___io_enabled, analyticsjs_Errorception_enabled, analyticsjs_FoxMetrics_enabled, analyticsjs_Gauges_enabled, analyticsjs_Get__Satisfaction_enabled, analyticsjs_Google__Analytics_enabled, analyticsjs_GoSquared_enabled, analyticsjs_Heap_enabled, analyticsjs_HitTail_enabled, analyticsjs_HubSpot_enabled, analyticsjs_Improvely_enabled, analyticsjs_Intercom_enabled, analyticsjs_Keen__IO_enabled, analyticsjs_KISSmetrics_enabled, analyticsjs_Klaviyo_enabled, analyticsjs_LiveChat_enabled, analyticsjs_Lytics_enabled, analyticsjs_Mixpanel_enabled, analyticsjs_Olark_enabled, analyticsjs_Optimizely_enabled, analyticsjs_Perfect__Audience_enabled, analyticsjs_Pingdom_enabled, analyticsjs_Piwik_enabled, analyticsjs_Preact_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Qualaroo_enabled,analyticsjs_Google__Analytics_anonymizeIp, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Google__Analytics_ignoreReferrer, analyticsjs_Google__Analytics_initialPageview, analyticsjs_Quantcast_enabled, analyticsjs_Sentry_enabled, analyticsjs_SnapEngage_enabled, analyticsjs_USERcycle_enabled, analyticsjs_userfox_enabled, analyticsjs_UserVoice_enabled, analyticsjs_Vero_enabled, analyticsjs_Visual__Website__Optimizer_enabled, analyticsjs_Woopra_enabled', 'boolean'),
 		);
 	}
 
@@ -357,9 +357,9 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Pingdom_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
 			'analyticsjs_Pingdom_id' => Yii::t('ciims.models.analytics', 'id'),
 
-			'analyticsjs_pwk_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
-			'analyticsjs_pwk_url' => Yii::t('ciims.models.analytics', 'pwk Host URL'),
-			'analyticsjs_pwk_id' => Yii::t('ciims.models.analytics', 'Site ID'),
+			'analyticsjs_Piwik_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
+			'analyticsjs_Piwik_url' => Yii::t('ciims.models.analytics', 'Piwik Host URL'),
+			'analyticsjs_Piwik_id' => Yii::t('ciims.models.analytics', 'Site ID'),
 
 			'analyticsjs_Preact_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
 			'analyticsjs_Preact_projectCode' => 'projectCode',

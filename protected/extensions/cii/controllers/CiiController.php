@@ -88,9 +88,9 @@ class CiiController extends CController
      * @param  boolean $processOutput Whether the output should be processed. The default is TRUE since this output will be passed to MsgHTML
      * @return boolean                Whether or not the email sent sucessfully
      */
-    public function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true)
+    public function sendEmail($user, $subject = "", $viewFile, $content = array(), $return = true, $processOutput = true, $debug=false)
     {
-        $mail = new PHPMailer;
+        $mail = new PHPMailer($debug);
         $mail->IsSMTP();
         $mail->SMTPAuth = false;
 
@@ -139,8 +139,10 @@ class CiiController extends CController
 
         try {
             return $mail->Send();
+        } catch (phpmailerException $e) {
+          return $debug ? $e->errorMessage() : false;
         } catch (Exception $e) {
-            return false;
+            return $debug ? $e : false;
         }
 
         return false;

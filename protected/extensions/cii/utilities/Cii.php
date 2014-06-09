@@ -2,15 +2,6 @@
 
 class Cii
 {
-	/**
-     * Retrieves the current CiiMS Version
-     * @return string
-     */
-    public static function getVersion()
-    {
-        $data = json_decode(file_get_contents(Yii::getPathOfAlias('webroot').DS.'composer.json'),true);
-        return $data['version'];
-    }
 
 	/**
 	 * Checks for the existance of an item at a given array index and returns that object if it exists
@@ -234,12 +225,12 @@ class Cii
                 $sqlProvider = str_replace(" ", "__" ,str_replace(".", "___", $provider));
                 $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
 
-                $provider = str_replace('pwk', 'Piwik', $provider);
+                //$provider = str_replace('pwk', 'Piwik', $provider);
 
                 foreach ($data as $el)
                 {
                     $k = $el['key'];
-                    $k = str_replace("pwk_", "Piwik_", $k);
+                    //$k = str_replace("pwk_", "Piwik_", $k);
 
                     $v = $el['value'];
                     $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
@@ -278,6 +269,7 @@ class Cii
         $providers['CiiMS'] = array(
             'endpoint' => '/api'
         );
+        
         return $providers;
     }
 
@@ -403,6 +395,22 @@ class Cii
 
 		return;
 	}
+
+    /**
+     * Returns the current CiiMS Version
+     * @return string
+     */
+    public static function getVersion()
+    {
+        $version = Yii::app()->cache->get('ciims_version');
+        if ($version === false)
+        {
+            $version = file_get_contents(Yii::getPathOfAlias('application.config.VERSION'));
+            Yii::app()->cache->set('ciims_version', $version);
+        }
+
+        return $version;
+    }
 
     /**
      * Loads the user information
