@@ -426,7 +426,8 @@ class Cii
                 'role' => Cii::get(Yii::app()->user, 'role'),
                 'isAuthenticated' => isset(Yii::app()->user->id),
                 'debug' => YII_DEBUG,
-                'time' => time()
+                'time' => time(),
+                'version' => YII_DEBUG ? file_get_contents(Yii::getPathOfAlias('application.config.VERSION')) : null
             ));
 
             Yii::app()->clientScript->registerScript('ciims', "

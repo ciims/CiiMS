@@ -44,6 +44,7 @@
 - FontAwesome version update
 - CiiMS can now run with Yii's internal routing disable for 100% client side themes.
 - Modules and Themes now utilize npm, grunt, and bower for asset and dependency management
+- Refactoring for all modules
 
 ###### FEATURES:
 
