@@ -2,31 +2,39 @@
 
 class ThemeSettings extends CiiSettingsModel
 {
+	/**
+	 * The active theme
+	 * @var string
+	 */
 	public $theme = 'default';
 
-	protected $mobileTheme = NULL;
-
-	protected $tabletTheme = NULL;
-
-	public $form = 'application.modules.dashboard.views.settings.theme';
-
+	/**
+	 * Validation rules for the theme
+	 * @return array
+	 */
 	public function rules()
 	{
 		return array(
 			array('theme', 'required'),
-			array('theme, mobileTheme, tabletTheme', 'length', 'max' => 255)
+			array('theme', 'length', 'max' => 255)
 		);
 	}
 
+	/**
+	 * Attribute labels for themes
+	 * @return array
+	 */
 	public function attributeLabels()
 	{
 		return array(
 			'theme' => Yii::t('ciims.models.theme', 'Theme'),
-			'mobileTheme' => Yii::t('ciims.models.theme', 'Mobile Theme'),
-			'tabletTheme' => Yii::t('ciims.models.theme', 'Tablet Theme'),
 		);
 	}
 
+	/**
+	 * Returns the active theme name
+	 * @return strings
+	 */
 	public function getTheme()
 	{
 		return $this->theme;
@@ -46,22 +54,21 @@ class ThemeSettings extends CiiSettingsModel
 
 		if ($themes == false)
 		{
-			$themes = array(
-				'desktop' => array(),
-				'mobile' => array(),
-				'tablet' => array()
-			);
+			$themes = array();
 
-			$fileHelper = new CFileHelper;
-			$files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes'), array('fileTypes'=>array('json'), 'level'=>1));
+			$directories = glob(Yii::getPathOfAlias('webroot.themes') . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
+	        foreach($directories as $dir)
+	        {
+	            $json = CJSON::decode(file_get_contents($dir . DIRECTORY_SEPARATOR . 'composer.json'));
+	            $name = $json['name'];
+	            $key = str_replace('ciims-themes/', '', $name);
+	            $themes[$key] = array(
+	                'path' => $dir,
+	                'name' => $name,
+	            );
+	        }
 
-			foreach ($files as $file)
-			{
-				if (strpos($file,'theme.json') === false)
-					continue;
-				$theme = json_decode(file_get_contents($file), true);
-				$themes[$theme['type']][] = $theme;
-			}
+	        return $themes;
 
 			Yii::app()->cache->set('settings_themes', $themes);
 		}

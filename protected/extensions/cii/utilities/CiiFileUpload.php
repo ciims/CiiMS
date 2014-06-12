@@ -82,13 +82,14 @@ class CiiFileUpload
      */
     private function _uploadCiiMSFile()
     {
+        $config = Cii::getCiiConfig();
         $args = array(
             'file' => new CurlFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']),
-            'token' => Cii::get(Cii::getCiiConfig(), 'token', NULL),
-            'container' => Cii::get(Cii::getCiiConfig(), 'container')
+            'token' => Cii::get($config, 'token', NULL),
+            'container' => Cii::get($config, 'container')
         );
 
-        $resource = curl_init(Cii::get(Cii::getCiiConfig(), 'file_api_endpoint'));
+        $resource = curl_init(Cii::get($config, 'file_api_endpoint'));
         curl_setopt($resource, CURLOPT_POST, 1);
         curl_setopt($resource, CURLOPT_POSTFIELDS, $args);
         curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1); 

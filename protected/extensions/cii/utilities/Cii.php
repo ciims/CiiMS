@@ -63,7 +63,7 @@ class Cii
      */
     public static function getCiiConfig()
     {
-        $config = __DIR__ . '/../../../config/ciiparams.php';
+        $config = Yii::getPathOfAlias('application.config.ciiconfig').'.php';
         if (file_exists($config))
             return require $config;
 
