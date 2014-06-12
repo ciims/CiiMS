@@ -58,6 +58,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Extendable with custom modules, extensions, themes, and cards
 * Beautiful _and_ functional dashboard for managing your content and settings.
 * i18n files provided for translations
+* Fully Customizable
 * Easily install new themes and cards from [https://www.ciims.org](https://www.ciims.org) in a single click
 * _And a bunch of other things!_
 
@@ -77,9 +78,9 @@ All the dependencies and other requirements are managed through composer, and wi
 #### Recommendations
 The following extensions/applications are recommended to improve performance.
 
-* Redis/Memcache
-* ZendOpcache+/APCCAche
-* Sphinx Search Server
+* [phpredis](https://github.com/nicolasff/phpredis) + [Redis](redis.io)
+* [memcached](http://www.php.net//manual/en/book.memcached.php)
+* [Zend Opcache](http://www.php.net//manual/en/book.opcache.php)
 
 ------------------
 
