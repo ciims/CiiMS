@@ -55,8 +55,22 @@ class ThemeSettings extends CiiSettingsModel
 		if ($themes == false)
 		{
 			$themes = array();
+			$currentTheme = Cii::getConfig('theme');
 
 			$directories = glob(Yii::getPathOfAlias('webroot.themes') . DIRECTORY_SEPARATOR . "*", GLOB_ONLYDIR);
+
+			// Pushes the current theme onto the top of the list
+			foreach ($directories as $k=>$dir)
+			{
+				if ($dir == Yii::getPathOfAlias('webroot.themes').DS.$currentTheme)
+				{
+					unset($directories[$k]);
+					break;
+				}
+			}
+
+			array_unshift($directories, Yii::getPathOfAlias('webroot.themes').DS.$currentTheme);
+
 	        foreach($directories as $dir)
 	        {
 	            $json = CJSON::decode(file_get_contents($dir . DIRECTORY_SEPARATOR . 'composer.json'));
