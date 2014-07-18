@@ -166,13 +166,19 @@ class SiteController extends CiiController
      */
 	public function actionLogout()
 	{
+		if (Yii::app()->request->getParam('next', false))
+			$redirect = $this->createUrl('site/login', array('next' => Yii::app()->getParam('next')));
+		else
+			$redirect = Yii::app()->user->returnUrl;
+		
 		// Purge the active sessions API Key
 		$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'api_key'));
 	  	if ($apiKey != NULL)
 	  		$apiKey->delete();
 
+
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->user->returnUrl);
+		$this->redirect($redirect);
 	}
 
 	/**

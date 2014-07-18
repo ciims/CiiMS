@@ -422,12 +422,12 @@ class Cii
             // Load some specific CiiMS JS here
             $json = CJSON::encode(array(
                 'email' =>  Cii::get(Yii::app()->user, 'email'),
-                'token' => Cii::get(Yii::app()->user, 'apiKey'),
+                'token' => Cii::getUserConfig('api_key', false),
                 'role' => Cii::get(Yii::app()->user, 'role'),
                 'isAuthenticated' => isset(Yii::app()->user->id),
                 'debug' => YII_DEBUG,
                 'time' => time(),
-                'version' => YII_DEBUG ? file_get_contents(Yii::getPathOfAlias('application.config.VERSION')) : null
+                'version' => YII_DEBUG ? Cii::getVersion() : null
             ));
 
             Yii::app()->clientScript->registerScript('ciims', "
