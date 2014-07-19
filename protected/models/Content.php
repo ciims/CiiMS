@@ -317,9 +317,21 @@ class Content extends CiiModel
 		$criteria->compare('slug',$this->slug,true);
 		$criteria->compare('author_id',$this->author_id,true);
 		$criteria->compare('content',$this->content,true);
+		$criteria->compare('password', $this->password, true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('published',$this->updated,true);
+		$criteria->compare('status', $this->status, true);
+
+		// Handle publishing with a true/false value simply to do this calculation. Otherwise default to compare
+		if (is_bool($this->published))
+		{
+			if ($this->published)
+				$criteria->addCondition('published <= UTC_TIMESTAMP()');
+			else
+				$criteria->addCondition('published > UTC_TIMESTAMP()');
+		}
+		else
+			$criteria->compare('published', $this->published,true);
 		$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)");
 
 		// TODO: Figure out how to restore CActiveDataProvidor by getCommentCount

@@ -167,7 +167,7 @@ class SiteController extends CiiController
 	public function actionLogout()
 	{
 		if (Yii::app()->request->getParam('next', false))
-			$redirect = $this->createUrl('site/login', array('next' => Yii::app()->getParam('next')));
+			$redirect = $this->createUrl('site/login', array('next' => Yii::app()->request->getParam('next')));
 		else
 			$redirect = Yii::app()->user->returnUrl;
 		
@@ -376,7 +376,6 @@ class SiteController extends CiiController
 				return $this->render('invitesuccess');
 			}
 		}
-
 
 		$this->render('acceptinvite', array('model' => $model));
 	}

@@ -27,6 +27,7 @@ class CiiDiscourseComments extends CWidget
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
 		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/discourse.js' : '/discourse.min.js'), CClientScript::POS_END);
 
+		Yii::app()->clientScript->registerScript('CiiMS::CommentBinding', 'CMSComments = Discourse;');
 		if ($this->content != false)
 			$this->renderCommentBox();
 		else

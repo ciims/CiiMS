@@ -26,6 +26,7 @@ class CiiDisqusComments extends CWidget
 		$this->_shortname = Cii::getConfig('disqus_shortname');
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
 		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/disqus.js' : '/disqus.min.js'), CClientScript::POS_END);
+		Yii::app()->clientScript->registerScript('CiiMS::CommentBinding', 'CMSComments = Disqus;');
 
 		if ($this->content != false)
 			$this->renderCommentBox();

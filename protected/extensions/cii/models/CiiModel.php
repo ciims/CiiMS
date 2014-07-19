@@ -60,7 +60,7 @@ class CiiModel extends CActiveRecord
         	if (in_array($k, $params))
         		continue;
 
-            if ($k == 'created' || $k == 'updated')
+            if ($k == 'created' || $k == 'updated' || $k == 'published')
             {
                 if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UTC_TIMESTAMP()')
                     $attributes[$k] = time();
