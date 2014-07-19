@@ -60,7 +60,7 @@ class CiiModel extends CActiveRecord
         	if (in_array($k, $params))
         		continue;
 
-            if ($k == 'created' || $k == 'updated') 
+            if ($k == 'created' || $k == 'updated')
             {
                 if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UTC_TIMESTAMP()')
                     $attributes[$k] = time();
@@ -73,18 +73,24 @@ class CiiModel extends CActiveRecord
 
         if ($relations != false)
         {
-	        foreach ($relations as $relation)
+	        foreach ($relations as $relation=>$params)
 	        {
+	        	if (is_integer($relation))
+	        	{
+	        		$relation = $params;
+	        		$params = array();
+	        	}
+
 	        	if (is_array($this->$relation))
 	        	{
 	        		$attributes[$relation] = array();
 	        		foreach ($this->$relation as $k)
-	        			$attributes[$relation][] = $k->getAPIAttributes();
+	        			$attributes[$relation][] = $k->getAPIAttributes($params);
 	        	}
 	        	else
 	        	{
 	        		if (isset($this->$relation))
-	        			$attributes[$relation] = $this->$relation->getAPIAttributes();
+	        			$attributes[$relation] = $this->$relation->getAPIAttributes($params);
 	        		else
 	        			$attributes[$relation] = array();
 	        	}
@@ -93,6 +99,7 @@ class CiiModel extends CActiveRecord
 
         return $attributes;
     }
+
 	/**
 	 * parseMeta pulls the metadata out of a model and returns that metadata as a usable array
 	 * @param CiiModel $model - The model to pull metedata from
