@@ -1,6 +1,8 @@
 ## CiiMS
-[![TravisCI](https://api.travis-ci.org/charlesportwoodii/CiiMS.png "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/badges/quality-score.png?s=f4dabc7c51c4de8a2989a8e14d0fe7fbb2ea2753)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
+[![TravisCI](http://img.shields.io/travis/charlesportwoodii/CiiMS.svg?style=flat "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
+[![Gittip](http://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
+<!-- [![Downloads](http://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat)]() -->
 
 #### What is CiiMS?
 CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system.
