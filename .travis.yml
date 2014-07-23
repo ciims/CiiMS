@@ -1,10 +1,17 @@
 language: php
 
 php:
-#  - 5.3 # Codeception 2.0 hardfails on PHP 5.3 due to dependency issues. No longer testing on
+  - 5.3 # Codeception 2.0 hardfails on PHP 5.3 due to dependency issues. No longer testing on
   - 5.4
   - 5.5
-#  - hhvm
+  - 5.6
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+    - php: 5.3
+    - php: 5.6
 
 services:
   - memcached
