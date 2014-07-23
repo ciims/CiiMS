@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63d0a83fdd0d79d483c2664293d84bf4",
+    "hash": "c3477093620a765d3694be779ba3aa4f",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -100,16 +100,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "dev-refactors",
+            "version": "dev-2.0.0-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "b781bc70eaec05ea00ff823d752ccce143f6d24f"
+                "reference": "15140ce62ab336b543dd84cace691c0a8608728d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/b781bc70eaec05ea00ff823d752ccce143f6d24f",
-                "reference": "b781bc70eaec05ea00ff823d752ccce143f6d24f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/15140ce62ab336b543dd84cace691c0a8608728d",
+                "reference": "15140ce62ab336b543dd84cace691c0a8608728d",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -132,7 +132,7 @@
                 "api",
                 "module"
             ],
-            "time": "2014-07-20 20:58:15"
+            "time": "2014-07-23 20:24:47"
         },
         {
             "name": "ciims-modules/dashboard",

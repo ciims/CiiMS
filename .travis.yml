@@ -18,7 +18,7 @@ notifications:
     
 before_script:
   - composer selfupdate
-  - composer update
+  - composer install # Install rather than update
   - php -i				
   - mysql -e 'create database ciims_test;'
   - php protected/tyiic.php migrate up --interactive=0
