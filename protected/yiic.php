@@ -11,6 +11,8 @@ require(__DIR__.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii
 
 Yii::setPathOfAlias('vendor', __DIR__.DS.'..'.DS.'vendor'.DS);
 
+print_r($_SERVER);
+print_r($_ENV);
 if (!isset($_SERVER['CIIMS_ENV']))
 	$_SERVER['CIIMS_ENV'] = 'main';
 else if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
