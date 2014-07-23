@@ -33,14 +33,6 @@
             "url": "https://github.com/ircmaxell/PHP-CryptLib"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/charlesportwoodii/YiiBridge"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard2"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "gtcode/yii-newrelic",
@@ -80,6 +72,7 @@
         "lib-openssl": "*",
         "yiisoft/yii": "1.1.14",
         "composer/installers": "v1.0.13",
+	"Codeception/YiiBridge": "dev-master",
         "rackspace/php-opencloud": "v1.9.2",
         "ircmaxell/password-compat": "1.0.3",
         "CryptLib/CryptLib": "dev-master",
@@ -88,9 +81,9 @@
         "gtcode/yii-newrelic": "dev-master",
         "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.2",
-        "ciims-themes/default": "3.0.4",
-        "ciims-modules/dashboard": "dev-master",
-        "ciims-modules/api": "dev-master",
+        "ciims-themes/default": "3.0.6",
+	"ciims-modules/dashboard": "dev-3.0.0-dev",
+        "ciims-modules/api": "dev-refactors",
         "ciims-modules/install": "2.0.4",
         "ciims-modules/hybridauth": "2.0.4"
     },
