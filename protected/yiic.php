@@ -16,7 +16,7 @@ if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
 else if (!isset($_SERVER['CIIMS_ENV']))
         $_SERVER['CIIMS_ENV'] = 'main';
 
-$config = __DIR__.DS.'protected'.DS'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+$config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 $config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
