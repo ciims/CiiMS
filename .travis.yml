@@ -26,8 +26,9 @@ notifications:
 before_script:
   - composer selfupdate
   - composer install # Install rather than update
-  - php -i				
+  - php -i
   - mysql -e 'create database ciims_test;'
+  - echo "2.0.0-dev" > protected/config/VERSION
   - php protected/yiic.php migrate up --interactive=0
 
 script: ./vendor/bin/codecept run
