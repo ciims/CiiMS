@@ -92,6 +92,11 @@ return array(
                     'class' => 'CWebLogRoute',
                     'levels' => 'error, warning, trace, info',
                     'enabled' => false
+                ),
+                array( 
+                    'class'=>'CProfileLogRoute', 
+                    'report'=>'summary',
+                    'enabled' => false
                 )
             )
         ),
