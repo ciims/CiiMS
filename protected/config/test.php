@@ -12,7 +12,7 @@ return array(
     'components' => array(
         // Override CHttpRequest for codeception
         'request' => array(
-            'class' => 'CodeceptionHttpRequest'
+            'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
         ),
         'db' => array(
             'class' => 'CDbConnection',

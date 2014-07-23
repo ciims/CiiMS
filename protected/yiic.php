@@ -11,8 +11,14 @@ require(__DIR__.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii
 
 Yii::setPathOfAlias('vendor', __DIR__.DS.'..'.DS.'vendor'.DS);
 
-// Load the configs
-$config = require __DIR__.DS.'config'.DS.'main.php';
+if (!isset($_SERVER['CIIMS_ENV'])
+	$_SERVER['CIIMS_ENV'] = 'main';
+
+if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
+	$config = require __DIR__.DS.'config'.DS.'travis.php';
+else
+	$config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+
 $defaultConfig = require __DIR__.DS.'config'.DS.'main.default.php';
 
 $config = CMap::mergeArray($defaultConfig, $config);

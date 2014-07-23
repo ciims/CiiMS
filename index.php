@@ -19,7 +19,14 @@ ini_set('display_errors', 'false');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file
-$config=__DIR__.DS.'protected'.DS.'config'.DS.'main.php';
+if (!isset($_SERVER['CIIMS_ENV'])
+        $_SERVER['CIIMS_ENV'] = 'main';
+
+if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
+        $config = require __DIR__.DS.'config'.DS.'travis.php';
+else
+        $config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 // If we don't have a configuration file, run the installer.

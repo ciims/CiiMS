@@ -10,7 +10,14 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 // Load the config files
-$config = require __DIR__.DS.'protected'.DS.'config'.DS.'test.php';
+if (!isset($_SERVER['CIIMS_ENV'])
+        $_SERVER['CIIMS_ENV'] = 'test';
+
+if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
+        $config = require __DIR__.DS.'config'.DS.'travis.php';
+else
+        $config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+
 $defaultConfig = require __DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 // Load Yii and Composer extensions

@@ -28,6 +28,6 @@ before_script:
   - composer install # Install rather than update
   - php -i				
   - mysql -e 'create database ciims_test;'
-  - php protected/tyiic.php migrate up --interactive=0
+  - php protected/yiic.php migrate up --interactive=0
 
 script: ./vendor/bin/codecept run
