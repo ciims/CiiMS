@@ -19,10 +19,10 @@ ini_set('display_errors', 'false');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 // This is the configuration file
-if (!isset($_SERVER['CIIMS_ENV']))
+if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
+        $_SERVER['CIIMS_ENV'] = 'travis';
+else if (!isset($_SERVER['CIIMS_ENV']))
         $_SERVER['CIIMS_ENV'] = 'main';
-else if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
-	$_SERVER['CIIMS_ENV'] = 'travis';
 
 $config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';

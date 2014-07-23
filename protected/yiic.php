@@ -11,12 +11,13 @@ require(__DIR__.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii
 
 Yii::setPathOfAlias('vendor', __DIR__.DS.'..'.DS.'vendor'.DS);
 
-print_r($_SERVER);
-print_r($_ENV);
-if (!isset($_SERVER['CIIMS_ENV']))
-	$_SERVER['CIIMS_ENV'] = 'main';
-else if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
+if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
 	$_SERVER['CIIMS_ENV'] = 'travis';
+else if (!isset($_SERVER['CIIMS_ENV']))
+        $_SERVER['CIIMS_ENV'] = 'main';
+
+$config = __DIR__.DS.'protected'.DS'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+$defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
 
 $config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig = require __DIR__.DS.'config'.DS.'main.default.php';
