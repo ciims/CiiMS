@@ -5,11 +5,10 @@
  **/
 class CiiCache extends CCache
 {
-		public function generateUniqueIdentifier()
-		{
-			$user = md5(Yii::app()->params['encryptionKey']);
-        	return 'ciims_' . $user . '_';
-		}
+	public function generateUniqueIdentifier()
+	{
+	       return 'ciims_' . md5(Yii::app()->params['encryptionKey']) . '_';
+	}
 
         /**
          * Overloaded method to generate a truely unique id that we can intelligently flush without dumping our entire cache
@@ -19,6 +18,6 @@ class CiiCache extends CCache
          */
         protected function generateUniqueKey($key)
         {
-        	return $this->generateUniqueIdentifier() . md5(md5(Yii::getPathOfAlias('webroot')) . Yii::app()->params['encryptionKey'] . md5($this->keyPrefix.$key));
+	       return $this->generateUniqueIdentifier() . md5(md5(Yii::getPathOfAlias('webroot')) . Yii::app()->params['encryptionKey'] . md5($this->keyPrefix.$key));
         }
 }

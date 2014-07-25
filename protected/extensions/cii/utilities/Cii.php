@@ -431,8 +431,8 @@ class Cii
             ));
 
             Yii::app()->clientScript->registerScript('ciims', "
-                $(document).ready(function() { localStorage.setItem('ciims', '$json'); });
-            ");
+                localStorage.setItem('ciims', '$json');
+            ", CClientScript::POS_HEAD);
         }
     }
 }

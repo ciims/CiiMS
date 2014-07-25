@@ -59,6 +59,7 @@ class CiiRedisCache extends CiiCache
 	{
 		$this->_servers = $config;
 	}
+	
 	/**
 	 * Retrieves a value from cache with a specified key.
 	 * This is the implementation of the method declared in the parent class.

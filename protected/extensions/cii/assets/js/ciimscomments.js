@@ -344,6 +344,10 @@ var CiiMSComments = {
  * @type Comments
  */
 var Comments = {
+	load : function(id) {
+		Disqus.load(id);
+	},
+	
 	reload : function(id) {
 		CiiMSComments.load(id);
 	},
