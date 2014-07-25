@@ -3,7 +3,7 @@
  * Automatically loads and registers Discourse comments to a site
  * @type {Object}
  */
-var Discourse = {
+var Comments = {
 
 	/**
 	 * Binds the Discourse comment box to the post
@@ -42,7 +42,7 @@ var Discourse = {
 		});
 
 		// Bind the load more behavior
-		Discourse.more();
+		Comments.more();
 	},
 
 	/**
@@ -51,24 +51,10 @@ var Discourse = {
 	 */
 	more : function(force) {
 		$("a#more").click(function() {
-			setTimeout(function() { Discourse.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 		});
 		
 		if (force == true)
-			setTimeout(function() { Discourse.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 	},
-};
-
-/**
- * Overload this object depending upon the commenting system you are using
- * @type Comments
- */
-var Comments = {
-	reload : function(id) {
-		Discourse.load(id);
-	},
-
-	more : function() {
-		Discourse.commentCount(true);
-	}
 };

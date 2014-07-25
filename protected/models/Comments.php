@@ -145,9 +145,8 @@ class Comments extends CiiModel
         );
 
         // If this user cannot comment without approval
-        if (!$user->canCommentWithoutApproval())
-        	if ($user->isSuspended() || $user->getReputation() < 100)
-        		$data['banned_comment'] = true;
+        if ($user->getReputation() < 100)
+        	$data['banned_comment'] = true;
 
         return $data;
 	}

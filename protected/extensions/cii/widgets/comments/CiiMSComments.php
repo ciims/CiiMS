@@ -1,6 +1,6 @@
 <?php
 
-class CiiComments extends CWidget
+class CiiMSComments extends CWidget
 {
 	/**
 	 * Content::model attributes passed from the Controller
@@ -42,8 +42,8 @@ class CiiComments extends CWidget
 	            $('.comment-count').attr('data-attr-id', '$id').addClass('registered').append('$link');
 
 	            // Load the comments
-	            CiiMSComments.load();
-	            CiiMSComments.commentCount();
+	            Comments.load();
+	            Comments.commentCount();
 	        });
 	        ");
 	}
@@ -56,7 +56,7 @@ class CiiComments extends CWidget
 		Yii::app()->clientScript->registerScript('CiiMSCommentCount', "
             $(document).ready(function() {
 				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
-				CiiMSComments.commentCount();
+				Comments.commentCount();
 			});
 		");
 	}

@@ -3,7 +3,40 @@
  * Automatically loads and registers Disqus comments to a site
  * @type {Object}
  */
-var Disqus = {
+var Comments = {
+
+	isModuleLoaded : false,
+
+	isLoaded = false,
+
+	init : function(id, title, url) {
+		var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
+		disqus_identifier = id;
+		disqus_title = title;
+		disqus_url = endpoint+url;
+	},
+
+	reload : function(id) {
+		if (id != undefined)
+			 disqus_identifier = id;
+
+		if (!this.isModuleLoaded)
+		{
+			this.load(id);
+			this.isModuleLoaded = true;
+		}
+		else
+		{
+			DISQUS.reset({
+		      reload: true,
+		      config: function () {
+		      	this.page.identifier = disqus_identifier;
+		      	this.page.url = disqus_url;
+		      	this.page.title = disqus_title;
+		      }
+		   });
+		}
+	},
 
 	/**
 	 * Binds the Disqus comment box to the post
@@ -40,7 +73,7 @@ var Disqus = {
 		});
 
 		// Bind the load more behavior
-		Disqus.more();
+		Comments.more();
 
 		(function () {
 	        var s = document.createElement('script'); s.async = true;
@@ -56,24 +89,10 @@ var Disqus = {
 	 */
 	more : function(force) {
 		$("a#more").click(function() {
-			setTimeout(function() { Disqus.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 		});
 		
 		if (force == true)
-			setTimeout(function() { Disqus.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 	},
-};
-
-/**
- * Overload this object depending upon the commenting system you are using
- * @type Comments
- */
-var Comments = {
-	reload : function(id) {
-		Disqus.load(id);
-	},
-
-	more : function() {
-		Disqus.commentCount(true);
-	}
 };

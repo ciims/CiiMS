@@ -15,7 +15,7 @@ class CiiCommentMaster extends CWidget
 	 * The type of comments we want to render
 	 * @var string
 	 */
-	public $type = 'CiiComments';
+	public $type = 'CiiMSComments';
 
 	/**
 	 * Renders the appropriate comment container with the content provided from the controller

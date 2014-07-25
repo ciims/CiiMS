@@ -25,12 +25,14 @@ class CiiDiscourseComments extends CWidget
 	{
 		$this->_url = Cii::getConfig('discourseUrl');
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/discourse.js' : '/discourse.min.js'), CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/ciidiscourse.js' : '/ciidiscourse.min.js'), CClientScript::POS_END);
 
 		if ($this->content != false)
 			$this->renderCommentBox();
 		else
 			$this->renderCommentCount();
+
+		$this->linkComments();
 	}
 
 	/**
@@ -51,8 +53,8 @@ class CiiDiscourseComments extends CWidget
             $('.comment-count').addClass('registered').append('$link');
 
             // Load Disqus
-            Discourse.load();
-            Discourse.commentCount();
+            Comments.load();
+            Comments.commentCount();
 		");
 	}
 
@@ -67,7 +69,7 @@ class CiiDiscourseComments extends CWidget
 
 			discourseUrl = \"{$this->_url}\";
 
-			Discourse.commentCount();
+			Comments.commentCount();
 		");
 	}
 }

@@ -4,7 +4,7 @@
  * @class CiiDisqusComments
  * Automatically displays and renders Disqus Comments in the view 
  */
-class CiiDisqusComments extends CWidget
+class CiiDisqusComments extends CiiCommentMaster
 {
 	/**
 	 * Content::model attributes passed from the Controller
@@ -25,7 +25,7 @@ class CiiDisqusComments extends CWidget
 	{
 		$this->_shortname = Cii::getConfig('disqus_shortname');
 		$asset = Yii::app()->assetManager->publish(YiiBase::getPathOfAlias('ext.cii.assets.dist'), true, -1, YII_DEBUG);
-		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/disqus.js' : '/disqus.min.js'), CClientScript::POS_END);
+		Yii::app()->clientScript->registerScriptFile($asset. (YII_DEBUG ? '/ciidisqus.js' : '/ciidisqus.min.js'), CClientScript::POS_END);
 
 		if ($this->content != false)
 			$this->renderCommentBox();
@@ -55,8 +55,8 @@ class CiiDisqusComments extends CWidget
 	            $('.comment-count').addClass('registered').append('$link');
 
 	            // Load Disqus
-	            Disqus.load();
-	            Disqus.commentCount();
+	            Comments.load();
+	            Comments.commentCount();
 	        });
 		");
 	}
@@ -70,7 +70,7 @@ class CiiDisqusComments extends CWidget
 			$(document).ready(function() {
 				var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 				disqus_shortname = \"{$this->_shortname}\";
-				Disqus.commentCount();
+				Comments.commentCount();
 			});
 		");
 	}

@@ -3,15 +3,29 @@
  * Automatically loads and registers CiiMS comments to a site
  * @type {Object}
  */
-var CiiMSComments = {
+var Comments = {
+
+	isModuleLoaded : false,
+
+	isLoaded : false,
+
+	init : function(id, title, url) {
+		ciims_identifier = id;
+		ciims_title = title;
+	},
+
+	reload : function(id) {
+		ciims_identifier = id;
+		this.load(id);
+	},
 
 	storage : null,
 
 	getStoredInfoBy : function(name) {
-		if (CiiMSComments.storage == null)
-			CiiMSComments.storage = jQuery.parseJSON(localStorage.getItem('ciims'));
+		if (Comments.storage == null)
+			Comments.storage = jQuery.parseJSON(localStorage.getItem('ciims'));
 
-		return CiiMSComments.storage[name];
+		return Comments.storage[name];
 	},
 
 	/**
@@ -23,12 +37,14 @@ var CiiMSComments = {
 		if (id == undefined)
 			id = $('.comment-count').attr('data-attr-id');
 
+		ciims_identifier = id;
+
 		var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';
 
 		// Update the DOM
 		$("#ciims_comments").html("<div class='comment_loader'></div><div class='comment_messages'><div class='clearfix'></div></div><h3>Comments</h3><div class='new_comment'></div><div class='comments_container' style='display:none'></div>");
 
-		var isAuthenticated = CiiMSComments.getStoredInfoBy("isAuthenticated");
+		var isAuthenticated = Comments.getStoredInfoBy("isAuthenticated");
 
 		if (isAuthenticated == true)
 		{
@@ -41,7 +57,7 @@ var CiiMSComments = {
 			$(".template_container").remove();
 
 			// Create the Gravatar URL for the user
-			var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(CiiMSComments.getStoredInfoBy("email")) + "?s=30"});
+			var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(Comments.getStoredInfoBy("email")) + "?s=30"});
 			$(NewComment).find(".comment_person").append($(gravatar));
 
 			// Add the comment box
@@ -54,7 +70,7 @@ var CiiMSComments = {
 			// Add the new comment to the body
 			$(".new_comment").html($(NewComment));
 
-			CiiMSComments.behaviors.bind();
+			Comments.behaviors.bind();
 		}
 		else
 		{
@@ -68,8 +84,8 @@ var CiiMSComments = {
 		    url : endpoint + 'api/comment/comments/id/' + id,
 		    type : 'get',
 		    headers : {
-		        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
-		        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
+		        "X-Auth-Email" : Comments.getStoredInfoBy("email"),
+		        "X-Auth-Token" : Comments.getStoredInfoBy("token")
 		    },
 		    dataType : 'json',
 		    success : function(data) {
@@ -79,10 +95,10 @@ var CiiMSComments = {
 
 				// Iterate through the objects to add them to the dom
 				$.each(data.response, function() {
-                    CiiMSComments.behaviors.showComment(this);
+                    Comments.behaviors.showComment(this);
 				});
 
-                CiiMSComments.behaviors.bindMod();
+                Comments.behaviors.bindMod();
 				// Timeago
 				$(".timeago").timeago();
 
@@ -112,7 +128,7 @@ var CiiMSComments = {
 			$(this).addClass("registered").append("<a href=\"" + endpoint + $(this).attr("data-attr-slug") + "#comment\" data-ciimscomments-identifier=\"" + id + "\">0</a>");
 		});
 
-		CiiMSComments.more();
+		Comments.more();
 		
 		if (elements.length == 0)
 			return;
@@ -130,11 +146,11 @@ var CiiMSComments = {
 	 */
 	more : function(force) {
 		$("a#more").click(function() {
-			setTimeout(function() { CiiMSComments.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 		});
 		
 		if (force == true)
-			setTimeout(function() { CiiMSComments.commentCount(); }, 500);
+			setTimeout(function() { Comments.commentCount(); }, 500);
 	},
 
 	behaviors : {
@@ -148,8 +164,8 @@ var CiiMSComments = {
         	if (showFirst == undefined)
         		showFirst = false;
 
-            var role = CiiMSComments.getStoredInfoBy("role");
-            var isAuthenticated = CiiMSComments.getStoredInfoBy("isAuthenticated");
+            var role = Comments.getStoredInfoBy("role");
+            var isAuthenticated = Comments.getStoredInfoBy("isAuthenticated");
 
             var html = $(".comment.template").clone();
 
@@ -206,8 +222,8 @@ var CiiMSComments = {
                     url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/flag/id/" + id,
                     type : 'post',
                     headers : {
-                        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
-                        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
+                        "X-Auth-Email" : Comments.getStoredInfoBy("email"),
+                        "X-Auth-Token" : Comments.getStoredInfoBy("token")
                     },
                     dataType : 'json',
                     beforeSend : function() {
@@ -232,8 +248,8 @@ var CiiMSComments = {
                     url : $('#endpoint').attr('data-attr-endpoint') + "/api/comment/index/id/" + id,
                     type : 'delete',
                     headers : {
-                        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
-                        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
+                        "X-Auth-Email" : Comments.getStoredInfoBy("email"),
+                        "X-Auth-Token" : Comments.getStoredInfoBy("token")
                     },
                     dataType : 'json',
                     beforeSend : function() {
@@ -282,7 +298,7 @@ var CiiMSComments = {
 
 					$(".comment_box").removeClass("pure-focus");
 
-					CiiMSComments.behaviors.bind();
+					Comments.behaviors.bind();
 				});
 
 				// Bind the submit button click event
@@ -303,11 +319,11 @@ var CiiMSComments = {
 					    type : 'post',
 					    data : {
 					        "comment" : text,
-					        "content_id" : $('.comment-count').attr("data-attr-id"),
+					        "content_id" : ciims_identifier,
 					    },
 					    headers : {
-					        "X-Auth-Email" : CiiMSComments.getStoredInfoBy("email"),
-					        "X-Auth-Token" : CiiMSComments.getStoredInfoBy("token")
+					        "X-Auth-Email" : Comments.getStoredInfoBy("email"),
+					        "X-Auth-Token" : Comments.getStoredInfoBy("token")
 					    },
 					    dataType : 'json',
 					    beforeSend : function() {
@@ -321,8 +337,8 @@ var CiiMSComments = {
 					    success : function (data) {
 
                             // Show the comment
-                            CiiMSComments.behaviors.showComment(data.response, true);
-                            CiiMSComments.behaviors.bindMod();
+                            Comments.behaviors.showComment(data.response, true);
+                            Comments.behaviors.bindMod();
 
 							$(".timeago").timeago();
 
@@ -336,23 +352,5 @@ var CiiMSComments = {
 				});
 			});
 		}
-	}
-};
-
-/**
- * Overload this object depending upon the commenting system you are using
- * @type Comments
- */
-var Comments = {
-	load : function(id) {
-		Disqus.load(id);
-	},
-	
-	reload : function(id) {
-		CiiMSComments.load(id);
-	},
-
-	more : function() {
-    	CiiMSComments.more(true);
 	}
 };
