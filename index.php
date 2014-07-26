@@ -35,8 +35,8 @@ if (!file_exists($config) && file_exists('install.php'))
 }
 
 $config = require($config);
-defined('YII_DEBUG') or define('YII_DEBUG',isset($params['params']['debug']) ? $params['params']['debug'] : false);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($params['params']['trace']) ? $params['params']['trace'] : 0);
+defined('YII_DEBUG') or define('YII_DEBUG',isset($config['params']['debug']) ? $config['params']['debug'] : false);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['trace']) ? $config['params']['trace'] : 0);
 
 // Load the config file
 $defaultConfig = require($defaultConfig);

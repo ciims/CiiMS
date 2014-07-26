@@ -8,17 +8,12 @@ class CiiAssetManager extends CAssetManager
 	{
 		 if (php_sapi_name() === 'cli')
 		 	return Yii::getPathOfAlias('webroot.assets');
-		 else if (defined('CII_CONFIG'))
-		 	return Yii::getPathOfAlias('webroot.assets.'.str_replace('.', '_', CII_CONFIG));
 
 		 return parent::getBasePath();
 	}
 
 	public function getBaseRelUrl()
 	{
-		if (defined('CII_CONFIG'))
-		 	return '/assets/'.str_replace('.', '_', CII_CONFIG);
-
 		 return parent::getBaseUrl();
 	}
 
@@ -27,7 +22,11 @@ class CiiAssetManager extends CAssetManager
 	 */
 	protected function generatePath($file, $hashByName=false)
 	{
-    	return $this->hash($file);
+		$hash = $this->hash($file);
+
+		if (defined('CII_CONFIG'))
+		 	return str_replace('.', '_', CII_CONFIG).'/'.$hash;
+    	return $hash;
 	}
 
 	/**
@@ -35,7 +34,7 @@ class CiiAssetManager extends CAssetManager
 	 */
 	protected function hash($path)
 	{
-	    return substr(md5($path), 0, 6);
+	    return substr(md5($path), 0, 10);
 	}
 
 	public function publish($path,$hashByName=false,$level=-1,$forceCopy=null)
@@ -71,7 +70,7 @@ class CiiAssetManager extends CAssetManager
 	                chmod($dstFile,$this->newFileMode);
 	            }
 
-	            return $this->_published[$path]=$this->getBaseUrl()."/$dir/$fileName";
+	            return $this->_published[$path]=$this->getBaseRelUrl()."/$dir/$fileName";
 	        }
 	        elseif(is_dir($src))
 	        {
@@ -89,9 +88,10 @@ class CiiAssetManager extends CAssetManager
 	                ));
 	            }
 
-	            return $this->_published[$path]=$this->getBaseUrl().'/'.$dir;
+	            return $this->_published[$path]=$this->getBaseRelUrl().'/'.$dir;
 	        }
 	    }
+
 	    throw new CException(Yii::t('yii','The asset "{asset}" to be published does not exist.',
 	        array('{asset}'=>$path)));
 	}

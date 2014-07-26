@@ -118,10 +118,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 		$toBeCombined = array();
 		foreach ($this->cssFiles as $url => $media)
 		{
-			if (defined('CII_CONFIG'))
-				$file = str_replace('assets', Yii::app()->assetManager->getBasePath(), $url);
-			else
-				$file = $this->getLocalPath($url);
+			$file = $this->getLocalPath($url);
 
 			if ($file === false)
 				$cssFiles[$url] = $media;
@@ -214,10 +211,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 		$toBeCombined = array();
 		foreach ($this->scriptFiles[$type] as $url)
 		{
-			if (defined('CII_CONFIG'))
-				$file = str_replace('assets', Yii::app()->assetManager->getBasePath(), $url);
-			else
-				$file = $this->getLocalPath($url);
+			$file = $this->getLocalPath($url);
 
 			if ($file === false)
 				$scriptFiles[$url] = $url;
@@ -253,6 +247,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 					}
 				}
 			}
+
 			// re-generate the file
 			if (!$valid)
 			{
@@ -337,6 +332,9 @@ class CiiClientScript extends YiiNewRelicClientScript
 		if ($type !== '')
 			$ret .= '-' . $type;
 		$ret .= '-' . $hash . substr($name, $pos);
+
+		if (defined('CII_CONFIG'))
+			$ret = str_replace('.', '_', CII_CONFIG).'/'.$ret;
 
 		return $ret;
 	}
