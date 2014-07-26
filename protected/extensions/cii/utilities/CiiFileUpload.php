@@ -31,7 +31,7 @@ class CiiFileUpload
      */
 	public function uploadFile()
 	{
-        if (Cii::get(Cii::getCiiConfig(), 'env', NULL) == 'ciimsorg')
+        if (defined(CII_CONFIG))
            $this->_response = $this->_uploadCiiMSFile();
         elseif (Cii::getConfig('useOpenstackCDN'))
             $this->_response = $this->_uploadCDNFile();
@@ -82,14 +82,11 @@ class CiiFileUpload
      */
     private function _uploadCiiMSFile()
     {
-        $config = Cii::getCiiConfig();
         $args = array(
             'file' => new CurlFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']),
-            'token' => Cii::get($config, 'token', NULL),
-            'container' => Cii::get($config, 'container')
         );
 
-        $resource = curl_init(Cii::get($config, 'file_api_endpoint'));
+        $resource = curl_init(Yii::app()->params['CiiMS']['file_api_endpoint']));
         curl_setopt($resource, CURLOPT_POST, 1);
         curl_setopt($resource, CURLOPT_POSTFIELDS, $args);
         curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1); 

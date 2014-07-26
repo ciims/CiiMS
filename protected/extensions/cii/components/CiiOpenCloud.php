@@ -59,8 +59,6 @@ class CiiOpenCloud extends CComponent
 		$this->apiKey = $apiKey;
 		$this->useRackspace = $useRackspace;
 		$this->region = $region;
-
-		$this->_overrideControl = Cii::getCiiConfig();
 	}
 
 	/**

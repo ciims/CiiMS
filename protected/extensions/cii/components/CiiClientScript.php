@@ -118,7 +118,11 @@ class CiiClientScript extends YiiNewRelicClientScript
 		$toBeCombined = array();
 		foreach ($this->cssFiles as $url => $media)
 		{
-			$file = $this->getLocalPath($url);
+			if (defined('CII_CONFIG'))
+				$file = str_replace('assets', Yii::app()->assetManager->getBasePath(), $url);
+			else
+				$file = $this->getLocalPath($url);
+
 			if ($file === false)
 				$cssFiles[$url] = $media;
 			else
@@ -143,11 +147,11 @@ class CiiClientScript extends YiiNewRelicClientScript
 			{
 				// get unique combined filename
 				$fname = $this->getCombinedFileName($this->cssFileName, $files, $media);
-				$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . $fname;
+				$fpath = Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . $fname;
+
 				// check exists file
 				if ($valid = file_exists($fpath))
 				{
-
 					$mtime = filemtime($fpath);
 					foreach ($files as $file)
 					{
@@ -187,7 +191,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 					//Yii::app()->cache->set('combineJs' . md5($fpath) . md5($fname), true);
 				}
 				// real url of combined file
-				$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
+				$url = Yii::app()->assetManager->getBaseRelUrl() . '/' . $fname;
 			}
 			$cssFiles[$url] = $media;
 		}
@@ -210,7 +214,11 @@ class CiiClientScript extends YiiNewRelicClientScript
 		$toBeCombined = array();
 		foreach ($this->scriptFiles[$type] as $url)
 		{
-			$file = $this->getLocalPath($url);
+			if (defined('CII_CONFIG'))
+				$file = str_replace('assets', Yii::app()->assetManager->getBasePath(), $url);
+			else
+				$file = $this->getLocalPath($url);
+
 			if ($file === false)
 				$scriptFiles[$url] = $url;
 			else
@@ -226,7 +234,8 @@ class CiiClientScript extends YiiNewRelicClientScript
 		{
 			// get unique combined filename
 			$fname = $this->getCombinedFileName($this->scriptFileName, array_values($toBeCombined), $type);
-			$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . $fname;
+			$fpath = Yii::app()->assetManager->getBasePath() . DIRECTORY_SEPARATOR . $fname;
+
 			// check exists file
 			if ($valid = file_exists($fpath))
 			{
@@ -264,7 +273,7 @@ class CiiClientScript extends YiiNewRelicClientScript
 				//Yii::app()->cache->set('combineCss' . md5($fpath) . md5($fname), true);
 			}
 			// add the combined file into scriptFiles
-			$url = Yii::app()->assetManager->baseUrl . '/' . $fname;
+			$url = Yii::app()->assetManager->getBaseRelUrl() . '/' . $fname;
 			$scriptFiles[$url] = $url;
 		}
 		// use new scriptFiles list replace old ones

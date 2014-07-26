@@ -8,8 +8,18 @@ class CiiAssetManager extends CAssetManager
 	{
 		 if (php_sapi_name() === 'cli')
 		 	return Yii::getPathOfAlias('webroot.assets');
+		 else if (defined('CII_CONFIG'))
+		 	return Yii::getPathOfAlias('webroot.assets.'.str_replace('.', '_', CII_CONFIG));
 
 		 return parent::getBasePath();
+	}
+
+	public function getBaseRelUrl()
+	{
+		if (defined('CII_CONFIG'))
+		 	return '/assets/'.str_replace('.', '_', CII_CONFIG);
+
+		 return parent::getBaseUrl();
 	}
 
 	/**
