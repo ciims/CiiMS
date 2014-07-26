@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c3477093620a765d3694be779ba3aa4f",
+    "hash": "5b3f3ed7d36f12db94185ca9b4c031f7",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "charlesportwoodii/eanalytics",
-            "version": "1.1.2",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/EAnalytics.git",
-                "reference": "61e7d5a59d69b5751f7678e3ed9eaf723a194e44"
+                "reference": "ea9cff370404b51131dca653852120a9b47ef56a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/61e7d5a59d69b5751f7678e3ed9eaf723a194e44",
-                "reference": "61e7d5a59d69b5751f7678e3ed9eaf723a194e44",
+                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/ea9cff370404b51131dca653852120a9b47ef56a",
+                "reference": "ea9cff370404b51131dca653852120a9b47ef56a",
                 "shasum": ""
             },
             "type": "library",
@@ -96,7 +96,7 @@
                 "analytics",
                 "analytics.js"
             ],
-            "time": "2014-04-16 20:41:31"
+            "time": "2014-07-26 01:21:05"
         },
         {
             "name": "ciims-modules/api",
@@ -519,12 +519,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "cab95eeba6de613b2dc1d19c7d71d1311fd8a809"
+                "reference": "fa3a2dcbef5a2233cfaa9c6fe28bae57c03b6465"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/cab95eeba6de613b2dc1d19c7d71d1311fd8a809",
-                "reference": "cab95eeba6de613b2dc1d19c7d71d1311fd8a809",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/fa3a2dcbef5a2233cfaa9c6fe28bae57c03b6465",
+                "reference": "fa3a2dcbef5a2233cfaa9c6fe28bae57c03b6465",
                 "shasum": ""
             },
             "require": {
@@ -556,7 +556,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-07-19 07:49:00"
+            "time": "2014-07-25 07:55:11"
         },
         {
             "name": "gtcode/yii-newrelic",
@@ -1795,12 +1795,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e243de0b5264da8454105455bda0881f5b2ac972"
+                "reference": "c9fb9c97b385dedb0a29ddb59af48b605a306fc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e243de0b5264da8454105455bda0881f5b2ac972",
-                "reference": "e243de0b5264da8454105455bda0881f5b2ac972",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c9fb9c97b385dedb0a29ddb59af48b605a306fc0",
+                "reference": "c9fb9c97b385dedb0a29ddb59af48b605a306fc0",
                 "shasum": ""
             },
             "require": {
@@ -1861,7 +1861,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-22 22:57:02"
+            "time": "2014-07-25 22:34:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2310,12 +2310,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692"
+                "reference": "3075f28ebc958c2006d0267ae0d189eac1dd4b2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
-                "reference": "4d29ae5f1dbc3ee7fcd82ffbb292476975a78692",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/3075f28ebc958c2006d0267ae0d189eac1dd4b2f",
+                "reference": "3075f28ebc958c2006d0267ae0d189eac1dd4b2f",
                 "shasum": ""
             },
             "require": {
@@ -2338,23 +2338,21 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
                 },
                 {
                     "name": "Jean-François Simon",
                     "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-17 08:32:45"
+            "time": "2014-07-18 07:44:18"
         },
         {
             "name": "symfony/dom-crawler",
@@ -2363,12 +2361,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "e50da0a1af797151266110f432586d062bb873fb"
+                "reference": "82b5ca611e483de4dfc010b21dc63d5e7c8645c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/e50da0a1af797151266110f432586d062bb873fb",
-                "reference": "e50da0a1af797151266110f432586d062bb873fb",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/82b5ca611e483de4dfc010b21dc63d5e7c8645c1",
+                "reference": "82b5ca611e483de4dfc010b21dc63d5e7c8645c1",
                 "shasum": ""
             },
             "require": {
@@ -2397,19 +2395,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 09:06:26"
+            "time": "2014-07-23 19:02:07"
         },
         {
             "name": "symfony/finder",

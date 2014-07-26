@@ -80,7 +80,7 @@
         "knplabs/packagist-api": "v1.1",
         "gtcode/yii-newrelic": "dev-master",
         "yiqing-95/YiiTimeAgo": "dev-master",
-        "charlesportwoodii/eanalytics": "1.1.2",
+        "charlesportwoodii/eanalytics": "1.1.4",
         "ciims-themes/default": "3.0.6",
 	"ciims-modules/dashboard": "dev-3.0.0-dev",
         "ciims-modules/api": "dev-2.0.0-dev",

@@ -72,8 +72,8 @@ class CiiAnalytics extends EAnalytics
                         }
                         else
                         {
-                            if ($v == "" || $v == null)
-                                $providers[$provider][$p[1]] = 'null';
+                            if ($v == "" || $v == null || $v == "null")
+                                $providers[$provider][$p[1]] = null;
                             else
                                 $providers[$provider][$p[1]] = $v;
                         }
