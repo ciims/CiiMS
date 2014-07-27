@@ -72,7 +72,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 
 Before installing CiiMS you'll need to have at _minimum_ the following:
 
-* PHP 5.3.7+
+* PHP 5.3.10+
 * PHP CURL Extension
 * PHP ZIP Extension
 * PHP MCrypt Extension
