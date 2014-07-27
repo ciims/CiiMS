@@ -13,7 +13,7 @@ class CiiFileUpload
 	private $_response = NULL;
 
 	// The response object
-	private $_result = array();
+	public $_result = array();
 
 	/**
 	 * Constructor for handling uploads
@@ -31,8 +31,13 @@ class CiiFileUpload
      */
 	public function uploadFile()
 	{
-        if (defined(CII_CONFIG))
-           $this->_response = $this->_uploadCiiMSFile();
+        if (defined('CII_CONFIG') && isset(Yii::app()->params['CiiMS']['upload_class']))
+        {
+            $className = Yii::app()->params['CiiMS']['upload_class'];
+            $class = new $className(Yii::app()->params['CiiMS']);
+            $this->_result = $class->upload();
+            $this->_response = $this->_handleResourceUpload($this->_result['url']);
+        }
         elseif (Cii::getConfig('useOpenstackCDN'))
             $this->_response = $this->_uploadCDNFile();
         else
@@ -74,31 +79,6 @@ class CiiFileUpload
         $this->_result = $openCloud->uploadFile($container);
 
         return $this->_handleResourceUpload($this->_result['url'] . '/' . $this->_result['filename']);
-    }
-
-    /**
-     * Uploads a file to the CiiMS File CDN
-     * @return string
-     */
-    private function _uploadCiiMSFile()
-    {
-        $args = array(
-            'file' => new CurlFile($_FILES['file']['tmp_name'], $_FILES['file']['type'], $_FILES['file']['name']),
-        );
-
-        $resource = curl_init(Yii::app()->params['CiiMS']['file_api_endpoint']));
-        curl_setopt($resource, CURLOPT_POST, 1);
-        curl_setopt($resource, CURLOPT_POSTFIELDS, $args);
-        curl_setopt($resource, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt($resource, CURLOPT_FOLLOWLOCATION, 1); 
-
-        $this->_result = CJSON::decode(curl_exec($resource));
-        if ($this->_result == false || $this->_result == NULL)
-            throw new CHttpException(500, curl_error($resource));
-        curl_close($resource);
-
-        $this->_result = $this->_result['response'];  
-        return $this->_handleResourceUpload($this->_result['url'] . '/' . $this->_result['filename']);     
     }
 
     /**
