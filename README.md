@@ -3,7 +3,7 @@
 [![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
 [![Downloads](http://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat)]()
 [![Gittip](http://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
-[![License](http://img.shields.io/license-MIT-orange?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
+[![License](http://img.shields.io/badge/license-MIT-orange.svg?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
 
 
 #### What is CiiMS?
