@@ -14,6 +14,23 @@
 class Events extends CiiModel
 {
 	/**
+	 * Adds the CTimestampBehavior to this class
+	 * @return array
+	 */
+	public function behaviors()
+	{
+		return array(
+			'CTimestampBehavior' => array(
+				'class' 			=> 'zii.behaviors.CTimestampBehavior',
+				'createAttribute' 	=> 'created',
+				'updateAttribute' 	=> 'created',
+				'timestampExpression' => new CDbExpression('UTC_TIMESTAMP()'),
+				'setUpdateOnCreate' => false
+			)
+		);
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()

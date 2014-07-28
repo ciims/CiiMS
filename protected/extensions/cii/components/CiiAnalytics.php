@@ -6,6 +6,20 @@ class CiiAnalytics extends EAnalytics
 
 	public $lowerBounceRate;
 
+    /**
+     * Init function overloaded to inject CiiAnalytics JS Tracking
+     */
+    public function init()
+    {
+        parent::init();
+        $asset = Yii::app()->assetManager->publish(__DIR__.DS.'..'.DS.'assets'.DS.'dist', true, -1, YII_DEBUG);
+        $cs    = Yii::app()->getClientScript();
+
+        $cs->registerScriptFile($asset.(YII_DEBUG ? '/ciianalytics.js' : '/ciianalytics.min.js'));
+
+        $cs->registerScript('ciianalytics', 'ciianalytics.init();');
+    }
+
 	/**
 	 * Direct overload of EAnalytics::getProviders()
 	 * @return array(), Providors from database merges with providers from config
@@ -43,12 +57,9 @@ class CiiAnalytics extends EAnalytics
                 $sqlProvider = str_replace(" ", "__" ,str_replace(".", "___", $provider));
                 $data = Yii::app()->db->createCommand('SELECT REPLACE(`key`, "analyticsjs_", "") AS `key`, value FROM `configuration` WHERE `key` LIKE "analyticsjs_' . $sqlProvider .'%" AND `key` != "analyticsjs_' . $sqlProvider .'_enabled"')->queryAll();
 
-                //$provider = str_replace('pwk', 'Piwik', $provider);
-
                 foreach ($data as $el)
                 {
                     $k = $el['key'];
-                    //$k = str_replace("pwk_", "Piwik_", $k);
 
                     $v = $el['value'];
                     $p = explode('_', str_replace("__", " " ,str_replace("___", ".", $k)));
@@ -84,10 +95,6 @@ class CiiAnalytics extends EAnalytics
 
             Yii::app()->cache->set('analyticsjs_providers', $providers);
         }
-
-        $providers['CiiMS'] = array(
-            'endpoint' => Yii::app()->getBaseUrl(true).'/api/event'
-        );
         
         return $providers;
     }

@@ -100,6 +100,7 @@ module.exports = function(grunt) {
             js: {
                 files: {
                     '<%= paths.dist %>/cii.min.js' : ['<%= paths.dist %>/cii.js'],
+                    '<%= paths.dist %>/ciianalytics.min.js' : ['<%= paths.dist %>/ciianalytics.js'],
                     '<%= paths.dist %>/jquery.min.js' : ['<%= paths.dist %>/jquery.js']
                 }
             }
