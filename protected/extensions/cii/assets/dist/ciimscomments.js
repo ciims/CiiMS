@@ -119,6 +119,7 @@ var Comments = {
 		$('.comment-count').each(function() {
 			// Retrieve the ID
 			var id = $(this).attr('data-attr-id');
+
 			elements.push(id);
 
 			// Bind a 0 comment count to items that have not already been registered
@@ -132,7 +133,7 @@ var Comments = {
 		
 		if (elements.length == 0)
 			return;
-
+		
 		$.post(endpoint + "/api/comment/count", { "ids" : elements }, function(data) {
 			$.each(data.response, function(k, v) { 
 				$("[data-ciimscomments-identifier=" + k + "]").text(v);

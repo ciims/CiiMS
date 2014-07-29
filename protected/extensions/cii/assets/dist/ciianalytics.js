@@ -25,7 +25,7 @@ var ciianalytics = {
 	},
 
 	getContentId : function() {
-		return $("#content").attr("data-attr-id");
+		return $("#content").attr("data-attr-id") || false;
 	},
 
 	ajax : function(aEvent, params) {
