@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
 ini_set('display_errors', 'true');
+date_default_timezone_set ('UTC');
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
 defined('YII_DEBUG') or define('YII_DEBUG', true);

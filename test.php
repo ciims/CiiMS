@@ -3,6 +3,7 @@
 // Set Error Reporting Levels
 error_reporting(-1);
 ini_set('display_errors', 'true');
+date_default_timezone_set ('UTC');
 
 // Definitions
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
