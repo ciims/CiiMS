@@ -47,7 +47,7 @@ class Events extends CiiModel
 		// will receive user inputs.
 		return array(
             array('event, uri', 'required'),
-			array('id, content_id', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
 			array('event, uri, page_title', 'length', 'max'=>255),
 			array('event_data, created', 'safe'),
 			// The following rule is used by search().
