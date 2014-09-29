@@ -69,6 +69,18 @@ class ProfileForm extends CFormModel
      */
     private $overridePasswordCheck = false;
 
+
+    private function canOverridePasswordCheck()
+    {
+        if ($this->overridePasswordCheck)
+            return true;
+
+        if (isset(Yii::app()->user) && $this->getId() == Yii::app()->user->id)
+            return true;
+
+        return false;
+    }
+
     /**
      * Overload of the __getter method to retrieve the user's ID
      * @var int $id
@@ -203,7 +215,7 @@ class ProfileForm extends CFormModel
      */
     public function validateUserRole($attributes, $params)
     {
-        if ($this->overridePasswordCheck)
+        if ($this->canOverridePasswordCheck())
             return true;
 
         $this->addError('user_role', Yii::t('ciims.models.ProfileForm', 'You do not have permission to modify this attribute'));
@@ -219,7 +231,7 @@ class ProfileForm extends CFormModel
     public function validateUserPassword($attributes, $params)
     {
         // Apply the override if it was set
-        if ($this->overridePasswordCheck)
+        if ($this->canOverridePasswordCheck())
             return true;
 
         $hash = Users::model()->encryptHash($this->_user->email, $this->currentPassword, Yii::app()->params['encryptionKey']);
