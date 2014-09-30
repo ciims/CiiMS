@@ -12,12 +12,15 @@ class CiiAnalytics extends EAnalytics
     public function init()
     {
         parent::init();
-        $asset = Yii::app()->assetManager->publish(__DIR__.DS.'..'.DS.'assets'.DS.'dist', true, -1, YII_DEBUG);
-        $cs    = Yii::app()->getClientScript();
+	if (get_class(Yii::app() != "CConsoleApplication")
+	{
+		$asset = Yii::app()->assetManager->publish(__DIR__.DS.'..'.DS.'assets'.DS.'dist', true, -1, YII_DEBUG);
+		$cs    = Yii::app()->getClientScript();
 
-        $cs->registerScriptFile($asset.(YII_DEBUG ? '/ciianalytics.js' : '/ciianalytics.min.js'));
+		$cs->registerScriptFile($asset.(YII_DEBUG ? '/ciianalytics.js' : '/ciianalytics.min.js'));
 
-        $cs->registerScript('ciianalytics', 'ciianalytics.init();');
+		$cs->registerScript('ciianalytics', 'ciianalytics.init();');
+	}
     }
 
 	/**
