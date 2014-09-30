@@ -12,7 +12,7 @@ class CiiAnalytics extends EAnalytics
     public function init()
     {
         parent::init();
-	if (get_class(Yii::app() != "CConsoleApplication")
+	if (get_class(Yii::app()) != "CConsoleApplication")
 	{
 		$asset = Yii::app()->assetManager->publish(__DIR__.DS.'..'.DS.'assets'.DS.'dist', true, -1, YII_DEBUG);
 		$cs    = Yii::app()->getClientScript();
