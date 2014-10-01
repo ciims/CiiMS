@@ -100,10 +100,7 @@ class Users extends CiiModel
 			'id' 		  => Yii::t('ciims.models.Users', 'ID'),
 			'email' 	  => Yii::t('ciims.models.Users', 'Email'),
 			'password' 	  => Yii::t('ciims.models.Users', 'Password'),
-			'firstName'   => Yii::t('ciims.models.Users', 'First Name'),
-			'lastName' 	  => Yii::t('ciims.models.Users', 'Last Name'),
-			'displayName' => Yii::t('ciims.models.Users', 'Display Name'),
-			'about'		  => Yii::t('ciims.models.Users', 'About'),
+			'displayName' => Yii::t('ciims.models.Users', 'User Name'),
 			'user_role'   => Yii::t('ciims.models.Users', 'User Role'),
 			'status'	  => Yii::t('ciims.models.Users', 'Active'),
 			'created' 	  => Yii::t('ciims.models.Users', 'Created'),
@@ -116,7 +113,12 @@ class Users extends CiiModel
      */
     public function getName()
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->username;
+    }
+
+    public function getDisplayName()
+    {
+    	return $this->username;
     }
 
     /**

@@ -18,9 +18,9 @@ $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
 $ciimsConfig = require($config);
 
-defined('YII_DEBUG') or define('YII_DEBUG',false);
-defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',0);
-
+defined('YII_DEBUG') or define('YII_DEBUG',true);
+defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
+defined('CIIMS_INSTALL') or define('CIIMS_INSTALL', true);
 if (!file_exists($mainConfig) && !file_exists($yiiPath)) 
 {
     require(dirname(__FILE__).'/protected/modules/install/init.php');

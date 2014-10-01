@@ -341,6 +341,9 @@ class Cii
      */
     public static function loadUserInfo()
     {
+        if (defined('CIIMS_INSTALL'))
+            return;
+        
         if (isset(Yii::app()->user))
         {
             // Load some specific CiiMS JS here

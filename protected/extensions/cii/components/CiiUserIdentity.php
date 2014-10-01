@@ -34,12 +34,6 @@ class CiiUserIdentity extends CUserIdentity
 	protected $force = false;
 
     /**
-     * The generated password hash, done to reduce work effort
-     * @var string $_hash
-     */
-    private $_hash;
-
-    /**
      * The Users ActiveRecord record response
      * @var Users $_user
      */
@@ -76,9 +70,6 @@ class CiiUserIdentity extends CUserIdentity
 
         if ($this->_user == NULL)
             $this->errorCode = YII_DEBUG ? self::ERROR_USERNAME_INVALID : self::ERROR_UNKNOWN_IDENTITY;
-
-        // Generate what the hash should be
-		$this->_hash = Users::model()->encryptHash($this->username, $this->password, Yii::app()->params['encryptionKey']);
 
         return $this->_user;
     }
@@ -150,7 +141,7 @@ class CiiUserIdentity extends CUserIdentity
         // If the user is banned, inactive,
         if ($this->_user->status == Users::BANNED || $this->_user->status == Users::INACTIVE || $this->_user->status == Users::PENDING_INVITATION)
 			$this->errorCode=self::ERROR_UNKNOWN_IDENTITY;
-		else if(!$this->password_verify_with_rehash($this->_hash, $this->_user->password))
+		else if(!$this->password_verify_with_rehash($this->password, $this->_user->password))
 			$this->errorCode= YII_DEBUG ? self::ERROR_PASSWORD_INVALID : self::ERROR_UNKNOWN_IDENTITY;
 
         // If this user has 5 or more failed password attempts
@@ -190,7 +181,7 @@ class CiiUserIdentity extends CUserIdentity
     {
         $this->_id 					  = $this->_user->id;
         $this->setState('email', 		$this->_user->email);
-        $this->setState('displayName', 	$this->_user->displayName);
+        $this->setState('username', 	$this->_user->username);
         $this->setState('status', 		$this->_user->status);
         $this->setState('role', 		$this->_user->user_role);
         $this->setstate('apiKey',       $this->generateAPIKey());

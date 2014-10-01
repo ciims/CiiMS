@@ -42,7 +42,7 @@ class CiiModel extends CActiveRecord
 				'class' 			=> 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' 	=> 'created',
 				'updateAttribute' 	=> 'updated',
-				'timestampExpression' => new CDbExpression('UTC_TIMESTAMP()'),
+				'timestampExpression' => time(),
 				'setUpdateOnCreate' => true
 			)
 		);
@@ -62,10 +62,10 @@ class CiiModel extends CActiveRecord
 
             if ($k == 'created' || $k == 'updated' || $k == 'published')
             {
-                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UTC_TIMESTAMP()')
+                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UNIX_TIMESTAMP()')
                     $attributes[$k] = time();
                 else
-                    $attributes[$k] = strtotime($v);
+                    $attributes[$k] = $v;
             }
             else
                 $attributes[$k] = $v;

@@ -72,11 +72,11 @@ class Content extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('vid, author_id, title, content, status, commentable, parent_id, category_id', 'required'),
-			array('vid, author_id, status, commentable, parent_id, category_id, type_id, like_count', 'numerical', 'integerOnly'=>true),
+			array('vid, author_id, title, content, status, commentable, category_id', 'required'),
+			array('vid, author_id, status, commentable, category_id, type_id, like_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
-			array('id, vid, author_id, title, content, extract, status, commentable, parent_id, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, extract, status, commentable, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -90,7 +90,6 @@ class Content extends CiiModel
 		return array(
 			'comments' => array(self::HAS_MANY, 'Comments', 'content_id'),
 			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
-			'parent' => array(self::BELONGS_TO, 'Content', 'parent_id'),
 			'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
 			'metadata' => array(self::HAS_MANY, 'ContentMetadata', 'content_id'),
 		);
@@ -110,7 +109,6 @@ class Content extends CiiModel
 			'extract' 		=> Yii::t('ciims.models.Content', 'Extract'),
 			'status' 		=> Yii::t('ciims.models.Content', 'Status'),
 			'commentable' 	=> Yii::t('ciims.models.Content', 'Commentable'),
-			'parent_id' 	=> Yii::t('ciims.models.Content', 'Parent'),
 			'category_id' 	=> Yii::t('ciims.models.Content', 'Category'),
 			'type_id' 		=> Yii::t('ciims.models.Content', 'Type'),
 			'password' 		=> Yii::t('ciims.models.Content', 'Password'),
@@ -228,7 +226,7 @@ class Content extends CiiModel
 		$criteria = new CDbCriteria();
 		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
 		         		->addCondition('status = 1')
-		         		->addCondition('UTC_TIMESTAMP() >= published');
+		         		->addCondition('UNIX_TIMESTAMP() >= published');
 	}
 
 	/**

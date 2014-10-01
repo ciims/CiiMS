@@ -37,6 +37,21 @@
                 '/admin' => '/install/default/admin'
             ),
         ),
+         'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CWebLogRoute',
+                    'levels' => 'error, warning, trace, info',
+                    'enabled' => true
+                ),
+                array( 
+                    'class'=>'CProfileLogRoute', 
+                    'report'=>'summary',
+                    'enabled' => true
+                )
+            )
+        ),
     ),
     'params' => array(
         'stage' => 0,

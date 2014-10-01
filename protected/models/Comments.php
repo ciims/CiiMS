@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'comments':
  * @property integer $id
  * @property integer $content_id
- * @property integer $user_id
+ * @property integer $author_id
  * @property string $comment
  * @property string $created
  * @property string $updated
@@ -65,10 +65,10 @@ class Comments extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('content_id, user_id, comment', 'required'),
-			array('content_id, user_id', 'numerical', 'integerOnly'=>true),
+			array('content_id, author_id, comment', 'required'),
+			array('content_id, author_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
-			array('id, content_id, user_id, comment, created, updated', 'safe', 'on'=>'search'),
+			array('id, content_id, author_id, comment, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,7 +82,7 @@ class Comments extends CiiModel
 		return array(
 			'metadata' => array(self::HAS_MANY, 'CommentMetadata', 'comment_id'),
 			'content' => array(self::BELONGS_TO, 'Content', 'content_id'),
-			'author' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
 		);
 	}
 
@@ -94,7 +94,7 @@ class Comments extends CiiModel
 		return array(
 			'id'		 => Yii::t('ciims.models.Comments', 'ID'),
 			'content_id' => Yii::t('ciims.models.Comments', 'Content'),
-			'user_id' 	 => Yii::t('ciims.models.Comments', 'User'),
+			'author_id'  => Yii::t('ciims.models.Comments', 'User'),
 			'comment' 	 => Yii::t('ciims.models.Comments', 'Comment'),
 			'created' 	 => Yii::t('ciims.models.Comments', 'Created'),
 			'updated' 	 => Yii::t('ciims.models.Comments', 'Updated'),
@@ -111,7 +111,7 @@ class Comments extends CiiModel
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('content_id',$this->content_id);
-		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('author_id',$this->author_id);
 		$criteria->compare('comment',$this->comment,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
@@ -128,7 +128,7 @@ class Comments extends CiiModel
 	public function getApiAttributes($params = array(), $relations = false)
 	{
 		$data = parent::getApiAttributes($params, $relations);
-        $user = Users::model()->findByPk($this->user_id);
+        $user = Users::model()->findByPk($this->author_id);
         $attributes = $user->getApiAttributes();
         $data['user'] = array(
             'email' => $attributes['email'],
@@ -174,7 +174,7 @@ class Comments extends CiiModel
 	{
 		if ($this->_isNewRecord)
 		{
-			$user = Users::model()->findByPk($this->user_id);
+			$user = Users::model()->findByPk($this->author_id);
 			$user->setReputation(10);
 		}
 

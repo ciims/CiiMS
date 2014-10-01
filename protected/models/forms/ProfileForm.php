@@ -29,21 +29,9 @@ class ProfileForm extends CFormModel
 
     /**
      * The user's display name
-     * @var string $displayName
+     * @var string $username
      */
-    public $displayName;
-
-    /**
-     * The user's first name if provided
-     * @var string $firstName
-     */
-    public $firstName;
-
-    /**
-     * The user's last name if provided
-     * @var string $lastName
-     */
-    public $lastName;
+    public $username;
 
     /**
      * The user's self-given bio
@@ -185,8 +173,8 @@ class ProfileForm extends CFormModel
     public function rules()
     {
         return array(
-            array('email, displayName', 'required'),
-            array('displayName, firstName, lastName', 'length', 'max' => 255),
+            array('email, username', 'required'),
+            array('username', 'length', 'max' => 255),
             array('password', 'compare'),
             array('password', 'length', 'min' => 8),
             array('user_role', 'numerical'),
@@ -266,9 +254,7 @@ class ProfileForm extends CFormModel
         // Reload the attribute labels
         $this->attributes = array(
             'email'         => $this->_user->email,
-            'firstName'     => $this->_user->firstName,
-            'lastName'      => $this->_user->lastName,
-            'displayName'   => $this->_user->displayName,
+            'username'      => $this->_user->username,
             'about'         => $this->_user->about,
             'user_role'     => $this->_user->role->id
         );
@@ -293,9 +279,7 @@ class ProfileForm extends CFormModel
 
         $this->_user->attributes = array(
             'password'      => $this->password,
-            'firstName'     => $this->firstName,
-            'lastName'      => $this->lastName,
-            'displayName'   => $this->displayName,
+            'username'      => $this->username,
             'about'         => $this->about,
             'user_role'     => $this->user_role
         );
