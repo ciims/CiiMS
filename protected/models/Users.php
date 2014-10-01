@@ -9,7 +9,7 @@
  * @property string $password
  * @property string $firstName
  * @property string $lastName
- * @property string $displayName
+ * @property string $username
  * @property string $about
  * @property integer $user_role
  * @property integer $status
@@ -66,13 +66,13 @@ class Users extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, displayName, user_role, status', 'required'),
+			array('email, password, username, user_role, status', 'required'),
 			array('email', 'email'),
 			array('user_role, status', 'numerical', 'integerOnly'=>true),
-			array('email, firstName, lastName, displayName', 'length', 'max'=>255),
+			array('email, username', 'length', 'max'=>255),
 			array('password', 'length', 'max'=>64),
 			// The following rule is used by search().
-			array('id, email, password, firstName, lastName, displayName, about, user_role, status, created, updated', 'safe', 'on'=>'search'),
+			array('id, email, password, username, about, user_role, status, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,7 +100,7 @@ class Users extends CiiModel
 			'id' 		  => Yii::t('ciims.models.Users', 'ID'),
 			'email' 	  => Yii::t('ciims.models.Users', 'Email'),
 			'password' 	  => Yii::t('ciims.models.Users', 'Password'),
-			'displayName' => Yii::t('ciims.models.Users', 'User Name'),
+			'username'    => Yii::t('ciims.models.Users', 'User Name'),
 			'user_role'   => Yii::t('ciims.models.Users', 'User Role'),
 			'status'	  => Yii::t('ciims.models.Users', 'Active'),
 			'created' 	  => Yii::t('ciims.models.Users', 'Created'),
@@ -109,14 +109,14 @@ class Users extends CiiModel
 	}
 
     /**
-     * Gets the first and last name instead of the displayname
+     * Gets the first and last name instead of the username
      */
     public function getName()
     {
         return $this->username;
     }
 
-    public function getDisplayName()
+    public function getusername()
     {
     	return $this->username;
     }
@@ -220,10 +220,7 @@ class Users extends CiiModel
 		$criteria->compare('id',$this->id);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('firstName',$this->firstName,true);
-		$criteria->compare('lastName',$this->lastName,true);
-		$criteria->compare('displayName',$this->displayName,true);
-		$criteria->compare('about',$this->about,true);
+		$criteria->compare('username',$this->username,true);
 		$criteria->compare('user_role',$this->user_role);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
@@ -286,18 +283,6 @@ class Users extends CiiModel
 			return true;
 
 		return false;
-	}
-
-	/**
-	 * Creates an encrypted hash to be used as a password
-	 * @param string $email 	The user email
-	 * @param string $password	The password to be encrypted
-	 * @param string $_dbsalt	The salt value to be used (Yii::app()->params['encryptionKey'])
-	 * @return 64 character encrypted string
-	 */
-	public function encryptHash($email, $password, $_dbsalt)
-	{
-		return mb_strimwidth(hash("sha512", hash("sha512", hash("whirlpool", md5($password . md5($email)))) . hash("sha512", md5($password . md5($_dbsalt))) . $_dbsalt), 0, 64);
 	}
 
 	/**

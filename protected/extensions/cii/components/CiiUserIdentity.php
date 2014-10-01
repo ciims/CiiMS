@@ -182,6 +182,9 @@ class CiiUserIdentity extends CUserIdentity
         $this->_id 					  = $this->_user->id;
         $this->setState('email', 		$this->_user->email);
         $this->setState('username', 	$this->_user->username);
+
+        // TODO: Replace all instances of displayName with username
+        $this->setState('displayName',  $this->_user->username);
         $this->setState('status', 		$this->_user->status);
         $this->setState('role', 		$this->_user->user_role);
         $this->setstate('apiKey',       $this->generateAPIKey());

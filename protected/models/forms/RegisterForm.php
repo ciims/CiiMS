@@ -21,22 +21,10 @@ class RegisterForm extends CFormModel
 	public $password_repeat;
 
 	/**
-	 * The submitted first name if it was supplied
-	 * @var string
-	 */
-	public $firstName;
-
-	/**
-	 * The submitted last name if it was supplied
-	 * @var string
-	 */
-	public $lastName;
-
-	/**
 	 * The display name as we will show it on the site
 	 * @var string
 	 */
-	public $displayName;
+	public $username;
 
     /**
      * The user model
@@ -53,7 +41,7 @@ class RegisterForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('email, password, password_repeat, displayName', 'required'),
+			array('email, password, password_repeat, username', 'required'),
 			array('password', 'compare'),
 			array('password', 'length', 'min'=>8),
 			array('email', 'email'),
@@ -109,8 +97,6 @@ class RegisterForm extends CFormModel
         $this->_user->attributes = array(
             'email'       => $this->email,
             'password'    => $this->password,
-            'firstName'   => NULL,
-            'lastName'    => NULL,
             'displayName' => $this->displayName,
             'user_role'   => 1,
             'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE

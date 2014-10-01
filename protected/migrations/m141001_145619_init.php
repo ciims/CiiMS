@@ -64,7 +64,7 @@ class m141001_145619_init extends CDbMigration
         ));
 
         $this->createTable('user_metadata', array(
-        	'user_id' 	  => 'pk',
+        	'user_id' 	  => 'integer',
         	'key'		  => 'string NOT NULL',
         	'value' 	  => 'text NOT NULL',
         	'entity_type' => 'integer',
@@ -76,6 +76,8 @@ class m141001_145619_init extends CDbMigration
         $this->createIndex('user_email', 'users', 'email', true);
 		$this->createIndex('user_username', 'users', 'username', true);
         $this->createIndex('user_metadata', 'user_metadata', 'user_id, key', true);
+
+        $this->addPrimaryKey('user_metadata_composite', 'user_metadata', 'user_id,key');
 
         // Setup the foreign key constraints
         $this->addForeignKey('user_roles_relation_fk', 'user_metadata', 'user_id', 'users', 'id', 'CASCADE', 'NO ACTION');
@@ -154,7 +156,7 @@ class m141001_145619_init extends CDbMigration
 		));
 
 		$this->createTable('categories_metadata', array(
-			'category_id' => 'integer ',
+			'category_id' => 'integer',
 			'key'		  => 'string NOT NULL',
         	'value' 	  => 'text NOT NULL',
         	'created' 	  => 'integer',
@@ -170,6 +172,7 @@ class m141001_145619_init extends CDbMigration
         	'updated' => $this->_moment
         ));       	
 
+		$this->addPrimaryKey('categories_metadata_composite', 'categories_metadata', 'category_id,key');
        	$this->addForeignKey('categories_parents_fk', 'categories', 'parent_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
 		$this->addForeignKey('categories_metadata_fk', 'categories_metadata', 'category_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
 	}
@@ -237,6 +240,7 @@ class m141001_145619_init extends CDbMigration
 		));
 
 		$this->addPrimaryKey('content_composite', 'content', 'id, vid');
+		$this->addPrimaryKey('content_metadata_composite', 'content_metadata', 'content_id,key');
 		
 		$this->createIndex('content', 'content', 'slug', true);
 		$this->createIndex('content_author', 'content', 'author_id', true);
