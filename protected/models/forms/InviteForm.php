@@ -8,19 +8,9 @@ class InviteForm extends CFormModel
 	public $id = NULL;
 	
 	/**
-	 * @var $firstName string	The user's first name
-	 */
-	public $firstName = NULL;
-	
-	/**
-	 * @var $lastName string	The user's last name
-	 */
-	public $lastName = NULL;
-
-	/**
 	 * @var $displayName string	The user's requested display name
 	 */
-	public $displayName = NULL;
+	public $username = NULL;
 	
 	/**
 	 * @var $email string
@@ -39,8 +29,8 @@ class InviteForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('id, firstName, lastName, displayName, password', 'required'),
-			array('firstName, lastName, displayName, password', 'length', 'max' => 255)	
+			array('id, username, password', 'required'),
+			array('username, password', 'length', 'max' => 255)	
 		);
 	}
 
@@ -52,9 +42,7 @@ class InviteForm extends CFormModel
 	{
 		return array(
 			'id' => Yii::t('ciims.models.InviteForm', 'ID'),
-			'firstName' => Yii::t('ciims.models.InviteForm', 'First Name'),
-			'lastName' => Yii::t('ciims.models.InviteForm', 'Last Name'),
-			'displayName' => Yii::t('ciims.models.InviteForm', 'Display Name'),
+			'username' => Yii::t('ciims.models.InviteForm', 'Username'),
 			'password' => Yii::t('ciims.models.InviteForm', 'Password'),
 		);
 	}
@@ -80,9 +68,7 @@ class InviteForm extends CFormModel
 		$user->attributes = array(
 			'email'			=> $this->email,
 			'password'		=> $this->password,
-			'firstName'		=> $this->firstName,
-			'lastName'	 	=> $this->lastName,
-			'displayName'	=> $this->displayName,
+			'username'	    => $this->username,
 			'status'		=> Users::ACTIVE
 		);
 

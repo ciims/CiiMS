@@ -42,22 +42,22 @@ class ProfileController extends CiiController
 	/**
 	 * Provides functionality to view a given profile
 	 * @param  int 	  $id          The ID belonging to the user
-	 * @param  string $displayName The user's display name. This isn't super necessary, it just is better for SEO
+	 * @param  string $username    The user's display name. This isn't super necessary, it just is better for SEO
 	 */
-	public function actionIndex($id=NULL, $displayName=NULL)
+	public function actionIndex($id=NULL, $username=NULL)
 	{
 		// If an ID isn't provided, throw an error
 		if ($id === NULL)
 			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
 		// For SEO, if the display name isn't in the url, reroute it
-		if ($id !== NULL && $displayName === NULL)
+		if ($id !== NULL && $username === NULL)
 		{
 			$model = Users::model()->findByPk($id);
 			if ($model === NULL || $model->status == 0)
 				throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 			else
-				$this->redirect('/profile/' . $model->id . '/' . preg_replace('/[^\da-z]/i', '', $model->displayName));
+				$this->redirect('/profile/' . $model->id . '/' . preg_replace('/[^\da-z]/i', '', $model->username));
 		}
 
 		$model = Users::model()->findByPk($id);
@@ -82,14 +82,13 @@ class ProfileController extends CiiController
 		{
             $model->attributes = $_POST['ProfileForm'];
             $model->password_repeat = $_POST['ProfileForm']['password_repeat'];
-            $model->about = $_POST['ProfileForm']['about'];
 
 			if ($model->save())
 			{
 				Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'Your profile has been updated!'));
 				$this->redirect($this->createUrl('profile/index', array(
                     'id' => $model->id,
-                    'displayName' => $model->displayName
+                    'username' => $model->username
                 )));
 			}
 			else

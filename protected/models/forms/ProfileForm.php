@@ -34,12 +34,6 @@ class ProfileForm extends CFormModel
     public $username;
 
     /**
-     * The user's self-given bio
-     * @var string $about
-     */
-    public $about;
-
-    /**
      * The user role
      * @var int $role
      */
@@ -255,12 +249,8 @@ class ProfileForm extends CFormModel
         $this->attributes = array(
             'email'         => $this->_user->email,
             'username'      => $this->_user->username,
-            'about'         => $this->_user->about,
             'user_role'     => $this->_user->role->id
         );
-
-        // TODO: Figure out why this doesn't load unless it's done explicitly.
-        $this->about = $this->_user->about;
 
         return $this;
     }
@@ -280,12 +270,8 @@ class ProfileForm extends CFormModel
         $this->_user->attributes = array(
             'password'      => $this->password,
             'username'      => $this->username,
-            'about'         => $this->about,
             'user_role'     => $this->user_role
         );
-
-        // ?????
-        $this->_user->about = $this->about;
 
         if ($this->_user->save())
             return true;

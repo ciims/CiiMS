@@ -65,7 +65,7 @@ class CiiURLManager extends CUrlManager
 		'/logout' 						        => '/site/logout',
 		'/profile/edit'					        => '/profile/edit',
         '/profile/resend'					    => '/profile/resend',
-		'/profile/<id:\w+>/<displayName:\w+>' 	=> '/profile/index',
+		'/profile/<id:\w+>/<username:\w+>' 	=> '/profile/index',
 		'/profile/<id:\w+>' 			        => '/profile/index',
 		'/acceptinvite'					        => '/site/acceptinvite',
 		'/acceptinvite/<id:\w+>'		        => '/site/acceptinvite',
