@@ -12,7 +12,6 @@
  * @property string $except
  * @property integer $status
  * @property integer $commentable
- * @property integer $parent_id
  * @property integer $category_id
  * @property integer $type_id
  * @property string $password
@@ -394,7 +393,6 @@ class Content extends CiiModel
         $this->excerpt = '';
         $this->commentable = 1;
         $this->status = 0;
-        $this->parent_id = 1;
         $this->category_id = 1;
         $this->type_id = 0;
         $this->password = '';
