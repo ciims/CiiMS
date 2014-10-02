@@ -84,7 +84,7 @@
         "ciims-themes/default": "3.0.6",
 	    "ciims-modules/dashboard": "dev-3.0.0-dev",
         "ciims-modules/api": "dev-2.0.0-dev",
-        "ciims-modules/install": "2.0.4",
+        "ciims-modules/install": "dev-master",
         "ciims-modules/hybridauth": "2.0.4"
     },
     "require-dev": {

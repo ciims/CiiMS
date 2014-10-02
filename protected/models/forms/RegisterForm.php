@@ -21,7 +21,7 @@ class RegisterForm extends CFormModel
 	public $password_repeat;
 
 	/**
-	 * The display name as we will show it on the site
+	 * The user name as we will show it on the site
 	 * @var string
 	 */
 	public $username;
@@ -78,7 +78,7 @@ class RegisterForm extends CFormModel
 			'email'           => Yii::t('ciims.models.RegisterForm', 'Your Email Address'),
 			'password'        => Yii::t('ciims.models.RegisterForm', 'Your Password'),
 			'password_repeat' => Yii::t('ciims.models.RegisterForm', 'Your Password (again)'),
-			'displayName'     => Yii::t('ciims.models.RegisterForm', 'Your Display Name on the Site')
+			'username'        => Yii::t('ciims.models.RegisterForm', 'Your Username on the Site')
 		);
 	}
 
@@ -97,7 +97,7 @@ class RegisterForm extends CFormModel
         $this->_user->attributes = array(
             'email'       => $this->email,
             'password'    => $this->password,
-            'displayName' => $this->displayName,
+            'username'    => $this->username,
             'user_role'   => 1,
             'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE
         );
