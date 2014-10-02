@@ -75,7 +75,7 @@ class m141001_145619_init extends CDbMigration
         // Create the necessary indexes on the columns
         $this->createIndex('user_email', 'users', 'email', true);
 		$this->createIndex('user_username', 'users', 'username', true);
-        $this->createIndex('user_metadata', 'user_metadata', 'user_id, key', true);
+        $this->createIndex('user_metadata', 'user_metadata', 'user_id, key', false);
 
         $this->addPrimaryKey('user_metadata_composite', 'user_metadata', 'user_id,key');
 
@@ -183,8 +183,8 @@ class m141001_145619_init extends CDbMigration
 	private function createContent()
 	{
 		$this->createTable('content', array(
-			'id'		  => 'integer',
-			'vid' 		  => 'integer DEFAULT 1',
+			'id'		  => 'integer NOT NULL',
+			'vid' 		  => 'integer NOT NULL DEFAULT 1',
 			'title'		  => 'string  NOT NULL',
 			'content'     => 'text NOT NULL',
 			'excerpt'     => 'text NOT NULL',
@@ -219,7 +219,7 @@ class m141001_145619_init extends CDbMigration
 		$this->createTable('comments', array(
 			'id'		  => 'pk',
 			'content_id'  => 'integer',
-			'author_id'     => 'integer',
+			'author_id'   => 'integer',
 			'comment'     => 'integer',
 			'created'     => 'integer',
         	'updated' 	  => 'integer'
@@ -240,14 +240,17 @@ class m141001_145619_init extends CDbMigration
 		));
 
 		$this->addPrimaryKey('content_composite', 'content', 'id, vid');
+
+		$this->execute('ALTER TABLE `content` CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT');
+
 		$this->addPrimaryKey('content_metadata_composite', 'content_metadata', 'content_id,key');
 		
 		$this->createIndex('content', 'content', 'slug', true);
-		$this->createIndex('content_author', 'content', 'author_id', true);
-		$this->createIndex('content_category', 'content', 'category_id', true);
-		$this->createIndex('content_type', 'content', 'type_id', true);
-		$this->createIndex('comment_content', 'comments', 'content_id', true);
-		$this->createIndex('comment_author', 'comments', 'author_id', true);
+		$this->createIndex('content_author', 'content', 'author_id', false);
+		$this->createIndex('content_category', 'content', 'category_id', false);
+		$this->createIndex('content_type', 'content', 'type_id', false);
+		$this->createIndex('comment_content', 'comments', 'content_id', false);
+		$this->createIndex('comment_author', 'comments', 'author_id', false);
 
 		$this->addForeignKey('content_category_fk', 'content', 'category_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
 		$this->addForeignKey('content_author_fk', 'content', 'author_id', 'users', 'id', 'CASCADE', 'NO ACTION');

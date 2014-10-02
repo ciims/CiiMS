@@ -323,9 +323,9 @@ class Content extends CiiModel
 		if (is_bool($this->published))
 		{
 			if ($this->published)
-				$criteria->addCondition('published <= UTC_TIMESTAMP()');
+				$criteria->addCondition('published <= UNIX_TIMESTAMP()');
 			else
-				$criteria->addCondition('published > UTC_TIMESTAMP()');
+				$criteria->addCondition('published > UNIX_TIMESTAMP()');
 		}
 		else
 			$criteria->compare('published', $this->published,true);
@@ -374,7 +374,7 @@ class Content extends CiiModel
 	{   	   	
 	   	// Allow publication times to be set automatically
 		if ($this->published == NULL)
-			$this->published = new CDbExpression('UTC_TIMESTAMP()');
+			$this->published = time();
 		
 		if (strlen($this->excerpt) == 0)
     		$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
@@ -386,7 +386,7 @@ class Content extends CiiModel
 	 * Saves a prototype copy of the model so that we can get an id back to work with
 	 * @return $model->save(false) without any validation rules
 	 */
-	public function savePrototype()
+	public function savePrototype($author_id)
 	{
 		$this->title = '';
         $this->content = '';
@@ -394,14 +394,23 @@ class Content extends CiiModel
         $this->commentable = 1;
         $this->status = 0;
         $this->category_id = 1;
-        $this->type_id = 0;
-        $this->password = '';
-        $this->created = new CDbExpression('UTC_TIMESTAMP()');
-        $this->updated = new CDbExpression('UTC_TIMESTAMP()');
-        $this->published = new CDbExpression('UTC_TIMESTAMP()');
-        $this->vid = 0;
-        $this->author_id = Yii::app()->user->id;
-        return $this->save(false);
+        $this->type_id = 2;
+        $this->password = null;
+        $this->created = time();
+        $this->updated = time();
+        $this->published = time();
+        $this->vid = 1;
+        $this->author_id = $author_id;
+
+        // TODO: Why doesn't Yii return the PK id field? But it does return VID? AutoIncriment bug?
+        if ($this->save(false))
+        {
+        	$data = Content::model()->findByAttributes(array('created' => $this->created));
+        	$this->id = $data->id;
+        	return true;
+        }
+
+        return false;
 	}
 
     /**
