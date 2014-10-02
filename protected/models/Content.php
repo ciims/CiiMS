@@ -76,7 +76,7 @@ class Content extends CiiModel
 			array('vid, author_id, status, commentable, category_id, type_id, like_count', 'numerical', 'integerOnly'=>true),
 			array('title, password, slug', 'length', 'max'=>150),
 			// The following rule is used by search().
-			array('id, vid, author_id, title, content, extract, status, commentable, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
+			array('id, vid, author_id, title, content, excerpt, status, commentable, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 	
@@ -106,7 +106,7 @@ class Content extends CiiModel
 			'author_id' 	=> Yii::t('ciims.models.Content', 'Author'),
 			'title' 		=> Yii::t('ciims.models.Content', 'Title'),
 			'content' 		=> Yii::t('ciims.models.Content', 'Content'),
-			'extract' 		=> Yii::t('ciims.models.Content', 'Extract'),
+			'excerpt' 		=> Yii::t('ciims.models.Content', 'excerpt'),
 			'status' 		=> Yii::t('ciims.models.Content', 'Status'),
 			'commentable' 	=> Yii::t('ciims.models.Content', 'Commentable'),
 			'category_id' 	=> Yii::t('ciims.models.Content', 'Category'),
@@ -377,8 +377,8 @@ class Content extends CiiModel
 		if ($this->published == NULL)
 			$this->published = new CDbExpression('UTC_TIMESTAMP()');
 		
-		if (strlen($this->extract) == 0)
-    		$this->extract = $this->myTruncate($this->content, 250, '.', '');
+		if (strlen($this->excerpt) == 0)
+    		$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
 	 	
 	    return parent::beforeValidate();
 	}
@@ -391,7 +391,7 @@ class Content extends CiiModel
 	{
 		$this->title = '';
         $this->content = '';
-        $this->extract = '';
+        $this->excerpt = '';
         $this->commentable = 1;
         $this->status = 0;
         $this->parent_id = 1;
@@ -512,7 +512,7 @@ class Content extends CiiModel
     }
     
     /**
-     * Fancy truncate function to help clean up our strings for the extract
+     * Fancy truncate function to help clean up our strings for the excerpt
      * @param string $string    The string we want to apply the text to
      * @param int    $limit     How many characters we want to break into
      * @param string $break     Characters we want to break on if possible
