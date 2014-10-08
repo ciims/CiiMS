@@ -438,6 +438,15 @@ class Content extends CiiModel
     public function afterSave()
     {
         $this->saveLayoutAndView();
+
+        // Delete the AutoSave document on update
+        if ($this->isPublished())
+        {
+            $autosaveModel = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'autosave'));
+            if ($autosaveModel != NULL)
+                $autosaveModel->delete();
+        }
+        
         return parent::afterSave();
     }
     
