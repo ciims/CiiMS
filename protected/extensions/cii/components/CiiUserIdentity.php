@@ -222,8 +222,7 @@ class CiiUserIdentity extends CUserIdentity
     /**
      * https://gist.github.com/nikic/3707231
      * Checks if a password is valid against our database
-     * @param string $password     The password to check against
-     * @param string $hash         The bcrypt hash
+     * @param string $password_hash     The password to check against
      * @return boolean
      */
     protected function password_verify_with_rehash($password_hash, $bcryt_hash)

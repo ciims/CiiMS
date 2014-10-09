@@ -49,7 +49,6 @@ class InviteForm extends CFormModel
 
 	/**
 	 * Actually creates the users
-	 * @param  int $user_id    The id of the user that was created
 	 * @return bool            If the user was created
 	 */
 	public function acceptInvite()

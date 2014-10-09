@@ -100,7 +100,7 @@ class UserRoles extends CiiModel
 
 	/**
 	 * Determines if a user with a given role has permission to perform a given activity
-	 * @param string $permissions   The permissions we want to lookup
+	 * @param string $permission   The permissions we want to lookup
 	 * @param int 	 $role 			The user role. If not provided, will be applied to the current user
 	 * @return boolean
 	 */

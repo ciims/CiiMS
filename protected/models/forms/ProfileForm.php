@@ -281,7 +281,7 @@ class ProfileForm extends CFormModel
 
     /**
      * Changes the user's email address if necessary
-     * @return true
+     * @return boolean
      */
     private function changeEmail()
     {
