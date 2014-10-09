@@ -8,7 +8,6 @@
  * @property string $event
  * @property string $event_data
  * @property string $uri
- * @property string $page_title
  * @property string $created
  */
 class Events extends CiiModel
@@ -24,7 +23,7 @@ class Events extends CiiModel
 				'class' 			=> 'zii.behaviors.CTimestampBehavior',
 				'createAttribute' 	=> 'created',
 				'updateAttribute' 	=> 'created',
-				'timestampExpression' => new CDbExpression('UTC_TIMESTAMP()'),
+				'timestampExpression' => time(),
 				'setUpdateOnCreate' => false
 			)
 		);
@@ -48,11 +47,11 @@ class Events extends CiiModel
 		return array(
             array('event, uri', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
-			array('event, uri, page_title', 'length', 'max'=>255),
+			array('event, uri, ', 'length', 'max'=>255),
 			array('event_data, created', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, event, event_data, uri, page_title, created', 'safe', 'on'=>'search'),
+			array('id, event, event_data, uri,  created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,7 +65,6 @@ class Events extends CiiModel
 			'event' => 'Event',
 			'event_data' => 'Event Data',
 			'uri' => 'URI',
-			'page_title' => 'Page Title',
             'content_id' => 'Content ID',
 			'created' => 'Created',
 		);
@@ -100,7 +98,6 @@ class Events extends CiiModel
 		$criteria->compare('event',$this->event,true);
 		$criteria->compare('event_data',$this->event_data,true);
 		$criteria->compare('uri',$this->uri,true);
-		$criteria->compare('page_title',$this->page_title,true);
 		$criteria->compare('content_id',$this->content_id,true);
 		$criteria->compare('created',$this->created,true);
 
