@@ -183,7 +183,6 @@ class SiteController extends CiiController
 
 	/**
 	 * Handles resetting a users password should they forgot it
-	 * @param hash $id
 	 */
     public function actionForgot()
     {

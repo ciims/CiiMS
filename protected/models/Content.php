@@ -123,7 +123,7 @@ class Content extends CiiModel
 	/**
 	 * Returns a safe output to the theme
 	 * This includes setting nofollow tags on links, forcing them to open in new windows, and safely encoding the text
-	 * @return text
+	 * @return string
 	 */
 	public function getSafeOutput()
 	{

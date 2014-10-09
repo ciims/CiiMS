@@ -33,7 +33,7 @@ class ThemeSettings extends CiiSettingsModel
 
 	/**
 	 * Returns the active theme name
-	 * @return strings
+	 * @return string
 	 */
 	public function getTheme()
 	{
