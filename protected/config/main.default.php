@@ -61,8 +61,12 @@ return array(
         ),
         'session' => array(
             'autoStart'     => true,
-            'sessionName'   => 'CiiMS',
+            'sessionName'   => '_ciims',
             'cookieMode'    => 'only',
+	    'cookieParams'  => array(
+	        'httponly' => true,
+		'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443)
+	    )
         ),
         'urlManager' => array(
             'class'          => 'ext.cii.components.CiiURLManager',
