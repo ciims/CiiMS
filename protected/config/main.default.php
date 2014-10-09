@@ -65,7 +65,7 @@ return array(
             'cookieMode'    => 'only',
 	    'cookieParams'  => array(
 	        'httponly' => true,
-		'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (!empty($_SERVER['SERVER_PORT') && $_SERVER['SERVER_PORT'] == 443))
+		'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443))
 	    )
         ),
         'urlManager' => array(
