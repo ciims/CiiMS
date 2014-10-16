@@ -246,7 +246,16 @@ class Content extends CiiModel
 	 */
 	public function isPublished()
 	{
-		return ($this->status == 1 && (strtotime($this->published) <= time())) ? true : false;
+		return ($this->status == 1 && ($this->published <= time())) ? true : false;
+	}
+
+	/**
+	 * Determines if a given articled is scheduled or not
+	 * @return boolean
+	 */
+	public function isScheduled()
+	{
+		return ($this->status == 1 && ($this->published > time())) ? true : false;
 	}
 
 	/**
