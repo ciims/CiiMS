@@ -184,4 +184,20 @@ class CiiModel extends CActiveRecord
         else
             return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
     }
+
+    /**
+     * Model populate override
+     * @param  array  $data $_POST data
+     */
+    public function populate($data=array())
+    {
+    	foreach ($data as $k=>$v)
+    	{
+    		$setter = 'set'.ucwords($k);
+    		if(isset($this->attributes[$k]))
+    			$this->$k = $v;
+    	}
+
+    	return $this->attributes;
+    }
 }

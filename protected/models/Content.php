@@ -37,6 +37,8 @@ class Content extends CiiModel
     
     public $layoutFile = 'blog';
 
+    public $autosavedata = false;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -237,7 +239,12 @@ class Content extends CiiModel
 
 		if (Yii::app()->user->role == 5 || Yii::app()->user->role == 7)
 			return array(0 => Yii::t('ciims.models.Content', 'Draft'));
-		return array(1 => Yii::t('ciims.models.Content', 'Published'), 2 => Yii::t('ciims.models.Content', 'Ready for Review'), 0 => Yii::t('ciims.models.Content', 'Draft'));
+
+		return array(
+			1 => Yii::t('ciims.models.Content', 'Published'),
+			2 => Yii::t('ciims.models.Content', 'Ready for Review'),
+			0 => Yii::t('ciims.models.Content', 'Draft')
+		);
 	}
 
 	/**

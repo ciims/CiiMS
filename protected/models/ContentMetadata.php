@@ -45,7 +45,6 @@ class ContentMetadata extends CiiModel
 			array('content_id, key, value', 'required'),
 			array('content_id', 'numerical', 'integerOnly'=>true),
 			array('key', 'length', 'max'=>50),
-			array('value', 'length', 'max'=>255),
 			// The following rule is used by search().
 			array('id, content_id, key, value, created, updated', 'safe', 'on'=>'search'),
 		);
