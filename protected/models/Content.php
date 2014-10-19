@@ -186,16 +186,10 @@ class Content extends CiiModel
 		
 		$tags[] = $tag;
 		$tags = json_encode($tags);
-		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
-		if ($metaTag == false)
-		{
-			$metaTag = new ContentMetadata;
-			$metaTag->content_id = $this->id;
-			$metaTag->key = 'keywords';
-		}
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
 		
-		$metaTag->value = $tags;		
-		return $metaTag->save();
+		$meta->value = $tags;		
+		return $meta->save();
 	}
 	
 	/**
@@ -213,9 +207,9 @@ class Content extends CiiModel
 		unset($tags[$key]);
 		$tags = json_encode($tags);
 		
-		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
-		$metaTag->value = $tags;		
-		return $metaTag->save();
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
+		$meta->value = $tags;		
+		return $meta->save();
 	}
 	
 	/**
@@ -389,7 +383,7 @@ class Content extends CiiModel
 	public function beforeValidate()
 	{   	   	
 	   	// Allow publication times to be set automatically
-		if ($this->published == NULL)
+		if ($this->published == NULL || $this->published == "")
 			$this->published = time();
 		
 		if (strlen($this->excerpt) == 0)
@@ -416,6 +410,7 @@ class Content extends CiiModel
         $this->updated = time();
         $this->published = time();
         $this->vid = 1;
+        $this->slug = "";
         $this->author_id = $author_id;
 
         // TODO: Why doesn't Yii return the PK id field? But it does return VID? AutoIncriment bug?
@@ -496,18 +491,11 @@ class Content extends CiiModel
      */
     private function saveLayout()
     {
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+        $model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
         
         // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model === NULL && $this->layoutFile === 'blog')
-            return;
-        
-        if ($model === NULL)
-        {
-            $model = new ContentMetadata();
-            $model->content_id = $this->id;
-            $model->key = 'layout';
-        }
+        if ($model->isNewRecord && $this->layoutFile === 'blog')
+            return true;
         
         // If this is an existing record, and we're changing it to blog, delete it instead of saving.
         if ($this->layoutFile == 'blog' && !$model->isNewRecord)
@@ -522,18 +510,11 @@ class Content extends CiiModel
      */
     private function saveView()
     {
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+    	$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
         
         // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model === NULL && $this->viewFile === 'blog')
-            return;
-        
-        if ($model === NULL)
-        {
-            $model = new ContentMetadata();
-            $model->content_id = $this->id;
-            $model->key = 'view';
-        }
+        if ($model->isNewRecord && $this->viewFile === 'blog')
+            return true;
         
         // If this is an existing record, and we're changing it to blog, delete it instead of saving.
         if ($this->viewFile == 'blog' && !$model->isNewRecord)

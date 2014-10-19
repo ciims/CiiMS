@@ -60,15 +60,7 @@ class CiiModel extends CActiveRecord
         	if (in_array($k, $params))
         		continue;
 
-            if ($k == 'created' || $k == 'updated' || $k == 'published')
-            {
-                if (gettype($v) != "string" && get_class($v) == 'CDbExpression' && $v->expression == 'UNIX_TIMESTAMP()')
-                    $attributes[$k] = time();
-                else
-                    $attributes[$k] = $v;
-            }
-            else
-                $attributes[$k] = $v;
+            $attributes[$k] = $v;
         }
 
         if ($relations != false)
@@ -193,11 +185,36 @@ class CiiModel extends CActiveRecord
     {
     	foreach ($data as $k=>$v)
     	{
-    		$setter = 'set'.ucwords($k);
-    		if(isset($this->attributes[$k]))
+    		// Promise that if this is a new record, we aren't handling any end-user data for $data
+    		if ($this->isNewRecord)
     			$this->$k = $v;
+    		else
+    		{
+	    		if(isset($this->attributes[$k]))
+	    			$this->$k = $v;
+	    	}
     	}
 
     	return $this->attributes;
+    }
+
+    /**
+     * Instead of doing $model->find(), $model == NULL, $model = new Model, $model->attributes = $attributes, this method does it for us
+     * The intention is to reduce the lines of code necessary to get a new Metadata model object
+     * @param  CiiModel $class      A CiiModel or child instance
+     * @param  array    $attributes Attributes to search for, or to prepopulate
+     * @return CiiModel
+     */
+    public function getPrototype($class, $attributes=array())
+    {
+    	if (empty($attributes))
+    		return new $class;
+
+    	$model = $class::model()->findByAttributes($attributes);
+    	if ($model === NULL)
+    		$model = new $class;
+
+    	$model->populate($attributes);
+    	return $model;
     }
 }
