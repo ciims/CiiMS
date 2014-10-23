@@ -78,11 +78,9 @@ class Cii
     {
         $app = Yii::app();
 
-        try {
-            $app->language = Cii::getConfig('defaultLanguage', Yii::app()->getRequest()->getPreferredLanguage());
-        } catch (Exception $e) {
-            // This will only throw an error if we don't have a CDbConnection
-        }
+        // If someone has hard-coded the app-language, return it instead
+        if ($app->language != 'en_US')
+            return $app->language;
 
         // If the language is set via POST, accept it
         if (Cii::get($_POST, '_lang', false))
@@ -354,7 +352,8 @@ class Cii
                 'isAuthenticated' => isset(Yii::app()->user->id),
                 'debug' => YII_DEBUG,
                 'time' => time(),
-                'version' => YII_DEBUG ? Cii::getVersion() : null
+                'version' => YII_DEBUG ? Cii::getVersion() : null,
+                'language' => Cii::setApplicationLanguage()
             ));
 
             Yii::app()->clientScript->registerScript('ciims', "

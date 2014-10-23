@@ -37,6 +37,8 @@ class Content extends CiiModel
     
     public $layoutFile = 'blog';
 
+    public $autosavedata = false;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -184,16 +186,10 @@ class Content extends CiiModel
 		
 		$tags[] = $tag;
 		$tags = json_encode($tags);
-		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
-		if ($metaTag == false)
-		{
-			$metaTag = new ContentMetadata;
-			$metaTag->content_id = $this->id;
-			$metaTag->key = 'keywords';
-		}
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
 		
-		$metaTag->value = $tags;		
-		return $metaTag->save();
+		$meta->value = $tags;		
+		return $meta->save();
 	}
 	
 	/**
@@ -211,9 +207,9 @@ class Content extends CiiModel
 		unset($tags[$key]);
 		$tags = json_encode($tags);
 		
-		$metaTag = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
-		$metaTag->value = $tags;		
-		return $metaTag->save();
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
+		$meta->value = $tags;		
+		return $meta->save();
 	}
 	
 	/**
@@ -237,7 +233,12 @@ class Content extends CiiModel
 
 		if (Yii::app()->user->role == 5 || Yii::app()->user->role == 7)
 			return array(0 => Yii::t('ciims.models.Content', 'Draft'));
-		return array(1 => Yii::t('ciims.models.Content', 'Published'), 2 => Yii::t('ciims.models.Content', 'Ready for Review'), 0 => Yii::t('ciims.models.Content', 'Draft'));
+
+		return array(
+			1 => Yii::t('ciims.models.Content', 'Published'),
+			2 => Yii::t('ciims.models.Content', 'Ready for Review'),
+			0 => Yii::t('ciims.models.Content', 'Draft')
+		);
 	}
 
 	/**
@@ -246,7 +247,16 @@ class Content extends CiiModel
 	 */
 	public function isPublished()
 	{
-		return ($this->status == 1 && (strtotime($this->published) <= time())) ? true : false;
+		return ($this->status == 1 && ($this->published <= time())) ? true : false;
+	}
+
+	/**
+	 * Determines if a given articled is scheduled or not
+	 * @return boolean
+	 */
+	public function isScheduled()
+	{
+		return ($this->status == 1 && ($this->published > time())) ? true : false;
 	}
 
 	/**
@@ -373,7 +383,7 @@ class Content extends CiiModel
 	public function beforeValidate()
 	{   	   	
 	   	// Allow publication times to be set automatically
-		if ($this->published == NULL)
+		if ($this->published == NULL || $this->published == "")
 			$this->published = time();
 		
 		if (strlen($this->excerpt) == 0)
@@ -400,6 +410,7 @@ class Content extends CiiModel
         $this->updated = time();
         $this->published = time();
         $this->vid = 1;
+        $this->slug = "";
         $this->author_id = $author_id;
 
         // TODO: Why doesn't Yii return the PK id field? But it does return VID? AutoIncriment bug?
@@ -480,18 +491,11 @@ class Content extends CiiModel
      */
     private function saveLayout()
     {
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+        $model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
         
         // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model === NULL && $this->layoutFile === 'blog')
-            return;
-        
-        if ($model === NULL)
-        {
-            $model = new ContentMetadata();
-            $model->content_id = $this->id;
-            $model->key = 'layout';
-        }
+        if ($model->isNewRecord && $this->layoutFile === 'blog')
+            return true;
         
         // If this is an existing record, and we're changing it to blog, delete it instead of saving.
         if ($this->layoutFile == 'blog' && !$model->isNewRecord)
@@ -506,18 +510,11 @@ class Content extends CiiModel
      */
     private function saveView()
     {
-        $model = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+    	$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
         
         // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model === NULL && $this->viewFile === 'blog')
-            return;
-        
-        if ($model === NULL)
-        {
-            $model = new ContentMetadata();
-            $model->content_id = $this->id;
-            $model->key = 'view';
-        }
+        if ($model->isNewRecord && $this->viewFile === 'blog')
+            return true;
         
         // If this is an existing record, and we're changing it to blog, delete it instead of saving.
         if ($this->viewFile == 'blog' && !$model->isNewRecord)
@@ -525,6 +522,65 @@ class Content extends CiiModel
         
         $model->value = $this->viewFile;
         return $model->save();
+    }
+
+    /**
+     * Retrieves the available view files under the current theme
+     * @return array    A list of files by name
+     */
+    public function getViewFiles($theme='default')
+    {
+        return $this->getFiles($theme, 'views.content');
+    }
+    
+    /**
+     * Retrieves the available layouts under the current theme
+     * @return array    A list of files by name
+     */
+    public function getLayoutFiles($theme='default')
+    {
+        return $this->getFiles($theme, 'views.layouts');
+    }
+    
+    /**
+     * Retrieves view files for a particular path
+     * @param  string $theme  The theme to reference
+     * @param  string $type   The view type to lookup
+     * @return array $files   An array of files
+     */
+    private function getFiles($theme='default', $type='views')
+    {
+        $folder = $type;
+
+        if ($type == 'view')
+            $folder = 'content';
+
+        $returnFiles = array();
+
+        if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
+            $theme = 'default';
+
+        $files = Yii::app()->cache->get($theme.'-available-' . $type);
+
+        if ($files === false)
+        {
+            $fileHelper = new CFileHelper;
+            $files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
+            Yii::app()->cache->set($theme.'-available-' . $type, $files);
+        }
+
+        foreach ($files as $file)
+        {
+            $f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+            
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+              $f = trim(substr($f, strrpos($f, '\\') + 1));
+
+            if (!in_array($f, array('all', 'password', '_post')))
+                $returnFiles[$f] = $f;
+        }
+        
+        return $returnFiles;
     }
     
     /**
