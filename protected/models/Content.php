@@ -147,6 +147,12 @@ class Content extends CiiModel
 		return $md->safeTransform($dom->saveHtml());
 	}
 
+	public function getExtract()
+	{
+		Yii::log(Yii::t('ciims.models.Content', 'Use of property "extract" is deprecated in favor of "excerpt"'), 'system.db.ar.CActiveRecord', 'info');
+		return $this->excerpt;
+	}
+
 	/**
 	 * Correctly retrieves the number of likes for a particular post.
 	 *
@@ -286,6 +292,28 @@ class Content extends CiiModel
     }
     
     /**
+     * Sets the layout
+     * @param [type] $data [description]
+     */
+    public function setLayout($data)
+    {
+    	$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
+		$meta->value = $data;		
+		return $meta->save();
+    }
+
+    /**
+     * Sets the view
+     * @param [type] $data [description]
+     */
+    public function setView($data)
+    {
+    	$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
+		$meta->value = $data;		
+		return $meta->save();
+    }
+
+    /**
      * Retrieves the viewfile used from Metadata
      * We cache this to speed up the viewfile
      */
@@ -373,9 +401,23 @@ class Content extends CiiModel
 			return $this->query($criteria);
 		}
 		
-		return parent::findByPk($pk, $conditions, $params);
+		return parent::findByPk($pk, $condition, $params);
 	}
-	
+
+	/**
+	 * Lists all revisions in the database for a givenid
+	 * @param  int $id [description]
+	 * @return array
+	 */
+	public function findRevisions($id)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("id={$id}");
+		$criteria->order = 'vid DESC';
+
+		return $this->query($criteria, true);
+	}
+
     /**
      * BeforeValidate
      * @see CActiveRecord::beforeValidate
@@ -383,8 +425,7 @@ class Content extends CiiModel
 	public function beforeValidate()
 	{   	   	
 	   	// Allow publication times to be set automatically
-		if ($this->published == NULL || $this->published == "")
-			$this->published = time();
+		$this->published = time();
 		
 		if (strlen($this->excerpt) == 0)
     		$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
