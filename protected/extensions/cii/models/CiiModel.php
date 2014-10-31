@@ -205,15 +205,23 @@ class CiiModel extends CActiveRecord
      * @param  array    $attributes Attributes to search for, or to prepopulate
      * @return CiiModel
      */
-    public function getPrototype($class, $attributes=array())
+    public function getPrototype($class, $attributes=array(), $defaults=array())
     {
     	if (empty($attributes))
-    		return new $class;
+    	{
+    		$model = new $class;
+    		if (!empty($defaults))
+    			$model->populate($defaults);
+    		return $model;
+    	}
 
     	$model = $class::model()->findByAttributes($attributes);
     	if ($model === NULL)
     		$model = new $class;
 
+    	if ($model->isNewRecord)
+			$model->populate($defaults);
+		
     	$model->populate($attributes);
     	return $model;
     }
