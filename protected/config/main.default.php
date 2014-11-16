@@ -121,6 +121,6 @@ return array(
         // Must not exceed php.ini post_max_size and upload_max_filesize
         'max_fileupload_size' => (10 * 1024 * 1024),
         // Cards endpoint
-        'cards' => 'https://cards.ciims.io/',
+        'cards' => 'https://cards.ciims.io/1.0.0',
     ),
 );
