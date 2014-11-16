@@ -63,10 +63,10 @@ return array(
             'autoStart'     => true,
             'sessionName'   => '_ciims',
             'cookieMode'    => 'only',
-	    'cookieParams'  => array(
-	        'httponly' => true,
-		'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443))
-	    )
+	        'cookieParams'  => array(
+    	        'httponly' => true,
+    		    'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443))
+    	    )
         ),
         'urlManager' => array(
             'class'          => 'ext.cii.components.CiiURLManager',
@@ -119,6 +119,8 @@ return array(
 	    'demo' 		          => 0,
         // Defines the maximum filesize that CiiMS will allowed to be uploaded
         // Must not exceed php.ini post_max_size and upload_max_filesize
-        'max_fileupload_size' => (10 * 1024 * 1024)
+        'max_fileupload_size' => (10 * 1024 * 1024),
+        // Cards endpoint
+        'cards' => 'https://cards.ciims.io/',
     ),
 );
