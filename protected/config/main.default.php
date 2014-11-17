@@ -18,7 +18,7 @@
  * @license    http://opensource.org/licenses/MIT  MIT LICENSE
  * @link       https://github.com/charlesportwoodii/CiiMS
  */
-return array(
+$ciimsCoreConfig = array(
     'basePath' => __DIR__.DS.'..',
     'name' => NULL,
     'sourceLanguage' => 'en_US',
@@ -101,6 +101,10 @@ return array(
                     'class'=>'CProfileLogRoute', 
                     'report'=>'summary',
                     'enabled' => false
+                ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'error, warning',
                 )
             )
         ),
@@ -124,3 +128,18 @@ return array(
         'cards' => 'https://cards.ciims.io/1.0.0',
     ),
 );
+
+// CLI specific data
+if (php_sapi_name() == "cli")
+{
+    $ciimsCoreConfig['behaviors'] = array(
+        'onBeginRequest' => array(
+             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
+        ),
+        'onEndRequest' => array(
+             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
+        )
+    );
+}
+
+return $ciimsCoreConfig;

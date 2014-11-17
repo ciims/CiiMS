@@ -103,7 +103,7 @@ class CiiController extends CController
 
         $notifyUser  = new stdClass;
         $notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
-        $notifyUser->displayName = Cii::getConfig('notifyName',  NULL);
+        $notifyUser->username = Cii::getConfig('notifyName',  NULL);
 
         if ($smtpHost !== NULL && $smtpHost !== "")
             $mail->Host       = $smtpHost; 
@@ -129,13 +129,13 @@ class CiiController extends CController
             $mail->SMTPAuth = true;
         }
 
-        if ($notifyUser->email == NULL && $notifyUser->displayName == NULL)
+        if ($notifyUser->email == NULL && $notifyUser->username == NULL)
             $notifyUser = Users::model()->findByPk(1);
 
-        $mail->SetFrom($notifyUser->email, $notifyUser->displayName);
+        $mail->SetFrom($notifyUser->email, $notifyUser->username);
         $mail->Subject = $subject;
         $mail->MsgHTML($this->renderPartial($viewFile, $content, $return, $processOutput));
-        $mail->AddAddress($user->email, $user->displayName);
+        $mail->AddAddress($user->email, $user->username);
 
         try {
             return $mail->Send();
@@ -149,10 +149,24 @@ class CiiController extends CController
     }
 
     /**
+     * Initializes NewRelic with sapi
+     * @param CController $controller
+     * @param CAction $action
+     * @see CController::beforeControllerAction
+     */
+    public function beforeControllerAction($controller, $action) {
+        // Attempt to contact NewRelic with Reporting Data
+        try {
+            @Yii::app()->newRelic->setTransactionName($controller->id, $action->id);
+        } catch (Exception $e) {}
+        
+        return parent::beforeControllerAction($controller, $action);
+    }
+
+    /**
      * BeforeAction method
      * The events defined here occur before every controller action that extends CiiController occurs.
      * This method will run the following tasks:
-     *     - Attempt to update NewRelic if it is enabled
      *     - Prevent access to the site if it is in offline mode
      *     - Set the language for i18n
      *     - Apply the correct theme
@@ -161,15 +175,6 @@ class CiiController extends CController
      */
 	public function beforeAction($action)
 	{
-        header('Content-type: text/html; charset=utf-8');
-
-        // Attempt to contact NewRelic with Reporting Data
-        try {
-            @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
-        } catch (Exception $e) {
-            // NewRelic will throw an exception if it isn't installed. Ignore it - if it's not installed we don't care.
-        }
-
         // Sets the application language
         Cii::setApplicationLanguage();
 
