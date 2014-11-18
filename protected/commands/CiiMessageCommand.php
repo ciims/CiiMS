@@ -12,7 +12,7 @@ class CiiMessageCommand extends MessageCommand
 		return array(
 			'sourcePath'=>Yii::getPathOfAlias('application') . DS . '..' . DS,
 			'messagePath'=>Yii::getPathOfAlias('application.messages'),
-			'languages'=>array('ar', 'bg', 'bs', 'cs', 'de', 'el', 'es', 'fa_ir', 'fr', 'he', 'hu', 'id', 'it', 'ja', 'kk', 'ko_kr', 'lt', 'lv', 'nl', 'no', 'pl', 'pt', 'pt_br', 'ro', 'ru', 'sk', 'sr_sr', 'sr_yu', 'sv', 'ta_in', 'th', 'tr', 'uk', 'vi', 'zh_cn', 'zh_tw'),
+			'languages'=>array('en_us'),
 			'fileTypes'=>array('php'),
 			'overwrite'=>true,
 			'exclude'=>array(
@@ -47,6 +47,8 @@ class CiiMessageCommand extends MessageCommand
 
 			if (isset($args[1]))
 				$config['sourcePath'] .= $args[1] . DS;
+			else
+				$this->usageError('A theme was not specified for translations');
 		}
 		
 		if (isset($args[0]) && $args[0] == 'modules')
@@ -55,6 +57,8 @@ class CiiMessageCommand extends MessageCommand
 
 			if (isset($args[1]))
 				$config['sourcePath'] .= DS . $args[1] . DS;
+			else
+				$this->usageError('A module was not specified for translations');
 		}
 
 		$translator='Yii::t';
@@ -160,6 +164,7 @@ class CiiMessageCommand extends MessageCommand
 	 */
 	protected function extractMessages($fileName,$translator)
     {
+    	echo $fileName;
         echo "Extracting messages from $fileName...\n";
         $subject=file_get_contents($fileName);
         $messages=array();
