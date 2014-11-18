@@ -53,11 +53,11 @@ class CiiPHPMessageSource extends CPhpMessageSource
 
 	            // First check if there's an extension registered for this class.
 	            if(isset($this->extensionPaths[$extensionClass]))
-	                $this->_files[$category][$language]=Yii::getPathOfAlias($this->extensionPaths[$extensionClass]).DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+	                $this->_files[$category][$language]=Yii::getPathOfAlias($this->extensionPaths[$extensionClass]).DS.$language.DS.$extensionCategory.'.php';
 	            else
 	            {
                     if (strpos($extensionClass, 'Theme') !== false)
-                        $this->_files[$category][$language] = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages').DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+                        $this->_files[$category][$language] = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages').DS.$language.DS.$extensionCategory.'.php';
                     else 
                     {
                         // No extension registered, need to find it.
@@ -65,7 +65,7 @@ class CiiPHPMessageSource extends CPhpMessageSource
                             $extensionClass .= 'Module';
 
                         $class=new ReflectionClass($extensionClass);
-                        $this->_files[$category][$language]=dirname($class->getFileName()).DIRECTORY_SEPARATOR.'messages'.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$extensionCategory.'.php';
+                        $this->_files[$category][$language]=dirname($class->getFileName()).DS.'messages'.DS.$language.DS.$extensionCategory.'.php';
                     }
 	            }
 	        }
@@ -74,30 +74,13 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	        	if (strpos($category,'ciims.') !== false)
 	        	{
 	        		$this->basePath = Yii::getPathOfAlias('application.messages.');
-	        		$this->_files[$category][$language]=$this->basePath.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.str_replace('.', '/', str_replace('ciims.', '', $category)).'.php';
+	        		$this->_files[$category][$language]=$this->basePath.DS.$language.DS.str_replace('.', '/', str_replace('ciims.', '', $category)).'.php';
 	        	}
 	        	else
-					$this->_files[$category][$language]=$this->basePath.DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$category.'.php';
+					$this->_files[$category][$language]=$this->basePath.DS.$language.DS.$category.'.php';
 	        }
 	    }
 
 	    return $this->_files[$category][$language];
 	}
-
-	/**
-	 * It's easier just to uncomment this for testing functionality
-	 * 
-	 * public function translate($category,$message,$language=null)
-	 * {
-	 *     if($language===null)
-	 *         $language=Yii::app()->getLanguage();
-	 *
-	 *     return $this->translateMessage($category,$message,$language);
-	 * 
-	 *     if($this->forceTranslation || $language!==$this->getLanguage())
-	 *         return $this->translateMessage($category,$message,$language);
-	 *     else
-	 *         return $message;
-	 * }
-	**/
 }
