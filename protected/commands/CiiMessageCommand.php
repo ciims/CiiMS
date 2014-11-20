@@ -26,8 +26,8 @@ class CiiMessageCommand extends MessageCommand
 				'yiit.php',
 				'/i18n/data',
 				'/messages',
-				'/vendors',
-				'/web/js',
+				'/vendor',
+				'tests',
 				'runtime',
 			)
 		);
@@ -40,6 +40,12 @@ class CiiMessageCommand extends MessageCommand
 	public function run($args)
 	{
 		$config = $this->getArgs();
+
+		if (!isset($args[0]))
+		{
+			array_push($config['exclude'], 'modules');
+			array_push($config['exclude'], '/themes');
+		}
 
 		if (isset($args[0]) && $args[0] == 'themes')
 		{
@@ -118,11 +124,10 @@ class CiiMessageCommand extends MessageCommand
 
 			foreach($messages as $category=>$msgs)
 			{
-				echo $category . "\n";
+				echo $category."\n";
 				$msgs=array_values(array_unique($msgs));
 
-				// If this is part of CiiMS Core
-				if (strpos($category, 'Theme') !== false)
+				if (strpos($category, 'Theme.') !== false && isset($args[0]))
 				{
 					$category = strtolower(str_replace('Theme', '', $category));
 					$path = explode('.', $category);
@@ -134,7 +139,7 @@ class CiiMessageCommand extends MessageCommand
 					@mkdir($dir.DS, 0777, true);
 					$this->generateMessageFile($msgs,$dir.DS.strtolower($path[1]).'.php',$overwrite,$removeOld,$sort);
 				}
-				else if (strpos($category, 'module.') !== false)
+				else if (strpos($category, 'module.') !== false && isset($args[0]))
 				{
 					$category = str_replace('module.', '', $category);
 					$path = explode('.', $category);
@@ -149,10 +154,16 @@ class CiiMessageCommand extends MessageCommand
 				}
 				else
 				{
+					// If we found a module or theme, skip it.
+					if (strpos($category, 'module.') !== false || strpos($category, 'Theme.') !== false)
+						continue;
+
+					$dir = Yii::getPathOfAlias('application.messages').DS.$language;
 					$dirPath = implode(DS, explode('.', $category));
 
 					// Attempt to make the directories
 					@mkdir($dir . DS . $dirPath, 0777, true);
+					@mkdir($dir.DS . $language.DS, 0777, true);
 					$this->generateMessageFile($msgs,$dir.DS.$dirPath.'.php',$overwrite,$removeOld,$sort);
 				}
 			}
@@ -164,8 +175,8 @@ class CiiMessageCommand extends MessageCommand
 	 */
 	protected function extractMessages($fileName,$translator)
     {
-    	echo $fileName;
-        echo "Extracting messages from $fileName...\n";
+    	//echo $fileName;
+//        echo "Extracting messages from $fileName...\n";
         $subject=file_get_contents($fileName);
         $messages=array();
         if(!is_array($translator))
