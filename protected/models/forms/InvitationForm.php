@@ -77,7 +77,7 @@ class InvitationForm extends CFormModel
 			$meta->attributes = array(
 				'user_id' => $user->id,
 				'key' => 'invitationKey',
-				'value' => str_replace('/', '', $factory->getHighStrengthGenerator()->generateString(16))
+				'value' => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
 			);
 
 			// If the key was savedm send the email out

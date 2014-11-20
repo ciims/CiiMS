@@ -113,7 +113,7 @@ class RegisterForm extends CFormModel
                 $meta->attributes = array(
                     'user_id' => $this->_user->id,
                     'key'     => 'activationKey',
-                    'value'   => str_replace('/', '', $factory->getHighStrengthGenerator()->generateString(16))
+                    'value'   => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
                 );
                 $meta->save();
 

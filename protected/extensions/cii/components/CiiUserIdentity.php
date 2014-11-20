@@ -211,7 +211,7 @@ class CiiUserIdentity extends CUserIdentity
 
         $apiKey->user_id = $this->_id;
         $apiKey->key     = 'api_key' . $this->app_name;
-        $apiKey->value   = $factory->getHighStrengthGenerator()->generateString(16);
+        $apiKey->value   = $factory->getLowStrengthGenerator()->generateString(16);
 
         // Then save the API key
         $apiKey->save();

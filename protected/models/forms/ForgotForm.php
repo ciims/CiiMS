@@ -63,7 +63,7 @@ class ForgotForm extends CFormModel
 
         // Generate a secure token that isn't vulnerable to a timing attack
         $factory = new CryptLib\Random\Factory;
-        $hash = $factory->getHighStrengthGenerator()->generateString(16);
+        $hash = $factory->getLowStrengthGenerator()->generateString(16);
 
         $expires = strtotime("+15 minutes");
 
