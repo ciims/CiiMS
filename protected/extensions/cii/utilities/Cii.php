@@ -353,7 +353,8 @@ class Cii
                 'debug' => YII_DEBUG,
                 'time' => time(),
                 'version' => YII_DEBUG ? Cii::getVersion() : null,
-                'language' => Cii::setApplicationLanguage()
+                'language' => Cii::setApplicationLanguage(),
+                'hosted' => defined('CII_CONFIG')
             ));
 
             Yii::app()->clientScript->registerScript('ciims', "
