@@ -28,8 +28,8 @@ A demo of CiiMS can be found at:
     
 You may use the following credentials to login and manage the site.
 
-    Email: administrator
-    Pasword: administrator
+    Email: demo@ciims.io
+    Pasword: password
 
 Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
 
