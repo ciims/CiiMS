@@ -38,7 +38,7 @@
                 "name": "gtcode/yii-newrelic",
                 "version": "dev-master",
                 "source": {
-                    "url": "https://github.com/gtcode/yii-newrelic",
+                    "url": "https://github.com/ptheofan/yii-newrelic",
                     "type": "git",
                     "reference": "master"
                 }
