@@ -15,7 +15,7 @@ class CiiRedisCache extends CiiCache
     /**
 	 * @var string list of servers 
 	 */
-	private $_servers=array();
+	private $_server=array();
 
 	/**
 	 * Initializes this application component.
@@ -39,25 +39,27 @@ class CiiRedisCache extends CiiCache
 		else
 		{
             $this->_redis = new Redis();
-            $this->_redis->connect($this->_servers['host'], $this->_servers['port']);
+            $this->_redis->connect($this->_server['host'], $this->_server['port']);
+            if (isset($this->_server['db']))
+            	$this->_redis->select($this->_server['db']);
         }
 	}
 
 	/**
 	 * REtrieves the servers
 	 **/
-	public function getServers()
+	public function getServer()
 	{
-		return $this->_servers;
+		return $this->_server;
 	}
 	
 	/**
 	 * Sets servers from config file
 	 * @param array $config		config file
 	 */
-	public function setServers($config)
+	public function setServer($config)
 	{
-		$this->_servers = $config;
+		$this->_server = $config;
 	}
 	
 	/**
