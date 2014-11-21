@@ -36,7 +36,7 @@ class ContentController extends CiiController
                     'COutputCache + index',
                     'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                     'varyByParam' => array('id'),
-                    'varyByExpression' => 'Yii::app()->controller->getTheme()&&Yii::app()->user->isGuest',
+                    'varyByExpression' => $lastModified.Yii::app()->controller->getTheme().Yii::app()->user->isGuest ? 'Guest':Yii::app()->user->username,
                     'varyBySession' => true,
                     'varyByLanguage' => true
                 )
@@ -279,7 +279,11 @@ class ContentController extends CiiController
 	 */
 	public function actionList()
 	{
-		$this->setPageTitle(Yii::t('ciims.controllers.Content', 'All Content'));
+		$this->setPageTitle(Yii::t('ciims.controllers.Content', '{{app_name}} | {{label}}', array(
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => Yii::t('ciims.controllers.Content', 'All Content')
+		)));
+
 		$this->setLayout('default');
 		
 		$this->breadcrumbs = array(Yii::t('ciims.controllers.Content', 'Blogroll'));

@@ -333,8 +333,8 @@ class CiiClientScript extends YiiNewRelicClientScript
 			$ret .= '-' . $type;
 		$ret .= '-' . $hash . substr($name, $pos);
 
-		if (defined('CII_CONFIG'))
-			$ret = str_replace('.', '_', CII_CONFIG).'/'.$ret;
+//		if (defined('CII_CONFIG'))
+//			$ret = str_replace('.', '_', CII_CONFIG).'/'.$ret;
 
 		return $ret;
 	}
