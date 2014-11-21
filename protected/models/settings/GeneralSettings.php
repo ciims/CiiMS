@@ -65,7 +65,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, preferMarkdown, useDisqusComments, forceSecureSSL, useOpenstackCDN, useRackspaceCDN', 'boolean'),
+			array('offline, useDisqusComments, forceSecureSSL, useOpenstackCDN, useRackspaceCDN', 'boolean'),
 			array('disqus_shortname, openstack_identity, openstack_username, openstack_apikey, openstack_region, openstack_container', 'length', 'max' => 255),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 10),

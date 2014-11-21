@@ -7,7 +7,7 @@ var Comments = {
 
 	isModuleLoaded : false,
 
-	isLoaded = false,
+	isLoaded: false,
 
 	init : function(id, title, url) {
 		var endpoint = $('#endpoint').attr('data-attr-endpoint') + '/';

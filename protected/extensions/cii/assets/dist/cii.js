@@ -1459,12 +1459,22 @@ if (typeof exports === 'object') {
         D: function() { return Date.shortDays[this.getDay()]; },
         j: function() { return this.getDate(); },
         l: function() { return Date.longDays[this.getDay()]; },
-        N: function() { return this.getDay() + 1; },
+        N: function() { return (this.getDay() == 0 ? 7 : this.getDay()); },
         S: function() { return (this.getDate() % 10 == 1 && this.getDate() != 11 ? 'st' : (this.getDate() % 10 == 2 && this.getDate() != 12 ? 'nd' : (this.getDate() % 10 == 3 && this.getDate() != 13 ? 'rd' : 'th'))); },
         w: function() { return this.getDay(); },
         z: function() { var d = new Date(this.getFullYear(),0,1); return Math.ceil((this - d) / 86400000); }, // Fixed now
         // Week
-        W: function() { var d = new Date(this.getFullYear(), 0, 1); return Math.ceil((((this - d) / 86400000) + d.getDay() + 1) / 7); }, // Fixed now
+        W: function() { 
+            var target = new Date(this.valueOf());
+            var dayNr = (this.getDay() + 6) % 7;
+            target.setDate(target.getDate() - dayNr + 3);
+            var firstThursday = target.valueOf();
+            target.setMonth(0, 1);
+            if (target.getDay() !== 4) {
+                target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+            }
+            return 1 + Math.ceil((firstThursday - target) / 604800000);
+        },
         // Month
         F: function() { return Date.longMonths[this.getMonth()]; },
         m: function() { return (this.getMonth() < 9 ? '0' : '') + (this.getMonth() + 1); },
@@ -1503,7 +1513,7 @@ if (typeof exports === 'object') {
             },
         O: function() { return (-this.getTimezoneOffset() < 0 ? '-' : '+') + (Math.abs(this.getTimezoneOffset() / 60) < 10 ? '0' : '') + (Math.abs(this.getTimezoneOffset() / 60)) + '00'; },
         P: function() { return (-this.getTimezoneOffset() < 0 ? '-' : '+') + (Math.abs(this.getTimezoneOffset() / 60) < 10 ? '0' : '') + (Math.abs(this.getTimezoneOffset() / 60)) + ':00'; }, // Fixed now
-        T: function() { var m = this.getMonth(); this.setMonth(0); var result = this.toTimeString().replace(/^.+ \(?([^\)]+)\)?$/, '$1'); this.setMonth(m); return result;},
+        T: function() { return this.toTimeString().replace(/^.+ \(?([^\)]+)\)?$/, '$1'); },
         Z: function() { return -this.getTimezoneOffset() * 60; },
         // Full Date/Time
         c: function() { return this.format("Y-m-d\\TH:i:sP"); }, // Fixed now
