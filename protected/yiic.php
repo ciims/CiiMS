@@ -15,20 +15,23 @@ Yii::setPathOfAlias('vendor', __DIR__.DS.'..'.DS.'vendor'.DS);
 if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
 	$_SERVER['CIIMS_ENV'] = 'travis';
 else if (!isset($_SERVER['CIIMS_ENV']))
-        $_SERVER['CIIMS_ENV'] = 'main';
+    $_SERVER['CIIMS_ENV'] = 'main';
 
-$config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
-$defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
+$config = __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+$defaultConfig=__DIR__.DS.'config'.DS.'main.default.php';
 
-$config = require __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
-$defaultConfig = require __DIR__.DS.'config'.DS.'main.default.php';
+if (file_exists(__DIR__.DS.'/config/main.php'))
+	$config = require $config;
+else
+	$config = array();
+$defaultConfig = require $defaultConfig;
 
 $config = CMap::mergeArray($defaultConfig, $config);
 
 unset($config['components']['user']);
 
 $app=Yii::createConsoleApplication($config);
-//$app->commandRunner->addCommands(YII_PATH.'/cli/commands');
+$app->commandRunner->addCommands(YII_PATH.'/cli/commands');
 $env=@getenv('YII_CONSOLE_COMMANDS');
 if(!empty($env))
    $app->commandRunner->addCommands($env);
