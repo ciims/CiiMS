@@ -18,7 +18,7 @@ modules:
             appPath: test.php
             url: http://localhost:8234/test.php
         Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=ciims_test'
+            dsn: 'mysql:host=127.0.0.1;dbname=ciims_travis'
             user: 'root'
             password: ''
             populate: false
