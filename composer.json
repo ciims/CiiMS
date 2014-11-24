@@ -70,7 +70,7 @@
         "lib-curl": "*",
         "lib-pcre": "*",
         "lib-openssl": "*",
-        "yiisoft/yii": "1.1.14",
+        "yiisoft/yii": "1.1.15",
         "composer/installers": "v1.0.13",
         "Codeception/YiiBridge": "dev-master",
         "rackspace/php-opencloud": "v1.9.2",
@@ -82,13 +82,13 @@
         "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.4",
         "ciims-themes/default": "3.0.8",
-	"ciims-modules/dashboard": "dev-3.0.0-dev",
+        "ciims-modules/dashboard": "dev-3.0.0-dev",
         "ciims-modules/api": "dev-2.0.0-dev",
-        "ciims-modules/install": "2.0.5",
+        "ciims-modules/install": "2.0.6",
         "ciims-modules/hybridauth": "2.0.4"
     },
     "require-dev": {
-	"codeception/codeception": "2.0.*@dev",
+	   "codeception/codeception": "2.0.*@dev",
         "codeception/YiiBridge": "dev-master"
     },
     "autoload": {

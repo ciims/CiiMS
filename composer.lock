@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "003f2918a90ed4f097a134145fa6fffc",
+    "hash": "d4dccd303ebabb393ea5f7b9c3bea494",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -140,12 +140,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "2175239684d75d378d76fd140c8e591e66bb0601"
+                "reference": "ee0e572e9d89369ca96e324b4658ca41a04a82f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/2175239684d75d378d76fd140c8e591e66bb0601",
-                "reference": "2175239684d75d378d76fd140c8e591e66bb0601",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/ee0e572e9d89369ca96e324b4658ca41a04a82f1",
+                "reference": "ee0e572e9d89369ca96e324b4658ca41a04a82f1",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -168,7 +168,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-11-20 20:35:41"
+            "time": "2014-11-21 21:53:51"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -212,16 +212,16 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "cd6c21e9fa78199b04740bbfbca4a254af0a2b4e"
+                "reference": "0fba4bbc20221a88295a7d9430b4ba2040bf20dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/cd6c21e9fa78199b04740bbfbca4a254af0a2b4e",
-                "reference": "cd6c21e9fa78199b04740bbfbca4a254af0a2b4e",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/0fba4bbc20221a88295a7d9430b4ba2040bf20dc",
+                "reference": "0fba4bbc20221a88295a7d9430b4ba2040bf20dc",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -244,7 +244,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2014-10-01 18:10:13"
+            "time": "2014-11-24 21:20:40"
         },
         {
             "name": "ciims-themes/default",
@@ -514,12 +514,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "f985b38158efe4c55c90b90443311f792c919a59"
+                "reference": "2a55b90dc549042516fe34252314cbac67a8065c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f985b38158efe4c55c90b90443311f792c919a59",
-                "reference": "f985b38158efe4c55c90b90443311f792c919a59",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/2a55b90dc549042516fe34252314cbac67a8065c",
+                "reference": "2a55b90dc549042516fe34252314cbac67a8065c",
                 "shasum": ""
             },
             "require": {
@@ -548,7 +548,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-11-20 10:13:43"
+            "time": "2014-11-24 14:06:32"
         },
         {
             "name": "gtcode/yii-newrelic",
@@ -1097,16 +1097,16 @@
         },
         {
             "name": "yiisoft/yii",
-            "version": "1.1.14",
+            "version": "1.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii.git",
-                "reference": "f0fee98ee84f70f1f3652f65562c9670e919cb4e"
+                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii/zipball/f0fee98ee84f70f1f3652f65562c9670e919cb4e",
-                "reference": "f0fee98ee84f70f1f3652f65562c9670e919cb4e",
+                "url": "https://api.github.com/repos/yiisoft/yii/zipball/022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
+                "reference": "022a51d34ad2c95db2b77b2075e98f5dd78b08e0",
                 "shasum": ""
             },
             "require": {
@@ -1177,7 +1177,7 @@
                 "framework",
                 "yii"
             ],
-            "time": "2013-08-12 00:12:08"
+            "time": "2014-06-30 00:14:27"
         },
         {
             "name": "yiqing-95/YiiTimeAgo",
@@ -1198,12 +1198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "4d52c6f20892d27521e2dd1ae6af93357dd8c60c"
+                "reference": "2394169319bd0bb2a34fb499c841f6745a67b328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/4d52c6f20892d27521e2dd1ae6af93357dd8c60c",
-                "reference": "4d52c6f20892d27521e2dd1ae6af93357dd8c60c",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/2394169319bd0bb2a34fb499c841f6745a67b328",
+                "reference": "2394169319bd0bb2a34fb499c841f6745a67b328",
                 "shasum": ""
             },
             "require": {
@@ -1271,7 +1271,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-11-19 21:19:09"
+            "time": "2014-11-24 19:18:58"
         },
         {
             "name": "doctrine/instantiator",
@@ -1884,12 +1884,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8a70215cf5fd4f23725390b49d7819575e4cd9f3"
+                "reference": "a137e59f5fe1c09a013b41f3164f3499509a92d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8a70215cf5fd4f23725390b49d7819575e4cd9f3",
-                "reference": "8a70215cf5fd4f23725390b49d7819575e4cd9f3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a137e59f5fe1c09a013b41f3164f3499509a92d0",
+                "reference": "a137e59f5fe1c09a013b41f3164f3499509a92d0",
                 "shasum": ""
             },
             "require": {
@@ -1948,7 +1948,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-11-20 17:32:31"
+            "time": "2014-11-22 10:32:03"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2119,12 +2119,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "3e22c89be2e1cddf7db89699cb23a9159df12e0c"
+                "reference": "f38057b48125c2b421361da224a8aa800d70aeca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/3e22c89be2e1cddf7db89699cb23a9159df12e0c",
-                "reference": "3e22c89be2e1cddf7db89699cb23a9159df12e0c",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/f38057b48125c2b421361da224a8aa800d70aeca",
+                "reference": "f38057b48125c2b421361da224a8aa800d70aeca",
                 "shasum": ""
             },
             "require": {
@@ -2163,7 +2163,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2014-11-05 15:28:21"
+            "time": "2014-11-22 06:25:40"
         },
         {
             "name": "sebastian/environment",
