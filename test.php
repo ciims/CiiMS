@@ -30,6 +30,18 @@ $config['components']['request'] = array(
     'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
 );
 
+/**
+ * @todo: Why does codeception require this? This needs to be pulled directly from protected/runtime/modules.config.php
+ * If we let PHP generate this, it makes "array(0 => 'api', 1 => 'dashboard', 2 => 'install', 3 => 'hybridauth');",
+ * Which _codeception_ refuses to parse when it passes it off to Yii
+ */
+$config['modules'] = array(
+	'api',
+	'dashboard',
+	'install',
+	'hybridauth'
+);
+
 // Return for Codeception
 return array(
     'class' => 'CWebApplication',

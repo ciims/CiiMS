@@ -16,7 +16,7 @@ else
     foreach (new IteratorIterator(new DirectoryIterator($directory)) as $filename)
     {
         // Don't import dot files
-        if (!$filename->isDot())
+        if (!$filename->isDot() && strpos($filename->getFileName(), ".") === false)
         {
             $path = $filename->getPathname();
 
