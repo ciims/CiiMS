@@ -28,9 +28,17 @@ $config = CMap::mergeArray($defaultConfig, $config);
 unset($config['components']['user']);
 
 $app=Yii::createConsoleApplication($config);
-$app->commandRunner->addCommands(YII_PATH.'/cli/commands');
+//$app->commandRunner->addCommands(YII_PATH.'/cli/commands');
 $env=@getenv('YII_CONSOLE_COMMANDS');
 if(!empty($env))
    $app->commandRunner->addCommands($env);
+
+$modules = array_filter(glob(__DIR__.'/modules/*', GLOB_ONLYDIR));
+
+foreach ($modules as $module)
+{
+	if (file_exists($module.'/commands'))
+		$app->commandRunner->addCommands($module.'/commands');
+}
 
 $app->run();

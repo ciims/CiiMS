@@ -83,12 +83,16 @@ class Cii
             return $app->language;
 
         // If the language is set via POST, accept it
+        if (php_sapi_name()  == 'cli')
+            return $app->language;
+
         if (Cii::get($_POST, '_lang', false))
-            $app->language = $app->session['_lang'] = $_POST['_lang'];
-        else if ($app->session['_lang'] != NULL)
+            $app->language = $_POST['_lang'];
+        else if (isset($app->session['_lang']) && $app->session['_lang'] != NULL)
             $app->language = $app->session['_lang'];
         else
-            $app->language = $app->session['_lang'] = Yii::app()->getRequest()->getPreferredLanguage();
+            $app->language = Yii::app()->getRequest()->getPreferredLanguage();
+
 
         Yii::app()->language = $app->session['_lang'] = $app->language;
         return $app->language;

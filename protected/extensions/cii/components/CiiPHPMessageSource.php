@@ -22,7 +22,7 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	{
         Yii::app()->language = Cii::setApplicationLanguage();
         parent::init();
-		if (isset(Yii::app()->theme->name))
+		if (isset(Yii::app()->theme) && isset(Yii::app()->theme->name))
 			$this->basePath = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages');
         else if (isset(Yii::app()->controller->module->id))
             $this->basePath = Yii::getPathOfAlias('application.modules.' . Yii::app()->controller->module->id);
