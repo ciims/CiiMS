@@ -10,10 +10,8 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
-if (isset($_SERVER['TRAVIS']) && $_SERVER['TRAVIS'] == true)
-        $_SERVER['CIIMS_ENV'] = 'travis';
-else if (!isset($_SERVER['CIIMS_ENV']))
-        $_SERVER['CIIMS_ENV'] = 'main';
+if (!isset($_SERVER['CIIMS_ENV']))
+    $_SERVER['CIIMS_ENV'] = 'main';
 
 $config = require __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig = require __DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
@@ -26,6 +24,11 @@ Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
 $config = CMap::mergeArray($defaultConfig, $config);
 
 $_SERVER['SERVER_NAME'] = 'localhost';
+
+// Set the request component in the test script
+$config['components']['request'] = array(
+    'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
+);
 
 // Return for Codeception
 return array(
