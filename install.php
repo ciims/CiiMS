@@ -13,6 +13,7 @@ error_reporting(-1);
 ini_set('display_errors', 'true');
 
 $yiiPath = __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yiilite.php';
+require_once __DIR__.DS.'vendor'.DS.'autoload.php';
 
 $config=dirname(__FILE__).'/protected/config/install.php';
 $mainConfig = dirname(__FILE__).'/protected/config/main.php';
