@@ -78,6 +78,7 @@ class CiiURLManager extends CUrlManager
 	 **/
 	protected function processRules()
 	{
+		$this->cache = !YII_DEBUG;
 		// Generate the clientRules
 		$this->rules = $this->cache ? Yii::app()->cache->get('CiiMS::Routes') : array();
 		if ($this->rules == false || empty($this->rules))
