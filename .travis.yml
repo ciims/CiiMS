@@ -19,7 +19,7 @@ services:
 notifications:
   email:
     on_success: change
-    on_failure: never
+    on_failure: change
     
 before_script:
   - composer selfupdate

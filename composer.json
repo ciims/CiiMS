@@ -25,7 +25,7 @@
         "wiki": "https://github.com/charlesportwoodii/CiiMS/wiki/_pages",
         "source": "https://github.com/charlesportwoodii/CiiMS"
     },
-    "homepage": "https://www.ciims.org",
+    "homepage": "https://www.ciims.io",
     "minimum-stability": "dev",
     "repositories": [
         {
@@ -82,13 +82,13 @@
         "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.4",
         "ciims-themes/default": "3.0.8",
-        "ciims-modules/dashboard": "dev-3.0.0-dev",
-        "ciims-modules/api": "dev-2.0.0-dev",
+        "ciims-modules/dashboard": "3.0.0",
+        "ciims-modules/api": "2.0.0",
         "ciims-modules/install": "2.0.7",
         "ciims-modules/hybridauth": "2.0.4"
     },
     "require-dev": {
-	   "codeception/codeception": "2.0.*@dev",
+        "codeception/codeception": "2.0.*",
         "codeception/YiiBridge": "dev-master"
     },
     "autoload": {
