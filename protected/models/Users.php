@@ -242,9 +242,6 @@ class Users extends CiiModel
 	 **/
 	public function beforeValidate()
     {
-        if ($this->about == NULL || $this->about == '')
-            $this->about = ' ';
-
         // If the password is nulled, or unchanged
         if ($this->password == NULL || $this->password == Cii::get($this->_oldAttributes, 'password', false))
 		{
@@ -253,8 +250,7 @@ class Users extends CiiModel
 		}
 		else
 		{
-            $hash = Users::model()->encryptHash($this->email, $this->password, Yii::app()->params['encryptionKey']);
-            $this->password = password_hash($hash, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
+            $this->password = password_hash($this->password, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
 
             if (!$this->isNewRecord)
                 Yii::app()->controller->sendEmail($this,  Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'), '//email/passwordchange', array('user' => $this));

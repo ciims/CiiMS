@@ -114,6 +114,10 @@ class CiiURLManager extends CUrlManager
             if (file_exists($routePath))
             {
                 $routes = require_once($routePath);
+                // Unit tests are failing here for some reason
+                if (!is_array($routes))
+                    continue;
+
                 foreach ($routes as $k=>$v)
                     $moduleRoutes[$k] = $v;
             }
