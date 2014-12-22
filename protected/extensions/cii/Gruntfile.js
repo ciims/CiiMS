@@ -93,8 +93,9 @@ module.exports = function(grunt) {
             comments: {
                 files: {
                     '<%= paths.dist %>/ciimscomments.min.js' : ['<%= paths.dist %>/ciimscomments.js'],
+                    '<%= paths.dist %>/ciidisqus.min.js' : ['<%= paths.dist %>/ciidisqus.js'],
                     '<%= paths.dist %>/disqus.min.js' : ['<%= paths.dist %>/disqus.js'],
-                    '<%= paths.dist %>/discourse.jmin.s' : ['<%= paths.dist %>/discourse.js']
+                    '<%= paths.dist %>/discourse.min.js' : ['<%= paths.dist %>/discourse.js']
                 }
             },
             js: {
