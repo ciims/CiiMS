@@ -38,6 +38,12 @@ class ContentController extends CiiController
                     'varyByParam' => array('id'),
                     'varyBySession' => true,
                     'varyByLanguage' => true
+                ),
+                array(
+                    'COutputCache + list',
+                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+                    'varyByParam' => array('page'),
+                    'varyByLanguage' => true
                 )
             );
 		}

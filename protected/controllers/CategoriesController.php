@@ -19,6 +19,12 @@ class CategoriesController extends CiiController
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
                     'etagSeed'=>$eTag
                 ),
+                array(
+                    'COutputCache + list',
+                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+                    'varyByParam' => array('page'),
+                    'varyByLanguage' => true
+                )
             );
 		}
 
