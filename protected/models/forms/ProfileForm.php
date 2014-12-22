@@ -169,11 +169,11 @@ class ProfileForm extends CFormModel
         return array(
             array('email, username', 'required'),
             array('username', 'length', 'max' => 255),
+            array('currentPassword', 'validateUserPassword'),
             array('password', 'compare'),
             array('password', 'length', 'min' => 8),
             array('user_role', 'numerical'),
-            array('user_role', 'validateUserRole'),
-            array('currentPassword', 'validateUserPassword')
+            array('user_role', 'validateUserRole')
         );
     }
 
@@ -214,7 +214,10 @@ class ProfileForm extends CFormModel
     {
         // Apply the override if it was set
         if ($this->canOverridePasswordCheck())
+        {
+            $this->password_repeat = $this->password;
             return true;
+        }
 
         $hash = Users::model()->encryptHash($this->_user->email, $this->currentPassword, Yii::app()->params['encryptionKey']);
 

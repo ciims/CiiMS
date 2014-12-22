@@ -118,7 +118,6 @@ class CategoriesController extends CiiController
 		$this->setLayout(null);
 		$criteria = Content::model()->getBaseCriteria()
 								    ->addCondition('type_id >= 2')
-								    ->addCondition("category_id = " . $id)
 									->addCondition('password = ""');
                  
 		if ($id != NULL)

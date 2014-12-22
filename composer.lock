@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "351afd38068eb94474569c312960339c",
+    "hash": "0bd3e4c1696cfd9753ca5751990067cf",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -136,16 +136,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "ee0e572e9d89369ca96e324b4658ca41a04a82f1"
+                "reference": "e8e8f9c5332642474e376bf4f05fd7e75ec821d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/ee0e572e9d89369ca96e324b4658ca41a04a82f1",
-                "reference": "ee0e572e9d89369ca96e324b4658ca41a04a82f1",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/e8e8f9c5332642474e376bf4f05fd7e75ec821d0",
+                "reference": "e8e8f9c5332642474e376bf4f05fd7e75ec821d0",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -168,7 +168,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-11-21 21:53:51"
+            "time": "2014-12-22 18:52:22"
         },
         {
             "name": "ciims-modules/hybridauth",
