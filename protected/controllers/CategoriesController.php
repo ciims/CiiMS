@@ -87,7 +87,7 @@ class CategoriesController extends CiiController
 									->addCondition('type_id >= 2')
 									->addCondition("category_id = " . $id)
 									->addCondition('password = ""');
-									
+
 		$criteria->limit = $pageSize;			
 		$criteria->order = 'created DESC';
 		
@@ -96,29 +96,12 @@ class CategoriesController extends CiiController
 		$pages->pageSize=$pageSize;
 		
 		
-		$criteria->offset = $criteria->limit*($pages->getCurrentPage());			
+		$criteria->offset = $criteria->limit*($pages->getCurrentPage());
 		$data = Content::model()->findAll($criteria);
+
 		$pages->applyLimit($criteria);		
 
 		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages, 'meta' => array('description' => $category->getDescription())));
-	}
-	
-	/**
-	 * Displays a listing of all blog posts
-	 */
-	public function actionList()
-	{
-		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
-			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
-			'{{label}}'    => Yii::t('ciims.controllers.Categories', 'Categories')
-		)));
-
-		$this->setLayout('main');
-		$this->breadcrumbs = array(Yii::t('ciims.controllers.Categories', 'All Categories'));
-		$criteria = new CDbCriteria();
-		$criteria->addCondition('id != 1');
-		$categories = Categories::model()->findAll($criteria);
-		$this->render('list', array('categories'=>$categories));
 	}
 
 	/**
@@ -134,7 +117,9 @@ class CategoriesController extends CiiController
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
 		$this->setLayout(null);
 		$criteria = Content::model()->getBaseCriteria()
-								   ->addCondition('type_id >= 2');
+								    ->addCondition('type_id >= 2')
+								    ->addCondition("category_id = " . $id)
+									->addCondition('password = ""');
                  
 		if ($id != NULL)
 			$criteria->addCondition("category_id = " . $id);

@@ -22,7 +22,7 @@
 					?>
 				</description>
 				<category><?php echo htmlspecialchars(Categories::model()->findByPk($v['category_id'])->name,  ENT_QUOTES, "utf-8"); ?></category>
-				<author><?php echo Users::model()->findByPk($v['author_id'])->email; ?> (<?php echo Users::model()->findByPk($v['author_id'])->displayName; ?>)</author>
+				<author><?php echo Users::model()->findByPk($v['author_id'])->email; ?> (<?php echo Users::model()->findByPk($v['author_id'])->username; ?>)</author>
 				<pubDate><?php echo date('D, d M Y H:i:s T', strtotime($v['created'])); ?></pubDate>
 				<guid><?php echo $url.'/'.htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></guid>
 				<?php if ($v['commentable']): ?>

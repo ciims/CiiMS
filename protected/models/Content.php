@@ -351,6 +351,7 @@ class Content extends CiiModel
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('slug',$this->slug,true);
 		$criteria->compare('author_id',$this->author_id,true);
+		$criteria->compare('category_id',$this->category_id,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('password', $this->password, true);
 		$criteria->compare('created',$this->created,true);

@@ -40,7 +40,7 @@ class Cii
     {
         $cache = Yii::app()->cache->get($prefix.$key);
 
-        if ($cache === false)
+        if ($cache === false || $cache == NULL)
         {
             $data = Yii::app()->db->createCommand('SELECT value FROM configuration AS t WHERE t.key = :key')
                                    ->bindParam(':key', $key)

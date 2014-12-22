@@ -36,7 +36,6 @@ class ContentController extends CiiController
                     'COutputCache + index',
                     'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                     'varyByParam' => array('id'),
-                    'varyByExpression' => $lastModified.Yii::app()->controller->getTheme().Yii::app()->user->isGuest ? 'Guest':Yii::app()->user->username,
                     'varyBySession' => true,
                     'varyByLanguage' => true
                 )

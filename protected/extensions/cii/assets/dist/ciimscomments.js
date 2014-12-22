@@ -57,7 +57,7 @@ var Comments = {
 			$(".template_container").remove();
 
 			// Create the Gravatar URL for the user
-			var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(Comments.getStoredInfoBy("email")) + "?s=30"});
+			var gravatar = $('<img>').attr({src: 'https://www.gravatar.com/avatar/' + md5(Comments.getStoredInfoBy("email")) + "?s=30"});
 			$(NewComment).find(".comment_person").append($(gravatar));
 
 			// Add the comment box
