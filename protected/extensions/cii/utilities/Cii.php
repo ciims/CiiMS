@@ -145,7 +145,7 @@ class Cii
         if ($format == ' @ ')
             $format = 'F jS, Y @ H:i UTC';
 
-		return gmdate($format, strtotime($date));
+		return gmdate($format, $date);
 	}
 
     /**
@@ -193,7 +193,7 @@ class Cii
                 'style'=>'text-decoration:none; cursor: default', // Post processing class application
                 'rel'=>'tooltip',
                 'data-original-title'=>Cii::formatDate($date, $format),
-                'title'=>CTimestamp::formatDate('c', strtotime($date))
+                'title'=>CTimestamp::formatDate('c', $date)
             ),
             Cii::formatDate($date, $format)
         );
