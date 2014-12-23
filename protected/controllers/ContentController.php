@@ -38,17 +38,16 @@ class ContentController extends CiiController
                     'varyByParam' => array('id'),
                     'varyBySession' => true,
                     'varyByLanguage' => true
-                ),
-                array(
-                    'COutputCache + list',
-                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-                    'varyByParam' => array('page'),
-                    'varyByLanguage' => true
                 )
             );
 		}
 
-		return parent::filters();
+		return CMap::mergeArray(parent::filters(), array(array(
+            'COutputCache + list',
+            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+            'varyByParam' => array('page'),
+            'varyByLanguage' => true
+        )));
     }
 	
 	
@@ -290,8 +289,6 @@ class ContentController extends CiiController
 		)));
 
 		$this->setLayout('default');
-		
-		$this->breadcrumbs = array(Yii::t('ciims.controllers.Content', 'Blogroll'));
 		
 		$pageSize = Cii::getConfig('contentPaginationSize', 10);	
 		

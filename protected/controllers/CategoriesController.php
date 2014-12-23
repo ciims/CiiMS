@@ -18,22 +18,22 @@ class CategoriesController extends CiiController
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
                     'etagSeed'=>$eTag
-                ),
-                array(
-                    'COutputCache + list',
-                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-                    'varyByParam' => array('page'),
-                    'varyByLanguage' => true
-                ),
-                array(
-                    'COutputCache + rss',
-                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                 )
             );
 		}
 
-		return parent::filters();
-    }
+		return CMap::mergeArray(parent::filters(), array(array(
+	            'COutputCache + list',
+	            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+	            'varyByParam' => array('page'),
+	            'varyByLanguage' => true
+	        ),
+	        array(
+	            'COutputCache + rss',
+	            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
+	        )
+	    ));
+	}
 
 	/**
 	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
