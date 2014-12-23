@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b24dacaf1cd9505a92bc9ea70f240e34",
+    "hash": "e2f0ca4c7c4517ab15b4d515f6b3ba58",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -100,16 +100,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "fdf348c2ed8c959654ca773f760c5be99e77937f"
+                "reference": "a6b6493f340234353afa64c499365bcecb6fe177"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/fdf348c2ed8c959654ca773f760c5be99e77937f",
-                "reference": "fdf348c2ed8c959654ca773f760c5be99e77937f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/a6b6493f340234353afa64c499365bcecb6fe177",
+                "reference": "a6b6493f340234353afa64c499365bcecb6fe177",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -132,20 +132,20 @@
                 "api",
                 "module"
             ],
-            "time": "2014-12-22 17:39:17"
+            "time": "2014-12-23 15:39:29"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "e8e8f9c5332642474e376bf4f05fd7e75ec821d0"
+                "reference": "e67804b63e77b24ca7616451adaa1171d8d6990e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/e8e8f9c5332642474e376bf4f05fd7e75ec821d0",
-                "reference": "e8e8f9c5332642474e376bf4f05fd7e75ec821d0",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/e67804b63e77b24ca7616451adaa1171d8d6990e",
+                "reference": "e67804b63e77b24ca7616451adaa1171d8d6990e",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -168,7 +168,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2014-12-22 18:52:22"
+            "time": "2014-12-23 15:34:18"
         },
         {
             "name": "ciims-modules/hybridauth",
