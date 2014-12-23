@@ -24,6 +24,10 @@ class CategoriesController extends CiiController
                     'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                     'varyByParam' => array('page'),
                     'varyByLanguage' => true
+                ),
+                array(
+                    'COutputCache + rss',
+                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
                 )
             );
 		}
@@ -72,7 +76,7 @@ class CategoriesController extends CiiController
 		
 		// Retrieve the data
 		$category = Categories::model()->findByPk($id);
-		
+
 		// Set the layout
 		$this->setLayout('default');
 		
