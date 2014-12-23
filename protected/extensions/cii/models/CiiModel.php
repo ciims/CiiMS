@@ -94,26 +94,28 @@ class CiiModel extends CActiveRecord
 
 	/**
 	 * parseMeta pulls the metadata out of a model and returns that metadata as a usable array
-	 * @param CiiModel $model - The model to pull metedata from
+	 * @param int  $id        The content ID to pull data from
 	 * @return array $items - The metadata in array format
 	 */
-	public function parseMeta($model)
+	public function parseMeta($id)
 	{
 		$items = array();
-		if ($model !== NULL)
-		{
-			foreach ($model as $v)
-			{
-				if (isset($items[$v->key]))
-					$v->key = $v->key;
-			
-				$items[$v->key] = array(
-					'value'=>$v->value
-				);
-			}
-		}
-
+		$data = ContentMetadata::model()->findAllByAttributes(array('content_id' => $id));
+		foreach ($data as $element)
+			$items[$element->key] = $this->isJson($element->value) ? CJSON::decode($element->value) : $element->value;
+		
 		return $items;
+	}
+
+	/**
+	 * Determines if a string is JSON or not
+	 * @param  string $string  JSON string
+	 * @return boolean 
+	 */
+	private function isJson($string)
+	{
+		json_decode($string);
+		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
 	/**

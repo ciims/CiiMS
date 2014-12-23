@@ -141,7 +141,7 @@ class ContentController extends CiiController
 		$this->render($content->view, array(
 				'id'=>$content->id, 
 				'data'=>$content, 
-				'meta'=>$content->parseMeta($content->metadata)
+				'meta'=>$content->parseMeta($content->id)
 			)
 		);
 	}

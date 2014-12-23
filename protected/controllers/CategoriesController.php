@@ -72,20 +72,14 @@ class CategoriesController extends CiiController
 		
 		// Retrieve the data
 		$category = Categories::model()->findByPk($id);
-		$this->breadcrumbs = Categories::model()->getParentCategories($id);
 		
-		// Parse Metadata
-		$meta = Categories::model()->parseMeta($category->metadata);		
+		// Set the layout
+		$this->setLayout('default');
 		
 		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
 			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
 			'{{label}}'    => $category->name
-		)));
-
-		$layout = isset($meta['layout']) ? $meta['layout']['value'] : 'default';		
-
-		// Set the layout
-		$this->setLayout($layout);
+		)));	
 		
 		$pageSize = Cii::getConfig('categoryPaginationSize', 10);	
 		
