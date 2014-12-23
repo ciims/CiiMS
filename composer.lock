@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f1dbac1ad792363c3a670e6ed5066439",
+    "hash": "f43cbca068e5d165011be6028323e5c2",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -248,16 +248,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.10",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "bc14b0540d0a00c2c613c67de37bc2aeb9bdb765"
+                "reference": "e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/bc14b0540d0a00c2c613c67de37bc2aeb9bdb765",
-                "reference": "bc14b0540d0a00c2c613c67de37bc2aeb9bdb765",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5",
+                "reference": "e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-12-23 15:12:44"
+            "time": "2014-12-23 15:57:56"
         },
         {
             "name": "codeception/YiiBridge",
