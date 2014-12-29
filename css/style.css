@@ -1,0 +1,28 @@
+a {
+	color: #2d2d2d;
+}
+
+img.img {
+	width: 100%;
+}
+
+code, body.no-literate .content pre > code { 
+	letter-spacing: normal;
+}
+
+.menu a, .menu a:visited, .header li a {
+	color: #999;
+	font-size: 13px;
+}
+
+a:hover, .menu a:hover,.header li a:hover {
+	color: #f67d42;
+}
+
+div.content {
+	color: #2d2d2d;
+}
+
+div.content a {
+	text-decoration: underline;
+}

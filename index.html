@@ -14,27 +14,20 @@
 
   <!-- Flatdoc theme -->
   <link  href='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/style.css' rel='stylesheet'>
+  <link  href='/css/style.css' rel='stylesheet'>
   <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
+  <script type="text/javascript" src="/js/script.js"></script>
 
   <!-- Meta -->
   <meta content="CiiMS Documentation" property="og:title">
-  <meta content="Your Project description goes here." name="description">
-  <!-- Initializer -->
-  <script>
-    Flatdoc.run({
-      fetcher: Flatdoc.file('https://rawgit.com/charlesportwoodii/CiiMS/2.0.0-dev/README.md')
-    })
-  </script>
+  <meta content="CiiMS Documentation" name="description">
 </head>
 <body role='flatdoc' class='no-literate'>
 
   <div class='header'>
     <div class='left'>
-      <h1>CiiMS Documentation</h1>
-      <ul>
-        <li><a href='https://github.com/charlesportwoodii/CiiMS'>View on GitHub</a></li>
-        <li><a href='https://github.com/charlesportwoodii/CiiMS/issues'>Issues</a></li>
-      </ul>
+      <h1><a href="/">CiiMS Documentation</a></h1>
+      <ul class="main-nav"></ul>
     </div>
     <div class='right'>
       <iframe src="https://ghbtns.com/github-btn.html?user=charlesportwoodii&repo=CiiMS&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
@@ -48,6 +41,5 @@
     </div>
     <div role='flatdoc-content' class='content'></div>
   </div>
-
 </body>
 </html>
