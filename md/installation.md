@@ -94,7 +94,7 @@ In general - the following steps should be performed to upgrade from one version
 ```
 git checkout {version}
 git pull
-composer update
+composer install
 php protected/yiic.php migrate up --interactive=0
 rm -rf assets/*
 rm -rf runtime/cache/*

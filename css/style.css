@@ -3,7 +3,7 @@ a {
 }
 
 img.img {
-	width: 100%;
+	max-width: 100%;
 }
 
 code, body.no-literate .content pre > code { 
