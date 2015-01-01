@@ -7,8 +7,12 @@ $(document).ready(function() {
 		$("ul.main-nav").replaceWith(html);
 	});	
 
-	if (uri != "/")
+	if (uri == "/api.md")
+		file = "https://rawgit.com/charlesportwoodii/ciims-modules-api/master/README.md"
+	else if (uri != "/")
 		file = "/md"+uri;
+
+	console.log(file);
 
 	Flatdoc.run({
 	  fetcher: Flatdoc.file(file)
