@@ -1,3 +1,5 @@
+sudo: false # Use TravisCI new Docker container infrastructure
+
 language: php
 
 php:
