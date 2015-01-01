@@ -87,6 +87,10 @@ composer.json
 composer.lock
 ```
 
+### Theme Image
+
+To help end users distinquish themes, developers should include a 550x350 px image in the root of their theme folder called ```Default.php```.
+
 ### Theme.php
 
 ```Theme.php``` serves as the bootstrap file for your Theme, and is used to integrate your theme with CiiMS. A simplified ```Theme.php``` requires at minimum the following:
