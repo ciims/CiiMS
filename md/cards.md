@@ -125,11 +125,54 @@ Each card should also come with a specific ```card.js``` file which will serve a
 ```
 Your asynchronous class should extend the ```CardPrototype``` class with the property ```name``` which matches the name of the card as defined in the ```card.json``` file, and three methods that you can override ```init```, ```reload```, and ```render```. These methods will fire at the expected time (when the card is initialized, when the card is rendered, and whenever the reload event is called, eg card installation, card re-shuffling/re-ordering, and so forth).
 
+The init method, on load will be provided with the current ID of the card you are working with.
+
 ### Accessing Card Properties
 
-@ TODO: Remember how to retrieve card data from the CardPrototype extended object. The _cards_ know how to fetch their own data, but I don't remember the API methods to pull this data from the prototype object.
+Since your card will be provided with the ID of the current instance of the card, it's recommended that you store this ID within your object. With this ID you can query for the card properties by querying the global ```cards``` object as follows:
 
-All cards are stored in a global object called ```cards```, so if you know the id the data can be pulled from ```cards[id]``` trivialy.
+```
+cards[id]
+```
+
+This will provide you with a plethora of information about the card, including all active settings. Any time you need to fetch information about this card instance you should query this variable. And example of what may be returned is as follows:
+
+```
+{
+  "options": {
+    "id": "z6012ty1bea2x1or",
+    "name": "BasicCard",
+    "version": "0.0.1",
+    "footerText": "basic-card",
+    "properties": {
+      "setting1": {
+        "name": "Awesome Setting #1",
+        "type": "text",
+        "value": ""
+      },
+      "setting2": {
+        "name": "Awesome Setting #2",
+        "type": "email",
+        "value": ""
+      }
+    },
+    "size": "square",
+    "availableTileSizes": [
+      "square",
+      "rectangle",
+      "rectangleTall",
+      "squareBig"
+    ],
+    "css": null,
+    "js": null,
+    "html": null,
+    "description": "This is a basic card that illustrates the capabilities of dashboard cards.",
+    "image": "card.png",
+    "basePath": "https://basic-card.home.erianna.net"
+  },
+  "id": "z6012ty1bea2x1or"
+}
+```
 
 ## Card.css
 
