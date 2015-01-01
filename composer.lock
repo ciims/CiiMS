@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b541aff6755a3bbd988dee4ad314ee14",
+    "hash": "51d497537e565a7941a32275ce7fdcb8",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -172,20 +172,20 @@
         },
         {
             "name": "ciims-modules/hybridauth",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
-                "reference": "884df853ef1c9f96f79ad333fa476af022528602"
+                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/884df853ef1c9f96f79ad333fa476af022528602",
-                "reference": "884df853ef1c9f96f79ad333fa476af022528602",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/51ec6cc35aa65bb26877db013b954f04b7a733f9",
+                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9",
                 "shasum": ""
             },
             "require": {
-                "hybridauth/hybridauth": "2.2.0.*@dev"
+                "hybridauth/hybridauth": "v2.3.0"
             },
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
@@ -208,7 +208,7 @@
                 "module",
                 "social"
             ],
-            "time": "2014-05-01 17:10:08"
+            "time": "2015-01-01 18:40:32"
         },
         {
             "name": "ciims-modules/install",
@@ -410,12 +410,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604"
+                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/0bcb2e79d8571787f18b7eb036ed3d004908e604",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
+                "reference": "e5eaf8c7ded0877195b5d2848491e17b1c0a6c4d",
                 "shasum": ""
             },
             "require": {
@@ -469,7 +469,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2014-12-20 21:24:13"
+            "time": "2015-01-01 18:34:57"
         },
         {
             "name": "facebook/php-sdk",
@@ -770,16 +770,16 @@
         },
         {
             "name": "hybridauth/hybridauth",
-            "version": "2.2.0.x-dev",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hybridauth/hybridauth.git",
-                "reference": "9c543230344e0f9b53d4ea8e7c447fc028b549e7"
+                "reference": "1b161fb779ce352592fc0499b9a89713623a8ae5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/9c543230344e0f9b53d4ea8e7c447fc028b549e7",
-                "reference": "9c543230344e0f9b53d4ea8e7c447fc028b549e7",
+                "url": "https://api.github.com/repos/hybridauth/hybridauth/zipball/1b161fb779ce352592fc0499b9a89713623a8ae5",
+                "reference": "1b161fb779ce352592fc0499b9a89713623a8ae5",
                 "shasum": ""
             },
             "require": {
@@ -815,7 +815,7 @@
                 "twitter",
                 "yahoo"
             ],
-            "time": "2014-07-11 20:30:41"
+            "time": "2014-11-16 17:11:52"
         },
         {
             "name": "ircmaxell/password-compat",
