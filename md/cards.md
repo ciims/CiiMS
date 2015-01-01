@@ -117,7 +117,7 @@ Each card should also come with a specific ```card.js``` file which will serve a
 ;(function() {
 	var BasicCard = new CardPrototype({
 		name: "BasicCard",
-		init: function() {},
+		init: function(id) {},
 		reload: function() {},
 		render: function() {}
 	});
