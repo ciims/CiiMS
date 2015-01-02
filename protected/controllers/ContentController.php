@@ -63,10 +63,6 @@ class ContentController extends CiiController
 				'actions' => array('index', 'password', 'list'),
 				'users'=>array('*'),
 			),
-			array('allow',  // Allow authenticated users to like stuff
-				'actions' => array('like'),
-				'users'=>array('@'),
-			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -143,78 +139,6 @@ class ContentController extends CiiController
 				'meta'=>$content->parseMeta($content->id)
 			)
 		);
-	}
-	
-	/**
-	 * Provides functionality for "liking and un-liking" a post
-	 * @param int $id		The Content ID
-	 */
-	public function actionLike($id=NULL)
-	{
-		$this->layout=false;
-		header('Content-type: application/json');
-		
-		// Load the content
-		$content = ContentMetadata::model()->findByAttributes(array('content_id' => $id, 'key' => 'likes'));
-
-		if ($content === NULL)
-		{
-			$content = new ContentMetadata;
-			$content->content_id = $id;
-			$content->key = 'likes';
-			$content->value = 0;
-		}
-
-		if ($id === NULL || $content === NULL)
-		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to access post')));
-			return Yii::app()->end();
-		}
-		
-		// Load the user likes, create one if it does not exist
-		$user = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'likes'));
-
-		if ($user === NULL)
-		{
-			$user = new UserMetadata;
-			$user->user_id = Yii::app()->user->id;
-			$user->key = 'likes';
-			$user->value = json_encode(array());
-		}
-		
-		$type = "inc";
-		$likes = json_decode($user->value, true);
-		if (in_array($id, array_values($likes)))
-		{
-			$type = "dec";
-			$content->value -= 1;
-			if ($content->value <= 0)
-				$content->value = 0;
-			$element = array_search($id, $likes);
-			unset($likes[$element]);
-		}
-		else
-		{
-			$content->value += 1;
-			array_push($likes, $id);
-		}
-		
-		$user->value = json_encode($likes);
-
-		if (!$user->save())
-		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save user like')));
-			return Yii::app()->end();
-		}
-
-		if (!$content->save())
-		{
-			echo CJavaScript::jsonEncode(array('status' => 'error', 'message' => Yii::t('ciims.controllers.Content', 'Unable to save like')));
-			return Yii::app()->end();
-		}
-		
-		echo CJavaScript::jsonEncode(array('status' => 'success', 'type' => $type, 'message' => Yii::t('ciims.controllers.Content', 'Liked saved')));
-		return Yii::app()->end();
 	}
 	
 	/**

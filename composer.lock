@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "51d497537e565a7941a32275ce7fdcb8",
+    "hash": "be85beb31e436ae0fa21568a09325097",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -100,16 +100,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "a6b6493f340234353afa64c499365bcecb6fe177"
+                "reference": "d5620a9c83aad82ec88580e860d38fb564a2ac18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/a6b6493f340234353afa64c499365bcecb6fe177",
-                "reference": "a6b6493f340234353afa64c499365bcecb6fe177",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/d5620a9c83aad82ec88580e860d38fb564a2ac18",
+                "reference": "d5620a9c83aad82ec88580e860d38fb564a2ac18",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -132,7 +132,7 @@
                 "api",
                 "module"
             ],
-            "time": "2014-12-23 15:39:29"
+            "time": "2015-01-02 16:45:52"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -248,16 +248,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.11",
+            "version": "3.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5"
+                "reference": "d1463b65a3ef7d193741da9b89d1924eb9b13be9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5",
-                "reference": "e6e3d607b7ee0c9775ee4a9ae2ba49eeba0e79a5",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/d1463b65a3ef7d193741da9b89d1924eb9b13be9",
+                "reference": "d1463b65a3ef7d193741da9b89d1924eb9b13be9",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2014-12-23 15:57:56"
+            "time": "2015-01-02 16:44:36"
         },
         {
             "name": "codeception/YiiBridge",
@@ -1891,12 +1891,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876"
+                "reference": "091ec6b68b31a15da4e41ba375c6f77b7f15c2b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/f8d5d08c56de5cfd592b3340424a81733259a876",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/091ec6b68b31a15da4e41ba375c6f77b7f15c2b4",
+                "reference": "091ec6b68b31a15da4e41ba375c6f77b7f15c2b4",
                 "shasum": ""
             },
             "require": {
@@ -1932,7 +1932,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-08-31 06:12:13"
+            "time": "2015-01-02 15:57:31"
         },
         {
             "name": "phpunit/phpunit",
@@ -1940,12 +1940,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4a9fb9c9d7f980b00da53eb809d82f9f1a9fe56b"
+                "reference": "6cee4f056858257824a57c9e040528ee0c0b1ae5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4a9fb9c9d7f980b00da53eb809d82f9f1a9fe56b",
-                "reference": "4a9fb9c9d7f980b00da53eb809d82f9f1a9fe56b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cee4f056858257824a57c9e040528ee0c0b1ae5",
+                "reference": "6cee4f056858257824a57c9e040528ee0c0b1ae5",
                 "shasum": ""
             },
             "require": {
@@ -2004,7 +2004,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-01-01 14:54:44"
+            "time": "2015-01-02 16:27:24"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
