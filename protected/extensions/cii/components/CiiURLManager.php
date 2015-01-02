@@ -57,14 +57,14 @@ class CiiURLManager extends CUrlManager
 		'/emailchange/<key:\w+>'		        => '/site/emailchange',
 		'/emailchange'					        => '/site/emailchange',
 		'/resetpassword/<id:\w+>' 			    => '/site/resetpassword',
-        '/resetpassword' 			            => '/site/resetpassword',
+    '/resetpassword' 			            => '/site/resetpassword',
 		'/forgot' 						        => '/site/forgot',
 		'/register' 					        => '/site/register',
 		'/register-success' 			        => '/site/registersuccess',
 		'/login'						        => '/site/login',
 		'/logout' 						        => '/site/logout',
 		'/profile/edit'					        => '/profile/edit',
-        '/profile/resend'					    => '/profile/resend',
+    '/profile/resend'					    => '/profile/resend',
 		'/profile/<id:\w+>/<username:\w+>' 	=> '/profile/index',
 		'/profile/<id:\w+>' 			        => '/profile/index',
 		'/acceptinvite'					        => '/site/acceptinvite',
@@ -174,6 +174,7 @@ class CiiURLManager extends CUrlManager
    		foreach ($rules as $k=>$v)
    			$rules[$k] = '/';
 
+      $rules['/login'] = '/site/login';
    		return $rules;
    	}
 
