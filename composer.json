@@ -35,18 +35,6 @@
         {
             "type": "package",
             "package": {
-                "name": "gtcode/yii-newrelic",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://github.com/ptheofan/yii-newrelic",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
                 "name": "yiqing-95/YiiTimeAgo",
                 "version": "dev-master",
                 "source": {
@@ -78,8 +66,8 @@
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.9",
         "knplabs/packagist-api": "v1.2",
-        "gtcode/yii-newrelic": "dev-master",
-        "yiqing-95/YiiTimeAgo": "dev-master",
+        "charlesportwoodii/yii-newrelic": "1.0.0",
+	"yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.4",
         "ciims-themes/default": "3.0.12",
         "ciims-modules/dashboard": "3.0.5",

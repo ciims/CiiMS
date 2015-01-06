@@ -32,7 +32,7 @@ $ciimsCoreConfig = array(
     'modules' => require_once __DIR__ . DS . 'modules.php',
     'behaviors' => array(
         'onBeginRequest' => array(
-             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
+             'class' => 'vendor.charlesportwoodii.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
         ),
     ),
     'components' => array(
@@ -40,7 +40,7 @@ $ciimsCoreConfig = array(
             'class' => 'ext.cii.components.CiiPHPMessageSource'
         ),
         'newRelic' => array(
-            'class' => 'vendor.gtcode.yii-newrelic.YiiNewRelic',
+            'class' => 'vendor.charlesportwoodii.yii-newrelic.YiiNewRelic',
         ),
         'cii' => array(
             'class' => 'ext.cii.components.CiiBase'
@@ -134,10 +134,10 @@ if (php_sapi_name() == "cli")
 {
     $ciimsCoreConfig['behaviors'] = array(
         'onBeginRequest' => array(
-             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
+             'class' => 'vendor.charlesportwoodii.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
         ),
         'onEndRequest' => array(
-             'class' => 'vendor.gtcode.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
+             'class' => 'vendor.charlesportwoodii.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
         )
     );
 }
