@@ -23,7 +23,8 @@ class ContentController extends CiiController
                     'COutputCache + index',
                     'duration' => YII_DEBUG ? 1 : 1440, // 24 hour cache duration
                     'varyByParam' => array('id', 'vid'),
-                    'varyByLanguage' => true
+                    'varyByLanguage' => true,
+                    'varyByExpression' => Yii::app()->user->isGuest
                 )
             );
 		}
