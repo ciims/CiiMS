@@ -8,19 +8,32 @@ class CategoriesController extends CiiController
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
-        
-        if ($id != NULL)
-		{
-            return array(
-                array(
-                    'CHttpCacheFilter + index',
-                    'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-                    'etagSeed'=>$id
-                )
-            );
-		}
 
-		return parent::filters();
+		return CMap::mergeArray(parent::filters(), array(
+			array(
+                'CHttpCacheFilter + index',
+                'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
+                'etagSeed'=>$id
+            ),
+			array(
+			    'COutputCache + list',
+			    'duration' => YII_DEBUG ? 1 : 86400,
+			    'varyByParam' => array('page'),
+			    'varyByLanguage' => true,
+			    'dependency' => array(
+				    'class'=>'CDbCacheDependency',
+				    'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+				)
+			),
+			array(
+			    'COutputCache + rss',
+			    'duration' => YII_DEBUG ? 1 : 86400,
+			    'dependency' => array(
+				    'class'=>'CDbCacheDependency',
+				    'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+				)
+			)
+		));
 	}
 	
 	/**

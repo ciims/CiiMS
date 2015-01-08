@@ -24,12 +24,21 @@ class ContentController extends CiiController
                     'duration' => YII_DEBUG ? 1 : 86400, // 24 hour cache duration
                     'varyByParam' => array('id', 'vid'),
                     'varyByLanguage' => true,
-                    'varyByExpression' => Yii::app()->user->isGuest
+                    'varyByExpression' => 'Yii::app()->user->isGuest'
                 )
             );
 		}
 
-		return parent::filters();
+		return CMap::mergeArray(parent::filters(), array(array(
+		    'COutputCache + list',
+		    'duration' => YII_DEBUG ? 1 : 86400,
+		    'varyByParam' => array('page'),
+		    'varyByLanguage' => true,
+		    'dependency' => array(
+			    'class'=>'CDbCacheDependency',
+			    'sql'=>'SELECT MAX(updated) FROM content',
+			)
+		)));
     }
 	
 	
