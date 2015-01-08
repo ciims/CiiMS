@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "25ccab8a2843db4b6531d5ca90df1f98",
+    "hash": "28ee2e437163966009a815d359f83317",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -126,16 +126,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "d5620a9c83aad82ec88580e860d38fb564a2ac18"
+                "reference": "f732b0cfadc07eacb0fa99e256baa13d34d46931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/d5620a9c83aad82ec88580e860d38fb564a2ac18",
-                "reference": "d5620a9c83aad82ec88580e860d38fb564a2ac18",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/f732b0cfadc07eacb0fa99e256baa13d34d46931",
+                "reference": "f732b0cfadc07eacb0fa99e256baa13d34d46931",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -158,7 +158,7 @@
                 "api",
                 "module"
             ],
-            "time": "2015-01-02 16:45:52"
+            "time": "2015-01-08 19:25:12"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -1171,12 +1171,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee"
+                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f812eb83d21f4d8ab2ab67262590c508905922ee",
-                "reference": "f812eb83d21f4d8ab2ab67262590c508905922ee",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/b81b65bd7188d1def8af62eebe45681c04e68529",
+                "reference": "b81b65bd7188d1def8af62eebe45681c04e68529",
                 "shasum": ""
             },
             "require": {
@@ -1220,7 +1220,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 15:02:26"
+            "time": "2015-01-08 13:03:06"
         },
         {
             "name": "yiisoft/yii",
@@ -2765,12 +2765,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "193d609c031e61eb2be7218e19de834e9957be04"
+                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/193d609c031e61eb2be7218e19de834e9957be04",
-                "reference": "193d609c031e61eb2be7218e19de834e9957be04",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e6beb5c93f087181c139a8e800a2750ec9e64a90",
+                "reference": "e6beb5c93f087181c139a8e800a2750ec9e64a90",
                 "shasum": ""
             },
             "require": {
@@ -2803,7 +2803,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-05 15:02:28"
+            "time": "2015-01-08 13:01:33"
         }
     ],
     "aliases": [],

@@ -126,7 +126,7 @@ class CiiController extends CController
      */
 	public function beforeAction($action)
 	{
-         try {
+        try {
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
         } catch (Exception $e) {}
 
