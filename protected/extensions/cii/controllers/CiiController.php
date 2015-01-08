@@ -115,21 +115,6 @@ class CiiController extends CController
     }
 
     /**
-     * Initializes NewRelic with sapi
-     * @param CController $controller
-     * @param CAction $action
-     * @see CController::beforeControllerAction
-     */
-    public function beforeControllerAction($controller, $action) {
-        // Attempt to contact NewRelic with Reporting Data
-        try {
-            @Yii::app()->newRelic->setTransactionName($controller->id, $action->id);
-        } catch (Exception $e) {}
-        
-        return parent::beforeControllerAction($controller, $action);
-    }
-
-    /**
      * BeforeAction method
      * The events defined here occur before every controller action that extends CiiController occurs.
      * This method will run the following tasks:
@@ -141,6 +126,10 @@ class CiiController extends CController
      */
 	public function beforeAction($action)
 	{
+         try {
+            @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
+        } catch (Exception $e) {}
+
         // Sets the application language
         Cii::setApplicationLanguage();
 
