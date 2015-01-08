@@ -21,7 +21,7 @@ class ContentController extends CiiController
                 ),
                 array(
                     'COutputCache + index',
-                    'duration' => YII_DEBUG ? 1 : 3600, // 1 Hour Cache Duration
+                    'duration' => YII_DEBUG ? 1 : 1440, // 24 hour cache duration
                     'varyByParam' => array('id', 'vid'),
                     'varyByLanguage' => true
                 )
