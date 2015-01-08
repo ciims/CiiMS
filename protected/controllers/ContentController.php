@@ -8,46 +8,27 @@ class ContentController extends CiiController
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
-        $key = false;
 
         if ($id != NULL)
 		{
-			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST((SELECT IFNULL(MAX(updated),0) FROM content WHERE id = :id2 AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)), (SELECT IFNULL(MAX(updated), 0) FROM comments WHERE content_id = :id)))")->bindParam(':id2', $id)->bindParam(':id', $id)->queryScalar();
-			$theme = Cii::getConfig('theme', 'default');
-			
-			$keyFile = ContentMetadata::model()->findByAttributes(array('content_id'=>$id, 'key'=>'view'));
-			
-			if ($keyFile != NULL)
-			    $key = dirname(__FILE__) . '/../../themes/' . $theme . '/views/content/' . $keyFile->value . '.php';
-			
-			if ($key && file_exists($key))
-				$lastModified = filemtime($key) >= $lastModified ? filemtime($key) : $lastModified;
-			
-			$eTag = $this->id . Cii::get($this->action, 'id', NULL) . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
-
+       		$vid =  Yii::app()->getRequest()->getQuery('vid');
             return array(
                 'accessControl',
                 array(
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-                    'etagSeed'=> YII_DEBUG ? mt_rand() : $eTag
+                    'etagSeed' => $id.$vid
                 ),
                 array(
                     'COutputCache + index',
-                    'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-                    'varyByParam' => array('id'),
-                    'varyBySession' => true,
+                    'duration' => YII_DEBUG ? 1 : 3600, // 1 Hour Cache Duration
+                    'varyByParam' => array('id', 'vid'),
                     'varyByLanguage' => true
                 )
             );
 		}
 
-		return CMap::mergeArray(parent::filters(), array(array(
-            'COutputCache + list',
-            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-            'varyByParam' => array('page'),
-            'varyByLanguage' => true
-        )));
+		return parent::filters();
     }
 	
 	
@@ -70,40 +51,12 @@ class ContentController extends CiiController
 	}
 	
 	/**
-	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
-	 * protecting it from possible attacks.
-	 * @param $id	- The content ID we want to verify before proceeding
-	 **/
-	private function beforeCiiAction($id=NULL)
-	{
-		// If we do not have an ID, consider it to be null, and throw a 404 error
-		if ($id == NULL)
-			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The specified post cannot be found.'));
-		
-		// Retrieve the HTTP Request
-		$r = new CHttpRequest();
-		
-		// Retrieve what the actual URI
-		$requestUri = str_replace($r->baseUrl, '', $r->requestUri);
-		
-		// Retrieve the route
-		$route = '/' . $this->getRoute() . '/' . $id;
-		$requestUri = preg_replace('/\?(.*)/','',$requestUri);
-		
-		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
-		if ($requestUri == $route)
-			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The requested post cannot be found.'));
-        
-        return str_replace($r->baseUrl, '', $r->requestUri);
-	}
-	
-	/**
 	 * Handles all incoming requests for the entire site that are not previous defined in CUrlManager
 	 * Requests come in, are verified, and then pulled from the database dynamically
 	 * @param $id	- The content ID that we want to pull from the database
 	 * @return $this->render() - Render of page that we want to display
 	 **/
-	public function actionIndex($id=NULL)
+	public function actionIndex($id=NULL, $vid=NULL)
     {
         // Set the ReturnURL to this page so that the user can be redirected back to here after login
         Yii::app()->user->setReturnUrl($this->beforeCiiAction($id));

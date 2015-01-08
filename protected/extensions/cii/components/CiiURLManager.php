@@ -210,8 +210,8 @@ class CiiURLManager extends CUrlManager
    			$pageRule = $el->slug . '/<page:\d+>';
 			$rule = $el->slug;
 
-			$rules[$pageRule] = "content/index/id/{$el->id}";
-			$rules[$rule] = "content/index/id/{$el->id}";
+			$rules[$pageRule] = "content/index/id/{$el->id}/vid/{$el->vid}";
+			$rules[$rule] = "content/index/id/{$el->id}/vid/{$el->vid}";
    		}
 
    		return $rules;

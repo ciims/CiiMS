@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1bdd90186debb3d0721f7563f8a1f492",
+    "hash": "25ccab8a2843db4b6531d5ca90df1f98",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -549,12 +549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "bc0b051eebc6fcb66071f3ccb639ae7dc5d877b0"
+                "reference": "f07769e15dc0fdc30056e488e84bc042bd6a1c2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/bc0b051eebc6fcb66071f3ccb639ae7dc5d877b0",
-                "reference": "bc0b051eebc6fcb66071f3ccb639ae7dc5d877b0",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/f07769e15dc0fdc30056e488e84bc042bd6a1c2d",
+                "reference": "f07769e15dc0fdc30056e488e84bc042bd6a1c2d",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +583,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2014-12-30 21:45:16"
+            "time": "2015-01-07 11:03:15"
         },
         {
             "name": "guzzle/common",
@@ -782,6 +782,63 @@
                 "stream"
             ],
             "time": "2014-05-01 21:36:02"
+        },
+        {
+            "name": "hashids/hashids",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ivanakimov/hashids.php.git",
+                "reference": "fd6593e705bee9d0443c6faeaa6aa004a9fca28d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ivanakimov/hashids.php/zipball/fd6593e705bee9d0443c6faeaa6aa004a9fca28d",
+                "reference": "fd6593e705bee9d0443c6faeaa6aa004a9fca28d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Hashids": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Akimov",
+                    "email": "ivan@barreleye.com",
+                    "homepage": "https://twitter.com/IvanAkimov"
+                }
+            ],
+            "description": "Generate hashids like YouTube or Bitly from numbers to obfuscate your database primary ids, or navigate to the right shard.",
+            "homepage": "http://hashids.org/php",
+            "keywords": [
+                "bitly",
+                "decrypt",
+                "encrypt",
+                "hash",
+                "hashid",
+                "hashids",
+                "ids",
+                "obfuscate",
+                "youtube"
+            ],
+            "time": "2014-11-14 20:39:09"
         },
         {
             "name": "hybridauth/hybridauth",

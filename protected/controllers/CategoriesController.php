@@ -8,58 +8,19 @@ class CategoriesController extends CiiController
 	public function filters()
     {
         $id = Yii::app()->getRequest()->getQuery('id');
+        
         if ($id != NULL)
 		{
-			$lastModified = Yii::app()->db->createCommand("SELECT UNIX_TIMESTAMP(GREATEST( (SELECT IFNULL(MAX(updated), 0) FROM categories WHERE categories.id = {$id}),(SELECT IFNULL(MAX(content.updated), 0) FROM categories LEFT JOIN content ON categories.id = content.category_id WHERE categories.id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id)),(SELECT IFNULL(MAX(comments.updated), 0) FROM categories LEFT JOIN content ON categories.id = content.category_id LEFT JOIN comments ON content.id = comments.content_id WHERE categories.id = {$id} AND vid = (SELECT MAX(vid) FROM content AS content2 WHERE content2.id = content.id) )))")->queryScalar();
-			$eTag = $this->id . Cii::get($this->action, 'id', NULL) . $id . Cii::get(Yii::app()->user->id, 0) . $lastModified;
-			
             return array(
                 array(
                     'CHttpCacheFilter + index',
                     'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-                    'etagSeed'=>$eTag
+                    'etagSeed'=>$id
                 )
             );
 		}
 
-		return CMap::mergeArray(parent::filters(), array(array(
-	            'COutputCache + list',
-	            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-	            'varyByParam' => array('page'),
-	            'varyByLanguage' => true
-	        ),
-	        array(
-	            'COutputCache + rss',
-	            'duration' => YII_DEBUG ? 0 : 3600, // 1 Hour Cache Duration
-	        )
-	    ));
-	}
-
-	/**
-	 * Verifies that our request does not produce duplicate content (/about == /content/index/2), and prevents direct access to the controller
-	 * protecting it from possible attacks.
-	 * @param $id	- The content ID we want to verify before proceeding
-	 **/
-	private function beforeCiiAction($id)
-	{
-		// If we do not have an ID, consider it to be null, and throw a 404 error
-		if ($id == NULL)
-			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
-		
-		// Retrieve the HTTP Request
-		$r= new CHttpRequest();
-		
-		// Retrieve what the actual URI
-		$requestUri = str_replace($r->baseUrl, '', $r->requestUri);
-		
-		// Retrieve the route
-		$route = '/' . $this->getRoute() . '/' . $id;
-		
-		$requestUri = preg_replace('/\?(.*)/','',$requestUri);
-		
-		// If the route and the uri are the same, then a direct access attempt was made, and we need to block access to the controller
-		if ($requestUri == $route)
-			throw new CHttpException(404, Yii::t('ciims.controllers.Categories', 'The specified category cannot be found.'));
+		return parent::filters();
 	}
 	
 	/**
