@@ -127,6 +127,7 @@ class CiiController extends CController
 	public function beforeAction($action)
 	{
         try {
+            @Yii::app()->newRelic->setAppName(Cii::getConfig('name', Yii::app()->name));
             @Yii::app()->newRelic->setTransactionName($this->id, $action->id);
         } catch (Exception $e) {}
 
