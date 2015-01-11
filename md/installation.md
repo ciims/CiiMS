@@ -23,9 +23,7 @@ Once all the requirements are met, you can begin the installation process.
 
 ```
 git clone https://github.com/charlesportwoodii/CiiMS.git
-git checkout 2.0.0-dev
-# wget https://github.com/charlesportwoodii/CiiMS/archive/2.0.0-dev.zip
-# unzip 2.0.0-dev
+git checkout 2.0.0-beta
 ```
 
 2 Install composer dependencies (this may take some time to complete depending upon your internet connection)
