@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "27fc17dd629929eb9e4e8832dce95cea",
+    "hash": "325c76ff32cb4d16933a37599b240b9d",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -162,16 +162,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.6",
+            "version": "3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "e3e22b590d89c7d4564e8411aa6858909dbd78f6"
+                "reference": "da43abe792ed5aabde68675c6237b940870b702b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/e3e22b590d89c7d4564e8411aa6858909dbd78f6",
-                "reference": "e3e22b590d89c7d4564e8411aa6858909dbd78f6",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/da43abe792ed5aabde68675c6237b940870b702b",
+                "reference": "da43abe792ed5aabde68675c6237b940870b702b",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -194,7 +194,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-01-10 19:49:48"
+            "time": "2015-01-11 18:21:45"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -2013,12 +2013,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6c3b80337cd2c4e486dfdfc887004a41b42f9d27"
+                "reference": "3ebeb6144d1f9da6ebf7784a868ab5d6d785cb95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6c3b80337cd2c4e486dfdfc887004a41b42f9d27",
-                "reference": "6c3b80337cd2c4e486dfdfc887004a41b42f9d27",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3ebeb6144d1f9da6ebf7784a868ab5d6d785cb95",
+                "reference": "3ebeb6144d1f9da6ebf7784a868ab5d6d785cb95",
                 "shasum": ""
             },
             "require": {
@@ -2077,7 +2077,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-01-10 05:55:12"
+            "time": "2015-01-11 10:18:47"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
