@@ -128,6 +128,8 @@ To put your theme in this state, set the following in your ```Theme.php``` file
     public $noRouting = false;
 ```
 
+> __NOTE:__ When using the ```$noRouting``` parameter, you must still define a PHP login view and layout so that you can access the dashboard.
+
 ##### Properties
 
 CiiMS themes support dynamically updatable properties that can be edited from the themes section of the dashboard. To create and editable property, declare a protected property in the theme.
