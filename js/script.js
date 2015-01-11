@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var uri = window.location.pathname.replace('html', 'md'),
-		file = "https://rawgit.com/charlesportwoodii/CiiMS/2.0.0-dev/README.md";
+		file = "https://rawgit.com/charlesportwoodii/CiiMS/master/README.md";
 
 	$.get("/partials/nav.html", function(html) {
 		$("ul.main-nav").replaceWith(html);
