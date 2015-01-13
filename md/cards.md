@@ -137,7 +137,7 @@ There are two methods available to retrieve the ID of your card. The ID is store
 
 ```
 this.id;
-``
+```
 
 Alternatively, you can query the parent prototype object to retrieve this information. Either method may be used to fetch the ID. It's recommended that you use one of the prototype methods to pull this information in.
 
