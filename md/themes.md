@@ -238,13 +238,13 @@ public function <methodName>($data)
 Themes support custom translation files for i18n. Any string you want to be translated should be wrapped in the following method:
 
 ```
-Yii::t('<THEMENAME>Theme.<class>', 'string');
+Yii::t('themes.<name>.class, 'string');
 ```
 
-Where __THEMENAME__ should correspond to the name of your theme as defined in your ```Theme.php``` file, which should match the parent folder of the theme. For example, if the theme was named ```MyTheme```, the callback would look as such
+Where __<name>__ should correspond to the name of your theme as defined in your ```Theme.php``` file, which should match the parent folder of the theme. For example, if the theme was named ```MyTheme```, the callback would look as such
 
 ```
-Yii::t('MyThemeTheme.<class>', 'string');
+Yii::t('themes.mytheme.<class>', 'string');
 ```
 
 The _<class>_ attribute can be whatever you want it to be. For simplicitly it should be the same throughout all of your view files.

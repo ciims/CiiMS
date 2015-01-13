@@ -4,7 +4,7 @@ To assist with development and basic site issues, CiiMS offers several basic com
 
 ```
 $ cd /path/to/ciims
-$ php protected/yiic.php <command-name> [parameters...]
+$ php index.php <command-name> [parameters...]
 ```
 
 A list of available commands can be run by running the ```yiic.php``` command without any arguments
