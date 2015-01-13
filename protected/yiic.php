@@ -1,4 +1,11 @@
 <?php
+
+if ($_SERVER['SCRIPT_FILENAME'] == 'protected/yiic.php')
+{
+	echo "Use of `yiic.php` has been deprecated for CiiMS. Uses `index.php` instead\n";
+	die();
+}
+
 error_reporting(-1);
 ini_set('display_errors', 'true');
 date_default_timezone_set ('UTC');
@@ -42,4 +49,4 @@ foreach ($modules as $module)
 		$app->commandRunner->addCommands($module.'/commands');
 }
 
-$app->run();
+return $app->run();

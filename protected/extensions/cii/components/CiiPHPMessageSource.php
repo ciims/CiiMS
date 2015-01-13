@@ -56,8 +56,14 @@ class CiiPHPMessageSource extends CPhpMessageSource
 	                $this->_files[$category][$language]=Yii::getPathOfAlias($this->extensionPaths[$extensionClass]).DS.$language.DS.$extensionCategory.'.php';
 	            else
 	            {
-                    if (strpos($extensionClass, 'Theme') !== false)
-                        $this->_files[$category][$language] = Yii::getPathOfAlias('webroot.themes.' . Yii::app()->theme->name . '.messages').DS.$language.DS.$extensionCategory.'.php';
+                    if (strpos($extensionClass, 'themes') !== false)
+                    {
+                    	$baseClass = explode('.', $extensionCategory);
+                    	$theme = $baseClass[0];
+                    	unset($baseClass[0]);
+                    	$baseClass = implode('.', $baseClass);
+                    	$this->_files[$category][$language] = Yii::getPathOfAlias("webroot.themes.$theme.messages").DS.$language.DS.$baseClass.'.php';
+                    }
                     else 
                     {
                         // No extension registered, need to find it.

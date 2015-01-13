@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "325c76ff32cb4d16933a37599b240b9d",
+    "hash": "3ec32ad3d2589f2a6d62018b3d89d83d",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -162,16 +162,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.7",
+            "version": "3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "da43abe792ed5aabde68675c6237b940870b702b"
+                "reference": "f53d0468b73fc6f6cc5155e690c4a4ceac80d000"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/da43abe792ed5aabde68675c6237b940870b702b",
-                "reference": "da43abe792ed5aabde68675c6237b940870b702b",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/f53d0468b73fc6f6cc5155e690c4a4ceac80d000",
+                "reference": "f53d0468b73fc6f6cc5155e690c4a4ceac80d000",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -194,7 +194,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-01-11 18:21:45"
+            "time": "2015-01-13 02:46:40"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -274,16 +274,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.12",
+            "version": "3.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "d1463b65a3ef7d193741da9b89d1924eb9b13be9"
+                "reference": "1da64831967ef8f55a03694e2290786118995f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/d1463b65a3ef7d193741da9b89d1924eb9b13be9",
-                "reference": "d1463b65a3ef7d193741da9b89d1924eb9b13be9",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/1da64831967ef8f55a03694e2290786118995f4d",
+                "reference": "1da64831967ef8f55a03694e2290786118995f4d",
                 "shasum": ""
             },
             "require": {
@@ -311,7 +311,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2015-01-02 16:44:36"
+            "time": "2015-01-13 02:06:27"
         },
         {
             "name": "codeception/YiiBridge",
@@ -1611,12 +1611,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "48be63a56ea8a98ec620eb59ef76bcab77feba55"
+                "reference": "1fa6dfa8bca38fc32b189e91273b6a74c47df1ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/48be63a56ea8a98ec620eb59ef76bcab77feba55",
-                "reference": "48be63a56ea8a98ec620eb59ef76bcab77feba55",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/1fa6dfa8bca38fc32b189e91273b6a74c47df1ae",
+                "reference": "1fa6dfa8bca38fc32b189e91273b6a74c47df1ae",
                 "shasum": ""
             },
             "require": {
@@ -1653,7 +1653,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-10-12 19:45:36"
+            "time": "2015-01-11 22:40:57"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

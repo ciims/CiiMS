@@ -18,16 +18,9 @@
  */
 return array (
   'All Content' => '',
-  'Blogroll' => '',
   'Incorrect password' => '',
-  'Liked saved' => '',
   'Password Required' => '',
   'The article you specified does not exist. If you bookmarked this page, please delete it.' => '',
-  'The requested post cannot be found.' => '',
-  'The specified post cannot be found.' => '',
   'Too many password attempts. Please try again in 5 minutes' => '',
-  'Unable to access post' => '',
-  'Unable to save like' => '',
-  'Unable to save user like' => '',
   '{{app_name}} | {{label}}' => '',
 );

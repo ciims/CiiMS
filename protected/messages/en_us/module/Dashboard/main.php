@@ -17,5 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  '{{app_name}} | {{label}}' => '',
+  'Change Theme Settings' => '',
+  'There are no settings for this section.' => '',
+  'Unable to save uploaded image.' => '',
 );

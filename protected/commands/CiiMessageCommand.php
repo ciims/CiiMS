@@ -1,72 +1,80 @@
 <?php
-// Import System/Cli/Commands/MessageCommand
-Yii::import('system.cli.commands.MessageCommand');
-
 /**
  * This class overrides the default behavior of MessageCommand to ensure translation files are written out to the right spot.
  */
-class CiiMessageCommand extends MessageCommand
+Yii::import('ext.cii.commands.CiiConsoleCommand');
+class CiiMessageCommand extends CiiConsoleCommand
 {
 	private function getArgs()
 	{
 		return array(
-			'sourcePath'=>Yii::getPathOfAlias('application') . DS . '..' . DS,
-			'messagePath'=>Yii::getPathOfAlias('application.messages'),
+			'type'=>'core',
+			'sourcePath'=>Yii::getPathOfAlias('application').DS,
+			'messagePath'=>Yii::getPathOfAlias('application.messages').DS,
 			'languages'=>array('en_us'),
 			'fileTypes'=>array('php'),
 			'overwrite'=>true,
 			'exclude'=>array(
 				'assets',
 				'css',
+				'js',
 				'images',
 				'.svn',
 				'.gitignore',
 				'.git',
 				'yiilite.php',
 				'yiit.php',
-				'/i18n/data',
-				'/messages',
-				'/vendor',
+				'i18n/data',
+				'messages',
+				'vendor',
 				'tests',
 				'runtime',
 			)
 		);
 	}
 
+	public function actionThemes($name=NULL)
+	{
+		if ($name == NULL)
+			$this->usageError('A theme was not specified for translations');
+
+		$config = $this->getArgs();
+		$config['type'] = 'theme';
+		array_push($config['exclude'], 'modules');
+		$config['sourcePath'] .= '..'.DS.'themes' . DS . $name . DS;
+		$config['messagePath'] = $config['sourcePath'].'messages';
+		$this->execute($config);
+	}
+
+	public function actionModules($name=NULL)
+	{
+		if ($name == NULL)
+			$this->usageError('A module was not specified for translations');
+
+		$config = $this->getArgs();
+		$config['type'] = 'module';
+		array_push($config['exclude'], 'themes');
+		unset($config['exclude']['modules']);
+		$config['sourcePath'] = Yii::getPathOfAlias('application.modules') . DS . $name . DS;
+		$config['messagePath'] = $config['sourcePath'].'messages';
+		$this->execute($config);
+	}
+
+	public function actionIndex()
+	{
+		$config = $this->getArgs();
+		array_push($config['exclude'], 'modules');
+		array_push($config['exclude'], 'themes');
+		$this->execute($config);
+		die("INDEX CALLED");
+	}
+
 	/**
 	 * Execute the action.
 	 * @param array $args command line parameters specific for this command
 	 */
-	public function run($args)
+	private function execute($config)
 	{
-		$config = $this->getArgs();
-
-		if (!isset($args[0]))
-		{
-			array_push($config['exclude'], 'modules');
-			array_push($config['exclude'], '/themes');
-		}
-
-		if (isset($args[0]) && $args[0] == 'themes')
-		{
-			$config['sourcePath'] .= 'themes' . DS;
-
-			if (isset($args[1]))
-				$config['sourcePath'] .= $args[1] . DS;
-			else
-				$this->usageError('A theme was not specified for translations');
-		}
-		
-		if (isset($args[0]) && $args[0] == 'modules')
-		{
-			$config['sourcePath'] = Yii::getPathOfAlias('application.modules');
-
-			if (isset($args[1]))
-				$config['sourcePath'] .= DS . $args[1] . DS;
-			else
-				$this->usageError('A module was not specified for translations');
-		}
-
 		$translator='Yii::t';
 		extract($config);
 
@@ -122,50 +130,32 @@ class CiiMessageCommand extends MessageCommand
 			if(!is_dir($dir))
 				@mkdir($dir);
 
-			foreach($messages as $category=>$msgs)
+			foreach ($messages as $category=>$msgs)
 			{
-				echo $category."\n";
 				$msgs=array_values(array_unique($msgs));
 
-				if (strpos($category, 'Theme.') !== false && isset($args[0]))
+				$dir = $config['messagePath'].DS.$language;
+				if ($config['type']  == 'theme')
 				{
-					$category = strtolower(str_replace('Theme', '', $category));
-					$path = explode('.', $category);
-					if (!isset($path[1]))
-						$path = array($category, 'main');
-
-					$dir=$messagePath.DS.'..'.DS.'..'.DS.'themes'.DS.strtolower($path[0]).DS.'messages'.DS.$language;
-
-					@mkdir($dir.DS, 0777, true);
-					$this->generateMessageFile($msgs,$dir.DS.strtolower($path[1]).'.php',$overwrite,$removeOld,$sort);
+					$data = explode('.', $category);
+					unset($data[0]);
+					$dirPath = implode(DS, $data);
 				}
-				else if (strpos($category, 'module.') !== false && isset($args[0]))
+				else if ($config['type'] == 'module')
 				{
-					$category = str_replace('module.', '', $category);
-					$path = explode('.', $category);
-					$dir = Yii::getPathOfAlias('application.modules') . DS . strtolower($path[0]) . DS . 'messages';
-					@mkdir($dir.DS, 0777, true);
-					@mkdir($dir.DS . $language.DS, 0777, true);
-					unset($path[0]);
-					reset($path);
-					$path = implode('/', $path);
-
-					$this->generateMessageFile($msgs,$dir.DS.$language.DS.$path.'.php',$overwrite,$removeOld,$sort);
+					$data = explode('.', $category);
+					unset($data[0]);
+					unset($data[1]);
+					$dirPath = implode(DS, $data);
 				}
 				else
-				{
-					// If we found a module or theme, skip it.
-					if (strpos($category, 'module.') !== false || strpos($category, 'Theme.') !== false)
-						continue;
-
-					$dir = Yii::getPathOfAlias('application.messages').DS.$language;
 					$dirPath = implode(DS, explode('.', $category));
-
-					// Attempt to make the directories
-					@mkdir($dir . DS . $dirPath, 0777, true);
-					@mkdir($dir.DS . $language.DS, 0777, true);
-					$this->generateMessageFile($msgs,$dir.DS.$dirPath.'.php',$overwrite,$removeOld,$sort);
-				}
+				
+				if ($dirPath == "")
+					continue;
+				@mkdir($dir . DS . $dirPath, 0777, true);
+				@mkdir($dir.DS . $language.DS, 0777, true);
+				$this->generateMessageFile($msgs,$dir.DS.$dirPath.'.php',$overwrite,$removeOld,$sort);
 			}
 		}
 	}

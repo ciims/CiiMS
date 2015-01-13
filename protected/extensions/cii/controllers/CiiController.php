@@ -217,9 +217,9 @@ class CiiController extends CController
                 Yii::import('webroot.themes.' . Yii::app()->theme->name . '.Theme');
                 $this->theme = new Theme;
 	    	}
-            
+                        
     		$output=$this->renderPartial($view,$data,true);
-            
+
     		if(($layoutFile=$this->getLayoutFile($this->layout))!==false)
             {
                 // Render the Comment functionality automatically

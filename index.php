@@ -5,19 +5,19 @@
  * reporting so that E_NOTICES and non-fatal errors don't crash it.
  *
  * You should _never_ have to change _anything_ in this file _ever_
- *
- * @package    CiiMS Content Management System
- * @author     Charles R. Portwood II <charlesportwoodii@ethreal.net>
- * @copyright  Charles R. Portwood II <https://www.erianna.com> 2012-2014
- * @license    http://opensource.org/licenses/MIT  MIT LICENSE
- * @link       https://github.com/charlesportwoodii/CiiMS
  */
+
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
+// Bypass Yiic entirely and use this instead as the cli bootstrapper
+if (php_sapi_name() === 'cli')
+	return require __DIR__.DS.'protected'.DS.'yiic.php';
 
 // Disable Error Reporting and set some constants
 error_reporting(0);
 ini_set('display_errors', 'false');
 date_default_timezone_set ('UTC');
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 
 // This is the configuration file
 if (!isset($_SERVER['CIIMS_ENV']))
