@@ -71,8 +71,8 @@
 	    "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.4",
         "ciims-themes/default": "3.0.13",
-        "ciims-modules/dashboard": "3.0.8",
-        "ciims-modules/api": "2.0.4",
+        "ciims-modules/dashboard": "3.0.9",
+        "ciims-modules/api": "2.0.5",
         "ciims-modules/install": "2.0.7",
         "ciims-modules/hybridauth": "2.0.5"
     },

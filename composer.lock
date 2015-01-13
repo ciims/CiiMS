@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ec32ad3d2589f2a6d62018b3d89d83d",
+    "hash": "1a1f754000fbca9da6c83c490b98b13a",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -126,16 +126,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "f732b0cfadc07eacb0fa99e256baa13d34d46931"
+                "reference": "e35158bb908b726e5248e8173c800a129bc1fe31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/f732b0cfadc07eacb0fa99e256baa13d34d46931",
-                "reference": "f732b0cfadc07eacb0fa99e256baa13d34d46931",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/e35158bb908b726e5248e8173c800a129bc1fe31",
+                "reference": "e35158bb908b726e5248e8173c800a129bc1fe31",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -158,20 +158,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-01-08 19:25:12"
+            "time": "2015-01-13 21:18:58"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.8",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "f53d0468b73fc6f6cc5155e690c4a4ceac80d000"
+                "reference": "50952b4abd33be17211f127d8c1462886ae31e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/f53d0468b73fc6f6cc5155e690c4a4ceac80d000",
-                "reference": "f53d0468b73fc6f6cc5155e690c4a4ceac80d000",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/50952b4abd33be17211f127d8c1462886ae31e8a",
+                "reference": "50952b4abd33be17211f127d8c1462886ae31e8a",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -194,7 +194,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-01-13 02:46:40"
+            "time": "2015-01-13 22:31:18"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -549,12 +549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "9c0cedd51cd780c2a6c235655f981abc041e02c3"
+                "reference": "c631d8679bc0acbdb3a333a216073c304cb94a76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/9c0cedd51cd780c2a6c235655f981abc041e02c3",
-                "reference": "9c0cedd51cd780c2a6c235655f981abc041e02c3",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c631d8679bc0acbdb3a333a216073c304cb94a76",
+                "reference": "c631d8679bc0acbdb3a333a216073c304cb94a76",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +583,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-01-10 11:06:06"
+            "time": "2015-01-13 11:09:41"
         },
         {
             "name": "guzzle/common",
@@ -2557,12 +2557,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "fdb3285803e812d97988470722129c28343f1415"
+                "reference": "0a5b1f308284c5d1686e03af36ba583d2a5db632"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/fdb3285803e812d97988470722129c28343f1415",
-                "reference": "fdb3285803e812d97988470722129c28343f1415",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/0a5b1f308284c5d1686e03af36ba583d2a5db632",
+                "reference": "0a5b1f308284c5d1686e03af36ba583d2a5db632",
                 "shasum": ""
             },
             "require": {
@@ -2605,7 +2605,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-09 06:51:41"
+            "time": "2015-01-13 07:22:42"
         },
         {
             "name": "symfony/css-selector",
