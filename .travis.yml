@@ -29,7 +29,7 @@ before_script:
   - php -i
   - mysql -e 'create database ciims_travis;'
   - echo "2.0.0-dev" > protected/config/VERSION
-  - php protected/yiic.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
+  - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
 
 script: ./vendor/bin/codecept run
