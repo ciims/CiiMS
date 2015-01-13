@@ -129,49 +129,31 @@ The init method, on load will be provided with the current ID of the card you ar
 
 ### Accessing Card Properties
 
-Since your card will be provided with the ID of the current instance of the card, it's recommended that you store this ID within your object. With this ID you can query for the card properties by querying the global ```cards``` object as follows:
+The CardPrototype object will automatically store the ID of your object, and maintain it's state during the lifecycle of the card. Provided with the CardPrototype object are several utility functions to access data about your card.
+
+#### Retrieving the Card ID:
+
+There are two methods available to retrieve the ID of your card. The ID is stored directly with the object and allows for direct access.
 
 ```
-cards[id]
+this.id;
+``
+
+Alternatively, you can query the parent prototype object to retrieve this information. Either method may be used to fetch the ID. It's recommended that you use one of the prototype methods to pull this information in.
+
+```
+CardPrototype.prototype.getId(this);
+CardPrototype.prototype.getProperty(this, "id");
 ```
 
-This will provide you with a plethora of information about the card, including all active settings. Any time you need to fetch information about this card instance you should query this variable. And example of what may be returned is as follows:
+#### Fetching Other Information
+
+More information about your card can be pulled by using the ```getProperty``` prototype method. This will grant you access to any of the information stored in your ```card.json``` file and updated in real time by the card during the lifecycle. The following examples illustrate this:
 
 ```
-{
-  "options": {
-    "id": "z6012ty1bea2x1or",
-    "name": "BasicCard",
-    "version": "0.0.1",
-    "footerText": "basic-card",
-    "properties": {
-      "setting1": {
-        "name": "Awesome Setting #1",
-        "type": "text",
-        "value": ""
-      },
-      "setting2": {
-        "name": "Awesome Setting #2",
-        "type": "email",
-        "value": ""
-      }
-    },
-    "size": "square",
-    "availableTileSizes": [
-      "square",
-      "rectangle",
-      "rectangleTall",
-      "squareBig"
-    ],
-    "css": null,
-    "js": null,
-    "html": null,
-    "description": "This is a basic card that illustrates the capabilities of dashboard cards.",
-    "image": "card.png",
-    "basePath": "https://basic-card.home.erianna.net"
-  },
-  "id": "z6012ty1bea2x1or"
-}
+CardPrototype.prototype.getProperty(this, "properties");
+CardPrototype.prototype.getProperty(this, "description");
+CardPrototype.prototype.getProperty(this, "name");
 ```
 
 ## Card.css
