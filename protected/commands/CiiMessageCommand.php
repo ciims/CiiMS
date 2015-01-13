@@ -1,10 +1,14 @@
 <?php
 /**
- * This class overrides the default behavior of MessageCommand to ensure translation files are written out to the right spot.
+ * This is an alternative implementation of the MessageCommand class, designed to work with CiiMS' modules and themes
  */
 Yii::import('ext.cii.commands.CiiConsoleCommand');
 class CiiMessageCommand extends CiiConsoleCommand
 {
+	/**
+	 *
+	 * @return array
+	 */
 	private function getArgs()
 	{
 		return array(
