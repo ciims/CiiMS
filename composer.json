@@ -78,7 +78,8 @@
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",
-        "codeception/YiiBridge": "dev-master"
+        "codeception/YiiBridge": "dev-master",
+        "zhuravljov/yii2-debug": "v1.4"
     },
     "autoload": {
         "psr-0": {

@@ -93,16 +93,6 @@ $ciimsCoreConfig = array(
             'class' => 'CLogRouter',
             'routes' => array(
                 array(
-                    'class' => 'CWebLogRoute',
-                    'levels' => 'error, warning, trace, info',
-                    'enabled' => false
-                ),
-                array( 
-                    'class'=>'CProfileLogRoute', 
-                    'report'=>'summary',
-                    'enabled' => false
-                ),
-                array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 )
@@ -139,6 +129,16 @@ if (php_sapi_name() == "cli")
         'onEndRequest' => array(
              'class' => 'vendor.charlesportwoodii.yii-newrelic.behaviors.YiiNewRelicConsoleAppBehavior',
         )
+    );
+}
+
+if (YII_DEBUG)
+{
+    $ciimsCoreConfig['preload'][] = 'debug';
+    $ciimsCoreConfig['components']['debug'] = array(
+         'class' => 'vendor.zhuravljov.yii2-debug.Yii2Debug',
+         'enabled' => YII_DEBUG,
+         'allowedIPs' => array('*')
     );
 }
 
