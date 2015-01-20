@@ -132,7 +132,7 @@ if (php_sapi_name() == "cli")
     );
 }
 
-if (YII_DEBUG)
+if (php_sapi_name() != "cli" && YII_DEBUG)
 {
     $ciimsCoreConfig['preload'][] = 'debug';
     $ciimsCoreConfig['components']['debug'] = array(
