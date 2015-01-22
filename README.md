@@ -9,6 +9,9 @@
 ## What is CiiMS?
 CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system.
 
+## CiiMS 2.0.0 Beta Released
+CiiMS 2.0.0 Beta is now available. Checkout the [release notes](https://www.erianna.com/ciims-2-0-0-beta-release-announcement) for more information.
+
 ## Interested in a Hosted Solution?
 Be sure to checkout [www.ciims.io](http://www.ciims.io) to pre-register for exclusive early access to our hosted platform.
 
