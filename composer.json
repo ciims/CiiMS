@@ -69,7 +69,7 @@
         "knplabs/packagist-api": "v1.2",
         "charlesportwoodii/yii-newrelic": "1.0.0",
 	    "yiqing-95/YiiTimeAgo": "dev-master",
-        "charlesportwoodii/eanalytics": "1.1.4",
+        "charlesportwoodii/eanalytics": "1.1.5",
         "ciims-themes/default": "3.0.13",
         "ciims-modules/dashboard": "3.0.11",
         "ciims-modules/api": "2.0.6",

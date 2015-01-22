@@ -14,7 +14,7 @@ class AnalyticsSettings extends CiiSettingsModel
 
 	protected $analyticsjs_Piwik_enabled = false;
 	protected $analyticsjs_Piwik_url = NULL;
-	protected $analyticsjs_Piwik_id = NULL;
+	protected $analyticsjs_Piwik_siteId = NULL;
 
 	public $form = 'application.modules.dashboard.views.analytics.form';
 
@@ -23,7 +23,7 @@ class AnalyticsSettings extends CiiSettingsModel
 		return array(
 			'Google Analytics' => array('analyticsjs_Google__Analytics_enabled','analyticsjs_Google__Analytics_domain', 'analyticsjs_Google__Analytics_trackingId', 'analyticsjs_Google__Analytics_universalClient'),
 			'Pingdom' => array('analyticsjs_Pingdom_enabled', 'analyticsjs_Pingdom_id'),
-			'Piwik' => array('analyticsjs_Piwik_enabled', 'analyticsjs_Piwik_url', 'analyticsjs_Piwik_id'),
+			'Piwik' => array('analyticsjs_Piwik_enabled', 'analyticsjs_Piwik_url', 'analyticsjs_Piwik_siteId'),
 		);
 	}
 
@@ -47,7 +47,7 @@ class AnalyticsSettings extends CiiSettingsModel
 
 			'analyticsjs_Piwik_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
 			'analyticsjs_Piwik_url' => Yii::t('ciims.models.analytics', 'Piwik Host URL'),
-			'analyticsjs_Piwik_id' => Yii::t('ciims.models.analytics', 'Site ID'),
+			'analyticsjs_Piwik_siteId' => Yii::t('ciims.models.analytics', 'Site ID'),
 		);
 	}
 

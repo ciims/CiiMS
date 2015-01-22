@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "958f47cbc740d989ad36d6e122de6522",
+    "hash": "82f2ea420744294ccb9c9a30d8764ff0",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "charlesportwoodii/eanalytics",
-            "version": "1.1.4",
+            "version": "1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/EAnalytics.git",
-                "reference": "ea9cff370404b51131dca653852120a9b47ef56a"
+                "reference": "02cf2a674e178c1bde7103bf5466be15fe22fc9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/ea9cff370404b51131dca653852120a9b47ef56a",
-                "reference": "ea9cff370404b51131dca653852120a9b47ef56a",
+                "url": "https://api.github.com/repos/charlesportwoodii/EAnalytics/zipball/02cf2a674e178c1bde7103bf5466be15fe22fc9a",
+                "reference": "02cf2a674e178c1bde7103bf5466be15fe22fc9a",
                 "shasum": ""
             },
             "type": "library",
@@ -96,7 +96,7 @@
                 "analytics",
                 "analytics.js"
             ],
-            "time": "2014-07-26 01:21:05"
+            "time": "2015-01-22 17:20:35"
         },
         {
             "name": "charlesportwoodii/yii-newrelic",
@@ -549,12 +549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "21dff96e9c3201c6eff1f60660c977035046bfad"
+                "reference": "e89d061b203d204c04254ae529ff6a2d8919f965"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/21dff96e9c3201c6eff1f60660c977035046bfad",
-                "reference": "21dff96e9c3201c6eff1f60660c977035046bfad",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e89d061b203d204c04254ae529ff6a2d8919f965",
+                "reference": "e89d061b203d204c04254ae529ff6a2d8919f965",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +583,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-01-16 11:12:45"
+            "time": "2015-01-21 11:17:12"
         },
         {
             "name": "guzzle/common",
@@ -1331,12 +1331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "14f40697efd0a3b7f763e93836b79ac709970528"
+                "reference": "f82666a772be0de7c8ed8b2480b9d3c6a18e407f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/14f40697efd0a3b7f763e93836b79ac709970528",
-                "reference": "14f40697efd0a3b7f763e93836b79ac709970528",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/f82666a772be0de7c8ed8b2480b9d3c6a18e407f",
+                "reference": "f82666a772be0de7c8ed8b2480b9d3c6a18e407f",
                 "shasum": ""
             },
             "require": {
@@ -1356,12 +1356,11 @@
             },
             "require-dev": {
                 "codeception/specify": "~0.3",
-                "codegyre/robo-ci": "@dev",
+                "codegyre/robo": "0.5.*",
                 "facebook/php-sdk": "~3.2",
                 "flow/jsonpath": "~0.1",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~2.0",
-                "phpseclib/phpseclib": "~0.3.6",
                 "videlalvaro/php-amqplib": "~2.4"
             },
             "suggest": {
@@ -1405,7 +1404,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-01-17 12:30:26"
+            "time": "2015-01-22 05:22:38"
         },
         {
             "name": "doctrine/instantiator",
@@ -1566,12 +1565,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "a6dfe3ed43cba212a76773bc5329646042085459"
+                "reference": "0b13b4f0d595c4e886ae8eecdfe27e049ba38375"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a6dfe3ed43cba212a76773bc5329646042085459",
-                "reference": "a6dfe3ed43cba212a76773bc5329646042085459",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/0b13b4f0d595c4e886ae8eecdfe27e049ba38375",
+                "reference": "0b13b4f0d595c4e886ae8eecdfe27e049ba38375",
                 "shasum": ""
             },
             "require": {
@@ -1609,7 +1608,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-01-05 18:46:17"
+            "time": "2015-01-20 22:24:03"
         },
         {
             "name": "guzzlehttp/streams",
@@ -1617,12 +1616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "1fa6dfa8bca38fc32b189e91273b6a74c47df1ae"
+                "reference": "d1f8a6c55f0f753cfd6f6755856473eb02cedb19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/1fa6dfa8bca38fc32b189e91273b6a74c47df1ae",
-                "reference": "1fa6dfa8bca38fc32b189e91273b6a74c47df1ae",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/d1f8a6c55f0f753cfd6f6755856473eb02cedb19",
+                "reference": "d1f8a6c55f0f753cfd6f6755856473eb02cedb19",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1658,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2015-01-11 22:40:57"
+            "time": "2015-01-22 00:01:34"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1716,17 +1715,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "1828bb298d75727d0dd10b348d1afae204d38634"
+                "reference": "4f04a3b1c7192b39b2c04bb747f3a218b04c86d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1828bb298d75727d0dd10b348d1afae204d38634",
-                "reference": "1828bb298d75727d0dd10b348d1afae204d38634",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4f04a3b1c7192b39b2c04bb747f3a218b04c86d4",
+                "reference": "4f04a3b1c7192b39b2c04bb747f3a218b04c86d4",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
-                "phpdocumentor/reflection-docblock": "~2.0"
+                "phpdocumentor/reflection-docblock": "~2.0",
+                "sebastian/comparator": "~1.1"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.0"
@@ -1767,7 +1767,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-01-18 16:48:09"
+            "time": "2015-01-21 10:08:09"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2019,12 +2019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2d8c819677473bf0859c2baa31998c4c672032a5"
+                "reference": "b92539368bdda39ecc77a4f6c0ba2c7dae1d24e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2d8c819677473bf0859c2baa31998c4c672032a5",
-                "reference": "2d8c819677473bf0859c2baa31998c4c672032a5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b92539368bdda39ecc77a4f6c0ba2c7dae1d24e0",
+                "reference": "b92539368bdda39ecc77a4f6c0ba2c7dae1d24e0",
                 "shasum": ""
             },
             "require": {
@@ -2083,7 +2083,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-01-19 08:18:11"
+            "time": "2015-01-21 07:53:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

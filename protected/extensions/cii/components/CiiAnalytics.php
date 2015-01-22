@@ -95,8 +95,8 @@ class CiiAnalytics extends EAnalytics
                     }
                 }
             }
-
-            Yii::app()->cache->set('analyticsjs_providers', $providers);
+            
+	    Yii::app()->cache->set('analyticsjs_providers', $providers);
         }
         
         return $providers;
