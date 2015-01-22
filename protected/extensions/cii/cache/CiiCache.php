@@ -1,4 +1,3 @@
-
 <?php
 /**
  * CCache class file.
