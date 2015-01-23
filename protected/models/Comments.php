@@ -80,7 +80,6 @@ class Comments extends CiiModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'metadata' => array(self::HAS_MANY, 'CommentMetadata', 'comment_id'),
 			'content' => array(self::BELONGS_TO, 'Content', 'content_id'),
 			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
 		);
@@ -131,10 +130,9 @@ class Comments extends CiiModel
         $user = Users::model()->findByPk($this->author_id);
         $attributes = $user->getApiAttributes();
         $data['user'] = array(
-            'email' => $attributes['email'],
             'firstName' => $attributes['firstName'],
             'lastName' => $attributes['lastName'],
-            'displayName' => $attributes['displayName'],
+            'username' => $attributes['username'],
         );
 
         $content = Content::model()->findByPk($data['content_id']);
