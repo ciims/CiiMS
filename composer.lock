@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "89b9284d3ace675b1481584740aff0fb",
+    "hash": "021dcb8b48d9cbedc8be284d70c0972e",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -2765,7 +2765,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.21",
+        "php": ">=5.5.19",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",
