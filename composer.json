@@ -46,7 +46,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.10",
+        "php": ">=5.5.21",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",
@@ -63,7 +63,6 @@
         "hashids/hashids": "1.0.4",
         "Codeception/YiiBridge": "dev-master",
         "rackspace/php-opencloud": "v1.12.1",
-        "ircmaxell/password-compat": "1.0.3",
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.9",
         "knplabs/packagist-api": "v1.2",

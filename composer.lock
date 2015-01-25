@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b4568b732304e558a179ae20e96e95c0",
+    "hash": "89b9284d3ace675b1481584740aff0fb",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -888,45 +888,6 @@
                 "yahoo"
             ],
             "time": "2014-11-16 17:11:52"
-        },
-        {
-            "name": "ircmaxell/password-compat",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ircmaxell/password_compat.git",
-                "reference": "1fc1521b5e9794ea77e4eca30717be9635f1d4f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/1fc1521b5e9794ea77e4eca30717be9635f1d4f4",
-                "reference": "1fc1521b5e9794ea77e4eca30717be9635f1d4f4",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "lib/password.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthony Ferrara",
-                    "email": "ircmaxell@php.net",
-                    "homepage": "http://blog.ircmaxell.com"
-                }
-            ],
-            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
-            "homepage": "https://github.com/ircmaxell/password_compat",
-            "keywords": [
-                "hashing",
-                "password"
-            ],
-            "time": "2013-04-30 19:58:08"
         },
         {
             "name": "kertz/twitteroauth",
@@ -2507,12 +2468,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "d20ea145861e86f064912fcfb152862ce0631796"
+                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/d20ea145861e86f064912fcfb152862ce0631796",
-                "reference": "d20ea145861e86f064912fcfb152862ce0631796",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9f041fb5735b0d25d117e77ab8597a8376c74fbd",
+                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd",
                 "shasum": ""
             },
             "require": {
@@ -2555,7 +2516,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-20 01:40:35"
+            "time": "2015-01-25 05:59:26"
         },
         {
             "name": "symfony/css-selector",
@@ -2715,12 +2676,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "077ae1200d35a90947b80b4c64e022ddc81536d6"
+                "reference": "02ba3dc638c5d3f0ab3b47ddb74f98c11dcc0c60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/077ae1200d35a90947b80b4c64e022ddc81536d6",
-                "reference": "077ae1200d35a90947b80b4c64e022ddc81536d6",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/02ba3dc638c5d3f0ab3b47ddb74f98c11dcc0c60",
+                "reference": "02ba3dc638c5d3f0ab3b47ddb74f98c11dcc0c60",
                 "shasum": ""
             },
             "require": {
@@ -2753,7 +2714,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-20 01:40:35"
+            "time": "2015-01-25 04:39:35"
         },
         {
             "name": "zhuravljov/yii2-debug",
@@ -2804,7 +2765,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3.10",
+        "php": ">=5.5.21",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",

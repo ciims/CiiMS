@@ -39,7 +39,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 ## Features
 
 * Based on Yii Framework
-* Installs in under 5 Minutes
+* Installs in 30 seconds
 * Utilizes Composer
 * Beautiful Default Theme
 * Supports Markdown Extra
@@ -62,7 +62,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 
 Before installing CiiMS you'll need to have at _minimum_ the following:
 
-* PHP 5.3.10+
+* PHP 5.5+ or PHP 5.6+
 * PHP CURL Extension
 * PHP ZIP Extension
 * PHP MCrypt Extension
