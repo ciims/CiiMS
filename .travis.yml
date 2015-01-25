@@ -3,15 +3,12 @@ sudo: false # Use TravisCI new Docker container infrastructure
 language: php
 
 php:
-  - 5.3 # Codeception 2.0 hardfails on PHP 5.3 due to dependency issues. No longer testing on
-  - 5.4
   - 5.5
   - 5.6
 
 matrix:
   allow_failures:
     - php: hhvm
-    - php: 5.3
 
 services:
   - memcached
