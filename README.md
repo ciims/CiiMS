@@ -39,7 +39,7 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 ## Features
 
 * Based on Yii Framework
-* Installs in 30 seconds
+* Installs in 30 seconds*
 * Utilizes Composer
 * Beautiful Default Theme
 * Supports Markdown Extra
@@ -57,6 +57,10 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 * Fully Customizable
 * Easily install new themes and cards from in a single click
 * _And a bunch of other things!_
+
+```
+* Installation time is based upon [TravisCI](https://travis-ci.org/charlesportwoodii/CiiMS) builds
+```
 
 ## Requirements
 
