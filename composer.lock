@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "021dcb8b48d9cbedc8be284d70c0972e",
+    "hash": "a6817f424a6c5642e27de38b2f15ceee",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -126,7 +126,7 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
@@ -1292,12 +1292,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "12cba2082561b5b0ea2ba00c8d57249515f268a6"
+                "reference": "33fe2b0fab1945bde62d5257cbb5f2de8ed84ad1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/12cba2082561b5b0ea2ba00c8d57249515f268a6",
-                "reference": "12cba2082561b5b0ea2ba00c8d57249515f268a6",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/33fe2b0fab1945bde62d5257cbb5f2de8ed84ad1",
+                "reference": "33fe2b0fab1945bde62d5257cbb5f2de8ed84ad1",
                 "shasum": ""
             },
             "require": {
@@ -1365,7 +1365,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-01-24 05:00:56"
+            "time": "2015-01-26 04:18:46"
         },
         {
             "name": "doctrine/instantiator",
