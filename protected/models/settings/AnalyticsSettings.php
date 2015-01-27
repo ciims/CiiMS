@@ -8,6 +8,8 @@ class AnalyticsSettings extends CiiSettingsModel
 	protected $analyticsjs_Google__Analytics_domain = NULL;
 	protected $analyticsjs_Google__Analytics_trackingId = NULL;
 	protected $analyticsjs_Google__Analytics_universalClient = false;
+	protected $analyticsjs_Google__Analytics_doubleClick = false;
+	protected $analyticsjs_Google__Analytics_enhancedLinkAttribution = false;
 
 	protected $analyticsjs_Pingdom_enabled = false;
 	protected $analyticsjs_Pingdom_id = NULL;
@@ -21,7 +23,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			'Google Analytics' => array('analyticsjs_Google__Analytics_enabled','analyticsjs_Google__Analytics_domain', 'analyticsjs_Google__Analytics_trackingId', 'analyticsjs_Google__Analytics_universalClient'),
+			'Google Analytics' => array('analyticsjs_Google__Analytics_enabled','analyticsjs_Google__Analytics_domain', 'analyticsjs_Google__Analytics_trackingId', 'analyticsjs_Google__Analytics_universalClient', 'analyticsjs_Google__Analytics_doubleClick', 'analyticsjs_Google__Analytics_enhancedLinkAttribution'),
 			'Pingdom' => array('analyticsjs_Pingdom_enabled', 'analyticsjs_Pingdom_id'),
 			'Piwik' => array('analyticsjs_Piwik_enabled', 'analyticsjs_Piwik_url', 'analyticsjs_Piwik_siteId'),
 		);
@@ -30,7 +32,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function rules()
 	{
 		return array(
-			array('analyticsjs_Google__Analytics_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Pingdom_enabled, analyticsjs_Piwik_enabled', 'boolean')
+			array('analyticsjs_Google__Analytics_enabled, analyticsjs_Google__Analytics_universalClient, analyticsjs_Google__Analytics_doubleClick, analyticsjs_Google__Analytics_enhancedLinkAttribution, analyticsjs_Pingdom_enabled, analyticsjs_Piwik_enabled', 'boolean')
 		);
 	}
 
@@ -41,6 +43,8 @@ class AnalyticsSettings extends CiiSettingsModel
 			'analyticsjs_Google__Analytics_domain' => Yii::t('ciims.models.analytics', 'Domain'),
 			'analyticsjs_Google__Analytics_trackingId' => Yii::t('ciims.models.analytics', 'UA Tracking ID'),
 			'analyticsjs_Google__Analytics_universalClient' => Yii::t('ciims.models.analytics', 'Use Universal Client?'),
+			'analyticsjs_Google__Analytics_doubleClick' => Yii::t('ciims.models.analytics', 'DoubleClick'),
+			'analyticsjs_Google__Analytics_enhancedLinkAttribution' => Yii::t('ciims.models.analytics', 'Enhanced Link Attribution'),
 
 			'analyticsjs_Pingdom_enabled' => Yii::t('ciims.models.analytics', 'Enabled'),
 			'analyticsjs_Pingdom_id' => Yii::t('ciims.models.analytics', 'id'),

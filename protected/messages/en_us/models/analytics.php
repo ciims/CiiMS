@@ -18,7 +18,9 @@
  */
 return array (
   'Domain' => '',
+  'DoubleClick' => '',
   'Enabled' => '',
+  'Enhanced Link Attribution' => '',
   'Piwik Host URL' => '',
   'Site ID' => '',
   'UA Tracking ID' => '',
