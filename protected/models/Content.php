@@ -473,7 +473,7 @@ class Content extends CiiModel
      */
 	public function beforeSave()
 	{
-		$this->slug = $this->verifySlug($this->slug, $this->title);	
+		$this->slug = $this->verifySlug($this->slug, $this->title);
 		Yii::app()->cache->delete('CiiMS::Content::list');
 		Yii::app()->cache->delete('CiiMS::Routes');
 		
@@ -660,16 +660,17 @@ class Content extends CiiModel
 	public function checkSlug($slug, $id=NULL)
 	{
 	    $category = false;
+
 		// Find the number of items that have the same slug as this one
 		$count = $this->countByAttributes(array('slug'=>$slug . $id));
-        
-        // Make sure we don't have a collision with
+
+        // Make sure we don't have a collision with a Category
 		if ($count == 0)
         {
             $category = true;
             $count = Categories::model()->countByAttributes(array('slug'=>$slug . $id));
         }
-        
+
 		// If we found an item that matched, it's possible that it is the current item (or a previous version of it)
 		// in which case we don't need to alter the slug
 		if ($count)
@@ -677,12 +678,12 @@ class Content extends CiiModel
 		    // Ensures we don't have a collision on category
 		    if ($category)
                 return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
-            
+
 		    // Pull the data that matches
-		    $data = $this->findByPk($this->id == NULL ? -1 : $this->id);
-		    
+		    $data = $this->findByPk($this->id);
+
 		    // Check the pulled data id to the current item
-		    if ($data !== NULL && $data->id == $this->id)
+		    if ($data !== NULL && $data->id == $this->id && $data->slug == $this->slug)
 			    return $slug;
 		}
 		

@@ -245,7 +245,7 @@ class m141001_145619_init extends CDbMigration
 
 		$this->addPrimaryKey('content_metadata_composite', 'content_metadata', 'content_id,key');
 		
-		$this->createIndex('content', 'content', 'slug', true);
+		$this->createIndex('content_slug', 'content', 'slug', true);
 		$this->createIndex('content_author', 'content', 'author_id', false);
 		$this->createIndex('content_category', 'content', 'category_id', false);
 		$this->createIndex('content_type', 'content', 'type_id', false);
