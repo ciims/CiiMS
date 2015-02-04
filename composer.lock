@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0febd1987d951060cfa1277e1d548754",
+    "hash": "031f8244a92d7c64858fec8507de1c3e",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -238,16 +238,16 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "4f904bb208bad2d5cea083b8bc09baa8fd5c8b41"
+                "reference": "e853a92483e22635f115a696c8b7eb9c18b50ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/4f904bb208bad2d5cea083b8bc09baa8fd5c8b41",
-                "reference": "4f904bb208bad2d5cea083b8bc09baa8fd5c8b41",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/e853a92483e22635f115a696c8b7eb9c18b50ec3",
+                "reference": "e853a92483e22635f115a696c8b7eb9c18b50ec3",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -270,7 +270,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2014-12-01 22:12:15"
+            "time": "2015-02-04 20:36:54"
         },
         {
             "name": "ciims-themes/default",
@@ -549,12 +549,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "c7c812122dbf2e34b15a3a9b83bfae737f676c99"
+                "reference": "c7695ebcf2517fc5c79a44510c81b9839d009da7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c7c812122dbf2e34b15a3a9b83bfae737f676c99",
-                "reference": "c7c812122dbf2e34b15a3a9b83bfae737f676c99",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c7695ebcf2517fc5c79a44510c81b9839d009da7",
+                "reference": "c7695ebcf2517fc5c79a44510c81b9839d009da7",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +583,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-01-24 11:20:40"
+            "time": "2015-02-03 11:30:31"
         },
         {
             "name": "guzzle/common",
@@ -1292,12 +1292,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "9901ddefbe796489eae17dd80401d4660fb1f2f2"
+                "reference": "e86978809e916ca942698b73a7b997730f500cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9901ddefbe796489eae17dd80401d4660fb1f2f2",
-                "reference": "9901ddefbe796489eae17dd80401d4660fb1f2f2",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/e86978809e916ca942698b73a7b997730f500cae",
+                "reference": "e86978809e916ca942698b73a7b997730f500cae",
                 "shasum": ""
             },
             "require": {
@@ -1317,7 +1317,6 @@
             },
             "require-dev": {
                 "codeception/specify": "~0.3",
-                "codegyre/robo": "@dev",
                 "facebook/php-sdk": "~3.2",
                 "flow/jsonpath": "~0.1",
                 "monolog/monolog": "~1.8",
@@ -1365,7 +1364,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-01-26 20:20:30"
+            "time": "2015-02-03 14:54:45"
         },
         {
             "name": "doctrine/instantiator",
@@ -1464,16 +1463,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "5.1.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "f1085bb4e023766a66b7b051914ec73bdf7202b5"
+                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f1085bb4e023766a66b7b051914ec73bdf7202b5",
-                "reference": "f1085bb4e023766a66b7b051914ec73bdf7202b5",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/475b29ccd411f2fa8a408e64576418728c032cfa",
+                "reference": "475b29ccd411f2fa8a408e64576418728c032cfa",
                 "shasum": ""
             },
             "require": {
@@ -1518,7 +1517,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2014-12-19 20:27:15"
+            "time": "2015-01-28 01:03:29"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -2042,21 +2041,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "6a1e846331bb3cc1a305168125d047fb86260e3d"
+                "reference": "1dd8869519a225f7f2b9eb663e225298fade819e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/6a1e846331bb3cc1a305168125d047fb86260e3d",
-                "reference": "6a1e846331bb3cc1a305168125d047fb86260e3d",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/1dd8869519a225f7f2b9eb663e225298fade819e",
+                "reference": "1dd8869519a225f7f2b9eb663e225298fade819e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "sebastian/diff": "~1.1",
-                "sebastian/exporter": "~1.0"
+                "sebastian/diff": "~1.2",
+                "sebastian/exporter": "~1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4.4"
             },
             "type": "library",
             "extra": {
@@ -2098,7 +2097,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-01-05 16:29:00"
+            "time": "2015-01-29 16:28:08"
         },
         {
             "name": "sebastian/diff",
