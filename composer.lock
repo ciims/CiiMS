@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "031f8244a92d7c64858fec8507de1c3e",
+    "hash": "bc110d63364bf9ca7694341d8eafe4d2",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -238,16 +238,16 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "e853a92483e22635f115a696c8b7eb9c18b50ec3"
+                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/e853a92483e22635f115a696c8b7eb9c18b50ec3",
-                "reference": "e853a92483e22635f115a696c8b7eb9c18b50ec3",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
+                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -270,7 +270,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2015-02-04 20:36:54"
+            "time": "2015-02-04 20:43:10"
         },
         {
             "name": "ciims-themes/default",
