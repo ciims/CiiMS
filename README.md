@@ -63,6 +63,10 @@ You may use the following credentials to login and manage the site.
 
 Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
 
+## Documentation
+
+Full documents for CiiMS can be found at [docs.ciims.io](https://docs.ciims.io). Please refer to this guide for installation instructions, development guidelines, and a list of available CLI commands
+
 ## Features
 
 * Based on Yii Framework
