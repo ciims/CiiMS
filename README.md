@@ -5,14 +5,19 @@
 [![Gittip](http://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
 [![License](http://img.shields.io/badge/license-MIT-orange.svg?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
 
+![CiiMS Logo Banner](	
+https://s3.amazonaws.com/ciims-s3-us-01/63E6ADC1A1BF41ABDE55B4BA810F187DBF1C9E696A90713D8A1F38B69E1071CE.png)
 
-## What is CiiMS?
-CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system.
+CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system built in Yii.
 
-## CiiMS 2.0.0 Beta Released
+## News
+
+__CiiMS 2.0.0 Beta Released__
+
 CiiMS 2.0.0 Beta is now available. Checkout the [release notes](https://www.erianna.com/ciims-2-0-0-beta-release-announcement) for more information.
 
-## Interested in a Hosted Solution?
+__Interested in a Hosted Solution?__
+
 Be sure to checkout [www.ciims.io](http://www.ciims.io) to pre-register for exclusive early access to our hosted platform.
 
 ## Who uses CiiMS?
@@ -22,6 +27,28 @@ Do you use CiiMS and love it? Want to show your support? Would you like some fre
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
 <a href="https://www.ciims.io"><img title="CiiMS.org - Hosted CiiMS Solution" src="https://bceaa6d6b482f260432e-ee8e8c75278065b7c5ca93053b16734c.ssl.cf5.rackcdn.com/ciims-logo-badge.png" /></a>
 [![Mosely](https://www.gravatar.com/avatar/dd61d5faf7eb9315960d528fc9ed2367?s=60, "Business as Usual")](https://www.manufactorum.net)
+
+## Screenshots
+
+__A beautitul default theme__
+
+![Default Theme](	
+https://s3.amazonaws.com/ciims-s3-us-01/5A2ED631D493E053774C31C513F2C60FF5208B1B3AB8193D7D8D351251E2207D.png)
+
+__A powerful dashboard with custom JavaScript cards__
+
+![CiiMS Dashboard](	
+https://s3.amazonaws.com/ciims-s3-us-01/949A73802B6E17CD3FA04B8FA14E76AF7EDF51736A3904E2EF7358049C51D8D2.png)
+
+__Easily browser all content entries__
+
+![Content List View](	
+https://s3.amazonaws.com/ciims-s3-us-01/6F679654A4F7F3B9A3DD72DA32540B2CD12843C7DACB88A257372386C7325A80.png)
+
+__Powerful content editor__
+
+![CiiMS Editor](	
+https://s3.amazonaws.com/ciims-s3-us-01/BBAD9AA513B05052FF83DC8B4F4E22CD9AFC1A5701EB33E60CA7C4A0DD32C04A.png)
 
 ## Demo
 A demo of CiiMS can be found at:
@@ -66,7 +93,8 @@ Please note that this demo is not monitored, and is reset at an unspecified inte
 
 Before installing CiiMS you'll need to have at _minimum_ the following:
 
-* PHP 5.5+ or PHP 5.6+
+* PHP 5.5+
+* [Yii1 Requirements](http://www.yiiframework.com/doc/guide/1.1/en/quickstart.installation#requirements)
 * PHP CURL Extension
 * PHP ZIP Extension
 * PHP MCrypt Extension
