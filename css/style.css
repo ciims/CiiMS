@@ -2,7 +2,8 @@ a {
 	color: #2d2d2d;
 }
 
-img.img {
+img.img,
+.content img {
 	max-width: 100%;
 }
 
