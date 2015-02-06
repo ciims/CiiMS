@@ -37,24 +37,24 @@ $ciimsCoreConfig = array(
     ),
     'components' => array(
         'messages' => array(
-            'class' => 'ext.cii.components.CiiPHPMessageSource'
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiPHPMessageSource'
         ),
         'newRelic' => array(
             'class' => 'vendor.charlesportwoodii.yii-newrelic.YiiNewRelic',
         ),
         'cii' => array(
-            'class' => 'ext.cii.components.CiiBase'
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiBase'
         ),
         'analytics' => array(
-            'class' => 'ext.cii.components.CiiAnalytics',
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiAnalytics',
             'lowerBounceRate' => true,
             'options' => array(),
         ),
         'assetManager' => array(
-            'class' => 'ext.cii.components.CiiAssetManager',
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiAssetManager',
         ),
         'clientScript' => array(
-            'class' => 'ext.cii.components.CiiClientScript',
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiClientScript',
         ),
         'errorHandler' => array(
             'errorAction' => 'site/error',
@@ -69,7 +69,7 @@ $ciimsCoreConfig = array(
     	    )
         ),
         'urlManager' => array(
-            'class'          => 'ext.cii.components.CiiURLManager',
+            'class'          => 'vendor.charlesportwoodii.cii.components.CiiURLManager',
             'urlFormat'      => 'path',
             'showScriptName' => false
         ),

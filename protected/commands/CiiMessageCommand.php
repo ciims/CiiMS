@@ -2,7 +2,7 @@
 /**
  * This is an alternative implementation of the MessageCommand class, designed to work with CiiMS' modules and themes
  */
-Yii::import('ext.cii.commands.CiiConsoleCommand');
+Yii::import('cii.commands.CiiConsoleCommand');
 class CiiMessageCommand extends CiiConsoleCommand
 {
 	/**
