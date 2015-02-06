@@ -39,7 +39,7 @@ class CiiRedisCache extends CiiCache
 		else
 		{
             $this->_redis = new Redis();
-            $this->_redis->connect($this->_server['host'], $this->_server['port']);
+            $this->_redis->pconnect($this->_server['host'], $this->_server['port'], isset($this->_server['timeout']) ? $this->_server['timeout'] : 2.5);
             if (isset($this->_server['db']))
             	$this->_redis->select($this->_server['db']);
         }
