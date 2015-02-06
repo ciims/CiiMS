@@ -6,6 +6,15 @@ if ($_SERVER['SCRIPT_FILENAME'] == 'protected/yiic.php')
 	die();
 }
 
+if (getenv('CIIMS_INSTALL') == "true")
+{
+	if (!defined('CIIMS_INSTALL'))
+		define('CIIMS_INSTALL', true);
+}
+
+if (!defined('CIIMS_INSTALL'))
+	define('CIIMS_INSTALL', false);
+
 error_reporting(-1);
 ini_set('display_errors', 'true');
 date_default_timezone_set ('UTC');
@@ -29,6 +38,10 @@ if (file_exists(__DIR__.DS.'/config/main.php'))
 	$config = require $config;
 else
 	$config = array();
+
+if (CIIMS_INSTALL)
+	$config = array();
+
 $defaultConfig = require $defaultConfig;
 
 $config = CMap::mergeArray($defaultConfig, $config);

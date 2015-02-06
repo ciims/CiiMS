@@ -16,12 +16,12 @@ if (php_sapi_name() === 'cli')
 // Disable Error Reporting and set some constants
 error_reporting(0);
 ini_set('display_errors', 'false');
-date_default_timezone_set ('UTC');
+date_default_timezone_set('UTC');
 
 
 // This is the configuration file
 if (!isset($_SERVER['CIIMS_ENV']))
-        $_SERVER['CIIMS_ENV'] = 'main';
+   $_SERVER['CIIMS_ENV'] = 'main';
 
 $config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
