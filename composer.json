@@ -71,10 +71,10 @@
         "charlesportwoodii/yii-newrelic": "1.0.0",
         "charlesportwoodii/cii": "dev-master",
         "ciims-themes/default": "3.0.13",
-        "ciims-modules/dashboard": "3.0.12",
-        "ciims-modules/api": "2.0.10",
-        "ciims-modules/install": "2.0.9",
-        "ciims-modules/hybridauth": "2.0.5"
+        "ciims-modules/dashboard": "3.0.13",
+        "ciims-modules/api": "2.0.11",
+        "ciims-modules/install": "2.0.10",
+        "ciims-modules/hybridauth": "2.0.6"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",

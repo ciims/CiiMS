@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "090a5e14284a2369841b79a377dd22ef",
+    "hash": "1da7e1ad7ad4e81085bde0875249d74f",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "70ef3d7f862cf988c56880bfb39cc64e27336a19"
+                "reference": "954f06c3a59b9d3bd5bd6be0504c41ca9cd8065c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/70ef3d7f862cf988c56880bfb39cc64e27336a19",
-                "reference": "70ef3d7f862cf988c56880bfb39cc64e27336a19",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/954f06c3a59b9d3bd5bd6be0504c41ca9cd8065c",
+                "reference": "954f06c3a59b9d3bd5bd6be0504c41ca9cd8065c",
                 "shasum": ""
             },
             "type": "library",
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-02-06 17:07:57"
+            "time": "2015-02-06 17:33:19"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -168,16 +168,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "5fedf92caa8c5193392f99aaefcd7723e40fe273"
+                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/5fedf92caa8c5193392f99aaefcd7723e40fe273",
-                "reference": "5fedf92caa8c5193392f99aaefcd7723e40fe273",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/22fa0e19064ac09becebcf5f4652052e1914f7e7",
+                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -200,20 +200,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-01-27 19:52:52"
+            "time": "2015-02-06 17:27:08"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.12",
+            "version": "3.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "4483f2383feafa7e81847e4e8c67a0e950c9e17f"
+                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/4483f2383feafa7e81847e4e8c67a0e950c9e17f",
-                "reference": "4483f2383feafa7e81847e4e8c67a0e950c9e17f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/7a22701ffb86bc376403d2b71dddecaac62313bb",
+                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -236,20 +236,20 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-01-26 21:12:44"
+            "time": "2015-02-06 17:28:19"
         },
         {
             "name": "ciims-modules/hybridauth",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
-                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9"
+                "reference": "d8c6458ba5ab637dab9b4bf02e92a8427bd1161e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/51ec6cc35aa65bb26877db013b954f04b7a733f9",
-                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/d8c6458ba5ab637dab9b4bf02e92a8427bd1161e",
+                "reference": "d8c6458ba5ab637dab9b4bf02e92a8427bd1161e",
                 "shasum": ""
             },
             "require": {
@@ -276,20 +276,20 @@
                 "module",
                 "social"
             ],
-            "time": "2015-01-01 18:40:32"
+            "time": "2015-02-06 17:26:45"
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871"
+                "reference": "1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
-                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf",
+                "reference": "1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -312,7 +312,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2015-02-04 20:43:10"
+            "time": "2015-02-06 17:26:03"
         },
         {
             "name": "ciims-themes/default",
