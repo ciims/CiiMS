@@ -66,14 +66,15 @@
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.9",
         "knplabs/packagist-api": "v1.2",
-        "charlesportwoodii/yii-newrelic": "1.0.0",
-	    "yiqing-95/YiiTimeAgo": "dev-master",
+        "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.5",
+        "charlesportwoodii/yii-newrelic": "1.0.0",
+        "charlesportwoodii/cii": "1.0.0",
         "ciims-themes/default": "3.0.13",
-        "ciims-modules/dashboard": "3.0.12",
-        "ciims-modules/api": "2.0.10",
-        "ciims-modules/install": "2.0.9",
-        "ciims-modules/hybridauth": "2.0.5"
+        "ciims-modules/dashboard": "3.0.13",
+        "ciims-modules/api": "2.0.11",
+        "ciims-modules/install": "2.0.10",
+        "ciims-modules/hybridauth": "2.0.6"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",
@@ -87,10 +88,18 @@
     },
     "extra": {
         "installer-paths": {
-            "protected/modules/dashboard/": ["ciims-modules/dashboard"],
-            "protected/modules/hybridauth/": ["ciims-modules/hybridauth"],
-            "protected/modules/install/": ["ciims-modules/install"],
-            "protected/modules/api/": ["ciims-modules/api"]
+            "protected/modules/dashboard/": [
+                "ciims-modules/dashboard"
+            ],
+            "protected/modules/hybridauth/": [
+                "ciims-modules/hybridauth"
+            ],
+            "protected/modules/install/": [
+                "ciims-modules/install"
+            ],
+            "protected/modules/api/": [
+                "ciims-modules/api"
+            ]
         }
     }
 }

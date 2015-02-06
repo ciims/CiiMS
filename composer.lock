@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc110d63364bf9ca7694341d8eafe4d2",
+    "hash": "77b217f233543d6acdcfca4161f7a866",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -54,6 +54,48 @@
                 "issues": "https://github.com/ircmaxell/PHP-CryptLib/issues"
             },
             "time": "2013-02-04 20:03:55"
+        },
+        {
+            "name": "charlesportwoodii/cii",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/cii.git",
+                "reference": "345810b07408c222b8645a168a00a7311a1c2116"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/345810b07408c222b8645a168a00a7311a1c2116",
+                "reference": "345810b07408c222b8645a168a00a7311a1c2116",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "cache/",
+                    "commands/",
+                    "components/",
+                    "components/pager/",
+                    "controllers/",
+                    "models/",
+                    "utilities/",
+                    "widgets/",
+                    "widgets/input/",
+                    "widgets/comments/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net"
+                }
+            ],
+            "description": "CiiMS core components (Cii)",
+            "time": "2015-02-06 17:37:33"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -126,16 +168,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.10",
+            "version": "2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "5fedf92caa8c5193392f99aaefcd7723e40fe273"
+                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/5fedf92caa8c5193392f99aaefcd7723e40fe273",
-                "reference": "5fedf92caa8c5193392f99aaefcd7723e40fe273",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/22fa0e19064ac09becebcf5f4652052e1914f7e7",
+                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -158,20 +200,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-01-27 19:52:52"
+            "time": "2015-02-06 17:27:08"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.12",
+            "version": "3.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "4483f2383feafa7e81847e4e8c67a0e950c9e17f"
+                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/4483f2383feafa7e81847e4e8c67a0e950c9e17f",
-                "reference": "4483f2383feafa7e81847e4e8c67a0e950c9e17f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/7a22701ffb86bc376403d2b71dddecaac62313bb",
+                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -194,20 +236,20 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-01-26 21:12:44"
+            "time": "2015-02-06 17:28:19"
         },
         {
             "name": "ciims-modules/hybridauth",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-hybridauth.git",
-                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9"
+                "reference": "d8c6458ba5ab637dab9b4bf02e92a8427bd1161e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/51ec6cc35aa65bb26877db013b954f04b7a733f9",
-                "reference": "51ec6cc35aa65bb26877db013b954f04b7a733f9",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-hybridauth/zipball/d8c6458ba5ab637dab9b4bf02e92a8427bd1161e",
+                "reference": "d8c6458ba5ab637dab9b4bf02e92a8427bd1161e",
                 "shasum": ""
             },
             "require": {
@@ -234,20 +276,20 @@
                 "module",
                 "social"
             ],
-            "time": "2015-01-01 18:40:32"
+            "time": "2015-02-06 17:26:45"
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871"
+                "reference": "1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
-                "reference": "c9b9fd5fa09c14b46bb9cf3f9179a1bbfb687871",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf",
+                "reference": "1b1086bf8ab939d1e3ee6003eddc2ccb67fed4cf",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -270,7 +312,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2015-02-04 20:43:10"
+            "time": "2015-02-06 17:26:03"
         },
         {
             "name": "ciims-themes/default",
@@ -549,12 +591,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "c7695ebcf2517fc5c79a44510c81b9839d009da7"
+                "reference": "bf616abec5c34d1ba04962141893ca0576826a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c7695ebcf2517fc5c79a44510c81b9839d009da7",
-                "reference": "c7695ebcf2517fc5c79a44510c81b9839d009da7",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/bf616abec5c34d1ba04962141893ca0576826a1a",
+                "reference": "bf616abec5c34d1ba04962141893ca0576826a1a",
                 "shasum": ""
             },
             "require": {
@@ -583,7 +625,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-02-03 11:30:31"
+            "time": "2015-02-06 11:33:47"
         },
         {
             "name": "guzzle/common",
@@ -1028,12 +1070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11"
+                "reference": "1af1529b49a6e065ae6802e70192aba35d79b7d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/a78d6504ff5d4367497785ab2ade91db3a9fbe11",
-                "reference": "a78d6504ff5d4367497785ab2ade91db3a9fbe11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/1af1529b49a6e065ae6802e70192aba35d79b7d8",
+                "reference": "1af1529b49a6e065ae6802e70192aba35d79b7d8",
                 "shasum": ""
             },
             "type": "library",
@@ -1063,7 +1105,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2014-01-18 15:33:09"
+            "time": "2015-02-05 09:32:11"
         },
         {
             "name": "rackspace/php-opencloud",
@@ -1132,12 +1174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "7a26717d431dfb092198d7c55f06788b2de5aaf7"
+                "reference": "e9298668dce8dd219d1ee2290c7f313954f1f984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/7a26717d431dfb092198d7c55f06788b2de5aaf7",
-                "reference": "7a26717d431dfb092198d7c55f06788b2de5aaf7",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/e9298668dce8dd219d1ee2290c7f313954f1f984",
+                "reference": "e9298668dce8dd219d1ee2290c7f313954f1f984",
                 "shasum": ""
             },
             "require": {
@@ -1181,7 +1223,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-16 15:11:56"
+            "time": "2015-02-05 06:58:17"
         },
         {
             "name": "yiisoft/yii",
@@ -1292,12 +1334,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "e86978809e916ca942698b73a7b997730f500cae"
+                "reference": "ceec1bd3e12d57e51cbd9497b1d376761992fc01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/e86978809e916ca942698b73a7b997730f500cae",
-                "reference": "e86978809e916ca942698b73a7b997730f500cae",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/ceec1bd3e12d57e51cbd9497b1d376761992fc01",
+                "reference": "ceec1bd3e12d57e51cbd9497b1d376761992fc01",
                 "shasum": ""
             },
             "require": {
@@ -1364,7 +1406,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-03 14:54:45"
+            "time": "2015-02-05 23:28:35"
         },
         {
             "name": "doctrine/instantiator",
@@ -2468,12 +2510,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd"
+                "reference": "e30a2778069b48bd1e560e4a2815d15c9ab2f563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9f041fb5735b0d25d117e77ab8597a8376c74fbd",
-                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/e30a2778069b48bd1e560e4a2815d15c9ab2f563",
+                "reference": "e30a2778069b48bd1e560e4a2815d15c9ab2f563",
                 "shasum": ""
             },
             "require": {
@@ -2516,7 +2558,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-25 05:59:26"
+            "time": "2015-02-05 07:11:58"
         },
         {
             "name": "symfony/css-selector",
@@ -2576,12 +2618,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "57ef66b6d806d9d1b9234e27da304ee5d1e54641"
+                "reference": "49d1657a690eaa6e8fd4f92d828b89bed05dd55d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/57ef66b6d806d9d1b9234e27da304ee5d1e54641",
-                "reference": "57ef66b6d806d9d1b9234e27da304ee5d1e54641",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/49d1657a690eaa6e8fd4f92d828b89bed05dd55d",
+                "reference": "49d1657a690eaa6e8fd4f92d828b89bed05dd55d",
                 "shasum": ""
             },
             "require": {
@@ -2620,7 +2662,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-09 13:24:18"
+            "time": "2015-02-05 06:58:17"
         },
         {
             "name": "symfony/finder",

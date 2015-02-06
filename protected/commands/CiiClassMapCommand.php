@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('ext.cii.commands.CiiConsoleCommand');
+Yii::import('cii.commands.CiiConsoleCommand');
 class CiiClassMapCommand extends CiiConsoleCommand
 {
 	public function actionIndex()

@@ -5,7 +5,7 @@
  * LoginForm is the data structure for keeping
  * user login form data. It is used by the 'login' action of 'SiteController'.
  */
-Yii::import('ext.cii.components.CiiUserIdentity');
+Yii::import('cii.components.CiiUserIdentity');
 class LoginForm extends CFormModel
 {
 	/**

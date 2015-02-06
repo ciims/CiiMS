@@ -1,6 +1,6 @@
 <?php
 
-Yii::import('ext.cii.commands.CiiConsoleCommand');
+Yii::import('cii.commands.CiiConsoleCommand');
 class CiiCacheCommand extends CiiConsoleCommand
 {
 	public function actionFlush()
