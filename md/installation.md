@@ -23,15 +23,14 @@ Once all the requirements are met, you can begin the installation process.
 
 ```
 git clone https://github.com/charlesportwoodii/CiiMS.git
-git checkout 2.0.0-beta
+git checkout dev-master # 2.0.0 if hard versioning
 ```
 
 2 Install composer dependencies (this may take some time to complete depending upon your internet connection)
 
 ```
 cd /path/to/ciims
-composer install
-# composer dump-autoload --optimize # Be sure to optmize the autoloader if you're deploying CiiMS to a production environment
+composer install -o
 ```
 
 3 Verify that the following directories are writable by your web server user.
@@ -69,7 +68,7 @@ In order to facilitate headless installations, the CiiMS installer comes with a 
 
 ```
 cd /path/to/ciims
-php protected/yiic.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
+php index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
 ```
 
 ## Installation Notes
@@ -92,12 +91,12 @@ In general - the following steps should be performed to upgrade from one version
 ```
 git checkout {version}
 git pull
-composer install
-php protected/yiic.php migrate up --interactive=0
+composer install -o
+php index.php migrate up --interactive=0
 rm -rf assets/*
 rm -rf runtime/cache/*
 rm -rf runtime/modules.config.php
-php protected/yiic.php ciicache flush
+php index.php ciicache flush
 ```
 ## 1.x to 2.0.0
 
@@ -108,11 +107,11 @@ CiiMS 2.0 does not offer a direct upgrade path from the 1.x release branches. Ho
 ```
 git checkout 1.9.1
 git pull
-php protected/yiic.php migrate up --interactive=0
+php index.php migrate up --interactive=0
 rm -rf assets/*
 rm -rf runtime/cache/*
 rm -rf runtime/modules.config.php
-php protected/yiic.php ciicache flush
+php index.php ciicache flush
 ```
 
 2 Install CiiMS 2.0.0 as a separate instance using the guide above.

@@ -7,10 +7,10 @@ $ cd /path/to/ciims
 $ php index.php <command-name> [parameters...]
 ```
 
-A list of available commands can be run by running the ```yiic.php``` command without any arguments
+A list of available commands can be run by running the ```index.php``` command without any arguments
 ```
 Yii command runner (based on Yii v1.1.15)
-Usage: protected/yiic.php <command-name> [parameters...]
+Usage: index.php <command-name> [parameters...]
 
 The following commands are available:
  - ciicache
@@ -26,7 +26,7 @@ In order to facilitate headless installations, the CiiMS installer comes with a 
 
 ```
 cd /path/to/ciims
-php protected/yiic.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
+php index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
 ```
 
 ## Migrations
@@ -35,7 +35,7 @@ CiiMS depends on the basic Yii migration script to apply new database migrations
 
 ```
 cd /path/to/ciims
-php protected/yiic.php migrate up
+php index.php migrate up
 ```
 
 ## Cleaing Cache
@@ -44,7 +44,7 @@ CiiMS maintains an internal cache to optmize performance. If something doesn't a
 
 ```
 cd /path/to/ciims
-php protected/yiic.php ciicache up
+php index.php ciicache up
 ```
 
 Note, that purging the cache for CiiMS will result in a loss of performance until the cache data is rebuilt.
@@ -55,7 +55,7 @@ To optimize performance, CiiMS can optimize it's auto-loader to improve performa
 
 ```
 cd /path/to/ciims
-php protected/yiic.php ciiclassmap
+php index.php ciiclassmap
 ```
 
 ## Generate Message/Translation Files
@@ -68,7 +68,7 @@ Running the CiiMessage command without any arguments will update all base transl
 
 ```
 cd /path/to/ciims
-php protected/yiic.php ciimessage
+php index.php ciimessage
 ```
 
 ### Update Module Translations
@@ -77,7 +77,7 @@ To update the translation files for a specific module, run the following command
 
 ```
 cd /path/to/ciims
-php protected/yiic.php ciimessage modules [module-name]
+php index.php ciimessage modules [module-name]
 ```
 
 ### Update Theme Translations
@@ -85,5 +85,5 @@ php protected/yiic.php ciimessage modules [module-name]
 To update the translation files for a specific theme, run the following command:
 ```
 cd /path/to/ciims
-php protected/yiic.php ciimessage themes [theme-name]
+php index.php ciimessage themes [theme-name]
 ```
