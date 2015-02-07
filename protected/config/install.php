@@ -13,7 +13,7 @@
     ),
     'components' => array(
         'cii' => array(
-            'class' => 'ext.cii.components.CiiBase'
+            'class' => 'vendor.charlesportwoodii.cii.components.CiiBase'
         ),
         'errorHandler' => array(
             'errorAction' => '/install/default/error',
