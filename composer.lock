@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4de51ec88733562399c414df0e16bede",
+    "hash": "1c64ac26b855af73b0627e49bec716cb",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.3",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "bb6e64067524af0dffd8ef4cf1bf457da3afad62"
+                "reference": "ba016ea3d30efc5b64eaf93a0437ec861ccb097b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/bb6e64067524af0dffd8ef4cf1bf457da3afad62",
-                "reference": "bb6e64067524af0dffd8ef4cf1bf457da3afad62",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/ba016ea3d30efc5b64eaf93a0437ec861ccb097b",
+                "reference": "ba016ea3d30efc5b64eaf93a0437ec861ccb097b",
                 "shasum": ""
             },
             "type": "library",
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-02-06 22:11:40"
+            "time": "2015-02-07 00:20:00"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -628,82 +628,70 @@
             "time": "2015-02-06 11:33:47"
         },
         {
-            "name": "guzzle/common",
-            "version": "v3.9.2",
-            "target-dir": "Guzzle/Common",
+            "name": "guzzle/guzzle",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/guzzle/common.git",
-                "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc"
+                "url": "https://github.com/guzzle/guzzle3.git",
+                "reference": "d898326a716f23fdd778942ea9404aeccbe16a46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/common/zipball/2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
-                "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/d898326a716f23fdd778942ea9404aeccbe16a46",
+                "reference": "d898326a716f23fdd778942ea9404aeccbe16a46",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2",
-                "symfony/event-dispatcher": ">=2.1"
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": "~2.1"
             },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle\\Common": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Common libraries used by Guzzle",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "collection",
-                "common",
-                "event",
-                "exception"
-            ],
-            "time": "2014-08-11 04:32:36"
-        },
-        {
-            "name": "guzzle/http",
-            "version": "v3.9.2",
-            "target-dir": "Guzzle/Http",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/http.git",
-                "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/http/zipball/1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
-                "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
-                "shasum": ""
-            },
-            "require": {
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
                 "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
                 "guzzle/parser": "self.version",
-                "guzzle/stream": "self.version",
-                "php": ">=5.3.2"
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.3",
+                "monolog/monolog": "~1.0",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0",
+                "symfony/class-loader": "~2.1",
+                "zendframework/zend-cache": "2.*,<2.3",
+                "zendframework/zend-log": "2.*,<2.3"
             },
             "suggest": {
-                "ext-curl": "*"
+                "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.7-dev"
+                    "dev-master": "3.9-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Guzzle\\Http": ""
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -715,115 +703,24 @@
                     "name": "Michael Dowling",
                     "email": "mtdowling@gmail.com",
                     "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
                 }
             ],
-            "description": "HTTP libraries used by Guzzle",
+            "description": "PHP HTTP client. This library is deprecated in favor of https://packagist.org/packages/guzzlehttp/guzzle",
             "homepage": "http://guzzlephp.org/",
             "keywords": [
-                "Guzzle",
                 "client",
                 "curl",
+                "framework",
                 "http",
-                "http client"
+                "http client",
+                "rest",
+                "web service"
             ],
-            "time": "2014-08-11 04:32:36"
-        },
-        {
-            "name": "guzzle/parser",
-            "version": "v3.9.2",
-            "target-dir": "Guzzle/Parser",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/parser.git",
-                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/parser/zipball/6874d171318a8e93eb6d224cf85e4678490b625c",
-                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle\\Parser": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Interchangeable parsers used by Guzzle",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "URI Template",
-                "cookie",
-                "http",
-                "message",
-                "url"
-            ],
-            "time": "2014-02-05 18:29:46"
-        },
-        {
-            "name": "guzzle/stream",
-            "version": "v3.9.2",
-            "target-dir": "Guzzle/Stream",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/stream.git",
-                "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/stream/zipball/60c7fed02e98d2c518dae8f97874c8f4622100f0",
-                "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0",
-                "shasum": ""
-            },
-            "require": {
-                "guzzle/common": "self.version",
-                "php": ">=5.3.2"
-            },
-            "suggest": {
-                "guzzle/http": "To convert Guzzle request objects to PHP streams"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle\\Stream": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                }
-            ],
-            "description": "Guzzle stream wrapper component",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "Guzzle",
-                "component",
-                "stream"
-            ],
-            "time": "2014-05-01 21:36:02"
+            "time": "2015-01-28 21:05:25"
         },
         {
             "name": "hashids/hashids",
@@ -1065,109 +962,6 @@
             "time": "2014-09-26 18:33:30"
         },
         {
-            "name": "psr/log",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "1af1529b49a6e065ae6802e70192aba35d79b7d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/1af1529b49a6e065ae6802e70192aba35d79b7d8",
-                "reference": "1af1529b49a6e065ae6802e70192aba35d79b7d8",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Psr\\Log\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "time": "2015-02-05 09:32:11"
-        },
-        {
-            "name": "rackspace/php-opencloud",
-            "version": "v1.12.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rackspace/php-opencloud.git",
-                "reference": "23105f00eb648c10cc360cbc04231018117b0302"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/23105f00eb648c10cc360cbc04231018117b0302",
-                "reference": "23105f00eb648c10cc360cbc04231018117b0302",
-                "shasum": ""
-            },
-            "require": {
-                "guzzle/http": "~3.8",
-                "php": ">=5.3.3",
-                "psr/log": "~1.0"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "1.0.*@dev",
-                "guzzle/guzzle": "~3.8",
-                "jakub-onderka/php-parallel-lint": "0.*",
-                "phpunit/phpunit": "4.3.*",
-                "satooshi/php-coveralls": "0.6.*@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "OpenCloud": [
-                        "lib/",
-                        "tests/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Glen Campbell",
-                    "email": "glen.campbell@rackspace.com"
-                },
-                {
-                    "name": "Jamie Hannaford",
-                    "email": "jamie.hannaford@rackspace.com",
-                    "homepage": "https://github.com/jamiehannaford"
-                }
-            ],
-            "description": "PHP SDK for Rackspace/OpenStack APIs",
-            "keywords": [
-                "Openstack",
-                "nova",
-                "opencloud",
-                "rackspace",
-                "swift"
-            ],
-            "time": "2014-12-09 14:36:25"
-        },
-        {
             "name": "symfony/event-dispatcher",
             "version": "2.7.x-dev",
             "target-dir": "Symfony/Component/EventDispatcher",
@@ -1334,12 +1128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "ceec1bd3e12d57e51cbd9497b1d376761992fc01"
+                "reference": "141f7bb0a9723d4aa7d1b3099962492a2cd5f386"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/ceec1bd3e12d57e51cbd9497b1d376761992fc01",
-                "reference": "ceec1bd3e12d57e51cbd9497b1d376761992fc01",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/141f7bb0a9723d4aa7d1b3099962492a2cd5f386",
+                "reference": "141f7bb0a9723d4aa7d1b3099962492a2cd5f386",
                 "shasum": ""
             },
             "require": {
@@ -1360,7 +1154,7 @@
             "require-dev": {
                 "codeception/specify": "~0.3",
                 "facebook/php-sdk": "~3.2",
-                "flow/jsonpath": "~0.1",
+                "flow/jsonpath": "~0.2",
                 "monolog/monolog": "~1.8",
                 "pda/pheanstalk": "~2.0",
                 "videlalvaro/php-amqplib": "~2.4"
@@ -1406,7 +1200,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-05 23:28:35"
+            "time": "2015-02-06 22:17:55"
         },
         {
             "name": "doctrine/instantiator",
