@@ -25,7 +25,7 @@ Be sure to checkout [www.ciims.io](http://www.ciims.io) to pre-register for excl
 Do you use CiiMS and love it? Want to show your support? Would you like some free advertising for your site? Create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site and we'll merge it in!
 
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
-<a href="https://www.ciims.io"><img title="CiiMS.org - Hosted CiiMS Solution" src="https://bceaa6d6b482f260432e-ee8e8c75278065b7c5ca93053b16734c.ssl.cf5.rackcdn.com/ciims-logo-badge.png" /></a>
+<a href="https://www.ciims.io"><img title="CiiMS.org - Hosted CiiMS Solution" src="https://s3.amazonaws.com/ciims-s3-us-01/ciims-logo-badge.png" /></a>
 [![Mosely](https://www.gravatar.com/avatar/dd61d5faf7eb9315960d528fc9ed2367?s=60, "Business as Usual")](https://www.manufactorum.net)
 
 ## Screenshots
