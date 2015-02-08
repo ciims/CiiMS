@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c64ac26b855af73b0627e49bec716cb",
+    "hash": "259f30a91aa2ad0be93634555df5dbc2",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -168,16 +168,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.11",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7"
+                "reference": "c6c87f13bcd81f7cf751d3673da860c7f5559126"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/22fa0e19064ac09becebcf5f4652052e1914f7e7",
-                "reference": "22fa0e19064ac09becebcf5f4652052e1914f7e7",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/c6c87f13bcd81f7cf751d3673da860c7f5559126",
+                "reference": "c6c87f13bcd81f7cf751d3673da860c7f5559126",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -200,20 +200,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-02-06 17:27:08"
+            "time": "2015-02-08 20:23:38"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.13",
+            "version": "3.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb"
+                "reference": "016265dcf746ae0e294fa7bf0ec4ede5574ac94e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/7a22701ffb86bc376403d2b71dddecaac62313bb",
-                "reference": "7a22701ffb86bc376403d2b71dddecaac62313bb",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/016265dcf746ae0e294fa7bf0ec4ede5574ac94e",
+                "reference": "016265dcf746ae0e294fa7bf0ec4ede5574ac94e",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -236,7 +236,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-02-06 17:28:19"
+            "time": "2015-02-08 20:24:05"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -591,12 +591,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "bf616abec5c34d1ba04962141893ca0576826a1a"
+                "reference": "250e013cc70b9305caf42b7fe43cf9618543cf45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/bf616abec5c34d1ba04962141893ca0576826a1a",
-                "reference": "bf616abec5c34d1ba04962141893ca0576826a1a",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/250e013cc70b9305caf42b7fe43cf9618543cf45",
+                "reference": "250e013cc70b9305caf42b7fe43cf9618543cf45",
                 "shasum": ""
             },
             "require": {
@@ -625,7 +625,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-02-06 11:33:47"
+            "time": "2015-02-08 11:35:46"
         },
         {
             "name": "guzzle/guzzle",
@@ -1128,12 +1128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "141f7bb0a9723d4aa7d1b3099962492a2cd5f386"
+                "reference": "1416a5ed429615664ba406a37de141a7cba2982b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/141f7bb0a9723d4aa7d1b3099962492a2cd5f386",
-                "reference": "141f7bb0a9723d4aa7d1b3099962492a2cd5f386",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/1416a5ed429615664ba406a37de141a7cba2982b",
+                "reference": "1416a5ed429615664ba406a37de141a7cba2982b",
                 "shasum": ""
             },
             "require": {
@@ -1200,7 +1200,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-06 22:17:55"
+            "time": "2015-02-07 01:27:55"
         },
         {
             "name": "doctrine/instantiator",

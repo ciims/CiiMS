@@ -76,15 +76,16 @@ class ThemeSettings extends CiiSettingsModel
 	            $json = CJSON::decode(file_get_contents($dir . DIRECTORY_SEPARATOR . 'composer.json'));
 	            $name = $json['name'];
 	            $key = str_replace('ciims-themes/', '', $name);
+
 	            $themes[$key] = array(
 	                'path' => $dir,
 	                'name' => $name,
+	                'hidden' => isset($json['hidden']) ? $json['hidden'] : false
 	            );
 	        }
 
-	        return $themes;
-
 			Yii::app()->cache->set('settings_themes', $themes);
+	        return $themes;
 		}
 
 		return $themes;
