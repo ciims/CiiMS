@@ -105,7 +105,7 @@ class EmailSettings extends CiiSettingsModel
 
         $mail->SetFrom($notifyUser->email, $notifyUser->username);
         $mail->Subject = $subject;
-        $mail->MsgHTML(Yii::app()->controller->renderFile(Yii::getPathOfAlias('application') .'/../themes/'.Cii::getConfig('theme').'/views'. str_replace('//', '/',$viewFile).'.php', $content, $return, $processOutput));
+        $mail->MsgHTML(Yii::app()->controller->renderFile(Yii::getPathOfAlias($viewFile).'.php', $content, $return, $processOutput));
         $mail->AddAddress($user->email, $user->username);
 
         try {

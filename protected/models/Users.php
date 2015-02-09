@@ -253,7 +253,12 @@ class Users extends CiiModel
             $this->password = password_hash($this->password, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
 
             if (!$this->isNewRecord)
-                Yii::app()->controller->sendEmail($this,  Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'), '//email/passwordchange', array('user' => $this));
+                Yii::app()->controller->sendEmail(
+                	$this,
+                	Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'),
+                	'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
+                	array('user' => $this)
+                );
         }
 
         return parent::beforeValidate();

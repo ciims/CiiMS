@@ -85,7 +85,7 @@ class ForgotForm extends CFormModel
         $meta->value = $expires;
         $meta->save();
 
-        Yii::app()->controller->sendEmail($this->_user, Yii::t('ciims.email', 'Your Password Reset Information'), '//email/forgot', array('user' => $this->_user, 'hash' => $hash), true, true);
+        Yii::app()->controller->sendEmail($this->_user, Yii::t('ciims.email', 'Your Password Reset Information'), 'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.forgot', array('user' => $this->_user, 'hash' => $hash), true, true);
 
         // Set success flash
         Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Site', 'An email has been sent to {{email}} with further instructions on how to reset your password', array(
