@@ -17,7 +17,7 @@ class ProfileController extends CiiController
 		return CMap::mergeArray(parent::filters(), array('accessControl'));
 	}
 
-    /**
+	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
@@ -67,7 +67,10 @@ class ProfileController extends CiiController
 			throw new CHttpException(404, Yii::t('ciims.controllers.Profile', "Oops! That user doesn't exist on our network!"));
 
 		$this->pageTitle = Yii::t('ciims.controllers.Profile', 'User {{user}} - CiiMS | {{sitename}}', array('{{user}}' => $model->name, '{{sitename}}' => Cii::getConfig('name', Yii::app()->name)));
-		$this->render('index', array('model' => $model, 'md' => new CMarkdownParser));
+		$this->render('index', array(
+			'model' => $model,
+			'md' => new CMarkdownParser
+		));
 	}
 
 	/**
@@ -76,48 +79,50 @@ class ProfileController extends CiiController
 	public function actionEdit()
 	{
 		$model = new ProfileForm;
-        $model->load(Yii::app()->user->id);
+		$model->load(Yii::app()->user->id);
 
 		if (Cii::get($_POST, 'ProfileForm', NULL) !== NULL)
 		{
-            $model->attributes = $_POST['ProfileForm'];
-            $model->password_repeat = $_POST['ProfileForm']['password_repeat'];
+			$model->attributes = $_POST['ProfileForm'];
+			$model->password_repeat = $_POST['ProfileForm']['password_repeat'];
 
 			if ($model->save())
 			{
 				Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'Your profile has been updated!'));
 				$this->redirect($this->createUrl('profile/index', array(
-                    'id' => $model->id,
-                    'username' => $model->username
-                )));
+					'id' => $model->id,
+					'username' => $model->username
+				)));
 			}
 			else
 				Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There were errors saving your profile. Please correct them before trying to save again.'));
 		}
 
-		$this->render('edit', array('model' => $model));
+		$this->render('edit', array(
+			'model' => $model
+		));
 	}
 
-    /**
-     * Send a new verification email to the user
-     */
-    public function actionResend()
-    {
-        $model = new ProfileForm;
-        $model->load(Yii::app()->user->id);
+	/**
+	 * Send a new verification email to the user
+	 */
+	public function actionResend()
+	{
+		$model = new ProfileForm;
+		$model->load(Yii::app()->user->id);
 
-        // If we don't have one on file, then someone the user got to a page they shouldn't have gotten to
-        // Seamlessly redirect them back
-        if ($model->getNewEmail() == NULL)
-            $this->redirect(Yii::app()->user->returnUrl);
+		// If we don't have one on file, then someone the user got to a page they shouldn't have gotten to
+		// Seamlessly redirect them back
+		if ($model->getNewEmail() == NULL)
+			$this->redirect(Yii::app()->user->returnUrl);
 
-        if ($model->sendVerificationEmail())
-            Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'A new verification email has been resent to {{user}}. Please check your email address.', array(
-                '{{user}}' => $model->getNewEmail()
-            )));
-        else
-            Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There was an error resending the verification email. Please try again later.'));
+		if ($model->sendVerificationEmail())
+			Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Profile', 'A new verification email has been resent to {{user}}. Please check your email address.', array(
+				'{{user}}' => $model->getNewEmail()
+			)));
+		else
+			Yii::app()->user->setFlash('error', Yii::t('ciims.controllers.Profile', 'There was an error resending the verification email. Please try again later.'));
 
-        $this->redirect($this->createUrl('profile/edit'));
-    }
+		$this->redirect($this->createUrl('profile/edit'));
+	}
 }
