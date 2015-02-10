@@ -14,24 +14,27 @@ class m141001_145619_init extends CDbMigration
 		$this->_moment = time();
 
 		// Try to get the table names, if we get something back, do not run this migration
-        try {
-            $test = Yii::app()->db->schema->getTables();
-            if (count($test) <= 1)
-                throw new Exception('CiiMS doesn\'t exist. Applying base migration');
-            return true;
-        } catch (Exception $e) {
-          // Yii will throw an exception if Yii::app()->db->schema is undefined (which is should be if we're doing this for the first time)
-          // This SHOULD throw an error if we're running this for the first time - it's the only way to check if we have a valid db or not.
-        }
+		try
+		{
+			$test = Yii::app()->db->schema->getTables();
+			if (count($test) <= 1)
+				throw new Exception('CiiMS doesn\'t exist. Applying base migration');
+			return true;
+		}
+		catch (Exception $e)
+		{
+			// Yii will throw an exception if Yii::app()->db->schema is undefined (which is should be if we're doing this for the first time)
+			// This SHOULD throw an error if we're running this for the first time - it's the only way to check if we have a valid db or not.
+		}
 
-        // Otherwise, run the install migration
-        $this->createUserTables();
+		// Otherwise, run the install migration
+		$this->createUserTables();
 
-        $this->createCategories();
+		$this->createCategories();
 
-        $this->createContent();
+		$this->createContent();
 
-        $this->createConfiguration();
+		$this->createConfiguration();
 	}
 
 	public function safeDown()
@@ -46,98 +49,98 @@ class m141001_145619_init extends CDbMigration
 	private function createUserTables()
 	{
 		$this->createTable('users', array(
-        	'id' 		=> 'pk',
-        	'email' 	=> 'string NOT NULL',
-        	'password' 	=> 'string NOT NULL',
-        	'username' => 'string NOT NULL',
-        	'user_role' => 'integer DEFAULT 1',
-        	'status' 	=> 'integer DEFAULT 1',
-        	'created' 	=> 'integer',
-        	'updated' 	=> 'integer'
-        ));
+			'id' 		=> 'pk',
+			'email' 	=> 'string NOT NULL',
+			'password' 	=> 'string NOT NULL',
+			'username'  => 'string NOT NULL',
+			'user_role' => 'integer DEFAULT 1',
+			'status' 	=> 'integer DEFAULT 1',
+			'created' 	=> 'integer',
+			'updated' 	=> 'integer'
+		));
 
-        $this->createTable('user_roles', array(
-        	'id' 		=> 'pk',
-        	'name' 		=> 'string NOT NULL',
-        	'created' 	=> 'integer',
-        	'updated' 	=> 'integer'
-        ));
+		$this->createTable('user_roles', array(
+			'id' 		=> 'pk',
+			'name' 		=> 'string NOT NULL',
+			'created' 	=> 'integer',
+			'updated' 	=> 'integer'
+		));
 
-        $this->createTable('user_metadata', array(
-        	'user_id' 	  => 'integer',
-        	'key'		  => 'string NOT NULL',
-        	'value' 	  => 'text NOT NULL',
-        	'entity_type' => 'integer',
-        	'created' 	  => 'integer',
-        	'updated' 	  => 'integer'
-        ));
+		$this->createTable('user_metadata', array(
+			'user_id' 	  => 'integer',
+			'key'		  => 'string NOT NULL',
+			'value' 	  => 'text NOT NULL',
+			'entity_type' => 'integer',
+			'created' 	  => 'integer',
+			'updated' 	  => 'integer'
+		));
 
-        // Create the necessary indexes on the columns
-        $this->createIndex('user_email', 'users', 'email', true);
+		// Create the necessary indexes on the columns
+		$this->createIndex('user_email', 'users', 'email', true);
 		$this->createIndex('user_username', 'users', 'username', true);
-        $this->createIndex('user_metadata', 'user_metadata', 'user_id, key', false);
+		$this->createIndex('user_metadata', 'user_metadata', 'user_id, key', false);
 
-        $this->addPrimaryKey('user_metadata_composite', 'user_metadata', 'user_id,key');
+		$this->addPrimaryKey('user_metadata_composite', 'user_metadata', 'user_id,key');
 
-        // Setup the foreign key constraints
-        $this->addForeignKey('user_roles_relation_fk', 'user_metadata', 'user_id', 'users', 'id', 'CASCADE', 'NO ACTION');
+		// Setup the foreign key constraints
+		$this->addForeignKey('user_roles_relation_fk', 'user_metadata', 'user_id', 'users', 'id', 'CASCADE', 'NO ACTION');
 
-        // Insert data into the tables
-        $this->insert('user_roles', array(
-        	'id'      => 1,
-        	'name' 	  => 'User',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		// Insert data into the tables
+		$this->insert('user_roles', array(
+			'id'      => 1,
+			'name' 	  => 'User',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 2,
-        	'name'    => 'Pending',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 2,
+			'name'    => 'Pending',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'     => 3,
-        	'name'    => 'Suspended',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 3,
+			'name'    => 'Suspended',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 5,
-        	'name'    => 'Collaborator',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 5,
+			'name'    => 'Collaborator',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 6,
-        	'name'    => 'Author',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 6,
+			'name'    => 'Author',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 7,
-        	'name'    => 'User',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 7,
+			'name'    => 'User',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 8,
-        	'name'    => 'Publisher',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 8,
+			'name'    => 'Publisher',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
-        $this->insert('user_roles', array(
-        	'id'      => 9,
-        	'name'    => 'Administrator',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));
+		$this->insert('user_roles', array(
+			'id'      => 9,
+			'name'    => 'Administrator',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 	}
 
 	/**
@@ -149,31 +152,31 @@ class m141001_145619_init extends CDbMigration
 		$this->createTable('categories', array(
 			'id' 		=> 'pk',
 			'parent_id' => 'integer DEFAULT 1',
-        	'name' 		=> 'string NOT NULL',
+			'name' 		=> 'string NOT NULL',
 			'slug' 	    => 'string NOT NULL',
-        	'created' 	=> 'integer',
-        	'updated' 	=> 'integer'
+			'created' 	=> 'integer',
+			'updated' 	=> 'integer'
 		));
 
 		$this->createTable('categories_metadata', array(
 			'category_id' => 'integer',
 			'key'		  => 'string NOT NULL',
-        	'value' 	  => 'text NOT NULL',
-        	'created' 	  => 'integer',
-        	'updated' 	  => 'integer'
+			'value' 	  => 'text NOT NULL',
+			'created' 	  => 'integer',
+			'updated' 	  => 'integer'
 		));
 
 		// Insert the first record into the categories table
 		$this->insert('categories', array(
-        	'id'      => 1,
-        	'name'    => 'Uncategorized',
-        	'slug'    => 'uncategorized',
-        	'created' => $this->_moment,
-        	'updated' => $this->_moment
-        ));       	
+			'id'      => 1,
+			'name'    => 'Uncategorized',
+			'slug'    => 'uncategorized',
+			'created' => $this->_moment,
+			'updated' => $this->_moment
+		));
 
 		$this->addPrimaryKey('categories_metadata_composite', 'categories_metadata', 'category_id,key');
-       	$this->addForeignKey('categories_parents_fk', 'categories', 'parent_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
+		$this->addForeignKey('categories_parents_fk', 'categories', 'parent_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
 		$this->addForeignKey('categories_metadata_fk', 'categories_metadata', 'category_id', 'categories', 'id', 'CASCADE', 'NO ACTION');
 	}
 
@@ -198,22 +201,22 @@ class m141001_145619_init extends CDbMigration
 			'like_count'  => 'integer DEFAULT 0',
 			'published'	  => 'integer',
 			'created'     => 'integer',
-        	'updated' 	  => 'integer'
+			'updated' 	  => 'integer'
 		));
 
 		$this->createTable('content_types', array(
 			'id'          => 'pk',
 			'name'		  => 'string NOT NULL',
 			'created'     => 'integer',
-        	'updated' 	  => 'integer'
+			'updated' 	  => 'integer'
 		));
 
 		$this->createTable('content_metadata', array(
 			'content_id'  => 'integer',
 			'key'		  => 'string NOT NULL',
-        	'value' 	  => 'text NOT NULL',
-        	'created' 	  => 'integer',
-        	'updated' 	  => 'integer'
+			'value' 	  => 'text NOT NULL',
+			'created' 	  => 'integer',
+			'updated' 	  => 'integer'
 		));
 
 		$this->createTable('comments', array(
@@ -222,21 +225,21 @@ class m141001_145619_init extends CDbMigration
 			'author_id'   => 'integer',
 			'comment'     => 'integer',
 			'created'     => 'integer',
-        	'updated' 	  => 'integer'
+			'updated' 	  => 'integer'
 		));
 
 		$this->insert('content_types', array(
 			'id'          => 1,
 			'name'        => 'Static Page',
-        	'created'     => $this->_moment,
-        	'updated'     => $this->_moment
+			'created'     => $this->_moment,
+			'updated'     => $this->_moment
 		));
 
 		$this->insert('content_types', array(
 			'id'          => 2,
 			'name'    	  => 'Blog Post',
-        	'created'     => $this->_moment,
-        	'updated'     => $this->_moment
+			'created'     => $this->_moment,
+			'updated'     => $this->_moment
 		));
 
 		$this->addPrimaryKey('content_composite', 'content', 'id, vid');
@@ -244,7 +247,7 @@ class m141001_145619_init extends CDbMigration
 		$this->execute('ALTER TABLE `content` CHANGE id id INT( 11 ) NOT NULL AUTO_INCREMENT');
 
 		$this->addPrimaryKey('content_metadata_composite', 'content_metadata', 'content_id,key');
-		
+
 		$this->createIndex('content_slug', 'content', 'slug', true);
 		$this->createIndex('content_author', 'content', 'author_id', false);
 		$this->createIndex('content_category', 'content', 'category_id', false);
@@ -267,9 +270,9 @@ class m141001_145619_init extends CDbMigration
 	{
 		$this->createTable('configuration', array(
 			'key'		  => 'string',
-        	'value' 	  => 'text NOT NULL',
-        	'created' 	  => 'integer',
-        	'updated' 	  => 'integer'
+			'value' 	  => 'text NOT NULL',
+			'created' 	  => 'integer',
+			'updated' 	  => 'integer'
 		));
 
 		$this->createTable('events', array(

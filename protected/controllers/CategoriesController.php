@@ -10,30 +10,30 @@ class CategoriesController extends CiiController
 		$id = Yii::app()->getRequest()->getQuery('id');
 
 		return CMap::mergeArray(parent::filters(), array(
-									array(
-										'CHttpCacheFilter + index',
-										'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
-										'etagSeed'=>$id
-									),
-									array(
-										'COutputCache + list',
-										'duration' => YII_DEBUG ? 1 : 86400,
-										'varyByParam' => array('page'),
-										'varyByLanguage' => true,
-										'dependency' => array(
-											'class'=>'CDbCacheDependency',
-											'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
-										)
-									),
-									array(
-										'COutputCache + rss',
-										'duration' => YII_DEBUG ? 1 : 86400,
-										'dependency' => array(
-											'class'=>'CDbCacheDependency',
-											'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
-										)
-									)
-								));
+			array(
+				'CHttpCacheFilter + index',
+				'cacheControl'=>Cii::get(Yii::app()->user->id) == NULL ? 'public' : 'private' .', no-cache, must-revalidate',
+				'etagSeed'=>$id
+			),
+			array(
+				'COutputCache + list',
+				'duration' => YII_DEBUG ? 1 : 86400,
+				'varyByParam' => array('page'),
+				'varyByLanguage' => true,
+				'dependency' => array(
+					'class'=>'CDbCacheDependency',
+					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+				)
+			),
+			array(
+				'COutputCache + rss',
+				'duration' => YII_DEBUG ? 1 : 86400,
+				'dependency' => array(
+					'class'=>'CDbCacheDependency',
+					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+				)
+			)
+		));
 	}
 
 	/**
@@ -55,13 +55,14 @@ class CategoriesController extends CiiController
 		$this->setLayout('default');
 
 		$this->setPageTitle(Yii::t('ciims.controllers.Categories', '{{app_name}} | {{label}}', array(
-									   '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
-									   '{{label}}'    => $category->name
-								   )));
+			'{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+			'{{label}}'    => $category->name
+		)));
 
 		$pageSize = Cii::getConfig('categoryPaginationSize', 10);
 
-		$criteria = Content::model()->getBaseCriteria()
+		$criteria = Content::model()
+					->getBaseCriteria()
 					->addCondition('type_id >= 2')
 					->addCondition("category_id = " . $id)
 					->addCondition('password = ""');
@@ -79,7 +80,15 @@ class CategoriesController extends CiiController
 
 		$pages->applyLimit($criteria);
 
-		$this->render('index', array('id'=>$id, 'category'=>$category, 'data'=>$data, 'itemCount'=>$itemCount, 'pages'=>$pages, 'meta' => array('description' => $category->getDescription())));
+		$this->render('index', array(
+			'id'		=> $id,
+			'category' 	=> $category,
+			'data' 		=> $data,
+			'itemCount' => $itemCount,
+			'pages' 	=> $pages,
+			'meta' 		=> array(
+				'description' => $category->getDescription()
+		)));
 	}
 
 	/**
@@ -94,7 +103,8 @@ class CategoriesController extends CiiController
 		header('Content-type: text/xml; charset=utf-8');
 		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
 		$this->setLayout(null);
-		$criteria = Content::model()->getBaseCriteria()
+		$criteria = Content::model()
+					->getBaseCriteria()
 					->addCondition('type_id >= 2')
 					->addCondition('password = ""');
 
@@ -104,7 +114,10 @@ class CategoriesController extends CiiController
 		$criteria->order = 'created DESC';
 		$data = Content::model()->findAll($criteria);
 
-		$this->renderPartial('application.views.site/rss', array('data'=>$data, 'url'=> $url));
+		$this->renderPartial('application.views.site/rss', array(
+			'data' 	=> $data, 
+			'url'	=> $url
+		));
 		return;
 	}
 }
