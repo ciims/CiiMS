@@ -19,21 +19,23 @@ Once all the requirements are met, you can begin the installation process.
 
 ## Installation Guide
 
-1 Git clone/Download the source code to your web root
+1 Install CiiMS through composer and generate an optimized autoloader
 
 ```
-git clone https://github.com/charlesportwoodii/CiiMS.git
-git checkout dev-master # 2.0.0 if hard versioning
+composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} dev-master # 2.0.0 if hard versioning
+cd {path}
+composer dump-autoload -o
 ```
 
-2 Install composer dependencies (this may take some time to complete depending upon your internet connection)
+If you want to develop on CiiMS, install CiiMS through git
 
 ```
-cd /path/to/ciims
-composer install -o
+git clone https://github.com/charlesportwoodii/CiiMS ciims
+cd ciims
+composer install
 ```
 
-3 Verify that the following directories are writable by your web server user.
+2 Verify that the following directories are writable by your web server user.
 
 ```
 # eg chown -R www-data:www-data {dir}
