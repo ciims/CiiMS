@@ -591,12 +591,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "cf392b83d484f752e9bbd4504619c3c456ca188a"
+                "reference": "b16c6e2be3a574cd04f1b5d806bab0747e3671a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/cf392b83d484f752e9bbd4504619c3c456ca188a",
-                "reference": "cf392b83d484f752e9bbd4504619c3c456ca188a",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/b16c6e2be3a574cd04f1b5d806bab0747e3671a0",
+                "reference": "b16c6e2be3a574cd04f1b5d806bab0747e3671a0",
                 "shasum": ""
             },
             "require": {
@@ -625,7 +625,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-02-09 11:36:41"
+            "time": "2015-02-10 11:37:48"
         },
         {
             "name": "guzzle/guzzle",
@@ -1128,12 +1128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "9e5da71e454e68b3caf7c0dd7b0ae8cb4b310ee0"
+                "reference": "44b3783adb350042aa1b9cd522c7d53a56a4c55d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/9e5da71e454e68b3caf7c0dd7b0ae8cb4b310ee0",
-                "reference": "9e5da71e454e68b3caf7c0dd7b0ae8cb4b310ee0",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/44b3783adb350042aa1b9cd522c7d53a56a4c55d",
+                "reference": "44b3783adb350042aa1b9cd522c7d53a56a4c55d",
                 "shasum": ""
             },
             "require": {
@@ -1200,7 +1200,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-09 16:17:00"
+            "time": "2015-02-10 01:10:42"
         },
         {
             "name": "doctrine/instantiator",
