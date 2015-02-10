@@ -60,13 +60,13 @@ class InvitationForm extends CFormModel
 
 		$user = new Users;
 		$user->attributes = array(
-			'email' => $this->email,
-			'firstName' => null,
-			'lastName' => null,
-			'displayName' => null,
-			'password' => null,
-			'user_role' => 5,
-			'status' => Users::PENDING_INVITATION
+			'email' 		=> $this->email,
+			'firstName'		=> null,
+			'lastName' 		=> null,
+			'displayName' 	=> null,
+			'password' 		=> null,
+			'user_role' 	=> 5,
+			'status' 		=> Users::PENDING_INVITATION
 		);
 
 		// Create a new user, but bypass validation
@@ -84,14 +84,14 @@ class InvitationForm extends CFormModel
 			if ($meta->save())
 			{
 				Yii::app()->controller->sendEmail(
-					$user, 
-					Yii::t('ciims.models.InvitationForm', "You've Been Invited..."), 
+					$user,
+					Yii::t('ciims.models.InvitationForm', "You've Been Invited..."),
 					'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.invite',
 					array(
-						'user' => $user, 
+						'user' => $user,
 						'hash' => $meta->value
-					), 
-					true, 
+					),
+					true,
 					true
 				);
 

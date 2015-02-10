@@ -31,13 +31,13 @@
  */
 class Content extends CiiModel
 {
-    public $pageSize = 9;
-	
-    public $viewFile = 'blog';
-    
-    public $layoutFile = 'blog';
+	public $pageSize = 9;
 
-    public $autosavedata = false;
+	public $viewFile = 'blog';
+
+	public $layoutFile = 'blog';
+
+	public $autosavedata = false;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -59,12 +59,12 @@ class Content extends CiiModel
 
 	/**
 	 * @return string[] primary key of the table
-	 **/	 
+	 **/
 	public function primaryKey()
 	{
 		return array('id');
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -80,7 +80,7 @@ class Content extends CiiModel
 			array('id, vid, author_id, title, content, excerpt, status, commentable, category_id, type_id, password, like_count, slug, published, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -89,10 +89,10 @@ class Content extends CiiModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'comments' => array(self::HAS_MANY, 'Comments', 'content_id'),
-			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
-			'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
-			'metadata' => array(self::HAS_MANY, 'ContentMetadata', 'content_id'),
+			'comments' 	=> array(self::HAS_MANY, 'Comments', 'content_id'),
+			'author' 	=> array(self::BELONGS_TO, 'Users', 'author_id'),
+			'category' 	=> array(self::BELONGS_TO, 'Categories', 'category_id'),
+			'metadata' 	=> array(self::HAS_MANY, 'ContentMetadata', 'content_id'),
 		);
 	}
 
@@ -178,7 +178,7 @@ class Content extends CiiModel
 		$tags = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'keywords'));
 		return $tags === NULL ? array() : json_decode($tags->value, true);
 	}
-	
+
 	/**
 	 * Adds a tag to the model
 	 * @param string $tag	The tag to add
@@ -189,15 +189,15 @@ class Content extends CiiModel
 		$tags = $this->tags;
 		if (in_array($tag, $tags)  || $tag == "")
 			return false;
-		
+
 		$tags[] = $tag;
 		$tags = json_encode($tags);
 		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
-		
-		$meta->value = $tags;		
+
+		$meta->value = $tags;
 		return $meta->save();
 	}
-	
+
 	/**
 	 * Removes a tag from the model
 	 * @param string $tag	The tag to remove
@@ -208,16 +208,16 @@ class Content extends CiiModel
 		$tags = $this->tags;
 		if (!in_array($tag, $tags) || $tag == "")
 			return false;
-		
+
 		$key = array_search($tag, $tags);
 		unset($tags[$key]);
 		$tags = json_encode($tags);
-		
+
 		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'keywords'));
-		$meta->value = $tags;		
+		$meta->value = $tags;
 		return $meta->save();
 	}
-	
+
 	/**
 	 * Provides a base criteria for status, uniqueness, and published states
 	 * @return CDBCriteria
@@ -226,9 +226,9 @@ class Content extends CiiModel
 	{
 		$criteria = new CDbCriteria();
 		return $criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=t.id)")
-		         		->addCondition('status = 1')
-		         		->addCondition('UNIX_TIMESTAMP() >= published');
-	}
+					    ->addCondition('status = 1')
+					    ->addCondition('UNIX_TIMESTAMP() >= published');
+	}	
 
 	/**
 	 * Returns the appropriate status' depending up the user's role
@@ -249,7 +249,7 @@ class Content extends CiiModel
 
 	/**
 	 * Determines if an article is published or not
-	 * @return boolean 
+	 * @return boolean
 	 */
 	public function isPublished()
 	{
@@ -273,71 +273,71 @@ class Content extends CiiModel
 	{
 		return implode(',', $this->tags);
 	}
-    
-    /**
-     * Retrieves the layout used from Metadata
-     * We cache this to speed up the viewfile
-     */
-    public function getLayout()
-    {
-        $layout = Yii::app()->cache->get('content-' . $this->id . '-layout');
-        if ($layout === false)
-        {
-            $model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
-            $layout = $model === NULL ? 'blog' : $model->value;
-            Yii::app()->cache->set('content-' . $this->id . '-layout', $layout);
-        }
-        
-        return $layout;
-    }
-    
-    /**
-     * Sets the layout
-     * @param [type] $data [description]
-     */
-    public function setLayout($data)
-    {
-    	$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
-		$meta->value = $data;		
+
+	/**
+	 * Retrieves the layout used from Metadata
+	 * We cache this to speed up the viewfile
+	 */
+	public function getLayout()
+	{
+		$layout = Yii::app()->cache->get('content-' . $this->id . '-layout');
+		if ($layout === false)
+		{
+			$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+			$layout = $model === NULL ? 'blog' : $model->value;
+			Yii::app()->cache->set('content-' . $this->id . '-layout', $layout);
+		}
+
+		return $layout;
+	}
+
+	/**
+	 * Sets the layout
+	 * @param [type] $data [description]
+	 */
+	public function setLayout($data)
+	{
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
+		$meta->value = $data;
 		return $meta->save();
-    }
+	}
 
-    /**
-     * Sets the view
-     * @param [type] $data [description]
-     */
-    public function setView($data)
-    {
-    	$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
-		$meta->value = $data;		
+	/**
+	 * Sets the view
+	 * @param [type] $data [description]
+	 */
+	public function setView($data)
+	{
+		$meta = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
+		$meta->value = $data;
 		return $meta->save();
-    }
+	}
 
-    /**
-     * Retrieves the viewfile used from Metadata
-     * We cache this to speed up the viewfile
-     */
-    public function getView()
-    {
-        $view = Yii::app()->cache->get('content-' . $this->id . '-view');
-        if ($view === false)
-        {
-            $model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
-            $view = $model === NULL ? 'blog' : $model->value;
-            Yii::app()->cache->set('content-' . $this->id . '-view', $view);
-        }
-        
-        return $view;
-    }
+	/**
+	 * Retrieves the viewfile used from Metadata
+	 * We cache this to speed up the viewfile
+	 */
+	public function getView()
+	{
+		$view = Yii::app()->cache->get('content-' . $this->id . '-view');
+		if ($view === false)
+		{
+			$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+			$view = $model === NULL ? 'blog' : $model->value;
+			Yii::app()->cache->set('content-' . $this->id . '-view', $view);
+		}
 
-    /**
-     * Updates the like_count after finding new data
-     */
-    protected function afterFind()
-    {
-    	parent::afterFind();
-    	$this->like_count = $this->getLikeCount();
-    }
+		return $view;
+	}
+
+	/**
+	 * Updates the like_count after finding new data
+	 */
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->like_count = $this->getLikeCount();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -374,34 +374,34 @@ class Content extends CiiModel
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
 			'sort' => array(
-                'defaultOrder' => 'published DESC'
-            ),
-            'pagination' => array(
-                'pageSize' => $this->pageSize
-            )
+				'defaultOrder' => 'published DESC'
+			),
+			'pagination' => array(
+				'pageSize' => $this->pageSize
+			)
 		));
 	}
-	
+
 	/**
-     * Finds all active records with the specified primary keys.
-     * Overloaded to support composite primary keys. For our content, we want to find the latest version of that primary key, defined as MAX(vid) WHERE id = pk
-     * See {@link find()} for detailed explanation about $condition and $params.
-     * @param mixed $pk primary key value(s). Use array for multiple primary keys. For composite key, each key value must be an array (column name=>column value).
-     * @param mixed $condition query condition or criteria.
-     * @param array $params parameters to be bound to an SQL statement.
-     * @return array the records found. An empty array is returned if none is found.
-     */
+	 * Finds all active records with the specified primary keys.
+	 * Overloaded to support composite primary keys. For our content, we want to find the latest version of that primary key, defined as MAX(vid) WHERE id = pk
+	 * See {@link find()} for detailed explanation about $condition and $params.
+	 * @param mixed $pk primary key value(s). Use array for multiple primary keys. For composite key, each key value must be an array (column name=>column value).
+	 * @param mixed $condition query condition or criteria.
+	 * @param array $params parameters to be bound to an SQL statement.
+	 * @return array the records found. An empty array is returned if none is found.
+	 */
 	public function findByPk($pk, $condition='', $params=array())
 	{
 		// If we do not supply a condition or parameters, use our overwritten method
 		if ($condition == '' && empty($params))
-		{			
+		{
 			$criteria = new CDbCriteria;
 			$criteria->addCondition("t.id={$pk}");
 			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id={$pk})");
 			return $this->query($criteria);
 		}
-		
+
 		return parent::findByPk($pk, $condition, $params);
 	}
 
@@ -419,21 +419,21 @@ class Content extends CiiModel
 		return $this->query($criteria, true);
 	}
 
-    /**
-     * BeforeValidate
-     * @see CActiveRecord::beforeValidate
-     */
+	/**
+	 * BeforeValidate
+	 * @see CActiveRecord::beforeValidate
+	 */
 	public function beforeValidate()
-	{   	   	
-	   	// Allow publication times to be set automatically
+	{
+		// Allow publication times to be set automatically
 		$this->published = time();
-		
+
 		if (strlen($this->excerpt) == 0)
-    		$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
-	 	
-	    return parent::beforeValidate();
+			$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
+
+		return parent::beforeValidate();
 	}
-	
+
 	/**
 	 * Saves a prototype copy of the model so that we can get an id back to work with
 	 * @return $model->save(false) without any validation rules
@@ -441,215 +441,216 @@ class Content extends CiiModel
 	public function savePrototype($author_id)
 	{
 		$this->title = '';
-        $this->content = '';
-        $this->excerpt = '';
-        $this->commentable = 1;
-        $this->status = 0;
-        $this->category_id = 1;
-        $this->type_id = 2;
-        $this->password = null;
-        $this->created = time();
-        $this->updated = time();
-        $this->published = time();
-        $this->vid = 1;
-        $this->slug = "";
-        $this->author_id = $author_id;
+		$this->content = '';
+		$this->excerpt = '';
+		$this->commentable = 1;
+		$this->status = 0;
+		$this->category_id = 1;
+		$this->type_id = 2;
+		$this->password = null;
+		$this->created = time();
+		$this->updated = time();
+		$this->published = time();
+		$this->vid = 1;
+		$this->slug = "";
+		$this->author_id = $author_id;
 
-        // TODO: Why doesn't Yii return the PK id field? But it does return VID? AutoIncriment bug?
-        if ($this->save(false))
-        {
-        	$data = Content::model()->findByAttributes(array('created' => $this->created));
-        	$this->id = $data->id;
-        	return true;
-        }
+		// TODO: Why doesn't Yii return the PK id field? But it does return VID? AutoIncriment bug?
+		if ($this->save(false))
+		{
+			$data = Content::model()->findByAttributes(array('created' => $this->created));
+			$this->id = $data->id;
+			return true;
+		}
 
-        return false;
+		return false;
 	}
 
-    /**
-     * BeforeSave
-     * Clears caches for rebuilding, creates the end slug that we are going to use
-     * @see CActiveRecord::beforeSave();
-     */
+	/**
+	 * BeforeSave
+	 * Clears caches for rebuilding, creates the end slug that we are going to use
+	 * @see CActiveRecord::beforeSave();
+	 */
 	public function beforeSave()
 	{
 		$this->slug = $this->verifySlug($this->slug, $this->title);
 		Yii::app()->cache->delete('CiiMS::Content::list');
 		Yii::app()->cache->delete('CiiMS::Routes');
-		
+
 		Yii::app()->cache->set('content-' . $this->id . '-layout', $this->layoutFile);
-        Yii::app()->cache->set('content-' . $this->id . '-view', $this->viewFile);
-        
+		Yii::app()->cache->set('content-' . $this->id . '-view', $this->viewFile);
+
 		return parent::beforeSave();
 	}
-	
-    /**
-     * AfterSave
-     * Updates the layout and view if necessary
-     * @see CActiveRecord::afterSave()
-     */
-    public function afterSave()
-    {
-        $this->saveLayoutAndView();
 
-        // Delete the AutoSave document on update
-        if ($this->isPublished())
-        {
-            $autosaveModel = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'autosave'));
-            if ($autosaveModel != NULL)
-                $autosaveModel->delete();
-        }
-        
-        return parent::afterSave();
-    }
-    
-    /**
-     * BeforeDelete
-     * Clears caches for rebuilding
-     * @see CActiveRecord::beforeDelete
-     */
+	/**
+	 * AfterSave
+	 * Updates the layout and view if necessary
+	 * @see CActiveRecord::afterSave()
+	 */
+	public function afterSave()
+	{
+		$this->saveLayoutAndView();
+
+		// Delete the AutoSave document on update
+		if ($this->isPublished())
+		{
+			$autosaveModel = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'autosave'));
+			if ($autosaveModel != NULL)
+				$autosaveModel->delete();
+		}
+
+		return parent::afterSave();
+	}
+
+	/**
+	 * BeforeDelete
+	 * Clears caches for rebuilding
+	 * @see CActiveRecord::beforeDelete
+	 */
 	public function beforeDelete()
-	{		
+	{
 		Yii::app()->cache->delete('CiiMS::Content::list');
 		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('content-' . $this->id . '-layout');
-        Yii::app()->cache->delete('content-' . $this->id . '-view');
-        
+		Yii::app()->cache->delete('content-' . $this->id . '-view');
+
 		return parent::beforeDelete();
 	}
-	
-    /**
-     * Saves the layout and view file to the database if they are different from blog
-     * If either are blog, we won't worry about applying it since we can pick this up pretty cheaply inline via caching
-     */
-    private function saveLayoutAndView()
-    {
-        $this->saveLayout();
-        $this->saveView();
-    }
-    
-    /**
-     * Saves or deletes the layout in the db if necessary 
-     */
-    private function saveLayout()
-    {
-        $model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
-        
-        // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model->isNewRecord && $this->layoutFile === 'blog')
-            return true;
-        
-        // If this is an existing record, and we're changing it to blog, delete it instead of saving.
-        if ($this->layoutFile == 'blog' && !$model->isNewRecord)
-            return $model->delete();
-        
-        $model->value = $this->layoutFile;
-        return $model->save();
-    }
-    
-    /**
-     * Saves or deletes the view in the db if necessary
-     */
-    private function saveView()
-    {
-    	$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
-        
-        // If we don't have anything in ContentMetadata and the layout file is blog
-        if ($model->isNewRecord && $this->viewFile === 'blog')
-            return true;
-        
-        // If this is an existing record, and we're changing it to blog, delete it instead of saving.
-        if ($this->viewFile == 'blog' && !$model->isNewRecord)
-            return $model->delete();
-        
-        $model->value = $this->viewFile;
-        return $model->save();
-    }
 
-    /**
-     * Retrieves the available view files under the current theme
-     * @return array    A list of files by name
-     */
-    public function getViewFiles($theme='default')
-    {
-        return $this->getFiles($theme, 'views.content');
-    }
-    
-    /**
-     * Retrieves the available layouts under the current theme
-     * @return array    A list of files by name
-     */
-    public function getLayoutFiles($theme='default')
-    {
-        return $this->getFiles($theme, 'views.layouts');
-    }
-    
-    /**
-     * Retrieves view files for a particular path
-     * @param  string $theme  The theme to reference
-     * @param  string $type   The view type to lookup
-     * @return array $files   An array of files
-     */
-    private function getFiles($theme='default', $type='views')
-    {
-        $folder = $type;
+	/**
+	 * Saves the layout and view file to the database if they are different from blog
+	 * If either are blog, we won't worry about applying it since we can pick this up pretty cheaply inline via caching
+	 */
+	private function saveLayoutAndView()
+	{
+		$this->saveLayout();
+		$this->saveView();
+	}
 
-        if ($type == 'view')
-            $folder = 'content';
+	/**
+	 * Saves or deletes the layout in the db if necessary
+	 */
+	private function saveLayout()
+	{
+		$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
 
-        $returnFiles = array();
+		// If we don't have anything in ContentMetadata and the layout file is blog
+		if ($model->isNewRecord && $this->layoutFile === 'blog')
+			return true;
 
-        if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
-            $theme = 'default';
+		// If this is an existing record, and we're changing it to blog, delete it instead of saving.
+		if ($this->layoutFile == 'blog' && !$model->isNewRecord)
+			return $model->delete();
 
-        $files = Yii::app()->cache->get($theme.'-available-' . $type);
+		$model->value = $this->layoutFile;
+		return $model->save();
+	}
 
-        if ($files === false)
-        {
-            $fileHelper = new CFileHelper;
-            $files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
-            Yii::app()->cache->set($theme.'-available-' . $type, $files);
-        }
+	/**
+	 * Saves or deletes the view in the db if necessary
+	 */
+	private function saveView()
+	{
+		$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
 
-        foreach ($files as $file)
-        {
-            $f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
-            
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-              $f = trim(substr($f, strrpos($f, '\\') + 1));
+		// If we don't have anything in ContentMetadata and the layout file is blog
+		if ($model->isNewRecord && $this->viewFile === 'blog')
+			return true;
 
-            if (!in_array($f, array('all', 'password', '_post')))
-                $returnFiles[$f] = $f;
-        }
-        
-        return $returnFiles;
-    }
-    
-    /**
-     * Fancy truncate function to help clean up our strings for the excerpt
-     * @param string $string    The string we want to apply the text to
-     * @param int    $limit     How many characters we want to break into
-     * @param string $break     Characters we want to break on if possible
-     * @param string $pad       The padding we want to apply
-     * @return string           Truncated string
-     */
+		// If this is an existing record, and we're changing it to blog, delete it instead of saving.
+		if ($this->viewFile == 'blog' && !$model->isNewRecord)
+			return $model->delete();
+
+		$model->value = $this->viewFile;
+		return $model->save();
+	}
+
+	/**
+	 * Retrieves the available view files under the current theme
+	 * @return array    A list of files by name
+	 */
+	public function getViewFiles($theme='default')
+	{
+		return $this->getFiles($theme, 'views.content');
+	}
+
+	/**
+	 * Retrieves the available layouts under the current theme
+	 * @return array    A list of files by name
+	 */
+	public function getLayoutFiles($theme='default')
+	{
+		return $this->getFiles($theme, 'views.layouts');
+	}
+
+	/**
+	 * Retrieves view files for a particular path
+	 * @param  string $theme  The theme to reference
+	 * @param  string $type   The view type to lookup
+	 * @return array $files   An array of files
+	 */
+	private function getFiles($theme='default', $type='views')
+	{
+		$folder = $type;
+
+		if ($type == 'view')
+			$folder = 'content';
+
+		$returnFiles = array();
+
+		if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
+			$theme = 'default';
+
+		$files = Yii::app()->cache->get($theme.'-available-' . $type);
+
+		if ($files === false)
+		{
+			$fileHelper = new CFileHelper;
+			$files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
+			Yii::app()->cache->set($theme.'-available-' . $type, $files);
+		}
+
+		foreach ($files as $file)
+		{
+			$f = str_replace('content', '', str_replace('/', '', str_replace('.php', '', substr( $file, strrpos( $file, '/' ) + 1 ))));
+
+			if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+				$f = trim(substr($f, strrpos($f, '\\') + 1));
+
+			if (!in_array($f, array('all', 'password', '_post')))
+				$returnFiles[$f] = $f;
+		}
+
+		return $returnFiles;
+	}
+
+	/**
+	 * Fancy truncate function to help clean up our strings for the excerpt
+	 * @param string $string    The string we want to apply the text to
+	 * @param int    $limit     How many characters we want to break into
+	 * @param string $break     Characters we want to break on if possible
+	 * @param string $pad       The padding we want to apply
+	 * @return string           Truncated string
+	 */
 	private function myTruncate($string, $limit, $break=".", $pad="...")
 	{
 		// return with no change if string is shorter than $limit
-		if(strlen($string) <= $limit) 
-		  return $string;
+		if(strlen($string) <= $limit)
+			return $string;
 
 		// is $break present between $limit and the end of the string?
 		if(false !== ($breakpoint = strpos($string, $break, $limit)))
 		{
-			if($breakpoint < strlen($string) - 1) {
+			if($breakpoint < strlen($string) - 1)
+			{
 				$string = substr($string, 0, $breakpoint) . $pad;
 			}
 		}
 
 		return $string;
 	}
-	
+
 	/**
 	 * checkSlug - Recursive method to verify that the slug can be used
 	 * This method is purposfuly declared here to so that Content::findByPk is used instead of CiiModel::findByPk
@@ -659,34 +660,34 @@ class Content extends CiiModel
 	 */
 	public function checkSlug($slug, $id=NULL)
 	{
-	    $category = false;
+		$category = false;
 
 		// Find the number of items that have the same slug as this one
 		$count = $this->countByAttributes(array('slug'=>$slug . $id));
 
-        // Make sure we don't have a collision with a Category
+		// Make sure we don't have a collision with a Category
 		if ($count == 0)
-        {
-            $category = true;
-            $count = Categories::model()->countByAttributes(array('slug'=>$slug . $id));
-        }
+		{
+			$category = true;
+			$count = Categories::model()->countByAttributes(array('slug'=>$slug . $id));
+		}
 
 		// If we found an item that matched, it's possible that it is the current item (or a previous version of it)
 		// in which case we don't need to alter the slug
 		if ($count)
 		{
-		    // Ensures we don't have a collision on category
-		    if ($category)
-                return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+			// Ensures we don't have a collision on category
+			if ($category)
+				return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
 
-		    // Pull the data that matches
-		    $data = $this->findByPk($this->id);
+			// Pull the data that matches
+			$data = $this->findByPk($this->id);
 
-		    // Check the pulled data id to the current item
-		    if ($data !== NULL && $data->id == $this->id && $data->slug == $this->slug)
-			    return $slug;
+			// Check the pulled data id to the current item
+			if ($data !== NULL && $data->id == $this->id && $data->slug == $this->slug)
+				return $slug;
 		}
-		
+
 		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
 			return $slug . $id;
 		else

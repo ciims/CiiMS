@@ -26,11 +26,11 @@ class RegisterForm extends CFormModel
 	 */
 	public $username;
 
-    /**
-     * The user model
-     * @param Users $_user
-     */
-    protected $_user;
+	/**
+	 * The user model
+	 * @param Users $_user
+	 */
+	protected $_user;
 
 	/**
 	 * Declares the validation rules.
@@ -40,38 +40,37 @@ class RegisterForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			// username and password are required
 			array('email, password, password_repeat, username', 'required'),
 			array('password', 'compare'),
 			array('password', 'length', 'min'=>8),
 			array('email', 'email'),
-            array('email', 'isEmailUnique')
+			array('email', 'isEmailUnique')
 		);
 	}
 
-    /**
-     * Determines if an email is already taken or not
-     * @param array $attributes
-     * @param array $params
-     * @return boolean
-     */
-    public function isEmailUnique($attributes, $params)
-    {
-        $this->_user = Users::model()->findByAttributes(array('email' => $this->email));
+	/**
+	 * Determines if an email is already taken or not
+	 * @param array $attributes
+	 * @param array $params
+	 * @return boolean
+	 */
+	public function isEmailUnique($attributes, $params)
+	{
+		$this->_user = Users::model()->findByAttributes(array('email' => $this->email));
 
-        if ($this->_user != NULL)
-        {
-            $this->addError('email', Yii::t('ciims.models.RegisterForm', 'That email address is already in use'));
-            return false;
-        }
+		if ($this->_user != NULL)
+		{
+			$this->addError('email', Yii::t('ciims.models.RegisterForm', 'That email address is already in use'));
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * Model attribute labels
-     * @return array
-     */
+	/**
+	 * Model attribute labels
+	 * @return array
+	 */
 	public function attributeLabels()
 	{
 		return array(
@@ -82,48 +81,49 @@ class RegisterForm extends CFormModel
 		);
 	}
 
-    /**
-     * Creates a new user, and sends the appropriate messaging out
-     * @return boolean
-     */
-    public function save($sendEmail = true)
-    {
-        if (!$this->validate())
-            return false;
+	/**
+	 * Creates a new user, and sends the appropriate messaging out
+	 * @return boolean
+	 */
+	public function save($sendEmail = true)
+	{
+		if (!$this->validate())
+			return false;
 
-        $this->_user = new Users;
+		$this->_user = new Users;
 
-        // Set the model attributes
-        $this->_user->attributes = array(
-            'email'       => $this->email,
-            'password'    => $this->password,
-            'username'    => $this->username,
-            'user_role'   => 1,
-            'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE
-        );
+		// Set the model attributes
+		$this->_user->attributes = array(
+			'email'       => $this->email,
+			'password'    => $this->password,
+			'username'    => $this->username,
+			'user_role'   => 1,
+			'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE
+		);
 
-        // If we saved the user model, return true
-        if($this->_user->save())
-        {
-            // This class my be extended by other modules, in which case we don't need to send an activation form if we don't want need it to.
-            if ($sendEmail)
-            {
-                $factory = new CryptLib\Random\Factory;
-                $meta = new UserMetadata;
-                $meta->attributes = array(
-                    'user_id' => $this->_user->id,
-                    'key'     => 'activationKey',
-                    'value'   => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
-                );
-                $meta->save();
+		// If we saved the user model, return true
+		if($this->_user->save())
+		{
+			// This class my be extended by other modules, in which case we don't need to send an activation form if we don't want need it to.
+			if ($sendEmail)
+			{
+				$factory = new CryptLib\Random\Factory;
+				$meta = new UserMetadata;
+				$meta->attributes = array(
+					'user_id' => $this->_user->id,
+					'key'     => 'activationKey',
+					'value'   => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
+				);
+				
+				$meta->save();
 
-                // Send the registration email
-                Yii::app()->controller->sendEmail($this->_user, Yii::t('ciims.email','Activate Your Account'), 'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.register', array('user' => $this->_user, 'hash' => $meta->value), true, true);
-            }
+				// Send the registration email
+				Yii::app()->controller->sendEmail($this->_user, Yii::t('ciims.email','Activate Your Account'), 'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.register', array('user' => $this->_user, 'hash' => $meta->value), true, true);
+			}
 
-            return true;
-        }
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

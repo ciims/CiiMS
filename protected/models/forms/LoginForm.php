@@ -39,11 +39,11 @@ class LoginForm extends CFormModel
 	 */
 	private $_identity;
 
-    /**
-     * The Application Name (??)
-     * // TODO: Remember what this is used for
-     * @var $app_name
-     */
+	/**
+	 * The Application Name (??)
+	 * // TODO: Remember what this is used for
+	 * @var $app_name
+	 */
 	public $app_name = NULL;
 
 	/**
@@ -64,10 +64,8 @@ class LoginForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			// username and password are required
 			array('username, password', 'required'),
-            array('username', 'email'),
-			// password needs to be authenticated
+			array('username', 'email'),
 			array('password', 'authenticate'),
 		);
 	}
@@ -80,7 +78,7 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
-			$this->_identity=new CiiUserIdentity($this->username,$this->password);
+			$this->_identity = new CiiUserIdentity($this->username,$this->password);
 			$this->_identity->app_name = $this->app_name;
 			if(!$this->_identity->authenticate($this->force))
 				$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
@@ -93,15 +91,15 @@ class LoginForm extends CFormModel
 	 */
 	public function login()
 	{
-        if (!$this->validate())
-            return false;
+		if (!$this->validate())
+			return false;
 
 		if($this->_identity===null)
 		{
 			$this->_identity=new CiiUserIdentity($this->username,$this->password);
 			$this->_identity->authenticate();
 		}
-		
+
 		if($this->_identity->errorCode===CiiUserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24 : 0; // 30 days

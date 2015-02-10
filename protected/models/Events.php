@@ -45,7 +45,7 @@ class Events extends CiiModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('event, uri', 'required'),
+			array('event, uri', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('event, uri, ', 'length', 'max'=>255),
 			array('event_data, created', 'safe'),
@@ -65,16 +65,16 @@ class Events extends CiiModel
 			'event' => 'Event',
 			'event_data' => 'Event Data',
 			'uri' => 'URI',
-            'content_id' => 'Content ID',
+			'content_id' => 'Content ID',
 			'created' => 'Created',
 		);
 	}
 
-    public function beforeValidate()
-    {
-        $this->event_data = CJSON::encode($this->event_data);
-        return parent::beforeValidate();
-    }
+	public function beforeValidate()
+	{
+		$this->event_data = CJSON::encode($this->event_data);
+		return parent::beforeValidate();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

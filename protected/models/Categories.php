@@ -21,9 +21,9 @@ class Categories extends CiiModel
 {
 	public $pageSize = 15;
 
-    public $description = NULL;
+	public $description = NULL;
 
-    public $keywords = array();
+	public $keywords = array();
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -45,12 +45,12 @@ class Categories extends CiiModel
 
 	/**
 	 * @return string[] primary key of the table
-	 **/	 
+	 **/
 	public function primaryKey()
 	{
 		return array('id');
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -92,21 +92,21 @@ class Categories extends CiiModel
 			'parent_id' => Yii::t('ciims.models.Categories', 'Parent'),
 			'name'      => Yii::t('ciims.models.Categories', 'Name'),
 			'slug'      => Yii::t('ciims.models.Categories', 'Slug'),
-            'description' => Yii::t('ciims.models.Categories', 'Description'),
+			'description' => Yii::t('ciims.models.Categories', 'Description'),
 			'created'   => Yii::t('ciims.models.Categories', 'Created'),
 			'updated'   => Yii::t('ciims.models.Categories', 'Updated'),
 		);
 	}
 
-    public function getDescription()
-    {
-        $this->description = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
-        if ($this->description == null || $this->description == false)
-            return NULL;
+	public function getDescription()
+	{
+		$this->description = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
+		if ($this->description == null || $this->description == false)
+			return NULL;
 
-        $this->description = $this->description->value;
-        return $this->description;
-    }
+		$this->description = $this->description->value;
+		return $this->description;
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -123,70 +123,70 @@ class Categories extends CiiModel
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->order = "id DESC";
-		
+
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $this->pageSize
-            )
+			'pagination' => array(
+				'pageSize' => $this->pageSize
+			)
 		));
 	}
-    
-    /**
-     * Gets keyword tags for this entry
-     * @return array
-     */
-    public function getKeywords()
-    {
-        $tags = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
-        return $tags === NULL ? array() : CJSON::decode($tags->value);
-    }
-    
-    /**
-     * Adds a tag to the model
-     * @param string $tag	The tag to add
-     * @return bool			If the insert was successful or not
-     */
-    public function addKeyword($tag)
-    {
-        $tags = $this->keywords;
-        if (in_array($tag, $tags)  || $tag == "")
-            return false;
-        
-        $tags[] = $tag;
-        $tags = CJSON::encode($tags);
-        $metaTag = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
-        if ($metaTag == false || $metaTag == NULL)
-        {
-            $metaTag = new CategoriestMetadata;
-            $metaTag->content_id = $this->id;
-            $metaTag->key = 'keywords';
-        }
-        
-        $metaTag->value = $tags;		
-        return $metaTag->save();
-    }
-    
-    /**
-     * Removes a tag from the model
-     * @param string $tag	The tag to remove
-     * @return bool			If the removal was successful
-     */
-    public function removeKeyword($tag)
-    {
-        $tags = $this->keywords;
-        if (!in_array($tag, $tags) || $tag == "")
-            return false;
-        
-        $key = array_search($tag, $tags);
-        unset($tags[$key]);
-        $tags = CJSON::encode($tags);
 
-        $metaTag = CategoryMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
-        $metaTag->value = $tags;
-        return $metaTag->save();
-    }    
-	
+	/**
+	 * Gets keyword tags for this entry
+	 * @return array
+	 */
+	public function getKeywords()
+	{
+		$tags = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+		return $tags === NULL ? array() : CJSON::decode($tags->value);
+	}
+
+	/**
+	 * Adds a tag to the model
+	 * @param string $tag	The tag to add
+	 * @return bool			If the insert was successful or not
+	 */
+	public function addKeyword($tag)
+	{
+		$tags = $this->keywords;
+		if (in_array($tag, $tags)  || $tag == "")
+			return false;
+
+		$tags[] = $tag;
+		$tags = CJSON::encode($tags);
+		$metaTag = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+		if ($metaTag == false || $metaTag == NULL)
+		{
+			$metaTag = new CategoriestMetadata;
+			$metaTag->content_id = $this->id;
+			$metaTag->key = 'keywords';
+		}
+
+		$metaTag->value = $tags;
+		return $metaTag->save();
+	}
+
+	/**
+	 * Removes a tag from the model
+	 * @param string $tag	The tag to remove
+	 * @return bool			If the removal was successful
+	 */
+	public function removeKeyword($tag)
+	{
+		$tags = $this->keywords;
+		if (!in_array($tag, $tags) || $tag == "")
+			return false;
+
+		$key = array_search($tag, $tags);
+		unset($tags[$key]);
+		$tags = CJSON::encode($tags);
+
+		$metaTag = CategoryMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'keywords'));
+		$metaTag->value = $tags;
+		return $metaTag->save();
+	}
+
 	/**
 	 * Verifies the slug before validating the model
 	 */
@@ -197,28 +197,28 @@ class Categories extends CiiModel
 		return parent::beforeValidate();
 	}
 
-    /**
-     * Flushes URL data from the cache before the model is updated
-     */
+	/**
+	 * Flushes URL data from the cache before the model is updated
+	 */
 	public function afterSave()
-	{		
-        $meta = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
-        if ($meta == NULL)
-            $meta = new CategoriesMetadata;
-        
-        $meta->category_id = $this->id;
-        $meta->key = 'description';
-        $meta->value  = $this->description;
+	{
+		$meta = CategoriesMetadata::model()->findByAttributes(array('category_id' => $this->id, 'key' => 'description'));
+		if ($meta == NULL)
+			$meta = new CategoriesMetadata;
 
-        $meta->save();
+		$meta->category_id = $this->id;
+		$meta->key = 'description';
+		$meta->value  = $this->description;
 
-        Yii::app()->cache->delete('CiiMS::Content::list');
+		$meta->save();
+
+		Yii::app()->cache->delete('CiiMS::Content::list');
 		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('categories-pid');
 
-	    return parent::afterSave();
+		return parent::afterSave();
 	}
-	
+
 	/**
 	 * Automatically corrects parent tree issues that arise when a parent category node
 	 * is deleted.
@@ -232,30 +232,32 @@ class Categories extends CiiModel
 			Yii::app()->user->setFlash('error', Yii::t('ciims.models.Categories', 'This category cannot be deleted'));
 			return false;
 		}
-		
+
 		Yii::app()->cache->delete('CiiMS::Content::list');
 		Yii::app()->cache->delete('CiiMS::Routes');
 		Yii::app()->cache->delete('categories-pid');
-		
+
 		$parent = $this->parent_id;
 		$id = $this->id;
 
 		// Reassign all posts to the parent category
-		Yii::app()->db->createCommand('UPDATE content SET category_id = :parent_id WHERE category_id = :id')
-					  ->bindParam(':parent_id', $parent)
-					  ->bindParam(':id', $id)
-					  ->execute();
+		Yii::app()->db
+				->createCommand('UPDATE content SET category_id = :parent_id WHERE category_id = :id')
+				->bindParam(':parent_id', $parent)
+				->bindParam(':id', $id)
+				->execute();
 
 		// Reassign all child categories to the parent category
 		$data = $this->findAllByAttributes(array('parent_id' => $id));
-		
+
 		foreach ($data as $row)
 		{
 			$id = $row->id;
-			Yii::app()->db->createCommand('UPDATE categories SET parent_id = :parent_id WHERE id = :id')
-					  ->bindParam(':parent_id', $parent)
-					  ->bindParam(':id', $id)
-					  ->execute();
+			Yii::app()->db
+					->createCommand('UPDATE categories SET parent_id = :parent_id WHERE id = :id')
+					->bindParam(':parent_id', $parent)
+					->bindParam(':id', $id)
+					->execute();
 		}
 
 		return parent::beforeDelete();
@@ -275,10 +277,10 @@ class Categories extends CiiModel
 			$response = Yii::app()->db->createCommand('SELECT id, parent_id, name, slug FROM categories')->queryAll();
 			Yii::app()->cache->set('categories-pid', $response);
 		}
-		
+
 		return $this->_getParentCategories($response, $id);
 	}
-	
+
 	/**
 	 * Recursive callback for retrieving parent categories
 	 * @param  int  $id      The category we're seeking
@@ -289,7 +291,7 @@ class Categories extends CiiModel
 	{
 		if ($id == 1)
 			return array_reverse($stack);
-		
+
 		foreach ($all_categories as $k=>$v)
 		{
 			if ($v['id'] == $id)
@@ -299,45 +301,45 @@ class Categories extends CiiModel
 			}
 		}
 	}
-    
-    /**
-     * checkSlug - Recursive method to verify that the slug can be used
-     * This method is purposfuly declared here to so that Content::findByPk is used instead of CiiModel::findByPk
-     * @param string $slug - the slug to be checked
-     * @param int $id - the numeric id to be appended to the slug if a conflict exists
-     * @return string $slug - the final slug to be used
-     */
-    public function checkSlug($slug, $id=NULL)
-    {
-        $content = false;
-        
-        // Find the number of items that have the same slug as this one
-        $count = $this->countByAttributes(array('slug'=>$slug . $id));
-        
-        if ($count == 0)
-        {
-            $content = true;
-            $count = Content::model()->countByAttributes(array('slug'=>$slug . $id));
-        }
-        
-        // If we found an item that matched, it's possible that it is the current item (or a previous version of it)
-        // in which case we don't need to alter the slug
-        if ($count >= 1)
-        {
-            if ($content)
-                return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
-            
-            // Pull the data that matches
-            $data = $this->findByPk($this->id == NULL ? -1 : $this->id);
-            
-            // Check the pulled data id to the current item
-            if ($data !== NULL && $data->id == $this->id)
-                return $slug;
-        }
-        
-        if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
-            return $slug . $id;
-        else
-            return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
-    }
+
+	/**
+	 * checkSlug - Recursive method to verify that the slug can be used
+	 * This method is purposfuly declared here to so that Content::findByPk is used instead of CiiModel::findByPk
+	 * @param string $slug - the slug to be checked
+	 * @param int $id - the numeric id to be appended to the slug if a conflict exists
+	 * @return string $slug - the final slug to be used
+	 */
+	public function checkSlug($slug, $id=NULL)
+	{
+		$content = false;
+
+		// Find the number of items that have the same slug as this one
+		$count = $this->countByAttributes(array('slug'=>$slug . $id));
+
+		if ($count == 0)
+		{
+			$content = true;
+			$count = Content::model()->countByAttributes(array('slug'=>$slug . $id));
+		}
+
+		// If we found an item that matched, it's possible that it is the current item (or a previous version of it)
+		// in which case we don't need to alter the slug
+		if ($count >= 1)
+		{
+			if ($content)
+				return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+
+			// Pull the data that matches
+			$data = $this->findByPk($this->id == NULL ? -1 : $this->id);
+
+			// Check the pulled data id to the current item
+			if ($data !== NULL && $data->id == $this->id)
+				return $slug;
+		}
+
+		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
+			return $slug . $id;
+		else
+			return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+	}
 }

@@ -42,10 +42,10 @@ class ThemeSettings extends CiiSettingsModel
 
 	/**
 	 * Retrieves all of the themes from webroot.themes and returns them in an array group by type, each containing
-	 * the contents of theme.json. 
+	 * the contents of theme.json.
 	 *
 	 * The themes are then cached for easy retrieval later. (I really hate unecessary DiskIO if something isn't changing...)
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getThemes()
@@ -71,21 +71,21 @@ class ThemeSettings extends CiiSettingsModel
 
 			array_unshift($directories, Yii::getPathOfAlias('webroot.themes').DS.$currentTheme);
 
-	        foreach($directories as $dir)
-	        {
-	            $json = CJSON::decode(file_get_contents($dir . DIRECTORY_SEPARATOR . 'composer.json'));
-	            $name = $json['name'];
-	            $key = str_replace('ciims-themes/', '', $name);
+			foreach($directories as $dir)
+			{
+				$json = CJSON::decode(file_get_contents($dir . DIRECTORY_SEPARATOR . 'composer.json'));
+				$name = $json['name'];
+				$key = str_replace('ciims-themes/', '', $name);
 
-	            $themes[$key] = array(
-	                'path' => $dir,
-	                'name' => $name,
-	                'hidden' => isset($json['hidden']) ? $json['hidden'] : false
-	            );
-	        }
+				$themes[$key] = array(
+					'path' 		=> $dir,
+					'name' 		=> $name,
+					'hidden' 	=> isset($json['hidden']) ? $json['hidden'] : false
+				);
+			}
 
 			Yii::app()->cache->set('settings_themes', $themes);
-	        return $themes;
+			return $themes;
 		}
 
 		return $themes;

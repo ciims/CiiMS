@@ -51,12 +51,12 @@ class Comments extends CiiModel
 
 	/**
 	 * @return string[] primary key of the table
-	 **/	 
+	 **/
 	public function primaryKey()
 	{
 		return array('id');
 	}
-	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -99,7 +99,7 @@ class Comments extends CiiModel
 			'updated' 	 => Yii::t('ciims.models.Comments', 'Updated'),
 		);
 	}
-	
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -119,7 +119,7 @@ class Comments extends CiiModel
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	/**
 	 * Returns the API attributes for the model
 	 * @return array
@@ -127,40 +127,40 @@ class Comments extends CiiModel
 	public function getApiAttributes($params = array(), $relations = false)
 	{
 		$data = parent::getApiAttributes($params, $relations);
-        $user = Users::model()->findByPk($this->author_id);
-        $attributes = $user->getApiAttributes();
-        $data['user'] = array(
-            'firstName' => $attributes['firstName'],
-            'lastName' => $attributes['lastName'],
-            'username' => $attributes['username'],
-        );
+		$user = Users::model()->findByPk($this->author_id);
+		$attributes = $user->getApiAttributes();
+		$data['user'] = array(
+			'firstName' => $attributes['firstName'],
+			'lastName' => $attributes['lastName'],
+			'username' => $attributes['username'],
+		);
 
-        $content = Content::model()->findByPk($data['content_id']);
-        $data['content'] = array(
-        	'id' => $data['content_id'],
-        	'title' => $content->title,
-        	'slug' => $content->slug
-        );
+		$content = Content::model()->findByPk($data['content_id']);
+		$data['content'] = array(
+			'id' => $data['content_id'],
+			'title' => $content->title,
+			'slug' => $content->slug
+		);
 
-        // If this user cannot comment without approval
-        if ($user->getReputation() < 100)
-        	$data['banned_comment'] = true;
+		// If this user cannot comment without approval
+		if ($user->getReputation() < 100)
+			$data['banned_comment'] = true;
 
-        return $data;
+		return $data;
 	}
 
 	/**
 	 * Set the created and updated records
 	 * @see CiiModel::beforeSave();
 	 */
-	public function beforeSave() 
-	{	 
+	public function beforeSave()
+	{
 		if ($this->isNewRecord)
 			$this->_isNewRecord = true;
 
-	 	if (Content::model()->findByPk($this->content_id)->commentable)
-	    	return parent::beforeSave();
-		else 
+		if (Content::model()->findByPk($this->content_id)->commentable)
+			return parent::beforeSave();
+		else
 			return false;
 	}
 

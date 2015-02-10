@@ -3,15 +3,15 @@
 class InviteForm extends CFormModel
 {
 	/**
-	 * @var $id int		The User's ID that we are working with 
+	 * @var $id int		The User's ID that we are working with
 	 */
 	public $id = NULL;
-	
+
 	/**
 	 * @var $displayName string	The user's requested display name
 	 */
 	public $username = NULL;
-	
+
 	/**
 	 * @var $email string
 	 */
@@ -30,7 +30,7 @@ class InviteForm extends CFormModel
 	{
 		return array(
 			array('id, username, password', 'required'),
-			array('username, password', 'length', 'max' => 255)	
+			array('username, password', 'length', 'max' => 255)
 		);
 	}
 
@@ -41,9 +41,9 @@ class InviteForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('ciims.models.InviteForm', 'ID'),
-			'username' => Yii::t('ciims.models.InviteForm', 'Username'),
-			'password' => Yii::t('ciims.models.InviteForm', 'Password'),
+			'id' 		=> Yii::t('ciims.models.InviteForm', 'ID'),
+			'username' 	=> Yii::t('ciims.models.InviteForm', 'Username'),
+			'password' 	=> Yii::t('ciims.models.InviteForm', 'Password'),
 		);
 	}
 
@@ -55,7 +55,7 @@ class InviteForm extends CFormModel
 	{
 		if (!$this->validate())
 			return false;
-		
+
 		$user = Users::model()->findByPk($this->id);
 
 		// Bcrypt the initial password instead of just using the basic hashing mechanism
@@ -73,5 +73,4 @@ class InviteForm extends CFormModel
 
 		return $user->save();
 	}
-
 }

@@ -12,29 +12,29 @@ class CiiMessageCommand extends CiiConsoleCommand
 	private function getArgs()
 	{
 		return array(
-		   'type'=>'core',
-		   'sourcePath'=>Yii::getPathOfAlias('application').DS,
-		   'messagePath'=>Yii::getPathOfAlias('application.messages').DS,
-		   'languages'=>array('en_us'),
-		   'fileTypes'=>array('php'),
-		   'overwrite'=>true,
-		   'exclude'=>array(
-			   'assets',
-			   'css',
-			   'js',
-			   'images',
-			   '.svn',
-			   '.gitignore',
-			   '.git',
-			   'yiilite.php',
-			   'yiit.php',
-			   'i18n/data',
-			   'messages',
-			   'vendor',
-			   'tests',
-			   'runtime',
-		   )
-	   );
+			'type'			=> 'core',
+			'sourcePath'	=> Yii::getPathOfAlias('application').DS,
+			'messagePath'	=> Yii::getPathOfAlias('application.messages').DS,
+			'languages'		=> array('en_us'),
+			'fileTypes'		=> array('php'),
+			'overwrite'		=> true,
+			'exclude'		=> array(
+				'assets',
+				'css',
+				'js',
+				'images',
+				'.svn',
+				'.gitignore',
+				'.git',
+				'yiilite.php',
+				'yiit.php',
+				'i18n/data',
+				'messages',
+				'vendor',
+				'tests',
+				'runtime'
+			)
+		);
 	}
 
 	public function actionThemes($name=NULL)

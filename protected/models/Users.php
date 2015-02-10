@@ -84,10 +84,10 @@ class Users extends CiiModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'comments' => array(self::HAS_MANY, 'Comments', 'user_id'),
-			'content' => array(self::HAS_MANY, 'Content', 'author_id'),
-			'metadata' => array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
-			'role' => array(self::BELONGS_TO, 'UserRoles', 'user_role'),
+			'comments' 	=> array(self::HAS_MANY, 'Comments', 'user_id'),
+			'content' 	=> array(self::HAS_MANY, 'Content', 'author_id'),
+			'metadata' 	=> array(self::HAS_MANY, 'UserMetadata', 'user_id', 'condition' => '`metadata`.`entity_type` = 0'),
+			'role' 		=> array(self::BELONGS_TO, 'UserRoles', 'user_role'),
 		);
 	}
 
@@ -108,106 +108,109 @@ class Users extends CiiModel
 		);
 	}
 
-    /**
-     * Gets the first and last name instead of the username
-     */
-    public function getName()
-    {
-        return $this->username;
-    }
+	/**
+	 * Gets the first and last name instead of the username
+	 */
+	public function getName()
+	{
+		return $this->username;
+	}
 
-    public function getusername()
-    {
-    	return $this->username;
-    }
+	/**
+	 * Retrieves the username
+	 */
+	public function getUsername()
+	{
+		return $this->username;
+	}
 
-    /**
-     * Retrieves the reputation for a given user
-     * @return int
-     */
-    public function getReputation($model=false)
-    {
-    	$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
+	/**
+	 * Retrieves the reputation for a given user
+	 * @return int
+	 */
+	public function getReputation($model=false)
+	{
+		$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
 
-    	if ($reputation === NULL)
-    	{
-    		$reputation = new UserMetadata;
-    		$reputation->attributes = array(
-    			'user_id' => $this->id,
-    			'key' => 'reputation',
-    			'value' => 150
-    		);
+		if ($reputation === NULL)
+		{
+			$reputation = new UserMetadata;
+			$reputation->attributes = array(
+				'user_id' => $this->id,
+				'key' => 'reputation',
+				'value' => 150
+			);
 
-            $reputation->save();
-    		if ($model == true)
-                return $reputation;
-            return 0;
-    	}
+			$reputation->save();
+			if ($model == true)
+				return $reputation;
+			return 0;
+		}
 
-        if ($model)
-            return $reputation;
+		if ($model)
+			return $reputation;
 
-    	return $reputation->value;
-    }
+		return $reputation->value;
+	}
 
-    /**
-     * Updates a user's reputation
-     * @return boolean
-     */
-    public function setReputation($rep = 10)
-    {
-        $reputation = $this->getReputation(true);
-    	$reputation->value += $rep;
-    	return $reputation->save();
-    }
+	/**
+	 * Updates a user's reputation
+	 * @return boolean
+	 */
+	public function setReputation($rep = 10)
+	{
+		$reputation = $this->getReputation(true);
+		$reputation->value += $rep;
+		return $reputation->save();
+	}
 
-    /**
-     * Retrieves all comments that the user has flagged
-     * @return array
-     */
-    public function getFlaggedComments($model=false)
-    {
-        $flags = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'flaggedComments'));
+	/**
+	 * Retrieves all comments that the user has flagged
+	 * @return array
+	 */
+	public function getFlaggedComments($model=false)
+	{
+		$flags = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'flaggedComments'));
 
-        if ($flags === NULL)
-        {
-            $flags = new UserMetadata;
-            $flags->attributes = array(
-                'user_id' => $this->id,
-                'key' => 'flaggedComments',
-                'value' => CJSON::encode(array())
-            );
+		if ($flags === NULL)
+		{
+			$flags = new UserMetadata;
+			$flags->attributes = array(
+				'user_id' => $this->id,
+				'key' => 'flaggedComments',
+				'value' => CJSON::encode(array())
+			);
 
-            $flags->save();
+			$flags->save();
 
-            if ($model == true)
-                return $flags;
-            return array();
-        }
+			if ($model == true)
+				return $flags;
+			return array();
+		}
 
-        if ($model == true)
-            return $flags;
-        return CJSON::decode($flags->value);
-    }
+		if ($model == true)
+			return $flags;
+		return CJSON::decode($flags->value);
+	}
 
-    /**
-     * Flags a comment with a given ID
-     * @return boolean
-     */
-    public function flagComment($id)
-    {
-        $flaggedComments = $this->getFlaggedComments(true);
-        $flags = CJSON::decode($flaggedComments->value);
+	/**
+	 * Flags a comment with a given ID
+	 * @return boolean
+	 */
+	public function flagComment($id)
+	{
+		$flaggedComments = $this->getFlaggedComments(true);
+		$flags = CJSON::decode($flaggedComments->value);
 
-        // If the comment has already been flagged, just return true
-        if (in_array($id, $flags))
-            return true;
+		// If the comment has already been flagged, just return true
+		if (in_array($id, $flags))
+			return true;
 
-        $flags[] = $id;
-        $flaggedComments->value = CJSON::encode($flags);
+		$flags[] = $id;
+		$flaggedComments->value = CJSON::encode($flags);
 
-        return $flaggedComments->save();
-    }
+		return $flaggedComments->save();
+	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -229,9 +232,9 @@ class Users extends CiiModel
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => $this->pageSize
-            )
+			'pagination' => array(
+				'pageSize' => $this->pageSize
+			)
 		));
 	}
 
@@ -241,28 +244,28 @@ class Users extends CiiModel
 	 * @see CActiveRecord::beforeValidate()
 	 **/
 	public function beforeValidate()
-    {
-        // If the password is nulled, or unchanged
-        if ($this->password == NULL || $this->password == Cii::get($this->_oldAttributes, 'password', false))
+	{
+		// If the password is nulled, or unchanged
+		if ($this->password == NULL || $this->password == Cii::get($this->_oldAttributes, 'password', false))
 		{
 			if (!$this->isNewRecord)
 				$this->password = $this->_oldAttributes['password'];
 		}
 		else
 		{
-            $this->password = password_hash($this->password, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
+			$this->password = password_hash($this->password, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
 
-            if (!$this->isNewRecord)
-                Yii::app()->controller->sendEmail(
-                	$this,
-                	Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'),
-                	'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
-                	array('user' => $this)
-                );
-        }
+			if (!$this->isNewRecord)
+				Yii::app()->controller->sendEmail(
+					$this,
+					Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'),
+					'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
+					array('user' => $this)
+				);
+		}
 
-        return parent::beforeValidate();
-    }
+		return parent::beforeValidate();
+	}
 
 	/**
 	 * Lets us know if the user likes a given content post or not

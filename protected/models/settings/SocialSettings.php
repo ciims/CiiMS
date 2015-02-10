@@ -17,7 +17,7 @@ class SocialSettings extends CiiSettingsModel
 	protected $ha_google_id = NULL;
 	protected $ha_google_secret = NULL;
 	protected $ha_google_scope = NULL;
-    protected $google_plus_public_server_key = NULL;
+	protected $google_plus_public_server_key = NULL;
 
 	protected $ha_linkedin_enabled = false;
 	protected $ha_linkedin_key = NULL;
@@ -66,7 +66,7 @@ class SocialSettings extends CiiSettingsModel
 			'ha_google_id' => Yii::t('ciims.models.social', 'Client ID'),
 			'ha_google_secret' => Yii::t('ciims.models.social', 'Client Secret'),
 			'ha_google_scope' => Yii::t('ciims.models.social', 'Scope'),
-            'google_plus_public_server_key' => Yii::t('ciims.models.social', 'Public Server API Key'),
+			'google_plus_public_server_key' => Yii::t('ciims.models.social', 'Public Server API Key'),
 
 			'ha_linkedin_enabled' => Yii::t('ciims.models.social', 'Social Auth'),
 			'ha_linkedin_key' => Yii::t('ciims.models.social', 'Consumer Key'),
