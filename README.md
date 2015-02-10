@@ -40,7 +40,7 @@ composer dump-autoload -o
 
 ## Screenshots
 
-__A beautitul default theme__
+__A beautiful default theme__
 
 ![Default Theme](	
 https://s3.amazonaws.com/ciims-s3-us-01/5A2ED631D493E053774C31C513F2C60FF5208B1B3AB8193D7D8D351251E2207D.png)
