@@ -22,7 +22,7 @@ class CategoriesController extends CiiController
 				'varyByLanguage' => true,
 				'dependency' => array(
 					'class'=>'CDbCacheDependency',
-					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? ' WHERE category_id = ' . $id : NULL),
 				)
 			),
 			array(
@@ -30,7 +30,7 @@ class CategoriesController extends CiiController
 				'duration' => YII_DEBUG ? 1 : 86400,
 				'dependency' => array(
 					'class'=>'CDbCacheDependency',
-					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? 'WHERE category_id = ' . $id : NULL),
+					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? ' WHERE category_id = ' . $id : NULL),
 				)
 			)
 		));
