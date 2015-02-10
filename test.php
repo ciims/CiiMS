@@ -11,7 +11,7 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 if (!isset($_SERVER['CIIMS_ENV']))
-    $_SERVER['CIIMS_ENV'] = 'main';
+	$_SERVER['CIIMS_ENV'] = 'main';
 
 $config = require __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig = require __DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
@@ -27,7 +27,7 @@ $_SERVER['SERVER_NAME'] = 'localhost';
 
 // Set the request component in the test script
 $config['components']['request'] = array(
-    'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
+	'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
 );
 
 /**
@@ -44,6 +44,6 @@ $config['modules'] = array(
 
 // Return for Codeception
 return array(
-    'class' => 'CWebApplication',
-    'config' => $config,
+	'class' => 'CWebApplication',
+	'config' => $config
 );

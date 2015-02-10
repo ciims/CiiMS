@@ -21,7 +21,7 @@ date_default_timezone_set('UTC');
 
 // This is the configuration file
 if (!isset($_SERVER['CIIMS_ENV']))
-   $_SERVER['CIIMS_ENV'] = 'main';
+	$_SERVER['CIIMS_ENV'] = 'main';
 
 $config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
@@ -67,7 +67,7 @@ if (YII_DEBUG && YII_TRACE_LEVEL == 3)
 
 	// Enable all the logging routes
 	foreach ($config['components']['log']['routes'] as $k=>$v)
-		$config['components']['log']['routes'][$k]['enabled'] = YII_DEBUG;
+	$config['components']['log']['routes'][$k]['enabled'] = YII_DEBUG;
 }
 
 // Run the Yii application instance

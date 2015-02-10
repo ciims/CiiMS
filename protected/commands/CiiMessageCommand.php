@@ -12,29 +12,29 @@ class CiiMessageCommand extends CiiConsoleCommand
 	private function getArgs()
 	{
 		return array(
-			'type'=>'core',
-			'sourcePath'=>Yii::getPathOfAlias('application').DS,
-			'messagePath'=>Yii::getPathOfAlias('application.messages').DS,
-			'languages'=>array('en_us'),
-			'fileTypes'=>array('php'),
-			'overwrite'=>true,
-			'exclude'=>array(
-				'assets',
-				'css',
-				'js',
-				'images',
-				'.svn',
-				'.gitignore',
-				'.git',
-				'yiilite.php',
-				'yiit.php',
-				'i18n/data',
-				'messages',
-				'vendor',
-				'tests',
-				'runtime',
-			)
-		);
+		   'type'=>'core',
+		   'sourcePath'=>Yii::getPathOfAlias('application').DS,
+		   'messagePath'=>Yii::getPathOfAlias('application.messages').DS,
+		   'languages'=>array('en_us'),
+		   'fileTypes'=>array('php'),
+		   'overwrite'=>true,
+		   'exclude'=>array(
+			   'assets',
+			   'css',
+			   'js',
+			   'images',
+			   '.svn',
+			   '.gitignore',
+			   '.git',
+			   'yiilite.php',
+			   'yiit.php',
+			   'i18n/data',
+			   'messages',
+			   'vendor',
+			   'tests',
+			   'runtime',
+		   )
+	   );
 	}
 
 	public function actionThemes($name=NULL)
@@ -125,7 +125,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 		$messages=array();
 
 		foreach($files as $file)
-			$messages=array_merge_recursive($messages,$this->extractMessages($file,$translator));
+		$messages=array_merge_recursive($messages,$this->extractMessages($file,$translator));
 
 		foreach($languages as $language)
 		{
@@ -154,7 +154,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 				}
 				else
 					$dirPath = implode(DS, explode('.', $category));
-				
+
 				if ($dirPath == "")
 					continue;
 				@mkdir($dir . DS . $dirPath, 0777, true);
@@ -168,49 +168,49 @@ class CiiMessageCommand extends CiiConsoleCommand
 	 * @param string $translator
 	 */
 	protected function extractMessages($fileName,$translator)
-    {
-    	//echo $fileName;
+	{
+		//echo $fileName;
 //        echo "Extracting messages from $fileName...\n";
-        $subject=file_get_contents($fileName);
-        $messages=array();
-        if(!is_array($translator))
-            $translator=array($translator);
+		$subject=file_get_contents($fileName);
+		$messages=array();
+		if(!is_array($translator))
+			$translator=array($translator);
 
-        foreach ($translator as $currentTranslator)
-        {
-            $n=preg_match_all('/\b'.$currentTranslator.'\s*\(\s*(\'[\w.\/]*?(?<!\.)\'|"[\w.]*?(?<!\.)")\s*,\s*(\'.*?(?<!\\\\)\'|".*?(?<!\\\\)")\s*[,\)]/s',$subject,$matches,PREG_SET_ORDER);
+		foreach ($translator as $currentTranslator)
+		{
+			$n=preg_match_all('/\b'.$currentTranslator.'\s*\(\s*(\'[\w.\/]*?(?<!\.)\'|"[\w.]*?(?<!\.)")\s*,\s*(\'.*?(?<!\\\\)\'|".*?(?<!\\\\)")\s*[,\)]/s',$subject,$matches,PREG_SET_ORDER);
 
-            for($i=0;$i<$n;++$i)
-            {
-                if(($pos=strpos($matches[$i][1],'.'))!==false)
-                {
-                	if (strpos($matches[$i][1],'Dashboard')!==false || strpos($matches[$i][1],'Hybridauth')!==false || strpos($matches[$i][1],'Install')!==false)
+			for($i=0; $i<$n; ++$i)
+			{
+				if(($pos=strpos($matches[$i][1],'.'))!==false)
+				{
+					if (strpos($matches[$i][1],'Dashboard')!==false || strpos($matches[$i][1],'Hybridauth')!==false || strpos($matches[$i][1],'Install')!==false)
 						$category='module.'.substr($matches[$i][1],1,-1);
 					else if (strpos($matches[$i][1],'Theme')!==false)
 						$category=$matches[$i][1];
 					else
 						$category=substr($matches[$i][1],$pos+1,-1);
-                }                   
-                else 
-                    $category=substr($matches[$i][1],1,-1);
-                   
+				}
+				else
+					$category=substr($matches[$i][1],1,-1);
 
-                $message=$matches[$i][2];
 
-                $category = str_replace("'", '', $category);
-                $messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
-            }
-        }
-        return $messages;
-    }
+				$message=$matches[$i][2];
 
-    /**
-     * @param string $fileName
-     * @param boolean $overwrite
-     * @param boolean $removeOld
-     * @param boolean $sort
-     */
-    protected function generateMessageFile($messages,$fileName,$overwrite,$removeOld,$sort)
+				$category = str_replace("'", '', $category);
+				$messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
+			}
+		}
+		return $messages;
+	}
+
+	/**
+	 * @param string $fileName
+	 * @param boolean $overwrite
+	 * @param boolean $removeOld
+	 * @param boolean $sort
+	 */
+	protected function generateMessageFile($messages,$fileName,$overwrite,$removeOld,$sort)
 	{
 		echo "Saving messages to $fileName...";
 		if(is_file($fileName))
@@ -223,8 +223,10 @@ class CiiMessageCommand extends CiiConsoleCommand
 				echo "nothing new...skipped.\n";
 				return;
 			}
+
 			$merged=array();
 			$untranslated=array();
+
 			foreach($messages as $message)
 			{
 				if(array_key_exists($message,$translated) && strlen($translated[$message])>0)
@@ -232,12 +234,16 @@ class CiiMessageCommand extends CiiConsoleCommand
 				else
 					$untranslated[]=$message;
 			}
+
 			ksort($merged);
 			sort($untranslated);
 			$todo=array();
+
 			foreach($untranslated as $message)
 				$todo[$message]='';
+
 			ksort($translated);
+
 			foreach($translated as $message=>$translation)
 			{
 				if(!isset($merged[$message]) && !isset($todo[$message]) && !$removeOld)
@@ -250,11 +256,15 @@ class CiiMessageCommand extends CiiConsoleCommand
 						$todo[$message]='@@'.$translation.'@@';
 				}
 			}
+
 			$merged=array_merge($todo,$merged);
+
 			if($sort)
 				ksort($merged);
+
 			if($overwrite === false)
 				$fileName.='.merged';
+
 			echo "translation merged.\n";
 		}
 		else
@@ -262,32 +272,34 @@ class CiiMessageCommand extends CiiConsoleCommand
 			$merged=array();
 			foreach($messages as $message)
 				$merged[$message]='';
+
 			ksort($merged);
 			echo "saved.\n";
 		}
 		$array=str_replace("\r",'',var_export($merged,true));
 		$content=<<<EOD
-<?php
-/**
- * Message translations.
- *
- * This file is automatically generated by 'yiic message' command.
- * It contains the localizable messages extracted from source code.
- * You may modify this file by translating the extracted messages.
- *
- * Each array element represents the translation (value) of a message (key).
- * If the value is empty, the message is considered as not translated.
- * Messages that no longer need translation will have their translations
- * enclosed between a pair of '@@' marks.
- *
- * Message string can be used with plural forms format. Check i18n section
- * of the guide for details.
- *
- * NOTE, this file must be saved in UTF-8 encoding.
- */
-return $array;
+			<?php
+				/**
+				* Message translations.
+				*
+				* This file is automatically generated by 'yiic message' command.
+				* It contains the localizable messages extracted from source code.
+				* You may modify this file by translating the extracted messages.
+				*
+				* Each array element represents the translation (value) of a message (key).
+				* If the value is empty, the message is considered as not translated.
+				* Messages that no longer need translation will have their translations
+				* enclosed between a pair of '@@' marks.
+				*
+				* Message string can be used with plural forms format. Check i18n section
+				* of the guide for details.
+				*
+				* NOTE, this file must be saved in UTF-8 encoding.
+				*/
+				return $array;
 
-EOD;
+		EOD;
+		
 		file_put_contents($fileName, $content);
 	}
 }

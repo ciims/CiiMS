@@ -29,7 +29,7 @@ require(__DIR__.DS.'..'.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii
 Yii::setPathOfAlias('vendor', __DIR__.DS.'..'.DS.'vendor'.DS);
 
 if (!isset($_SERVER['CIIMS_ENV']))
-    $_SERVER['CIIMS_ENV'] = 'main';
+	$_SERVER['CIIMS_ENV'] = 'main';
 
 $config = __DIR__.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
 $defaultConfig=__DIR__.DS.'config'.DS.'main.default.php';
@@ -51,8 +51,9 @@ unset($config['components']['user']);
 $app=Yii::createConsoleApplication($config);
 $app->commandRunner->addCommands(YII_PATH.'/cli/commands');
 $env=@getenv('YII_CONSOLE_COMMANDS');
+
 if(!empty($env))
-   $app->commandRunner->addCommands($env);
+	$app->commandRunner->addCommands($env);
 
 $modules = array_filter(glob(__DIR__.'/modules/*', GLOB_ONLYDIR));
 
