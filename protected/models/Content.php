@@ -280,15 +280,8 @@ class Content extends CiiModel
 	 */
 	public function getLayout()
 	{
-		$layout = Yii::app()->cache->get('content-' . $this->id . '-layout');
-		if ($layout === false)
-		{
-			$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
-			$layout = $model === NULL ? 'blog' : $model->value;
-			Yii::app()->cache->set('content-' . $this->id . '-layout', $layout);
-		}
-
-		return $layout;
+		$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'layout'));
+		return $model === NULL ? 'blog' : $model->value;
 	}
 
 	/**
@@ -319,15 +312,8 @@ class Content extends CiiModel
 	 */
 	public function getView()
 	{
-		$view = Yii::app()->cache->get('content-' . $this->id . '-view');
-		if ($view === false)
-		{
-			$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
-			$view = $model === NULL ? 'blog' : $model->value;
-			Yii::app()->cache->set('content-' . $this->id . '-view', $view);
-		}
-
-		return $view;
+		$model  = ContentMetadata::model()->findByAttributes(array('content_id' => $this->id, 'key' => 'view'));
+		return $model === NULL ? 'blog' : $model->value;
 	}
 
 	/**
@@ -426,7 +412,8 @@ class Content extends CiiModel
 	public function beforeValidate()
 	{
 		// Allow publication times to be set automatically
-		$this->published = time();
+		if (empty($this->published))
+			$this->published = time();
 
 		if (strlen($this->excerpt) == 0)
 			$this->excerpt = $this->myTruncate($this->content, 250, '.', '');
@@ -490,8 +477,6 @@ class Content extends CiiModel
 	 */
 	public function afterSave()
 	{
-		$this->saveLayoutAndView();
-
 		// Delete the AutoSave document on update
 		if ($this->isPublished())
 		{
@@ -518,53 +503,6 @@ class Content extends CiiModel
 		return parent::beforeDelete();
 	}
 
-	/**
-	 * Saves the layout and view file to the database if they are different from blog
-	 * If either are blog, we won't worry about applying it since we can pick this up pretty cheaply inline via caching
-	 */
-	private function saveLayoutAndView()
-	{
-		$this->saveLayout();
-		$this->saveView();
-	}
-
-	/**
-	 * Saves or deletes the layout in the db if necessary
-	 */
-	private function saveLayout()
-	{
-		$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'layout'));
-
-		// If we don't have anything in ContentMetadata and the layout file is blog
-		if ($model->isNewRecord && $this->layoutFile === 'blog')
-			return true;
-
-		// If this is an existing record, and we're changing it to blog, delete it instead of saving.
-		if ($this->layoutFile == 'blog' && !$model->isNewRecord)
-			return $model->delete();
-
-		$model->value = $this->layoutFile;
-		return $model->save();
-	}
-
-	/**
-	 * Saves or deletes the view in the db if necessary
-	 */
-	private function saveView()
-	{
-		$model = $this->getPrototype('ContentMetadata', array('content_id' => $this->id, 'key' => 'view'));
-
-		// If we don't have anything in ContentMetadata and the layout file is blog
-		if ($model->isNewRecord && $this->viewFile === 'blog')
-			return true;
-
-		// If this is an existing record, and we're changing it to blog, delete it instead of saving.
-		if ($this->viewFile == 'blog' && !$model->isNewRecord)
-			return $model->delete();
-
-		$model->value = $this->viewFile;
-		return $model->save();
-	}
 
 	/**
 	 * Retrieves the available view files under the current theme
