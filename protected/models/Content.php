@@ -570,7 +570,7 @@ class Content extends CiiModel
 	 * Retrieves the available view files under the current theme
 	 * @return array    A list of files by name
 	 */
-	public function getViewFiles($theme='default')
+	public function getViewFiles($theme=null)
 	{
 		return $this->getFiles($theme, 'views.content');
 	}
@@ -579,7 +579,7 @@ class Content extends CiiModel
 	 * Retrieves the available layouts under the current theme
 	 * @return array    A list of files by name
 	 */
-	public function getLayoutFiles($theme='default')
+	public function getLayoutFiles($theme=null)
 	{
 		return $this->getFiles($theme, 'views.layouts');
 	}
@@ -590,8 +590,11 @@ class Content extends CiiModel
 	 * @param  string $type   The view type to lookup
 	 * @return array $files   An array of files
 	 */
-	private function getFiles($theme='default', $type='views')
+	private function getFiles($theme=null, $type='views')
 	{
+		if ($theme == null)
+			$theme = Cii::getConfig('theme', 'default');
+
 		$folder = $type;
 
 		if ($type == 'view')
