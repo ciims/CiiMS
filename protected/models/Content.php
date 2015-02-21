@@ -380,7 +380,7 @@ class Content extends CiiModel
 	public function findByPk($pk, $condition='', $params=array())
 	{
 		// If we do not supply a condition or parameters, use our overwritten method
-		if ($condition == '' && empty($params))
+		if ($condition == '' && empty($params) && $pk != null)
 		{
 			$criteria = new CDbCriteria;
 			$criteria->addCondition("t.id={$pk}");
