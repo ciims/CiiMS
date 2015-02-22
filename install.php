@@ -9,6 +9,7 @@
  * Otherwise, this is a basic Yii App running only the install module
  */
 
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 error_reporting(-1);
 ini_set('display_errors', 'true');
 
