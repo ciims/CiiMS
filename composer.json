@@ -46,7 +46,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.19",
+        "php": ">=5.5.0",
         "ext-curl": "*",
         "ext-mcrypt": "*",
         "ext-openssl": "*",
