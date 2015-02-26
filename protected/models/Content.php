@@ -137,7 +137,7 @@ class Content extends CiiModel
 		foreach ($x->query('//a') as $node)
 		{
 			$element = $node->getAttribute('href');
-			if ($element[0] !== "/")
+			if (isset($element[0]) && $element[0] !== "/")
 			{
 				$node->setAttribute('rel', 'nofollow');
 				$node->setAttribute('target', '_blank');
