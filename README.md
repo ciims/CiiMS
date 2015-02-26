@@ -41,7 +41,7 @@ composer dump-autoload -o
 
 ## Benchmarks
 
-How fast is CiiMS? In a post-installation comparison, using out of the box (non-debug) configurations over SSL, CiiMS outperforms Ghost, Wordpress, Bolt, and OctoberCMS in a 100 user, 10 minute siege test. CiiMS s nearly 30% faster than Ghost, and over 130% faster than Wordpress. Better performance reduces your hosting costs, which can save you hundreds of dollars a year in hosting costs.
+How fast is CiiMS? In a post-installation comparison, using out of the box (non-debug) configurations over SSL, CiiMS outperforms Ghost, Wordpress, Bolt, and OctoberCMS in a 100 user, 10 minute siege test. CiiMS s nearly 30% faster than Ghost, and over 130% faster than Wordpress.
 
 ```
 - DigitalOcean 512MB Box
