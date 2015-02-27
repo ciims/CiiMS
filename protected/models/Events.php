@@ -39,6 +39,7 @@ class Events extends CiiModel
 				'group'   => 't.uri',
 				'select'  => 't.uri, COUNT(*) as id',
 				'order'   => 't.id ASC',
+				'condition' => 't.event = "_trackPageView" AND t.created >= ' . time()-86400
 			),
 		);
 	}
