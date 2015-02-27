@@ -30,6 +30,20 @@ class Events extends CiiModel
 	}
 
 	/**
+	 * Query Scoping
+	 */
+	public function scopes()
+	{
+		return array(
+			'groupByUrl' => array(
+				'group'   => 't.uri',
+				'select'  => 't.uri, COUNT(*) as id',
+				'order'   => 't.id ASC',
+			),
+		);
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
