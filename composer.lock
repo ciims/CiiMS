@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dfd4a05d18d761b0138d2a623ce2d53d",
+    "hash": "04adeb049d8ecb8ab9c974104086af21",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -207,16 +207,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "7defd19d86c184c70d6580eadf51793b44819169"
+                "reference": "0eab82ae15c244c28616f7a891b577ddc4eddfbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/7defd19d86c184c70d6580eadf51793b44819169",
-                "reference": "7defd19d86c184c70d6580eadf51793b44819169",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/0eab82ae15c244c28616f7a891b577ddc4eddfbe",
+                "reference": "0eab82ae15c244c28616f7a891b577ddc4eddfbe",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -239,7 +239,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-02-21 17:57:00"
+            "time": "2015-03-03 20:04:44"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -594,12 +594,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "644c9b71ed5eb423a114d6776187d9c0cc025ab4"
+                "reference": "247fa4c3e080b7a12c5dc078d4fcfa7b9337fce4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/644c9b71ed5eb423a114d6776187d9c0cc025ab4",
-                "reference": "644c9b71ed5eb423a114d6776187d9c0cc025ab4",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/247fa4c3e080b7a12c5dc078d4fcfa7b9337fce4",
+                "reference": "247fa4c3e080b7a12c5dc078d4fcfa7b9337fce4",
                 "shasum": ""
             },
             "require": {
@@ -628,7 +628,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-02-26 11:53:02"
+            "time": "2015-03-03 11:57:23"
         },
         {
             "name": "guzzle/guzzle",
@@ -1132,12 +1132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "f73fd70503aac91692278c42ed414b3bd9a91355"
+                "reference": "4cc87c59760271d6f84a28b863f414a05a447052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/f73fd70503aac91692278c42ed414b3bd9a91355",
-                "reference": "f73fd70503aac91692278c42ed414b3bd9a91355",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/4cc87c59760271d6f84a28b863f414a05a447052",
+                "reference": "4cc87c59760271d6f84a28b863f414a05a447052",
                 "shasum": ""
             },
             "require": {
@@ -1204,7 +1204,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-02-25 22:49:17"
+            "time": "2015-03-02 09:10:06"
         },
         {
             "name": "doctrine/instantiator",
@@ -1820,12 +1820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9336e3e7018de057c484aa1768a1d4f47039244f"
+                "reference": "10f6685ca2cf5d8662b43a225ab853699821690b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9336e3e7018de057c484aa1768a1d4f47039244f",
-                "reference": "9336e3e7018de057c484aa1768a1d4f47039244f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/10f6685ca2cf5d8662b43a225ab853699821690b",
+                "reference": "10f6685ca2cf5d8662b43a225ab853699821690b",
                 "shasum": ""
             },
             "require": {
@@ -1836,7 +1836,7 @@
                 "ext-spl": "*",
                 "php": ">=5.3.3",
                 "phpspec/prophecy": "~1.3.1",
-                "phpunit/php-code-coverage": "~2.0",
+                "phpunit/php-code-coverage": "~2.0,>=2.0.11",
                 "phpunit/php-file-iterator": "~1.3.2",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "~1.0.2",
@@ -1884,7 +1884,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-02-27 08:10:13"
+            "time": "2015-03-02 06:58:30"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1892,12 +1892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "b752b41e3fead4feee99f3a2f2972cef517abb8b"
+                "reference": "37e984c0d004800c456658cb08580fdfd26d9c1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/b752b41e3fead4feee99f3a2f2972cef517abb8b",
-                "reference": "b752b41e3fead4feee99f3a2f2972cef517abb8b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/37e984c0d004800c456658cb08580fdfd26d9c1d",
+                "reference": "37e984c0d004800c456658cb08580fdfd26d9c1d",
                 "shasum": ""
             },
             "require": {
@@ -1939,7 +1939,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-01-18 10:44:19"
+            "time": "2015-03-02 06:02:35"
         },
         {
             "name": "react/promise",
