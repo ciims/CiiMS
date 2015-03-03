@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04adeb049d8ecb8ab9c974104086af21",
+    "hash": "081e8ff2e47c3acc3426c538df61629e",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "6362199f571a5f66c29fbaa11aacab08978d96be"
+                "reference": "e2d3892989a80c004e323777e122c360b6347997"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/6362199f571a5f66c29fbaa11aacab08978d96be",
-                "reference": "6362199f571a5f66c29fbaa11aacab08978d96be",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/e2d3892989a80c004e323777e122c360b6347997",
+                "reference": "e2d3892989a80c004e323777e122c360b6347997",
                 "shasum": ""
             },
             "type": "library",
@@ -95,7 +95,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-02-21 17:40:27"
+            "time": "2015-03-03 22:30:30"
         },
         {
             "name": "charlesportwoodii/eanalytics",
