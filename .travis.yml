@@ -34,9 +34,7 @@ before_script:
   - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
 after_script: # this will of course run only on failure
+  - "ls -laht protected/runtime"
   - "travis-artifacts upload --path protected/runtime/application.log"
-
-after_test:
-  - "travis-artifacts upload --target-path artifacts/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID"
 
 script: ./vendor/bin/codecept run
