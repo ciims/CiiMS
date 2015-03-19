@@ -34,7 +34,6 @@ before_script:
   - composer install # Install rather than update
   - php -i
   - mysql -e 'create database ciims_travis;'
-  - echo "2.0.0-dev" > protected/config/VERSION
   - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
 after_failure: # Upload the application.log on failure
