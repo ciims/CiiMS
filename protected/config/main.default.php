@@ -106,18 +106,11 @@ $ciimsCoreConfig = array(
 		)
 	),
 	'params' => array(
-		// The hash CiiMS should use for user data
 		'encryptionKey'       => NULL,
-		// Run in debug mode or not
 		'debug'               => false,
-		// The number of stack traces CiiMS should return
 		'trace'               => 0,
-		// Whether CiiMS should run in Demo Mode (which fixes some analytics values)
-		'demo' 		          => 0,
-		// Defines the maximum filesize that CiiMS will allowed to be uploaded
-		// Must not exceed php.ini post_max_size and upload_max_filesize
+		'NewRelicAppName'     => null,
 		'max_fileupload_size' => (10 * 1024 * 1024),
-		// Cards endpoint
 		'cards' => 'https://cards.ciims.io/1.0.0',
 	)
 );
