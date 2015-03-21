@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4bca0a78e795b647b4b0cd20aa065b17",
+    "hash": "a53eeb7cddf03999f13b9caa393d1a72",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -124,16 +124,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "d5a581a3faa7f07b53e28fd26b60ff8f1b5dcc83"
+                "reference": "1d34dd6700ee5f1fa2466835fc62bf86a18a5d63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/d5a581a3faa7f07b53e28fd26b60ff8f1b5dcc83",
-                "reference": "d5a581a3faa7f07b53e28fd26b60ff8f1b5dcc83",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/1d34dd6700ee5f1fa2466835fc62bf86a18a5d63",
+                "reference": "1d34dd6700ee5f1fa2466835fc62bf86a18a5d63",
                 "shasum": ""
             },
             "type": "library",
@@ -162,7 +162,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-03-20 22:15:21"
+            "time": "2015-03-21 21:32:36"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -1239,6 +1239,44 @@
             },
             "type": "library",
             "time": "2012-06-15 05:47:46"
+        },
+        {
+            "name": "zhuravljov/yii2-debug",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zhuravljov/yii2-debug.git",
+                "reference": "42677fd84e5e6abc2ead3ae8b82962ccea231713"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zhuravljov/yii2-debug/zipball/42677fd84e5e6abc2ead3ae8b82962ccea231713",
+                "reference": "42677fd84e5e6abc2ead3ae8b82962ccea231713",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0",
+                "yiisoft/yii": ">=1.1.15"
+            },
+            "type": "yii-extension",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Zhuravlev",
+                    "email": "zhuravljov@gmail.com"
+                }
+            ],
+            "description": "Yii debug toolbar",
+            "homepage": "https://github.com/zhuravljov/yii2-debug",
+            "keywords": [
+                "debug",
+                "extension",
+                "yii"
+            ],
+            "time": "2015-01-16 17:14:56"
         }
     ],
     "packages-dev": [
@@ -2793,44 +2831,6 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2015-03-13 17:50:01"
-        },
-        {
-            "name": "zhuravljov/yii2-debug",
-            "version": "v1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zhuravljov/yii2-debug.git",
-                "reference": "42677fd84e5e6abc2ead3ae8b82962ccea231713"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zhuravljov/yii2-debug/zipball/42677fd84e5e6abc2ead3ae8b82962ccea231713",
-                "reference": "42677fd84e5e6abc2ead3ae8b82962ccea231713",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.1.0",
-                "yiisoft/yii": ">=1.1.15"
-            },
-            "type": "yii-extension",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Zhuravlev",
-                    "email": "zhuravljov@gmail.com"
-                }
-            ],
-            "description": "Yii debug toolbar",
-            "homepage": "https://github.com/zhuravljov/yii2-debug",
-            "keywords": [
-                "debug",
-                "extension",
-                "yii"
-            ],
-            "time": "2015-01-16 17:14:56"
         }
     ],
     "aliases": [],
