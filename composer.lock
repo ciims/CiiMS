@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d59101ec8faac30efd61b05c85679ec1",
+    "hash": "4bca0a78e795b647b4b0cd20aa065b17",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -386,16 +386,16 @@
         },
         {
             "name": "ciims-plugins/awsuploader",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:charlesportwoodii/CiiAWSUploader.git",
-                "reference": "a9ecf654f4a865f2db5608aeba251792143a02c0"
+                "reference": "8c942bad66df395bd8c97623464ae7784c3f7bc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/CiiAWSUploader/zipball/a9ecf654f4a865f2db5608aeba251792143a02c0",
-                "reference": "a9ecf654f4a865f2db5608aeba251792143a02c0",
+                "url": "https://api.github.com/repos/charlesportwoodii/CiiAWSUploader/zipball/8c942bad66df395bd8c97623464ae7784c3f7bc5",
+                "reference": "8c942bad66df395bd8c97623464ae7784c3f7bc5",
                 "shasum": ""
             },
             "require": {
@@ -431,7 +431,7 @@
                 "file upload",
                 "s3"
             ],
-            "time": "2015-02-07 00:15:28"
+            "time": "2015-03-21 20:59:59"
         },
         {
             "name": "ciims-themes/default",
