@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "824b5fd15951ef182dcd827e336db6ff",
+    "hash": "330ec13c59004188616723ef6e857b8e",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -54,6 +54,73 @@
                 "issues": "https://github.com/ircmaxell/PHP-CryptLib/issues"
             },
             "time": "2013-02-04 20:03:55"
+        },
+        {
+            "name": "aws/aws-sdk-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "a31871763cef5e2d46ad793d994a46dc700d4d55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a31871763cef5e2d46ad793d994a46dc700d4d55",
+                "reference": "a31871763cef5e2d46ad793d994a46dc700d4d55",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": "~3.7",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.0",
+                "ext-openssl": "*",
+                "monolog/monolog": "~1.4",
+                "phpunit/phpunit": "~4.0",
+                "symfony/yaml": "~2.1"
+            },
+            "suggest": {
+                "doctrine/cache": "Adds support for caching of credentials and responses",
+                "ext-apc": "Allows service description opcode caching, request and response caching, and credentials caching",
+                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+                "monolog/monolog": "Adds support for logging HTTP requests and responses",
+                "symfony/yaml": "Eases the ability to write manifests for creating jobs in AWS Import/Export"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Aws": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Web Services",
+                    "homepage": "http://aws.amazon.com"
+                }
+            ],
+            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+            "homepage": "http://aws.amazon.com/sdkforphp",
+            "keywords": [
+                "amazon",
+                "aws",
+                "cloud",
+                "dynamodb",
+                "ec2",
+                "glacier",
+                "s3",
+                "sdk"
+            ],
+            "time": "2015-03-19 21:42:28"
         },
         {
             "name": "charlesportwoodii/cii",
@@ -207,16 +274,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.17",
+            "version": "3.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "0eab82ae15c244c28616f7a891b577ddc4eddfbe"
+                "reference": "52c3eca947430173c6fb220cc18300d71c16303b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/0eab82ae15c244c28616f7a891b577ddc4eddfbe",
-                "reference": "0eab82ae15c244c28616f7a891b577ddc4eddfbe",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/52c3eca947430173c6fb220cc18300d71c16303b",
+                "reference": "52c3eca947430173c6fb220cc18300d71c16303b",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -239,7 +306,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-03-03 20:04:44"
+            "time": "2015-03-21 20:14:39"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -316,6 +383,55 @@
                 "module"
             ],
             "time": "2015-02-06 17:26:03"
+        },
+        {
+            "name": "ciims-plugins/awsuploader",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:charlesportwoodii/CiiAWSUploader.git",
+                "reference": "a9ecf654f4a865f2db5608aeba251792143a02c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/CiiAWSUploader/zipball/a9ecf654f4a865f2db5608aeba251792143a02c0",
+                "reference": "a9ecf654f4a865f2db5608aeba251792143a02c0",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "2.*",
+                "cryptlib/cryptlib": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "CiiAWSUploader.php"
+                ],
+                "psr-0": {
+                    "Detection": "namespaced/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net",
+                    "homepage": "https://www.erianna.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "AWS S3 Uploader plugin for CiiMS",
+            "homepage": "https://github.com/charlesportwoodii/CiiAWSUploader",
+            "keywords": [
+                "amazon",
+                "aws",
+                "file upload",
+                "s3"
+            ],
+            "time": "2015-02-07 00:15:28"
         },
         {
             "name": "ciims-themes/default",
@@ -636,12 +752,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle3.git",
-                "reference": "d898326a716f23fdd778942ea9404aeccbe16a46"
+                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/d898326a716f23fdd778942ea9404aeccbe16a46",
-                "reference": "d898326a716f23fdd778942ea9404aeccbe16a46",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/0645b70d953bc1c067bbc8d5bc53194706b628d9",
+                "reference": "0645b70d953bc1c067bbc8d5bc53194706b628d9",
                 "shasum": ""
             },
             "require": {
@@ -723,7 +839,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-01-28 21:05:25"
+            "time": "2015-03-18 18:23:50"
         },
         {
             "name": "hashids/hashids",
