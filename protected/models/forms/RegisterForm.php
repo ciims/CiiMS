@@ -95,7 +95,7 @@ class RegisterForm extends CFormModel
 		// Set the model attributes
 		$this->_user->attributes = array(
 			'email'       => $this->email,
-			'password'    => $this->password,
+			'password'    => password_hash($this->password, PASSWORD_BCRYPT, array('cost' => 13)),
 			'username'    => $this->username,
 			'user_role'   => 1,
 			'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE
