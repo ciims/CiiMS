@@ -44,7 +44,8 @@ class RegisterForm extends CFormModel
 			array('password', 'compare'),
 			array('password', 'length', 'min'=>8),
 			array('email', 'email'),
-			array('email', 'isEmailUnique')
+			array('email', 'isEmailUnique'),
+			array('email', 'isUsernameUnique')
 		);
 	}
 
@@ -61,6 +62,25 @@ class RegisterForm extends CFormModel
 		if ($this->_user != NULL)
 		{
 			$this->addError('email', Yii::t('ciims.models.RegisterForm', 'That email address is already in use'));
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Determines if an username is already taken or not
+	 * @param array $attributes
+	 * @param array $params
+	 * @return boolean
+	 */
+	public function isUsernameUnique($attributes, $params)
+	{
+		$this->_user = Users::model()->findByAttributes(array('username' => $this->email));
+
+		if ($this->_user != NULL)
+		{
+			$this->addError('username', Yii::t('ciims.models.RegisterForm', 'That username address is already in use'));
 			return false;
 		}
 
@@ -95,7 +115,7 @@ class RegisterForm extends CFormModel
 		// Set the model attributes
 		$this->_user->attributes = array(
 			'email'       => $this->email,
-			'password'    => password_hash($this->password, PASSWORD_BCRYPT, array('cost' => 13)),
+			'password'    => $this->password,
 			'username'    => $this->username,
 			'user_role'   => 1,
 			'status'      => $sendEmail ? Users::PENDING_INVITATION : Users::ACTIVE

@@ -218,10 +218,8 @@ class ProfileForm extends CFormModel
 			return true;
 		}
 
-		$hash = Users::model()->encryptHash($this->_user->email, $this->currentPassword, Yii::app()->params['encryptionKey']);
-
-		$result = password_verify($hash, $this->_user->password);
-
+		$result = password_verify($this->password, $this->_user->password);
+		
 		if ($result == false)
 		{
 			$this->addError('currentPassword', Yii::t('ciims.models.ProfileForm', 'The password you entered is invalid.'));
