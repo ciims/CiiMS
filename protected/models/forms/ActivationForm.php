@@ -79,8 +79,6 @@ class ActivationForm extends CFormModel
 	 */
 	public function validateUserPassword($attributes, $params)
 	{
-		$this->_user = Users::model()->findByPk($this->_meta->user_id);
-
 		if ($this->_user == NULL)
 		{
 			$this->addError('activationKey', Yii::t('ciims.models.ActivationForm', 'The activation key you provided is invalid.'));
@@ -104,15 +102,16 @@ class ActivationForm extends CFormModel
 	 */
 	public function save()
 	{
+		$userId = $this->_meta->user_id;
+		$this->_user = Users::model()->findByPk($userId);
+
 		if (!$this->validate())
 			return false;
 
-		// Activate the user
-		$this->_user->attributes = array(
-			'status' => Users::ACTIVE
-		);
+		// @todo: ActiveRecord is configuring the query with WHERE users.id = 1, which is buggout out deeper with CDbCommandBuilder/CActiveRecord in the framework. Substituting this for a DAO command for now
+		$result = Yii::app()->db->createCommand("UPDATE users SET status = 1 WHERE id = :id")->bindParam(':id', $userId)->execute();
 
-		if ($this->_user->save())
+		if ($result == 1)
 		{
 			$this->_meta->delete();
 			return true;
