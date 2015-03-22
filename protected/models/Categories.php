@@ -44,14 +44,6 @@ class Categories extends CiiModel
 	}
 
 	/**
-	 * @return string[] primary key of the table
-	 **/
-	public function primaryKey()
-	{
-		return array('id');
-	}
-
-	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()

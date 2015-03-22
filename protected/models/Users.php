@@ -51,14 +51,6 @@ class Users extends CiiModel
 	}
 
 	/**
-	 * @return string[] primary key of the table
-	 **/
-	public function primaryKey()
-	{
-		return array('id');
-	}
-
-	/**
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules()
@@ -264,7 +256,7 @@ class Users extends CiiModel
 		else
 		{
 			$this->password = password_hash($this->password, PASSWORD_BCRYPT, array('cost' => Cii::getBcryptCost()));
-
+/*
 			if (!$this->isNewRecord)
 				Yii::app()->controller->sendEmail(
 					$this,
@@ -272,6 +264,7 @@ class Users extends CiiModel
 					'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
 					array('user' => $this)
 				);
+				*/
 		}
 
 		return parent::beforeValidate();
