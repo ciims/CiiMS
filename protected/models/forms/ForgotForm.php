@@ -61,10 +61,6 @@ class ForgotForm extends CFormModel
 		if (!$this->validate())
 			return false;
 
-		// Generate a secure token that isn't vulnerable to a timing attack
-		$factory = new CryptLib\Random\Factory;
-		$hash = $factory->getLowStrengthGenerator()->generateString(16);
-
 		$expires = strtotime("+15 minutes");
 
 		$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$this->_user->id, 'key'=>'passwordResetCode'));
@@ -73,7 +69,7 @@ class ForgotForm extends CFormModel
 
 		$meta->user_id = $this->_user->id;
 		$meta->key = 'passwordResetCode';
-		$meta->value = $hash;
+		$meta->value = Cii::generateSafeHash();
 		$meta->save();
 
 		$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$this->_user->id, 'key'=>'passwordResetExpires'));

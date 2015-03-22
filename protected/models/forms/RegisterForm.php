@@ -107,12 +107,11 @@ class RegisterForm extends CFormModel
 			// This class my be extended by other modules, in which case we don't need to send an activation form if we don't want need it to.
 			if ($sendEmail)
 			{
-				$factory = new CryptLib\Random\Factory;
 				$meta = new UserMetadata;
 				$meta->attributes = array(
 					'user_id' => $this->_user->id,
 					'key'     => 'activationKey',
-					'value'   => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
+					'value'   => Cii::generateSafeHash()
 				);
 				
 				$meta->save();

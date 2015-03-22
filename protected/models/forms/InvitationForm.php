@@ -72,12 +72,11 @@ class InvitationForm extends CFormModel
 		// Create a new user, but bypass validation
 		if ($user->save(false))
 		{
-			$factory = new CryptLib\Random\Factory;
 			$meta = new UserMetadata;
 			$meta->attributes = array(
 				'user_id' => $user->id,
 				'key' => 'invitationKey',
-				'value' => str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16))
+				'value' => Cii::generateSafeHash()
 			);
 
 			// If the key was savedm send the email out

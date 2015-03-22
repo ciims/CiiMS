@@ -153,8 +153,7 @@ class ProfileForm extends CFormModel
 		}
 
 		// Generate a new key
-		$factory = new CryptLib\Random\Factory;
-		$metadata->value = str_replace('/', '', $factory->getLowStrengthGenerator()->generateString(16));
+		$metadata->value = Cii::generateSafeHash();
 
 		// Save the record
 		return $metadata->save();
