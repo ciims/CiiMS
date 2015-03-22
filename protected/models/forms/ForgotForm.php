@@ -61,6 +61,7 @@ class ForgotForm extends CFormModel
 		if (!$this->validate())
 			return false;
 
+		$hash = Cii::generateSafeHash();
 		$expires = strtotime("+15 minutes");
 
 		$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$this->_user->id, 'key'=>'passwordResetCode'));
@@ -69,7 +70,7 @@ class ForgotForm extends CFormModel
 
 		$meta->user_id = $this->_user->id;
 		$meta->key = 'passwordResetCode';
-		$meta->value = Cii::generateSafeHash();
+		$meta->value = $hash;
 		$meta->save();
 
 		$meta = UserMetadata::model()->findByAttributes(array('user_id'=>$this->_user->id, 'key'=>'passwordResetExpires'));

@@ -125,6 +125,16 @@ class Users extends CiiModel
 	}
 
 	/**
+	 * Retrieves the username
+	 * @todo This is technical debt. At some point this should be completely depricated
+	 */
+	public function getDisplayName()
+	{
+		Yii::log('Users::displayName has been deprecated. Use Users::username moving forward', 'warning', 'models.users');
+		return $this->getUsername();
+	}
+
+	/**
 	 * Retrieves the reputation for a given user
 	 * @return int
 	 */
