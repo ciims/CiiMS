@@ -8,7 +8,7 @@ class UserModelTest extends \Codeception\TestCase\Test
      */
     protected $dev;
 
-    public function testCreate()
+    public function testUserCreate()
     {
         $model = new Users;
         $model->attributes = array(
@@ -26,7 +26,7 @@ class UserModelTest extends \Codeception\TestCase\Test
         $this->assertTrue(password_verify('example_password', $model->password));
     }
 
-    public function testUpdate()
+    public function testUserUpdate()
     {
         $model = Users::model()->findByPk(1);
 
@@ -42,7 +42,7 @@ class UserModelTest extends \Codeception\TestCase\Test
         $this->assertTrue(password_verify('example_password2', $model->password));
     }
 
-    public function testDelete()
+    public function testUserDelete()
     {
         $model = Users::model()->findByPk(1);
 
