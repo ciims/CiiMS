@@ -76,7 +76,7 @@ class RegisterForm extends CFormModel
 	 */
 	public function isUsernameUnique($attributes, $params)
 	{
-		$this->_user = Users::model()->findByAttributes(array('username' => $this->email));
+		$this->_user = Users::model()->findByAttributes(array('username' => $this->username));
 
 		if ($this->_user != NULL)
 		{
