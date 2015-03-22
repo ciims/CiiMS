@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc11f44b25ff573fab3c1cfc9978032d",
+    "hash": "18f3fbdac328465fbb7eba0a5d6936e6",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -435,16 +435,16 @@
         },
         {
             "name": "ciims-themes/default",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-themes-default.git",
-                "reference": "d9a91d7a9814f86cfbd76e9ebe50bc7842b5a79f"
+                "reference": "ba56c133bb7101b39059017dc37d944c05c8485f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/d9a91d7a9814f86cfbd76e9ebe50bc7842b5a79f",
-                "reference": "d9a91d7a9814f86cfbd76e9ebe50bc7842b5a79f",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-themes-default/zipball/ba56c133bb7101b39059017dc37d944c05c8485f",
+                "reference": "ba56c133bb7101b39059017dc37d944c05c8485f",
                 "shasum": ""
             },
             "require": {
@@ -472,7 +472,7 @@
                 "default",
                 "theme"
             ],
-            "time": "2015-03-22 18:28:35"
+            "time": "2015-03-22 20:07:34"
         },
         {
             "name": "codeception/YiiBridge",
