@@ -29,7 +29,7 @@ notifications:
     on_failure: change
     
 before_script:
-  - "gem install travis-artifacts" # Install TravisCI Artifacts gem
+  - bundle install --path vendor/bundler
   - composer selfupdate
   - composer install # Install rather than update
   - php -i
