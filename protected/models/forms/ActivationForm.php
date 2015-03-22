@@ -35,8 +35,8 @@ class ActivationForm extends CFormModel
 		return array(
 			array('password, activationKey', 'required'),
 			array('password', 'length', 'min'=>8),
-			array('password', 'validateUserPassword'),
 			array('activationKey', 'validateKey'),
+			array('password', 'validateUserPassword'),
 		);
 	}
 
@@ -109,8 +109,7 @@ class ActivationForm extends CFormModel
 
 		// Activate the user
 		$this->_user->attributes = array(
-			'status' => Users::ACTIVE,
-			'password' => NULL
+			'status' => Users::ACTIVE
 		);
 
 		if ($this->_user->save())
