@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18f3fbdac328465fbb7eba0a5d6936e6",
+    "hash": "0b2cff264dc71ba65c9986ced734a6c1",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -274,16 +274,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.19",
+            "version": "3.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "cf961f21ab39698cca0126ce3fc06459bd1790a8"
+                "reference": "ccaf7d025aeb6c8c44b89c2a77fe0d67f449a2cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/cf961f21ab39698cca0126ce3fc06459bd1790a8",
-                "reference": "cf961f21ab39698cca0126ce3fc06459bd1790a8",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/ccaf7d025aeb6c8c44b89c2a77fe0d67f449a2cf",
+                "reference": "ccaf7d025aeb6c8c44b89c2a77fe0d67f449a2cf",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -306,7 +306,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-03-21 20:37:58"
+            "time": "2015-03-23 23:46:40"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "9bb73ea0c19585e0d946b50c4236aaafa9c0ecd3"
+                "reference": "cc043239aa0cbb77acdc19d9478aebdffd4ebc06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/9bb73ea0c19585e0d946b50c4236aaafa9c0ecd3",
-                "reference": "9bb73ea0c19585e0d946b50c4236aaafa9c0ecd3",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/cc043239aa0cbb77acdc19d9478aebdffd4ebc06",
+                "reference": "cc043239aa0cbb77acdc19d9478aebdffd4ebc06",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-03-22 12:14:38"
+            "time": "2015-03-23 12:15:42"
         },
         {
             "name": "guzzle/guzzle",
@@ -1286,12 +1286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "42172a2bbc2621d403aab4926f28f34d8a5d8e79"
+                "reference": "ade835f79160658ae16eb5ce40f8761627559159"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/42172a2bbc2621d403aab4926f28f34d8a5d8e79",
-                "reference": "42172a2bbc2621d403aab4926f28f34d8a5d8e79",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/ade835f79160658ae16eb5ce40f8761627559159",
+                "reference": "ade835f79160658ae16eb5ce40f8761627559159",
                 "shasum": ""
             },
             "require": {
@@ -1358,7 +1358,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-03-20 12:40:33"
+            "time": "2015-03-23 23:00:13"
         },
         {
             "name": "doctrine/instantiator",
@@ -1519,12 +1519,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "c2397220e1c89a84e4776af71e53eeb30193fd03"
+                "reference": "6af9751f947d7c6b4ec857ff2b5a5538c24c2596"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/c2397220e1c89a84e4776af71e53eeb30193fd03",
-                "reference": "c2397220e1c89a84e4776af71e53eeb30193fd03",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/6af9751f947d7c6b4ec857ff2b5a5538c24c2596",
+                "reference": "6af9751f947d7c6b4ec857ff2b5a5538c24c2596",
                 "shasum": ""
             },
             "require": {
@@ -1562,7 +1562,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-02-26 22:31:51"
+            "time": "2015-03-23 03:26:29"
         },
         {
             "name": "guzzlehttp/streams",
@@ -2685,12 +2685,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "971656fd577a832b728c0c51c31fd5624e1f6c2d"
+                "reference": "c6f3631d4525813ac13db45dbda0493450071020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/971656fd577a832b728c0c51c31fd5624e1f6c2d",
-                "reference": "971656fd577a832b728c0c51c31fd5624e1f6c2d",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/c6f3631d4525813ac13db45dbda0493450071020",
+                "reference": "c6f3631d4525813ac13db45dbda0493450071020",
                 "shasum": ""
             },
             "require": {
@@ -2730,7 +2730,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-22 16:57:18"
+            "time": "2015-03-23 08:18:05"
         },
         {
             "name": "symfony/finder",
