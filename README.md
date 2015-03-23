@@ -1,9 +1,9 @@
 # CiiMS
-[![TravisCI](http://img.shields.io/travis/charlesportwoodii/CiiMS/2.0.0-dev.svg?style=flat "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
-[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
-[![Downloads](http://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat)](https://packagist.org/packages/charlesportwoodii/ciims)
-[![Gittip](http://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
-[![License](http://img.shields.io/badge/license-MIT-orange.svg?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
+[![TravisCI](https://img.shields.io/travis/charlesportwoodii/CiiMS/2.0.0-dev.svg?style=flat "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
+[![Downloads](https://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat)](https://packagist.org/packages/charlesportwoodii/ciims)
+[![Gittip](https://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
+[![License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
 
 ![CiiMS Logo Banner](	
 https://s3.amazonaws.com/ciims-s3-us-01/63E6ADC1A1BF41ABDE55B4BA810F187DBF1C9E696A90713D8A1F38B69E1071CE.png)
@@ -27,7 +27,7 @@ Do you use CiiMS and love it? Want to show your support? Would you like some fre
 [![Erianna by Charles R. Portwood II](https://secure.gravatar.com/avatar/7ea3ae65556979b64ba8cde5cd51c667?s=60, "Erianna by Charles R. Portwood II")](https://www.erianna.com)
 <a href="https://www.ciims.io"><img title="CiiMS.org - Hosted CiiMS Solution" src="https://s3.amazonaws.com/ciims-s3-us-01/ciims-logo-badge.png" /></a>
 [![Mosely](https://www.gravatar.com/avatar/dd61d5faf7eb9315960d528fc9ed2367?s=60, "Business as Usual")](https://www.manufactorum.net)
-[![Loco](http://www.gravatar.com/avatar/be48bd6b1f3eac83ecb5d84d590db995.png?s=60, "Loco by Alex Isaev")](http://loco.ru)
+[![Loco](https://www.gravatar.com/avatar/be48bd6b1f3eac83ecb5d84d590db995.png?s=60, "Loco by Alex Isaev")](http://loco.ru)
 
 ## Installation
 
