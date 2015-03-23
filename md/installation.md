@@ -6,7 +6,7 @@ Installing CiiMS is a very straightforward and simple process and utilizes sever
 
 Before starting the installation, make sure your environment has the following installed.
 
-- PHP 5.3.10+
+- PHP 5.5+
 - MySQL 5.5+
 - mod_php or proxy capable webserver
 - PHP CURL Extension
