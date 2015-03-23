@@ -73,8 +73,16 @@ class EmailSettings extends CiiSettingsModel
 		$useSSL      = Cii::getConfig('useSSL',      0);
 
 		$notifyUser  = new stdClass;
-		$notifyUser->email       = Cii::getConfig('notifyEmail', NULL);
-		$notifyUser->username = Cii::getConfig('notifyName',  NULL);
+		if (isset($content['origin_from']))
+		{
+			$notifyUser->email    = $content['origin_from']['email'];
+			$notifyUser->username = $content['origin_from']['name'];
+		}
+		else
+		{
+			$notifyUser->email    = Cii::getConfig('notifyEmail', NULL);
+			$notifyUser->username = Cii::getConfig('notifyName',  NULL);
+		}
 
 		if ($smtpHost !== NULL && $smtpHost !== "")
 			$mail->Host       = $smtpHost;
