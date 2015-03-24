@@ -11,7 +11,7 @@ language: php
 
 cache:
   directories:
-    - vendor/
+    - vendor
 
 php:
   - 5.5
@@ -28,11 +28,13 @@ notifications:
     on_success: change
     on_failure: change
     
-before_script:
+install:
   - bundle install --path vendor/bundler
   - composer selfupdate
   - composer install # Install rather than update
   - php -i
+
+before_script:
   - mysql -e 'create database ciims_travis;'
   - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
