@@ -85,10 +85,12 @@ A demo of CiiMS can be found at:
     
 You may use the following credentials to login and manage the site.
 
-    Email: demo@ciims.io
-    Pasword: password
+	Username: admin@demo.ciims.io
+	Password: 14zAjRQagq0CYJTYjoQNA
 
 Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
+
+Also note that the demo is currently running on the beta hosted platform availabile at [www.ciims.io](https://www.ciims.io), and should provide you with a idea of what our current performance look like.
 
 ## Documentation
 
