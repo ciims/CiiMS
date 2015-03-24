@@ -43,7 +43,8 @@ $ciimsCoreConfig = array(
 			'class' => 'vendor.charlesportwoodii.cii.components.CiiPHPMessageSource'
 		),
 			'newRelic' => array(
-		'class' => 'vendor.charlesportwoodii.yii-newrelic.YiiNewRelic',
+			'class' => 'vendor.charlesportwoodii.yii-newrelic.YiiNewRelic',
+			'setAppNameToYiiName' => false
 		),
 		'cii' => array(
 			'class' => 'vendor.charlesportwoodii.cii.components.CiiBase'

@@ -12,8 +12,6 @@ class GeneralSettings extends CiiSettingsModel
 
 	protected $forceSecureSSL = false;
 
-	protected $offline = 0;
-
 	protected $bcrypt_cost = 13;
 
 	protected $searchPaginationSize = 10;
@@ -33,7 +31,7 @@ class GeneralSettings extends CiiSettingsModel
 	public function groups()
 	{
 		return array(
-			Yii::t('ciims.models.general', 'Site Settings') => array('name', 'offline', 'forceSecureSSL', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
+			Yii::t('ciims.models.general', 'Site Settings') => array('name', 'forceSecureSSL', 'bcrypt_cost', 'categoryPaginationSize','contentPaginationSize','searchPaginationSize'),
 			Yii::t('ciims.models.general', 'Disqus') => array('useDisqusComments', 'disqus_shortname'),
 			//Yii::t('ciims.models.general', 'Discourse') => array('useDiscourseComments', 'discourseUrl'),
 			Yii::t('ciims.models.general', 'Display Settings') => array('dateFormat', 'timeFormat', 'defaultLanguage'),
@@ -50,7 +48,7 @@ class GeneralSettings extends CiiSettingsModel
 			array('name, dateFormat, timeFormat, defaultLanguage', 'required'),
 			array('name', 'length', 'max' => 255),
 			array('dateFormat, timeFormat, defaultLanguage', 'length', 'max' => 25),
-			array('offline, useDisqusComments, forceSecureSSL', 'boolean'),
+			array('useDisqusComments, forceSecureSSL', 'boolean'),
 			array('disqus_shortname', 'length', 'max' => 255),
 			array('bcrypt_cost', 'numerical', 'integerOnly'=>true, 'min' => 13),
 			array('searchPaginationSize, categoryPaginationSize, contentPaginationSize', 'numerical', 'integerOnly' => true, 'min' => 10),
@@ -69,7 +67,6 @@ class GeneralSettings extends CiiSettingsModel
 			'dateFormat' => Yii::t('ciims.models.general', 'Date Format'),
 			'timeFormat' => Yii::t('ciims.models.general', 'Time Format'),
 			'defaultLanguage' => Yii::t('ciims.models.general', 'Default Language'),
-			'offline' => Yii::t('ciims.models.general', 'Offline Mode'),
 			'forceSecureSSL' => Yii::t('ciims.models.general', 'Force SSL for Secure Areas'),
 			'bcrypt_cost' => Yii::t('ciims.models.general', 'Password Strength Settings'),
 			'searchPaginationSize' => Yii::t('ciims.models.general', 'Search Post Count'),

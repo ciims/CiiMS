@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b2cff264dc71ba65c9986ced734a6c1",
+    "hash": "ee2615f2b68da37f47696209c7598d42",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -124,16 +124,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.12",
+            "version": "1.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "4a9e14aa21cc3882b19482d691e38d0b6e5d00e3"
+                "reference": "45089601417f7ea12dcd7f28d358d8a780cb56f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/4a9e14aa21cc3882b19482d691e38d0b6e5d00e3",
-                "reference": "4a9e14aa21cc3882b19482d691e38d0b6e5d00e3",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/45089601417f7ea12dcd7f28d358d8a780cb56f3",
+                "reference": "45089601417f7ea12dcd7f28d358d8a780cb56f3",
                 "shasum": ""
             },
             "type": "library",
@@ -162,7 +162,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-03-22 18:34:19"
+            "time": "2015-03-24 17:43:28"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -209,16 +209,16 @@
         },
         {
             "name": "charlesportwoodii/yii-newrelic",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/yii-newrelic.git",
-                "reference": "94fd7eef50a8ead0d15e4655e7e71af4c682b5f5"
+                "reference": "c665334d2e260fb06d2c2041bddcf587964244b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/yii-newrelic/zipball/94fd7eef50a8ead0d15e4655e7e71af4c682b5f5",
-                "reference": "94fd7eef50a8ead0d15e4655e7e71af4c682b5f5",
+                "url": "https://api.github.com/repos/charlesportwoodii/yii-newrelic/zipball/c665334d2e260fb06d2c2041bddcf587964244b7",
+                "reference": "c665334d2e260fb06d2c2041bddcf587964244b7",
                 "shasum": ""
             },
             "type": "library",
@@ -231,20 +231,20 @@
                 "new relic",
                 "yii"
             ],
-            "time": "2015-01-06 20:58:21"
+            "time": "2015-03-24 17:41:13"
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.17",
+            "version": "2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "df7b9ae378104ccb5ffa07f2503348402251c41a"
+                "reference": "0186b1c397a945e5ef06e52e20b05ad4c5d7d522"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/df7b9ae378104ccb5ffa07f2503348402251c41a",
-                "reference": "df7b9ae378104ccb5ffa07f2503348402251c41a",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/0186b1c397a945e5ef06e52e20b05ad4c5d7d522",
+                "reference": "0186b1c397a945e5ef06e52e20b05ad4c5d7d522",
                 "shasum": ""
             },
             "require": {
@@ -270,7 +270,7 @@
                 "api",
                 "module"
             ],
-            "time": "2015-03-22 18:23:54"
+            "time": "2015-03-24 16:51:53"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "cc043239aa0cbb77acdc19d9478aebdffd4ebc06"
+                "reference": "d014337e2ea9e06ac9a8d525d9513ff687bd2491"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/cc043239aa0cbb77acdc19d9478aebdffd4ebc06",
-                "reference": "cc043239aa0cbb77acdc19d9478aebdffd4ebc06",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/d014337e2ea9e06ac9a8d525d9513ff687bd2491",
+                "reference": "d014337e2ea9e06ac9a8d525d9513ff687bd2491",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-03-23 12:15:42"
+            "time": "2015-03-24 12:16:53"
         },
         {
             "name": "guzzle/guzzle",
@@ -2685,12 +2685,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "c6f3631d4525813ac13db45dbda0493450071020"
+                "reference": "87a59b4ff7271aa930190551b4c64d334dbd979f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/c6f3631d4525813ac13db45dbda0493450071020",
-                "reference": "c6f3631d4525813ac13db45dbda0493450071020",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/87a59b4ff7271aa930190551b4c64d334dbd979f",
+                "reference": "87a59b4ff7271aa930190551b4c64d334dbd979f",
                 "shasum": ""
             },
             "require": {
@@ -2730,7 +2730,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-23 08:18:05"
+            "time": "2015-03-24 17:00:58"
         },
         {
             "name": "symfony/finder",
