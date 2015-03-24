@@ -64,9 +64,7 @@ class Events extends CiiModel
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('event, uri, ', 'length', 'max'=>255),
 			array('event_data, created', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, event, event_data, uri,  created', 'safe', 'on'=>'search'),
+			array('id, content_id, page_title, event, event_data, uri,  created', 'safe', 'on'=>'search'),
 		);
 	}
 
