@@ -58,7 +58,7 @@ class AnalyticsSettings extends CiiSettingsModel
 	public function afterSave()
 	{
 		Yii::app()->cache->set('analyticsjs_providers', false);
-		Cii::getAnalyticsProviders();
+		Yii::app()->analytics->getProviders();
 
 		return parent::afterSave();
 	}
