@@ -47,7 +47,7 @@ class ProfileForm extends CFormModel
 
 	/**
 	 * This form will likely be reused in admin portals, for re-use purposes authentication is not required to change privileged information
-	 * @var string $overridePasswordCheck
+	 * @var boolean $overridePasswordCheck
 	 */
 	private $overridePasswordCheck = false;
 

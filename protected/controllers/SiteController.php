@@ -384,18 +384,18 @@ class SiteController extends CiiController
 			'{{label}}'    => Yii::t('ciims.controllers.Site', 'Accept Invitation')
 		)));
 
-		if ($id == NULL)
+		if ($id === NULL)
 			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
 
 		// Make sure we have a user first
 		$meta = UserMetadata::model()->findByAttributes(array('key' => 'invitationKey', 'value' => $id));
-		if ($meta == NULL)
+		if ($meta === NULL)
 			throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'There was an error fulfilling your request.'));
 
 		$model = new InviteForm;
 		$model->email = Users::model()->findByPk($meta->user_id)->email;
 
-		if (Cii::get($_POST, 'InviteForm', NULL) != NULL)
+		if (Cii::get($_POST, 'InviteForm', NULL) !== NULL)
 		{
 			$model->attributes = Cii::get($_POST, 'InviteForm', NULL);
 			$model->id = $meta->user_id;

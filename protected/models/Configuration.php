@@ -125,8 +125,8 @@ class Configuration extends CiiModel
 			// Delete the record
 			return $this->delete();
 		}
-		catch (Exception $e) {}
-
-		return false;
+		catch (Exception $e) {
+			return false;
+		}
 	}
 }

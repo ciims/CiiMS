@@ -105,7 +105,7 @@ class UserRoles extends CiiModel
 	 */
 	public function hasPermission($permission, $role=NULL)
 	{
-		if ($role == NULL)
+		if ($role === NULL)
 		{
 			if (isset($this->id))
 				$role = $this->id;

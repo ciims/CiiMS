@@ -530,7 +530,7 @@ class Content extends CiiModel
 	 */
 	private function getFiles($theme=null, $type='views')
 	{
-		if ($theme == null)
+		if ($theme === null)
 			$theme = Cii::getConfig('theme', 'default');
 
 		$folder = $type;
@@ -619,7 +619,7 @@ class Content extends CiiModel
 		{
 			// Ensures we don't have a collision on category
 			if ($category)
-				return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+				return $this->checkSlug($slug, ($id === NULL ? 1 : ($id+1)));
 
 			// Pull the data that matches
 			$data = $this->findByPk($this->id);
@@ -632,6 +632,6 @@ class Content extends CiiModel
 		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
 			return $slug . $id;
 		else
-			return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+			return $this->checkSlug($slug, ($id === NULL ? 1 : ($id+1)));
 	}
 }

@@ -319,10 +319,10 @@ class Categories extends CiiModel
 		if ($count >= 1)
 		{
 			if ($content)
-				return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+				return $this->checkSlug($slug, ($id === NULL ? 1 : ($id+1)));
 
 			// Pull the data that matches
-			$data = $this->findByPk($this->id == NULL ? -1 : $this->id);
+			$data = $this->findByPk($this->id === NULL ? -1 : $this->id);
 
 			// Check the pulled data id to the current item
 			if ($data !== NULL && $data->id == $this->id)
@@ -332,6 +332,6 @@ class Categories extends CiiModel
 		if ($count == 0 && !in_array($slug, $this->forbiddenRoutes))
 			return $slug . $id;
 		else
-			return $this->checkSlug($slug, ($id == NULL ? 1 : ($id+1)));
+			return $this->checkSlug($slug, ($id === NULL ? 1 : ($id+1)));
 	}
 }

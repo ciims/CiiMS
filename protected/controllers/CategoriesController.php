@@ -108,7 +108,7 @@ class CategoriesController extends CiiController
 					->addCondition('type_id >= 2')
 					->addCondition('password = ""');
 
-		if ($id != NULL)
+		if ($id !== NULL)
 			$criteria->addCondition("category_id = " . $id);
 
 		$criteria->order = 'created DESC';
