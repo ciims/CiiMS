@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1937ff737ae548e99678f8527dcb4084",
+    "hash": "228f95c6e9b8f65efbe12fc4794dc8b1",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -386,16 +386,16 @@
         },
         {
             "name": "ciims-plugins/awsuploader",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:charlesportwoodii/CiiAWSUploader.git",
-                "reference": "8c942bad66df395bd8c97623464ae7784c3f7bc5"
+                "reference": "5e717aae9846684e37781e502813827a694ef7d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/CiiAWSUploader/zipball/8c942bad66df395bd8c97623464ae7784c3f7bc5",
-                "reference": "8c942bad66df395bd8c97623464ae7784c3f7bc5",
+                "url": "https://api.github.com/repos/charlesportwoodii/CiiAWSUploader/zipball/5e717aae9846684e37781e502813827a694ef7d3",
+                "reference": "5e717aae9846684e37781e502813827a694ef7d3",
                 "shasum": ""
             },
             "require": {
@@ -431,7 +431,7 @@
                 "file upload",
                 "s3"
             ],
-            "time": "2015-03-21 20:59:59"
+            "time": "2015-03-28 18:34:06"
         },
         {
             "name": "ciims-themes/default",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "5d379890f63c1427bb5222f596886b9e0225511a"
+                "reference": "e190c5b2ed586eaef431d4d0e5f7d6e72c0deb71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/5d379890f63c1427bb5222f596886b9e0225511a",
-                "reference": "5d379890f63c1427bb5222f596886b9e0225511a",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e190c5b2ed586eaef431d4d0e5f7d6e72c0deb71",
+                "reference": "e190c5b2ed586eaef431d4d0e5f7d6e72c0deb71",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-03-26 12:19:00"
+            "time": "2015-03-28 12:20:42"
         },
         {
             "name": "guzzle/guzzle",
