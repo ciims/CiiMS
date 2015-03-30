@@ -82,7 +82,8 @@ class InvitationForm extends CFormModel
 			// If the key was savedm send the email out
 			if ($meta->save())
 			{
-				Yii::app()->controller->sendEmail(
+				$emailSettings = new EmailSettings;
+        		$emailSettings->send(
 					$user,
 					Yii::t('ciims.models.InvitationForm', "You've Been Invited..."),
 					'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.invite',

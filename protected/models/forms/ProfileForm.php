@@ -304,7 +304,8 @@ class ProfileForm extends CFormModel
 	 */
 	public function sendVerificationEmail()
 	{
-		return Yii::app()->controller->sendEmail(
+		$emailSettings = new EmailSettings;
+        return $emailSettings->send(
 			$this->_user,
 			Yii::t('ciims.models.Users', 'CiiMS Email Change Notification'),
 			'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.email-change',
