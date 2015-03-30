@@ -80,8 +80,8 @@ https://s3.amazonaws.com/ciims-s3-us-01/BBAD9AA513B05052FF83DC8B4F4E22CD9AFC1A57
 ## Demo
 A demo of CiiMS can be found at:
 
-    Site: http://demo.ciims.io
-    Admin Panel: http://demo.ciims.io/dashboard
+    Site: https://demo.ciims.io
+    Admin Panel: https://demo.ciims.io/dashboard
     
 You may use the following credentials to login and manage the site.
 
