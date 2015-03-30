@@ -73,6 +73,7 @@ class EmailChangeForm extends CFormModel
 	public function validateVerificationKey($attributes = array(), $params = array())
 	{
 		$this->_newEmailAddressChangeKey =  UserMetadata::model()->findByAttributes(array(
+												'user_id' => $this->_user->id,
 												'key' => 'newEmailAddressChangeKey',
 												'value' => $this->verificationKey
 										    ));
