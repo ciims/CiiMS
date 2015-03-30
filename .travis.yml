@@ -39,7 +39,7 @@ before_script:
   - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
 after_failure: # Upload the application.log on failure
-  - "ls"
+  - "ls -laht protected/runtime"
   - "bundle exec travis-artifacts upload --path protected/runtime/application.log"
 
 script: ./vendor/bin/codecept run
