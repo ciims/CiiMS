@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "59411010a3e30fe071a9ae2e81081dd7",
+    "hash": "fb475d2ca785f8ea00bcd3febde146a3",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -235,16 +235,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.18",
+            "version": "2.0.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "0186b1c397a945e5ef06e52e20b05ad4c5d7d522"
+                "reference": "1c5439ff01ef548e2a725bce4acf55c2ed954de6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/0186b1c397a945e5ef06e52e20b05ad4c5d7d522",
-                "reference": "0186b1c397a945e5ef06e52e20b05ad4c5d7d522",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/1c5439ff01ef548e2a725bce4acf55c2ed954de6",
+                "reference": "1c5439ff01ef548e2a725bce4acf55c2ed954de6",
                 "shasum": ""
             },
             "require": {
@@ -270,7 +270,7 @@
                 "api",
                 "module"
             ],
-            "time": "2015-03-24 16:51:53"
+            "time": "2015-03-30 20:09:09"
         },
         {
             "name": "ciims-modules/dashboard",

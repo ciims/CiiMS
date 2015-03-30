@@ -156,7 +156,10 @@ class ProfileForm extends CFormModel
 		$metadata->value = Cii::generateSafeHash();
 
 		// Save the record
-		return $metadata->save();
+		if ($metadata->save())
+			return $metadata->value;
+	
+		throw new CHttpException(500, Yii::t('ciims.ProfileForm', 'Unable to save change key'));
 	}
 
 	/**
