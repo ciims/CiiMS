@@ -94,7 +94,7 @@ class EmailChangeForm extends CFormModel
 		}
 
 		$this->_newEmailAddress = UserMetadata::model()->findByAttributes(array(
-									  'user_id' => $this->_newEmailAddressChangeKey->user_id,
+									  'user_id' => $this->_user->id,
 									  'key' => 'newEmailAddress'
 								  ));
 
@@ -103,9 +103,6 @@ class EmailChangeForm extends CFormModel
 			$this->addError('verificationKey', Yii::t('ciims.models.EmailChangeForm', 'The activation key you provided is invalid'));
 			return false;
 		}
-
-		// Load the user
-		$this->_user = Users::model()->findByPk($this->_newEmailAddressChangeKey->user_id);
 
 		return true;
 	}
@@ -140,10 +137,8 @@ class EmailChangeForm extends CFormModel
 		if (!$this->validate())
 			return false;
 
-		$this->_user->attributes = array(
-			'email' => $this->_newEmailAddress->value,
-			'password' => $this->password
-		);
+		// This is super buggy for some reason
+		$this->_user->email = $this->_newEmailAddress->value;
 
 		// Save the model
 		if ($this->_user->save())
