@@ -50,7 +50,7 @@ class UserModelTest extends \Codeception\TestCase\Test
         $profileForm = new ProfileForm;
 
         $this->assertTrue($model !== NULL);
-        $profileForm->load($user->id, true);
+        $profileForm->load($model->id, true);
         $profileForm->email = $newEmail;
 
         // Verify that the profile form saves
