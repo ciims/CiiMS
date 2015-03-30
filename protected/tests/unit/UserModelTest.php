@@ -47,15 +47,16 @@ class UserModelTest extends \Codeception\TestCase\Test
         $newEmail = 'example2@ciims.io';
 
         $model = Users::model()->findByPk(1);
+        $profileForm = new ProfileForm;
 
         $this->assertTrue($model !== NULL);
+        $profileForm->load($user->id, true);
+        $profileForm->email = $newEmail;
 
-        $model->email = $newEmail;
+        // Verify that the profile form saves
+        $this->assertTrue($profileForm->save());
 
-        // Save the model
-        $this->assertTrue($model->save());
-
-        // Verify that the email hasn't changed internally yet
+        // Verify that the base user model didn't change
         $model = Users::model()->findByPk(1);
         $this->assertTrue($model->email == 'example.ciims.io');
 
