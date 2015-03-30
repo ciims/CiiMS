@@ -65,6 +65,15 @@ class EmailChangeForm extends CFormModel
 	}
 
 	/**
+ 	 * Sets the user model
+	 * @param Users $user
+	 */
+	public function setUser($user)
+	{
+		$this->_user = $user;
+	}
+
+	/**
 	 * Validates the tokens supplied and that the request hasn't expired
 	 * @param array $attributes
 	 * @param array $params
