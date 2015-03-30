@@ -13,7 +13,7 @@ class SiteController extends CiiController
 	public function accessRules()
 	{
 		return array(
-		   array('deny',  // allow authenticated admins to perform any action
+		   array('deny',  // The user mut be authenticated to approve an email address change
 				'users'=>array('*'),
 				'expression'=>'Yii::app()->user->isGuest==true',
 				'actions' => array('emailchange')
@@ -281,6 +281,7 @@ class SiteController extends CiiController
 								   )));
 
 		$model = new EmailChangeForm;
+		$model->setUser(Users::model()->findByPk(Yii::app()->user->id));
 		$model->verificationKey = $key;
 
 		if (!$model->validateVerificationKey())
