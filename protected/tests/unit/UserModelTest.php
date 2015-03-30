@@ -42,6 +42,55 @@ class UserModelTest extends \Codeception\TestCase\Test
         $this->assertTrue(password_verify('example_password2', $model->password));
     }
 
+    public function testUserEmailChange()
+    {
+        $newEmail = 'example2@ciims.io';
+
+        $model = Users::model()->findByPk(1);
+
+        $this->assertTrue($model !== NULL);
+
+        $model->email = $newEmail;
+
+        // Save the model
+        $this->assertTrue($model->save());
+
+        // Verify that the email hasn't changed internally yet
+        $this->assertTrue($model->email == 'example.ciims.io');
+
+        $newEmailModel = UserMetadata::model()->findByAttributes(array(
+                              'user_id' => $user->id,
+                              'key' => 'newEmailAddress'
+                          ));
+
+        // Verify that the new email is stored in the database
+        $this->assertTrue($newEmailModel !== NULL);
+        $this->assertTrue($newEmailModel->value == $newEmail);
+
+        $key = UserMetadata::model()->findByAttributes(array(
+                                        'user_id' => $user->id,
+                                        'key' => 'newEmailAddressChangeKey'
+                                    ));
+
+        $this->assertTrue($key !== NULL);
+
+        $emailChangeForm = new EmailChangeForm;
+        $emailChangeForm->setUser(Users::model()->findByPk(1));
+        $emailChangeForm->verificationKey = $key->value;
+
+        // Verify that the verification key works
+        $this->assertTrue($emailChangeForm->validateVerificationKey());
+
+        // Veirfy that the email address changes
+        $this->assertTrue($emailChangeForm->validate());
+        $this->assertTrue($emailChangeForm->save());
+
+        // Verify that the email has changed for the model now
+        $model = Users::model()->findByPk(1);
+
+        $this->assertTrue($model->email == $newEmail);
+    }
+
     public function testUserDelete()
     {
         $model = Users::model()->findByPk(1);

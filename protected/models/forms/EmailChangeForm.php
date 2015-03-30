@@ -115,9 +115,7 @@ class EmailChangeForm extends CFormModel
 	 */
 	public function validateUserPassword($attributes, $params)
 	{
-		$hash = Users::model()->encryptHash($this->_user->email, $this->password, Yii::app()->params['encryptionKey']);
-
-		$result = password_verify($hash, $this->_user->password);
+		$result = password_verify($this->password, $this->_user->password);
 
 		if ($result == false)
 		{
