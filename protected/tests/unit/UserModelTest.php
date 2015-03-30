@@ -56,6 +56,7 @@ class UserModelTest extends \Codeception\TestCase\Test
         $this->assertTrue($model->save());
 
         // Verify that the email hasn't changed internally yet
+        $model = Users::model()->findByPk(1);
         $this->assertTrue($model->email == 'example.ciims.io');
 
         $newEmailModel = UserMetadata::model()->findByAttributes(array(
@@ -77,6 +78,7 @@ class UserModelTest extends \Codeception\TestCase\Test
         $emailChangeForm = new EmailChangeForm;
         $emailChangeForm->setUser(Users::model()->findByPk(1));
         $emailChangeForm->verificationKey = $key->value;
+        $emailChangeForm->password = 'example_password';
 
         // Verify that the verification key works
         $this->assertTrue($emailChangeForm->validateVerificationKey());
