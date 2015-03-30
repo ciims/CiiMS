@@ -31,7 +31,7 @@ notifications:
 install:
   - bundle install --path vendor/bundler
   - composer selfupdate
-
+  - composer install -o
   - php -i
 
 before_script:
