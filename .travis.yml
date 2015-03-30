@@ -31,7 +31,7 @@ notifications:
 install:
   - bundle install --path vendor/bundler
   - composer selfupdate
-  - composer install # Install rather than update
+
   - php -i
 
 before_script:
@@ -39,6 +39,6 @@ before_script:
   - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI"
 
 after_failure: # Upload the application.log on failure
-  - "travis-artifacts upload --path protected/runtime/application.log"
+  - "bundle exec travis-artifacts upload --path protected/runtime/application.log"
 
 script: ./vendor/bin/codecept run

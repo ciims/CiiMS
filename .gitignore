@@ -10,5 +10,6 @@
 .htaccess
 *.*~
 *.swp
-
+Gemfile.lock
+.bundle/*
 tests/_log/*
