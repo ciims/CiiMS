@@ -17,10 +17,5 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'That email address is already in use' => '',
-  'That username address is already in use' => '',
-  'Your Email Address' => '',
-  'Your Password' => '',
-  'Your Password (again)' => '',
-  'Your Username on the Site' => '',
+  'Unable to save change key' => '',
 );

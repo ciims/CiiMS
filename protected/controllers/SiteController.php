@@ -294,7 +294,17 @@ class SiteController extends CiiController
 			if ($model->save())
 			{
 				Yii::app()->user->setFlash('success', Yii::t('ciims.controllers.Site', 'Your new email address has been verified.'));
-				Yii::app()->user->logout();
+
+				$loginForm = new LoginForm;
+				$loginForm->attributes = array(
+					'username' => Users::model()->findByPk(Yii::app()->user->id)->email,
+					'password' => $model->password,
+				);
+
+				if ($loginForm->login())
+					return $this->redirect(Yii::app()->homeUrl);
+
+				throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'Unable to re-authenticated user'));
 			}
 		}
 
