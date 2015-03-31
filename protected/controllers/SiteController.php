@@ -276,9 +276,9 @@ class SiteController extends CiiController
 		$this->layout = '//layouts/main';
 
 		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
-									   '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
-									   '{{label}}'    => Yii::t('ciims.controllers.Site', 'Change Your Email Address')
-								   )));
+		   '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+		   '{{label}}'    => Yii::t('ciims.controllers.Site', 'Change Your Email Address')
+	   )));
 
 		$model = new EmailChangeForm;
 		$model->setUser(Users::model()->findByPk(Yii::app()->user->id));
@@ -304,7 +304,7 @@ class SiteController extends CiiController
 				if ($loginForm->login())
 					return $this->redirect(Yii::app()->homeUrl);
 
-				throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'Unable to re-authenticated user'));
+				throw new CHttpException(400, Yii::t('ciims.controllers.Site', 'Unable to re-authenticated user.'));
 			}
 		}
 
@@ -322,9 +322,9 @@ class SiteController extends CiiController
 		$this->layout = '//layouts/main';
 
 		$this->setPageTitle(Yii::t('ciims.controllers.Site', '{{app_name}} | {{label}}', array(
-									   '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
-									   '{{label}}'    => Yii::t('ciims.controllers.Site', 'Activate Your Account')
-								   )));
+		   '{{app_name}}' => Cii::getConfig('name', Yii::app()->name),
+		   '{{label}}'    => Yii::t('ciims.controllers.Site', 'Activate Your Account')
+	   )));
 
 		$model = new ActivationForm;
 		$model->activationKey = $id;

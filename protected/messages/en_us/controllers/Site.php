@@ -33,6 +33,7 @@ return array (
   'The verification key provided is invalid.' => '',
   'There was an error fulfilling your request.' => '',
   'Unable to re-authenticated user' => '',
+  'Unable to re-authenticated user.' => '',
   'You have successfully registered an account. Before you can login, please check your email for activation instructions' => '',
   'Your account has successfully been activated. You may now login' => '',
   'Your new email address has been verified.' => '',
