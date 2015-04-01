@@ -9,6 +9,9 @@ class CategoriesController extends CiiController
 	{
 		$id = Yii::app()->getRequest()->getQuery('id');
 
+		if ($id == NULL || $id === false)
+			throw new CHttpException(400, Yii::t('ciims.controllers.Categories', 'Invalid routing'));
+
 		return CMap::mergeArray(parent::filters(), array(
 			array(
 				'CHttpCacheFilter + index',
@@ -22,7 +25,8 @@ class CategoriesController extends CiiController
 				'varyByLanguage' => true,
 				'dependency' => array(
 					'class'=>'CDbCacheDependency',
-					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? ' WHERE category_id = ' . $id : NULL),
+					'sql'=>'SELECT MAX(updated) FROM content WHERE category_id = :id',
+					'params' => array(':id' => $id)
 				)
 			),
 			array(
@@ -30,7 +34,8 @@ class CategoriesController extends CiiController
 				'duration' => YII_DEBUG ? 1 : 86400,
 				'dependency' => array(
 					'class'=>'CDbCacheDependency',
-					'sql'=>'SELECT MAX(updated) FROM content'. ($id!=NULL ? ' WHERE category_id = ' . $id : NULL),
+					'sql'=>'SELECT MAX(updated) FROM content WHERE category_id = :id',
+					'params' => array(':id' => $id)
 				)
 			)
 		));

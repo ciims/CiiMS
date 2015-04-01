@@ -69,8 +69,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 		$config = $this->getArgs();
 		array_push($config['exclude'], 'modules');
 		array_push($config['exclude'], 'themes');
-		$this->execute($config);
-		die("INDEX CALLED");
+		return $this->execute($config);
 	}
 
 	/**
@@ -169,8 +168,6 @@ class CiiMessageCommand extends CiiConsoleCommand
 	 */
 	protected function extractMessages($fileName,$translator)
 	{
-		//echo $fileName;
-//        echo "Extracting messages from $fileName...\n";
 		$subject=file_get_contents($fileName);
 		$messages=array();
 		if(!is_array($translator))
@@ -198,6 +195,8 @@ class CiiMessageCommand extends CiiConsoleCommand
 				$message=$matches[$i][2];
 
 				$category = str_replace("'", '', $category);
+
+				// This is how Yii does it
 				$messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
 			}
 		}

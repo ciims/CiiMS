@@ -21,12 +21,6 @@ class EmailChangeForm extends CFormModel
 	private $_user;
 
 	/**
-	 * The expiration time of the key. Set to 3 days in seconds
-	 * @var string $_expirationTime
-	 */
-	private $_expirationTime = 259200;
-
-	/**
 	 * The new email address change key
 	 * @var UserMetadata $_newEmailAddressChangeKey
 	 */
