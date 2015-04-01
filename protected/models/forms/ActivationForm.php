@@ -108,14 +108,10 @@ class ActivationForm extends CFormModel
 		if (!$this->validate())
 			return false;
 
-		// @todo: ActiveRecord is configuring the query with WHERE users.id = 1, which is buggout out deeper with CDbCommandBuilder/CActiveRecord in the framework. Substituting this for a DAO command for now
-		$result = Yii::app()->db->createCommand("UPDATE users SET status = 1 WHERE id = :id")->bindParam(':id', $userId)->execute();
-
-		if ($result == 1)
-		{
-			$this->_meta->delete();
-			return true;
-		}
+		$this->_user->status = Users::ACTIVE;
+		
+		if ($this->_user->save())
+			return $this->_meta->delete();
 
 		return false;
 	}
