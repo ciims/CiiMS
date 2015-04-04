@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca7c47a2c2ee5089758e01a049ecdbad",
+    "hash": "4d9fc3feec8c368a15889e5e684a6912",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5942bb53e6629c482e8fbc3828967f6516e95c02"
+                "reference": "340ba93eef5fdef99b8f1134987976b17d81624c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5942bb53e6629c482e8fbc3828967f6516e95c02",
-                "reference": "5942bb53e6629c482e8fbc3828967f6516e95c02",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/340ba93eef5fdef99b8f1134987976b17d81624c",
+                "reference": "340ba93eef5fdef99b8f1134987976b17d81624c",
                 "shasum": ""
             },
             "require": {
@@ -120,7 +120,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-03-26 19:36:25"
+            "time": "2015-04-02 21:59:44"
         },
         {
             "name": "charlesportwoodii/cii",
@@ -235,16 +235,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.19",
+            "version": "2.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "1c5439ff01ef548e2a725bce4acf55c2ed954de6"
+                "reference": "f5a14855da60bedfa4320cd6af51c6b3b23f3037"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/1c5439ff01ef548e2a725bce4acf55c2ed954de6",
-                "reference": "1c5439ff01ef548e2a725bce4acf55c2ed954de6",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/f5a14855da60bedfa4320cd6af51c6b3b23f3037",
+                "reference": "f5a14855da60bedfa4320cd6af51c6b3b23f3037",
                 "shasum": ""
             },
             "require": {
@@ -270,7 +270,7 @@
                 "api",
                 "module"
             ],
-            "time": "2015-03-30 20:09:09"
+            "time": "2015-04-04 18:38:56"
         },
         {
             "name": "ciims-modules/dashboard",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "c72aae1e2cfa7479c26160a3af7827d729c9a35b"
+                "reference": "306bf45f9961f8e8bb8799d91ea54c0080ecc99f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/c72aae1e2cfa7479c26160a3af7827d729c9a35b",
-                "reference": "c72aae1e2cfa7479c26160a3af7827d729c9a35b",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/306bf45f9961f8e8bb8799d91ea54c0080ecc99f",
+                "reference": "306bf45f9961f8e8bb8799d91ea54c0080ecc99f",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-03-31 12:23:56"
+            "time": "2015-04-03 12:26:14"
         },
         {
             "name": "guzzle/guzzle",
@@ -1286,12 +1286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "d3910b30105b9a0f8b2877c079c1fda8f3f6905c"
+                "reference": "6e29668921182d6b90cd021033002be85382c6f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/d3910b30105b9a0f8b2877c079c1fda8f3f6905c",
-                "reference": "d3910b30105b9a0f8b2877c079c1fda8f3f6905c",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/6e29668921182d6b90cd021033002be85382c6f9",
+                "reference": "6e29668921182d6b90cd021033002be85382c6f9",
                 "shasum": ""
             },
             "require": {
@@ -1358,7 +1358,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-03-28 23:22:32"
+            "time": "2015-04-02 23:50:20"
         },
         {
             "name": "doctrine/instantiator",
@@ -2046,12 +2046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "55484334fb4c306ed24bfc3bdb0874685c29036f"
+                "reference": "74ffb87f527f24616f72460e54b595f508dccb5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/55484334fb4c306ed24bfc3bdb0874685c29036f",
-                "reference": "55484334fb4c306ed24bfc3bdb0874685c29036f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/74ffb87f527f24616f72460e54b595f508dccb5c",
+                "reference": "74ffb87f527f24616f72460e54b595f508dccb5c",
                 "shasum": ""
             },
             "require": {
@@ -2060,7 +2060,7 @@
                 "phpunit/php-text-template": "~1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.4.*@dev"
+                "phpunit/phpunit": "~4.4"
             },
             "suggest": {
                 "ext-soap": "*"
@@ -2068,7 +2068,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "autoload": {
@@ -2093,7 +2093,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-03-18 09:04:51"
+            "time": "2015-04-02 05:36:41"
         },
         {
             "name": "react/promise",
@@ -2477,16 +2477,16 @@
         },
         {
             "name": "sebastian/version",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/version.git",
-                "reference": "a77d9123f8e809db3fbdea15038c27a95da4058b"
+                "reference": "ab931d46cd0d3204a91e1b9a40c4bc13032b58e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/a77d9123f8e809db3fbdea15038c27a95da4058b",
-                "reference": "a77d9123f8e809db3fbdea15038c27a95da4058b",
+                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/ab931d46cd0d3204a91e1b9a40c4bc13032b58e4",
+                "reference": "ab931d46cd0d3204a91e1b9a40c4bc13032b58e4",
                 "shasum": ""
             },
             "type": "library",
@@ -2508,7 +2508,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2014-12-15 14:25:24"
+            "time": "2015-02-24 06:35:25"
         },
         {
             "name": "symfony/browser-kit",
@@ -2573,12 +2573,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "780a2bc91e1b2188500ce1097f979c8f47dadf7f"
+                "reference": "fc9af388d87b911c01a2540a122803ebc5199f9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/780a2bc91e1b2188500ce1097f979c8f47dadf7f",
-                "reference": "780a2bc91e1b2188500ce1097f979c8f47dadf7f",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/fc9af388d87b911c01a2540a122803ebc5199f9d",
+                "reference": "fc9af388d87b911c01a2540a122803ebc5199f9d",
                 "shasum": ""
             },
             "require": {
@@ -2622,7 +2622,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-30 15:55:07"
+            "time": "2015-04-04 12:23:51"
         },
         {
             "name": "symfony/css-selector",
