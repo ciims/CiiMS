@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2142241a695f22a5651a302157422a3",
+    "hash": "ad3bf9bda59cbe0fc982ec61e786d554",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -124,16 +124,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "45089601417f7ea12dcd7f28d358d8a780cb56f3"
+                "reference": "6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/45089601417f7ea12dcd7f28d358d8a780cb56f3",
-                "reference": "45089601417f7ea12dcd7f28d358d8a780cb56f3",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb",
+                "reference": "6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb",
                 "shasum": ""
             },
             "type": "library",
@@ -162,7 +162,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-03-24 17:43:28"
+            "time": "2015-05-07 19:13:54"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -274,16 +274,16 @@
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.23",
+            "version": "3.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "839c3f9d0e13dcb60abb0ef5369150d4d55c2123"
+                "reference": "b3fdc4598b9477a71c12bfa975aec5b1a6d41d77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/839c3f9d0e13dcb60abb0ef5369150d4d55c2123",
-                "reference": "839c3f9d0e13dcb60abb0ef5369150d4d55c2123",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/b3fdc4598b9477a71c12bfa975aec5b1a6d41d77",
+                "reference": "b3fdc4598b9477a71c12bfa975aec5b1a6d41d77",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -306,7 +306,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-04-30 19:02:55"
+            "time": "2015-05-07 19:18:52"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "1db3e929502e1fba4f74c929e4b4986a538a159c"
+                "reference": "ef2b8f69b6f7879bc8d47514875d624eb8098076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/1db3e929502e1fba4f74c929e4b4986a538a159c",
-                "reference": "1db3e929502e1fba4f74c929e4b4986a538a159c",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/ef2b8f69b6f7879bc8d47514875d624eb8098076",
+                "reference": "ef2b8f69b6f7879bc8d47514875d624eb8098076",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-04-25 12:46:03"
+            "time": "2015-05-01 16:50:06"
         },
         {
             "name": "guzzle/guzzle",
@@ -1086,12 +1086,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "44bde9645703fe92da9f5dd2755298f7c2c6fa92"
+                "reference": "aced82e3cd15d40e5fadebec5dae9fb1ae666596"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/44bde9645703fe92da9f5dd2755298f7c2c6fa92",
-                "reference": "44bde9645703fe92da9f5dd2755298f7c2c6fa92",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/aced82e3cd15d40e5fadebec5dae9fb1ae666596",
+                "reference": "aced82e3cd15d40e5fadebec5dae9fb1ae666596",
                 "shasum": ""
             },
             "require": {
@@ -1136,7 +1136,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-04-24 07:03:44"
+            "time": "2015-05-05 20:46:18"
         },
         {
             "name": "yiisoft/yii",
@@ -1285,12 +1285,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "1e3302d266f6a9b4bebcdfaa32f305074eaedfe3"
+                "reference": "fa399a2a8d8c3817b6270b40dc7724767a4b0f52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/1e3302d266f6a9b4bebcdfaa32f305074eaedfe3",
-                "reference": "1e3302d266f6a9b4bebcdfaa32f305074eaedfe3",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/fa399a2a8d8c3817b6270b40dc7724767a4b0f52",
+                "reference": "fa399a2a8d8c3817b6270b40dc7724767a4b0f52",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1357,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-04-29 19:44:10"
+            "time": "2015-05-04 16:59:23"
         },
         {
             "name": "doctrine/instantiator",
@@ -1518,12 +1518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "2f75325d08c9ec39e5d3af54fcb6b9c0e7fd6114"
+                "reference": "2498ee848cd01639aecdcf3d5a257bace8665b7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/2f75325d08c9ec39e5d3af54fcb6b9c0e7fd6114",
-                "reference": "2f75325d08c9ec39e5d3af54fcb6b9c0e7fd6114",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/2498ee848cd01639aecdcf3d5a257bace8665b7c",
+                "reference": "2498ee848cd01639aecdcf3d5a257bace8665b7c",
                 "shasum": ""
             },
             "require": {
@@ -1561,7 +1561,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-04-27 21:47:43"
+            "time": "2015-05-01 04:57:09"
         },
         {
             "name": "guzzlehttp/streams",
