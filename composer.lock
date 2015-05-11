@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad3bf9bda59cbe0fc982ec61e786d554",
+    "hash": "c773473de0e04e33dcae680b9e88e66d",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.8.2",
+            "version": "2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4237e97388d2906d2aa88f727736968fc2df9cb6"
+                "reference": "85c5224582acf507afad232da20a7ef0b2ec0073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4237e97388d2906d2aa88f727736968fc2df9cb6",
-                "reference": "4237e97388d2906d2aa88f727736968fc2df9cb6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/85c5224582acf507afad232da20a7ef0b2ec0073",
+                "reference": "85c5224582acf507afad232da20a7ef0b2ec0073",
                 "shasum": ""
             },
             "require": {
@@ -120,20 +120,20 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-04-23 20:14:25"
+            "time": "2015-05-07 21:02:23"
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.14",
+            "version": "1.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb"
+                "reference": "00290edc63d160afd8b9b0c50026c85be63a16f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb",
-                "reference": "6be482e568e99cc9b1ec9b5d1874f64d1cf4d4cb",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/00290edc63d160afd8b9b0c50026c85be63a16f8",
+                "reference": "00290edc63d160afd8b9b0c50026c85be63a16f8",
                 "shasum": ""
             },
             "type": "library",
@@ -162,7 +162,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-05-07 19:13:54"
+            "time": "2015-05-11 15:25:15"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -1285,12 +1285,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "fa399a2a8d8c3817b6270b40dc7724767a4b0f52"
+                "reference": "29ab3bb6db80307fbc673f8b707c60d00bbf20f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/fa399a2a8d8c3817b6270b40dc7724767a4b0f52",
-                "reference": "fa399a2a8d8c3817b6270b40dc7724767a4b0f52",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/29ab3bb6db80307fbc673f8b707c60d00bbf20f7",
+                "reference": "29ab3bb6db80307fbc673f8b707c60d00bbf20f7",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1357,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-05-04 16:59:23"
+            "time": "2015-05-09 14:23:01"
         },
         {
             "name": "doctrine/instantiator",
@@ -1365,12 +1365,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "fc999e2f0508e434645ec2bfadeb89d39fa6453c"
+                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/fc999e2f0508e434645ec2bfadeb89d39fa6453c",
-                "reference": "fc999e2f0508e434645ec2bfadeb89d39fa6453c",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/cd3fe91baa28da6e119d619612439eb2db0d8d88",
+                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88",
                 "shasum": ""
             },
             "require": {
@@ -1411,7 +1411,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-04-12 20:59:10"
+            "time": "2015-05-10 22:20:19"
         },
         {
             "name": "facebook/webdriver",
@@ -1729,12 +1729,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "1678cee3b7f93f994da6acf7e998b23a98e955f1"
+                "reference": "9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/1678cee3b7f93f994da6acf7e998b23a98e955f1",
-                "reference": "1678cee3b7f93f994da6acf7e998b23a98e955f1",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020",
+                "reference": "9ef4b8cbf3e839a44a9b375d8c59e109ac7aa020",
                 "shasum": ""
             },
             "require": {
@@ -1783,7 +1783,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-16 05:00:01"
+            "time": "2015-05-09 04:40:58"
         },
         {
             "name": "phpunit/php-file-iterator",
