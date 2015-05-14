@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ed5693ae6712c5b227a47589f3718d22",
+    "hash": "6a9bd8ccdf1ae980587b8dac7581b630",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -124,17 +124,20 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.15",
+            "version": "1.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "00290edc63d160afd8b9b0c50026c85be63a16f8"
+                "reference": "fd26aeb8987c51c291306f995122fed34ebce147"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/00290edc63d160afd8b9b0c50026c85be63a16f8",
-                "reference": "00290edc63d160afd8b9b0c50026c85be63a16f8",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/fd26aeb8987c51c291306f995122fed34ebce147",
+                "reference": "fd26aeb8987c51c291306f995122fed34ebce147",
                 "shasum": ""
+            },
+            "require": {
+                "defuse/php-encryption": "v1.2.1"
             },
             "type": "library",
             "autoload": {
@@ -162,7 +165,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-05-11 15:25:15"
+            "time": "2015-05-14 18:20:07"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -590,6 +593,51 @@
                 "zikula"
             ],
             "time": "2014-11-29 01:29:17"
+        },
+        {
+            "name": "defuse/php-encryption",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "b87737b2eec06b13f025cabea847338fa203d1b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/b87737b2eec06b13f025cabea847338fa203d1b4",
+                "reference": "b87737b2eec06b13f025cabea847338fa203d1b4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "ext-openssl": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Crypto.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "havoc@defuse.ca"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "cipher",
+                "encryption",
+                "mcrypt",
+                "security"
+            ],
+            "time": "2015-03-14 20:27:45"
         },
         {
             "name": "doctrine/inflector",
@@ -1285,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "29ab3bb6db80307fbc673f8b707c60d00bbf20f7"
+                "reference": "033624aecb65e08d94334ea1b2740b91e0a3ba4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/29ab3bb6db80307fbc673f8b707c60d00bbf20f7",
-                "reference": "29ab3bb6db80307fbc673f8b707c60d00bbf20f7",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/033624aecb65e08d94334ea1b2740b91e0a3ba4f",
+                "reference": "033624aecb65e08d94334ea1b2740b91e0a3ba4f",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1405,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-05-09 14:23:01"
+            "time": "2015-05-13 19:27:39"
         },
         {
             "name": "doctrine/instantiator",
@@ -1365,12 +1413,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88"
+                "reference": "b70d22758c0813ea5fef9c22480caadd3a2b6a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/cd3fe91baa28da6e119d619612439eb2db0d8d88",
-                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/b70d22758c0813ea5fef9c22480caadd3a2b6a56",
+                "reference": "b70d22758c0813ea5fef9c22480caadd3a2b6a56",
                 "shasum": ""
             },
             "require": {
@@ -1411,7 +1459,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-05-10 22:20:19"
+            "time": "2015-05-13 13:33:36"
         },
         {
             "name": "facebook/webdriver",

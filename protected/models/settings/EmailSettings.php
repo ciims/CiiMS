@@ -102,7 +102,7 @@ class EmailSettings extends CiiSettingsModel
 		if ($useSSL == 1)
 			$mail->SMTPSecure = 'ssl';
 
-		if ($smtpPass !== NULL && $smtpPass !== "" && Cii::decrypt($smtpPass) != "")
+		if (!empty($smtpPass))
 		{
 			$mail->Password   = Cii::decrypt($smtpPass);
 			$mail->SMTPAuth = true;

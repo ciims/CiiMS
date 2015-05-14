@@ -78,7 +78,7 @@ class ContentController extends CiiController
 			throw new CHttpException(404, Yii::t('ciims.controllers.Content', 'The article you specified does not exist. If you bookmarked this page, please delete it.'));
 
 		// Check for a password
-		if ($content->password != '' || Cii::decrypt($content->password) != '')
+		if (!empty($content->password))
 		{
 			// Check SESSION to see if a password is set
 			$tmpPassword = Cii::get(Cii::get(Cii::get($_SESSION, 'password', array()), $id, array()), 'password', NULL);
