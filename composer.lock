@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "daccbb18d14450b98412cdbdb8d66093",
+    "hash": "64f330bce0802fa62adc7c7a8e5b1936",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.8.3",
+            "version": "2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "85c5224582acf507afad232da20a7ef0b2ec0073"
+                "reference": "1f92deea40f03f1112cd3d026141d89eabbaf858"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/85c5224582acf507afad232da20a7ef0b2ec0073",
-                "reference": "85c5224582acf507afad232da20a7ef0b2ec0073",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1f92deea40f03f1112cd3d026141d89eabbaf858",
+                "reference": "1f92deea40f03f1112cd3d026141d89eabbaf858",
                 "shasum": ""
             },
             "require": {
@@ -120,20 +120,20 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-05-07 21:02:23"
+            "time": "2015-05-14 23:43:27"
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.17",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "aeb243ebc42c85e32b50a16f69664d3f07bf9ad4"
+                "reference": "c3b9df7f37c675366ee9dbdfedd129679e920d1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/aeb243ebc42c85e32b50a16f69664d3f07bf9ad4",
-                "reference": "aeb243ebc42c85e32b50a16f69664d3f07bf9ad4",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/c3b9df7f37c675366ee9dbdfedd129679e920d1e",
+                "reference": "c3b9df7f37c675366ee9dbdfedd129679e920d1e",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +165,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-05-14 19:01:10"
+            "time": "2015-05-17 17:36:51"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -758,12 +758,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "ef2b8f69b6f7879bc8d47514875d624eb8098076"
+                "reference": "523430f21a92c54172099d12d0f31d40f3de67e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/ef2b8f69b6f7879bc8d47514875d624eb8098076",
-                "reference": "ef2b8f69b6f7879bc8d47514875d624eb8098076",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/523430f21a92c54172099d12d0f31d40f3de67e9",
+                "reference": "523430f21a92c54172099d12d0f31d40f3de67e9",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-05-01 16:50:06"
+            "time": "2015-05-17 00:43:01"
         },
         {
             "name": "guzzle/guzzle",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "033624aecb65e08d94334ea1b2740b91e0a3ba4f"
+                "reference": "d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/033624aecb65e08d94334ea1b2740b91e0a3ba4f",
-                "reference": "033624aecb65e08d94334ea1b2740b91e0a3ba4f",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf",
+                "reference": "d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf",
                 "shasum": ""
             },
             "require": {
@@ -1405,7 +1405,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-05-13 19:27:39"
+            "time": "2015-05-16 22:10:29"
         },
         {
             "name": "doctrine/instantiator",
@@ -1463,16 +1463,16 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "v0.5.1",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509"
+                "reference": "2c5b305ea91b00ebbc433ad1663b7f16c1b31ec5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/bbcb697efb394d17bd9ec3d467e7da847cde4509",
-                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/2c5b305ea91b00ebbc433ad1663b7f16c1b31ec5",
+                "reference": "2c5b305ea91b00ebbc433ad1663b7f16c1b31ec5",
                 "shasum": ""
             },
             "require": {
@@ -1500,7 +1500,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2014-11-05 20:53:09"
+            "time": "2015-02-09 19:39:34"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2619,12 +2619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "f649f4d2c5845e90a722f74f636e407be6c75e53"
+                "reference": "7e857a2b52b5833ed27d78a6b1b846bd440ee8bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/f649f4d2c5845e90a722f74f636e407be6c75e53",
-                "reference": "f649f4d2c5845e90a722f74f636e407be6c75e53",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/7e857a2b52b5833ed27d78a6b1b846bd440ee8bd",
+                "reference": "7e857a2b52b5833ed27d78a6b1b846bd440ee8bd",
                 "shasum": ""
             },
             "require": {
@@ -2668,7 +2668,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-12 15:16:46"
+            "time": "2015-05-15 14:11:12"
         },
         {
             "name": "symfony/css-selector",
@@ -2676,12 +2676,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "7fc8d4642711b8929f56b3ffc86fc0c554f4924f"
+                "reference": "5b0968a01e1f6fb724ecc8b7334d662ad4c8cda6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/7fc8d4642711b8929f56b3ffc86fc0c554f4924f",
-                "reference": "7fc8d4642711b8929f56b3ffc86fc0c554f4924f",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/5b0968a01e1f6fb724ecc8b7334d662ad4c8cda6",
+                "reference": "5b0968a01e1f6fb724ecc8b7334d662ad4c8cda6",
                 "shasum": ""
             },
             "require": {
@@ -2721,7 +2721,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-12 15:16:46"
+            "time": "2015-05-15 14:11:12"
         },
         {
             "name": "symfony/dom-crawler",
@@ -2782,12 +2782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "53a2e6de850dbaee04a933662a05551a5d7c80bb"
+                "reference": "fd26bdbb67bc8753884eff5767a4f1ee90e2284b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/53a2e6de850dbaee04a933662a05551a5d7c80bb",
-                "reference": "53a2e6de850dbaee04a933662a05551a5d7c80bb",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/fd26bdbb67bc8753884eff5767a4f1ee90e2284b",
+                "reference": "fd26bdbb67bc8753884eff5767a4f1ee90e2284b",
                 "shasum": ""
             },
             "require": {
@@ -2823,7 +2823,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-12 15:16:46"
+            "time": "2015-05-15 14:11:12"
         },
         {
             "name": "symfony/yaml",

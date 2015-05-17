@@ -97,13 +97,16 @@ class LoginForm extends CFormModel
 		if($this->_identity===null)
 		{
 			$this->_identity=new CiiUserIdentity($this->username,$this->password);
-			$this->_identity->authenticate();
+			$this->_identity->authenticate(); 
 		}
-
+			
 		if($this->_identity->errorCode===CiiUserIdentity::ERROR_NONE)
 		{
 			$duration=$this->rememberMe ? 3600*24 : 0; // 30 days
 			Yii::app()->user->login($this->_identity,$duration);
+			
+			// Store the API key and session_identifier as a key-set in cache
+			Yii::app()->cache->set($this->_identity->getState('apiKey'), session_id(), 1800);
 			return true;
 		}
 		else
