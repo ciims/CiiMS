@@ -78,9 +78,10 @@ $ciimsCoreConfig = array(
 			'showScriptName' => false
 		),
 		'user' => array(
-			'allowAutoLogin' => true,
-			'authTimeout'    => 900,
-			'autoRenewCookie'=> true
+			'allowAutoLogin' 		=> true,
+			'authTimeout'    		=> 900,
+			'absoluteAuthTimeout' 	=> 1900,
+			'autoRenewCookie' 		=> true
 		),
 		'db' => array(
 			'class'                 => 'CDbConnection',
