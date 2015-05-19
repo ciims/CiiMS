@@ -125,10 +125,18 @@ CiiMS' default behavior is to handle it's own rendering. However CiiMS can be pu
 To put your theme in this state, set the following in your ```Theme.php``` file
 
 ```
-    public $noRouting = false;
+    public $noRouting = true;
 ```
 
-> __NOTE:__ When using the ```$noRouting``` parameter, you must still define a PHP login view and layout so that you can access the dashboard.
+When the ```$noRouting``` property is set to ```true```. All layout information will be directed to the ```/content/nr``` action, which renders the ```/content/index.php``` view. If you do not wish to use CiiMS for any routing, simply have this view file return a 404.
+
+```
+<?php throw new CHttpException(404); ?>
+```
+
+> Note however, that in order to use the dashboard you _must_ define both a layout file ```views/layouts/main.php``` and a login view ```views/site/login.php``` so that CiiMS can authenticate you appropriatly.
+
+When putting CiiMS in API only mode, it may be beneficial to stand CiiMS on it's own domain, and have your front end reside on some other system (such as a CDN) with your FQDN.tld pointed to your CDN for enhanced performance.
 
 ##### Properties
 
