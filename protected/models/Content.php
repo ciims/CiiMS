@@ -382,9 +382,15 @@ class Content extends CiiModel
 		// If we do not supply a condition or parameters, use our overwritten method
 		if ($condition == '' && empty($params) && $pk != null)
 		{
+			if (!is_numeric($pk))
+				throw new CHttpException(400, Yii::t('ciims.models.Content', 'The content ID provided was invalid.'));
+				
 			$criteria = new CDbCriteria;
-			$criteria->addCondition("t.id={$pk}");
-			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id={$pk})");
+			$criteria->addCondition("t.id=:pk");
+			$criteria->addCondition("vid=(SELECT MAX(vid) FROM content WHERE id=:pk)");
+			$criteria->params = array(
+				':pk' => $pk
+			);
 			return $this->query($criteria);
 		}
 
@@ -398,8 +404,14 @@ class Content extends CiiModel
 	 */
 	public function findRevisions($id)
 	{
+		if (!is_numeric($id))
+			throw new CHttpException(400, Yii::t('ciims.models.Content', 'The content ID provided was invalid.'));
+				
 		$criteria = new CDbCriteria;
-		$criteria->addCondition("id={$id}");
+		$criteria->addCondition("id=:id");
+		$criteria->params = array(
+			':id' => $id
+		);
 		$criteria->order = 'vid DESC';
 
 		return $this->query($criteria, true);
