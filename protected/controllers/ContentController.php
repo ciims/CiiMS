@@ -203,4 +203,22 @@ class ContentController extends CiiController
 			'pages' 	=> $pages
 		));
 	}
+
+	/**
+	 * No routing action
+	 */
+	public function actionNR()
+	{
+        $themeName = Cii::getConfig('theme', 'default');
+        if (file_exists(Yii::getPathOfAlias('webroot.themes.') . DS . $themeName .  DS . 'Theme.php'))
+        {
+            Yii::import('webroot.themes.' . $themeName . '.Theme');
+            $theme = new Theme;
+        }
+
+		if ($theme->noRouting !== false)
+			$this->render('index');
+		else
+			throw new CHttpException(404);
+	}
 }

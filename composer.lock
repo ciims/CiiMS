@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2253c57026711cf48f527414c5442909",
+    "hash": "b4f00a4ad51fae373f03ae1b5b8f90cd",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -57,16 +57,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "2.8.4",
+            "version": "2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1f92deea40f03f1112cd3d026141d89eabbaf858"
+                "reference": "ec34eddcff0b7385afdb474ce3705580f7116294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1f92deea40f03f1112cd3d026141d89eabbaf858",
-                "reference": "1f92deea40f03f1112cd3d026141d89eabbaf858",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ec34eddcff0b7385afdb474ce3705580f7116294",
+                "reference": "ec34eddcff0b7385afdb474ce3705580f7116294",
                 "shasum": ""
             },
             "require": {
@@ -120,20 +120,20 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-05-14 23:43:27"
+            "time": "2015-05-18 23:19:07"
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.19",
+            "version": "1.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "533eb617677088a9046928c4447050a4665ea705"
+                "reference": "91632f08e19fab557676464baa29cacff66597c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/533eb617677088a9046928c4447050a4665ea705",
-                "reference": "533eb617677088a9046928c4447050a4665ea705",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/91632f08e19fab557676464baa29cacff66597c1",
+                "reference": "91632f08e19fab557676464baa29cacff66597c1",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +165,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-05-17 18:05:33"
+            "time": "2015-05-19 19:25:24"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -1333,12 +1333,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf"
+                "reference": "325a6e747a3089a5ac51bb757ab6f195627a11b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf",
-                "reference": "d3cf78c6053f3fdfa4025bfcdb713f91e3ccdbdf",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/325a6e747a3089a5ac51bb757ab6f195627a11b0",
+                "reference": "325a6e747a3089a5ac51bb757ab6f195627a11b0",
                 "shasum": ""
             },
             "require": {
@@ -1405,7 +1405,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2015-05-16 22:10:29"
+            "time": "2015-05-18 13:38:57"
         },
         {
             "name": "doctrine/instantiator",
