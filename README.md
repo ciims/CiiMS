@@ -68,7 +68,7 @@ __A powerful dashboard with custom JavaScript cards__
 ![CiiMS Dashboard](	
 https://s3.amazonaws.com/ciims-s3-us-01/949A73802B6E17CD3FA04B8FA14E76AF7EDF51736A3904E2EF7358049C51D8D2.png)
 
-__Easily browser all content entries__
+__Easily browse all content entries__
 
 ![Content List View](	
 https://s3.amazonaws.com/ciims-s3-us-01/6F679654A4F7F3B9A3DD72DA32540B2CD12843C7DACB88A257372386C7325A80.png)
