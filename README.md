@@ -9,7 +9,7 @@
 ![CiiMS Logo Banner](	
 https://s3.amazonaws.com/ciims-s3-us-01/63E6ADC1A1BF41ABDE55B4BA810F187DBF1C9E696A90713D8A1F38B69E1071CE.png)
 
-CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system built in Yii.
+CiiMS is a fast, simple, and easy to use, full feature blogging platform and content management system built in Yii. CiiMS is, and will always be free to use and open-source.
 
 ## News
 
