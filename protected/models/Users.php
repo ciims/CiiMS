@@ -128,28 +128,14 @@ class Users extends CiiModel
 
 	/**
 	 * Retrieves the reputation for a given user
-	 * @return int
+	 * @param boolean $model 	Whether an instance of UserMetadata should be returned or not
+	 * @return mixed
 	 */
 	public function getReputation($model=false)
 	{
-		$reputation = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'reputation'));
+		$reputation = UserMetadata::model()->getPrototype('UserMetadata', array('user_id' => $this->id, 'key' => 'reputation'), array('value' => 150));
 
-		if ($reputation === NULL)
-		{
-			$reputation = new UserMetadata;
-			$reputation->attributes = array(
-				'user_id' => $this->id,
-				'key' => 'reputation',
-				'value' => 150
-			);
-
-			$reputation->save();
-			if ($model == true)
-				return $reputation;
-			return 0;
-		}
-
-		if ($model)
+		if ($model == true)
 			return $reputation;
 
 		return $reputation->value;
@@ -168,30 +154,16 @@ class Users extends CiiModel
 
 	/**
 	 * Retrieves all comments that the user has flagged
-	 * @return array
+	 * @param boolean $model 	Whether an instance of UserMetadata should be returned or not
+	 * @return mixed
 	 */
 	public function getFlaggedComments($model=false)
 	{
-		$flags = UserMetadata::model()->findByAttributes(array('user_id' => $this->id, 'key' => 'flaggedComments'));
-
-		if ($flags === NULL)
-		{
-			$flags = new UserMetadata;
-			$flags->attributes = array(
-				'user_id' => $this->id,
-				'key' => 'flaggedComments',
-				'value' => CJSON::encode(array())
-			);
-
-			$flags->save();
-
-			if ($model == true)
-				return $flags;
-			return array();
-		}
-
+		$flags = UserMetadata::model()->getPrototype('UserMetadata', array('user_id' => $this->id, 'key' => 'flaggedComments'), array('value' => CJSON::encode(array())));
+		
 		if ($model == true)
 			return $flags;
+
 		return CJSON::decode($flags->value);
 	}
 
@@ -242,7 +214,6 @@ class Users extends CiiModel
 
 	/**
 	 * Sets some default values for the user record.
-	 * TODO: This should have been moved to CiiModel
 	 * @see CActiveRecord::beforeValidate()
 	 **/
 	public function beforeValidate()
