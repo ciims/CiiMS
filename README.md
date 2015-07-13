@@ -13,9 +13,9 @@ CiiMS is a fast, simple, and easy to use, full feature blogging platform and con
 
 ## News
 
-__CiiMS 2.0.0 Beta Released__
+__CiiMS 2.0.0 RC1 Released__
 
-CiiMS 2.0.0 Beta is now available. Checkout the [release notes](https://www.erianna.com/ciims-2-0-0-beta-release-announcement) for more information.
+CiiMS 2.0.0 RC1 is now available. Checkout the [release notes](https://www.erianna.com/ciims-2-0-0-beta-release-announcement) for more information.
 
 __Interested in a Hosted Solution?__
 
@@ -32,10 +32,10 @@ Do you use CiiMS and love it? Want to show your support? Would you like some fre
 
 ## Installation
 
-CiiMS can be quickly installed through composer. For more information about installing CiiMS, checkoug the [installation guide](https://docs.ciims.io/installation.html).
+CiiMS can be quickly installed through composer. For more information about installing CiiMS, checkout the [installation guide](https://docs.ciims.io/installation.html).
 
 ```
-composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} dev-master
+composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} 2.0.0-rc1
 cd {path}
 composer dump-autoload -o
 ```
@@ -100,7 +100,7 @@ Full documents for CiiMS can be found at [docs.ciims.io](https://docs.ciims.io).
 ## Features
 
 * Based on Yii Framework
-* Installs in 30 seconds*
+* Installs in 30 seconds
 * Utilizes Composer
 * Beautiful Default Theme
 * Supports Markdown Extra
@@ -119,10 +119,6 @@ Full documents for CiiMS can be found at [docs.ciims.io](https://docs.ciims.io).
 * Easily install new themes and cards from in a single click
 * _And a bunch of other things!_
 
-```
-* Installation time is based upon [TravisCI](https://travis-ci.org/charlesportwoodii/CiiMS) builds
-```
-
 ## Requirements
 
 Before installing CiiMS you'll need to have at _minimum_ the following:
@@ -136,6 +132,7 @@ Before installing CiiMS you'll need to have at _minimum_ the following:
 All the dependencies and other requirements are managed through composer, and will be reported back to you when you run ```composer install```.
 
 ## Recommendations
+
 The following extensions/applications are recommended to improve performance.
 
 * [phpredis](https://github.com/nicolasff/phpredis) + [Redis](redis.io)
@@ -145,7 +142,8 @@ The following extensions/applications are recommended to improve performance.
 ------------------
 
 ## Support
-If you require support, submit a Github issue and I'll look into it as soon as I can. 
+
+If you require support, submit a Github issue and I'll look into it as soon as I can.
 
 ## How Can I Contribute?
 
