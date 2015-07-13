@@ -46,7 +46,6 @@ class CategoriesController extends CiiController
 	 * Requests come in, are verified, and then pulled from the database dynamically
 	 * Shows all blog posts for a particular category_id
 	 * @param $id	- The content ID that we want to pull from the database
-	 * @return $this->render() - Render of page that we want to display
 	 **/
 	public function actionIndex($id=NULL)
 	{

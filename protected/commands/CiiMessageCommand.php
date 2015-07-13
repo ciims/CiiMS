@@ -6,7 +6,7 @@ Yii::import('cii.commands.CiiConsoleCommand');
 class CiiMessageCommand extends CiiConsoleCommand
 {
 	/**
-	 *
+	 * Default args
 	 * @return array
 	 */
 	private function getArgs()
@@ -37,6 +37,10 @@ class CiiMessageCommand extends CiiConsoleCommand
 		);
 	}
 
+	/**
+ 	 * Generates translation files for a given mtheme
+	 * @param string $name 	The name of the theme to generate translations for
+	 */
 	public function actionThemes($name=NULL)
 	{
 		if ($name == NULL)
@@ -50,6 +54,10 @@ class CiiMessageCommand extends CiiConsoleCommand
 		$this->execute($config);
 	}
 
+	/**
+ 	 * Generates translation files for a given module
+	 * @param string $name 	The name of the module to generate translations for
+	 */
 	public function actionModules($name=NULL)
 	{
 		if ($name == NULL)
@@ -64,6 +72,9 @@ class CiiMessageCommand extends CiiConsoleCommand
 		$this->execute($config);
 	}
 
+	/**
+ 	 * Defualt action
+	 */
 	public function actionIndex()
 	{
 		$config = $this->getArgs();
@@ -74,7 +85,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 
 	/**
 	 * Execute the action.
-	 * @param array $args command line parameters specific for this command
+	 * @param array $config command line parameters specific for this command
 	 */
 	private function execute($config)
 	{

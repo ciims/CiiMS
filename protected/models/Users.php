@@ -135,7 +135,7 @@ class Users extends CiiModel
 	{
 		$reputation = UserMetadata::model()->getPrototype('UserMetadata', array('user_id' => $this->id, 'key' => 'reputation'), array('value' => 150));
 
-		if ($model == true)
+		if ($model === true)
 			return $reputation;
 
 		return $reputation->value;
@@ -161,7 +161,7 @@ class Users extends CiiModel
 	{
 		$flags = UserMetadata::model()->getPrototype('UserMetadata', array('user_id' => $this->id, 'key' => 'flaggedComments'), array('value' => CJSON::encode(array())));
 		
-		if ($model == true)
+		if ($model === true)
 			return $flags;
 
 		return CJSON::decode($flags->value);

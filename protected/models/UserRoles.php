@@ -51,31 +51,26 @@ class UserRoles extends CiiModel
 
 	public function isA($roleName, $role=false)
 	{
-		if ($role == false)
+		if ($role === false)
 			$role = Yii::app()->user->role;
 
 		$roleName = strtolower($roleName);
 
 		switch ($roleName)
 		{
-		case 'user':
-			return $role <= 1;
-			break;
-		case 'collaborator':
-			return $role == 5;
-			break;
-		case 'author':
-			return $role == 7;
-			break;
-		case 'publisher':
-			return $role == 8;
-			break;
-		case 'admin':
-			return $role == 9;
-			break;
+			case 'user':
+				return $role <= 1;
+			case 'collaborator':
+				return $role == 5;
+			case 'author':
+				return $role == 7;
+			case 'publisher':
+				return $role == 8;
+			case 'admin':
+				return $role == 9;
 		}
 
-		return faslse;
+		return false;
 	}
 
 	/**

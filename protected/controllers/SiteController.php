@@ -25,7 +25,6 @@ class SiteController extends CiiController
 	 * beforeAction method, performs operations before an action is presented
 	 * @param $action, the action being called
 	 * @see http://www.yiiframework.com/doc/api/1.1/CController#beforeAction-detail
-	 * @return CiiController::beforeAction
 	 */
 	public function beforeAction($action)
 	{
