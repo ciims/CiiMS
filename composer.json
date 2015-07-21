@@ -77,7 +77,7 @@
         "zhuravljov/yii2-debug": "v1.4"
     },
     "require-dev": {
-        "codeception/codeception": "2.0.*",
+        "codeception/codeception": "2.1.*",
         "codeception/YiiBridge": "dev-master"
     },
     "autoload": {
