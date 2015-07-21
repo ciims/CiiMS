@@ -61,7 +61,6 @@
         "yiisoft/yii": "1.1.16",
         "composer/installers": "v1.0.19",
         "hashids/hashids": "1.0.4",
-        "Codeception/YiiBridge": "dev-master",
         "CryptLib/CryptLib": "dev-master",
         "phpmailer/phpmailer": "v5.2.9",
         "yiqing-95/YiiTimeAgo": "dev-master",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f1dd3adbb825c91832bca377c0b50dde",
+    "hash": "256662ea8b59ae9ea129cb8bc7131ba6",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -472,30 +472,6 @@
                 "theme"
             ],
             "time": "2015-03-30 21:33:18"
-        },
-        {
-            "name": "codeception/YiiBridge",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/charlesportwoodii/YiiBridge.git",
-                "reference": "eda651ebb1780b37584f485498a9ccc47ac965f1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/YiiBridge/zipball/eda651ebb1780b37584f485498a9ccc47ac965f1",
-                "reference": "eda651ebb1780b37584f485498a9ccc47ac965f1",
-                "shasum": ""
-            },
-            "type": "package",
-            "license": [
-                "MIT"
-            ],
-            "description": "YiiBridge extension",
-            "support": {
-                "source": "https://github.com/charlesportwoodii/YiiBridge/tree/master"
-            },
-            "time": "2014-04-23 19:38:50"
         },
         {
             "name": "composer/installers",
@@ -1324,6 +1300,30 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "codeception/YiiBridge",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/YiiBridge.git",
+                "reference": "eda651ebb1780b37584f485498a9ccc47ac965f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/YiiBridge/zipball/eda651ebb1780b37584f485498a9ccc47ac965f1",
+                "reference": "eda651ebb1780b37584f485498a9ccc47ac965f1",
+                "shasum": ""
+            },
+            "type": "package",
+            "license": [
+                "MIT"
+            ],
+            "description": "YiiBridge extension",
+            "support": {
+                "source": "https://github.com/charlesportwoodii/YiiBridge/tree/master"
+            },
+            "time": "2014-04-23 19:38:50"
+        },
         {
             "name": "codeception/codeception",
             "version": "2.1.x-dev",
@@ -3042,9 +3042,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "codeception/yiibridge": 20,
         "cryptlib/cryptlib": 20,
-        "yiqing-95/yiitimeago": 20
+        "yiqing-95/yiitimeago": 20,
+        "codeception/yiibridge": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
