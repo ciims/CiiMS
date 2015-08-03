@@ -66,14 +66,15 @@
         "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.5",
         "charlesportwoodii/yii-newrelic": "1.0.1",
-        "charlesportwoodii/cii": "1.0.22",
-        "ciims-themes/default": "3.0.19",
+        "charlesportwoodii/cii": "1.0.23",
+        "ciims-themes/default": "3.0.20",
         "ciims-modules/dashboard": "3.0.26",
-        "ciims-modules/api": "2.0.21",
+        "ciims-modules/api": "2.0.22",
         "ciims-modules/install": "2.0.11",
         "ciims-modules/hybridauth": "2.0.6",
         "ciims-plugins/awsuploader": "1.0.3",
-        "zhuravljov/yii2-debug": "v1.4"
+        "zhuravljov/yii2-debug": "v1.4",
+        "rych/otp": "dev-master"
     },
     "require-dev": {
         "codeception/codeception": "2.1.*",
