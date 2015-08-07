@@ -69,7 +69,11 @@ $ciimsCoreConfig = array(
 			'cookieMode'    => 'only',
 			'cookieParams'  => array(
 				'httponly' => true,
-				'secure' => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443))
+				'secure' => (
+					(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
+					(!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) || 
+					(!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+				)
 			)
 		),
 		'urlManager' => array(
@@ -78,7 +82,6 @@ $ciimsCoreConfig = array(
 			'showScriptName' => false
 		),
 		'user' => array(
-			'allowAutoLogin' 		=> true,
 			'authTimeout'    		=> 900,
 			'absoluteAuthTimeout' 	=> 1900,
 			'autoRenewCookie' 		=> true

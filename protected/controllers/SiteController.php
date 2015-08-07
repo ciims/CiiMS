@@ -315,7 +315,7 @@ class SiteController extends CiiController
 
 	/**
 	 * Activates a new user's account
-	 * @param int $id 			The activation key
+	 * @param mixed $id 			The activation key
 	 */
 	public function actionActivation($id=NULL)
 	{

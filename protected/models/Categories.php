@@ -214,7 +214,7 @@ class Categories extends CiiModel
 	/**
 	 * Automatically corrects parent tree issues that arise when a parent category node
 	 * is deleted.
-	 * @return [type]
+	 * @return boolean
 	 */
 	public function beforeDelete()
 	{
@@ -258,7 +258,7 @@ class Categories extends CiiModel
 	/**
 	 * Retrieves the parent categories for a given category_id
 	 * @param  int $id
-	 * @return [type]
+	 * @return array
 	 */
 	public function getParentCategories($id)
 	{
@@ -277,7 +277,7 @@ class Categories extends CiiModel
 	 * Recursive callback for retrieving parent categories
 	 * @param  int  $id      The category we're seeking
 	 * @param  array  $stack A stack to hold the entire tree
-	 * @return Stack
+	 * @return array
 	 */
 	private function _getParentCategories($all_categories, $id, array $stack = array())
 	{

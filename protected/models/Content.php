@@ -286,7 +286,8 @@ class Content extends CiiModel
 
 	/**
 	 * Sets the layout
-	 * @param [type] $data [description]
+	 * @param string $data  the layout file
+	 * @return boolean
 	 */
 	public function setLayout($data)
 	{
@@ -297,7 +298,8 @@ class Content extends CiiModel
 
 	/**
 	 * Sets the view
-	 * @param [type] $data [description]
+	 * @param string $data  The view file
+	 * @return boolean
 	 */
 	public function setView($data)
 	{
@@ -435,7 +437,7 @@ class Content extends CiiModel
 
 	/**
 	 * Saves a prototype copy of the model so that we can get an id back to work with
-	 * @return $model->save(false) without any validation rules
+	 * @return boolean 	$model->save(false) without any validation rules
 	 */
 	public function savePrototype($author_id)
 	{
