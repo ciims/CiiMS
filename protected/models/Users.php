@@ -266,6 +266,53 @@ class Users extends CiiModel
 	}
 
 	/**
+	 * Helper method to get the usermetadata object rather than calling getPrototype everywhere
+	 * @param string $key
+	 * @param mixed $value
+	 * @return UserMetadata prototype object
+	 */
+	public function getMetadataObject($key, $value=NULL)
+	{
+		return UserMetadata::model()->getPrototype('UserMetadata', array(
+				'user_id' => $this->id,
+				'key' => $key
+			),array(
+				'user_id' => $this->id,
+				'key' => $key,
+				'value' => $value,
+		));
+	}
+
+	/**
+	 * Helper method to set the usermetadata object rather than calling getPrototype everywhere
+	 * @param string $key
+	 * @param mixed $value
+	 * @return UserMetadata prototype object
+	 */
+	public function setMetadataObject($key, $value)
+	{
+		$metadata = $this->getMetadataObject();
+
+		$metadata->value = $value;
+
+		return $metadata->save();
+	}
+
+	/**
+     * Determines if two factor authentication code is required
+     * @return boolean
+     */
+    public function needsTwoFactorAuth()
+    {
+    	$metadata = $this->getMetadataObject('OTPSeed', false);
+
+    	if ($metadata->value !== false)
+    		return true;
+
+    	return false;
+    }
+
+	/**
 	 * Returns the gravatar image url for a particular user
 	 * The beauty of this is that you can call User::model()->findByPk()->gravatarImage() and not have to do anything else
 	 * Implemention details borrowed from Hypatia Cii User Extensions with permission

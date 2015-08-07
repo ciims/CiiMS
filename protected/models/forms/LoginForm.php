@@ -21,6 +21,12 @@ class LoginForm extends CFormModel
 	public $password;
 
 	/**
+	 * Two factor authentication code
+	 * @var string
+	 */
+	public $twoFactorCode = false;
+
+	/**
 	 * Whether or not we should remember the user.
 	 * This isn't uses as of CiiMS 1.1
 	 * @var boolean ?
@@ -37,11 +43,10 @@ class LoginForm extends CFormModel
 	 * The identity of the user
 	 * @var CiiUserIdentity
 	 */
-	private $_identity;
+	private $_identity = NULL;
 
 	/**
-	 * The Application Name (??)
-	 * // TODO: Remember what this is used for
+	 * The Application Name for API requests
 	 * @var $app_name
 	 */
 	public $app_name = NULL;
@@ -67,24 +72,87 @@ class LoginForm extends CFormModel
 			array('username, password', 'required'),
 			array('username', 'email'),
 			array('password', 'authenticate'),
+			array('twoFactorCode', 'hasTwoFactorCode')
 		);
 	}
 
 	/**
+	 * Yii attribute labels
+	 * @return array
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'username' 		=> Yii::t('ciims.models.LoginForm', 'Username'),
+			'password' 		=> Yii::t('ciims.models.LoginForm', 'Password'),
+			'twoFactorCode' => Yii::t('ciims.models.LoginForm', 'Two Factor Authentication Code'),
+		);
+	}
+
+	/**
+	 * Returns an instance of CiiUserIdentity
+	 * @return CiiUserIdentity
+	 */
+	public function getIdentity()
+	{
+		if ($this->_identity === NULL)
+			$this->_identity = new CiiUserIdentity($this->username, $this->password, $this->twoFactorCode);
+		
+		return $this->_identity;
+	}
+	
+	/**
 	 * Authenticates the password.
 	 * This is the 'authenticate' validator as declared in rules().
 	 */
-	public function authenticate($attribute,$params)
+	public function authenticate($attribute, $params)
 	{
-		if(!$this->hasErrors())
+		if (!$this->hasErrors())
 		{
-			$this->_identity = new CiiUserIdentity($this->username,$this->password);
-			$this->_identity->app_name = $this->app_name;
-			if(!$this->_identity->authenticate($this->force))
-				$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
+			$this->getIdentity()->app_name = $this->app_name;
+			if (!$this->getIdentity()->authenticate($this->force))
+			{
+				if ($this->getIdentity()->errorCode === 5)
+				{
+					$this->addError('twoFactorCode', Yii::t('ciims.models.LoginForm', 'Two factor code was not valid. Please try again.'));
+					$this->username = NULL;
+					$this->password = NULL;
+					$this->twoFactorCode = NULL;
+				}
+				else
+					$this->addError('password', Yii::t('ciims.models.LoginForm', 'Incorrect username or password.'));
+			}
 		}
 	}
 
+	/**
+	 * Validator for two factor authentication codes
+	 */
+	public function hasTwoFactorCode($attribute, $params)
+	{
+		if ($this->twoFactorCode === false && $this->needsTwoFactorAuth())
+			$this->addError('twoFactorCode', Yii::t('ciims.models.LoginForm', 'Please enter your two factor authentication code to proceed'));
+	}
+
+	/**
+	 * Determines if two factor authentication code is required
+	 * @return boolean
+	 */
+	public function needsTwoFactorAuth()
+	{
+		$user = $this->getIdentity()->getUser();
+
+		// If the user is bad, we don't need a 2fa code
+		if ($user == NULL)
+			return false;
+
+		// Only return true if the user needs a 2fa code and their password validation succeeded
+		if ($user->needsTwoFactorAuth() && $this->getIdentity()->validatePassword())
+			return true;
+			
+		return false;
+	}
+	
 	/**
 	 * Logs in the user using the given username and password in the model.
 	 * @return boolean whether login is successful
@@ -93,22 +161,16 @@ class LoginForm extends CFormModel
 	{
 		if (!$this->validate())
 			return false;
-
-		if($this->_identity===null)
-		{
-			$this->_identity=new CiiUserIdentity($this->username,$this->password);
-			$this->_identity->authenticate(); 
-		}
 			
-		if($this->_identity->errorCode===CiiUserIdentity::ERROR_NONE)
+		if ($this->getIdentity()->errorCode === CiiUserIdentity::ERROR_NONE)
 		{
-			$duration=$this->rememberMe ? 3600*24 : 0; // 30 days
-			Yii::app()->user->login($this->_identity,$duration);
+			$duration = $this->rememberMe ? 3600*24 : 0; // 30 days
+			Yii::app()->user->login($this->getIdentity(), $duration);
 			
 			// Store the API key and session_identifier as a key-set in cache
-			Yii::app()->cache->set($this->_identity->getState('apiKey'), session_id(), 1800);
+			Yii::app()->cache->set($this->getIdentity()->getState('apiKey'), session_id(), 1800);
 			return true;
-		}
+		}	
 		else
 			return false;
 	}

@@ -166,13 +166,13 @@ class SiteController extends CiiController
 		)));
 
 		$this->layout = '//layouts/main';
-		$model=new LoginForm;
+		$model = new LoginForm;
 
-		if(Cii::get($_POST, 'LoginForm', false))
+		if (Cii::get($_POST, 'LoginForm', false))
 		{
 			$model->attributes = Cii::get($_POST, 'LoginForm', array());
 
-			if($model->login())
+			if ($model->login())
 				$this->redirect(isset($_GET['next']) ? $_GET['next'] : Yii::app()->user->returnUrl);
 		}
 
@@ -193,6 +193,7 @@ class SiteController extends CiiController
 
 		// Purge the active sessions API Key
 		$apiKey = UserMetadata::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'key' => 'api_key'));
+
 		if ($apiKey != NULL)
 			$apiKey->delete();
 
