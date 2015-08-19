@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7055c53c504248bc307861ef43ba56f",
+    "hash": "714b6b61e6aea3c36894c1c746099faa",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -349,16 +349,16 @@
         },
         {
             "name": "ciims-modules/install",
-            "version": "2.0.11",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-install.git",
-                "reference": "dcffc98c2941bf1309e964efa76a09bc1678a5e7"
+                "reference": "8960e861c475d580cee5e95e9ac2af8dc5569a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/dcffc98c2941bf1309e964efa76a09bc1678a5e7",
-                "reference": "dcffc98c2941bf1309e964efa76a09bc1678a5e7",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-install/zipball/8960e861c475d580cee5e95e9ac2af8dc5569a7c",
+                "reference": "8960e861c475d580cee5e95e9ac2af8dc5569a7c",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -381,7 +381,7 @@
                 "installer",
                 "module"
             ],
-            "time": "2015-03-31 18:42:18"
+            "time": "2015-08-19 19:57:11"
         },
         {
             "name": "ciims-plugins/awsuploader",
@@ -730,12 +730,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "7ee4cb2b473de3bf5cd2a5ada95a2f363b4a4532"
+                "reference": "e2dca2c5a9b2e6fb17d161adabfaa37a56912aad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/7ee4cb2b473de3bf5cd2a5ada95a2f363b4a4532",
-                "reference": "7ee4cb2b473de3bf5cd2a5ada95a2f363b4a4532",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e2dca2c5a9b2e6fb17d161adabfaa37a56912aad",
+                "reference": "e2dca2c5a9b2e6fb17d161adabfaa37a56912aad",
                 "shasum": ""
             },
             "require": {
@@ -765,7 +765,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-07-10 10:32:54"
+            "time": "2015-08-17 20:30:49"
         },
         {
             "name": "guzzle/guzzle",
@@ -2192,12 +2192,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "92d472f7ac0cd45b7f6d66cb807646432cf89f5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/92d472f7ac0cd45b7f6d66cb807646432cf89f5d",
+                "reference": "92d472f7ac0cd45b7f6d66cb807646432cf89f5d",
                 "shasum": ""
             },
             "require": {
@@ -2233,7 +2233,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-08-18 15:47:59"
         },
         {
             "name": "phpunit/phpunit",
@@ -2313,12 +2313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "dccd8011934fba6fb77c7182c74926ad58c9ecd1"
+                "reference": "5e2645ad49d196e020b85598d7c97e482725786a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/dccd8011934fba6fb77c7182c74926ad58c9ecd1",
-                "reference": "dccd8011934fba6fb77c7182c74926ad58c9ecd1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5e2645ad49d196e020b85598d7c97e482725786a",
+                "reference": "5e2645ad49d196e020b85598d7c97e482725786a",
                 "shasum": ""
             },
             "require": {
@@ -2361,7 +2361,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-08-09 04:15:55"
+            "time": "2015-08-19 09:14:08"
         },
         {
             "name": "psr/http-message",
