@@ -8,10 +8,11 @@
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('BASEDIR') or define('BASEDIR', __DIR__ . DS . '..' . DS);
 
 // Bypass Yiic entirely and use this instead as the cli bootstrapper
 if (php_sapi_name() === 'cli')
-	return require __DIR__.DS.'protected'.DS.'yiic.php';
+	return require BASEDIR.'protected'.DS.'yiic.php';
 
 // Disable Error Reporting and set some constants
 error_reporting(0);
@@ -23,8 +24,8 @@ date_default_timezone_set('UTC');
 if (!isset($_SERVER['CIIMS_ENV']))
 	$_SERVER['CIIMS_ENV'] = 'main';
 
-$config = __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
-$defaultConfig=__DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
+$config = BASEDIR.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+$defaultConfig = BASEDIR.'protected'.DS.'config'.DS.'main.default.php';
 
 // If we don't have a configuration file, run the installer.
 if (!file_exists($config) && file_exists('install.php'))
@@ -41,10 +42,11 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',isset($config['params']['
 $defaultConfig = require($defaultConfig);
 
 // Include the composer dependencies
-require_once __DIR__.DS.'vendor'.DS.'autoload.php';
-require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
+require_once BASEDIR.'vendor'.DS.'autoload.php';
+require_once BASEDIR.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
 
-Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
+Yii::setPathOfAlias('vendor', BASEDIR.'vendor');
+Yii::setPathOfAlias('base', BASEDIR);
 Yii::setPathOfAlias('ext.yiinfinite-scroll.YiinfiniteScroller', Yii::getPathOfAlias('vendor.charlesportwoodii.ciinfinite-scroll.YiinfiniteScroller'));
 
 // Merge it with our default config file
@@ -52,7 +54,7 @@ $config = CMap::mergeArray($defaultConfig, $config);
 
 // Include the ClassMap for enhanced performance if we're not in debug mode
 if (!YII_DEBUG)
-	require_once __DIR__.DS.'protected'.DS.'config'.DS.'classmap.php';
+	require_once BASEDIR.'protected'.DS.'config'.DS.'classmap.php';
 
 $config['components']['db']['enableProfiling'] = YII_DEBUG;
 $config['components']['db']['enableParamLogging'] = YII_DEBUG;

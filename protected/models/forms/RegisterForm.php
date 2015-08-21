@@ -138,7 +138,7 @@ class RegisterForm extends CFormModel
 
 				// Send the registration email
 				$emailSettings = new EmailSettings;
-        		$emailSettings->send($this->_user, Yii::t('ciims.email','Activate Your Account'), 'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.register', array('user' => $this->_user, 'hash' => $meta->value), true, true);
+        		$emailSettings->send($this->_user, Yii::t('ciims.email','Activate Your Account'), 'base.themes.' . Cii::getConfig('theme', 'default') .'.views.email.register', array('user' => $this->_user, 'hash' => $meta->value), true, true);
 			}
 
 			return true;

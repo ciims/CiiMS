@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "157a5a29e7767e3e5804d683a318a2bb",
+    "hash": "e3ef46a3170914f1e1f530ed1c977799",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -120,16 +120,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.25",
+            "version": "dev-webroot",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "821d86f226803da8896dcf5ab7cca6e078b68a36"
+                "reference": "f26089e17c58797238b5c49ef5aecdf6da5bb7e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/821d86f226803da8896dcf5ab7cca6e078b68a36",
-                "reference": "821d86f226803da8896dcf5ab7cca6e078b68a36",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/f26089e17c58797238b5c49ef5aecdf6da5bb7e2",
+                "reference": "f26089e17c58797238b5c49ef5aecdf6da5bb7e2",
                 "shasum": ""
             },
             "require": {
@@ -161,7 +161,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-08-17 16:41:30"
+            "time": "2015-08-21 20:59:31"
         },
         {
             "name": "charlesportwoodii/ciinfinite-scroll",
@@ -265,16 +265,16 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.22",
+            "version": "dev-webroot",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "dceb4fbbd7b30fef08e81dca3ebf59bea7cebc00"
+                "reference": "1326f85d08f19a64c8de1cd46d50e46cd6a6e6dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/dceb4fbbd7b30fef08e81dca3ebf59bea7cebc00",
-                "reference": "dceb4fbbd7b30fef08e81dca3ebf59bea7cebc00",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/1326f85d08f19a64c8de1cd46d50e46cd6a6e6dd",
+                "reference": "1326f85d08f19a64c8de1cd46d50e46cd6a6e6dd",
                 "shasum": ""
             },
             "require": {
@@ -300,20 +300,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-08-07 19:39:08"
+            "time": "2015-08-21 21:07:47"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.26",
+            "version": "dev-webroot",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "ff7bf55f570632d1ff4a325a279ce95878eb9231"
+                "reference": "506a564b2cfad782020e90c6b260f23a605970b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/ff7bf55f570632d1ff4a325a279ce95878eb9231",
-                "reference": "ff7bf55f570632d1ff4a325a279ce95878eb9231",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/506a564b2cfad782020e90c6b260f23a605970b9",
+                "reference": "506a564b2cfad782020e90c6b260f23a605970b9",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -336,7 +336,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-07-21 19:58:32"
+            "time": "2015-08-21 21:06:48"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -3186,6 +3186,9 @@
     "stability-flags": {
         "cryptlib/cryptlib": 20,
         "yiqing-95/yiitimeago": 20,
+        "charlesportwoodii/cii": 20,
+        "ciims-modules/dashboard": 20,
+        "ciims-modules/api": 20,
         "charlesportwoodii/ciinfinite-scroll": 20,
         "rych/otp": 20,
         "codeception/yiibridge": 20

@@ -15,8 +15,8 @@ modules:
         PhpBrowser:
             url: http://localhost:8234
         Yii1:
-            appPath: test.php
-            url: http://localhost:8234/test.php
+            appPath: web/test.php
+            url: http://localhost:8234/web/test.php
         Db:
             dsn: 'mysql:host=127.0.0.1;dbname=ciims_travis'
             user: 'root'

@@ -12,8 +12,8 @@ class UserModelTest extends \Codeception\TestCase\Test
 
     public function _before()
     {
-        $model = new Users;
-        $model->attributes = array(
+        $this->user = new Users;
+        $this->user->attributes = array(
             'email' => 'example@ciims.io',
             'password' => 'example_password',
             'username' => 'example_user',
@@ -21,9 +21,7 @@ class UserModelTest extends \Codeception\TestCase\Test
             'status' => '1',
         );
 
-        $model->save();
-
-        $this->user = $this->getUserModel();
+        $this->assertTrue($this->user->save());
     }
 
     private function getUserModel()
@@ -33,7 +31,7 @@ class UserModelTest extends \Codeception\TestCase\Test
 
     public function _after()
     {
-        $this->user->delete();
+        $this->assertTrue($this->user->delete());
     }
 
     public function testUserCreate()

@@ -10,14 +10,15 @@
  */
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('BASEDIR') or define('BASEDIR', __DIR__ . DS . '..' . DS);
 error_reporting(-1);
 ini_set('display_errors', 'true');
 
-$yiiPath = __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yiilite.php';
-require_once __DIR__.DS.'vendor'.DS.'autoload.php';
+$yiiPath = BASEDIR.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yiilite.php';
+require_once BASEDIR.'vendor'.DS.'autoload.php';
 
-$config=dirname(__FILE__).'/protected/config/install.php';
-$mainConfig = dirname(__FILE__).'/protected/config/main.php';
+$config = BASEDIR.'protected'.DS.'config'.DS.'install.php';
+$mainConfig = BASEDIR.'protected'.DS.'config'.DS.'main.php';
 $ciimsConfig = require($config);
 
 defined('YII_DEBUG') or define('YII_DEBUG',true);
@@ -30,7 +31,8 @@ if (!file_exists($mainConfig) && !file_exists($yiiPath))
 }
 
 require_once($yiiPath);
+Yii::setPathOfAlias('vendor', BASEDIR.'vendor');
+Yii::setPathOfAlias('base', BASEDIR);
 
-Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
 $app = Yii::createWebApplication($config);
 $app->run();

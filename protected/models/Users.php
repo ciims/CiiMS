@@ -234,7 +234,7 @@ class Users extends CiiModel
         		$emailSettings->send(
 					$this,
 					Yii::t('ciims.models.Users', 'CiiMS Password Change Notification'),
-					'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
+					'base.themes.' . Cii::getConfig('theme', 'default') .'.views.email.passwordchange',
 					array('user' => $this)
 				);
 			}
