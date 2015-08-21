@@ -18,13 +18,13 @@
 * @license    http://opensource.org/licenses/MIT  MIT LICENSE
 * @link       https://github.com/charlesportwoodii/CiiMS
 */
-//$modules = require_once __DIR__ . DS . 'modules.php';
+
 $import = function($default=false) {
 
 	$modules = (require __DIR__ . DS . 'modules.php');
 
 	if ($default === true)
-		return (array)$modules;
+		return $modules;
 
 	$m = array(
 		'application.models.*',

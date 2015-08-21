@@ -5,6 +5,25 @@
 Yii::import('cii.commands.CiiConsoleCommand');
 class CiiMessageCommand extends CiiConsoleCommand
 {
+
+	/**
+	 * The configuration object
+	 * @var array _$config
+	 */
+	private $_config = array();
+
+	/**
+	 * The messages that should be translated
+	 * @var array $_messages
+	 */
+	private $_messages = array();
+
+	/**
+	 * The stirng that should be used for translations
+	 * @var string $_translator
+	 */
+	private $_translator = 'Yii::t';
+
 	/**
 	 * Default args
 	 * @return array
@@ -18,6 +37,8 @@ class CiiMessageCommand extends CiiConsoleCommand
 			'languages'		=> array('en_us'),
 			'fileTypes'		=> array('php'),
 			'overwrite'		=> true,
+			'sort'			=> true,
+			'removeOld'		=> false,
 			'exclude'		=> array(
 				'assets',
 				'css',
@@ -38,6 +59,14 @@ class CiiMessageCommand extends CiiConsoleCommand
 	}
 
 	/**
+	 * Init method
+	 */
+	public function init()
+	{
+		$this->_config = $this->getArgs();
+	}
+
+	/**
  	 * Generates translation files for a given mtheme
 	 * @param string $name 	The name of the theme to generate translations for
 	 */
@@ -46,12 +75,11 @@ class CiiMessageCommand extends CiiConsoleCommand
 		if ($name == NULL)
 			$this->usageError('A theme was not specified for translations');
 
-		$config = $this->getArgs();
-		$config['type'] = 'theme';
-		array_push($config['exclude'], 'modules');
-		$config['sourcePath'] .= '..'.DS.'themes' . DS . $name . DS;
-		$config['messagePath'] = $config['sourcePath'].'messages';
-		$this->execute($config);
+		$this->_config['type'] = 'theme';
+		array_push($this->_config['exclude'], 'modules');
+		$this->_config['sourcePath'] .= '..'.DS.'themes' . DS . $name . DS;
+		$this->_config['messagePath'] = $this->_config['sourcePath'].'messages';
+		$this->execute();
 	}
 
 	/**
@@ -63,13 +91,12 @@ class CiiMessageCommand extends CiiConsoleCommand
 		if ($name == NULL)
 			$this->usageError('A module was not specified for translations');
 
-		$config = $this->getArgs();
-		$config['type'] = 'module';
-		array_push($config['exclude'], 'themes');
-		unset($config['exclude']['modules']);
-		$config['sourcePath'] = Yii::getPathOfAlias('application.modules') . DS . $name . DS;
-		$config['messagePath'] = $config['sourcePath'].'messages';
-		$this->execute($config);
+		$this->_config['type'] = 'module';
+		array_push($this->_config['exclude'], 'themes');
+		unset($this->_config['exclude']['modules']);
+		$this->_config['sourcePath'] = Yii::getPathOfAlias('application.modules') . DS . $name . DS;
+		$this->_config['messagePath'] = $this->_config['sourcePath'].'messages';
+		$this->execute($this->_config);
 	}
 
 	/**
@@ -77,20 +104,114 @@ class CiiMessageCommand extends CiiConsoleCommand
 	 */
 	public function actionIndex()
 	{
-		$config = $this->getArgs();
-		array_push($config['exclude'], 'modules');
-		array_push($config['exclude'], 'themes');
-		return $this->execute($config);
+		array_push($this->_config['exclude'], 'modules');
+		array_push($this->_config['exclude'], 'themes');
+		return $this->execute();
 	}
 
 	/**
 	 * Execute the action.
 	 * @param array $config command line parameters specific for this command
 	 */
-	private function execute($config)
+	private function execute()
 	{
-		$translator='Yii::t';
-		extract($config);
+		// Validate the configuration
+		extract($this->_config);
+		$this->validateConfig();
+
+		// Determine the messages
+		foreach($this->getFiles() as $file)
+			$this->_messages = array_merge_recursive($this->_messages,$this->extractMessages($file,$this->_translator));
+
+		foreach($languages as $language)
+		{
+			$dir = $messagePath.DS.$language;
+
+			$this->createDirectory($dir);
+
+			foreach ($this->_messages as $category=>$msgs)
+			{
+				$msgs = array_values(array_unique($msgs));
+
+				$dir = $this->_config['messagePath'].DS.$language;
+
+				if ($this->_config['type']  == 'theme')
+				{
+					$data = explode('.', $category);
+					unset($data[0]);
+					$dirPath = implode(DS, $data);
+				}
+				else if ($this->_config['type'] == 'module')
+				{
+					$data = explode('.', $category);
+					unset($data[0]);
+					unset($data[1]);
+					$dirPath = implode(DS, $data);
+				}
+				else
+					$dirPath = implode(DS, explode('.', $category));
+
+				if (empty($dirPath))
+					continue;
+
+				$this->createDirectory($dir . DS . $dirPath);
+				$this->createDirectory($dir . DS . $language);
+
+				$this->generateMessageFile($msgs,$dir.DS.$dirPath.'.php',$overwrite,$removeOld,$sort);
+			}
+		}
+	}
+
+	/**
+	 * Creates a directory at the given path
+	 * @param string $directory
+	 * @return boolean
+	 */
+	private function createDirectory($directory)
+	{
+		if (!is_dir($directory)) 
+		{
+			if (!mkdir($directory, 0777, true))
+				$this->usageError('The directory ' . $directory .' could not be created. Please make sure this process has write access to this directory.');
+		}
+
+		return true;
+	}
+
+	/**
+	 * Retrieves the files that should be translated
+	 * @param string $sourcePath
+	 * @param array $fileTypes
+	 * @param array $exclude
+	 * @return array $files
+	 */
+	private function getFiles()
+	{
+		extract($this->_config);
+		$files = CFileHelper::findFiles(realpath($sourcePath),array(
+					'fileTypes' => $fileTypes,
+					'exclude'	=> $exclude
+				 ));
+
+		// Strip out all extensions
+		foreach ($files as $k=>$file)
+		{
+			if (strpos($file, 'extensions') !== false)
+				unset($files[$k]);
+		}
+
+		reset($files);
+
+		return $files;
+	}
+
+	/**
+	 * Does basic validation on the configuration options
+	 * @param array $config 	The app configuration
+	 */
+	private function validateConfig()
+	{
+		extract($this->_config);
 
 		if(!isset($sourcePath,$messagePath,$languages))
 			$this->usageError('The configuration file must specify "sourcePath", "messagePath" and "languages".');
@@ -103,75 +224,6 @@ class CiiMessageCommand extends CiiConsoleCommand
 
 		if(empty($languages))
 			$this->usageError("Languages cannot be empty.");
-
-		if(!isset($overwrite))
-			$overwrite = false;
-
-		if(!isset($removeOld))
-			$removeOld = false;
-
-		if(!isset($sort))
-			$sort = true;
-
-		$options=array();
-
-		if(isset($fileTypes))
-			$options['fileTypes']=$fileTypes;
-
-		if(isset($exclude))
-			$options['exclude']=$exclude;
-
-		$files=CFileHelper::findFiles(realpath($sourcePath),$options);
-
-		// Strip out all extensions EXCEPT for Cii
-		foreach ($files as $k=>$file)
-		{
-			if (strpos($file, 'extensions') !== false && strpos($file, 'extensions/cii') === false)
-				unset($files[$k]);
-		}
-
-		reset($files);
-
-		$messages=array();
-
-		foreach($files as $file)
-		$messages=array_merge_recursive($messages,$this->extractMessages($file,$translator));
-
-		foreach($languages as $language)
-		{
-			$dir=$messagePath.DS.$language;
-
-			if(!is_dir($dir))
-				@mkdir($dir);
-
-			foreach ($messages as $category=>$msgs)
-			{
-				$msgs=array_values(array_unique($msgs));
-
-				$dir = $config['messagePath'].DS.$language;
-				if ($config['type']  == 'theme')
-				{
-					$data = explode('.', $category);
-					unset($data[0]);
-					$dirPath = implode(DS, $data);
-				}
-				else if ($config['type'] == 'module')
-				{
-					$data = explode('.', $category);
-					unset($data[0]);
-					unset($data[1]);
-					$dirPath = implode(DS, $data);
-				}
-				else
-					$dirPath = implode(DS, explode('.', $category));
-
-				if ($dirPath == "")
-					continue;
-				@mkdir($dir . DS . $dirPath, 0777, true);
-				@mkdir($dir.DS . $language.DS, 0777, true);
-				$this->generateMessageFile($msgs,$dir.DS.$dirPath.'.php',$overwrite,$removeOld,$sort);
-			}
-		}
 	}
 
 	/**
@@ -211,6 +263,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 				$messages[$category][]=eval("return $message;");  // use eval to eliminate quote escape
 			}
 		}
+
 		return $messages;
 	}
 

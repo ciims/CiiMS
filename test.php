@@ -3,7 +3,7 @@
 // Set Error Reporting Levels
 error_reporting(-1);
 ini_set('display_errors', 'true');
-date_default_timezone_set ('UTC');
+date_default_timezone_set('UTC');
 
 // Definitions
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
@@ -29,12 +29,6 @@ $_SERVER['SERVER_NAME'] = 'localhost';
 $config['components']['request'] = array(
 	'class' => 'vendor.codeception.YiiBridge.web.CodeceptionHttpRequest'
 );
-
-/**
- * @todo: Why does codeception require this? This needs to be pulled directly from protected/runtime/modules.config.php
- * If we let PHP generate this, it makes "array(0 => 'api', 1 => 'dashboard', 2 => 'install', 3 => 'hybridauth');",
- * Which _codeception_ refuses to parse when it passes it off to Yii
- */
 
 // Return for Codeception
 return array(
