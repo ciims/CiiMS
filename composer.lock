@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "714b6b61e6aea3c36894c1c746099faa",
+    "hash": "157a5a29e7767e3e5804d683a318a2bb",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f8c68d5de3e204320a2a47d0d786a8ee17b1a8ee"
+                "reference": "282aa6e96275c49fcc363429297ddc1ba006c42a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f8c68d5de3e204320a2a47d0d786a8ee17b1a8ee",
-                "reference": "f8c68d5de3e204320a2a47d0d786a8ee17b1a8ee",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/282aa6e96275c49fcc363429297ddc1ba006c42a",
+                "reference": "282aa6e96275c49fcc363429297ddc1ba006c42a",
                 "shasum": ""
             },
             "require": {
@@ -116,7 +116,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-08-12 20:41:18"
+            "time": "2015-08-20 23:04:59"
         },
         {
             "name": "charlesportwoodii/cii",
@@ -162,6 +162,37 @@
             ],
             "description": "CiiMS core components (Cii)",
             "time": "2015-08-17 16:41:30"
+        },
+        {
+            "name": "charlesportwoodii/ciinfinite-scroll",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charlesportwoodii/CiinfiniteScroll.git",
+                "reference": "fa5644104bb795a5688cc9f3b19a53ab236cf802"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charlesportwoodii/CiinfiniteScroll/zipball/fa5644104bb795a5688cc9f3b19a53ab236cf802",
+                "reference": "fa5644104bb795a5688cc9f3b19a53ab236cf802",
+                "shasum": ""
+            },
+            "type": "library",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net"
+                }
+            ],
+            "description": "Infinite Scroll extension for CiiMS",
+            "support": {
+                "source": "https://github.com/charlesportwoodii/CiinfiniteScroll/tree/master",
+                "issues": "https://github.com/charlesportwoodii/CiinfiniteScroll/issues"
+            },
+            "time": "2015-08-21 20:19:47"
         },
         {
             "name": "charlesportwoodii/eanalytics",
@@ -730,12 +761,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/google/google-api-php-client.git",
-                "reference": "e2dca2c5a9b2e6fb17d161adabfaa37a56912aad"
+                "reference": "066668986ea099d406098ba0bb2a61cc51f5a0de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/e2dca2c5a9b2e6fb17d161adabfaa37a56912aad",
-                "reference": "e2dca2c5a9b2e6fb17d161adabfaa37a56912aad",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/066668986ea099d406098ba0bb2a61cc51f5a0de",
+                "reference": "066668986ea099d406098ba0bb2a61cc51f5a0de",
                 "shasum": ""
             },
             "require": {
@@ -765,7 +796,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2015-08-17 20:30:49"
+            "time": "2015-08-20 18:54:11"
         },
         {
             "name": "guzzle/guzzle",
@@ -3155,6 +3186,7 @@
     "stability-flags": {
         "cryptlib/cryptlib": 20,
         "yiqing-95/yiitimeago": 20,
+        "charlesportwoodii/ciinfinite-scroll": 20,
         "rych/otp": 20,
         "codeception/yiibridge": 20
     },

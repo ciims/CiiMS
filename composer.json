@@ -33,6 +33,10 @@
             "url": "https://github.com/ircmaxell/PHP-CryptLib"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/charlesportwoodii/CiinfiniteScroll"
+        },
+        {
             "type": "package",
             "package": {
                 "name": "yiqing-95/YiiTimeAgo",
@@ -74,6 +78,7 @@
         "ciims-modules/hybridauth": "2.0.6",
         "ciims-plugins/awsuploader": "1.0.3",
         "zhuravljov/yii2-debug": "v1.4",
+        "charlesportwoodii/ciinfinite-scroll": "dev-master",
         "rych/otp": "dev-master"
     },
     "require-dev": {

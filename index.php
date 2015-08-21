@@ -45,6 +45,7 @@ require_once __DIR__.DS.'vendor'.DS.'autoload.php';
 require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.(YII_DEBUG ? 'yii.php' : 'yiilite.php');
 
 Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
+Yii::setPathOfAlias('ext.yiinfinite-scroll.YiinfiniteScroller', Yii::getPathOfAlias('vendor.charlesportwoodii.ciinfinite-scroll.YiinfiniteScroller'));
 
 // Merge it with our default config file
 $config = CMap::mergeArray($defaultConfig, $config);

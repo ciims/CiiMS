@@ -20,6 +20,7 @@ $defaultConfig = require __DIR__.DS.'protected'.DS.'config'.DS.'main.default.php
 require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii.php';
 require_once __DIR__.DS.'vendor'.DS.'autoload.php';
 Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
+Yii::setPathOfAlias('ext.yiinfinite-scroll.YiinfiniteScroller', Yii::getPathOfAlias('vendor.charlesportwoodii.ciinfinite-scroll.YiinfiniteScroller'));
 
 $config = CMap::mergeArray($defaultConfig, $config);
 

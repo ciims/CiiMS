@@ -18,7 +18,6 @@
 * @license    http://opensource.org/licenses/MIT  MIT LICENSE
 * @link       https://github.com/charlesportwoodii/CiiMS
 */
-
 $import = function($default=false) {
 
 	$modules = (require __DIR__ . DS . 'modules.php');

@@ -72,7 +72,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 	 */
 	public function actionThemes($name=NULL)
 	{
-		if ($name == NULL)
+		if ($name === NULL)
 			$this->usageError('A theme was not specified for translations');
 
 		$this->_config['type'] = 'theme';
@@ -88,7 +88,7 @@ class CiiMessageCommand extends CiiConsoleCommand
 	 */
 	public function actionModules($name=NULL)
 	{
-		if ($name == NULL)
+		if ($name === NULL)
 			$this->usageError('A module was not specified for translations');
 
 		$this->_config['type'] = 'module';
@@ -111,7 +111,6 @@ class CiiMessageCommand extends CiiConsoleCommand
 
 	/**
 	 * Execute the action.
-	 * @param array $config command line parameters specific for this command
 	 */
 	private function execute()
 	{
@@ -180,9 +179,6 @@ class CiiMessageCommand extends CiiConsoleCommand
 
 	/**
 	 * Retrieves the files that should be translated
-	 * @param string $sourcePath
-	 * @param array $fileTypes
-	 * @param array $exclude
 	 * @return array $files
 	 */
 	private function getFiles()
@@ -207,7 +203,6 @@ class CiiMessageCommand extends CiiConsoleCommand
 
 	/**
 	 * Does basic validation on the configuration options
-	 * @param array $config 	The app configuration
 	 */
 	private function validateConfig()
 	{
