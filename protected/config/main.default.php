@@ -18,6 +18,27 @@
 * @license    http://opensource.org/licenses/MIT  MIT LICENSE
 * @link       https://github.com/charlesportwoodii/CiiMS
 */
+//$modules = require_once __DIR__ . DS . 'modules.php';
+$import = function($default=false) {
+
+	$modules = (require __DIR__ . DS . 'modules.php');
+
+	if ($default === true)
+		return (array)$modules;
+
+	$m = array(
+		'application.models.*',
+		'application.models.forms.*',
+		'application.models.settings.*'
+	);
+
+	foreach ($modules as $k=>$v) {
+		$m[] = 'application.modules.'.$v.'.*';
+	}
+
+	return $m;
+};
+
 $ciimsCoreConfig = array(
 	'basePath' => __DIR__.DS.'..',
 	'name' => NULL,
@@ -26,13 +47,8 @@ $ciimsCoreConfig = array(
 		'cii',
 		'analytics'
 	),
-	'import' => array(
-		'application.modules.*',
-		'application.models.*',
-		'application.models.forms.*',
-		'application.models.settings.*'
-	),
-	'modules' => require_once __DIR__ . DS . 'modules.php',
+	'import' => $import(),
+	'modules' => $import(true),
 	'behaviors' => array(
 		'onBeginRequest' => array(
 			'class' => 'vendor.charlesportwoodii.yii-newrelic.behaviors.YiiNewRelicWebAppBehavior',
