@@ -40,10 +40,10 @@ composer install
 ```
 # eg chown -R www-data:www-data {dir}
 #    chmod -R 754 {dir}
-/assets
+/web/assets
 /protected/runtime
 /protected/config
-/uploads
+/web/uploads
 ```
 
 4 Open up your web browser to the path where CiiMS is installed. Note, it's __HIGHLY__ recommended that CiiMS be installed either on the root domain or a subdomain (eg //blog.example.com, //example.com) rather than in a subfolder (eg //example.com/ciims). Most people have significantly _less_ issues with CiiMS when it is run this way.
@@ -95,7 +95,7 @@ git checkout {version}
 git pull
 composer install -o
 php index.php migrate up --interactive=0
-rm -rf assets/*
+rm -rf web/assets/*
 rm -rf runtime/cache/*
 rm -rf runtime/modules.config.php
 php index.php ciicache flush
