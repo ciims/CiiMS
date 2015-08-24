@@ -308,7 +308,7 @@ class ProfileForm extends CFormModel
         return $emailSettings->send(
 			$this->_user,
 			Yii::t('ciims.models.Users', 'CiiMS Email Change Notification'),
-			'webroot.themes.' . Cii::getConfig('theme', 'default') .'.views.email.email-change',
+			'base.themes.' . Cii::getConfig('theme', 'default') .'.views.email.email-change',
 			array(
 				'key' => $this->setNewEmailChangeKey(),
 				'user' => $this->_user

@@ -7,19 +7,22 @@ date_default_timezone_set('UTC');
 
 // Definitions
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('BASEDIR') or define('BASEDIR', __DIR__ . DS . '..' . DS);
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 if (!isset($_SERVER['CIIMS_ENV']))
 	$_SERVER['CIIMS_ENV'] = 'main';
 
-$config = require __DIR__.DS.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
-$defaultConfig = require __DIR__.DS.'protected'.DS.'config'.DS.'main.default.php';
+$config = require BASEDIR.'protected'.DS.'config'.DS.$_SERVER['CIIMS_ENV'].'.php';
+$defaultConfig = require BASEDIR.'protected'.DS.'config'.DS.'main.default.php';
 
 // Load Yii and Composer extensions
-require_once __DIR__.DS.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii.php';
-require_once __DIR__.DS.'vendor'.DS.'autoload.php';
-Yii::setPathOfAlias('vendor', __DIR__.DS.'vendor');
+require_once BASEDIR.'vendor'.DS.'yiisoft'.DS.'yii'.DS.'framework'.DS.'yii.php';
+require_once BASEDIR.'vendor'.DS.'autoload.php';
+
+Yii::setPathOfAlias('vendor', BASEDIR.'vendor');
+Yii::setPathOfAlias('base', BASEDIR);
 Yii::setPathOfAlias('ext.yiinfinite-scroll.YiinfiniteScroller', Yii::getPathOfAlias('vendor.charlesportwoodii.ciinfinite-scroll.YiinfiniteScroller'));
 
 $config = CMap::mergeArray($defaultConfig, $config);

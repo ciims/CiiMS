@@ -10,19 +10,13 @@ settings:
     memory_limit: 1024M
     log: true
 modules:
-    enabled: [PhpBrowser, WebHelper, TestHelper, Yii1, Db]
+    enabled: [PhpBrowser, WebHelper, TestHelper, Yii1]
     config:
         PhpBrowser:
             url: http://localhost:8234
         Yii1:
-            appPath: test.php
-            url: http://localhost:8234/test.php
-        Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=ciims_travis'
-            user: 'root'
-            password: ''
-            populate: false
-            cleanup: false
+            appPath: web/test.php
+            url: http://localhost:8234/web/test.php
         curl:
             CURLOPT_SSL_VERIFYPEER: 0
             CURLOPT_SSL_VERIFYHOST: 0

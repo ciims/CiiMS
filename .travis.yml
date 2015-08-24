@@ -4,6 +4,7 @@ env:
   global:
     - "ARTIFACTS_AWS_REGION=us-east-1"
     - "ARTIFACTS_S3_BUCKET=travis-s3-us-01"
+    - "ARTIFACTS_DEBUG=1"
     - secure: "ZhvRET5CEgYtZY5z8nUDjcpqthkVb6yc/qBi/re+EOaLgx1nVFSf5G6uHEVqlzNka5F67KT+kV0Ph3WqoT9d3X10IAiH2cdvG/gsZxJi8pXn+A0A1f9I4wnsvlSDmgHG46JjWb7nz6VqKb5WC54eVEEZ2kPlkQPmXZ5r9QbanCs="
     - secure: "ioXW769alaD/b2QrPyzRgRV/k/7p5TmtuRDKQmLFa5wcAkLiuWa6VzaMMdc5VroK4hEsMvJdxJJtrneZEyPluiVntL59TW5OO5OzDVrxZInlXRLCW1jSwi2BkzdezNfS5g6X3nv3d/YOz4pci/KbLmiDVwOt+LWEjymOqLarVpA="
     - secure: "U9q/v5DwZtVmRYjczFWIu49AP1RDBvWZasj+cqE+qUN+z8k7F+WvFlpoBfguKyT4utxlQCeu/2cUxz3v++Ab3mjdgtAumtqSZVcklNPduah2wiXyg4jz65FLemgRSlWTGDFsc5EcIBwk4OUZFdguikiAJGVtiY5VTfv/0kW5P1w="
@@ -28,7 +29,7 @@ notifications:
   email:
     on_success: change
     on_failure: change
-    
+
 install:
   - bundle install --path vendor/bundler
   - composer config --global github-oauth.github.com $GITHUB_API_TOKEN
@@ -37,10 +38,15 @@ install:
   - php -i
 
 before_script:
-  - mysql -e 'create database ciims_travis;'
-  - php index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI" --force=0 --writeConfig=1 --debug=1
+  - mysql -e 'CREATE DATABASE ciims_travis;'
+  - php web/index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI" --force=0 --writeConfig=1 --debug=1
 
 after_failure: # Upload the application.log on failure
   - "bundle exec travis-artifacts upload --path protected/runtime/application.log"
 
-script: ./vendor/bin/codecept run
+script: 
+  - ./vendor/bin/codecept run
+  - ./vendor/bin/codecept run -c ./vendor/charlesportwoodii/cii
+  - ./vendor/bin/codecept run -c ./protected/modules/api
+  - ./vendor/bin/codecept run -c ./protected/modules/install
+  - ./vendor/bin/codecept run -c ./protected/modules/dashboard

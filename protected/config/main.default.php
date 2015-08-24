@@ -54,6 +54,9 @@ $ciimsCoreConfig = array(
 		),
 	),
 	'components' => array(
+		'themeManager' => array(
+			'basePath' => (__DIR__ . DS . '..' . DS . '..' . DS . 'themes')
+		),
 		'messages' => array(
 			'class' => 'vendor.charlesportwoodii.cii.components.CiiPHPMessageSource'
 		),
