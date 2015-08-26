@@ -37,6 +37,10 @@
             "url": "https://github.com/charlesportwoodii/CiinfiniteScroll"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/ciims/requirements"
+        },
+        {
             "type": "package",
             "package": {
                 "name": "yiqing-95/YiiTimeAgo",
@@ -77,6 +81,7 @@
         "ciims-modules/install": "2.0.13",
         "ciims-modules/hybridauth": "2.0.6",
         "ciims-plugins/awsuploader": "1.0.3",
+		"ciims/requirements": "*",
         "zhuravljov/yii2-debug": "v1.4",
         "charlesportwoodii/ciinfinite-scroll": "dev-master",
         "rych/otp": "dev-master"
@@ -90,6 +95,12 @@
             "Codeception": "src"
         }
     },
+	"scripts": {
+		"post-install-cmd": "php ./vendor/ciims/requirements/index.php",
+		"post-update-cmd": "php ./vendor/ciims/requirements/index.php",
+		"post-root-package-install": "php ./vendor/ciims/requirements/index.php",
+		"post-create-project-cmd": "php ./vendor/ciims/requirements/index.php"
+	},
     "extra": {
         "installer-paths": {
             "protected/modules/dashboard/": [

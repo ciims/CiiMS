@@ -121,22 +121,15 @@ Full documents for CiiMS can be found at [docs.ciims.io](https://docs.ciims.io).
 
 ## Requirements
 
-Before installing CiiMS you'll need to have at _minimum_ the following:
+As modern blogging platform meant for the next 10 years of writing, CiiMS' requirements are high. To ensure you have all the necessary requirements, CiiMS has a dedicated requirements checker that will run after installing the necessary composer dependencies and will notify you of any missing dependencies.
 
-* PHP 5.5+
-* [Yii1 Requirements](http://www.yiiframework.com/doc/guide/1.1/en/quickstart.installation#requirements)
-* PHP CURL Extension
-* PHP ZIP Extension
-* PHP MCrypt Extension
+The requirements checker can be run manually by running: ```php ./vendor/ciims/requirements/index.php```
 
-All the dependencies and other requirements are managed through composer, and will be reported back to you when you run ```composer install```.
-
-## Recommendations
+### Recommendations
 
 The following extensions/applications are recommended to improve performance.
 
 * [phpredis](https://github.com/nicolasff/phpredis) + [Redis](redis.io)
-* [memcached](http://www.php.net//manual/en/book.memcached.php)
 * [Zend Opcache](http://www.php.net//manual/en/book.opcache.php)
 
 ------------------

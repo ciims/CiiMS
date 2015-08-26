@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d25f68e391243e011b8b56de172f2ef",
+    "hash": "301526e76fdacd2c76cd57cd5d12d180",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -505,6 +505,37 @@
             "time": "2015-08-07 19:40:07"
         },
         {
+            "name": "ciims/requirements",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ciims/requirements.git",
+                "reference": "cd74a4891f734da12f25d41f1808c4cd7d48839b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ciims/requirements/zipball/cd74a4891f734da12f25d41f1808c4cd7d48839b",
+                "reference": "cd74a4891f734da12f25d41f1808c4cd7d48839b",
+                "shasum": ""
+            },
+            "type": "library",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Charles R. Portwood II",
+                    "email": "charlesportwoodii@ethreal.net"
+                }
+            ],
+            "description": "CiiMS requirements checker",
+            "support": {
+                "source": "https://github.com/ciims/requirements/tree/master",
+                "issues": "https://github.com/ciims/requirements/issues"
+            },
+            "time": "2015-08-26 16:37:23"
+        },
+        {
             "name": "composer/installers",
             "version": "v1.0.19",
             "source": {
@@ -648,12 +679,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "b0b2feffb47906a03b570777c07044c529d1d124"
+                "reference": "63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/b0b2feffb47906a03b570777c07044c529d1d124",
-                "reference": "b0b2feffb47906a03b570777c07044c529d1d124",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9",
+                "reference": "63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9",
                 "shasum": ""
             },
             "require": {
@@ -707,7 +738,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-07-07 15:32:45"
+            "time": "2015-08-26 14:31:47"
         },
         {
             "name": "facebook/php-sdk",
@@ -1648,12 +1679,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "d687700d601f8b5f19b99ffc1c0f6af835a3c7b7"
+                "reference": "36e021d6f26185f0a39ed8de509bb6b8f0283d45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/d687700d601f8b5f19b99ffc1c0f6af835a3c7b7",
-                "reference": "d687700d601f8b5f19b99ffc1c0f6af835a3c7b7",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/36e021d6f26185f0a39ed8de509bb6b8f0283d45",
+                "reference": "36e021d6f26185f0a39ed8de509bb6b8f0283d45",
                 "shasum": ""
             },
             "require": {
@@ -1702,7 +1733,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-08-15 20:48:15"
+            "time": "2015-08-24 17:09:43"
         },
         {
             "name": "guzzlehttp/promises",
