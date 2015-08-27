@@ -18,3 +18,4 @@ public_html
 Gemfile.lock
 .bundle/*
 tests/_log/*
+/index.php
