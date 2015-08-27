@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "301526e76fdacd2c76cd57cd5d12d180",
+    "hash": "9f9ecab62e57d20adb5a4fa62575f889",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -120,16 +120,16 @@
         },
         {
             "name": "charlesportwoodii/cii",
-            "version": "1.0.26",
+            "version": "1.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/cii.git",
-                "reference": "a4bb6f30a41707507d89258996f7e180e6631ede"
+                "reference": "c40d5baa98550d6cf458576f7140a19b10b9ea32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/a4bb6f30a41707507d89258996f7e180e6631ede",
-                "reference": "a4bb6f30a41707507d89258996f7e180e6631ede",
+                "url": "https://api.github.com/repos/charlesportwoodii/cii/zipball/c40d5baa98550d6cf458576f7140a19b10b9ea32",
+                "reference": "c40d5baa98550d6cf458576f7140a19b10b9ea32",
                 "shasum": ""
             },
             "require": {
@@ -161,7 +161,7 @@
                 }
             ],
             "description": "CiiMS core components (Cii)",
-            "time": "2015-08-24 15:37:12"
+            "time": "2015-08-27 19:16:02"
         },
         {
             "name": "charlesportwoodii/ciinfinite-scroll",
@@ -2907,12 +2907,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "13da7c5c2d131b783d8cb3bf186a014cb5cea85d"
+                "reference": "61509fa9e9870225a351b29c34e50a936f7dea07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/13da7c5c2d131b783d8cb3bf186a014cb5cea85d",
-                "reference": "13da7c5c2d131b783d8cb3bf186a014cb5cea85d",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/61509fa9e9870225a351b29c34e50a936f7dea07",
+                "reference": "61509fa9e9870225a351b29c34e50a936f7dea07",
                 "shasum": ""
             },
             "require": {
@@ -2956,7 +2956,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:31:10"
+            "time": "2015-08-27 06:53:13"
         },
         {
             "name": "symfony/css-selector",
@@ -3017,12 +3017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "22b9e7f3504dfbad21f3ff83475aa287f26c0de9"
+                "reference": "be577b3a5d4a06d8ce03db57222bd06b5a6509de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/22b9e7f3504dfbad21f3ff83475aa287f26c0de9",
-                "reference": "22b9e7f3504dfbad21f3ff83475aa287f26c0de9",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/be577b3a5d4a06d8ce03db57222bd06b5a6509de",
+                "reference": "be577b3a5d4a06d8ce03db57222bd06b5a6509de",
                 "shasum": ""
             },
             "require": {
@@ -3062,7 +3062,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:18:02"
+            "time": "2015-08-27 06:53:13"
         },
         {
             "name": "symfony/finder",
@@ -3070,12 +3070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
-                "reference": "3baab64f272f0e3c2462d09f2270bcbed1510ef8"
+                "reference": "142440d48e10fd4b4f2ffb2d72fa0aad6f03cacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/3baab64f272f0e3c2462d09f2270bcbed1510ef8",
-                "reference": "3baab64f272f0e3c2462d09f2270bcbed1510ef8",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/142440d48e10fd4b4f2ffb2d72fa0aad6f03cacf",
+                "reference": "142440d48e10fd4b4f2ffb2d72fa0aad6f03cacf",
                 "shasum": ""
             },
             "require": {
@@ -3111,7 +3111,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 06:37:50"
+            "time": "2015-08-27 06:53:13"
         },
         {
             "name": "symfony/yaml",
