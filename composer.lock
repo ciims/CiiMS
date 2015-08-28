@@ -510,12 +510,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ciims/requirements.git",
-                "reference": "cd74a4891f734da12f25d41f1808c4cd7d48839b"
+                "reference": "159a5f03572b4162bb39681c5d506928b55b70e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ciims/requirements/zipball/cd74a4891f734da12f25d41f1808c4cd7d48839b",
-                "reference": "cd74a4891f734da12f25d41f1808c4cd7d48839b",
+                "url": "https://api.github.com/repos/ciims/requirements/zipball/159a5f03572b4162bb39681c5d506928b55b70e9",
+                "reference": "159a5f03572b4162bb39681c5d506928b55b70e9",
                 "shasum": ""
             },
             "type": "library",
@@ -533,7 +533,7 @@
                 "source": "https://github.com/ciims/requirements/tree/master",
                 "issues": "https://github.com/ciims/requirements/issues"
             },
-            "time": "2015-08-26 16:37:23"
+            "time": "2015-08-28 15:26:46"
         },
         {
             "name": "composer/installers",
@@ -2907,12 +2907,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "61509fa9e9870225a351b29c34e50a936f7dea07"
+                "reference": "3fdf32b09fbcc500096050ddf677b39e17f83b02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/61509fa9e9870225a351b29c34e50a936f7dea07",
-                "reference": "61509fa9e9870225a351b29c34e50a936f7dea07",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/3fdf32b09fbcc500096050ddf677b39e17f83b02",
+                "reference": "3fdf32b09fbcc500096050ddf677b39e17f83b02",
                 "shasum": ""
             },
             "require": {
@@ -2956,7 +2956,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-27 06:53:13"
+            "time": "2015-08-27 21:38:49"
         },
         {
             "name": "symfony/css-selector",
