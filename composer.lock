@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f9ecab62e57d20adb5a4fa62575f889",
+    "hash": "b29440d7a38409866add7939967e4aaf",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -510,12 +510,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ciims/requirements.git",
-                "reference": "159a5f03572b4162bb39681c5d506928b55b70e9"
+                "reference": "470210cd3fc4c2682c3fab9ebdf9e9de698245ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ciims/requirements/zipball/159a5f03572b4162bb39681c5d506928b55b70e9",
-                "reference": "159a5f03572b4162bb39681c5d506928b55b70e9",
+                "url": "https://api.github.com/repos/ciims/requirements/zipball/470210cd3fc4c2682c3fab9ebdf9e9de698245ca",
+                "reference": "470210cd3fc4c2682c3fab9ebdf9e9de698245ca",
                 "shasum": ""
             },
             "type": "library",
@@ -533,7 +533,7 @@
                 "source": "https://github.com/ciims/requirements/tree/master",
                 "issues": "https://github.com/ciims/requirements/issues"
             },
-            "time": "2015-08-28 15:26:46"
+            "time": "2015-08-28 18:13:16"
         },
         {
             "name": "composer/installers",
@@ -1109,6 +1109,62 @@
                 "packagist"
             ],
             "time": "2014-09-17 13:49:46"
+        },
+        {
+            "name": "php-curl-class/php-curl-class",
+            "version": "4.6.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-curl-class/php-curl-class.git",
+                "reference": "ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5",
+                "reference": "ae15ff9ab12c82bdd93a1acd7a7564fbb007b9c5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Borboa"
+                }
+            ],
+            "description": "PHP Curl Class is an object-oriented wrapper of the PHP cURL extension.",
+            "homepage": "https://github.com/php-curl-class/php-curl-class",
+            "keywords": [
+                "api",
+                "class",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "json",
+                "php",
+                "requests",
+                "rest",
+                "restful",
+                "web service",
+                "xml"
+            ],
+            "time": "2015-08-21 22:48:09"
         },
         {
             "name": "phpmailer/phpmailer",

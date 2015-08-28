@@ -84,7 +84,8 @@
 		"ciims/requirements": "*",
         "zhuravljov/yii2-debug": "v1.4",
         "charlesportwoodii/ciinfinite-scroll": "dev-master",
-        "rych/otp": "dev-master"
+        "rych/otp": "dev-master",
+        "php-curl-class/php-curl-class": "4.6.9"
     },
     "require-dev": {
         "codeception/codeception": "2.1.*",
