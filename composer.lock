@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b29440d7a38409866add7939967e4aaf",
+    "hash": "58891cd063ac24fb606cb810451043d1",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -265,20 +265,17 @@
         },
         {
             "name": "ciims-modules/api",
-            "version": "2.0.23",
+            "version": "2.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-api.git",
-                "reference": "c9183b8e3cbaefd45a1194d5aa90864915ed47d9"
+                "reference": "bedc69ce675f16b1283aa8efa2b56393d00a9132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/c9183b8e3cbaefd45a1194d5aa90864915ed47d9",
-                "reference": "c9183b8e3cbaefd45a1194d5aa90864915ed47d9",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-api/zipball/bedc69ce675f16b1283aa8efa2b56393d00a9132",
+                "reference": "bedc69ce675f16b1283aa8efa2b56393d00a9132",
                 "shasum": ""
-            },
-            "require": {
-                "knplabs/packagist-api": "v1.2"
             },
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
@@ -300,20 +297,20 @@
                 "api",
                 "module"
             ],
-            "time": "2015-08-24 15:38:33"
+            "time": "2015-08-31 18:35:39"
         },
         {
             "name": "ciims-modules/dashboard",
-            "version": "3.0.27",
+            "version": "3.0.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/charlesportwoodii/ciims-modules-dashboard.git",
-                "reference": "73a173b2bfae3fdcf58bea9bd28fa52c09acaaf0"
+                "reference": "9963e61477fdd0739bae948a2e3720aab613d7c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/73a173b2bfae3fdcf58bea9bd28fa52c09acaaf0",
-                "reference": "73a173b2bfae3fdcf58bea9bd28fa52c09acaaf0",
+                "url": "https://api.github.com/repos/charlesportwoodii/ciims-modules-dashboard/zipball/9963e61477fdd0739bae948a2e3720aab613d7c7",
+                "reference": "9963e61477fdd0739bae948a2e3720aab613d7c7",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -336,7 +333,7 @@
                 "dashboard",
                 "module"
             ],
-            "time": "2015-08-24 15:39:11"
+            "time": "2015-08-31 18:46:29"
         },
         {
             "name": "ciims-modules/hybridauth",
@@ -674,73 +671,6 @@
             "time": "2015-03-14 20:27:45"
         },
         {
-            "name": "doctrine/inflector",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/inflector.git",
-                "reference": "63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9",
-                "reference": "63c61ba4f8f20c9a013e0fb5b6c0a8d0002f87a9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Inflector\\": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "Common String Manipulations with regard to casing and singular/plural rules.",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "inflection",
-                "pluralize",
-                "singularize",
-                "string"
-            ],
-            "time": "2015-08-26 14:31:47"
-        },
-        {
             "name": "facebook/php-sdk",
             "version": "v3.2.3",
             "source": {
@@ -1056,59 +986,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2014-02-23 11:27:58"
-        },
-        {
-            "name": "knplabs/packagist-api",
-            "version": "v1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/packagist-api.git",
-                "reference": "22eef9dfc163da33e78af2ae1487966774b54db5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/packagist-api/zipball/22eef9dfc163da33e78af2ae1487966774b54db5",
-                "reference": "22eef9dfc163da33e78af2ae1487966774b54db5",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/inflector": "~1.0",
-                "guzzle/http": "~3.0",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpspec/php-diff": "*@dev",
-                "phpspec/phpspec": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Packagist\\Api\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                }
-            ],
-            "description": "Packagist API client.",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "api",
-                "composer",
-                "packagist"
-            ],
-            "time": "2014-09-17 13:49:46"
         },
         {
             "name": "php-curl-class/php-curl-class",
