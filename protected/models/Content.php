@@ -554,7 +554,7 @@ class Content extends CiiModel
 
 		$returnFiles = array();
 
-		if (!file_exists(YiiBase::getPathOfAlias('webroot.themes.' . $theme)))
+		if (!file_exists(YiiBase::getPathOfAlias('base.themes.' . $theme)))
 			$theme = 'default';
 
 		$files = Yii::app()->cache->get($theme.'-available-' . $type);
@@ -562,7 +562,7 @@ class Content extends CiiModel
 		if ($files === false)
 		{
 			$fileHelper = new CFileHelper;
-			$files = $fileHelper->findFiles(Yii::getPathOfAlias('webroot.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
+			$files = $fileHelper->findFiles(Yii::getPathOfAlias('base.themes.' . $theme .'.' . $folder), array('fileTypes'=>array('php'), 'level'=>0));
 			Yii::app()->cache->set($theme.'-available-' . $type, $files);
 		}
 
