@@ -31,7 +31,6 @@ notifications:
     on_failure: change
 
 install:
-  - bundle install --path vendor/bundler
   - composer config --global github-oauth.github.com $GITHUB_API_TOKEN
   - composer selfupdate
   - composer install -o -n --prefer-source
@@ -40,9 +39,6 @@ install:
 before_script:
   - mysql -e 'CREATE DATABASE ciims_travis;'
   - php web/index.php installer index --dbHost=127.0.0.1 --dbName=ciims_travis --dbUsername=root --dbPassword="" --adminEmail="travis@ciims.io" --adminPassword=travis --adminUsername=travis --siteName="CiiMS - Travis CI" --force=0 --writeConfig=1 --debug=1
-
-after_failure: # Upload the application.log on failure
-  - "bundle exec travis-artifacts upload --path protected/runtime/application.log"
 
 script: 
   - ./vendor/bin/codecept run
