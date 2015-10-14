@@ -1,10 +1,10 @@
 # CiiMS
-[![TravisCI](https://img.shields.io/travis/charlesportwoodii/CiiMS/2.0.0-dev.svg?style=flat "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
-[![Downloads](https://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat)](https://packagist.org/packages/charlesportwoodii/ciims)
-[![Gittip](https://img.shields.io/gittip/charlesportwoodii.svg?style=flat "Gittip")](https://www.gittip.com/charlesportwoodii/)
-[![License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
-[![Yii](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat)](http://www.yiiframework.com/)
+[![TravisCI](https://img.shields.io/travis/charlesportwoodii/CiiMS.svg?style=flat-square "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat-square)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
+[![Downloads](https://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat-square)](https://packagist.org/packages/charlesportwoodii/ciims)
+[![Gittip](https://img.shields.io/gittip/charlesportwoodii.svg?style=flat-square "Gittip")](https://www.gittip.com/charlesportwoodii/)
+[![License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
+[![Yii](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
 
 ![CiiMS Logo Banner](	
 https://s3.amazonaws.com/ciims-s3-us-01/63E6ADC1A1BF41ABDE55B4BA810F187DBF1C9E696A90713D8A1F38B69E1071CE.png)
