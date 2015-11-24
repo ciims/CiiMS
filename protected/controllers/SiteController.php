@@ -171,9 +171,8 @@ class SiteController extends CiiController
 		if (Cii::get($_POST, 'LoginForm', false))
 		{
 			$model->attributes = Cii::get($_POST, 'LoginForm', array());
-
 			if ($model->login())
-				$this->redirect(isset($_GET['next']) ? $_GET['next'] : Yii::app()->user->returnUrl);
+				$this->redirect($this->_getNext() ?: Yii::app()->user->returnUrl);
 		}
 
 		$this->render('login', array(
@@ -187,7 +186,7 @@ class SiteController extends CiiController
 	public function actionLogout()
 	{
 		if (Yii::app()->request->getParam('next', false))
-			$redirect = $this->createUrl('site/login', array('next' => Yii::app()->request->getParam('next')));
+			$redirect = $this->createUrl('site/login', array('next' => $this->_getNext()));
 		else
 			$redirect = Yii::app()->user->returnUrl;
 
@@ -419,5 +418,14 @@ class SiteController extends CiiController
 		$this->render('acceptinvite', array(
 			'model' => $model
 		));
+	}
+	
+	/**
+	 * Returns a sanitized $_GET['next'] URL if it is set.
+	 * @return mixed
+	 */
+	private function _getNext()
+	{
+		return str_replace('ftp://', '', str_replace('http://', '', str_replace('https://', '', Yii::app()->request->getParam('next', false))));
 	}
 }
