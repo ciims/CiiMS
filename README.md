@@ -13,9 +13,9 @@ CiiMS is a fast, simple, and easy to use, full feature blogging platform and con
 
 ## News
 
-__CiiMS 2.0.0 RC2 Released__
+__CiiMS 2.0.0 Released__
 
-CiiMS 2.0.0 RC2 is now available. Checkout the [release notes](https://github.com/charlesportwoodii/CiiMS/releases/tag/2.0.0-rc2) for more information.
+CiiMS 2.0.0 is now available. Checkout the [release notes](https://github.com/charlesportwoodii/CiiMS/releases/tag/2.0.0) for more information.
 
 __Interested in a Hosted Solution?__
 
@@ -35,7 +35,7 @@ Do you use CiiMS and love it? Want to show your support? Would you like some fre
 CiiMS can be quickly installed through composer. For more information about installing CiiMS, checkout the [installation guide](https://docs.ciims.io/installation.html).
 
 ```
-composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} 2.0.0-rc2
+composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} 2.0.0
 cd {path}
 composer dump-autoload -o
 ```
