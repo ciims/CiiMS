@@ -1,4 +1,5 @@
 # CiiMS
+[![Latest Version](https://img.shields.io/packagist/v/charlesportwoodii/CiiMS.svg?style=flat-square)]()
 [![TravisCI](https://img.shields.io/travis/charlesportwoodii/CiiMS.svg?style=flat-square "TravisCI")](https://travis-ci.org/charlesportwoodii/CiiMS)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat-square)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
 [![Downloads](https://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat-square)](https://packagist.org/packages/charlesportwoodii/ciims)
