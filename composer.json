@@ -99,9 +99,7 @@
     },
 	"scripts": {
 		"post-install-cmd": "php ./vendor/ciims/requirements/index.php",
-		"post-update-cmd": "php ./vendor/ciims/requirements/index.php",
-		"post-root-package-install": "php ./vendor/ciims/requirements/index.php",
-		"post-create-project-cmd": "php ./vendor/ciims/requirements/index.php"
+		"post-update-cmd": "php ./vendor/ciims/requirements/index.php"
 	},
     "extra": {
         "installer-paths": {
