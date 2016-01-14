@@ -67,7 +67,7 @@
         "lib-curl": "*",
         "lib-pcre": "*",
         "lib-openssl": "*",
-        "yiisoft/yii": "1.1.16",
+        "yiisoft/yii": "1.1.17",
         "composer/installers": "v1.0.19",
         "hashids/hashids": "1.0.4",
         "CryptLib/CryptLib": "dev-master",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c6190486f9166026e1821f1dbe79878",
-    "content-hash": "ba43bdedf98595ce0250b0e8a08ae250",
+    "hash": "c001279b6fa9f2b83db85f323373f11b",
+    "content-hash": "a00922f711e329bbe621cf380ae9c084",
     "packages": [
         {
             "name": "CryptLib/CryptLib",
@@ -1734,16 +1734,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.1",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc"
+                "reference": "ee278f7c851533e58ca307f66305ccb9188aceda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/a5eb815363c0388e83247e7e9853e5dbc14999cc",
-                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ee278f7c851533e58ca307f66305ccb9188aceda",
+                "reference": "ee278f7c851533e58ca307f66305ccb9188aceda",
                 "shasum": ""
             },
             "require": {
@@ -1790,20 +1790,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-30 20:15:42"
+            "time": "2016-01-13 10:28:07"
         },
         {
             "name": "yiisoft/yii",
-            "version": "1.1.16",
+            "version": "1.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii.git",
-                "reference": "bca0420b6799b0b2a7966aa90bcd15cb4aa73563"
+                "reference": "467ff50a77bf7030a168defc1d47f446136d6228"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii/zipball/bca0420b6799b0b2a7966aa90bcd15cb4aa73563",
-                "reference": "bca0420b6799b0b2a7966aa90bcd15cb4aa73563",
+                "url": "https://api.github.com/repos/yiisoft/yii/zipball/467ff50a77bf7030a168defc1d47f446136d6228",
+                "reference": "467ff50a77bf7030a168defc1d47f446136d6228",
                 "shasum": ""
             },
             "require": {
@@ -1880,7 +1880,7 @@
                 "framework",
                 "yii"
             ],
-            "time": "2014-12-21 19:30:17"
+            "time": "2016-01-13 16:23:58"
         },
         {
             "name": "yiqing-95/YiiTimeAgo",
