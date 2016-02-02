@@ -20,18 +20,7 @@ CiiMS 2.0.0 is now available. Checkout the [release notes](https://github.com/ch
 
 __Interested in a Hosted Solution?__
 
-Want to use CiiMS but don't want to deal with hosting? Let us professionally manage CiiMS for you! Head over to [www.ciims.io](http://www.ciims.io) and create an account! Our plans start at $10. Pricing information is available at: https://www.ciims.io/pricing.
-
-###### Benefits of CiiMS.io Hosting
-
-- Hosting by the creators of CiiMS
-- Tuned for the best performance
-- Unlimited outbound bandwidth
-- Automatic updates and patching
-- Unlimited CDN storage for assets
-- Full API access
-- TLS support for ciims.io domains
-- Support for custom domains
+Want to use CiiMS but don't want to deal with hosting? Contact us at contact [at] ciims.io for availability and pricing information.
 
 ## Who uses CiiMS?
 
