@@ -71,7 +71,7 @@
         "composer/installers": "v1.0.19",
         "hashids/hashids": "1.0.4",
         "CryptLib/CryptLib": "dev-master",
-        "phpmailer/phpmailer": "v5.2.9",
+        "phpmailer/phpmailer": "v5.2.14",
         "yiqing-95/YiiTimeAgo": "dev-master",
         "charlesportwoodii/eanalytics": "1.1.5",
         "charlesportwoodii/yii-newrelic": "1.0.1",
