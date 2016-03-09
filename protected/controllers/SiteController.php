@@ -74,7 +74,7 @@ class SiteController extends CiiController
 		ob_end_clean();
 		Yii::app()->log->routes[0]->enabled = false;
 		header('Content-type: text/xml; charset=utf-8');
-		$url = 'http://'.Yii::app()->request->serverName . Yii::app()->baseUrl;
+		$url = Yii::app()->getBaseUrl(true);
 		$this->setLayout(null);
 		$content 	= Yii::app()->db
 								->createCommand('SELECT slug, password, type_id, updated FROM content AS t WHERE vid=(SELECT MAX(vid) FROM content WHERE id=t.id) AND status = 1 AND published <= UTC_TIMESTAMP();')

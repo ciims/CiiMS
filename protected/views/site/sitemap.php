@@ -4,7 +4,7 @@
 		<?php if ($v['password'] != '') { continue; } ?>
 		<url>
 			<loc><?php echo $url .'/'. htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></loc>
-			<lastmod><?php echo date('c', strtotime($v['updated']));?></lastmod>
+			<lastmod><?php echo date('c', $v['updated']);?></lastmod>
 			<changefreq>weekly</changefreq>
 			<priority><?php echo $v['type_id'] == 1 ? '0.6': '0.8'; ?></priority>
 		</url>
@@ -12,7 +12,7 @@
 	<?php foreach ($categories as $v): ?>
 		<url>
 			<loc><?php echo $url .'/'. htmlspecialchars(str_replace('/', '', $v['slug']), ENT_QUOTES, "utf-8"); ?></loc>
-			<lastmod><?php echo date('c', strtotime($v['updated']));?></lastmod>
+			<lastmod><?php echo date('c', $v['updated']);?></lastmod>
 			<changefreq>weekly</changefreq>
 			<priority>0.7</priority>
 		</url>

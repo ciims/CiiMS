@@ -54,6 +54,10 @@ class ProfileForm extends CFormModel
 
 	private function canOverridePasswordCheck()
 	{
+		var_dump($this->overridePasswordCheck);
+		var_dump(Yii::app()->user->id);
+		var_dump($this->getId());
+		die();
 		if ($this->overridePasswordCheck)
 			return true;
 
