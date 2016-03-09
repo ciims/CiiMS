@@ -20,7 +20,7 @@ CiiMS 2.0.0 is now available. Checkout the [release notes](https://github.com/ch
 
 __Interested in a Hosted Solution?__
 
-Be sure to checkout [www.ciims.io](http://www.ciims.io) to pre-register for exclusive early access to our hosted platform.
+Want to use CiiMS but don't want to deal with hosting? Contact us at contact [at] ciims.io for availability and pricing information.
 
 ## Who uses CiiMS?
 
