@@ -22,7 +22,7 @@ Once all the requirements are met, you can begin the installation process.
 1 Install CiiMS through composer and generate an optimized autoloader
 
 ```
-composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} 2.0.1
+composer create-project --prefer-dist --stability=dev charlesportwoodii/ciims {path} 2.0.2
 cd {path}
 composer dump-autoload -o
 ```
