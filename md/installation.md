@@ -42,6 +42,13 @@ Username: root@example.com
 Password: root1234
 ```
 
+<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+
+<video id="vagrant" class="video-js vjs-default-skin" controls
+preload="auto" width="683" height="384" data-setup="{}">
+<source src="/videos/vagrant.mp4" type='video/mp4'>
+</video>
+
 ## Installation Guide
 
 1 Install CiiMS through composer and generate an optimized autoloader
