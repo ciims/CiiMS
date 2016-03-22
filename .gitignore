@@ -19,3 +19,4 @@ Gemfile.lock
 .bundle/*
 tests/_log/*
 /index.php
+.vagrant
