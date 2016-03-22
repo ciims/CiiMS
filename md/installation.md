@@ -17,6 +17,31 @@ Before starting the installation, make sure your environment has the following i
 
 Once all the requirements are met, you can begin the installation process.
 
+## Vagrant Installation
+
+As of 2.0.2, CiiMS now comes with a pre-configured PHP7 Vagrantfile. If you're interested in trying out CiiMS or developing CiiMS this is the _best_ way to get started. The provided Vagrantfile and Vagrant box are already pre-configured for local development and testing with several optimized defaults.
+
+> There are a lot of Yii developers who like developing on Windows. Vagrant is a vastly superior option to installing a local WAMP stack, and is significantly easier to maintainer. If you want to try CiiMS out, skip the WAMP stack and use Vagrant.
+
+1. Download and install Virtualbox 5.0.x from https://www.virtualbox.org/wiki/Downloads
+2. Download and install Vagrant from https://www.vagrantup.com/downloads.html
+3. Clone CiiMS to your local system
+```
+git clone https://github.com/charlesportwoodii/CiiMS ciims
+cd ciims
+```
+
+4. Provision the Vagrant Box
+```
+vagrant up
+```
+
+5. You can now navigate to ```localhost:8080``` and use CiiMS locally using the following pre-configured credentials. 
+```
+Username: root@example.com
+Password: root1234
+```
+
 ## Installation Guide
 
 1 Install CiiMS through composer and generate an optimized autoloader
@@ -32,7 +57,7 @@ If you want to develop on CiiMS, install CiiMS through git
 ```
 git clone https://github.com/charlesportwoodii/CiiMS ciims
 cd ciims
-composer install
+composer install -ovn
 ```
 
 2 Verify that the following directories are writable by your web server user.
@@ -70,7 +95,7 @@ In order to facilitate headless installations, the CiiMS installer comes with a 
 
 ```
 cd /path/to/ciims
-php index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
+php web/index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value
 ```
 
 ## Installation Notes
@@ -94,11 +119,11 @@ In general - the following steps should be performed to upgrade from one version
 git checkout {version}
 git pull
 composer install -o
-php index.php migrate up --interactive=0
+php web/index.php migrate up --interactive=0
 rm -rf web/assets/*
 rm -rf runtime/cache/*
 rm -rf runtime/modules.config.php
-php index.php ciicache flush
+php web/index.php ciicache flush
 ```
 ## 1.x to 2.0.0
 

@@ -59,13 +59,13 @@ The first limitation is that themes cannot be installed via the dashboard. This 
 When running CiiMS in multi-site mode, you __MUST__ specify the site that you want to work with. On *nix systems running ```bash``` or ```sh```, this generally means prefacing each CLI command with the following:
 
 ```
-export CIIMS_ENV="<env>" && php index.php {task}
+export CIIMS_ENV="<env>" && php web/index.php {task}
 ```
 
 The CLI installer also needs to be run with 2 extra parameters, and a custom INSTALL flag:
 
 ```
-php index.php installer index [...]
+php web/index.php installer index [...]
 	--force=1
 	--writeConfig=0
 ```
@@ -73,7 +73,7 @@ php index.php installer index [...]
 Making the full installer command as follows:
 
 ```
-export CIIMS_INSTALL=true && php index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value --force=1 --writeConfig=0
+export CIIMS_INSTALL=true && php web/index.php installer index --dbHost=value --dbName=value --dbUsername=value --dbPassword=value --adminEmail=value --adminPassword=value --adminUsername=value --siteName=value --force=1 --writeConfig=0
 ```
 
 This modified command will force CiiMS to build a new site without overwriting the ```protected/config/main.php``` file. After running this command you will need to _manually_ generate the configuration file for the site using the configuration listed above.
