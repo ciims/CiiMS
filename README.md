@@ -4,7 +4,7 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/charlesportwoodii/ciims.svg?style=flat-square)](https://scrutinizer-ci.com/g/charlesportwoodii/CiiMS/)
 [![Downloads](https://img.shields.io/packagist/dt/charlesportwoodii/ciims.svg?style=flat-square)](https://packagist.org/packages/charlesportwoodii/ciims)
 [![Gittip](https://img.shields.io/gittip/charlesportwoodii.svg?style=flat-square "Gittip")](https://www.gittip.com/charlesportwoodii/)
-[![License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square "License")](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
+[![License](https://img.shields.io/github/license/charlesportwoodii/CiiMS.svg?style=flat-square)](https://github.com/charlesportwoodii/CiiMS/blob/master/LICENSE.md)
 [![Yii](https://img.shields.io/badge/Powered_by-Yii_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
 
 ![CiiMS Logo Banner](	
