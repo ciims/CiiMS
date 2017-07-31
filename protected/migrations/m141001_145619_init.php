@@ -83,7 +83,7 @@ class m141001_145619_init extends CDbMigration
 		$this->addPrimaryKey('user_metadata_composite', 'user_metadata', 'user_id,key');
 
 		// Setup the foreign key constraints
-		$this->addForeignKey('user_roles_relation_fk', 'user_metadata', 'user_id', 'users', 'id', 'CASCADE', 'NO ACTION');
+		$this->addForeignKey('user_metadata_relation_fk', 'user_metadata', 'user_id', 'users', 'id', 'CASCADE', 'NO ACTION');
 
 		// Insert data into the tables
 		$this->insert('user_roles', array(
