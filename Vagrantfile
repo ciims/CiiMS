@@ -4,7 +4,8 @@
 Vagrant.configure(2) do |config|
 
   # Use a preconfigured Vagrant box
-  config.vm.box = "charlesportwoodii/php7_trusty64"
+  config.vm.box = "charlesportwoodii/php7_xenial64"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.box_check_update = true
 
   config.vm.synced_folder ".", "/var/www", 
