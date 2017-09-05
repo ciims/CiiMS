@@ -49,22 +49,22 @@ How fast is CiiMS? In a post-installation comparison, using out of the box (non-
 __A beautiful default theme__
 
 ![Default Theme](	
-https://s3.amazonaws.com/ciims-s3-us-01/5A2ED631D493E053774C31C513F2C60FF5208B1B3AB8193D7D8D351251E2207D.png)
+https://s3-us-west-2.amazonaws.com/cdn.ciims.io/5A2ED631D493E053774C31C513F2C60FF5208B1B3AB8193D7D8D351251E2207D.png)
 
 __A powerful dashboard with custom JavaScript cards__
 
 ![CiiMS Dashboard](	
-https://s3.amazonaws.com/ciims-s3-us-01/949A73802B6E17CD3FA04B8FA14E76AF7EDF51736A3904E2EF7358049C51D8D2.png)
+https://s3-us-west-2.amazonaws.com/cdn.ciims.io/949A73802B6E17CD3FA04B8FA14E76AF7EDF51736A3904E2EF7358049C51D8D2.png)
 
 __Easily browse all content entries__
 
 ![Content List View](	
-https://s3.amazonaws.com/ciims-s3-us-01/6F679654A4F7F3B9A3DD72DA32540B2CD12843C7DACB88A257372386C7325A80.png)
+https://s3-us-west-2.amazonaws.com/cdn.ciims.io/6F679654A4F7F3B9A3DD72DA32540B2CD12843C7DACB88A257372386C7325A80.png)
 
 __Powerful content editor__
 
 ![CiiMS Editor](	
-https://s3.amazonaws.com/ciims-s3-us-01/BBAD9AA513B05052FF83DC8B4F4E22CD9AFC1A5701EB33E60CA7C4A0DD32C04A.png)
+https://s3-us-west-2.amazonaws.com/cdn.ciims.io/BBAD9AA513B05052FF83DC8B4F4E22CD9AFC1A5701EB33E60CA7C4A0DD32C04A.png)
 
 ## Documentation
 
