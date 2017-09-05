@@ -18,10 +18,6 @@ __CiiMS 2.0.2 Released__
 
 CiiMS 2.0.2 is now available. Checkout the [release notes](https://github.com/charlesportwoodii/CiiMS/releases/tag/2.0.2) for more information.
 
-__Interested in a Hosted Solution?__
-
-Want to use CiiMS but don't want to deal with hosting? Contact us at contact [at] ciims.io for availability and pricing information.
-
 ## Who uses CiiMS?
 
 Do you use CiiMS and love it? Want to show your support? Would you like some free advertising for your site? Create a pull request that modifies this readme and adds a 60x60 avatar image as a link to your site and we'll merge it in!
@@ -78,21 +74,6 @@ __Powerful content editor__
 
 ![CiiMS Editor](	
 https://s3.amazonaws.com/ciims-s3-us-01/BBAD9AA513B05052FF83DC8B4F4E22CD9AFC1A5701EB33E60CA7C4A0DD32C04A.png)
-
-## Demo
-A demo of CiiMS can be found at:
-
-    Site: https://demo.ciims.io
-    Admin Panel: https://demo.ciims.io/dashboard
-    
-You may use the following credentials to login and manage the site.
-
-	Username: admin@demo.ciims.io
-	Password: 14zAjRQagq0CYJTYjoQNA
-
-Please note that this demo is not monitored, and is reset at an unspecified interval and at my discretion. Please be nice. If you find a bug please report it via a [Github Issue](https://github.com/charlesportwoodii/CiiMS/issues).
-
-Also note that the demo is currently running on the beta hosted platform availabile at [www.ciims.io](https://www.ciims.io), and should provide you with a idea of what our current performance look like.
 
 ## Documentation
 
